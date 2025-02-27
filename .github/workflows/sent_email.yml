@@ -1,4 +1,4 @@
-name: Publish output MD to GitHub Pages
+name: Sent .html to email
 
 on:
   workflow_dispatch:

@@ -1,0 +1,50 @@
+name: Publish output MD to GitHub Pages
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Run daily arxiv"] # 这个工作流会在Run daily arxiv完成后被触发，Run daily arxiv又是每天定时触发，从而让这个定时触发
+    types:
+      - completed
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    # Define the environment for deployment (GitHub Pages)
+    environment:
+      name: github-pages
+
+    # The job runs on the latest Ubuntu environment
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4  # Checks out the repository so that the workflow can access its contents
+
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'  # Replace with your desired Python version
+
+      # Step 3: Install dependencies from requirements.txt (if Python project)
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip  # Upgrades pip to the latest version
+          pip install -r requirements.txt     # Installs the dependencies listed in the requirements.txt file
+
+      - name: Set environment variables
+        run: |
+          echo "FROM_ADDR=${{ secrets.FROM_ADDR }}" >> $GITHUB_ENV
+          echo "TO_ADDR=${{ secrets.TO_ADDR }}" >> $GITHUB_ENV
+          echo "PASSWORD=${{ secrets.PASSWORD }}" >> $GITHUB_ENV
+
+      # Step 5: Run the arxiv_scraper.py script
+      - name: sent .html to email
+        run: |
+          python sent_email.py

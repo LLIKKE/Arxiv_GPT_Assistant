@@ -3,7 +3,7 @@ import datetime
 from email.mime.text import MIMEText
 from email.header import Header
 from email.utils import parseaddr, formataddr
-
+import os
 
 # Function to format the email addresses with a name
 def _format_addr(s):
@@ -21,14 +21,14 @@ def read_html_file(file_path):
 now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
 # Email credentials and server details
-from_addr = "1944898980@qq.com"
-password = "ocylizqovgdcdchc"  # App-specific password
-to_addr = ['a15275214201@163.com']#"2737852414@qq.com"  # List of recipients
+from_addr = os.environ.get("FROM_ADDR")
+password = os.environ.get("PASSWORD")  # App-specific password
+to_addr = os.environ.get("TO_ADDR")# List of recipients
 smtp_server = "smtp.qq.com"  # SMTP server for QQ mail
 
 # Read content from two HTML files
-html_content_1 = read_html_file('Arxiv_GPT_Assistant-gh-pages\en\index.html')
-html_content_2 = read_html_file('Arxiv_GPT_Assistant-gh-pages\zh\index.html')
+html_content_1 = read_html_file('.\en\index.html')
+html_content_2 = read_html_file('.\zh\index.html')
 
 # Combine the contents of the two HTML files
 combined_html_content = f'''

@@ -27,17 +27,17 @@ to_addr = os.environ.get("TO_ADDR")# List of recipients
 smtp_server = "smtp.qq.com"  # SMTP server for QQ mail
 
 import os
-import sys
 
 # 获取当前工作目录
 current_directory = os.getcwd()
-print(f"当前工作目录: {current_directory}")
 
-# 打印所有 Python 查找模块的路径
-print("\nPython 模块搜索路径:")
-for path in sys.path:
-    print(path)
-    
+# 遍历当前目录下的所有文件和文件夹
+for root, dirs, files in os.walk(current_directory):
+    for name in dirs:
+        print(os.path.join(root, name))  # 打印文件夹路径
+    for name in files:
+        print(os.path.join(root, name))  # 打印文件路径
+
 # Read content from two HTML files
 html_content_1 = read_html_file('dist\en\index.html')
 html_content_2 = read_html_file('dist\zh\index.html')

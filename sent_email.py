@@ -26,17 +26,6 @@ password = os.environ.get("PASSWORD")  # App-specific password
 to_addr = os.environ.get("TO_ADDR")# List of recipients
 smtp_server = "smtp.qq.com"  # SMTP server for QQ mail
 
-import os
-
-# 获取当前工作目录
-current_directory = os.getcwd()
-
-# 遍历当前目录下的所有文件和文件夹
-for root, dirs, files in os.walk(current_directory):
-    for name in dirs:
-        print(os.path.join(root, name))  # 打印文件夹路径
-    for name in files:
-        print(os.path.join(root, name))  # 打印文件路径
 
 # Read content from two HTML files
 html_content_1 = read_html_file('dist\en\index.html')

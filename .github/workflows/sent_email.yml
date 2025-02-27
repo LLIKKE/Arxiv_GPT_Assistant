@@ -16,7 +16,7 @@ jobs:
   deploy:
     # Define the environment for deployment (GitHub Pages)
     environment:
-      name: github-pages
+      name: sent_email
 
     # The job runs on the latest Ubuntu environment
     runs-on: ubuntu-latest

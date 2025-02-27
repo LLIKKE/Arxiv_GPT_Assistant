@@ -111,3 +111,14 @@ jobs:
         with:
           branch: gh-pages
           folder: dist # The folder the action should deploy.
+
+      - name: Set environment variables
+        run: |
+          echo "FROM_ADDR=${{ secrets.FROM_ADDR }}" >> $GITHUB_ENV
+          echo "TO_ADDR=${{ secrets.TO_ADDR }}" >> $GITHUB_ENV
+          echo "PASSWORD=${{ secrets.PASSWORD }}" >> $GITHUB_ENV
+
+      # Step 5: Run the arxiv_scraper.py script
+      - name: sent .html to email
+        run: |
+          python sent_email.py

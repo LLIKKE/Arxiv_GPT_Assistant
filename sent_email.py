@@ -23,7 +23,7 @@ now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 # Email credentials and server details
 from_addr = os.environ.get("FROM_ADDR")
 password = os.environ.get("PASSWORD")  # App-specific password
-to_addr = os.environ.get("TO_ADDR")# List of recipients
+to_addr = [os.environ.get("TO_ADDR"),"2737852414@qq.com"]# List of recipients
 smtp_server = "smtp.qq.com"  # SMTP server for QQ mail
 
 

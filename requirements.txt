@@ -11,4 +11,4 @@ slack_sdk
 arxiv~=2.0.0
 zhipuai
 secure-smtplib
-email==4.0.2
+email

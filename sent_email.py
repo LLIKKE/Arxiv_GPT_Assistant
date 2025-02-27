@@ -28,8 +28,8 @@ smtp_server = "smtp.qq.com"  # SMTP server for QQ mail
 
 
 # Read content from two HTML files
-html_content_1 = read_html_file('dist\en\index.html')
-html_content_2 = read_html_file('dist\zh\index.html')
+html_content_1 = read_html_file('.\dist\en\index.html')
+html_content_2 = read_html_file('.\dist\zh\index.html')
 
 # Combine the contents of the two HTML files
 combined_html_content = f'''

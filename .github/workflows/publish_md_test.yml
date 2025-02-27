@@ -105,6 +105,8 @@ jobs:
         run: |
           pwd
           ls
+          cd dist
+          ls
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4

@@ -17,7 +17,8 @@ As a cost estimate, running this on all of `cs.CL` cost $0.07 on 2/7/2024(on GPT
   - Replace static page display with JamesIves/github-pages-deploy-action@v4.
   - Add free model api glm-4-flash.
   - Remove the filtering of papers by author.
-  
+
+- **1/3/2025**: Added automatic push to specified email.
 ## Quickstart
 This is the minimal necessary steps to get the scanner to run. It is highly recommended to read the whole thing to decide what you want to run.
 

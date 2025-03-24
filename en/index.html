@@ -12,21 +12,42 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h1 class="heading-element">Personalized Daily Arxiv Papers 03/23/2025</h1><a id="user-content-personalized-daily-arxiv-papers-03232025" class="anchor" aria-label="Permalink: Personalized Daily Arxiv Papers 03/23/2025" href="#personalized-daily-arxiv-papers-03232025"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Total relevant papers: 1</p>
+})();</script><div><div class="markdown-heading"><h1 class="heading-element">Personalized Daily Arxiv Papers 03/24/2025</h1><a id="user-content-personalized-daily-arxiv-papers-03242025" class="anchor" aria-label="Permalink: Personalized Daily Arxiv Papers 03/24/2025" href="#personalized-daily-arxiv-papers-03242025"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Total relevant papers: 3</p>
 <p>Paper selection prompt and criteria at the bottom</p>
 <p>Table of contents with paper titles:</p>
 <ol start="0">
 <li>
-<a href="#link0">Mixture of Lookup Experts</a>
-<strong>Authors:</strong> Shibo Jie, Yehui Tang, Kai Han, Yitong Li, Duyu Tang, Zhi-Hong Deng, Yunhe Wang</li>
+<p><a href="#link0">PRIOT: Pruning-Based Integer-Only Transfer Learning for Embedded Systems</a>
+<strong>Authors:</strong> Honoka Anada, Sefutsu Ryu, Masayuki Usui, Tatsuya Kaneko, Shinya Takamaeda-Yamazaki</p>
+</li>
+<li>
+<p><a href="#link1">Accelerating Transformer Inference and Training with 2:4 Activation Sparsity</a>
+<strong>Authors:</strong> Daniel Haziza, Timothy Chou, Dhruv Choudhary, Luca Wehrstedt, Francisco Massa, Jiecao Yu, Geonhwa Jeong, Supriya Rao, Patrick Labatut, Jesse Cai</p>
+</li>
+<li>
+<p><a href="#link2">Large Language Model Compression via the Nested Activation-Aware Decomposition</a>
+<strong>Authors:</strong> Jun Lu, Tianyi Xu, Bill Ding, David Li, Yu Kang</p>
+</li>
 </ol>
 <hr>
-<div class="markdown-heading"><h2 class="heading-element">0. <a href="https://arxiv.org/abs/2503.15798v1" rel="nofollow">Mixture of Lookup Experts</a> <a id="user-content-link0"></a>
-</h2><a id="user-content-0-mixture-of-lookup-experts-" class="anchor" aria-label="Permalink: 0. Mixture of Lookup Experts" href="#0-mixture-of-lookup-experts-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>ArXiv ID:</strong> 2503.15798v1
-<strong>Authors:</strong> Shibo Jie, Yehui Tang, Kai Han, Yitong Li, Duyu Tang, Zhi-Hong Deng, Yunhe Wang</p>
-<p><strong>Abstract:</strong> Mixture-of-Experts (MoE) activates only a subset of experts during inference, allowing the model to maintain low inference FLOPs and latency even as the parameter count scales up. However, since MoE dynamically selects the experts, all the experts need to be loaded into VRAM. Their large parameter size still limits deployment, and offloading, which load experts into VRAM only when needed, significantly increase inference latency. To address this, we propose Mixture of Lookup Experts (MoLE), a new MoE architecture that is efficient in both communication and VRAM usage. In MoLE, the experts are Feed-Forward Networks (FFNs) during training, taking the output of the embedding layer as input. Before inference, these experts can be re-parameterized as lookup tables (LUTs) that retrieves expert outputs based on input ids, and offloaded to storage devices. Therefore, we do not need to perform expert computations during inference. Instead, we directly retrieve the expert's computation results based on input ids and load them into VRAM, and thus the resulting communication overhead is negligible. Experiments show that, with the same FLOPs and VRAM usage, MoLE achieves inference speeds comparable to dense models and significantly faster than MoE with experts offloading, while maintaining performance on par with MoE.</p>
+<div class="markdown-heading"><h2 class="heading-element">0. <a href="https://arxiv.org/abs/2503.16860" rel="nofollow">PRIOT: Pruning-Based Integer-Only Transfer Learning for Embedded Systems</a> <a id="user-content-link0"></a>
+</h2><a id="user-content-0-priot-pruning-based-integer-only-transfer-learning-for-embedded-systems-" class="anchor" aria-label="Permalink: 0. PRIOT: Pruning-Based Integer-Only Transfer Learning for Embedded Systems" href="#0-priot-pruning-based-integer-only-transfer-learning-for-embedded-systems-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>ArXiv ID:</strong> 2503.16860
+<strong>Authors:</strong> Honoka Anada, Sefutsu Ryu, Masayuki Usui, Tatsuya Kaneko, Shinya Takamaeda-Yamazaki</p>
+<p><strong>Abstract:</strong> arXiv:2503.16860v1 Announce Type: new  Abstract: On-device transfer learning is crucial for adapting a common backbone model to the unique environment of each edge device. Tiny microcontrollers, such as the Raspberry Pi Pico, are key targets for on-device learning but often lack floating-point units, necessitating integer-only training. Dynamic computation of quantization scale factors, which is adopted in former studies, incurs high computational costs. Therefore, this study focuses on integer-only training with static scale factors, which is challenging with existing training methods. We propose a new training method named PRIOT, which optimizes the network by pruning selected edges rather than updating weights, allowing effective training with static scale factors. The pruning pattern is determined by the edge-popup algorithm, which trains a parameter named score assigned to each edge instead of the original parameters and prunes the edges with low scores before inference. Additionally, we introduce a memory-efficient variant, PRIOT-S, which only assigns scores to a small fraction of edges. We implement PRIOT and PRIOT-S on the Raspberry Pi Pico and evaluate their accuracy and computational costs using a tiny CNN model on the rotated MNIST dataset and the VGG11 model on the rotated CIFAR-10 dataset. Our results demonstrate that PRIOT improves accuracy by 8.08 to 33.75 percentage points over existing methods, while PRIOT-S reduces memory footprint with minimal accuracy loss.</p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">1. <a href="https://arxiv.org/abs/2503.16672" rel="nofollow">Accelerating Transformer Inference and Training with 2:4 Activation Sparsity</a> <a id="user-content-link1"></a>
+</h2><a id="user-content-1-accelerating-transformer-inference-and-training-with-24-activation-sparsity-" class="anchor" aria-label="Permalink: 1. Accelerating Transformer Inference and Training with 2:4 Activation Sparsity" href="#1-accelerating-transformer-inference-and-training-with-24-activation-sparsity-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>ArXiv ID:</strong> 2503.16672
+<strong>Authors:</strong> Daniel Haziza, Timothy Chou, Dhruv Choudhary, Luca Wehrstedt, Francisco Massa, Jiecao Yu, Geonhwa Jeong, Supriya Rao, Patrick Labatut, Jesse Cai</p>
+<p><strong>Abstract:</strong> arXiv:2503.16672v1 Announce Type: new  Abstract: In this paper, we demonstrate how to leverage 2:4 sparsity, a popular hardware-accelerated GPU sparsity pattern, to activations to accelerate large language model training and inference. Crucially we exploit the intrinsic sparsity found in Squared-ReLU activations to provide this acceleration with no accuracy loss. Our approach achieves up to 1.3x faster Feed Forward Network (FFNs) in both the forwards and backwards pass. This work highlights the potential for sparsity to play a key role in accelerating large language model training and inference.</p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">2. <a href="https://arxiv.org/abs/2503.17101" rel="nofollow">Large Language Model Compression via the Nested Activation-Aware Decomposition</a> <a id="user-content-link2"></a>
+</h2><a id="user-content-2-large-language-model-compression-via-the-nested-activation-aware-decomposition-" class="anchor" aria-label="Permalink: 2. Large Language Model Compression via the Nested Activation-Aware Decomposition" href="#2-large-language-model-compression-via-the-nested-activation-aware-decomposition-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>ArXiv ID:</strong> 2503.17101
+<strong>Authors:</strong> Jun Lu, Tianyi Xu, Bill Ding, David Li, Yu Kang</p>
+<p><strong>Abstract:</strong> arXiv:2503.17101v1 Announce Type: new  Abstract: In this paper, we tackle the critical challenge of compressing large language models (LLMs) to facilitate their practical deployment and broader adoption. We introduce a novel post-training compression paradigm that focuses on low-rank decomposition of LLM weights. Our analysis identifies two main challenges in this task: the variability in LLM activation distributions and handling unseen activations from different datasets and models.   To address these challenges, we propose a nested activation-aware framework (NSVD) for LLMs, a training-free approach designed to enhance the accuracy of low-rank decompositions by managing activation outliers through transforming the weight matrix based on activation distribution and the original weight matrix. This method allows for the absorption of outliers into the transformed weight matrix, improving decomposition accuracy. Our comprehensive evaluation across eight datasets and six models from three distinct LLM families demonstrates the superiority of NSVD over current state-of-the-art methods, especially at medium to large compression ratios or in multilingual and multitask settings.</p>
 <hr>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">Paper selection prompt</h2><a id="user-content-paper-selection-prompt" class="anchor" aria-label="Permalink: Paper selection prompt" href="#paper-selection-prompt"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>

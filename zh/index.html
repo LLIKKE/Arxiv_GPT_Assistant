@@ -12,6 +12,38 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">查找专家混合体</h2><a id="user-content-查找专家混合体" class="anchor" aria-label="Permalink: 查找专家混合体" href="#查找专家混合体"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>专家混合模型（Mixture-of-Experts, MoE）在推理时仅激活一部分专家，使得模型即使在参数规模扩大的情况下，也能保持较低的推理浮点运算次数（FLOPs）和延迟。然而，由于MoE动态选择专家，所有专家都需要加载到视频随机存取存储器（VRAM）中。其庞大的参数规模仍然限制了部署，而按需加载专家到VRAM的卸载策略，则显著增加了推理延迟。为解决这一问题，我们提出了查找专家混合模型（Mixture of Lookup Experts, MoLE），这是一种在通信和VRAM使用上均高效的新型MoE架构。在MoLE中，专家在训练时作为前馈网络（FFNs），以嵌入层的输出作为输入。在推理前，这些专家可以被重新参数化为查找表（LUTs），根据输入ID检索专家输出，并卸载到存储设备中。因此，在推理过程中我们无需执行专家计算，而是直接根据输入ID检索专家的计算结果并加载到VRAM中，由此产生的通信开销微乎其微。实验表明，在相同的FLOPs和VRAM使用情况下，MoLE实现了与密集模型相当的推理速度，并且比采用专家卸载的MoE显著更快，同时保持了与MoE相当的性能。</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">PRIOT：面向嵌入式系统的基于剪枝的纯整数迁移学习</h2><a id="user-content-priot面向嵌入式系统的基于剪枝的纯整数迁移学习" class="anchor" aria-label="Permalink: PRIOT：面向嵌入式系统的基于剪枝的纯整数迁移学习" href="#priot面向嵌入式系统的基于剪枝的纯整数迁移学习"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2503.16860v1 公告类型：新研究<br>
+摘要：设备端迁移学习对于将通用主干模型适配至各边缘设备的独特环境至关重要。树莓派Pico等微型微控制器是设备端学习的关键目标平台，但其通常缺少浮点运算单元，必须依赖纯整数训练。现有研究采用的动态量化比例因子计算方法会产生高昂计算开销。为此，本研究聚焦于采用静态比例因子的纯整数训练——这对现有训练方法构成严峻挑战。我们提出名为PRIOT的新型训练方法，通过修剪选定连接而非更新权重来优化网络，从而实现静态比例因子下的有效训练。修剪模式由边缘弹出算法确定：该算法训练分配给每条连接的"分数"参数（而非原始参数），并在推理前剪除低分连接。此外，我们推出内存优化版本PRIOT-S，仅对少量连接分配分数参数。我们在树莓派Pico上实现了PRIOT与PRIOT-S，使用微型CNN模型（旋转MNIST数据集）和VGG11模型（旋转CIFAR-10数据集）评估其精度与计算成本。实验表明：PRIOT相较现有方法精度提升8.08至33.75个百分点，而PRIOT-S在几乎不损失精度的情况下显著降低了内存占用。</p>
+<p>（翻译说明：</p>
+<ol>
+<li>专业术语处理："edge-popup algorithm"译为"边缘弹出算法"保持技术一致性</li>
+<li>被动语态转换：将"is determined by"等被动结构转为"由...确定"的主动表达</li>
+<li>长句拆分：将原文复合句按中文习惯分解为多个短句，如方法描述部分</li>
+<li>数据呈现优化：百分比数字保留原文精确值，增加"个百分点"符合中文计量规范</li>
+<li>技术概念显化："score"译为带引号的"分数"参数以突出其特殊含义</li>
+<li>逻辑连接显性化：添加"为此"等连接词增强段落连贯性）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">利用2:4激活稀疏性加速Transformer推理与训练</h2><a id="user-content-利用24激活稀疏性加速transformer推理与训练" class="anchor" aria-label="Permalink: 利用2:4激活稀疏性加速Transformer推理与训练" href="#利用24激活稀疏性加速transformer推理与训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2503.16672v1 公告类型：新论文<br>
+摘要：本文展示了如何利用2:4稀疏性（一种受GPU硬件加速支持的流行稀疏模式）来优化激活函数，从而加速大语言模型的训练与推理。我们关键性地挖掘了Squared-ReLU激活函数中固有的稀疏特性，在不损失模型精度的前提下实现加速。该方法在前向传播和反向传播中使前馈神经网络（FFN）速度提升最高达1.3倍。这项研究揭示了稀疏性在加速大语言模型训练与推理中的关键潜力。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<ol>
+<li>"2:4 sparsity"译为"2:4稀疏性"（保留技术参数比例）</li>
+<li>"Squared-ReLU"保持英文形式（专有激活函数名称）</li>
+<li>"Feed Forward Network"译为"前馈神经网络"并保留缩写FFN</li>
+<li>"forwards and backwards pass"译为"前向传播和反向传播"（深度学习标准术语）</li>
+<li>被动语态转为中文主动表述（如"we exploit..."译为"我们挖掘..."））</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">大型语言模型通过嵌套式激活感知分解进行压缩</h2><a id="user-content-大型语言模型通过嵌套式激活感知分解进行压缩" class="anchor" aria-label="Permalink: 大型语言模型通过嵌套式激活感知分解进行压缩" href="#大型语言模型通过嵌套式激活感知分解进行压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2503.17101v1 公告类型：新研究<br>
+摘要：本文针对大型语言模型（LLMs）压缩这一关键挑战展开研究，旨在促进其实际部署与广泛应用。我们提出了一种新颖的训练后压缩范式，其核心在于对LLM权重进行低秩分解。通过分析，我们揭示了该任务面临的两大主要挑战：LLM激活分布的显著差异性，以及处理来自不同数据集和模型的未见激活模式的困难。</p>
+<p>为解决这些问题，我们创新性地设计了嵌套式激活感知框架（NSVD）。这一免训练方法通过根据激活分布和原始权重矩阵变换权重矩阵，有效管理激活异常值，从而提升低秩分解的精度。该技术能将异常值吸收至变换后的权重矩阵中，显著改善分解效果。我们在涵盖三大LLM家族的六个模型、八个数据集上的全面评估表明，NSVD在中高压缩比场景或多语言、多任务环境下，性能显著优于当前最先进方法。</p>
+<p>（注：根据学术论文摘要的文体特点，译文在保持专业性的同时：</p>
+<ol>
+<li>将"post-training compression paradigm"译为"训练后压缩范式"以突出技术阶段特性</li>
+<li>采用"嵌套式激活感知框架"既保留NSVD首字母缩写又体现架构特征</li>
+<li>"activation outliers"译为"激活异常值"符合机器学习领域术语惯例</li>
+<li>通过"显著差异性""免训练方法"等措辞保持学术文本的严谨性与简洁性）</li>
+</ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

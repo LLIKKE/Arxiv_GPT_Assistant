@@ -12,38 +12,39 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">PRIOT：面向嵌入式系统的基于剪枝的纯整数迁移学习</h2><a id="user-content-priot面向嵌入式系统的基于剪枝的纯整数迁移学习" class="anchor" aria-label="Permalink: PRIOT：面向嵌入式系统的基于剪枝的纯整数迁移学习" href="#priot面向嵌入式系统的基于剪枝的纯整数迁移学习"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2503.16860v1 公告类型：新研究<br>
-摘要：设备端迁移学习对于将通用主干模型适配至各边缘设备的独特环境至关重要。树莓派Pico等微型微控制器是设备端学习的关键目标平台，但其通常缺少浮点运算单元，必须依赖纯整数训练。现有研究采用的动态量化比例因子计算方法会产生高昂计算开销。为此，本研究聚焦于采用静态比例因子的纯整数训练——这对现有训练方法构成严峻挑战。我们提出名为PRIOT的新型训练方法，通过修剪选定连接而非更新权重来优化网络，从而实现静态比例因子下的有效训练。修剪模式由边缘弹出算法确定：该算法训练分配给每条连接的"分数"参数（而非原始参数），并在推理前剪除低分连接。此外，我们推出内存优化版本PRIOT-S，仅对少量连接分配分数参数。我们在树莓派Pico上实现了PRIOT与PRIOT-S，使用微型CNN模型（旋转MNIST数据集）和VGG11模型（旋转CIFAR-10数据集）评估其精度与计算成本。实验表明：PRIOT相较现有方法精度提升8.08至33.75个百分点，而PRIOT-S在几乎不损失精度的情况下显著降低了内存占用。</p>
-<p>（翻译说明：</p>
-<ol>
-<li>专业术语处理："edge-popup algorithm"译为"边缘弹出算法"保持技术一致性</li>
-<li>被动语态转换：将"is determined by"等被动结构转为"由...确定"的主动表达</li>
-<li>长句拆分：将原文复合句按中文习惯分解为多个短句，如方法描述部分</li>
-<li>数据呈现优化：百分比数字保留原文精确值，增加"个百分点"符合中文计量规范</li>
-<li>技术概念显化："score"译为带引号的"分数"参数以突出其特殊含义</li>
-<li>逻辑连接显性化：添加"为此"等连接词增强段落连贯性）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">利用2:4激活稀疏性加速Transformer推理与训练</h2><a id="user-content-利用24激活稀疏性加速transformer推理与训练" class="anchor" aria-label="Permalink: 利用2:4激活稀疏性加速Transformer推理与训练" href="#利用24激活稀疏性加速transformer推理与训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2503.16672v1 公告类型：新论文<br>
-摘要：本文展示了如何利用2:4稀疏性（一种受GPU硬件加速支持的流行稀疏模式）来优化激活函数，从而加速大语言模型的训练与推理。我们关键性地挖掘了Squared-ReLU激活函数中固有的稀疏特性，在不损失模型精度的前提下实现加速。该方法在前向传播和反向传播中使前馈神经网络（FFN）速度提升最高达1.3倍。这项研究揭示了稀疏性在加速大语言模型训练与推理中的关键潜力。</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">通过训练后模型扩展提升量化效果</h2><a id="user-content-通过训练后模型扩展提升量化效果" class="anchor" aria-label="Permalink: 通过训练后模型扩展提升量化效果" href="#通过训练后模型扩展提升量化效果"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2503.17513v1 公告类型：新研究<br>
+摘要：模型规模长期以来一直是预测其性能质量和计算成本的重要指标。因此，模型成本与质量之间的权衡关系已得到充分研究。诸如量化和剪枝等训练后优化技术，通常专注于缩减预训练模型的总体积以降低推理成本，同时保持模型质量。然而，最新进展引入了一些反直觉的优化技术——这些方法通过在训练后扩展模型规模来提升质量，而非单纯压缩体积。例如，为实现4比特权重和激活量化，非相干性处理往往需要在计算图中插入在线哈达玛旋转，而保留高敏感度权重则需引入额外的高精度计算。当无法满足应用需求时，现行解决方案通常是放宽量化约束。与此相反，我们证明在量化协同设计空间中，训练后模型扩展是提升模型质量的可行策略，并提供了理论依据。我们展示了一种无需端到端重新训练、即可渐进选择性扩展预训练大语言模型（LLM）规模的方法。具体而言，在将Llama3 1B模型的权重和激活量化为4比特时，相较于QuaRot和SpinQuant方法，我们仅增加5%参数量（相对BF16参考模型仍减少3.8%总体积），就将零样本准确率与全精度模型的差距平均缩小了3%。</p>
 <p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>"2:4 sparsity"译为"2:4稀疏性"（保留技术参数比例）</li>
-<li>"Squared-ReLU"保持英文形式（专有激活函数名称）</li>
-<li>"Feed Forward Network"译为"前馈神经网络"并保留缩写FFN</li>
-<li>"forwards and backwards pass"译为"前向传播和反向传播"（深度学习标准术语）</li>
-<li>被动语态转为中文主动表述（如"we exploit..."译为"我们挖掘..."））</li>
+<li>"incoherence processing"译为"非相干性处理"</li>
+<li>"Hadamard rotations"保留专业名称"哈达玛旋转"</li>
+<li>"zero-shot accuracy"译为"零样本准确率"</li>
+<li>保持"BF16"等硬件精度标准原名</li>
+<li>对QuaRot/SpinQuant等专有方法名保留原名）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">大型语言模型通过嵌套式激活感知分解进行压缩</h2><a id="user-content-大型语言模型通过嵌套式激活感知分解进行压缩" class="anchor" aria-label="Permalink: 大型语言模型通过嵌套式激活感知分解进行压缩" href="#大型语言模型通过嵌套式激活感知分解进行压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2503.17101v1 公告类型：新研究<br>
-摘要：本文针对大型语言模型（LLMs）压缩这一关键挑战展开研究，旨在促进其实际部署与广泛应用。我们提出了一种新颖的训练后压缩范式，其核心在于对LLM权重进行低秩分解。通过分析，我们揭示了该任务面临的两大主要挑战：LLM激活分布的显著差异性，以及处理来自不同数据集和模型的未见激活模式的困难。</p>
-<p>为解决这些问题，我们创新性地设计了嵌套式激活感知框架（NSVD）。这一免训练方法通过根据激活分布和原始权重矩阵变换权重矩阵，有效管理激活异常值，从而提升低秩分解的精度。该技术能将异常值吸收至变换后的权重矩阵中，显著改善分解效果。我们在涵盖三大LLM家族的六个模型、八个数据集上的全面评估表明，NSVD在中高压缩比场景或多语言、多任务环境下，性能显著优于当前最先进方法。</p>
-<p>（注：根据学术论文摘要的文体特点，译文在保持专业性的同时：</p>
+<div class="markdown-heading"><h2 class="heading-element">最大冗余剪枝：一种基于原则的大型语言模型逐层稀疏分配方法</h2><a id="user-content-最大冗余剪枝一种基于原则的大型语言模型逐层稀疏分配方法" class="anchor" aria-label="Permalink: 最大冗余剪枝：一种基于原则的大型语言模型逐层稀疏分配方法" href="#最大冗余剪枝一种基于原则的大型语言模型逐层稀疏分配方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（翻译说明：</p>
 <ol>
-<li>将"post-training compression paradigm"译为"训练后压缩范式"以突出技术阶段特性</li>
-<li>采用"嵌套式激活感知框架"既保留NSVD首字母缩写又体现架构特征</li>
-<li>"activation outliers"译为"激活异常值"符合机器学习领域术语惯例</li>
-<li>通过"显著差异性""免训练方法"等措辞保持学术文本的严谨性与简洁性）</li>
+<li>"Maximum Redundancy Pruning" 译为"最大冗余剪枝"，准确传达技术概念</li>
+<li>"Principle-Driven" 处理为"基于原则的"，体现方法论特性</li>
+<li>"Layerwise" 译为"逐层"，符合深度学习领域术语习惯</li>
+<li>"Sparsity Allocation" 译为"稀疏分配"，保留原文本的计算效率内涵</li>
+<li>"LLMs" 完整译为"大型语言模型"，确保中文读者理解
+整体采用技术文献的简洁风格，通过冒号分层保持原文的学术表达结构）</li>
+</ol>
+<p>arXiv:2503.18377v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）虽展现出卓越能力，但其庞大体积给实际应用部署带来巨大挑战。为此，研究者尝试将网络剪枝技术应用于LLMs。剪枝过程中的核心难题在于如何分配各层稀疏度——当前主流方法多基于启发式规则或搜索策略，极易导致次优结果。本文通过系统研究发现三个关键现象：(1) LLMs各层剪枝敏感度（LPS）呈现显著非均匀性；(2) 剪枝度量标准的选择直接影响LPS分布；(3) 稀疏模型的性能与其各层冗余度的均匀性相关。基于这些发现，我们提出LLMs分层稀疏度分配应遵循三大原则：\emph{非均匀性}、\emph{剪枝度量依赖性}以及剪枝后模型需保持\emph{分层冗余度均匀性}。为此，我们提出最大冗余剪枝法（MRP）：该迭代算法每次优先剪枝冗余度最高（即非离群值比例最大）的层，最终实现的层间稀疏度完美契合上述原则。我们在LLaMA2、OPT等开源LLMs上进行了多基准测试，实验结果验证了MRP的有效性，其表现显著优于现有方法。</p>
+<p>（注：翻译过程中对技术术语如"pruning sensitivity"译为"剪枝敏感度"、"non-outlier ratio"译为"非离群值比例"等保持学术一致性；长难句采用拆分处理，如将原文三个发现重组为排比句式；被动语态转换为中文主动表达；算法名称MRP保留英文缩写但补充中文全称；数学符号\emph{}转换为中文强调格式。）</p>
+<div class="markdown-heading"><h2 class="heading-element">自适应秩分配：通过RaNA适配器加速现代Transformer模型</h2><a id="user-content-自适应秩分配通过rana适配器加速现代transformer模型" class="anchor" aria-label="Permalink: 自适应秩分配：通过RaNA适配器加速现代Transformer模型" href="#自适应秩分配通过rana适配器加速现代transformer模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2503.18216v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）的计算需求庞大，尤其在推理阶段更为显著。神经元自适应技术通过选择性激活多层感知机（MLP）层中的神经元虽能实现一定加速，但在现代Transformer架构中存在明显局限：依赖稀疏激活模式、无法兼容注意力层，且需采用高成本的神经元掩码技术。为解决这些问题，我们提出自适应秩分配框架，并设计出秩与神经元分配器（RaNA）适配器。RaNA适配器基于秩适配器原理，通过低秩矩阵分解与自适应掩码技术协同作用于线性层，从而在不依赖激活稀疏性的前提下高效分配计算资源。该方法可同时应用于MLP层和注意力模块的线性组件，且无需神经元自适应方法中昂贵的掩码机制。实验表明，在先进Transformer架构中压缩约44%浮点运算量（FLOPs）时，RaNA相较神经元适配器最高可降低7个困惑度值，并提升8个百分点的准确率。这些成果使RaNA成为提升现代Transformer架构推理效率的强效解决方案。</p>
+<p>（注：根据学术文献翻译规范，关键术语处理如下：</p>
+<ol>
+<li>"FLOPs"保留英文缩写形式，中文语境中常直接使用</li>
+<li>"perplexity"译为"困惑度"，是自然语言处理领域标准译法</li>
+<li>"rank adapters"译为"秩适配器"，"rank"在矩阵分解语境中固定译为"秩"</li>
+<li>技术名词如"Multi-Layer Perceptron"采用学界通用译名"多层感知机"</li>
+<li>保持被动语态与原文学术风格一致，同时通过"通过...""基于..."等中文句式实现语态转换）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

@@ -12,10 +12,15 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">LogQuant：采用对数分布的两比特KV缓存量化技术，卓越保持精度</h2><a id="user-content-logquant采用对数分布的两比特kv缓存量化技术卓越保持精度" class="anchor" aria-label="Permalink: LogQuant：采用对数分布的两比特KV缓存量化技术，卓越保持精度" href="#logquant采用对数分布的两比特kv缓存量化技术卓越保持精度"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2503.19950v1 公告类型：新成果<br>
-摘要：我们推出LogQuant——一项突破性的2比特KV缓存量化技术，专为大型语言模型（LLM）推理设计，在显著节省内存的同时保持卓越性能。现有方法要么假设后续token更重要，要么试图基于早期注意力模式预测重要token，但这两种策略均可能导致性能瓶颈或频繁误判。</p>
-<p>LogQuant采用创新思路：通过基于对数的过滤机制，在全上下文范围内选择性压缩KV缓存，在相同甚至更低内存占用的前提下实现更优性能。基准测试表明，其吞吐量提升25%，批处理规模扩大60%，且无需增加内存消耗。在数学推理和代码补全等高难度任务中，相同压缩率下LogQuant将准确率提升40%至200%，全面超越同类技术。</p>
-<p>该技术可无缝集成至Python的transformers等主流推理框架，实现代码详见：<a href="https://github.com/Concyclics/LogQuantKV">https://github.com/Concyclics/LogQuantKV</a></p>
-<p>（注：根据技术文档翻译规范，保留专业术语如"KV Cache"、"throughput"等概念的英文缩写形式；"2-bit"译为"2比特"符合计算机领域表述习惯；长句按中文表达习惯拆分为短句；被动语态转换为主动表述；URL链接保留原格式确保可操作性）</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">MoQa：基于多阶段数据-模型分布感知的MoE量化新思考</h2><a id="user-content-moqa基于多阶段数据-模型分布感知的moe量化新思考" class="anchor" aria-label="Permalink: MoQa：基于多阶段数据-模型分布感知的MoE量化新思考" href="#moqa基于多阶段数据-模型分布感知的moe量化新思考"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2503.21135v1  公告类型：新成果<br>
+摘要：随着人工智能的发展，混合专家模型（MoE）已成为大语言模型（LLMs）的主要形态，其对模型压缩的需求与日俱增。量化是一种有效方法，既能压缩模型，又能显著提升推理速度。现有量化方法逐渐将关注点从参数缩放转向数据分布分析，但其分析框架专为稠密LLMs设计，且依赖简单的"单一模型-全量数据"映射关系，难以适配MoE特性。本文提出新型量化框架MoQa，通过多阶段分析解耦MoE中数据-模型分布的复杂性，定量揭示稀疏数据激活、数据-参数映射及专家间关联的动态特征。基于此，MoQa以最优的数据-模型分布感知能力识别关键专家与参数，提出适应不同数据激活模式与专家组合场景的细粒度混合量化策略。此外，MoQa探讨了现有量化的局限性，并逐阶段分析各环节影响，为MoE量化提供了新见解。实验表明，MoQa在语言建模任务中实现困惑度降低1.69~2.18，在零样本推理任务中准确率提升1.58%~8.91%。我们相信MoQa将在未来MoE的构建、优化与压缩中发挥作用。</p>
+<p>（注：根据学术论文摘要的文体特征，翻译时注重以下处理：</p>
+<ol>
+<li>专业术语统一："Mix-of-Experts"规范译为"混合专家模型"，"perplexity"保留学界惯用译法"困惑度"</li>
+<li>长句拆分：将原文复合从句按中文表达习惯分解为短句，如"proposes a series of..."处理为分号连接的并列结构</li>
+<li>被动语态转化："are designed for"转为主动式"专为...设计"</li>
+<li>概念显化："one-model-all-data mapping"意译为带引号的形象化表述</li>
+<li>数据范围表达：波浪线"~"符合中文科技文献数值范围表示规范）</li>
+</ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

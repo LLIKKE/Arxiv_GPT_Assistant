@@ -194,7 +194,7 @@ def filter_by_gpt(
         '''if config["OUTPUT"].getboolean("debug_messages"):
             print(str(len(paper_list)) + " papers after hindex filtering")'''
         cost = 0
-        paper_list, cost = filter_papers_by_title(
+        '''paper_list, cost = filter_papers_by_title(
             paper_list, config, openai_client, base_prompt, criterion
         )
         if config["OUTPUT"].getboolean("debug_messages"):
@@ -203,7 +203,7 @@ def filter_by_gpt(
                 + " papers after title filtering with cost of $"
                 + str(cost)
             )
-        all_cost += cost
+        all_cost += cost'''
 
         # batch the remaining papers and invoke GPT
         batch_of_papers = batched(paper_list, int(config["SELECTION"]["batch_size"]))

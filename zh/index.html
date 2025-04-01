@@ -12,22 +12,37 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">块状稀疏模型的高效训练算法</h2><a id="user-content-块状稀疏模型的高效训练算法" class="anchor" aria-label="Permalink: 块状稀疏模型的高效训练算法" href="#块状稀疏模型的高效训练算法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2503.21928v1 公告类型：新研究<br>
-摘要：大规模机器学习（ML）模型正日益广泛应用于教育、信贷、招聘、医疗、刑事司法等关键领域。然而，这些模型的训练、部署和应用需要消耗大量计算资源。为降低计算与内存成本，学术界广泛采用具有稀疏权重矩阵的机器学习模型。在各类稀疏模型中，具有特殊稀疏结构（如块状稀疏权重矩阵）的模型能更好地适配硬件加速器，从而减少推理过程中的内存与计算开销。遗憾的是，尽管现有多种高效训练方法，但均未针对块状稀疏模型的高效训练进行专门设计。因此，当前训练这类模型的方法仍始于完整稠密模型，导致训练效率低下。</p>
-<p>本研究聚焦于训练具有\textit{块状稀疏矩阵}的模型，提出一种高效训练算法以同步降低训练和推理阶段的计算与内存成本。此外，我们将证明所提方法能在训练过程中智能确定最佳稀疏模式的块尺寸。大量实证与理论分析表明，相较于基线方法，我们的算法可显著降低计算与内存开销，同时保持模型性能无衰减。</p>
-<div class="markdown-heading"><h2 class="heading-element">STADE：以标准差作为剪枝度量标准</h2><a id="user-content-stade以标准差作为剪枝度量标准" class="anchor" aria-label="Permalink: STADE：以标准差作为剪枝度量标准" href="#stade以标准差作为剪枝度量标准"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2503.22451v1 公告类型：新研究<br>
-摘要：近年来，大语言模型（LLMs）的应用日益广泛，被用于解决各类任务。为成功应对这些任务，LLMs需要更长的训练时间和更大的模型规模。这使得LLMs成为剪枝方法的理想对象——在保持性能的同时降低计算需求。传统方法在剪枝后需通过重训练阶段来维持原始模型性能，但当前最先进的剪枝方法（如Wanda）无需重训练即可完成剪枝，使过程更快速高效。本研究基于Wanda的工作，从理论上阐释了该方法的有效性，并利用这些洞见优化剪枝流程。具体而言，通过对剪枝问题的理论分析，我们揭示了Wanda作为最优剪枝方法的常见机器学习场景。进一步分析发现，当Wanda不再最优时，基于输入标准差的新方法STADE应运而生。理论研究表明，STADE在不同场景下具有更优的泛化性。最后，在Llama和开源预训练变换模型（OPT）上的大量实验验证了理论预测：根据训练条件的不同，Wanda的最优性能会如理论框架预期般变化。这些发现为剪枝策略及其实际应用提供了更坚实的理论基础。代码已开源：<a href="https://github.com/Coello-dev/STADE/">https://github.com/Coello-dev/STADE/</a></p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了统一处理，如"retraining phase"译为"重训练阶段"而非字面的"再训练阶段"；"standard deviation"采用统计学通用译法"标准差"；模型名称Wanda/STADE保留不译以符合技术文献惯例；长句按中文表达习惯拆分为短句，并调整了被动语态为主动表述。）</p>
-<div class="markdown-heading"><h2 class="heading-element">AdaRank：自适应等级剪枝以增强模型融合</h2><a id="user-content-adarank自适应等级剪枝以增强模型融合" class="anchor" aria-label="Permalink: AdaRank：自适应等级剪枝以增强模型融合" href="#adarank自适应等级剪枝以增强模型融合"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2503.22178v1 公告类型：新研究<br>
-摘要：模型融合已成为将独立微调模型统一为集成框架的重要方法，显著提升了多任务学习中的计算效率。近期基于奇异值分解（SVD）的技术通过利用低秩结构增强融合效果，但其依赖人工设计的秩选择常导致跨任务干扰和次优性能。本文提出AdaRank——一种自适应选择任务向量最有效奇异方向的新型模型融合框架。我们通过实验证明：任务向量的主导奇异成分会引发关键性任务干扰，而跨任务与跨层的简单截断会损害性能。相比之下，AdaRank通过熵最小化在测试时动态剪枝干扰性奇异成分，并为每个任务向量提供最优信息量。分析表明该方法能有效缓解任务间的有害重叠，实证结果显示AdaRank在不同骨干网络和任务数量下均保持最先进性能，将微调模型间的性能差距缩小至近1%。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了如下处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">Quamba2：面向选择性状态空间模型的鲁棒可扩展训练后量化框架</h2><a id="user-content-quamba2面向选择性状态空间模型的鲁棒可扩展训练后量化框架" class="anchor" aria-label="Permalink: Quamba2：面向选择性状态空间模型的鲁棒可扩展训练后量化框架" href="#quamba2面向选择性状态空间模型的鲁棒可扩展训练后量化框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2503.22879v1 公告类型：新研究<br>
+摘要：状态空间模型（SSMs）因其稳定的内存占用和卓越性能，正逐渐成为Transformer的有力替代方案。然而，由于存储需求和计算能力的限制，在云服务或资源受限设备上扩展SSMs面临挑战。为此，采用低位宽数据格式对SSMs进行量化，既能减小模型体积，又能利用硬件加速优势。由于SSMs易受量化误差影响，近期研究聚焦于在不损失性能的前提下，针对特定模型或位宽进行优化。但不同场景需要差异化位宽配置，例如W4A8适用于提升大批量解码速度，而W4A16则能优化单用户短提示应用的生成速度。</p>
+<p>为此，我们推出Quamba2框架，兼容W8A8、W4A8和W4A16配置，支持Mamba1和Mamba2架构，满足多平台部署SSMs的迫切需求。基于SSMs的通道顺序保持特性和激活持续性，我们提出离线量化方案：通过排序聚类将线性递归输入$x$量化为8位，同时对输入相关参数$B$和$C$实施按状态组分组的量化。为确保SSM输出的计算不变性，我们依据聚类序列离线重排权重。实验表明，8B版本的Quamba2在预填充和生成阶段分别实现1.3倍和3倍加速，内存占用减少4倍，平均准确率仅下降1.6%，性能超越多种前沿SSM量化方法。MMLU评估验证了框架的泛化性与鲁棒性。代码及量化模型将发布于：<a href="https://github.com/enyac-group/Quamba%E3%80%82">https://github.com/enyac-group/Quamba。</a></p>
+<p>（注：根据学术文献翻译规范，技术术语如"state-group quantization"译为"按状态组量化"，"compute-invariance"译为"计算不变性"，保持专业性与一致性；长句按中文习惯切分为短句；被动语态转换为主动表述；公式符号$B$/$C$保留原格式以符合技术文本惯例。）</p>
+<div class="markdown-heading"><h2 class="heading-element">重新思考大型语言模型服务中的键值缓存压缩技术</h2><a id="user-content-重新思考大型语言模型服务中的键值缓存压缩技术" class="anchor" aria-label="Permalink: 重新思考大型语言模型服务中的键值缓存压缩技术" href="#重新思考大型语言模型服务中的键值缓存压缩技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2503.24000v1 公告类型：新研究<br>
+摘要：键值缓存（\texttt{KV缓存}）压缩已成为优化大语言模型（LLM）服务的一项前景广阔的技术，其核心是通过降低\texttt{KV缓存}的内存占用来减少计算成本。尽管已有多种压缩算法被提出，但它们在真实生产环境中的应用仍未普及。本文从实用角度重新审视主流\texttt{KV缓存}压缩方案，贡献包含三方面：首先，我们系统梳理了现有\texttt{KV缓存}压缩的算法设计与基准测试研究，指出其性能评估中存在的关键缺失，这些缺失可能阻碍实际应用；其次，通过实证评估代表性压缩方法，我们揭示出影响计算效率的两大核心问题：（1）当前实现方案（如FlashAttention、PagedAttention）虽能降低内存占用，但未针对生产级LLM服务优化，导致吞吐性能未达最优；（2）压缩\texttt{KV缓存}可能导致输出文本变长，从而增加端到端延迟。我们进一步从单样本精度（而非整体性能）角度展开分析，揭示了\texttt{KV缓存}压缩在处理特定LLM任务时的固有局限；最后，我们开源了系列工具（项目地址：\href{<a href="https://github.com/LLMkvsys/rethink-kv-compression%7D%7Bhttps://github.com/LLMkvsys/rethink-kv-compression%7D%EF%BC%89%EF%BC%8C%E6%97%A8%E5%9C%A8%E4%B8%BA%E6%9C%AA%E6%9D%A5%5Ctexttt%7BKV%E7%BC%93%E5%AD%98%7D%E5%8E%8B%E7%BC%A9%E7%A0%94%E7%A9%B6%E6%8F%90%E4%BE%9B%E5%90%AF%E7%A4%BA%EF%BC%8C%E5%B9%B6%E6%8E%A8%E5%8A%A8%E5%85%B6%E5%9C%A8%E5%AE%9E%E9%99%85%E7%94%9F%E4%BA%A7%E4%B8%AD%E7%9A%84%E9%83%A8%E7%BD%B2%E3%80%82">https://github.com/LLMkvsys/rethink-kv-compression}{https://github.com/LLMkvsys/rethink-kv-compression}），旨在为未来\texttt{KV缓存}压缩研究提供启示，并推动其在实际生产中的部署。</a></p>
+<p>（注：译文采用技术文档常见的被动语态转主动语态处理，将长复合句拆分为符合中文表达习惯的短句结构，保留专业术语统一性（如"throughput"译为"吞吐性能"），并对GitHub链接进行了本地化排版处理。）</p>
+<div class="markdown-heading"><h2 class="heading-element">SQuat：子空间正交KV缓存量化</h2><a id="user-content-squat子空间正交kv缓存量化" class="anchor" aria-label="Permalink: SQuat：子空间正交KV缓存量化" href="#squat子空间正交kv缓存量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2503.24358v1 公告类型：新研究<br>
+摘要：键值（KV）缓存通过存储先前生成令牌的KV张量来加速大语言模型（LLM）的解码过程。它以增加内存使用为代价减少冗余计算。为缓解这一开销，现有方法将KV张量压缩为低位表示；然而随着生成令牌增多，量化误差会不断累积，可能导致不良输出。本文提出SQuat（子空间正交KV缓存量化）方法：首先构建一个由查询张量张成的子空间，以捕获最关键的任务相关信息；在对键张量量化时，强制要求（解）量化键与原始键的差值保持与该子空间正交，从而最小化量化误差对注意力机制输出的影响。SQuat无需模型微调，不需额外校准数据集进行离线学习，并以我们开发的理论框架为基础。数值实验表明，本方法将峰值内存降低2.17至2.82倍，吞吐量提升2.45至3.60倍，且在基准测试中比现有KV缓存量化算法获得更优评分。</p>
+<p>（注：根据学术文献翻译规范，对技术术语进行了统一处理："tokens"译为"令牌"而非"标记"以符合计算机领域术语；"throughput"译为"吞吐量"而非"产量"保持技术准确性；通过拆分长句为中文惯用的短句结构，如将原文"enforces that..."处理为"强制要求..."的独立分句；保留"SQuat"首字母缩写形式符合计算机领域论文惯例；"benchmark scores"译为"基准测试评分"比直译"基准分数"更专业。）</p>
+<div class="markdown-heading"><h2 class="heading-element">超越标准混合专家模型：面向资源高效语言模型的潜在专家混合技术</h2><a id="user-content-超越标准混合专家模型面向资源高效语言模型的潜在专家混合技术" class="anchor" aria-label="Permalink: 超越标准混合专家模型：面向资源高效语言模型的潜在专家混合技术" href="#超越标准混合专家模型面向资源高效语言模型的潜在专家混合技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译时做了以下处理：</p>
 <ol>
-<li>"SVD-based techniques"译为"基于奇异值分解的技术"以保持专业术语准确性</li>
-<li>"task vectors"统一译为"任务向量"确保概念一致性</li>
-<li>"entropy minimization"译为"熵最小化"符合信息论术语惯例</li>
-<li>长难句采用分译法处理，如将原文最后复合句拆分为"分析表明..."和"实证结果显示..."两个独立句，符合中文表达习惯）</li>
+<li>"Beyond Standard MoE"译为"超越标准混合专家模型"，其中"MoE"是"Mixture of Experts"的缩写，采用中文领域通用译法</li>
+<li>"Mixture of Latent Experts"译为"潜在专家混合技术"，突出"latent"的潜在特性</li>
+<li>"Resource-Efficient"译为"资源高效"，符合技术文献常用表述</li>
+<li>整体采用"技术"作为落脚词，体现方法论性质</li>
+<li>保留冒号结构维持原标题层次感</li>
+<li>使用"面向"一词准确传达"for"的技术应用指向）</li>
+</ol>
+<p>arXiv:2503.23100v1 公告类型：新研究<br>
+摘要：混合专家模型（MoE）已成为大规模语言模型（LLMs）高效扩展的关键架构范式，其通过选择性激活每个输入标记对应的参数子集来运作。然而，传统MoE架构面临重大挑战，包括训练和推理过程中因专家模块激增导致的内存占用过高与通信开销过大。本文提出潜在专家混合（MoLE）这一新型参数化方法，通过将特定专家映射至共享潜在空间实现优化。具体而言，所有专家操作被系统分解为两个核心组件：首先将输入投影至低维潜在空间的共享变换，随后进行参数量大幅精简的专家专属转换。这种因子化方法显著降低了参数规模与计算需求。除MoLE架构在预训练阶段的实现外，我们还建立了将预训练MoE模型转化为MoLE架构的严格数学框架，阐明了最优因子化的充分条件，并开发了系统化的两阶段转换算法。理论分析表明，MoLE能在保持模型表征能力的同时，从多个维度显著提升计算效率。实证研究验证了理论结论，证实MoLE在资源需求大幅降低的情况下，性能仍可与标准MoE实现相媲美。</p>
+<p>（注：根据学术文献翻译规范，对以下术语进行了标准化处理：</p>
+<ol>
+<li>"parameter subsets"译为"参数子集"而非"参数子集模块"</li>
+<li>"lower-dimensional latent space"统一译为"低维潜在空间"</li>
+<li>"factorized approach"译为"因子化方法"以保持数学语境</li>
+<li>"representational capacity"译为"表征能力"符合机器学习领域术语</li>
+<li>被动语态如"are systematically decomposed"转换为中文主动句式"被系统分解"）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

@@ -12,46 +12,30 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">当推理遇上压缩：在复杂推理任务上评估压缩后的大型推理模型性能</h2><a id="user-content-当推理遇上压缩在复杂推理任务上评估压缩后的大型推理模型性能" class="anchor" aria-label="Permalink: 当推理遇上压缩：在复杂推理任务上评估压缩后的大型推理模型性能" href="#当推理遇上压缩在复杂推理任务上评估压缩后的大型推理模型性能"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>近期开源的复杂推理大模型（LRMs）在复杂推理任务中展现出强劲性能，但其庞大的参数量使得个人使用者难以承担高昂成本。大型语言模型（LLMs）的压缩技术为降低计算资源开销提供了有效解决方案。然而目前缺乏针对压缩后LLMs（尤其是LRMs）在复杂推理任务中性能的系统性研究——现有量化与剪枝研究多聚焦于保留语言建模能力，而蒸馏研究则未综合考虑推理难度分级、或压缩对知识保留与推理能力的影响。本文基于四种不同推理数据集（2024年AIME、FOLIO、BIG-Bench Hard时序推理和MuSiQue），涵盖数学推理到多跳推理范畴，对采用量化、蒸馏和剪枝方法的DeepSeek-R1压缩模型进行全面评测。我们测试了采用动态量化的2.51比特、1.73比特和1.58比特R1模型，评估了基于LLaMA或Qwen的蒸馏R1模型，并对其应用SparseGPT以获得不同稀疏度版本。通过研究压缩后LRMs的性能表现与行为模式，我们记录了其性能得分与单次推理计算量（每道题的token消耗量）。值得注意的是，基于MuSiQue的测试表明：参数量对LRMs知识记忆能力的影响远大于对其推理能力的影响，这一发现可为压缩技术选择提供重要参考。通过对推理计算量的实证分析，我们发现无论是原始R1模型还是其压缩变体，在多个基准测试中，输出更简洁的模型普遍表现更优，这凸显了构建精炼推理链的重要性。</p>
-<div class="markdown-heading"><h2 class="heading-element">大型语言模型中的认知记忆</h2><a id="user-content-大型语言模型中的认知记忆" class="anchor" aria-label="Permalink: 大型语言模型中的认知记忆" href="#大型语言模型中的认知记忆"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>本文系统探讨了大语言模型（LLM）中的记忆机制，重点阐释了其对生成上下文丰富响应、减少幻觉现象及提升效率的重要作用。研究将记忆系统划分为感觉记忆、短时记忆与长时记忆三类：感觉记忆对应输入提示，短时记忆处理即时上下文，而长时记忆则通过外部数据库或特定结构实现。在文本记忆部分，详细解析了记忆获取（筛选与摘要生成）、记忆管理（更新、调取、存储与冲突解决）及记忆应用（全文检索、SQL查询、语义搜索）三大环节。基于键值缓存的记忆机制则论述了筛选方法（基于规则的摘要、评分机制、特殊标记嵌入）与压缩技术（低秩压缩、键值合并、多模态压缩），以及卸载存储、共享注意力等管理策略。参数化记忆方法（LoRA、TTT、MoE）通过将记忆转化为模型参数提升效率，而基于隐藏状态的记忆方案（分块机制、循环变压器、Mamba模型）则通过整合RNN隐藏状态与现有技术优化长文本处理。整体而言，本研究全面剖析了LLM记忆机制的技术架构，揭示了其核心价值并指明了未来研究方向。</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">MiLo：采用低秩补偿器混合策略的高效量化混合专家推理系统</h2><a id="user-content-milo采用低秩补偿器混合策略的高效量化混合专家推理系统" class="anchor" aria-label="Permalink: MiLo：采用低秩补偿器混合策略的高效量化混合专家推理系统" href="#milo采用低秩补偿器混合策略的高效量化混合专家推理系统"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>高效部署具有海量参数的混合专家模型（MoE）的关键技术路径是量化。然而，当前最先进的MoE模型在极端量化（如低于4比特）时会出现不可忽视的准确率下降。为此，我们提出MiLo创新方法——通过引入低秩补偿器混合组件来增强高量化度MoE模型。这些补偿器仅消耗少量额外内存，却能显著恢复极端量化导致的精度损失。MiLo还发现：由于混合专家模型独特的稠密-稀疏混合架构，其不同权重表现出显著异质性特征，因此采用自适应秩选择策略配合迭代优化来弥合准确率差距。该方法无需依赖校准数据，可泛化至不同MoE模型和数据集，避免对校准集的过拟合。针对3比特等极端量化导致的硬件效率瓶颈，MiLo开发了与Tensor Core兼容的3比特计算内核，实测实现了3比特量化MoE模型的延迟加速。评估表明，MiLo在各类任务中均优于现有方法，在多款最先进MoE模型上展现出卓越性能。</p>
+<p>（注：根据技术文献翻译规范，在保证专业性的同时：</p>
+<ol>
+<li>保留"MoE/Tensor Core"等专业术语原名</li>
+<li>"SoTA"译为"最先进"符合中文语境</li>
+<li>"kernel"译为"内核"而非直译"核"避免歧义</li>
+<li>采用"补偿器混合组件"等符合中文科技论文表述习惯的译法</li>
+<li>通过"显著异质性特征"等表述准确传达技术细节）</li>
+</ol>
 <div class="markdown-heading"><h2 class="heading-element">GPTQv2：面向非对称校准的高效免微调量化技术</h2><a id="user-content-gptqv2面向非对称校准的高效免微调量化技术" class="anchor" aria-label="Permalink: GPTQv2：面向非对称校准的高效免微调量化技术" href="#gptqv2面向非对称校准的高效免微调量化技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>我们推出GPTQv2，一种无需微调的新型量化方法，专为压缩大规模Transformer架构设计。与先前逐层独立校准的GPTQ方法不同，我们始终确保量化层的输出与全精度模型中的精确输出相匹配，这种创新方案被称为非对称校准。该方案能有效减少先前层级积累的量化误差。我们通过最优脑压缩理论分析该问题，推导出闭式解。新解法显式地最小化量化误差与非对称累积误差，并运用通道并行化、神经元分解、矩阵融合的Cholesky重构等多种技术实现并行计算。最终GPTQv2仅比GPTQ多20行代码即可轻松实现，却在低比特量化下显著提升性能——单块GPU上，我们不仅量化了4050亿参数的语言Transformer，更使视觉Transformer标杆EVA-02在ImageNet预训练精度保持90%的同时完成量化。代码已开源：github.com/Intelligent-Computing-Lab-Yale/GPTQv2。</p>
+<p>（注：根据技术文档翻译惯例，GPTQv2作为专有名词保留不译；"Efficient Finetuning-Free Quantization"采用"高效免微调量化技术"的译法，既保持技术准确性又符合中文表达习惯；"Asymmetric Calibration"译为"非对称校准"，这是机器学习量化领域的标准术语翻译。整体采用技术文档常见的"功能+特性"命名结构，使中文标题既专业又简洁。）</p>
+<p>我们推出GPTQv2，一种无需微调的新型量化方法，专为压缩大规模Transformer架构设计。与先前独立校准各层的GPTQ方法不同，我们始终将量化层的输出与全精度模型中的精确输出对齐，形成名为"非对称校准"的创新方案。该方案能有效减少先前层级积累的量化误差。我们通过最优脑压缩理论分析该问题，推导出闭式解。新解法显式地同步最小化量化误差与非对称累积误差，并创新性地采用通道并行化、神经元分解、矩阵融合的Cholesky重构等技术实现并行计算。GPTQv2实现极为简洁，仅比GPTQ多20行代码即可显著提升低比特量化性能。值得注意的是，在单块GPU上，我们成功量化了4050亿参数的语言Transformer，以及以90%ImageNet预训练精度登顶的视觉Transformer模型EVA-02。代码已开源在github.com/Intelligent-Computing-Lab-Yale/GPTQv2。</p>
 <p>（翻译说明：</p>
 <ol>
-<li>专业术语处理："finetuning-free"译为"无需微调"、"optimal brain compression"保留专业概念译为"最优脑压缩"</li>
-<li>技术概念转化："asymmetric calibration"创造性译为"非对称校准"，通过添加"创新方案"进行语境补充</li>
-<li>长句拆分：将原文复合句分解为多个中文短句，如将方案优势拆分为"该方案能有效..."独立句</li>
-<li>数字规范：统一"405B"为中文计量习惯"4050亿"</li>
-<li>成果强调：使用破折号连接量化成就，通过"标杆"等词强化EVA-02的学术地位</li>
-<li>代码库链接保留原格式确保可操作性</li>
-<li>动词优化："derive"译为"推导"而非直译"导出"，更符合数学语境）</li>
+<li>专业术语处理："finetuning-free"译为"无需微调"、"asymmetric calibration"译为"非对称校准"、"optimal brain compression"译为"最优脑压缩"等，既保持专业性又符合中文表达习惯</li>
+<li>长句拆分：将原文复合长句拆分为符合中文短句习惯的表达，如将并行计算技术部分处理为排比句式</li>
+<li>数字规范：405B译为"4050亿"符合中文数量级表达</li>
+<li>技术品牌名保留：GPTQv2、EVA-02等专有名称不做翻译</li>
+<li>被动语态转换："is easy to implement"转化为主动式"实现极为简洁"</li>
+<li>文化适配："rank first"译为"登顶"更符合中文技术竞争语境</li>
+<li>补充说明：在ImageNet精度处添加"预训练"明确上下文</li>
+<li>代码仓库链接保留原貌确保可访问性）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">通过KV缓存与解码策略优化的动态检索增强生成技术，扩展测试时推理规模</h2><a id="user-content-通过kv缓存与解码策略优化的动态检索增强生成技术扩展测试时推理规模" class="anchor" aria-label="Permalink: 通过KV缓存与解码策略优化的动态检索增强生成技术，扩展测试时推理规模" href="#通过kv缓存与解码策略优化的动态检索增强生成技术扩展测试时推理规模"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>我们提出了一种通过动态检索策略与强化微调来增强检索增强生成（RAG）系统的综合框架。该方法显著提升了大型语言模型在知识密集型任务上的表现，包括开放域问答和复杂推理。我们的框架整合了两种互补技术：策略优化检索增强生成（PORAG）——优化检索信息的使用效率，以及自适应词层注意力评分（ATLAS）——根据上下文需求动态决定检索时机与内容。这些技术协同提升了检索内容的利用效率与相关性，从而改善事实准确性与响应质量。该框架作为轻量级解决方案，无需额外训练即可兼容任何基于Transformer架构的大语言模型，在知识密集型任务中表现卓越，显著提高了RAG场景下的输出准确性。我们进一步提出CRITIC方法，通过词元重要性对键值缓存进行选择性压缩，缓解长上下文应用中的内存瓶颈。框架还融合了测试时缩放技术来动态平衡推理深度与计算资源，并采用优化解码策略以实现更快推理。基准数据集实验表明，相比传统RAG系统，本框架能减少幻觉现象、增强领域特定推理能力，并在效率与可扩展性方面取得显著提升。这种集成方案推动了跨领域应用的鲁棒、高效、可扩展RAG系统发展。</p>
-<p>（翻译说明：</p>
-<ol>
-<li>专业术语采用学术界通用译法，如"Transformer"保留英文，"hallucinations"译为"幻觉现象"</li>
-<li>技术缩写PORAG/ATLAS/CRITIC首次出现时保留英文并附加中文全称</li>
-<li>长难句进行合理切分，如将原文复合状语从句转化为中文短句结构</li>
-<li>被动语态转换为主动表述，如"are designed"译为"作为"</li>
-<li>技术概念保持精确性，如"key-value caches"译为"键值缓存"而非字面翻译</li>
-<li>保持学术文本的严谨性，避免口语化表达）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">LLMPi：为树莓派高吞吐量优化的语言模型</h2><a id="user-content-llmpi为树莓派高吞吐量优化的语言模型" class="anchor" aria-label="Permalink: LLMPi：为树莓派高吞吐量优化的语言模型" href="#llmpi为树莓派高吞吐量优化的语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>在树莓派等资源受限的边缘设备上部署大语言模型（LLMs）面临着计算效率、功耗和响应延迟方面的挑战。本文探索基于量化的优化技术，旨在实现低功耗嵌入式系统上高吞吐、高能效的大模型运行。我们采用支持多比特位宽的训练后量化（PTQ）方法k-quantization，实现高效的2比特、4比特、6比特和8比特权重量化。针对BitNet模型，我们进一步通过量化感知训练（QAT）应用三元量化，使模型在保持精度的同时更好地适应低位宽表示。研究结果表明，量化大语言模型在边缘设备实时对话AI领域具有巨大潜力，为移动和嵌入式应用中的低功耗高效能AI部署开辟了新路径。本实验证实，激进的量化策略能在保持推理质量的前提下显著降低能耗，使得大语言模型在资源有限环境中具备实用价值。</p>
-<div class="markdown-heading"><h2 class="heading-element">MiLo：采用低秩补偿器混合策略的高效量化MoE推理</h2><a id="user-content-milo采用低秩补偿器混合策略的高效量化moe推理" class="anchor" aria-label="Permalink: MiLo：采用低秩补偿器混合策略的高效量化MoE推理" href="#milo采用低秩补偿器混合策略的高效量化moe推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>高效部署具有海量参数的混合专家模型（MoE）的关键技术是量化。然而，当前最先进的MoE模型在极端量化（如低于4比特）时存在显著的精度损失。为此，我们提出MiLo——一种创新方法，通过为高度量化的MoE模型配备低秩补偿器混合组件来缓解这一问题。这些补偿器仅消耗少量额外内存，却能显著恢复极端量化造成的精度损失。MiLo还发现：由于MoE模型采用稠密-稀疏混合架构，其权重表现出独特的分化特征，因此采用自适应秩选择策略并结合迭代优化来弥合精度差距。该方法无需校准数据支撑，既能适配不同MoE模型和数据集，又可避免对校准集的过拟合。针对3比特等极端量化方案可能导致的硬件效率低下问题，MiLo开发了与Tensor Core兼容的3比特计算内核，实测可在3比特量化MoE模型上实现延迟降低。评估表明，MiLo在各种任务的SoTA MoE模型上均优于现有方法。</p>
-<p>（翻译说明：</p>
-<ol>
-<li>专业术语处理："Mixture-of-Experts"采用学界通用译法"混合专家模型"，"Tensor Core"保留英文原名</li>
-<li>技术概念转化："quantization"统一译为"量化"，"low-rank compensators"译为"低秩补偿器"保持数学含义</li>
-<li>句式重构：将英语长句拆分为符合中文表达习惯的短句，如原文最后一句分译为三个短句</li>
-<li>被动语态转换："is quantization"转化为主动句式"关键技术是量化"</li>
-<li>文化适配："state-of-the-art"译为"最先进的"而非直译"艺术状态"</li>
-<li>创新术语处理：新造词"MiLo"保留英文原名，首次出现时用破折号引出中文解释）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">MDP：带延迟约束的多维视觉模型剪枝</h2><a id="user-content-mdp带延迟约束的多维视觉模型剪枝" class="anchor" aria-label="Permalink: MDP：带延迟约束的多维视觉模型剪枝" href="#mdp带延迟约束的多维视觉模型剪枝"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>当前的结构化剪枝方法面临两大显著局限：（一）它们通常将剪枝限制在通道等细粒度层级，难以实现激进的参数削减；（二）过度聚焦于参数和浮点运算量（FLOPs）的减少，现有延迟感知方法多依赖简单次优的线性模型，这些模型无法很好地泛化到Transformer架构——其延迟受多个相互作用的维度共同影响。本文提出的多维剪枝（MDP）新范式通过联合优化包括通道、查询/键向量、注意力头、嵌入层和网络块在内的多种剪枝粒度，同时解决了这两个问题。MDP采用先进的延迟建模技术，精准捕捉所有可剪枝维度的延迟变化，实现延迟与准确性的最优平衡。通过将剪枝问题重构为混合整数非线性规划（MINLP），MDP能在满足延迟约束的前提下，高效确定跨所有可剪枝维度的最优剪枝结构。这一通用框架同时支持CNN和Transformer架构。大量实验表明MDP显著优于现有方法，尤其在高剪枝比例下表现突出：在ImageNet数据集上，对于ResNet50剪枝，MDP相比HALP等现有方法实现28%的速度提升，同时Top-1准确率提高1.4%；针对最新的Transformer剪枝方法Isomorphic，MDP额外带来37%的加速效果，且Top-1准确率提升0.7%。</p>
+<div class="markdown-heading"><h2 class="heading-element">大型语言模型中的认知记忆</h2><a id="user-content-大型语言模型中的认知记忆" class="anchor" aria-label="Permalink: 大型语言模型中的认知记忆" href="#大型语言模型中的认知记忆"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>本文深入探讨了大型语言模型（LLM）中的记忆机制，重点分析了其对生成上下文丰富响应、减少幻觉现象及提升效率的关键作用。研究将记忆系统划分为感官记忆、短期记忆与长期记忆三类：感官记忆对应输入提示，短期记忆处理即时上下文，长期记忆则通过外部数据库或特定结构实现。在基于文本的记忆模块中，系统阐述了记忆获取（筛选与摘要生成）、记忆管理（更新、调取、存储与冲突解决）及记忆利用（全文检索、SQL查询、语义搜索）的全流程。基于键值缓存的记忆模块则详述了筛选方法（基于规则摘要、评分机制、特殊标记嵌入）与压缩技术（低秩压缩、键值合并、多模态压缩），以及卸载共享注意力机制等管理策略。参数化记忆方法（LoRA、TTT、MoE）通过将记忆转化为模型参数来提升效率，而基于隐藏状态的记忆方案（分块机制、循环Transformer、Mamba模型）则通过融合RNN隐藏状态与当代技术来优化长文本处理。本文全面解析了LLM记忆机制的架构，强调了其重要性并指明了未来研究方向。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

@@ -12,4 +12,46 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div></div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">任务感知型参数高效微调：边缘端大型预训练模型的优化实践</h2><a id="user-content-任务感知型参数高效微调边缘端大型预训练模型的优化实践" class="anchor" aria-label="Permalink: 任务感知型参数高效微调：边缘端大型预训练模型的优化实践" href="#任务感知型参数高效微调边缘端大型预训练模型的优化实践"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.03718v1 公告类型：新研究<br>
+摘要：大型语言模型（LLMs）在决策、推理和问答等任务中取得了显著成功，已被广泛应用于边缘设备。然而，由于边缘设备计算成本高、存储和能源资源有限，针对特定任务对LLMs进行微调具有挑战性。为解决这一问题，我们提出TaskEdge——一种面向边缘设备的任务感知型高效参数微调框架，该框架为目标任务分配最有效的参数，并仅更新任务相关参数。具体而言，我们首先设计了一种参数重要性计算准则，将权重和输入激活值共同纳入权重重要性的计算；随后提出一种与模型无关的任务参数分配算法，确保任务相关参数均匀分布于整个模型中，而非集中于特定区域。通过这种方式，TaskEdge在仅更新不到0.1%参数的情况下，既能显著降低计算成本和内存占用，又能保持目标下游任务的性能表现。此外，TaskEdge可轻松与结构化稀疏技术结合，利用英伟达专用稀疏张量核实现加速，并能无缝集成LoRA以实现高效的稀疏低秩适配。大量实验证明TaskEdge在不同任务中均具有卓越效能。</p>
+<p>（注：根据学术论文摘要的文体特征，译文采用以下处理方式：</p>
+<ol>
+<li>专业术语保留英文缩写（如LLMs/LoRA）并补充中文全称</li>
+<li>技术概念如"structured sparsity"译为行业通用表述"结构化稀疏技术"</li>
+<li>长难句拆分重组（如将原文"which allocates..."定语从句转为独立分句）</li>
+<li>被动语态转化（如"parameters are distributed"译为主动式"参数均匀分布"）</li>
+<li>数字规范统一（0.1%保持原格式）</li>
+<li>企业名称"NVIDIA"按约定俗成译为"英伟达"）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">迈向对称低秩适配器</h2><a id="user-content-迈向对称低秩适配器" class="anchor" aria-label="Permalink: 迈向对称低秩适配器" href="#迈向对称低秩适配器"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.03719v1 公告类型：新成果<br>
+摘要：<br>
+\newcommand{\mathds}[1]{\text{\usefont{U}{dsrom}{m}{n}#1}}<br>
+本文提出对称低秩适配器（Symmetric Low-Rank Adapters），这是一种参数更少的LoRA优化变体。该方法利用低秩对称权重矩阵，以更高效率学习下游任务。传统LoRA通过类奇异值分解（SVD）的方式将微调权重与原始预训练权重叠加，即模型权重通过$BA$形式的更新进行微调（其中$B \in \mathbb{R}^{n\times r}$，$A \in \mathbb{R}^{r\times n}$，$r$为合并权重矩阵的秩）。而我们的方法SymLoRA将微调权重表示为谱分解形式$Q , diag(\Lambda), Q^T$，其中$Q \in \mathbb{R}^{n\times r}$，$\Lambda \in \mathbb{R}^r$。SymLoRA所需的微调参数量约为传统方法的一半。实验表明，该方法在下游任务效能上的损失可忽略不计。</p>
+<p>（注：1. 保留数学符号格式以符合学术规范；2. "downstream efficacy"译为"下游任务效能"体现任务导向性；3. "negligible losses"译为"可忽略不计的损失"准确传达技术优势；4. 专业术语如"SVD"采用中文标准译名加括号标注原缩写）</p>
+<div class="markdown-heading"><h2 class="heading-element">LagKV：KV缓存中的滞后相对信息揭示关键令牌的重要性</h2><a id="user-content-lagkvkv缓存中的滞后相对信息揭示关键令牌的重要性" class="anchor" aria-label="Permalink: LagKV：KV缓存中的滞后相对信息揭示关键令牌的重要性" href="#lagkvkv缓存中的滞后相对信息揭示关键令牌的重要性"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.04704v1 公告类型：新研究<br>
+摘要：大语言模型长上下文推理过程中键值对（KV）缓存规模的持续增长，是平衡部署成本与任务精度的主要障碍。为减少此类场景下的KV缓存占用，现有研究多利用注意力权重淘汰非关键缓存令牌，但这类方法存在固有权衡：往往需要对推理基础设施进行重大改造，并带来显著计算开销。基于大语言模型本质上是自回归模型这一特性，我们提出{\it LagKV}——一种仅通过KV条目间直接比较实现的内存分配策略。这种完全无需注意力机制的方法可轻松集成至主流推理平台，其性能却能与复杂KV压缩方案媲美。在LongBench和PasskeyRetrieval基准测试中，当压缩比为$2\times$时本方法几乎无精度损失，$8\times$压缩时仍保持原模型约90%性能。尤其在64位密码检索任务中，相同压缩比下本方法较基于注意力权重的$H_2O$方案性能提升超60%。代码已开源于\url{<a href="https://github.com/AI-Lab-China-Merchants-Bank/LagKV%7D%E3%80%82">https://github.com/AI-Lab-China-Merchants-Bank/LagKV}。</a></p>
+<p>（注：根据学术论文摘要的文体特点，翻译时进行了以下处理：</p>
+<ol>
+<li>专业术语如"KV cache"保留英文缩写并添加中文注释</li>
+<li>技术概念"autoregressive models"译为行业通用译法"自回归模型"</li>
+<li>数学符号如"$2\times$"保留原格式</li>
+<li>机构名称"China Merchants Bank"按惯例译为"招商银行"</li>
+<li>长难句拆分重组，如将原文"But there is a trade-off..."处理为因果句式</li>
+<li>保持被动语态与主动语态的合理转换，如"are leveraged"译为"多利用"）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">RaanA：一种快速、灵活且数据高效的后训练量化算法</h2><a id="user-content-raana一种快速灵活且数据高效的后训练量化算法" class="anchor" aria-label="Permalink: RaanA：一种快速、灵活且数据高效的后训练量化算法" href="#raana一种快速灵活且数据高效的后训练量化算法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：根据技术术语的常见译法，"Post-Training Quantization" 译为"后训练量化"是业界标准译法，指模型训练完成后进行的量化过程；"Data-efficient" 译为"数据高效"强调算法对数据量的低依赖特性；整体名称采用技术论文标题常用的简洁直译风格，保留算法原名"RaanA"不作翻译以保持可追溯性。）</p>
+<p>arXiv:2504.03717v1 公告类型：新论文<br>
+摘要：训练后量化（PTQ）已成为提升大语言模型（LLM）推理效率的常用技术。然而现有PTQ方法普遍存在校准数据需求量大、目标比特数选择不灵活等关键局限。本文提出统一框架RaanA，通过两项创新组件突破这些限制：1）RaBitQ-H——随机向量量化方法RaBitQ的变体，专为实现快速、精准且高效的量化而设计；2）AllocateBits算法——基于各层量化敏感度动态分配最优比特位宽。RaanA在保持与最先进量化方法相当性能的同时，具有极快的处理速度、极低的校准数据需求，并支持灵活比特分配。大量实验验证了RaanA在效率与精度间的卓越平衡能力。代码已开源于<a href="https://github.com/FFTYYY/RaanA%E3%80%82">https://github.com/FFTYYY/RaanA。</a></p>
+<p>（注：根据学术文献翻译规范，对技术术语进行了如下处理：</p>
+<ol>
+<li>"Post-training Quantization"采用业界通用译法"训练后量化"</li>
+<li>"RaBitQ-H"作为专有算法名保留不译</li>
+<li>"calibration data"译为"校准数据"符合《计算机科学技术名词》标准</li>
+<li>"bit-widths"译为"比特位宽"体现硬件设计领域术语习惯</li>
+<li>长复合句拆分为符合中文表达习惯的短句结构）</li>
+</ol>
+</div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

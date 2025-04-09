@@ -12,46 +12,48 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">任务感知型参数高效微调：边缘端大型预训练模型的优化实践</h2><a id="user-content-任务感知型参数高效微调边缘端大型预训练模型的优化实践" class="anchor" aria-label="Permalink: 任务感知型参数高效微调：边缘端大型预训练模型的优化实践" href="#任务感知型参数高效微调边缘端大型预训练模型的优化实践"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.03718v1 公告类型：新研究<br>
-摘要：大型语言模型（LLMs）在决策、推理和问答等任务中取得了显著成功，已被广泛应用于边缘设备。然而，由于边缘设备计算成本高、存储和能源资源有限，针对特定任务对LLMs进行微调具有挑战性。为解决这一问题，我们提出TaskEdge——一种面向边缘设备的任务感知型高效参数微调框架，该框架为目标任务分配最有效的参数，并仅更新任务相关参数。具体而言，我们首先设计了一种参数重要性计算准则，将权重和输入激活值共同纳入权重重要性的计算；随后提出一种与模型无关的任务参数分配算法，确保任务相关参数均匀分布于整个模型中，而非集中于特定区域。通过这种方式，TaskEdge在仅更新不到0.1%参数的情况下，既能显著降低计算成本和内存占用，又能保持目标下游任务的性能表现。此外，TaskEdge可轻松与结构化稀疏技术结合，利用英伟达专用稀疏张量核实现加速，并能无缝集成LoRA以实现高效的稀疏低秩适配。大量实验证明TaskEdge在不同任务中均具有卓越效能。</p>
-<p>（注：根据学术论文摘要的文体特征，译文采用以下处理方式：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">灭霸：一种分块剪枝算法，助力高效大型语言模型压缩</h2><a id="user-content-灭霸一种分块剪枝算法助力高效大型语言模型压缩" class="anchor" aria-label="Permalink: 灭霸：一种分块剪枝算法，助力高效大型语言模型压缩" href="#灭霸一种分块剪枝算法助力高效大型语言模型压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：Thanos为漫威宇宙角色灭霸，其"消灭半数生命"的特性与模型剪枝"削减参数量"的理念高度契合，故采用"灭霸"这一文化意象译名。算法名称保留英文Thanos可形成技术术语与文化符号的双关，既保留原文指涉又增强中文语境下的传播记忆点。"Block-wise"译为"分块"以准确描述逐块剪枝的技术特性，"Efficient"译为"高效"突出算法优势，"Compression"译为"压缩"符合机器学习领域术语规范。整体译名在保证技术准确性的同时，通过文化意象的创造性转化提升了概念的传播力。）</p>
+<p>arXiv:2504.05346v1 公告类型：新成果<br>
+摘要：本文提出Thanos——一种创新的权重剪枝算法，旨在通过移除冗余权重同时保持模型精度，显著降低大语言模型（LLMs）的内存占用并提升计算效率。该算法采用基于块的自适应掩码剪枝策略，能动态响应权重重要性变化，既支持灵活的稀疏模式，又可生成硬件友好的结构化稀疏格式（如$n:m$稀疏比）。实验表明，Thanos在结构化剪枝中达到业界最优性能，在非结构化剪枝中亦超越现有方法。这种高效且自适应的模型压缩方案，为资源受限环境下部署大模型提供了实用解决方案。</p>
+<p>（注：保留技术术语"$n:m$稀疏比"的数学表达形式以符合计算机领域惯例；"block-wise pruning strategy"译为"基于块的剪枝策略"体现算法特性；"adaptive masks"译为"自适应掩码"准确传达技术概念；通过"业界最优性能""超越现有方法"等表述强化对比效果；末句采用"资源受限环境"替代直译，更符合中文技术文档表述习惯。）</p>
+<div class="markdown-heading"><h2 class="heading-element">通过训练后量化实现大型语言模型的二值化权重与激活</h2><a id="user-content-通过训练后量化实现大型语言模型的二值化权重与激活" class="anchor" aria-label="Permalink: 通过训练后量化实现大型语言模型的二值化权重与激活" href="#通过训练后量化实现大型语言模型的二值化权重与激活"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.05352v1 公告类型：新成果<br>
+摘要：将大语言模型（LLM）量化为1比特精度可显著降低计算成本，但现有量化技术在权重和激活精度低于4比特（W4A4）时会出现明显性能下降。本文提出一种采用W(1+1)A(1<em>4)配置的训练后量化框架：权重被量化为1比特并额外增加1比特用于细粒度分组，激活值被量化为1比特同时通道数扩展4倍。针对权重量化，我们提出基于Hessian矩阵感知的细粒度分组方法结合EM量化方案；对于激活量化，我们将INT4量化的激活等效分解为4</em>INT1格式，并基于量化误差同步平滑缩放因子，从而进一步降低激活量化误差。在W2A4配置下，本方法在多项任务中超越现有最先进的LLM量化基线，将全二值化LLM量化的边界向前推进。</p>
+<p>（注：根据学术文献翻译规范，关键术语处理如下：</p>
 <ol>
-<li>专业术语保留英文缩写（如LLMs/LoRA）并补充中文全称</li>
-<li>技术概念如"structured sparsity"译为行业通用表述"结构化稀疏技术"</li>
-<li>长难句拆分重组（如将原文"which allocates..."定语从句转为独立分句）</li>
-<li>被动语态转化（如"parameters are distributed"译为主动式"参数均匀分布"）</li>
-<li>数字规范统一（0.1%保持原格式）</li>
-<li>企业名称"NVIDIA"按约定俗成译为"英伟达"）</li>
+<li>"fine-grain grouping"译为"细粒度分组"（计算机领域标准译法）</li>
+<li>"Hessian-aware"译为"基于Hessian矩阵感知的"（数学概念保留专业表述）</li>
+<li>"EM-based quantization scheme"译为"EM量化方案"（算法名称缩写保留）</li>
+<li>"state-of-the-art"译为"最先进的"（学术通用译法）</li>
+<li>"fully binarized models"译为"全二值化模型"（模型量化领域标准术语））</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">迈向对称低秩适配器</h2><a id="user-content-迈向对称低秩适配器" class="anchor" aria-label="Permalink: 迈向对称低秩适配器" href="#迈向对称低秩适配器"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.03719v1 公告类型：新成果<br>
-摘要：<br>
-\newcommand{\mathds}[1]{\text{\usefont{U}{dsrom}{m}{n}#1}}<br>
-本文提出对称低秩适配器（Symmetric Low-Rank Adapters），这是一种参数更少的LoRA优化变体。该方法利用低秩对称权重矩阵，以更高效率学习下游任务。传统LoRA通过类奇异值分解（SVD）的方式将微调权重与原始预训练权重叠加，即模型权重通过$BA$形式的更新进行微调（其中$B \in \mathbb{R}^{n\times r}$，$A \in \mathbb{R}^{r\times n}$，$r$为合并权重矩阵的秩）。而我们的方法SymLoRA将微调权重表示为谱分解形式$Q , diag(\Lambda), Q^T$，其中$Q \in \mathbb{R}^{n\times r}$，$\Lambda \in \mathbb{R}^r$。SymLoRA所需的微调参数量约为传统方法的一半。实验表明，该方法在下游任务效能上的损失可忽略不计。</p>
-<p>（注：1. 保留数学符号格式以符合学术规范；2. "downstream efficacy"译为"下游任务效能"体现任务导向性；3. "negligible losses"译为"可忽略不计的损失"准确传达技术优势；4. 专业术语如"SVD"采用中文标准译名加括号标注原缩写）</p>
-<div class="markdown-heading"><h2 class="heading-element">LagKV：KV缓存中的滞后相对信息揭示关键令牌的重要性</h2><a id="user-content-lagkvkv缓存中的滞后相对信息揭示关键令牌的重要性" class="anchor" aria-label="Permalink: LagKV：KV缓存中的滞后相对信息揭示关键令牌的重要性" href="#lagkvkv缓存中的滞后相对信息揭示关键令牌的重要性"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.04704v1 公告类型：新研究<br>
-摘要：大语言模型长上下文推理过程中键值对（KV）缓存规模的持续增长，是平衡部署成本与任务精度的主要障碍。为减少此类场景下的KV缓存占用，现有研究多利用注意力权重淘汰非关键缓存令牌，但这类方法存在固有权衡：往往需要对推理基础设施进行重大改造，并带来显著计算开销。基于大语言模型本质上是自回归模型这一特性，我们提出{\it LagKV}——一种仅通过KV条目间直接比较实现的内存分配策略。这种完全无需注意力机制的方法可轻松集成至主流推理平台，其性能却能与复杂KV压缩方案媲美。在LongBench和PasskeyRetrieval基准测试中，当压缩比为$2\times$时本方法几乎无精度损失，$8\times$压缩时仍保持原模型约90%性能。尤其在64位密码检索任务中，相同压缩比下本方法较基于注意力权重的$H_2O$方案性能提升超60%。代码已开源于\url{<a href="https://github.com/AI-Lab-China-Merchants-Bank/LagKV%7D%E3%80%82">https://github.com/AI-Lab-China-Merchants-Bank/LagKV}。</a></p>
-<p>（注：根据学术论文摘要的文体特点，翻译时进行了以下处理：</p>
+<div class="markdown-heading"><h2 class="heading-element">HybriMoE：面向高效混合专家模型推理的CPU-GPU混合调度与缓存管理</h2><a id="user-content-hybrimoe面向高效混合专家模型推理的cpu-gpu混合调度与缓存管理" class="anchor" aria-label="Permalink: HybriMoE：面向高效混合专家模型推理的CPU-GPU混合调度与缓存管理" href="#hybrimoe面向高效混合专家模型推理的cpu-gpu混合调度与缓存管理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.05897v1 公告类型：新研究<br>
+摘要：混合专家（Mixture of Experts, MoE）架构通过在不显著增加计算量的前提下提升模型容量，已展现出显著优势。然而，大型MoE模型仍对内存资源提出极高需求，在资源受限平台上通常需要采用专家卸载技术，由此产生巨大开销。现有研究提出利用CPU计算的混合CPU-GPU推理方案以降低专家加载开销，但面临两大核心挑战：一方面，MoE模型的专家激活模式高度不稳定，导致现有固定映射策略效率低下；另一方面，由于专家规模多样、结构异构、工作负载不均衡等因素，MoE的混合调度本质上极为复杂。为此，本文提出HybriMoE框架——通过创新的CPU-GPU调度与缓存管理系统提升资源利用率。该框架包含三大核心技术：（i）动态层内调度策略实现CPU与GPU间负载均衡；（ii）基于影响因子的层间预取算法；（iii）应对专家激活不稳定的评分缓存机制。我们在kTransformers框架上实现了HybriMoE，并在三种主流MoE大语言模型上开展评估。实验表明，相比最先进的混合推理框架，HybriMoE在预填充阶段平均加速1.33倍，在解码阶段平均加速1.70倍。代码已开源：<a href="https://github.com/PKU-SEC-Lab/HybriMoE%E3%80%82">https://github.com/PKU-SEC-Lab/HybriMoE。</a></p>
+<p>（注：根据学术文献翻译规范，对技术术语保持一致性处理，如"prefill stage"译为"预填充阶段"、"decode stage"译为"解码阶段"；公式符号保留原始格式；长句按中文表达习惯切分；机构名称PKU-SEC-Lab采用官方译名"北京大学信息安全实验室"的缩写形式。）</p>
+<div class="markdown-heading"><h2 class="heading-element">晶格：学习高效压缩记忆的艺术</h2><a id="user-content-晶格学习高效压缩记忆的艺术" class="anchor" aria-label="Permalink: 晶格：学习高效压缩记忆的艺术" href="#晶格学习高效压缩记忆的艺术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.05646v1 公告类型：新成果<br>
+摘要：注意力机制虽已彻底改变序列学习领域，但其二次方的计算复杂度始终存在局限。本文提出Lattice——一种新型循环神经网络（RNN）机制，通过利用键值矩阵固有的低秩特性，将缓存高效压缩至固定数量的记忆槽中，实现次二次方复杂度。我们将此压缩过程建模为在线优化问题，并基于单步梯度下降推导出动态记忆更新规则。由此产生的递归机制具有状态与输入依赖的门控系统，提供了可解释的记忆更新过程。其核心创新在于正交更新机制：每个记忆槽仅用与当前状态正交的信息进行更新，从而只吸收新颖非冗余数据，最大限度减少对已存储信息的干扰。实验结果表明，在不同上下文长度下，Lattice相比所有基线模型均能取得最佳困惑度，且随着上下文长度增加，其性能优势愈发显著。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了如下处理：</p>
 <ol>
-<li>专业术语如"KV cache"保留英文缩写并添加中文注释</li>
-<li>技术概念"autoregressive models"译为行业通用译法"自回归模型"</li>
-<li>数学符号如"$2\times$"保留原格式</li>
-<li>机构名称"China Merchants Bank"按惯例译为"招商银行"</li>
-<li>长难句拆分重组，如将原文"But there is a trade-off..."处理为因果句式</li>
-<li>保持被动语态与主动语态的合理转换，如"are leveraged"译为"多利用"）</li>
+<li>"sub-quadratic complexity"译为"次二次方复杂度"以保持数学表述准确性</li>
+<li>"perplexity"保留为"困惑度"作为NLP领域标准译法</li>
+<li>"gating mechanism"译为"门控系统"符合神经网络领域惯例</li>
+<li>采用四字格"新颖非冗余"增强专业文本的紧凑性）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">RaanA：一种快速、灵活且数据高效的后训练量化算法</h2><a id="user-content-raana一种快速灵活且数据高效的后训练量化算法" class="anchor" aria-label="Permalink: RaanA：一种快速、灵活且数据高效的后训练量化算法" href="#raana一种快速灵活且数据高效的后训练量化算法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：根据技术术语的常见译法，"Post-Training Quantization" 译为"后训练量化"是业界标准译法，指模型训练完成后进行的量化过程；"Data-efficient" 译为"数据高效"强调算法对数据量的低依赖特性；整体名称采用技术论文标题常用的简洁直译风格，保留算法原名"RaanA"不作翻译以保持可追溯性。）</p>
-<p>arXiv:2504.03717v1 公告类型：新论文<br>
-摘要：训练后量化（PTQ）已成为提升大语言模型（LLM）推理效率的常用技术。然而现有PTQ方法普遍存在校准数据需求量大、目标比特数选择不灵活等关键局限。本文提出统一框架RaanA，通过两项创新组件突破这些限制：1）RaBitQ-H——随机向量量化方法RaBitQ的变体，专为实现快速、精准且高效的量化而设计；2）AllocateBits算法——基于各层量化敏感度动态分配最优比特位宽。RaanA在保持与最先进量化方法相当性能的同时，具有极快的处理速度、极低的校准数据需求，并支持灵活比特分配。大量实验验证了RaanA在效率与精度间的卓越平衡能力。代码已开源于<a href="https://github.com/FFTYYY/RaanA%E3%80%82">https://github.com/FFTYYY/RaanA。</a></p>
-<p>（注：根据学术文献翻译规范，对技术术语进行了如下处理：</p>
+<div class="markdown-heading"><h2 class="heading-element">在混合专家系统中发掘卓越专家：关于专家剔除策略与观察结果的统一研究</h2><a id="user-content-在混合专家系统中发掘卓越专家关于专家剔除策略与观察结果的统一研究" class="anchor" aria-label="Permalink: 在混合专家系统中发掘卓越专家：关于专家剔除策略与观察结果的统一研究" href="#在混合专家系统中发掘卓越专家关于专家剔除策略与观察结果的统一研究"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.05586v1 公告类型：新研究<br>
+摘要：稀疏激活的专家混合模型（SMoE）在扩展神经网络学习容量方面展现出潜力。然而，原始SMoE存在专家冗余和内存占用过大等问题，导致其在资源受限场景下效率低下且难以扩展。针对这些缺陷，对SMoE进行专家级稀疏化需剪枝最不重要的专家。本研究致力于解决三个核心问题：（1）如何以最小性能损失确定可移除的最弱专家子集？（2）应如何进行专家剪除（一次性或迭代式）？采取哪些修正措施能最大限度减轻其对SMoE子网络能力的冲击？（3）移除最弱专家会显著损害完整SMoE的哪些能力？如何恢复这些能力？</p>
+<p>首先，我们提出MoE专家压缩套件（MC-Suite），整合了既有方案与多项创新方法，为多维度评估专家重要性提供全面基准，同时揭示关于SMoE专家的关键发现。其次，不同于前人采用的一次性剪枝策略，我们探索了结合MC-Suite准则重估的迭代剪枝优势，并引入任务无关微调作为迭代剪枝过程中的修正机制，称之为"MoE彩票子网络"。最后，我们通过实验验证了一个重要发现：专家剪枝过程中SMoE的指令跟随能力受损最为严重，但通过k-shot示例增强和监督微调的外部强化，可将其恢复至稳健水平。</p>
+<div class="markdown-heading"><h2 class="heading-element">寻找制胜标志：标志就是我们赢得彩票所需的一切</h2><a id="user-content-寻找制胜标志标志就是我们赢得彩票所需的一切" class="anchor" aria-label="Permalink: 寻找制胜标志：标志就是我们赢得彩票所需的一切" href="#寻找制胜标志标志就是我们赢得彩票所需的一切"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.05357v1 公告类型：新研究<br>
+摘要：彩票假设（LTH）认为存在一种稀疏子网络（即中奖彩票），当其从头开始训练时，能够达到与过参数化原网络相当的泛化能力。目前寻找中奖彩票的主流方法是：通过迭代剪枝（IP）保留原始强泛化特性，并通过将所得稀疏掩码应用于未训练网络来迁移有助于实现已学习泛化的信息。然而现有IP方法仍难以将其发现推广到特定初始化条件和小规模架构/数据集之外，或通过将掩码应用于已训练权重（而非初始化权重）来回避这些挑战。本文通过实验证明，参数符号配置对向任何随机初始化网络传递泛化关键信息具有决定性作用。通过线性模式连通性分析，我们发现：若保留参数符号和归一化层参数，现有IP方法训练的稀疏网络可维持其吸引盆。为更接近找到中奖彩票，我们通过降低稀疏网络与归一化层初始化版本间线性路径上的误差壁垒，减少了对归一化层参数的依赖。值得注意的是，在不同架构和数据集上，我们观察到：任何随机初始化网络通过继承本文方法所得稀疏网络的稀疏性与参数符号信息，都能被优化至与该稀疏网络保持线性路径上的低误差壁垒，最终可能实现与原网络相当的性能。代码已开源：<a href="https://github.com/JungHunOh/AWS_ICLR2025.git">https://github.com/JungHunOh/AWS_ICLR2025.git</a></p>
+<p>（注：根据学术文献翻译规范，对以下术语进行了统一处理：</p>
 <ol>
-<li>"Post-training Quantization"采用业界通用译法"训练后量化"</li>
-<li>"RaBitQ-H"作为专有算法名保留不译</li>
-<li>"calibration data"译为"校准数据"符合《计算机科学技术名词》标准</li>
-<li>"bit-widths"译为"比特位宽"体现硬件设计领域术语习惯</li>
-<li>长复合句拆分为符合中文表达习惯的短句结构）</li>
+<li>"winning ticket"译为"中奖彩票"（计算机领域通用译法）</li>
+<li>"basin of attraction"译为"吸引盆"（动力系统标准术语）</li>
+<li>保留"IP/迭代剪枝"等缩写首现全称的学术惯例</li>
+<li>长难句按中文表达习惯拆分为短句，如将英文定语从句转换为中文分句结构）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

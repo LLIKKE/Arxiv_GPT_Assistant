@@ -12,63 +12,38 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">优化大型语言模型：指标、能效与案例研究洞见</h2><a id="user-content-优化大型语言模型指标能效与案例研究洞见" class="anchor" aria-label="Permalink: 优化大型语言模型：指标、能效与案例研究洞见" href="#优化大型语言模型指标能效与案例研究洞见"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.06307v1 公告类型：新成果<br>
-摘要：大型语言模型（LLM）的快速普及导致了巨大的能源消耗与碳排放，对生成式人工智能技术的可持续性提出了严峻挑战。本文探讨了在LLM部署中整合能效优化技术以应对这些环境问题。我们通过案例研究和框架展示，战略性的量化处理与本地推理技术如何在不影响模型运行效能的前提下，显著降低LLM的碳足迹。实验结果表明，经过量化处理后，这些方法可减少高达45%的能源消耗与碳排放，尤其适合资源受限的环境。研究结果为在保持高精度与响应能力的同时实现AI可持续发展提供了可行见解。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
-<ol>
-<li>"quantization"译为"量化处理"（计算机领域标准译法）</li>
-<li>"carbon footprints"译为"碳足迹"（环境科学领域通用译法）</li>
-<li>保留"LLM"缩写并在首次出现时标注全称，符合中文技术文献惯例</li>
-<li>将原文被动语态转换为中文主动表述（如"can be reduced"→"可减少"）</li>
-<li>调整英文长句为中文短句结构，如拆分"demonstrate how..."复合句）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">马赛克：面向资源高效大型语言模型的复合投影剪枝技术</h2><a id="user-content-马赛克面向资源高效大型语言模型的复合投影剪枝技术" class="anchor" aria-label="Permalink: 马赛克：面向资源高效大型语言模型的复合投影剪枝技术" href="#马赛克面向资源高效大型语言模型的复合投影剪枝技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">任务-电路量化：利用知识定位与可解释性实现压缩</h2><a id="user-content-任务-电路量化利用知识定位与可解释性实现压缩" class="anchor" aria-label="Permalink: 任务-电路量化：利用知识定位与可解释性实现压缩" href="#任务-电路量化利用知识定位与可解释性实现压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.07389v1 公告类型：新研究<br>
+摘要：训练后量化（PTQ）通过将全精度权重映射为低位宽权重来减少模型内存占用，且无需昂贵的重新训练，但在2至3比特的低位宽设置下可能显著降低模型下游性能。我们提出了一种新型混合精度PTQ方法——任务电路量化（TaCQ），其灵感源自自动电路发现技术，直接将量化过程与特定权重电路（定义为与下游任务性能相关的权重集合）关联。这些关键权重保持16位精度，其余权重则被量化，在仅增加边际内存成本的同时维持性能。具体而言，TaCQ通过对比未量化模型与均匀量化模型的权重变化，结合梯度信息预测量化对任务性能的影响，从而精准保留任务关键权重。我们将TaCQ与现有混合精度量化方法在通用数据和任务特定数据条件下进行对比。在Llama-3和Qwen2.5模型的问答、数学推理及文本转SQL任务中，TaCQ在相同校准数据和更低权重预算下均优于基线方法，尤其在2至3比特区间实现显著提升：仅用3.1比特即可恢复Llama-3-8B-Instruct模型16位精度下96%的MMLU性能，较SPQR提升5.25%绝对值；在2比特区间平均领先最强基线SliM-LLM达14.74%。值得注意的是，即使在非任务特定条件下，TaCQ仍实现7.20%的性能提升，证明其权重重要性识别能力具有普适性。</p>
+<div class="markdown-heading"><h2 class="heading-element">Pychop：在数值方法与神经网络中模拟低精度算术运算</h2><a id="user-content-pychop在数值方法与神经网络中模拟低精度算术运算" class="anchor" aria-label="Permalink: Pychop：在数值方法与神经网络中模拟低精度算术运算" href="#pychop在数值方法与神经网络中模拟低精度算术运算"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.07835v1 公告类型：新研究<br>
+摘要：受计算科学领域对低精度算术日益增长的需求启发，我们在Python中实现了低精度仿真技术——Python被公认为数值分析与机器学习领域的主导编程语言。低精度训练通过实现更高效的计算、降低内存与能耗消耗，同时保持模型保真度，已然彻底改变了深度学习领域。为更好地支持低精度计算的数值实验与探索，我们开发了Pychop库，该库支持可定制的浮点数格式及完整的舍入模式集合，使用户能在众多应用中享受快速低精度仿真带来的优势。Pychop还创新性地提供了PyTorch和JAX的接口，可在GPU上实现高效的神经网络低精度训练与推理，其灵活性无与伦比。</p>
+<p>本文全面阐述了Pychop的设计原理、实现方法、验证流程与实际应用，将其确立为推进高效混合精度算法的基础工具。此外，我们基于公开数据集展示了图像分类与目标检测任务的低精度仿真实证结果，揭示了低精度使用的敏感阈值，并提供了关于其影响的宝贵洞见。Pychop支持深入探究数值精度的影响效应，助力新型硬件加速器的开发，并能无缝集成到现有深度学习工作流中。软件与实验代码已开源：<a href="https://github.com/inEXASCALE/pychop%E3%80%82">https://github.com/inEXASCALE/pychop。</a></p>
+<p>（注：根据学术论文翻译规范，保留专业术语如"arXiv"、"PyTorch"、"JAX"等原名；"low-precision emulation"译为"低精度仿真"以体现计算机领域术语特征；长句按中文习惯拆分为短句；被动语态转换为主动表述；URL保留原格式确保可操作性）</p>
+<div class="markdown-heading"><h2 class="heading-element">Apt-Serve：面向可扩展大模型推理服务的混合缓存自适应请求调度系统</h2><a id="user-content-apt-serve面向可扩展大模型推理服务的混合缓存自适应请求调度系统" class="anchor" aria-label="Permalink: Apt-Serve：面向可扩展大模型推理服务的混合缓存自适应请求调度系统" href="#apt-serve面向可扩展大模型推理服务的混合缓存自适应请求调度系统"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>（注：翻译说明：</p>
 <ol>
-<li>"Mosaic" 采用意译"马赛克"，既保留原词艺术拼贴的意象，又暗合技术中"多组件组合"的特性</li>
-<li>"Composite Projection Pruning" 译为"复合投影剪枝技术"，其中：
+<li>"Apt-Serve"作为专有技术名词保留不译，体现技术品牌性</li>
+<li>"Adaptive"译为"自适应"准确传达系统智能调节特性</li>
+<li>"Hybrid Cache"译为"混合缓存"符合计算机领域术语规范</li>
+<li>"Scalable LLM Inference Serving"采用"可扩展大模型推理服务"的译法：
 <ul>
-<li>"Composite"译为"复合"强调多维度特性</li>
-<li>"Projection"保留"投影"的数学原义</li>
-<li>"Pruning"采用计算机领域通用译法"剪枝"</li>
+<li>"Scalable"译为"可扩展"是技术领域标准译法</li>
+<li>"LLM"译为"大语言模型"并简化为"大模型"符合中文技术文档惯例</li>
+<li>"Inference Serving"译为"推理服务"准确表达模型部署场景</li>
 </ul>
 </li>
-<li>副标题采用"面向...的"专业句式，突出技术应用场景</li>
-<li>"Resource-efficient LLMs" 译为"资源高效大型语言模型"，其中：
-<ul>
-<li>保持"LLMs"行业标准译法</li>
-<li>"Resource-efficient"译为"资源高效"符合中文技术文献表述习惯）</li>
-</ul>
-</li>
+<li>整体采用"系统"作为补充说明词，使中文表述更完整</li>
+<li>通过"面向...的"句式构建技术方案与应用场景的逻辑关系，比直译更符合中文技术文档表达习惯）</li>
 </ol>
-<p>arXiv:2504.06323v1 公告类型：新论文<br>
-摘要：庞大的计算与内存需求限制了大型语言模型（LLMs）在任何硬件上的部署。剪枝等压缩方法能减小模型规模，从而降低资源需求。当前最先进的剪枝技术基于粗粒度方法，这类方法耗时且会不可避免地移除关键模型参数，对剪枝后模型的质量产生负面影响。本文提出投影剪枝法——一种新型的细粒度LLM剪枝方法。此外，我们通过"复合投影剪枝"进一步强化该技术，即协同结合保留精度的非结构化剪枝与减小模型规模的结构化剪枝。我们开发了Mosaic系统，利用复合投影剪枝创建并部署剪枝后的LLM。通过在多种硬件平台、LLM模型和数据集上进行性能与质量指标评估，Mosaic生成模型的速度比现有方法快7.19倍，其模型困惑度比粗粒度剪枝模型降低84.2%，准确率提高31.4%，推理速度提升最高达67%，GPU内存占用减少68%。</p>
-<p>（注：根据学术论文摘要的文体特点，翻译时进行了以下处理：</p>
+<p>arXiv:2504.07494v1 公告类型：新研究<br>
+摘要：大语言模型（LLM）推理服务系统是各类LLM应用的核心支撑。随着LLM服务需求持续增长，如何在满足延迟服务级别目标（SLO）的前提下扩展系统以处理高请求率（即提升有效吞吐量）成为关键挑战。现有系统往往难以提升有效吞吐量，主要归因于首令牌生成时间（TTFT）的SLO达标率显著下降。我们揭示了造成这一瓶颈的两大根源：（1）受GPU内存限制的内存密集型KV缓存阻碍了批处理规模扩展；（2）默认先到先服务调度策略导致的僵化批处理组合。本文提出Apt-Serve——一个专为提升LLM推理服务有效吞吐量设计的可扩展框架。该框架创新性地采用混合缓存方案，将KV缓存与内存高效的可复用输入隐藏状态向量缓存相结合，从而支持更大批处理规模并提升请求并发能力。基于此混合缓存，Apt-Serve搭载自适应运行时调度机制，动态优化批处理组合。我们形式化定义了自适应调度优化问题，并提出具有理论保证的高效算法。在三个真实数据集和13B至66B参数规模的LLM上的广泛实验表明，相较于最先进的推理服务系统，Apt-Serve可实现最高8.8倍的有效吞吐量提升。</p>
+<p>（注：根据学术文献翻译规范，对以下术语进行了专业处理：</p>
 <ol>
-<li>专业术语如"perplexity"保留原意译为"困惑度"</li>
-<li>"coarse-grained/fine-grained"采用"粗粒度/细粒度"的标准译法</li>
-<li>被动语态转换为中文主动表述（如"is enhanced by"译为"通过...强化"）</li>
-<li>长复合句拆分为符合中文表达习惯的短句</li>
-<li>关键量化数据（如84.2%）保持精确呈现</li>
-<li>技术概念如"composite projection pruning"首次出现时添加引号强调）</li>
+<li>"Service-Level Objectives (SLOs)" 译为"服务级别目标"</li>
+<li>"Time To First Token (TTFT)" 译为"首令牌生成时间"</li>
+<li>"KV cache" 保留技术缩写"KV缓存"</li>
+<li>"hidden cache" 意译为"隐藏状态向量缓存"以保持技术准确性</li>
+<li>"theoretical guarantees" 译为"理论保证"符合计算机领域表述习惯）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">通过异步KV缓存预取加速LLM推理吞吐量</h2><a id="user-content-通过异步kv缓存预取加速llm推理吞吐量" class="anchor" aria-label="Permalink: 通过异步KV缓存预取加速LLM推理吞吐量" href="#通过异步kv缓存预取加速llm推理吞吐量"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.06319v1 公告类型：新论文<br>
-摘要：大型语言模型（LLM）在推理过程中因高带宽内存（HBM）的带宽限制而表现出显著的内存边界特性。本文提出一种面向L2缓存的异步键值缓存（KV Cache）预取方法，通过计算负载重叠突破LLM推理中的内存带宽瓶颈。该方法通过在活跃计算窗口期间智能调度空闲内存带宽，主动将所需KV Cache预取至GPU L2缓存中，使后续访问实现高速L2缓存命中，并将HBM访问延迟有效隐藏于计算周期内。在NVIDIA H20 GPU上的大量实验表明，所提方法使注意力核效率提升2.15倍，端到端吞吐量最高提升1.97倍，超越当前最优基线FlashAttention-3。值得注意的是，该解决方案与现有优化技术保持正交性，可集成至现有推理框架中，为下一代LLM推理引擎提供可扩展的延迟隐藏方案。</p>
-<p>（注：根据学术论文翻译规范，对部分术语进行了标准化处理：</p>
-<ol>
-<li>"memory-bound"译为"内存边界特性"以准确反映性能瓶颈</li>
-<li>"computation-load overlap"译为"计算负载重叠"符合计算机体系结构术语</li>
-<li>"orthogonality"译为"正交性"保留原文学术表达</li>
-<li>保持"KV Cache"等专业缩写不变以确保技术准确性</li>
-<li>采用"可扩展的延迟隐藏方案"的表述平衡了技术性与可读性）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">SPIRe：通过推测解码提升大语言模型推理吞吐量</h2><a id="user-content-spire通过推测解码提升大语言模型推理吞吐量" class="anchor" aria-label="Permalink: SPIRe：通过推测解码提升大语言模型推理吞吐量" href="#spire通过推测解码提升大语言模型推理吞吐量"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.06419v1 公告类型：新论文<br>
-摘要：推测解码（SD）已被证明能在小批量处理时将自回归解码（AD）的延迟降低2-3倍。然而，要提高吞吐量从而降低单令牌生成成本，必须采用大批量解码。最近研究表明，若上下文足够长且草稿模型的键值缓存（KV cache）具有稀疏性，SD同样能加速大批量解码。我们提出SPIRe模型，该草稿模型融合了静态稀疏注意力、剪枝初始化和反馈记忆机制，与使用更小草稿模型的推测方案相比，其建模吞吐量提升超过100%；与稀疏自推测这一强劲基线相比，提升幅度超过35%。当不同请求的上下文长度差异显著时，我们的方法尤其有效。</p>
-<p>（说明：根据技术论文翻译规范，对术语进行了统一处理："KV cache"译为"键值缓存"；"speculative decoding"采用通用译法"推测解码"；通过拆分长句、调整语序使中文更符合表达习惯；"throughput"译为"吞吐量"以保持计算机领域术语一致性；"feedback memory"译为"反馈记忆机制"以体现技术概念特征。）</p>
-<div class="markdown-heading"><h2 class="heading-element">针对遗忘型Transformer的自适应计算剪枝</h2><a id="user-content-针对遗忘型transformer的自适应计算剪枝" class="anchor" aria-label="Permalink: 针对遗忘型Transformer的自适应计算剪枝" href="#针对遗忘型transformer的自适应计算剪枝"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.06949v1 公告类型：新研究<br>
-摘要：近期提出的遗忘变换器（FoX）在softmax注意力机制中引入了遗忘门，与基于RoPE的标准变换器相比，其性能始终相当或更优。值得注意的是，FoX中的许多注意力头往往会快速遗忘，导致每个时间步的输出主要依赖局部上下文。基于这一观察，我们为FoX提出了自适应计算剪枝（ACP）方法，该方法动态剪除那些被遗忘门强烈衰减的输入-输出依赖相关计算。这是通过动态设置的剪枝阈值实现的，确保被剪枝的注意力权重始终保持可忽略状态。我们将ACP应用于FoX的语言模型预训练，结果显示，在不同模型规模和上下文长度下，softmax注意力的FLOPs数量持续减少约70%，训练吞吐量提升约10%至35%。此外，更长的上下文长度会带来更大的计算节省。所有这些速度提升均未导致性能下降。我们还进行了多项分析以深入理解该方法，例如研究剪枝模式，并分析不同注意力头间FLOPs节省的分布情况。代码已开源：<a href="https://github.com/zhixuan-lin/arctic-fox%E3%80%82">https://github.com/zhixuan-lin/arctic-fox。</a></p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

@@ -12,40 +12,36 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">Pychop：在数值方法与神经网络中模拟低精度算术</h2><a id="user-content-pychop在数值方法与神经网络中模拟低精度算术" class="anchor" aria-label="Permalink: Pychop：在数值方法与神经网络中模拟低精度算术" href="#pychop在数值方法与神经网络中模拟低精度算术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>受计算科学领域对低精度算术日益增长的需求驱动，我们开发了Python低精度仿真工具——Python作为数值分析和机器学习领域的主流编程语言，其重要性不言而喻。低精度训练通过实现更高效的计算、降低内存与能耗消耗，同时保持模型精度，已然为深度学习带来革命性变革。为更好地支持低精度计算的数值实验与探索，我们研发了Pychop库，该库支持可定制浮点格式和全套舍入模式，使用户能在众多应用中享受快速低精度仿真带来的优势。Pychop还创新性地为PyTorch和JAX提供接口，以无与伦比的灵活性实现GPU高效低精度仿真，适用于神经网络训练与推理场景。</p>
-<p>本文系统阐述Pychop的设计原理、实现方法、验证流程及实际应用，奠定其作为推进高效混合精度算法研究的基础工具地位。我们进一步通过公开数据集展示了图像分类与目标检测任务的低精度仿真实证结果，既揭示了低精度使用的敏感性，也为其影响机制提供了宝贵洞见。Pychop不仅支持数值精度影响的深入研究，助力新型硬件加速器开发，更能无缝集成至现有深度学习工作流。相关软件与实验代码已开源：<a href="https://github.com/inEXASCALE/pychop%E3%80%82">https://github.com/inEXASCALE/pychop。</a></p>
-<p>（注：根据技术文献翻译规范，对以下术语进行了标准化处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">Apt-Serve：面向可扩展大模型推理服务的混合缓存自适应请求调度系统</h2><a id="user-content-apt-serve面向可扩展大模型推理服务的混合缓存自适应请求调度系统" class="anchor" aria-label="Permalink: Apt-Serve：面向可扩展大模型推理服务的混合缓存自适应请求调度系统" href="#apt-serve面向可扩展大模型推理服务的混合缓存自适应请求调度系统"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明如下）</p>
 <ol>
-<li>"lower-precision emulation"译为"低精度仿真"</li>
-<li>"rounding modes"译为"舍入模式"</li>
-<li>"mixed-precision algorithms"译为"混合精度算法"</li>
-<li>"hardware accelerators"译为"硬件加速器"</li>
-<li>保留PyTorch/JAX/GPU等专业术语原名</li>
-<li>长句按中文习惯拆分为短句群，如将原文最后复合句分解为三个递进短句）</li>
+<li>保留"Apt-Serve"作为技术品牌名不译，符合技术领域术语惯例</li>
+<li>"Adaptive"译为"自适应"准确体现系统动态调整特性</li>
+<li>"Hybrid Cache"采用"混合缓存"这一行业通用译法</li>
+<li>"Scalable LLM Inference Serving"译为"可扩展大模型推理服务"，其中：
+<ul>
+<li>"Scalable"译为"可扩展"符合计算机领域术语</li>
+<li>"LLM"采用"大模型"这一中文业界通用简称</li>
+<li>增补"系统"二字使中文名称更完整自然</li>
+</ul>
+</li>
+<li>整体采用技术文档常用的"功能描述+系统属性"命名结构，保持专业性与可读性平衡</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">Apt-Serve：基于混合缓存的适应性请求调度技术，助力可扩展大语言模型推理服务</h2><a id="user-content-apt-serve基于混合缓存的适应性请求调度技术助力可扩展大语言模型推理服务" class="anchor" aria-label="Permalink: Apt-Serve：基于混合缓存的适应性请求调度技术，助力可扩展大语言模型推理服务" href="#apt-serve基于混合缓存的适应性请求调度技术助力可扩展大语言模型推理服务"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>大语言模型（LLM）推理服务系统是各类LLM应用的核心支撑。随着LLM服务需求持续增长，如何扩展系统以在高请求速率下满足延迟服务等级目标（SLO）——即提升有效吞吐量——成为关键挑战。现有系统往往难以提高有效吞吐量，其根本原因在于首令牌生成时间（TTFT）的SLO达标率显著下降。我们定位到造成这一瓶颈的两大主因：（1）受GPU显存限制的内存密集型KV缓存阻碍了批处理规模扩展；（2）默认先到先服务调度策略导致的僵化批次组合。本文提出Apt-Serve——一个专为提升LLM推理服务有效吞吐量设计的可扩展框架。该框架创新性地采用混合缓存方案，将KV缓存与内存高效的可复用输入隐藏状态向量缓存相结合，从而支持更大批处理规模并提升请求并发度。基于混合缓存机制，Apt-Serve搭载自适应运行时调度系统，可动态优化批次组合。我们正式定义了自适应调度优化问题，并提出具有理论保证的高效算法。在包含13B至66B参数模型的三个真实数据集上的大规模实验表明，相较于最先进的推理服务系统，Apt-Serve可实现最高8.8倍的有效吞吐量提升。</p>
-<div class="markdown-heading"><h2 class="heading-element">自适应计算剪枝技术应用于遗忘型Transformer</h2><a id="user-content-自适应计算剪枝技术应用于遗忘型transformer" class="anchor" aria-label="Permalink: 自适应计算剪枝技术应用于遗忘型Transformer" href="#自适应计算剪枝技术应用于遗忘型transformer"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>近期提出的遗忘变换器（FoX）在软注意力机制中引入了遗忘门，相比基于RoPE的标准变换器展现出持续更优或相当的性能。值得注意的是，FoX中许多注意力头往往快速遗忘，使得每个时间步的输出主要依赖局部上下文。基于这一观察，我们为FoX提出了自适应计算剪枝（ACP）方法，该方法能动态剪除那些被遗忘门强烈衰减的输入-输出依赖关系所涉及的计算。这是通过动态设置的剪枝阈值实现的，该阈值确保被剪枝的注意力权重始终保持可忽略状态。我们将ACP应用于FoX的语言模型预训练，结果表明：在不同模型规模和上下文长度下，软注意力计算量持续减少约70%，训练吞吐量提升约10%至35%。此外，更长的上下文长度会带来更大的计算节省。所有这些加速效果均未导致性能下降。我们还进行了多项分析以深入理解该方法，例如研究剪枝模式、分析不同注意力头间的计算量节省分布等。代码已开源：<a href="https://github.com/zhixuan-lin/arctic-fox%E3%80%82">https://github.com/zhixuan-lin/arctic-fox。</a></p>
-<p>（注：根据技术文本翻译规范，对部分术语进行了如下处理：</p>
+<p>大语言模型（LLM）推理服务系统是各类LLM应用的核心支撑。随着服务需求持续激增，如何在满足延迟服务等级目标（SLO）的前提下扩展系统以承载高并发请求——这一指标被称为有效吞吐量——已成为关键挑战。现有系统往往难以提升有效吞吐量，其根本症结在于首令牌生成时间（TTFT）的SLO达标率显著下降。我们揭示了两大核心瓶颈：(1) 受限于GPU显存容量的内存密集型KV缓存阻碍了批处理规模扩展；(2) 默认先到先服务调度策略导致的僵化批次组合机制。</p>
+<p>本文提出Apt-Serve这一可扩展框架，通过创新设计显著提升LLM推理服务的有效吞吐量。该框架首创混合缓存架构，将传统KV缓存与内存高效型隐藏缓存相结合，后者可复用输入隐藏状态向量，从而实现更大批处理规模与更高请求并发度。基于此混合缓存，Apt-Serve采用自适应运行时调度机制动态优化批次组合，我们对该调度优化问题进行了形式化定义，并提出具有理论保证的高效算法。在包含13B至66B参数规模LLM的三大真实数据集测试中，Apt-Serve相较最先进推理服务系统实现了最高8.8倍的有效吞吐量提升。</p>
+<div class="markdown-heading"><h2 class="heading-element">Pychop：在数值方法与神经网络中模拟低精度算术运算</h2><a id="user-content-pychop在数值方法与神经网络中模拟低精度算术运算" class="anchor" aria-label="Permalink: Pychop：在数值方法与神经网络中模拟低精度算术运算" href="#pychop在数值方法与神经网络中模拟低精度算术运算"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>受计算科学领域对低精度算术运算需求日益增长的驱动，我们开发了基于Python的低精度仿真工具——Python作为数值分析与机器学习领域的主流编程语言，其重要性已获广泛认可。低精度训练通过实现更高效的计算、降低内存与能耗消耗，同时保持模型精度，为深度学习带来了革命性变革。为更好地支持低精度计算的数值实验与探索，我们研发了Pychop库。该库支持可定制的浮点数格式与全套舍入模式，使用户能在众多应用中享受快速低精度仿真带来的优势。Pychop还创新性地提供了PyTorch和JAX的接口，可在GPU上实现高效的神经网络低精度训练与推理，其灵活性无与伦比。</p>
+<p>本文系统阐述了Pychop的设计原理、实现方法、验证过程及实际应用，确立了其作为推进高效混合精度算法发展的基础工具地位。我们进一步通过公开数据集上的图像分类与目标检测实验，展示了低精度仿真的实证效果，揭示了低精度运算的敏感特性，并提供了关于其影响的重要见解。Pychop不仅支持数值精度影响的深入研究，助力新型硬件加速器开发，还能无缝集成至现有深度学习工作流程。相关软件与实验代码已开源：<a href="https://github.com/inEXASCALE/pychop%E3%80%82">https://github.com/inEXASCALE/pychop。</a></p>
+<p>（注：根据技术文献翻译规范，对以下要素进行了专业处理：</p>
 <ol>
-<li>"forget gate"译为"遗忘门"（神经网络标准术语）</li>
-<li>"FLOPs"保留英文缩写形式（计算机领域通用写法）</li>
-<li>"throughput"译为"吞吐量"（计算机性能标准术语）</li>
-<li>长复合句按中文习惯拆分为短句，如将原文最后包含多个分析项的句子拆分为并列结构）</li>
+<li>"computational science"译为"计算科学"而非"计算机科学"</li>
+<li>"mixed-precision"统一译为"混合精度"</li>
+<li>"rounding modes"译为专业术语"舍入模式"</li>
+<li>长句拆分符合中文表达习惯</li>
+<li>技术术语如PyTorch/JAX保留原名</li>
+<li>被动语态转换为主动表述</li>
+<li>添加"注"字引导的括号说明符合学术翻译惯例）</li>
 </ol>
 <div class="markdown-heading"><h2 class="heading-element">任务-电路量化：利用知识定位与可解释性实现压缩</h2><a id="user-content-任务-电路量化利用知识定位与可解释性实现压缩" class="anchor" aria-label="Permalink: 任务-电路量化：利用知识定位与可解释性实现压缩" href="#任务-电路量化利用知识定位与可解释性实现压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>训练后量化（PTQ）通过将全精度权重映射为低位宽权重来降低模型内存占用，无需昂贵的重新训练，但在2至3比特的低位宽设置中可能损害下游任务性能。我们提出了一种新型混合精度PTQ方法——任务电路量化（TaCQ），该方法借鉴自动电路发现思想，将量化过程直接关联到特定权重电路（即与下游任务性能相关的权重集合）。这些关键权重保持16位精度，其余权重则被量化，在仅增加边际内存成本的同时维持模型性能。具体而言，TaCQ通过对比未量化模型与均匀量化模型的权重变化，结合梯度信息预测量化对任务性能的影响，从而精准保留任务相关权重。我们在通用数据和任务特定数据条件下，将TaCQ与现有混合精度量化方法进行比较。在Llama-3和Qwen2.5模型上进行的问答、数学推理及文本转SQL任务测试表明，在相同校准数据和更低权重预算下，TaCQ在2-3比特量化区间显著优于基线方法——仅用3.1比特即可恢复Llama-3-8B-Instruct模型16位精度下96%的MMLU性能，较SPQR提升5.25%绝对值。在2比特量化中，TaCQ相较最强基线SliM-LLM平均提升14.74%。值得注意的是，即使在非任务特定条件下，TaCQ仍实现7.20%的性能提升，证明其识别关键权重的能力具有普适性。</p>
-<div class="markdown-heading"><h2 class="heading-element">基于少样本演示的领域特定大型专家混合模型剪枝</h2><a id="user-content-基于少样本演示的领域特定大型专家混合模型剪枝" class="anchor" aria-label="Permalink: 基于少样本演示的领域特定大型专家混合模型剪枝" href="#基于少样本演示的领域特定大型专家混合模型剪枝"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>专家混合（MoE）模型通过仅激活部分专家网络，在性能与推理效率之间实现了优越的平衡。然而，存储全部专家带来的内存开销仍是主要瓶颈，这在DeepSeek-R1（6710亿参数）等超大规模MoE模型中尤为突出。本研究系统探究了大规模MoE模型的领域专精特性与专家冗余现象，揭示出一种被我们称为"小样本专家定位"的稳定行为——仅需少量示例，模型就会持续激活一个稀疏且稳定的专家子集。基于这一发现，我们提出名为EASY-EP的高效剪枝框架，该方案利用少量领域特定示例即可精准识别并保留关键专家。EASY-EP包含两大核心组件：输出感知的专家重要性评估与专家级token贡献度测算。前者通过综合考量门控分数与激活专家输出幅度来评估专家对当前token的重要性，后者则通过对比token经过路由专家前后的表征相似度来衡量其贡献。实验表明，在同等内存预算下，我们的方法仅需保留半数专家即可实现与完整版DeepSeek-R1相当的性能，同时吞吐量提升至2.99倍。代码已开源：<a href="https://github.com/RUCAIBox/EASYEP%E3%80%82">https://github.com/RUCAIBox/EASYEP。</a></p>
-<p>（注：根据技术文本特点，翻译中进行了以下优化处理：</p>
-<ol>
-<li>专业术语统一："throughput"译为"吞吐量"而非"生产量"，"gating scores"译为"门控分数"保持AI领域术语一致性</li>
-<li>长句拆分：将原文复合长句分解为符合中文表达习惯的短句结构</li>
-<li>被动语态转化："we uncover..."转为主动句式"揭示出..."</li>
-<li>概念显化："few-shot"补充译为"小样本"以明确其机器学习含义</li>
-<li>数据呈现：保留原始参数规模"671B"但补充中文计量单位"6710亿参数"便于理解</li>
-<li>技术准确性：确保"representation similarities"等关键概念翻译准确）</li>
-</ol>
+<p>训练后量化（PTQ）通过将全精度权重映射为低比特权重来减小模型内存占用，且无需昂贵的重新训练，但在2至3比特的低比特设置中可能显著降低模型下游性能。我们提出了一种新型混合精度PTQ方法——任务电路量化（TaCQ），该方法借鉴自动化电路发现思路，将量化过程直接关联到特定权重电路（我们将其定义为与下游任务性能相关的权重集合）。这些关键权重保持16位精度，其余权重则被量化，在仅增加边际内存成本的同时维持模型性能。具体而言，TaCQ通过对比未量化模型与均匀量化模型的权重变化，结合梯度信息预测量化对任务性能的影响，从而精准保留任务相关权重。我们将TaCQ与现有混合精度量化方法在通用数据和任务特定数据条件下进行对比测试。在Llama-3和Qwen2.5模型上的QA、数学推理和文本转SQL任务中，TaCQ在相同校准数据和更低权重预算条件下均优于基线方法，尤其在2-3比特量化区间实现显著提升：仅用3.1比特即可恢复Llama-3-8B-Instruct模型16位未量化版本96%的MMLU性能，较SPQR方法绝对提升5.25%。在2比特量化中，TaCQ相较最强基线SliM-LLM平均提升14.74%。值得注意的是，即使在非任务特定条件下，TaCQ仍实现7.20%的性能增益，证明其识别关键权重的能力不依赖于任务条件设置。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

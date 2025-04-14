@@ -12,36 +12,15 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">Apt-Serve：面向可扩展大模型推理服务的混合缓存自适应请求调度系统</h2><a id="user-content-apt-serve面向可扩展大模型推理服务的混合缓存自适应请求调度系统" class="anchor" aria-label="Permalink: Apt-Serve：面向可扩展大模型推理服务的混合缓存自适应请求调度系统" href="#apt-serve面向可扩展大模型推理服务的混合缓存自适应请求调度系统"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明如下）</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">通过DRAM与闪存间的动态权重交换扩展设备端大型语言模型规模</h2><a id="user-content-通过dram与闪存间的动态权重交换扩展设备端大型语言模型规模" class="anchor" aria-label="Permalink: 通过DRAM与闪存间的动态权重交换扩展设备端大型语言模型规模" href="#通过dram与闪存间的动态权重交换扩展设备端大型语言模型规模"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.08378v1 公告类型：新研究<br>
+摘要：大型语言模型（LLMs）正日益部署于移动设备，但有限的DRAM容量制约了可部署模型的规模。本文提出ActiveFlow——首个能为现代LLMs（非基于ReLU）实现动态DRAM占用的推理框架，从而突破可部署模型的尺寸限制。该框架基于创新的"动态权重DRAM-闪存交换"概念，融合三项核心技术：（1）跨层动态权重预加载：利用当前层激活值预测后续若干层的动态权重，实现计算与数据加载的流水线并行，并支持大规模I/O传输；（2）稀疏感知自蒸馏：调整动态权重以匹配稠密模型的输出分布，补偿上下文稀疏性引入的近似误差；（3）动态权重DRAM-闪存交换管道：根据可用内存，在热权重缓存、预加载动态权重和计算相关权重之间智能分配DRAM空间。实验表明，与现有效率优化方法相比，ActiveFlow实现了性能-成本的帕累托最优边界。</p>
+<p>（注：翻译过程中对技术术语进行了如下处理：</p>
 <ol>
-<li>保留"Apt-Serve"作为技术品牌名不译，符合技术领域术语惯例</li>
-<li>"Adaptive"译为"自适应"准确体现系统动态调整特性</li>
-<li>"Hybrid Cache"采用"混合缓存"这一行业通用译法</li>
-<li>"Scalable LLM Inference Serving"译为"可扩展大模型推理服务"，其中：
-<ul>
-<li>"Scalable"译为"可扩展"符合计算机领域术语</li>
-<li>"LLM"采用"大模型"这一中文业界通用简称</li>
-<li>增补"系统"二字使中文名称更完整自然</li>
-</ul>
-</li>
-<li>整体采用技术文档常用的"功能描述+系统属性"命名结构，保持专业性与可读性平衡</li>
+<li>"ActiveFlow"保留原名不译以保持技术一致性</li>
+<li>"DRAM-flash swapping"译为"DRAM-闪存交换"符合行业惯例</li>
+<li>"Pareto frontier"采用经济学标准译法"帕累托最优边界"</li>
+<li>长复合句拆分为符合中文表达习惯的短句结构</li>
+<li>被动语态转换为主动表述（如"are being deployed"译为"正日益部署"））</li>
 </ol>
-<p>大语言模型（LLM）推理服务系统是各类LLM应用的核心支撑。随着服务需求持续激增，如何在满足延迟服务等级目标（SLO）的前提下扩展系统以承载高并发请求——这一指标被称为有效吞吐量——已成为关键挑战。现有系统往往难以提升有效吞吐量，其根本症结在于首令牌生成时间（TTFT）的SLO达标率显著下降。我们揭示了两大核心瓶颈：(1) 受限于GPU显存容量的内存密集型KV缓存阻碍了批处理规模扩展；(2) 默认先到先服务调度策略导致的僵化批次组合机制。</p>
-<p>本文提出Apt-Serve这一可扩展框架，通过创新设计显著提升LLM推理服务的有效吞吐量。该框架首创混合缓存架构，将传统KV缓存与内存高效型隐藏缓存相结合，后者可复用输入隐藏状态向量，从而实现更大批处理规模与更高请求并发度。基于此混合缓存，Apt-Serve采用自适应运行时调度机制动态优化批次组合，我们对该调度优化问题进行了形式化定义，并提出具有理论保证的高效算法。在包含13B至66B参数规模LLM的三大真实数据集测试中，Apt-Serve相较最先进推理服务系统实现了最高8.8倍的有效吞吐量提升。</p>
-<div class="markdown-heading"><h2 class="heading-element">Pychop：在数值方法与神经网络中模拟低精度算术运算</h2><a id="user-content-pychop在数值方法与神经网络中模拟低精度算术运算" class="anchor" aria-label="Permalink: Pychop：在数值方法与神经网络中模拟低精度算术运算" href="#pychop在数值方法与神经网络中模拟低精度算术运算"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>受计算科学领域对低精度算术运算需求日益增长的驱动，我们开发了基于Python的低精度仿真工具——Python作为数值分析与机器学习领域的主流编程语言，其重要性已获广泛认可。低精度训练通过实现更高效的计算、降低内存与能耗消耗，同时保持模型精度，为深度学习带来了革命性变革。为更好地支持低精度计算的数值实验与探索，我们研发了Pychop库。该库支持可定制的浮点数格式与全套舍入模式，使用户能在众多应用中享受快速低精度仿真带来的优势。Pychop还创新性地提供了PyTorch和JAX的接口，可在GPU上实现高效的神经网络低精度训练与推理，其灵活性无与伦比。</p>
-<p>本文系统阐述了Pychop的设计原理、实现方法、验证过程及实际应用，确立了其作为推进高效混合精度算法发展的基础工具地位。我们进一步通过公开数据集上的图像分类与目标检测实验，展示了低精度仿真的实证效果，揭示了低精度运算的敏感特性，并提供了关于其影响的重要见解。Pychop不仅支持数值精度影响的深入研究，助力新型硬件加速器开发，还能无缝集成至现有深度学习工作流程。相关软件与实验代码已开源：<a href="https://github.com/inEXASCALE/pychop%E3%80%82">https://github.com/inEXASCALE/pychop。</a></p>
-<p>（注：根据技术文献翻译规范，对以下要素进行了专业处理：</p>
-<ol>
-<li>"computational science"译为"计算科学"而非"计算机科学"</li>
-<li>"mixed-precision"统一译为"混合精度"</li>
-<li>"rounding modes"译为专业术语"舍入模式"</li>
-<li>长句拆分符合中文表达习惯</li>
-<li>技术术语如PyTorch/JAX保留原名</li>
-<li>被动语态转换为主动表述</li>
-<li>添加"注"字引导的括号说明符合学术翻译惯例）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">任务-电路量化：利用知识定位与可解释性实现压缩</h2><a id="user-content-任务-电路量化利用知识定位与可解释性实现压缩" class="anchor" aria-label="Permalink: 任务-电路量化：利用知识定位与可解释性实现压缩" href="#任务-电路量化利用知识定位与可解释性实现压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>训练后量化（PTQ）通过将全精度权重映射为低比特权重来减小模型内存占用，且无需昂贵的重新训练，但在2至3比特的低比特设置中可能显著降低模型下游性能。我们提出了一种新型混合精度PTQ方法——任务电路量化（TaCQ），该方法借鉴自动化电路发现思路，将量化过程直接关联到特定权重电路（我们将其定义为与下游任务性能相关的权重集合）。这些关键权重保持16位精度，其余权重则被量化，在仅增加边际内存成本的同时维持模型性能。具体而言，TaCQ通过对比未量化模型与均匀量化模型的权重变化，结合梯度信息预测量化对任务性能的影响，从而精准保留任务相关权重。我们将TaCQ与现有混合精度量化方法在通用数据和任务特定数据条件下进行对比测试。在Llama-3和Qwen2.5模型上的QA、数学推理和文本转SQL任务中，TaCQ在相同校准数据和更低权重预算条件下均优于基线方法，尤其在2-3比特量化区间实现显著提升：仅用3.1比特即可恢复Llama-3-8B-Instruct模型16位未量化版本96%的MMLU性能，较SPQR方法绝对提升5.25%。在2比特量化中，TaCQ相较最强基线SliM-LLM平均提升14.74%。值得注意的是，即使在非任务特定条件下，TaCQ仍实现7.20%的性能增益，证明其识别关键权重的能力不依赖于任务条件设置。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

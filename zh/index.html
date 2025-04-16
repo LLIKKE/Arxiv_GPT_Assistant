@@ -12,85 +12,17 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">CUT：将预训练多任务模型剪枝为适用于边缘设备的紧凑模型</h2><a id="user-content-cut将预训练多任务模型剪枝为适用于边缘设备的紧凑模型" class="anchor" aria-label="Permalink: CUT：将预训练多任务模型剪枝为适用于边缘设备的紧凑模型" href="#cut将预训练多任务模型剪枝为适用于边缘设备的紧凑模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.09803v1 公告类型：新研究<br>
-摘要：多任务学习因其高效的数据利用能力和强大的泛化性能，在工业界获得广泛关注，尤其适合为用户提供高质量的智能服务。边缘设备作为直接服务用户的主要平台，承担着提供多任务服务的关键角色。然而当前多任务模型往往体积庞大，而用户任务需求日益多样化，直接在边缘设备部署此类模型不仅加重设备负担，还会造成任务冗余。针对这一问题，本文创新性地提出一种面向边缘计算的预训练多任务模型剪枝方法，旨在利用现有预训练多任务模型构建符合边缘设备需求的轻量化多任务模型。具体实现步骤如下：首先对预训练多任务模型中的任务进行解构，根据用户实际需求筛选任务；其次在保留原预训练模型知识的前提下，评估参数重要性并采用参数融合方法，有效整合任务间共享参数；最终获得适用于边缘设备的轻量化多任务模型。为验证所提方法的有效性，我们在三个公共图像数据集上进行了实验，实验结果充分证明了该方法的优越性与高效性，为边缘设备多任务学习提供了新的解决方案。</p>
-<p>（注：根据学术论文摘要的翻译规范，对部分术语进行了标准化处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">优化大语言模型推理：基于内存约束的流体引导在线调度</h2><a id="user-content-优化大语言模型推理基于内存约束的流体引导在线调度" class="anchor" aria-label="Permalink: 优化大语言模型推理：基于内存约束的流体引导在线调度" href="#优化大语言模型推理基于内存约束的流体引导在线调度"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.11320v1 公告类型：新研究<br>
+摘要：大语言模型（LLM）在当今应用中不可或缺，但其推理过程——通过分段处理文本并使用内存密集的键值（KV）缓存生成响应——需要大量计算资源，尤其在内存受限时更为突出。本文首次将LLM推理优化建模为一个多阶段在线调度问题：由于连续提示的到达和KV缓存的动态增长，传统调度方法在此场景下完全失效。我们通过建立流体动力学近似模型，提出了一个可计算的性能基准，并基于此设计了创新算法。具体而言，当输出长度已知时，我们开发了"等待累积推理阈值"（WAIT）算法，通过多级阈值实现最优调度；针对输出长度未知的情况，进一步提出嵌套式WAIT算法。理论分析表明，在高压流量条件下，两种算法均能实现接近流体基准的最优性能，完美平衡吞吐量、延迟和首词生成时间（TTFT）三大核心指标。基于Llama-7B模型在A100 GPU上的实验表明，无论是合成数据还是真实数据集，相较vLLM、Sarathi等主流方案，新算法在吞吐量和延迟方面均有显著提升。这项研究开创性地融合了运筹学与机器学习，为内存受限环境下的LLM高效部署提供了严谨的理论框架。</p>
+<p>（翻译说明：</p>
 <ol>
-<li>"compact"译为"轻量化"而非字面意义的"紧凑"，更符合边缘计算场景的表述习惯</li>
-<li>"parameter fusion method"译为"参数融合方法"保持技术一致性</li>
-<li>将长句拆分重组，如将"Deploying such models..."处理为因果关系的分句，符合中文表达逻辑</li>
-<li>保留"arXiv"等国际通用标识符不翻译）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">PQS（剪枝、量化与排序）：神经网络计算中点积的低位宽累加技术</h2><a id="user-content-pqs剪枝量化与排序神经网络计算中点积的低位宽累加技术" class="anchor" aria-label="Permalink: PQS（剪枝、量化与排序）：神经网络计算中点积的低位宽累加技术" href="#pqs剪枝量化与排序神经网络计算中点积的低位宽累加技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>注：</p>
-<ol>
-<li>采用意译将"Prune, Quantize, and Sort"处理为动宾结构的"剪枝、量化与排序"，更符合中文技术文献表述习惯</li>
-<li>"Low-Bitwidth Accumulation"译为"低位宽累加"准确传达硬件优化特性</li>
-<li>补充"技术"二字明确术语属性，使标题结构完整</li>
-<li>保留英文缩写PQS并在括号中标注全称，符合中英混合术语规范</li>
-<li>使用破折号替代英文冒号，遵循中文标点使用规范</li>
-</ol>
-<p>arXiv:2504.09064v1 公告类型：新研究<br>
-摘要：我们提出PQS方法，通过联合应用剪枝（Prune）、量化（Quantize）和排序（Sort）三项技术，实现神经网络计算中点积运算的低位宽累加。传统量化（如8位）点积运算中，为避免中间部分和累加时的溢出，部分结果需存入较宽（如32位）的累加器。然而这种宽位累加器会增加内存带宽占用并降低能效。我们证明：先对浮点数进行迭代式N:M剪枝，再量化为8位（或更低），最后按"从小到大"顺序对部分积进行有序累加，可在不依赖宽累加器的前提下，通过压缩后的短点积运算获得高精度模型。我们设计、分析并实现了PQS算法，在多个神经网络推理过程中彻底消除累加溢出。该方法在多项图像分类任务中保持与浮点基线相当的模型精度，同时将累加器位宽缩减至2.5分之一。</p>
-<p>（注：根据学术文献翻译规范，对技术术语进行了统一处理：</p>
-<ol>
-<li>"dot product"译为"点积运算"而非"点积"，强调计算过程</li>
-<li>"accumulator"译为"累加器"而非"累积器"，符合计算机体系结构术语</li>
-<li>"N:M pruning"保留原文比例表示法，补充"迭代式"说明其特性</li>
-<li>"bitwidth"译为"位宽"而非"比特宽度"，符合中文集成电路领域习惯用法</li>
-<li>复杂长句按中文表达习惯拆分为因果逻辑链，如将原文条件状语从句转换为"先...再...最后..."的时序结构）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">量化误差传播：重探逐层训练后量化</h2><a id="user-content-量化误差传播重探逐层训练后量化" class="anchor" aria-label="Permalink: 量化误差传播：重探逐层训练后量化" href="#量化误差传播重探逐层训练后量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.09629v1 公告类型：新研究<br>
-摘要：分层后训练量化已成为压缩大语言模型（LLM）无需重新训练的常用技术。然而，该领域近期进展趋于饱和，亟需重新审视其核心局限并探索改进方向。本研究揭示了现有分层PTQ方法的关键瓶颈：量化误差的逐层累积会显著降低模型性能，尤其在低比特量化场景下更为突出。为此，我们提出量化误差传播（QEP）框架——一种轻量级通用方案，通过显式传播量化误差实现误差补偿，从而增强分层PTQ效果。该框架创新性地引入可调传播机制，用户可自主控制传播强度与计算开销，使其能灵活适配不同架构与资源限制。基于LLaMA2系列模型（7B/13B/70B）的实验表明，将QEP集成到标准分层PTQ流程中能稳定超越传统方法。值得注意的是，在超低比特量化场景下，QEP能带来显著的性能提升。</p>
-<p>（注：根据学术论文摘要的文体特点，翻译时进行了以下处理：</p>
-<ol>
-<li>专业术语如"PTQ"保留英文缩写但增加中文注释</li>
-<li>长句拆解为符合中文表达习惯的短句结构</li>
-<li>"tunable propagation mechanism"等概念采用"可调传播机制"等符合中文技术文献表述的译法</li>
-<li>关键结论部分通过"值得注意的是"等措辞保持原文强调语气</li>
-<li>保持arXiv编号等学术规范信息的完整呈现）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">利用分割联邦学习在资源有限设备上部署大型人工智能模型</h2><a id="user-content-利用分割联邦学习在资源有限设备上部署大型人工智能模型" class="anchor" aria-label="Permalink: 利用分割联邦学习在资源有限设备上部署大型人工智能模型" href="#利用分割联邦学习在资源有限设备上部署大型人工智能模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.09114v1 公告类型：新研究<br>
-摘要：大型人工智能模型（LAMs）凭借海量数据、巨量参数规模和强大算力，正推动各行业深刻变革。然而在资源受限的移动边缘设备上实际部署时，数据隐私、资源约束和高昂开销等关键挑战阻碍了其应用。针对这一难题，本文提出创新框架——量化分割联合微调大型AI模型（SFLAM）。该框架通过分割学习范式将训练负载分配于边缘设备与服务器之间，既实现了大模型在终端设备上的运行，又显著降低了边缘设备的内存需求。此外，SFLAM整合了量化管理、功率控制和带宽分配策略，在提升训练效率的同时，有效降低能耗与通信延迟。研究通过理论分析揭示了延迟-能耗的权衡关系，并借助全面仿真验证了框架效能。结果表明，相较于传统方法，SFLAM在学习效率和可扩展性方面表现更优，为资源受限场景下的先进AI服务提供了有价值的解决方案。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
-<ol>
-<li>"split learning paradigm"译为"分割学习范式"而非直译"分裂学习"</li>
-<li>"quantization management"统一译为"量化管理"以保持技术术语一致性</li>
-<li>将英语长句合理切分为符合中文表达习惯的短句，如原文最后一句拆分为两个递进分句</li>
-<li>保留专业缩写LAMs/SFLAM的首译标注，符合科技论文翻译惯例）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">高效处理混合实时与尽力而为请求的大语言模型服务</h2><a id="user-content-高效处理混合实时与尽力而为请求的大语言模型服务" class="anchor" aria-label="Permalink: 高效处理混合实时与尽力而为请求的大语言模型服务" href="#高效处理混合实时与尽力而为请求的大语言模型服务"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.09590v1 公告类型：新作<br>
-摘要：大语言模型（LLM）的最新突破使单一模型能够完成多种生成任务。由LLM驱动的现实世界服务（如OpenAI的ChatGPT[27]）通常需要同时支持交互式应用的延迟敏感型请求（如问答系统，称为实时或RT请求）和面向后台处理的吞吐量优先型请求（如文档批量处理[28]，称为尽力而为或BE请求），从而向底层模型提交复杂的混合推理工作负载。现有最先进（SOTA）的LLM服务系统采用专机专用策略，分别为低推理延迟或高服务吞吐量配置独立机器。这种做法虽然简化了请求调度与管理，却导致资源利用率低下。我们提出BROS——一个面向混合RT/BE请求的LLM服务系统，其目标是通过请求共置在满足RT请求延迟要求的同时保障BE请求的吞吐量。BROS通过动态优先级算法解决混合请求调度问题，并设计双向KV缓存管理机制，允许RT请求与BE请求共享KV内存，从而消除因KV内存不足导致的调度限制并提升利用率。大量实验表明，BROS在混合服务场景下实现了优异权衡：在BE请求吞吐量损失可忽略的前提下，显著降低RT请求延迟（最高达74.20%），提升其细粒度服务等级目标（SLO）达成率（最高达36.38倍），较vLLM、TGI等SOTA系统展现出显著优势。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了如下处理：</p>
-<ol>
-<li>"best-effort"译为"尽力而为"（通信领域标准译法）</li>
-<li>"KV cache"保留技术缩写"KV"并译为"KV缓存"（计算机领域通用表述）</li>
-<li>"SLOs"译为"服务等级目标"（IT运维领域标准术语）</li>
-<li>长复合句按中文表达习惯拆分为短句，如将原文"with complex hybrid..."独立译为分句）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">保持KV：消除KV缓存压缩中的输出扰动以实现高效大语言模型推理</h2><a id="user-content-保持kv消除kv缓存压缩中的输出扰动以实现高效大语言模型推理" class="anchor" aria-label="Permalink: 保持KV：消除KV缓存压缩中的输出扰动以实现高效大语言模型推理" href="#保持kv消除kv缓存压缩中的输出扰动以实现高效大语言模型推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.09936v1 公告类型：新研究<br>
-摘要：大型语言模型（LLM）的高效推理受到不断膨胀的键值（KV）缓存的制约，这使得KV缓存压缩成为关键研究方向。传统方法基于注意力分数或位置启发式策略选择性淘汰次要的KV缓存条目，但这会导致信息丢失与幻觉生成。近期，基于合并的策略通过融合本应丢弃的KV对来保留更多信息，然而现有方案不可避免地会引发合并前后注意力分布的不一致，造成输出扰动与生成质量下降。为攻克这一难题，我们提出KeepKV——一种新型自适应KV缓存合并方法，旨在消除输出扰动的同时，在严格内存限制下保持性能。KeepKV创新性地引入"选举票数"机制记录合并历史并自适应调整注意力分数，同时采用"零推理扰动合并"技术维持注意力一致性，补偿因缓存合并造成的注意力损失。KeepKV成功在显著压缩的缓存中保留了关键上下文信息。在多种基准测试与LLM架构上的实验表明，即便仅保留10%的KV缓存预算，KeepKV仍能大幅降低内存占用、提升2倍以上推理吞吐量，并保持卓越的生成质量。</p>
-<p>（注：翻译过程中对以下术语进行了技术性处理：</p>
-<ol>
-<li>"hallucinations"译为"幻觉生成"符合NLP领域术语惯例</li>
-<li>"Electoral Votes mechanism"意译为"选举票数机制"保留政治隐喻的同时确保可读性</li>
-<li>"Zero Inference-Perturbation"采用直译+解释策略处理为"零推理扰动"并补充说明</li>
-<li>长复合句按中文习惯拆分为短句，如将原文最后一句拆分为三个递进短句）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">AlayaDB：高效长上下文LLM推理的数据基石</h2><a id="user-content-alayadb高效长上下文llm推理的数据基石" class="anchor" aria-label="Permalink: AlayaDB：高效长上下文LLM推理的数据基石" href="#alayadb高效长上下文llm推理的数据基石"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.10326v1 公告类型：新论文<br>
-摘要：AlayaDB是一款前沿的向量数据库系统，专为AlayaDB AI中大型语言模型（LLMs）的高效长上下文推理而原生设计。其核心创新在于将键值缓存（KV cache）和注意力计算从LLM推理系统中解耦，并将其封装为一种新型向量数据库系统。相较于现有替代方案（如KV缓存分离、基于检索的稀疏注意力），对于模型即服务（MaaS）提供商而言，AlayaDB在满足各类服务等级目标（SLOs）的不同工作负载下，既能减少硬件资源消耗，又能提供更优质的文本生成质量。AlayaDB的关键突破在于：它将LLM推理中的注意力计算与缓存管理抽象为查询处理流程，并通过原生查询优化器实现性能优化。本研究通过（i）来自行业合作伙伴的三个实际用例，以及（ii）LLM推理基准测试的广泛实验结果，验证了AlayaDB的卓越效能。</p>
-<p>（注：根据学术论文摘要的文体特点，译文采用以下处理：</p>
-<ol>
-<li>专业术语保留英文缩写并首次出现时标注中文全称（如KV cache→键值缓存）</li>
-<li>被动语态转换为中文主动表述（如"are encapsulated"→"封装为"）</li>
-<li>长定语拆分重组为符合中文表达习惯的短句结构</li>
-<li>关键概念如"Service Level Objectives"采用行业通用译法"服务等级目标"</li>
-<li>技术表述如"query processing procedure"译为"查询处理流程"以保持准确性）</li>
+<li>专业术语统一处理："Key-Value cache"译为技术界通用的"键值缓存"，"heavy traffic"采用通信领域术语"高压流量"</li>
+<li>长句拆分重构：将原文复合句分解为符合中文表达习惯的短句，如将"demands significant..."独立成句并添加"更为突出"增强语气</li>
+<li>概念显化处理："fluid dynamics approximation"译为"流体动力学近似模型"以突出其科学性</li>
+<li>算法名称保留英文缩写+中文全称："WAIT"首次出现时标注"等待累积推理阈值"</li>
+<li>文化适配：将"bridges operations research..."译为"开创性地融合"以体现跨学科价值</li>
+<li>被动语态转化："are indispensable"转为主动句式"在...不可或缺"</li>
+<li>技术指标强化："throughput, latency, TTFT"统一扩展为完整技术术语并添加"三大核心指标"总结）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

@@ -12,17 +12,46 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">优化大语言模型推理：基于内存约束的流体引导在线调度</h2><a id="user-content-优化大语言模型推理基于内存约束的流体引导在线调度" class="anchor" aria-label="Permalink: 优化大语言模型推理：基于内存约束的流体引导在线调度" href="#优化大语言模型推理基于内存约束的流体引导在线调度"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.11320v1 公告类型：新研究<br>
-摘要：大语言模型（LLM）在当今应用中不可或缺，但其推理过程——通过分段处理文本并使用内存密集的键值（KV）缓存生成响应——需要大量计算资源，尤其在内存受限时更为突出。本文首次将LLM推理优化建模为一个多阶段在线调度问题：由于连续提示的到达和KV缓存的动态增长，传统调度方法在此场景下完全失效。我们通过建立流体动力学近似模型，提出了一个可计算的性能基准，并基于此设计了创新算法。具体而言，当输出长度已知时，我们开发了"等待累积推理阈值"（WAIT）算法，通过多级阈值实现最优调度；针对输出长度未知的情况，进一步提出嵌套式WAIT算法。理论分析表明，在高压流量条件下，两种算法均能实现接近流体基准的最优性能，完美平衡吞吐量、延迟和首词生成时间（TTFT）三大核心指标。基于Llama-7B模型在A100 GPU上的实验表明，无论是合成数据还是真实数据集，相较vLLM、Sarathi等主流方案，新算法在吞吐量和延迟方面均有显著提升。这项研究开创性地融合了运筹学与机器学习，为内存受限环境下的LLM高效部署提供了严谨的理论框架。</p>
-<p>（翻译说明：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">利用车载部署的大型语言模型增强自动驾驶系统</h2><a id="user-content-利用车载部署的大型语言模型增强自动驾驶系统" class="anchor" aria-label="Permalink: 利用车载部署的大型语言模型增强自动驾驶系统" href="#利用车载部署的大型语言模型增强自动驾驶系统"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.11514v1 公告类型：新研究<br>
+摘要：通过监督学习训练的神经网络（NNs）在应对现实驾驶中常见的边缘场景时存在局限，因为构建覆盖所有边缘案例的穷尽数据集具有不可行性。这使得类似人类凭直觉识别异常驾驶行为的知识驱动方法，成为数据驱动方法的重要补充。本研究提出一种混合架构，将底层模型预测控制器（MPC）与本地部署的大语言模型（LLMs）相结合，以增强决策能力和人机交互（HMI）。其中DecisionxLLM模块通过比照机器人状态信息与自然语言指令，确保驾驶行为符合预期；MPCxLLM模块则依据LLM生成的洞察动态调整MPC参数，在保持传统MPC系统安全性与约束保障的同时实现控制适应性。为提升车载部署效率并消除对云端连接的依赖，我们将处理流程迁移至车载计算平台：提出融合检索增强生成（RAG）、低秩自适应（LoRA）微调与量化的解决方案。实验表明，这些优化使推理准确率最高提升10.45%，控制适应性增强达52.2%，计算效率（令牌/秒）提升高达10.5倍，验证了该框架在精简机器人平台上实时部署的可行性。本工作通过融合高层决策与底层控制适应性，为知识驱动型自适应自动驾驶系统（ADS）提供了协同框架。</p>
+<p>（注：根据学术文献翻译规范，专业术语首次出现时保留英文缩写并在括号内标注全称；技术术语如"Retrieval Augmented Generation"采用学界通用译法"检索增强生成"；长难句按中文表达习惯拆分为短句；被动语态转换为主动表述；数值比较保留原始数据精确性）</p>
+<div class="markdown-heading"><h2 class="heading-element">云端经济高效的LLM服务：结合KV缓存卸载的虚拟机选择策略</h2><a id="user-content-云端经济高效的llm服务结合kv缓存卸载的虚拟机选择策略" class="anchor" aria-label="Permalink: 云端经济高效的LLM服务：结合KV缓存卸载的虚拟机选择策略" href="#云端经济高效的llm服务结合kv缓存卸载的虚拟机选择策略"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明：</p>
 <ol>
-<li>专业术语统一处理："Key-Value cache"译为技术界通用的"键值缓存"，"heavy traffic"采用通信领域术语"高压流量"</li>
-<li>长句拆分重构：将原文复合句分解为符合中文表达习惯的短句，如将"demands significant..."独立成句并添加"更为突出"增强语气</li>
-<li>概念显化处理："fluid dynamics approximation"译为"流体动力学近似模型"以突出其科学性</li>
-<li>算法名称保留英文缩写+中文全称："WAIT"首次出现时标注"等待累积推理阈值"</li>
-<li>文化适配：将"bridges operations research..."译为"开创性地融合"以体现跨学科价值</li>
-<li>被动语态转化："are indispensable"转为主动句式"在...不可或缺"</li>
-<li>技术指标强化："throughput, latency, TTFT"统一扩展为完整技术术语并添加"三大核心指标"总结）</li>
+<li>"Cost-Efficient"译为"经济高效"既保留原意又符合中文技术文档表述习惯</li>
+<li>"LLM Serving"采用业内通用译法"LLM服务"，保持技术术语一致性</li>
+<li>"VM Selection"扩展为"虚拟机选择策略"，通过增补"策略"二字使中文更完整</li>
+<li>"KV Cache Offloading"专业术语保留英文缩写"KV"的同时，将"Cache Offloading"准确译为"缓存卸载"</li>
+<li>整体采用"主标题+冒号+副标题"结构，与原文格式一致</li>
+<li>通过"结合"二字自然连接前后两部分，比直译"with"更符合中文技术标题表达逻辑）</li>
 </ol>
+<p>arXiv:2504.11816v1 公告类型：新论文<br>
+摘要：大语言模型（LLM）推理在文本摘要、翻译和数据分析等应用中至关重要，但云服务提供商（如AWS）的GPU实例高昂成本成为主要负担。本文提出InferSave——一种面向云端LLM推理的高性价比虚拟机选择框架。该框架通过服务等级目标（SLO）和工作负载特性优化键值缓存（KV cache）卸载策略，预估GPU内存需求并推荐经济高效的VM实例。创新性的计算时间校准函数（CTCF）通过修正理论GPU性能与实际表现的差异，进一步提升实例选择精度。在AWS GPU实例上的实验表明：对于在线工作负载，选择无需KV缓存卸载的低成本实例可提升73.7%的成本效益；而对于离线工作负载，KV缓存卸载技术可节省20.19%的成本。</p>
+<p>（注：根据学术论文摘要的文体特征，翻译时进行了以下处理：</p>
+<ol>
+<li>专业术语采用中文领域通用译法，如"KV cache"译为"键值缓存"</li>
+<li>保持技术概念的准确性，如"SLOs"完整译为"服务等级目标"而非简化</li>
+<li>长句拆分符合中文表达习惯，如将原文复合句分解为多个短句</li>
+<li>数字和百分比保留原文精确值</li>
+<li>框架名称"InferSave"保留不译以保持技术一致性）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">70%大小，100%精准：通过动态长度浮点数实现无损LLM压缩，提升GPU推理效率</h2><a id="user-content-70大小100精准通过动态长度浮点数实现无损llm压缩提升gpu推理效率" class="anchor" aria-label="Permalink: 70%大小，100%精准：通过动态长度浮点数实现无损LLM压缩，提升GPU推理效率" href="#70大小100精准通过动态长度浮点数实现无损llm压缩提升gpu推理效率"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.11651v1 公告类型：新研究<br>
+摘要：大语言模型（LLM）的规模急剧增长，为资源受限硬件的高效部署带来了重大挑战。本文提出动态长度浮点数（DFloat11）——一种无损压缩框架，可将LLM体积缩减30%，同时保持与原始模型完全比特级一致的输出。该技术的设计动机源于LLM权重BFloat16表示的低熵特性，这揭示了现有存储格式的效率低下问题。通过应用熵编码，DFloat11根据权重出现频率分配动态长度编码，在零精度损失的前提下实现了接近信息理论极限的压缩效果。</p>
+<p>为支持动态长度编码的高效推理，我们开发了定制GPU内核实现快速在线解压缩，其创新设计包括：（1）将内存密集型查找表（LUT）分解为可适配GPU SRAM的紧凑型LUT；（2）采用双阶段内核，通过轻量级辅助变量协调线程读写位置；（3）基于Transformer块级别的解压缩以最小化延迟。在Llama-3.1、Qwen-2.5和Gemma-3等最新模型上的实验验证了DFloat11的效能：在保持比特级精确输出的同时，实现了约30%的模型体积缩减。与将未压缩模型部分卸载至CPU的替代方案相比，DFloat11在token生成吞吐量上提升1.9-38.8倍。在固定GPU内存预算下，DFloat11支持比未压缩模型长5.3-13.17倍的上下文长度。尤为突出的是，该方法使得810GB规模的Llama-3.1-405B模型能在配备8块80GB GPU的单节点上实现无损推理。</p>
+<p>代码与模型已开源：<a href="https://github.com/LeanModels/DFloat11">https://github.com/LeanModels/DFloat11</a></p>
+<p>（注：技术术语处理说明：</p>
+<ol>
+<li>"bit-for-bit identical"译为"比特级一致"以强调二进制精确性</li>
+<li>"entropy coding"保留专业术语译为"熵编码"</li>
+<li>"GPU SRAM"采用"GPU静态随机存储器"全称+括号标注"SRAM"的规范译法</li>
+<li>模型名称Llama/Qwen/Gemma保持英文原名以符合学术惯例）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">面向RAG驱动型大语言模型高效多实例推理的共享磁盘键值缓存管理</h2><a id="user-content-面向rag驱动型大语言模型高效多实例推理的共享磁盘键值缓存管理" class="anchor" aria-label="Permalink: 面向RAG驱动型大语言模型高效多实例推理的共享磁盘键值缓存管理" href="#面向rag驱动型大语言模型高效多实例推理的共享磁盘键值缓存管理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.11765v1 公告类型：新研究<br>
+摘要：随着输入上下文长度和模型规模持续增长，近期大语言模型（LLM）的推理延迟问题日益凸显。尤其是检索增强生成（RAG）技术——通过引入外部知识来优化LLM响应——会显著增加输入令牌数量，进一步加剧这一问题。令牌长度的扩展导致计算开销大幅上升，在预填充阶段尤为明显，造成首令牌生成时间（TTFT）延长。</p>
+<p>为解决该问题，本文提出一种利用基于磁盘的键值（KV）缓存来减轻预填充阶段计算负担的方法，从而降低TTFT。我们还设计了一套面向多实例LLM RAG服务环境的磁盘共享KV缓存管理系统Shared RAG-DCache，结合最优系统配置，可在给定资源约束下同时提升吞吐量和降低延迟。该系统通过挖掘RAG中用户查询相关文档的局部性特征，结合LLM推理服务的队列延迟现象，主动为查询相关文档生成磁盘KV缓存，并在多个LLM实例间共享以提升推理性能。</p>
+<p>在配备2块GPU和1块CPU的单主机实验中，根据资源配置不同，Shared RAG-DCache实现了15<del>71%的吞吐量提升，以及最高12</del>65%的延迟降低。</p>
+<p>（注：根据学术论文翻译规范，关键技术术语如"prefill stage"保留专业译法"预填充阶段"，"time-to-first-token"采用"首令牌生成时间"的意译；长难句按中文习惯拆分为短句；被动语态转换为主动表述；实验数据范围保留原文的波浪线连接符号~）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

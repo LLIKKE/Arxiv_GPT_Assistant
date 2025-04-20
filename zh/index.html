@@ -12,59 +12,9 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">面向RAG驱动型大语言模型高效多实例推理的共享磁盘键值缓存管理</h2><a id="user-content-面向rag驱动型大语言模型高效多实例推理的共享磁盘键值缓存管理" class="anchor" aria-label="Permalink: 面向RAG驱动型大语言模型高效多实例推理的共享磁盘键值缓存管理" href="#面向rag驱动型大语言模型高效多实例推理的共享磁盘键值缓存管理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>随着输入上下文长度和模型规模的持续增长，近期大型语言模型（LLM）的推理延迟问题日益凸显。特别是检索增强生成（RAG）技术——通过引入外部知识来提升LLM响应质量——会显著增加输入令牌数量，进一步加剧这一问题。令牌长度的扩展导致计算开销大幅上升，尤其在预填充阶段，造成首令牌生成时间（TTFT）显著延长。针对这一挑战，本文提出一种利用基于磁盘的键值（KV）缓存来减轻预填充阶段计算负担的方法，从而降低TTFT。我们还设计了一套面向多实例LLM RAG服务环境的磁盘共享KV缓存管理系统Shared RAG-DCache，结合最优系统配置，可在给定资源约束下同时提升吞吐量和降低延迟。该系统充分利用了RAG中用户查询相关文档的局部性特征以及LLM推理服务的队列延迟特性，主动为查询相关文档生成磁盘KV缓存，并在多个LLM实例间共享以提升推理性能。在配备2块GPU和1块CPU的单台主机实验中，根据资源配置不同，Shared RAG-DCache实现了15<del>71%的吞吐量提升，延迟降低幅度最高达12</del>65%。</p>
-<div class="markdown-heading"><h2 class="heading-element">朝向无损令牌剪枝的后期交互检索模型</h2><a id="user-content-朝向无损令牌剪枝的后期交互检索模型" class="anchor" aria-label="Permalink: 朝向无损令牌剪枝的后期交互检索模型" href="#朝向无损令牌剪枝的后期交互检索模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>像ColBERT这样的延迟交互神经信息检索模型，在许多基准测试中实现了效率与效能的理想平衡。然而，这些模型需要巨大的存储空间来保存所有文档词汇的上下文表征。已有研究提出通过启发式方法或基于统计的技术对文档词汇进行剪枝，但这无法保证被移除的词汇不会影响检索评分。本研究采用理论驱动的方法，系统定义了如何在保证文档与查询间评分不受影响的前提下进行词汇剪枝。我们提出了三种正则化损失函数来引导高剪枝率的解决方案，并开发了两种剪枝策略。通过领域内外实验验证，我们证明仅需保留30%的词汇即可维持ColBERT的检索性能。</p>
-<p>（译文说明：</p>
-<ol>
-<li>专业术语处理："prune tokens"译为"词汇剪枝"符合计算机领域术语，"contextual representation"译为"上下文表征"保持学术性</li>
-<li>句式重构：将英语长句拆分为符合中文表达习惯的短句，如将"this however doesn't guarantee..."处理为转折短句</li>
-<li>被动语态转换："have been proposed"转为主动式"已有研究提出"</li>
-<li>概念显化："principled approach"译为"理论驱动的方法"比直译更准确</li>
-<li>数据呈现：保留"30%"数字格式符合中文技术文献规范</li>
-<li>逻辑连接：添加"通过"等连接词保持论证连贯性</li>
-<li>术语一致性：全篇统一"剪枝"对应"pruning"，避免"修剪"等歧义译法）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">已激活的LoRA：专为内在特性微调的大型语言模型</h2><a id="user-content-已激活的lora专为内在特性微调的大型语言模型" class="anchor" aria-label="Permalink: 已激活的LoRA：专为内在特性微调的大型语言模型" href="#已激活的lora专为内在特性微调的大型语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>低秩自适应（LoRA）已成为微调大型基础模型权重的高效框架，并成为数据驱动定制大语言模型的首选方法。尽管该方法能实现高度定制化的行为和功能，但在多轮对话场景中切换不同LoRA适配器时存在显著效率问题——每次生成前都必须用目标LoRA权重重新计算整个对话历史的关键值（KV）缓存。为解决这一难题，我们提出激活式低秩自适应（aLoRA），通过改进LoRA框架使其仅对调用点之后的序列令牌进行权重适配。这一关键改进使得aLoRA能够直接继承基础模型对输入序列的KV缓存，从而在对话链中实现即时激活而无需重新计算缓存。基于此，我们构建了"本征模块"——这些高度专业化的模型仅在处理输入链或对话的特定片段时被触发执行明确定义的操作，其余情况则默认使用基础模型。实验表明，使用aLoRA训练的本征模块在保持与标准LoRA相当准确度的同时，能带来显著的推理效率提升。</p>
-<div class="markdown-heading"><h2 class="heading-element">云端经济高效的LLM服务：结合KV缓存卸载的虚拟机选择策略</h2><a id="user-content-云端经济高效的llm服务结合kv缓存卸载的虚拟机选择策略" class="anchor" aria-label="Permalink: 云端经济高效的LLM服务：结合KV缓存卸载的虚拟机选择策略" href="#云端经济高效的llm服务结合kv缓存卸载的虚拟机选择策略"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：此处采用意译与专业术语结合的方式，既保留技术概念"KV缓存卸载"的准确性，又通过"策略"体现selection的决策维度。"经济高效"比直译"成本效益"更符合中文技术文档表述习惯，同时"云端"比"在云中"更简洁自然。标题采用主副结构，用冒号分隔核心方法与技术手段，符合中文技术标题的常见范式。）</p>
-<p>大语言模型推理在文本摘要、翻译和数据分析等应用中至关重要，但云服务提供商（如AWS）的GPU实例高昂成本成为主要负担。本文提出InferSave——一种面向云端大语言模型推理的高性价比虚拟机选择框架。该框架基于服务等级目标（SLO）和工作负载特性优化KV缓存卸载策略，通过预估GPU显存需求推荐经济高效的虚拟机实例。创新性设计的计算时间校准函数（CTCF）通过修正理论GPU性能与实际表现的偏差，进一步提升实例选择精度。在AWS GPU实例上的实验表明：针对在线工作负载，选择无需KV缓存卸载的低成本实例可实现最高73.7%的成本效益提升；而对于离线工作负载，KV缓存卸载技术能节省高达20.19%的成本。</p>
-<p>（注：根据技术文献翻译规范，对部分术语进行了如下处理：</p>
-<ol>
-<li>"LLM"译为行业通用术语"大语言模型"</li>
-<li>"KV cache"保留专业缩写"KV"并译为"KV缓存"</li>
-<li>"Service Level Objectives"采用国际通行的"服务等级目标"标准译法</li>
-<li>长难句按中文表达习惯进行了分拆重组，如将原文最后复合句拆分为两个并列分句</li>
-<li>技术指标数据严格保持原貌，仅进行单位符号本地化处理）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">BitNet b1.58 2B4T技术报告</h2><a id="user-content-bitnet-b158-2b4t技术报告" class="anchor" aria-label="Permalink: BitNet b1.58 2B4T技术报告" href="#bitnet-b158-2b4t技术报告"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>注：根据技术文档命名惯例，保留"BitNet"品牌名称与版本号"b1.58"不译；"2B4T"作为技术代号维持原貌；"Technical Report"采用中文技术文献标准译法"技术报告"。整体翻译在保持专业性的同时符合中文技术文档的简洁表达需求。</p>
-<p>我们隆重推出BitNet b1.58 2B4T——全球首个开源的20亿参数规模原生1比特大语言模型。该模型基于4万亿token语料训练，在语言理解、数学推理、代码生成及对话能力等基准测试中均经过严格验证。研究结果表明，BitNet b1.58 2B4T在性能上媲美同尺寸主流全精度开源大模型，同时在计算效率方面具有显著优势：内存占用大幅降低、能耗显著减少、推理延迟明显缩短。为促进后续研究和应用落地，我们已通过Hugging Face平台开源模型权重，并同步发布支持GPU与CPU架构的推理实现方案。</p>
-<div class="markdown-heading"><h2 class="heading-element">妈妈：适用于长上下文语言模型的高效内存卸载迷你序列推理</h2><a id="user-content-妈妈适用于长上下文语言模型的高效内存卸载迷你序列推理" class="anchor" aria-label="Permalink: 妈妈：适用于长上下文语言模型的高效内存卸载迷你序列推理" href="#妈妈适用于长上下文语言模型的高效内存卸载迷你序列推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>长上下文语言模型虽展现出卓越性能，但由于推理过程中对GPU内存的高需求，其部署仍面临挑战。我们提出内存高效卸载式微序列推理（MOM）方法，该方法将关键网络层划分为更小的"微序列"，并与KV缓存卸载技术无缝集成。在Llama、Qwen和Mistral等多个模型上的实验表明，MOM平均可降低超过50%的峰值内存占用。在单张A100 80GB GPU上，MOM将Meta-Llama-3.2-8B的最大上下文长度从15.5万词元扩展至45.5万词元，同时保持输出完全一致且不损失准确性。得益于极低的计算开销和高效的末层处理，MOM还能保持极具竞争力的吞吐量。与传统分块预填充方法相比，MOM实现了35%的额外上下文长度扩展。更重要的是，我们的方法大幅降低了预填充阶段的内存消耗，彻底消除了这一长期存在的推理内存瓶颈。这一突破性进展从根本上改变了研究重点，将未来优化方向从预填充阶段转向解码阶段剩余KV缓存效率的提升。</p>
-<p>（注：根据技术文本特点，翻译时进行了以下处理：</p>
-<ol>
-<li>专业术语统一："KV cache"译为"KV缓存"，"throughput"译为"吞吐量"</li>
-<li>技术概念显化："mini-sequences"译为"微序列"而非直译"小序列"，突出技术概念</li>
-<li>长句拆分：将原文复合长句按中文表达习惯分解为多个短句</li>
-<li>数据呈现：保持"155k→15.5万"等数字表述符合中文技术文献惯例</li>
-<li>逻辑衔接：通过"得益于""更重要的是"等连接词保持论证连贯性</li>
-<li>被动语态转换：将英文被动式转为中文主动表述，如"are partitioned"译为"将...划分为"）</li>
-</ol>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">迈向后期交互检索模型中的无损令牌剪枝</h2><a id="user-content-迈向后期交互检索模型中的无损令牌剪枝" class="anchor" aria-label="Permalink: 迈向后期交互检索模型中的无损令牌剪枝" href="#迈向后期交互检索模型中的无损令牌剪枝"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>像ColBERT这样的延迟交互神经信息检索模型在许多基准测试中提供了效率与效果间的优越平衡。然而，这些模型需要巨大的内存空间来存储所有文档标记的上下文表示。已有研究提出采用启发式或基于统计的技术来修剪每个文档中的标记，但这并不能保证被移除的标记对检索分数毫无影响。我们的工作采用了一种原理性方法，界定了如何在不影响文档与查询间评分的前提下修剪标记。我们引入了三种正则化损失函数，它们共同促成了高修剪率的解决方案，并提出了两种修剪策略。通过实验研究（包括领域内和跨领域场景），我们证明仅需保留30%的标记即可维持ColBERT的检索性能。</p>
+<p>（译文说明：1. 专业术语统一处理："prune tokens"译为"修剪标记"符合计算机领域术语；2. 被动语态转化："have been proposed"译为主动式"已有研究提出"更符合中文表达；3. 长句拆分：将原文复合句分解为多个短句，如将"showing that..."独立成句；4. 概念显化："principled approach"译为"原理性方法"准确传达方法论特征；5. 数据呈现：严格保持"30%"数字格式与原文一致；6. 学术风格：使用"界定了""促成了"等动词保持论文严谨性）</p>
 <div class="markdown-heading"><h2 class="heading-element">用于LLM服务中任意低精度GPGPU计算的虚拟机</h2><a id="user-content-用于llm服务中任意低精度gpgpu计算的虚拟机" class="anchor" aria-label="Permalink: 用于LLM服务中任意低精度GPGPU计算的虚拟机" href="#用于llm服务中任意低精度gpgpu计算的虚拟机"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>服务大型语言模型（LLM）是AI驱动应用的关键环节，但其对计算资源的需求极高，尤其在内存带宽和计算吞吐量方面。低精度计算已成为提升效率同时降低资源消耗的核心技术。现有生成低精度计算核的方法存在两大局限：一是仅支持2的幂次方权重位宽，二是受制于高层级GPU编程抽象导致性能欠佳。这类抽象阻碍了关键优化技术的实施，例如细粒度寄存器管理和优化的内存访问模式——这些恰恰是高效低精度计算的必要前提。</p>
-<p>本文提出了一种面向通用GPU（GPGPU）计算的虚拟机（VM）架构，其创新性在于：既能支持任意位宽的低精度数据类型，又可保持GPU编程的灵活性。该虚拟机具有四大核心特征：（1）线程块级编程模型；（2）分层式内存空间；（3）创新的代数布局系统；（4）对多样化低精度数据类型的全面支持。VM程序可被编译为高度优化的GPU代码，自动实现向量化与指令选择。</p>
-<p>实验结果表明，我们的虚拟机不仅能完整支持全谱系低精度数据类型，在其支持的类型上性能更优于当前最先进的低精度计算核。与Triton、Ladder等现有编译器，以及QuantLLM、Marlin等手工优化内核相比，本方案分别实现了1.75倍、2.61倍、1.29倍和1.03倍的性能提升。</p>
-<div class="markdown-heading"><h2 class="heading-element">揭示大型语言模型中专家混合机制下的隐性协作</h2><a id="user-content-揭示大型语言模型中专家混合机制下的隐性协作" class="anchor" aria-label="Permalink: 揭示大型语言模型中专家混合机制下的隐性协作" href="#揭示大型语言模型中专家混合机制下的隐性协作"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>基于专家混合的大型语言模型（MoE LLMs）通过动态将输入路由至 specialized 专家，在多任务适应性方面展现出显著潜力。然而，专家间的协作机制尚未被充分理解，这既限制了模型的可解释性，也阻碍了其优化进程。本文聚焦两大核心问题：（1）识别专家协作模式；（2）通过专家剪枝优化MoE LLMs。针对第一个问题，我们提出分层稀疏字典学习（HSDL）方法，用于揭示专家间的协作规律；对于第二个问题，我们开发了贡献感知专家剪枝（CAEP）算法，能高效剔除低贡献专家。大量实验表明，专家协作模式与特定输入类型紧密关联，且在不同任务中呈现语义显著性。剪枝实验进一步证明，我们的方法使模型整体性能平均提升2.5%，优于现有方案。这些发现为提升MoE LLMs的效率和可解释性提供了新视角，不仅深化了对专家交互机制的理解，更为模型优化开辟了有效路径。</p>
-<p>（注：根据学术论文翻译规范，对以下术语进行了专业处理：</p>
-<ol>
-<li>"specialized experts"译为" specialized 专家"（保留英文术语首现时标注）</li>
-<li>"HSDL/CAEP"首次出现时标注全称与缩写</li>
-<li>"2.5%"保留数字与符号格式</li>
-<li>长句采用分号与衔接词保持学术文本逻辑性</li>
-<li>"semantic significance"译为"语义显著性"符合计算语言学表述习惯）</li>
-</ol>
+<p>服务大型语言模型（LLMs）对人工智能应用至关重要，但需要消耗大量计算资源，尤其是内存带宽和计算吞吐量。低精度计算已成为提升效率同时降低资源消耗的关键技术。现有生成低精度计算内核的方法仅限于位宽为2的幂次方的权重，且由于高层级GPU编程抽象的限制导致性能欠佳。这些抽象阻碍了关键优化（如细粒度寄存器管理和优化内存访问模式），而这些优化对高效低精度计算至关重要。本文提出一种面向通用GPU（GPGPU）计算的虚拟机（VM），支持任意位宽的低精度数据类型，同时保持GPU可编程性。该虚拟机具有线程块级编程模型、分层内存空间、创新的代数布局系统，以及对多样化低精度数据类型的全面支持。虚拟机程序可被编译为具备自动向量化和指令选择功能的高效GPU程序。大量实验表明，我们的虚拟机不仅能高效支持全系列低精度数据类型，在其支持的类型上性能也优于最先进的低精度计算内核。与Triton、Ladder等现有编译器以及QuantLLM、Marlin等手工优化内核相比，我们的虚拟机分别实现了1.75倍、2.61倍、1.29倍和1.03倍的性能提升。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

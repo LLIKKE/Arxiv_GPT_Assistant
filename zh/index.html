@@ -12,15 +12,82 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">二进制与三值量化可增强特征区分度</h2><a id="user-content-二进制与三值量化可增强特征区分度" class="anchor" aria-label="Permalink: 二进制与三值量化可增强特征区分度" href="#二进制与三值量化可增强特征区分度"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.13792v1 公告类型：新研究<br>
-摘要：在机器学习中，量化技术被广泛用于简化数据表示并促进算法在硬件上的部署。鉴于分类任务在机器学习中的基础性地位，研究量化对分类的影响至关重要。当前研究主要聚焦于量化误差，其基本假设是较高的量化误差通常会导致较差的分类性能。然而这一假设缺乏坚实的理论基础，且往往与实证结果相矛盾。例如某些极低位宽的量化方法（如{0,1}二元量化和{0, ±1}三元量化），尽管表现出较高的量化误差，却能获得与原未量化数据相当甚至更优的分类准确率。为更精准评估分类性能，我们提出直接研究量化数据的特征判别性，而非分析其量化误差。有趣的是，研究发现二元和三元量化方法不仅不会削弱原始数据的特征判别性，反而能增强其判别能力。这一卓越性能在图像、语音和文本等多种数据类型的分类实验中得到了验证。</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">通过显著性感知部分重训练增强大型语言模型的超低比特量化</h2><a id="user-content-通过显著性感知部分重训练增强大型语言模型的超低比特量化" class="anchor" aria-label="Permalink: 通过显著性感知部分重训练增强大型语言模型的超低比特量化" href="#通过显著性感知部分重训练增强大型语言模型的超低比特量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.13932v1 公告类型：新研究<br>
+摘要：大语言模型展现出卓越能力，但其体量与计算需求带来实际挑战。量化方法通过将高精度参数替换为低精度量化值来压缩模型规模。训练后量化能高效缩减模型体积但会降低精度，而量化感知训练虽能更好保持精度却消耗大量资源。在现有训练后量化算法中，ApiQ方法以极低的内存和时间开销实现了最优的精度保持。我们探索两种思路以突破ApiQ在超低位量化中的性能极限：首先，研究将现有量化感知训练技术与ApiQ的部分训练相结合。实验表明在有限训练数据和冻结权重条件下，该方法未能超越基础ApiQ方法。由此获得两个关键发现：(1) 完全重训练带来的表征能力提升可能无法通过部分训练实现；(2) 这种提升似乎依赖于量化感知训练中使用的大规模多样化数据集。其次，基于这些发现，我们提出一种新型超低位量化方法，在ApiQ基础上无需完全重训练即可提升性能。该方法采用显著性感知正则化项，优先保护量化过程中最具影响力的参数。在LLaMA系列基准模型上的实验表明，所提方法显著提升精度并缩小量化模型与全精度模型的差距，且开销极小。我们将公开本方法以促进大语言模型超低位量化的未来发展。</p>
 <p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>"quantization"统一译为"量化"</li>
-<li>"feature discrimination"译为"特征判别性"以突出其统计学特性</li>
-<li>数学符号保留原始格式</li>
-<li>长句按中文习惯拆分为短句，如将"operating under the premise..."独立成句</li>
-<li>专业表述如"low bit-width"译为"低位宽"符合计算机领域术语）</li>
+<li>"quantization-aware training"统一译为"量化感知训练"</li>
+<li>"post-training quantization"译为"训练后量化"</li>
+<li>"saliency-aware"译为"显著性感知"</li>
+<li>技术术语如LLaMA、ApiQ等保留原名</li>
+<li>长难句按中文表达习惯进行了分拆重组，如将英语被动语态转换为中文主动表述）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">《一跃即达：通过单次跳跃适配所有退出层级，实现Transformer早期退出的捷径预测》</h2><a id="user-content-一跃即达通过单次跳跃适配所有退出层级实现transformer早期退出的捷径预测" class="anchor" aria-label="Permalink: 《一跃即达：通过单次跳跃适配所有退出层级，实现Transformer早期退出的捷径预测》" href="#一跃即达通过单次跳跃适配所有退出层级实现transformer早期退出的捷径预测"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>或更简洁的版本：<br>
+《只需一跃：单跳适配多级，Transformer早期退出捷径预测》</p>
+<p>（注：标题翻译在保留技术术语（Transformer/早期退出）的同时，采用中文常见的四字格与对称结构。"One Jump"译为"一跃"既简洁又体现动作感，"Short-Cutting"译为"捷径"准确传达技术内涵，"Fit All Exit Levels"通过"适配多级"实现动态对应。整体兼顾学术严谨性与传播效果。）</p>
+<p>arXiv:2504.13984v1 公告类型：新研究<br>
+摘要：为降低大语言模型推理的时间和计算成本，学界开始关注参数高效的"低秩早退投射"方法——将Transformer隐藏层表征直接投射至最终表征。这种低秩捷径已被证明在模型早期阶段优于恒等捷径，同时保持跳跃连接的参数高效性。然而现有低秩方法在推理时需为每个Transformer中间块层级维护独立的早退捷径跳跃。本研究提出选择单一"通用一跳通"(OJFA)低秩捷径方案，推理时可减少超过30倍的捷径参数成本。实验表明，即便在这种极端压缩下，我们的OJFA方案在GPT2-XL、Phi3-Mini和Llama2-7B等Transformer模型上，其性能仍基本匹配维护多重跳跃的方案，且能从所有块层级稳定输出预测结果。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了如下处理：</p>
+<ol>
+<li>"early-exit casting"译为"早退投射"，既保留"early-exit"在ML领域的术语特征，又通过"投射"准确表达"casting"的数学含义</li>
+<li>"One-Jump-Fits-All"采用"通用一跳通"的译法，既保留英文首字母缩写OJFA的可识别性，又通过"通用"对应"Fits-All"，"跳通"生动体现跳跃连接功能</li>
+<li>"block-level"统一译为"块层级"，保持Transformer架构术语的一致性</li>
+<li>将原文两个长句拆分为符合中文表达习惯的短句，并通过衔接词保持逻辑连贯）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">NoWag：大型语言模型形状保持压缩的统一框架</h2><a id="user-content-nowag大型语言模型形状保持压缩的统一框架" class="anchor" aria-label="Permalink: NoWag：大型语言模型形状保持压缩的统一框架" href="#nowag大型语言模型形状保持压缩的统一框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.14569v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）在各种自然语言处理任务中展现出卓越性能，但其庞大的计算和内存需求限制了在资源受限环境中的部署。为应对这一挑战，我们提出NoWag（标准化权重与激活引导的压缩框架）——一种零样本保形压缩算法的统一框架。我们采用两种主流保形压缩形式（向量量化NoWag-VQ与无/半结构化剪枝NoWag-P），对Llama-2 7B/13B/70B及Llama-3 8B/70B模型进行压缩。实验表明：NoWag-VQ显著优于当前最先进的零样本向量量化方法，NoWag-P也与前沿方法性能相当。这些发现揭示了不同压缩范式间的共性，可为未来研究提供启示。代码已开源：<a href="https://github.com/LawrenceRLiu/NoWag">https://github.com/LawrenceRLiu/NoWag</a></p>
+<p>（注：根据学术文献翻译规范，对原文进行了以下处理：</p>
+<ol>
+<li>专业术语统一："shape-preserving compression"译为"保形压缩"以保持技术一致性</li>
+<li>句式重构：将英文长句拆解为符合中文表达习惯的短句，如将"we propose..."处理为因果逻辑句式</li>
+<li>技术细节显化：括号补充说明"无/半结构化"以明确pruning类型</li>
+<li>单位规范：模型参数规模"B"统一译为"亿参数"级，符合中文论文惯例</li>
+<li>被动语态转换："are available"主动化为"已开源"）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">渐进式二分搜索与维度扩展：大语言模型中激活量化的通用方法</h2><a id="user-content-渐进式二分搜索与维度扩展大语言模型中激活量化的通用方法" class="anchor" aria-label="Permalink: 渐进式二分搜索与维度扩展：大语言模型中激活量化的通用方法" href="#渐进式二分搜索与维度扩展大语言模型中激活量化的通用方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.13989v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）已成为人工智能领域的核心支柱，在推理、理解和数据生成方面展现出强大能力。然而，其庞大的参数量（通常高达数十亿）阻碍了在边缘设备上的部署。量化是降低内存占用和推理时间的常用方法，但LLMs中激活值的异常值问题给低比特量化带来了独特挑战。本研究利用哈达玛矩阵相较于随机旋转矩阵的理论优势，突破了LLMs量化的边界。我们证明哈达玛矩阵能更有效地减少异常值——这是实现低比特量化的主要障碍。基于渐进式二分搜索的方法，我们实现了权重、激活值和键值（KV）缓存的3比特量化，在常见基准测试中比现有最优方法准确率提升40%。通过采用Paley算法，我们将旋转矩阵的应用扩展至支持非2的幂次方嵌入维度（类似Qwen架构）。理论分析证明了哈达玛矩阵在抑制异常值方面的优越性。我们实现了权重、激活值和KV缓存的3比特量化，显著提升了模型性能。在Mistral、LLaMA和Qwen等多个模型系列上的实验结果验证了该方法的有效性，其性能超越现有方案，使实用的3比特量化成为可能。</p>
+<p>（注：根据学术论文摘要的文体特点，翻译时做了以下处理：</p>
+<ol>
+<li>专业术语统一："outliers"译为"异常值"，"key-value caches"译为"键值缓存"</li>
+<li>技术概念显化：将"non-power-of-2"译为"非2的幂次方"以明确数学含义</li>
+<li>句式重构：将英语长句拆分为符合中文表达习惯的短句，如原文最后一句拆分为两个独立成果陈述</li>
+<li>被动语态转化："are hindered by"译为"阻碍了"</li>
+<li>术语保留：SoTA（State-of-the-Art）保留英文缩写但补充说明"现有最优方法"）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">CAOTE：基于注意力输出误差的令牌驱逐KV缓存技术</h2><a id="user-content-caote基于注意力输出误差的令牌驱逐kv缓存技术" class="anchor" aria-label="Permalink: CAOTE：基于注意力输出误差的令牌驱逐KV缓存技术" href="#caote基于注意力输出误差的令牌驱逐kv缓存技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.14051v1 公告类型：新论文<br>
+摘要：尽管大语言模型的长上下文支持拓展了其能力，但也带来了内存与计算上的挑战，成为资源受限设备的关键瓶颈。作为广泛采用的训练后处理方法，令牌驱逐通过从缓存中移除次要令牌来缓解瓶颈，通常使用注意力分数作为令牌重要性的代理指标。然而，注意力分数作为令牌级重要性指标存在一个主要局限：它缺乏关于令牌对注意力输出贡献的信息。本文提出了一种基于缓存令牌对注意力输出贡献的简单驱逐标准。我们的方法CAOTE通过无缝整合注意力分数与值向量，优化了因令牌驱逐产生的误差。这是首个在基于注意力的驱逐分数基础上引入值向量信息的方法。此外，CAOTE可作为元启发式方法，灵活兼容任何令牌驱逐方案。实验表明，当CAOTE与最先进的基于注意力分数的方法结合时，能持续提升下游任务准确率，这印证了在令牌驱逐过程中利用值向量信息的重要性。</p>
+<p>（注：根据学术论文摘要的文体特征，翻译时进行了以下处理：</p>
+<ol>
+<li>专业术语统一："token"译为"令牌"，"attention scores"译为"注意力分数"，"value vectors"译为"值向量"</li>
+<li>被动语态转换：将英文被动结构转换为中文主动表述（如"is designed to"译为"通过"）</li>
+<li>长句拆分：将复合长句按中文表达习惯分解为多个短句</li>
+<li>概念显化："meta-heuristic method"译为"元启发式方法"以保留学术性</li>
+<li>逻辑连接显化：通过"尽管...但..."等连词明确原文隐含的转折关系）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">通过全数字存内计算加速器实现灵活的N:M稀疏性以加速LLM推理</h2><a id="user-content-通过全数字存内计算加速器实现灵活的nm稀疏性以加速llm推理" class="anchor" aria-label="Permalink: 通过全数字存内计算加速器实现灵活的N:M稀疏性以加速LLM推理" href="#通过全数字存内计算加速器实现灵活的nm稀疏性以加速llm推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.14365v1 公告类型：新研究<br>
+摘要：采用固定N:M结构化稀疏性的大型语言模型（LLM）剪枝方法严重限制了稀疏模型的表达能力，导致性能欠佳。相比之下，支持多种N:M模式以提供稀疏表示自由度的方案会引入高昂的硬件开销。针对LLM的这些挑战，我们首先提出了一种灵活的层间异常值密度感知N:M稀疏性选择方法（FLOW）。该方法通过同步考虑异常值的存在与分布特性，从给定范围内确定各层最优的N和M值，从而赋予模型更高程度的表示自由度。为部署具有此类N:M灵活性的稀疏模型，我们进一步设计了一种低开销的数字存内计算架构（FlexCiM）。该架构通过将数字存内计算宏（DCiM）划分为更小的子模块，并采用分布式聚合与动态拆分机制适配不同N、M值，从而支持多样化的稀疏模式。在基于Transformer和基于循环的状态空间基础模型（SSMs）上的大量实验表明：FLOW方法以最高36%的准确率优势超越现有方案，而FlexCiM相比现有稀疏加速器可实现推理延迟降低1.75倍、能耗减少1.5倍。代码已开源：<a href="https://github.com/FLOW-open-project/FLOW">https://github.com/FLOW-open-project/FLOW</a></p>
+<p>（注：根据学术文献翻译规范，对技术术语进行了如下统一处理：</p>
+<ol>
+<li>"outlier-density-aware"译为"异常值密度感知"以保持算法特性描述准确性</li>
+<li>"compute-in-memory"采用行业通用译法"存内计算"</li>
+<li>保留原文中的专业缩写（如DCiM/SSMs）确保技术严谨性</li>
+<li>将长复合句拆分为符合中文表达习惯的短句结构）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">CacheFormer：基于高度注意力机制的片段缓存技术</h2><a id="user-content-cacheformer基于高度注意力机制的片段缓存技术" class="anchor" aria-label="Permalink: CacheFormer：基于高度注意力机制的片段缓存技术" href="#cacheformer基于高度注意力机制的片段缓存技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.13981v1 公告类型：新研究<br>
+摘要：如何在基于Transformer的语言模型中高效处理长上下文并保持低困惑度，是当前活跃的研究领域。尽管近期出现了Linformer、Longformer、Performer及结构化状态空间模型（SSMs）等多种方案，该问题尚未得到完全解决。这些模型都致力于在降低注意力机制二次方时间复杂度同时，通过有效压缩长上下文来最小化质量损失。受计算机缓存与虚拟内存原理启发（当发生缓存未命中时，系统不仅会获取所需数据，还会预取相邻数据），我们将这一理念应用于长上下文处理，将上下文划分为小片段。在设计中，当压缩层级出现高片段级注意力时，我们会以非压缩形式检索邻近片段。我们的长上下文处理增强方案包含四项注意力机制：短滑动窗口注意力、长压缩分段注意力、动态检索top k高注意力非压缩片段，以及在长片段注意力中采用重叠片段以避免片段割裂。这些改进构建出的架构性能超越现有SOTA模型，在相近模型规模下平均困惑度提升达8.5%。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<ol>
+<li>"perplexity"统一译为"困惑度"（自然语言处理领域标准译法）</li>
+<li>"cache miss"译为"缓存未命中"（计算机体系结构标准术语）</li>
+<li>"SOTA"保留英文缩写并首次出现标注"现有最佳模型"，后文简化为"SOTA模型"</li>
+<li>技术概念如"sliding window attention"采用"滑动窗口注意力"这一学界通用译法</li>
+<li>长复合句按中文表达习惯拆分为多个短句，保持逻辑连贯性）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

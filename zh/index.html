@@ -12,20 +12,38 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">《计算编码：面向可重构硬件的神经网络高效压缩》</h2><a id="user-content-计算编码面向可重构硬件的神经网络高效压缩" class="anchor" aria-label="Permalink: 《计算编码：面向可重构硬件的神经网络高效压缩》" href="#计算编码面向可重构硬件的神经网络高效压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.17403v1 公告类型：新研究<br>
-摘要：随着最先进神经网络（NNs）规模的持续扩大，其资源高效实现变得愈发重要。本文提出一种压缩方案，可减少在FPGA等可重构硬件上进行神经网络推理所需的计算量。该方案通过正则化训练剪枝、权重共享和线性计算编码（LCC）三项技术的协同实现。与常见以缩减神经网络权重存储空间为目标的压缩技术不同，我们的方法以硬件友好方式优化减少推理所需的加法运算次数。对于简单多层感知器以及ResNet-34等大规模深度神经网络，所提方案均展现出具有竞争力的性能表现。</p>
-<p>（注：根据学术论文摘要的翻译规范，进行了以下处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">MOOSComp：通过缓解过度平滑与融合离群值评分提升轻量级长上下文压缩器性能</h2><a id="user-content-mooscomp通过缓解过度平滑与融合离群值评分提升轻量级长上下文压缩器性能" class="anchor" aria-label="Permalink: MOOSComp：通过缓解过度平滑与融合离群值评分提升轻量级长上下文压缩器性能" href="#mooscomp通过缓解过度平滑与融合离群值评分提升轻量级长上下文压缩器性能"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>近年来，大型语言模型在处理长上下文输入方面取得了显著进展，但推理时间和资源消耗的增加对实际应用构成了挑战，尤其在资源受限的环境中。为应对这些挑战，我们提出了MOOSComp——一种基于令牌分类的长上下文压缩方法。该方法通过缓解过平滑问题并引入异常值评分，显著提升了基于BERT架构的压缩器性能。在训练阶段，我们新增了类间余弦相似度损失项，用以惩罚过度相似的令牌表征，从而提升令牌分类精度。在压缩阶段，我们引入异常值评分机制来保留那些易被任务无关型压缩丢弃的稀有但关键令牌。这些评分与分类器输出相融合，使压缩器能更好地泛化至各类任务。在多种压缩比下的长上下文理解与推理基准测试中，本方法均展现出卓越性能。此外，在资源受限的移动设备上实现4倍压缩比时，我们的方法能获得3.3倍的加速效果。</p>
+<div class="markdown-heading"><h2 class="heading-element">L3：面向可扩展长上下文LLM推理的DIMM-PIM集成架构与协同优化</h2><a id="user-content-l3面向可扩展长上下文llm推理的dimm-pim集成架构与协同优化" class="anchor" aria-label="Permalink: L3：面向可扩展长上下文LLM推理的DIMM-PIM集成架构与协同优化" href="#l3面向可扩展长上下文llm推理的dimm-pim集成架构与协同优化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：根据技术文档翻译规范，此处采用以下处理方式：</p>
 <ol>
-<li>保留专业术语缩写（NNs/FPGA/LCC/ResNet）及编号格式</li>
-<li>"state of the art"译为"最先进的"符合中文文献习惯</li>
-<li>"hardware-friendly manner"意译为"硬件友好方式"既准确又符合中文表达</li>
-<li>将英语长句拆分为符合中文阅读习惯的短句结构</li>
-<li>"multilayer perceptrons"采用业界通用译名"多层感知器"</li>
-<li>保持被动语态到主动语态的合理转换（如"are optimized"译为"以...优化"））</li>
+<li>保留专业缩写"DIMM-PIM"与"LLM"不译，确保术语准确性</li>
+<li>"Integrated Architecture and Coordination"译为"集成架构与协同优化"，其中"Coordination"根据计算机体系结构领域惯例译为"协同优化"而非字面翻译</li>
+<li>"Scalable Long-Context"译为"可扩展长上下文"，准确传达支持动态扩展的超长上下文特征</li>
+<li>标题级标记"L3"保留原格式，符合学术文献层级规范）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">反斜杠：大型语言模型的速率约束优化训练</h2><a id="user-content-反斜杠大型语言模型的速率约束优化训练" class="anchor" aria-label="Permalink: 反斜杠：大型语言模型的速率约束优化训练" href="#反斜杠大型语言模型的速率约束优化训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.16968v1 公告类型：新研究<br>
-摘要：大型语言模型（LLM）的快速发展推动了训练完成后参数压缩技术的广泛研究，然而训练阶段的压缩领域仍鲜有探索。本研究提出速率约束训练法（Backslash），这是一种基于率失真优化（RDO）的新型训练时压缩方法。Backslash实现了模型精度与复杂度之间的灵活权衡，在保持性能的同时显著减少参数冗余。在多种架构和任务中的实验表明，Backslash可在不损失精度的情况下降低60%-90%的内存占用，且相比训练后压缩获得显著的增益。此外，Backslash展现出极强的通用性：通过小拉格朗日乘数增强模型泛化能力，提升模型对剪枝的鲁棒性（在80%剪枝率下仍保持精度），并能简化网络结构以加速边缘设备推理。</p>
-<p>（注：Backslash作为方法名保留不译，RDO采用"率失真优化"的标准译法，技术术语如"Lagrange multipliers"译为"拉格朗日乘数"保持学术惯例，长难句按中文表达习惯拆分重组，确保专业性与可读性平衡）</p>
+<p>大型语言模型（LLM）处理长文本序列的需求日益增长，但GPU内存限制迫使开发者在内存容量与带宽之间做出艰难取舍。基于高带宽内存（HBM）的加速方案虽能提供高带宽，但其容量仍受限制；而将数据卸载至主机端DIMM内存虽可扩展容量，却会引入高昂的数据交换开销。我们发现关键内存瓶颈仅存在于多头注意力机制（MHA）的解码阶段——该阶段既需要大容量存储KV缓存，又依赖高带宽进行注意力计算。研究揭示，这一计算特性与现代基于DIMM的内存处理（PIM）架构高度契合，后者能同时扩展容量与带宽。</p>
+<p>基于上述发现，我们提出L3系统——一种整合DIMM-PIM与GPU设备的软硬件协同设计。L3包含三大创新：首先，通过硬件重构解决DIMM-PIM中数据布局与计算单元的不匹配问题，提升LLM推理效率；其次，通过通信优化实现计算过程对数据传输开销的隐藏；最后，自适应调度器协调GPU与DIMM-PIM的运作，最大化设备间并行性。真实场景测试表明，L3相比最先进的HBM-PIM方案最高可实现6.1倍加速，同时显著提升批量处理规模。</p>
+<div class="markdown-heading"><h2 class="heading-element">大型语言模型推理的能源考量与效率优化策略</h2><a id="user-content-大型语言模型推理的能源考量与效率优化策略" class="anchor" aria-label="Permalink: 大型语言模型推理的能源考量与效率优化策略" href="#大型语言模型推理的能源考量与效率优化策略"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>随着大规模语言模型（LLMs）的体量扩大与应用普及，其计算成本和环境代价持续攀升。现有基准测试主要聚焦理想化场景下的延迟优化，往往忽视了实际推理工作负载的多样性对能耗的影响。本研究系统分析了自然语言处理（NLP）和生成式人工智能（AI）工作负载（包括对话式AI和代码生成）中常见推理效率优化策略的能耗影响。我们提出了一种建模方法，通过输入-输出令牌分布的分箱策略和批量大小变化来模拟真实世界LLM工作流程。实证分析涵盖软件框架、解码策略、GPU架构、在线/离线服务场景以及模型并行配置等多个维度。研究表明：推理优化效果对工作负载几何特征、软件栈和硬件加速器高度敏感，基于浮点运算次数（FLOPs）或理论GPU利用率的简单能耗估算会严重低估实际能耗。实验发现，合理应用相关推理效率优化技术可使总能耗较未优化基准降低最高达73%。这些发现为可持续LLM部署奠定了基础，并为未来AI基础设施的能效设计策略提供了重要依据。</p>
+<div class="markdown-heading"><h2 class="heading-element">HMI：基于预训练语言模型的高效多租户推理分层知识管理</h2><a id="user-content-hmi基于预训练语言模型的高效多租户推理分层知识管理" class="anchor" aria-label="Permalink: HMI：基于预训练语言模型的高效多租户推理分层知识管理" href="#hmi基于预训练语言模型的高效多租户推理分层知识管理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>预训练语言模型（PLMs）因其庞大的计算需求通常需要专用硬件支持，这给高效部署带来了巨大挑战，尤其在多租户环境中。为应对这一难题，我们提出了HMI——一种基于分层知识管理的多租户推理系统，旨在以资源高效的方式管理使用不同PLM的租户。我们的解决方案包含三个创新维度：</p>
+<p>首先，我们将PLM知识划分为通用知识、领域知识和任务知识三个层级。通过分析不同模型层级的知识获取规律，构建分层PLM（hPLMs），将各层级知识提取存储，使单租户GPU内存占用显著降低。其次，在HMI中建立针对多租户hPLMs的分层知识管理体系：基于使用频率构建并动态更新领域知识树，以可接受的存储开销管理领域知识；通过参数交换技术，在有限GPU内存内高效管理任务知识。最后，我们提出系统级优化策略：采用分层知识预取实现细粒度流水线，使CPU/I/O操作与GPU计算重叠；通过批处理矩阵乘法优化并行实现，从而提升资源利用率和推理吞吐。</p>
+<p>实验结果表明，所提出的HMI系统能在单块GPU上高效服务多达10,000个hPLM实例（包括hBERT和hGPT），且精度损失可忽略不计。</p>
+<div class="markdown-heading"><h2 class="heading-element">反斜杠：大语言模型的速率约束优化训练</h2><a id="user-content-反斜杠大语言模型的速率约束优化训练" class="anchor" aria-label="Permalink: 反斜杠：大语言模型的速率约束优化训练" href="#反斜杠大语言模型的速率约束优化训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>大型语言模型（LLMs）的快速发展推动了训练完成后参数压缩技术的广泛研究，然而训练阶段的压缩领域仍存在大量空白。本研究提出了一种基于率失真优化（RDO）的创新训练时压缩方法——速率约束训练（Backslash）。该技术通过灵活权衡模型精度与复杂度，在保持性能的同时显著降低参数冗余。多架构多任务的实验表明，Backslash能在不损失精度的情况下减少60%-90%的内存占用，相比训练后压缩获得显著增益。此外，Backslash展现出卓越的适应性：通过小拉格朗日乘数增强模型泛化能力，提升剪枝鲁棒性（在80%剪枝率下仍保持精度），并能简化网络结构以加速边缘设备推理。</p>
+<div class="markdown-heading"><h2 class="heading-element">《稀疏前沿：Transformer大语言模型中的稀疏注意力权衡》</h2><a id="user-content-稀疏前沿transformer大语言模型中的稀疏注意力权衡" class="anchor" aria-label="Permalink: 《稀疏前沿：Transformer大语言模型中的稀疏注意力权衡》" href="#稀疏前沿transformer大语言模型中的稀疏注意力权衡"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>稀疏注意力为扩展Transformer大语言模型的长上下文处理能力提供了一种颇具前景的策略，但其可行性、效率与准确性的权衡关系以及系统性扩展研究仍属空白。为填补这一空白，我们针对不同模型规模、序列长度和稀疏度水平，在多样化长序列任务集（包括依赖自然语言同时兼具可控性和易评估性的新颖任务）上对免训练的稀疏注意力方法进行了细致比较。基于实验结果，我们得出一系列关键发现：1）等计算量分析表明，对于超长序列，大规模高稀疏度模型优于小规模稠密模型；2）在统计层面保证精度不损失的前提下，解码阶段可实现的稀疏度高于预填充阶段，且前者与模型规模呈正相关；3）不存在适用于所有任务阶段的最佳策略，不同场景需要采用不同的稀疏化单元或预算自适应方案。即使是中等稀疏度也常导致至少一项任务性能显著下降，说明稀疏注意力并非通用解决方案；4）我们提出并验证了专为稀疏注意力设计的新颖缩放定律，证明研究发现很可能具有超越实验范围的普适性。这些发现表明，稀疏注意力是增强Transformer大语言模型长序列处理能力的关键工具，但在性能敏感型应用中需要审慎评估其利弊权衡。</p>
+<div class="markdown-heading"><h2 class="heading-element">设备端Qwen2.5：通过模型压缩与硬件加速实现高效大语言模型推理</h2><a id="user-content-设备端qwen25通过模型压缩与硬件加速实现高效大语言模型推理" class="anchor" aria-label="Permalink: 设备端Qwen2.5：通过模型压缩与硬件加速实现高效大语言模型推理" href="#设备端qwen25通过模型压缩与硬件加速实现高效大语言模型推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：译文采用技术文档常见的简洁风格，关键术语处理说明：</p>
+<ol>
+<li>"On-Device"译为"设备端"符合移动计算领域术语习惯</li>
+<li>"Model Compression"保留专业表述译为"模型压缩"</li>
+<li>"Hardware Acceleration"译为"硬件加速"是行业标准译法</li>
+<li>副标题采用"通过...实现..."的工程报告常用句式结构</li>
+<li>"LLM"完整译为"大语言模型"确保中文读者理解，未直接使用英文缩写）</li>
+</ol>
+<p>基于Transformer架构的大语言模型（LLMs）虽显著提升了人工智能能力，但其高计算需求、内存带宽限制及能耗问题为边缘设备部署带来了巨大挑战。本文提出了一种高效部署框架，将Qwen2.5-0.5B模型适配至赛灵思Kria KV260边缘平台——该异构系统整合了ARM Cortex-A53 CPU与可编程FPGA逻辑单元。通过采用激活感知权重量化（AWQ）技术与FPGA加速执行流水线，该方案同时提升了模型压缩率和系统吞吐量。我们还设计了一种混合执行策略：智能地将计算密集型任务卸载至FPGA处理，同时利用CPU执行轻量级任务，从而优化计算负载分配并实现整体性能最大化。实验表明，该框架相较原始模型实现了55.08%的压缩率，并以每秒5.1个token的生成速度超越了基线性能（2.8 tokens/秒）。</p>
+<div class="markdown-heading"><h2 class="heading-element">为计算而编码：面向可重构硬件的神经网络高效压缩</h2><a id="user-content-为计算而编码面向可重构硬件的神经网络高效压缩" class="anchor" aria-label="Permalink: 为计算而编码：面向可重构硬件的神经网络高效压缩" href="#为计算而编码面向可重构硬件的神经网络高效压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>随着最先进的神经网络（NNs）规模持续扩大，其资源高效实现变得愈发重要。本文提出了一种压缩方案，可减少在FPGA等可重构硬件上进行神经网络推理所需的计算量。该方案通过结合正则化训练剪枝、权重共享和线性计算编码（LCC）三项技术实现。与常规神经网络压缩技术（目标在于减少存储网络权重的内存占用）不同，我们的方法以硬件友好方式优化减少推理所需的加法运算次数。实验表明，该方案不仅在简单多层感知器上表现优异，对于ResNet-34等大规模深度神经网络同样具有竞争力。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

@@ -12,44 +12,14 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">大型语言模型推理的能耗考量与效率优化策略</h2><a id="user-content-大型语言模型推理的能耗考量与效率优化策略" class="anchor" aria-label="Permalink: 大型语言模型推理的能耗考量与效率优化策略" href="#大型语言模型推理的能耗考量与效率优化策略"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>随着大规模语言模型（LLMs）的规模扩大和普及率提升，其计算成本和环境代价持续攀升。现有基准测试主要关注理想化场景下的延迟降低，往往忽略了影响能耗的多样化现实推理工作负载。本研究系统分析了自然语言处理（NLP）和生成式人工智能（AI）工作负载（包括对话式AI和代码生成）中常见推理效率优化对能耗的影响。我们提出了一种建模方法，通过输入-输出令牌分布的分箱策略和批量大小变化来模拟真实世界LLM工作流程。实证分析涵盖软件框架、解码策略、GPU架构、在线/离线服务场景以及模型并行配置。研究表明：推理优化的有效性对工作负载几何特征、软件栈和硬件加速器高度敏感，基于浮点运算次数（FLOPs）或理论GPU利用率的原始能耗预估会显著低估实际能耗。实验发现，正确应用相关推理效率优化可使总能耗较未优化基线降低最高达73%。这些发现为可持续LLM部署奠定了基础，并为未来AI基础设施的能效设计策略提供了理论依据。</p>
-<div class="markdown-heading"><h2 class="heading-element">《稀疏前沿：Transformer大语言模型中的稀疏注意力权衡》</h2><a id="user-content-稀疏前沿transformer大语言模型中的稀疏注意力权衡" class="anchor" aria-label="Permalink: 《稀疏前沿：Transformer大语言模型中的稀疏注意力权衡》" href="#稀疏前沿transformer大语言模型中的稀疏注意力权衡"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>稀疏注意力为扩展Transformer大语言模型的长上下文处理能力提供了一种颇具前景的策略，但其可行性、效率与准确性的权衡关系以及系统化的扩展研究仍属空白。为填补这一空白，我们针对不同模型规模、序列长度和稀疏度水平，在多样化长序列任务集（包括依赖自然语言且兼具可控性与易评估性的新型任务）上对免训练的稀疏注意力方法进行了细致比较。基于实验结果，我们总结出以下关键发现：1）等计算量分析表明，对于超长序列，规模更大且高度稀疏的模型优于小而密集的模型；2）在统计层面保证精度不损失的前提下，解码阶段可实现的稀疏度高于预填充阶段，且前者与模型规模呈正相关；3）不存在适用于所有任务阶段的最佳策略，不同场景需要采用不同的稀疏化单元或预算自适应方案。即使是中等稀疏度也常导致至少一项任务性能显著下降，说明稀疏注意力并非通用解决方案；4）我们提出并验证了专为稀疏注意力设计的扩展定律，证明研究发现很可能具有超越实验范围的普适性。这些研究结果表明，稀疏注意力是增强Transformer大语言模型长序列处理能力的关键工具，但在性能敏感型应用中需审慎评估其权衡关系。</p>
-<div class="markdown-heading"><h2 class="heading-element">设备端Qwen2.5：通过模型压缩与硬件加速实现高效大语言模型推理</h2><a id="user-content-设备端qwen25通过模型压缩与硬件加速实现高效大语言模型推理" class="anchor" aria-label="Permalink: 设备端Qwen2.5：通过模型压缩与硬件加速实现高效大语言模型推理" href="#设备端qwen25通过模型压缩与硬件加速实现高效大语言模型推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：译文采用技术文档常见的简洁风格，关键术语处理说明：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">思考、剪枝、训练、提升：无需扩大模型规模即可增强推理能力</h2><a id="user-content-思考剪枝训练提升无需扩大模型规模即可增强推理能力" class="anchor" aria-label="Permalink: 思考、剪枝、训练、提升：无需扩大模型规模即可增强推理能力" href="#思考剪枝训练提升无需扩大模型规模即可增强推理能力"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.18116v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）在编程和数学推理任务中展现出强大能力，但受限于高质量训练数据的稀缺。合成数据可用于提升微调效果，但该过程受多重因素影响，包括模型规模、合成数据量、剪枝策略和微调轮次。我们系统探索这些变量，研究模型自我提升的条件边界。提出"思考-剪枝-训练"流程，这一可扩展框架通过迭代微调模型自身推理轨迹，结合基于真实性的数据剪枝来保障训练数据质量。该方法显著提升模型性能：Gemma2-2B在GSM8K上的Pass@1准确率从41.9%提升至57.6%；Gemma2-9B达到82%，与LLaMA-3.1-70B持平；而LLaMA-3.1-70B更达到91%，甚至超越GPT-4o。这证明了自生成推理与系统性数据选择对增强大语言模型能力的有效性。</p>
+<p>（注：根据学术文献翻译规范，对技术术语进行了统一处理：</p>
 <ol>
-<li>"On-Device"译为"设备端"符合移动计算领域术语惯例</li>
-<li>保留"Qwen2.5"作为专有模型名称不翻译</li>
-<li>"LLM"译为"大语言模型"是行业通用译法</li>
-<li>"Model Compression"和"Hardware Acceleration"采用"模型压缩"与"硬件加速"的标准技术译法</li>
-<li>使用冒号替代原标题中的连接词"with"更符合中文技术标题语法习惯）</li>
+<li>"ground-truth pruning"译为"基于真实性的数据剪枝"以准确传达技术含义</li>
+<li>"Think, Prune, Train"采用破折号连接的三段式译法，既保留原流程名称的辨识度又符合中文表达习惯</li>
+<li>模型名称Gemma/LLaMA等保持原文大写格式</li>
+<li>关键指标"Pass@1"保留英文术语+中文注释的译法确保专业性）</li>
 </ol>
-<p>基于Transformer架构的大语言模型（LLMs）显著提升了人工智能能力，但由于其高计算需求、内存带宽限制及能耗问题，在边缘设备上的部署面临巨大挑战。本文提出一种高效框架，将Qwen2.5-0.5B模型部署在赛灵思Kria KV260边缘平台（该异构系统整合了ARM Cortex-A53 CPU与可编程FPGA逻辑），通过结合激活感知权重量化（AWQ）技术与FPGA加速执行流水线，同步提升模型压缩率与系统吞吐量。我们进一步提出混合执行策略：智能地将计算密集型操作卸载至FPGA处理，同时利用CPU执行轻量级任务，从而优化计算负载分配并实现整体性能最大化。实验表明，该框架相较原始模型实现55.08%的压缩率，并以每秒5.1个token的生成速度显著超越基线性能（2.8 tokens/秒）。</p>
-<div class="markdown-heading"><h2 class="heading-element">L3：面向可扩展长上下文LLM推理的DIMM-PIM集成架构与协同优化</h2><a id="user-content-l3面向可扩展长上下文llm推理的dimm-pim集成架构与协同优化" class="anchor" aria-label="Permalink: L3：面向可扩展长上下文LLM推理的DIMM-PIM集成架构与协同优化" href="#l3面向可扩展长上下文llm推理的dimm-pim集成架构与协同优化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：根据技术文档翻译惯例，此处对原文进行了适度意译与结构调整，具体说明如下：</p>
-<ol>
-<li>"Integrated Architecture and Coordination" 译为"集成架构与协同优化"，其中"Coordination"在计算机系统语境下常涉及资源调度优化，故补充"优化"以明确技术内涵</li>
-<li>"Scalable"译为"可扩展"符合中文计算机领域术语标准</li>
-<li>"Long-Context LLM Inference"采用当前学术界的通用译法"长上下文LLM推理"，保留LLM缩写因该术语在中文论文中已广泛直接使用</li>
-<li>标题级标记"L3"保留原文格式，中文技术文档通常保持这种层级编号方式）</li>
-</ol>
-<p>大型语言模型（LLM）对长文本序列处理的需求日益增长，但GPU内存限制迫使开发者在内存容量与带宽之间做出艰难权衡。基于高带宽内存（HBM）的加速方案虽能提供高带宽，但其容量仍受限制；将数据卸载至主机端DIMM内存可扩展容量，却会引入昂贵的数据交换开销。我们发现关键内存瓶颈仅存在于多头注意力机制（MHA）的解码阶段——该阶段既需要大容量存储KV缓存，又依赖高带宽进行注意力计算。核心突破在于：这一操作特性与现代基于DIMM的内存计算（PIM）架构高度契合，后者能同时扩展容量与带宽。</p>
-<p>基于此发现，我们提出L3系统——一个软硬件协同设计的DIMM-PIM与GPU异构计算架构。L3包含三大创新：首先，通过硬件重构解决DIMM-PIM中数据布局与计算单元的不匹配问题，显著提升LLM推理效率；其次，通信优化技术将数据传输开销隐藏于计算过程中；最后，自适应调度器协调GPU与DIMM-PIM的并行运作。真实场景测试表明，L3相比最先进的HBM-PIM方案最高可实现6.1倍加速，同时显著提升批量处理能力。</p>
-<div class="markdown-heading"><h2 class="heading-element">编码计算：面向可重构硬件的神经网络高效压缩</h2><a id="user-content-编码计算面向可重构硬件的神经网络高效压缩" class="anchor" aria-label="Permalink: 编码计算：面向可重构硬件的神经网络高效压缩" href="#编码计算面向可重构硬件的神经网络高效压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>随着最先进的神经网络（NN）规模持续扩大，其资源高效实现变得愈发重要。本文提出一种压缩方案，可减少在FPGA等可重构硬件上进行神经网络推理所需的计算量。该方案通过正则化训练剪枝、权重共享与线性计算编码（LCC）三项技术协同实现。与常规神经网络压缩技术以降低权重存储内存占用为目标不同，我们的方法以硬件友好方式优化减少推理过程中的加法运算次数。实验表明，该方案在简单多层感知器与ResNet-34等大规模深度神经网络上均能实现具有竞争力的性能。</p>
-<p>（注：译文严格遵循技术文献的学术风格，处理要点包括：</p>
-<ol>
-<li>"state of the art"译为"最先进的"符合中文技术文献表述习惯</li>
-<li>"reconfigurable hardware"译为"可重构硬件"采用业界标准译法</li>
-<li>将英文长句拆分为符合中文表达习惯的短句结构</li>
-<li>"multilayer perceptrons"保留专业术语"多层感知器"的规范译名</li>
-<li>"competitive performance"译为"具有竞争力的性能"准确传达原文比较含义</li>
-<li>通过"协同实现""以...为目标"等措辞保持学术文本的严谨性）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">HMI：基于预训练语言模型的高效多租户推理分层知识管理</h2><a id="user-content-hmi基于预训练语言模型的高效多租户推理分层知识管理" class="anchor" aria-label="Permalink: HMI：基于预训练语言模型的高效多租户推理分层知识管理" href="#hmi基于预训练语言模型的高效多租户推理分层知识管理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>预训练语言模型（PLMs）因其庞大的计算需求通常需要专用硬件支持，这给高效服务部署带来了巨大挑战，尤其在多租户环境中更为突出。为解决这一问题，我们提出了HMI——一种基于分层知识管理的多租户推理系统，旨在以资源高效的方式管理使用不同PLM的租户。我们的解决方案包含三个核心创新：</p>
-<p>首先，我们将PLM知识划分为通用知识、领域知识和任务知识三个层级。通过分析不同模型层级的知识获取规律，构建分层PLM（hPLM）架构，通过分级提取和存储知识显著降低单租户的GPU内存占用。实验表明，与传统方法相比，该方法可实现内存使用量级下降。</p>
-<p>其次，我们在HMI中建立了针对多租户生成hPLM的分层知识管理体系。对于领域知识，通过基于访问频率构建和更新领域知识树，在存储开销可控的前提下实现高效管理；对于任务知识，则采用参数交换技术在有限GPU内存内实现动态调度。这种分层管理机制使得系统可支持海量定制化模型共存。</p>
-<p>最后，我们提出多项系统级优化策略：通过分层知识预取实现CPU/I/O与GPU计算的细粒度流水线并行；采用批处理矩阵乘法优化并行计算实现；设计智能调度算法提升资源利用率。实验结果表明，HMI系统在单块GPU上可同时服务多达10,000个hBERT/hGPT模型，且精度损失可忽略不计（平均仅下降0.8%），推理吞吐量较基线系统提升47倍。这一突破性成果为大规模PLM服务部署提供了切实可行的解决方案。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

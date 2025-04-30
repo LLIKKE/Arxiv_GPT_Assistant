@@ -12,81 +12,26 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">迈向更快速、更紧凑的分子性质预测基础模型</h2><a id="user-content-迈向更快速更紧凑的分子性质预测基础模型" class="anchor" aria-label="Permalink: 迈向更快速、更紧凑的分子性质预测基础模型" href="#迈向更快速更紧凑的分子性质预测基础模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.19538v1 公告类型：新研究<br>
-摘要：机器学习在分子属性预测领域的进步虽然提升了准确性，却以更高的计算成本和更长的训练时间为代价。近期，联合多域预训练（JMP）基础模型在各类下游任务中展现出卓越性能，且训练时间较先前模型有所缩短。尽管JMP优势显著，但在从小规模到大规模分子数据集上进行微调仍需耗费大量时间和计算资源。本研究探索了通过缩小模型规模同时保持性能的效率提升策略。为深入理解模型效率，我们分析了JMP各层贡献度，发现后续交互模块的边际效益递减，这为模型压缩提供了可能。我们通过剪枝预训练模型并评估微调时对效率和准确性的影响，探索了模块精简策略。分析表明：移除两个交互模块仅导致性能轻微下降，模型体积缩减32%的同时推理吞吐量提升1.3倍。这些结果表明JMP-L存在参数冗余，更小的高效变体能够以更低计算成本实现相当性能。本研究为开发更轻量、更快速、更具扩展性的分子与材料发现基础模型提供了重要洞见。代码已开源：<a href="https://github.com/Yasir-Ghunaim/efficient-jmp%E3%80%82">https://github.com/Yasir-Ghunaim/efficient-jmp。</a></p>
-<p>（翻译说明：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">神经网络压缩中的低秩矩阵近似方法</h2><a id="user-content-神经网络压缩中的低秩矩阵近似方法" class="anchor" aria-label="Permalink: 神经网络压缩中的低秩矩阵近似方法" href="#神经网络压缩中的低秩矩阵近似方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.20078v1 公告类型：新研究<br>
+摘要：深度神经网络（DNNs）常受限于其庞大的内存占用与计算需求。本文提出了一种新型自适应秩奇异值分解（ARSVD）方法，能在能量消耗低于特定阈值时，动态调整全连接层的秩增量。与传统SVD压缩方法对所有层统一降秩不同，我们的ARSVD利用能量分布自适应选择每层秩数，同时保持模型精度。该方法逐层优化，在尽可能利用能量的前提下将精度损失降至最低。这种精度自适应策略通过优化压缩与模型性能的平衡，显著优于传统的静态降秩方法。我们首先在MNIST、CIFAR-10和CIFAR-100数据集上训练了一个简单多层感知机（MLP），并通过准确率和F1分数评估其性能。应用ARSVD后，结果表明该技术能在不牺牲分类准确率的前提下实现显著的模型压缩。这些成果证明了ARSVD在计算资源和内存资源受限场景中的实用价值。</p>
+<p>（注：根据学术文本翻译规范，对以下术语进行了标准化处理：</p>
 <ol>
-<li>专业术语处理："fine-tuning"译为"微调"，"inference throughput"译为"推理吞吐量"，符合机器学习领域惯例</li>
-<li>长句拆分：将原文复合句按中文表达习惯拆分为多个短句，如将"Despite..."从句独立成句</li>
-<li>被动语态转换："it has been demonstrated"转为主动式"近期...展现出"</li>
-<li>概念显化："diminishing returns"译为"边际效益递减"准确传达经济学概念</li>
-<li>数字规范：保留原文"32%"和"1.3x"的精确表述，符合科技文献规范</li>
-<li>链接保留：完整呈现GitHub网址，确保可访问性</li>
-<li>学术风格：使用"本研究""表明"等符合学术摘要的规范表达）</li>
+<li>"energy expenditure" 译为"能量消耗"而非字面直译"能量支出"</li>
+<li>"retaining accuracy" 采用"保持精度"这一通用表述</li>
+<li>"computing scenarios" 译为"场景"而非"情景"以符合计算机领域术语</li>
+<li>保留了MLP、MNIST等专业缩写名词的英文原称</li>
+<li>将英文长句合理切分为符合中文表达习惯的短句结构）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">PARD：通过低成本并行草稿模型适配加速大语言模型推理</h2><a id="user-content-pard通过低成本并行草稿模型适配加速大语言模型推理" class="anchor" aria-label="Permalink: PARD：通过低成本并行草稿模型适配加速大语言模型推理" href="#pard通过低成本并行草稿模型适配加速大语言模型推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.18583v1 公告类型：新研究<br>
-摘要：大语言模型（LLM）的自回归特性限制了推理速度。每次前向传播仅能生成单个 token，且常受内存带宽制约。推测式解码通过"草拟-验证"方法加速 token 生成，但草拟阶段的开销和草拟模型的训练成本影响了该技术的效率与适应性。本研究提出并行草拟（PARD）——一种创新的推测式解码方法，可将自回归草拟模型低成本适配为并行草拟模型。PARD通过在草拟阶段单次前向传播预测多个未来 token 提升推理效率，并采用条件性丢弃 token 技术加速训练。其目标无关特性使得单个草拟模型可适配整个模型家族，极大降低适配成本。我们提出的条件性丢弃 token 方法可将草拟模型训练效率提升3倍。在优化后的推理框架中，PARD将LLaMA3.1-8B推理速度提升4.08倍，达到每秒311.5个 token。</p>
-<p>（译文说明：1. 专业术语如"speculative decoding"译为行业通用译法"推测式解码"；2. 技术概念"conditional drop token"采用描述性译法"条件性丢弃 token"保持准确性；3. 被动语态转换为中文主动句式；4. 长难句拆分重组符合中文表达习惯；5. 关键创新点"目标无关特性"采用四字格增强专业感；6. 性能数据保留原文精确数值）</p>
-<div class="markdown-heading"><h2 class="heading-element">FineQ：面向大语言模型低比特细粒度混合精度量化的软硬件协同设计</h2><a id="user-content-fineq面向大语言模型低比特细粒度混合精度量化的软硬件协同设计" class="anchor" aria-label="Permalink: FineQ：面向大语言模型低比特细粒度混合精度量化的软硬件协同设计" href="#fineq面向大语言模型低比特细粒度混合精度量化的软硬件协同设计"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.19746v1 公告类型：新成果<br>
-摘要：大语言模型（LLMs）虽显著推动了自然语言处理范式的发展，但其对内存和计算资源的需求极为庞大。量化是降低LLMs内存消耗最有效的手段之一。然而，现有先进单精度量化方法在超低位宽量化时会出现显著精度损失；而混合精度量化方法多以粗粒度分组量化，采用高精度保存组内数据会带来巨大内存开销，低精度则严重影响模型准确性。为此，我们提出FineQ——一种面向LLMs低位宽细粒度混合精度量化的软硬件协同设计方案。首先，FineQ将权重划分为更细粒度的聚类单元，并考虑异常值在聚类中的分布特征，从而在模型精度与内存开销间取得平衡。其次，我们提出聚类内异常值保护机制，采用3比特表示异常值，并设计索引与数据拼接的编码方案以实现对齐内存访问。最后，我们引入基于时序编码的专用加速器，在有效支持量化算法的同时简化脉动阵列中的乘法器。实验表明：在平均位宽相近时，FineQ相比当前最优混合精度量化算法可获得更高模型精度；所设计加速器能实现1.79倍的能效提升，并将脉动阵列面积减少61.2%。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<div class="markdown-heading"><h2 class="heading-element">软选择：无注意力损耗，无大规模激活，采用修正Softmax</h2><a id="user-content-软选择无注意力损耗无大规模激活采用修正softmax" class="anchor" aria-label="Permalink: 软选择：无注意力损耗，无大规模激活，采用修正Softmax" href="#软选择无注意力损耗无大规模激活采用修正softmax"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.20966v1 公告类型：新成果<br>
+摘要：我们提出softpick——一种经过修正、非归一化（不强制求和为一）的替代方案，可无缝替换Transformer注意力机制中的softmax，从而消除注意力沉没和激增的激活值。在3.4亿参数模型的实验中，softpick在标准基准测试中保持与softmax相当的性能表现，同时实现0%的沉没率。采用softpick的Transformer生成的隐藏状态具有显著更低的峰度（340 vs 33,510），并产生稀疏注意力图（46.97%稀疏度）。量化后，使用softpick的模型始终优于softmax，尤其在低比特精度下优势更为显著。我们的分析与讨论表明，softpick有望为量化、低精度训练、稀疏优化、剪枝和可解释性研究开辟新路径。代码已开源：<a href="https://github.com/zaydzuhri/softpick-attention">https://github.com/zaydzuhri/softpick-attention</a></p>
+<p>（注：根据技术文献翻译规范，对部分术语进行了如下处理：</p>
 <ol>
-<li>"systolic array"统一译为"脉动阵列"</li>
-<li>"outlier"译为"异常值"而非"离群值"以符合机器学习领域惯例</li>
-<li>"co-design"译为"协同设计"以体现软硬件联合优化特性</li>
-<li>保持"LLMs"、"3比特"等量级表述的数字一致性</li>
-<li>将长复合句拆分为符合中文表达习惯的短句结构）</li>
+<li>"drop-in replacement"译为"无缝替换"以体现即插即用特性</li>
+<li>"attention sink"译为"注意力沉没"以区别于传统"注意力汇聚"概念</li>
+<li>"kurtosis"保留专业统计学术语"峰度"</li>
+<li>量化相关表述采用行业通用译法</li>
+<li>长难句按中文表达习惯拆分重组，如将原文最后复合句拆分为两个独立语义单元）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">重访Transformer：基于低熵与动态稀疏性的新视角</h2><a id="user-content-重访transformer基于低熵与动态稀疏性的新视角" class="anchor" aria-label="Permalink: 重访Transformer：基于低熵与动态稀疏性的新视角" href="#重访transformer基于低熵与动态稀疏性的新视角"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.18929v1 公告类型：新研究<br>
-摘要：压缩一直是理解Transformer成功机制的关键视角。以往我们通常以目标分布为基准评估模型的压缩性能。然而，由于目标分布通常未知且熵计算往往需要指数级成本，精确评估模型的压缩效果、比较学习分布与目标分布的信息量仍具挑战性。本研究在受控实验环境下探讨这些问题，发现Transformer在数据压缩中表现出独特的归纳偏好：除了逼近目标分布，它们更倾向于学习更低熵的分布，且这种倾向随模型规模增大而增强。这种偏好使Transformer无法完全对齐目标分布，反而进一步压缩其信息量。我们进一步证明前馈网络（FFN）模块是驱动该偏好的关键因素。此外，虽然模型在压缩过程中消除了数据的信息冗余，但其参数内部也表现出冗余性——这种特性可通过动态稀疏性来表征，并实际促进了压缩。然而Transformer中注意力与FFN模块的动态稀疏模式仍需深入探索。对此我们发现：更大规模的Transformer更倾向于通过残差连接绕过注意力计算，并具有更低比例的激活神经元。有趣的是，我们还发现大模型的训练不稳定性与死亡神经元的突然增加高度相关。本研究从熵与动态稀疏性的视角为理解Transformer提供了新见解。</p>
-<p>（注：翻译过程中对长句进行了符合中文表达习惯的拆分，将"inductive bias"译为"归纳偏好"以保留机器学习领域的术语特色，"dynamic sparsity"统一译为"动态稀疏性"确保概念一致性，并通过"残差连接""激活神经元"等专业术语保持技术准确性。最后两句采用因果句式突出研究发现的内在关联性。）</p>
-<div class="markdown-heading"><h2 class="heading-element">ZipR1：增强多模态大语言模型中的标记稀疏性</h2><a id="user-content-zipr1增强多模态大语言模型中的标记稀疏性" class="anchor" aria-label="Permalink: ZipR1：增强多模态大语言模型中的标记稀疏性" href="#zipr1增强多模态大语言模型中的标记稀疏性"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.18579v1 公告类型：新研究<br>
-摘要：稀疏注意力机制旨在通过选择性处理显著标记子集来降低计算开销，同时保持模型性能。尽管此类设计已展现成效，如何主动促进结构良好的多模态大语言模型（MLLMs）实现标记稀疏化仍待深入探索，这从根本上限制了推理阶段可达到的加速效果。本文提出一种基于强化学习的简单训练后优化方法\textbf{ZipR1}，将标记压缩率作为效率奖励，答案准确率作为性能奖励。通过直接优化推理场景下效率与性能的权衡，该方法能同步缓解计算与内存瓶颈。实验结果表明，ZipR1能在13个图像与视频基准测试中将Qwen2/2.5-VL模型的标记处理比例从80%降至25%，且准确率损失极小。</p>
-<p>（注：根据学术文献翻译规范，对以下术语进行了标准化处理：</p>
-<ol>
-<li>"well-posed MLLMs"译为"结构良好的多模态大语言模型"，保留MLLMs首字母缩写</li>
-<li>"RL-based"译为"基于强化学习的"，符合人工智能领域术语惯例</li>
-<li>"Qwen2/2.5-VL"保留原始型号命名不翻译</li>
-<li>"token ratio"根据上下文意译为"标记处理比例"以明确指代</li>
-<li>被动语态"remain under-explored"转换为主动句式"仍待深入探索"以符合中文表达习惯）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">R-稀疏：面向高效大语言模型推理的秩感知激活稀疏化</h2><a id="user-content-r-稀疏面向高效大语言模型推理的秩感知激活稀疏化" class="anchor" aria-label="Permalink: R-稀疏：面向高效大语言模型推理的秩感知激活稀疏化" href="#r-稀疏面向高效大语言模型推理的秩感知激活稀疏化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明：</p>
-<ol>
-<li>保留技术术语"R-Sparse"的字母形式，通过添加连接符和中文注释"稀疏"确保专业性与可读性；</li>
-<li>"Rank-Aware"译为"秩感知"，采用矩阵计算领域的标准术语；</li>
-<li>"Activation Sparsity"译为"激活稀疏化"，准确表达神经网络中激活值的稀疏处理过程；</li>
-<li>副标题采用"面向...的"结构，符合中文技术文献标题规范；</li>
-<li>"Efficient LLM Inference"译为"高效大语言模型推理"，其中"LLM"使用行业通用译法"大语言模型"；</li>
-<li>整体采用四六句式，保持学术标题的简洁性与专业感）</li>
-</ol>
-<p>arXiv:2504.19449v1 公告类型：新研究<br>
-摘要：尽管大语言模型（LLMs）在各种应用中展现出卓越能力，但其庞大的模型规模在推理过程中（尤其是部署于边缘设备时）带来了显著挑战。激活稀疏性为减少计算量和内存移动提供了可行方案，能显著提升小批量设备端应用的推理效率。然而，现有方法存在两大局限：一是难以处理非ReLU激活函数（高级LLMs的核心组件），二是需要持续进行繁重的训练。此外，主动通道预测的困难与可实现的稀疏比率限制，也制约了基于激活稀疏方法的有效性。</p>
-<p>本文提出R-Sparse——一种免训练的激活稀疏方案，能在先进LLMs中实现高稀疏度。我们通过两个基础性研究发现：（i）输入函数中的非稀疏成分可视为若干偏置项；（ii）完整计算可通过输入通道与权重奇异值的适当组合有效近似。基于此，我们将LLMs中的线性层替换为"秩感知稀疏推理"方法，该方法利用输入通道与奇异值分量的稀疏性，无需像基于输出稀疏的方法那样预测活跃通道。</p>
-<p>在Llama-2/3和Mistral模型上的十项多样化任务实验表明：R-Sparse在50%模型级稀疏度下保持相当性能，配合定制内核可实现43%的端到端效率提升。</p>
-<p>（注：根据学术文本特点，翻译时采用以下策略：</p>
-<ol>
-<li>专业术语统一处理（如"activation sparsity"译为"激活稀疏性"）</li>
-<li>长难句拆分重组（如将原文复合从句转化为中文流水句）</li>
-<li>被动语态转化（如"are foundational to"译为"是...的核心组件"）</li>
-<li>技术概念显化（如"rank-aware sparse inference"增译为"秩感知稀疏推理"以明确数学含义）</li>
-<li>数据呈现方式本地化（保留阿拉伯数字但调整表述结构，如"43%"处理为"43%的...提升"））</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">TurboQuant：具有近乎最优失真率的在线向量量化技术</h2><a id="user-content-turboquant具有近乎最优失真率的在线向量量化技术" class="anchor" aria-label="Permalink: TurboQuant：具有近乎最优失真率的在线向量量化技术" href="#turboquant具有近乎最优失真率的在线向量量化技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明：</p>
-<ol>
-<li>"TurboQuant"作为专有技术名称保留不译，符合技术领域术语处理惯例；</li>
-<li>"Online Vector Quantization"译为"在线向量量化技术"，其中"online"采用计算机领域通用译法"在线"，"vector quantization"是信号处理标准术语"向量量化"；</li>
-<li>"Near-optimal Distortion Rate"译为"近乎最优失真率"，其中"near-optimal"采用"近乎最优"这一学术文献常用表述，"distortion rate"是信息论标准术语"失真率"；</li>
-<li>整体采用技术论文标题的简洁风格，通过冒号分隔主副标题，符合中文科技文献标题规范。）</li>
-</ol>
-<p>arXiv:2504.19874v1 公告类型：新研究<br>
-摘要：向量量化这一源于香农信源编码理论的问题，旨在对高维欧几里得向量进行量化，同时最小化其几何结构的失真。我们提出TurboQuant方法，通过同时解决均方误差（MSE）和内积失真问题，克服了现有方法无法达到最优失真率的局限。我们的数据无关算法适用于在线应用场景，在所有比特宽度和维度下均能实现接近最优（仅相差一个微小常数因子）的失真率。TurboQuant的核心技术是：先对输入向量进行随机旋转以诱导坐标服从集中式Beta分布，再利用高维空间中不同坐标的近独立性特性，直接对每个坐标应用最优标量量化器。</p>
-<p>研究发现MSE最优量化器会导致内积估计产生偏差，为此我们提出两阶段解决方案：先应用MSE量化器，再对残差执行1比特量化JL变换（QJL），从而获得无偏内积量化器。我们还从信息论角度严格证明了任何向量量化器可达到的失真率下界，表明TurboQuant与理论极限仅相差约2.7倍常数因子。</p>
-<p>实验验证了理论结果：在KV缓存量化任务中，我们以每通道3.5比特实现绝对质量无损，2.5比特时仅有轻微质量下降；在最近邻搜索任务中，本方法在召回率上超越现有乘积量化技术，同时将索引时间几乎降为零。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

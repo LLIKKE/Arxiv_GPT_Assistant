@@ -12,26 +12,8 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">神经网络压缩中的低秩矩阵近似方法</h2><a id="user-content-神经网络压缩中的低秩矩阵近似方法" class="anchor" aria-label="Permalink: 神经网络压缩中的低秩矩阵近似方法" href="#神经网络压缩中的低秩矩阵近似方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.20078v1 公告类型：新研究<br>
-摘要：深度神经网络（DNNs）常受限于其庞大的内存占用与计算需求。本文提出了一种新型自适应秩奇异值分解（ARSVD）方法，能在能量消耗低于特定阈值时，动态调整全连接层的秩增量。与传统SVD压缩方法对所有层统一降秩不同，我们的ARSVD利用能量分布自适应选择每层秩数，同时保持模型精度。该方法逐层优化，在尽可能利用能量的前提下将精度损失降至最低。这种精度自适应策略通过优化压缩与模型性能的平衡，显著优于传统的静态降秩方法。我们首先在MNIST、CIFAR-10和CIFAR-100数据集上训练了一个简单多层感知机（MLP），并通过准确率和F1分数评估其性能。应用ARSVD后，结果表明该技术能在不牺牲分类准确率的前提下实现显著的模型压缩。这些成果证明了ARSVD在计算资源和内存资源受限场景中的实用价值。</p>
-<p>（注：根据学术文本翻译规范，对以下术语进行了标准化处理：</p>
-<ol>
-<li>"energy expenditure" 译为"能量消耗"而非字面直译"能量支出"</li>
-<li>"retaining accuracy" 采用"保持精度"这一通用表述</li>
-<li>"computing scenarios" 译为"场景"而非"情景"以符合计算机领域术语</li>
-<li>保留了MLP、MNIST等专业缩写名词的英文原称</li>
-<li>将英文长句合理切分为符合中文表达习惯的短句结构）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">软选择：无注意力损耗，无大规模激活，采用修正Softmax</h2><a id="user-content-软选择无注意力损耗无大规模激活采用修正softmax" class="anchor" aria-label="Permalink: 软选择：无注意力损耗，无大规模激活，采用修正Softmax" href="#软选择无注意力损耗无大规模激活采用修正softmax"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2504.20966v1 公告类型：新成果<br>
-摘要：我们提出softpick——一种经过修正、非归一化（不强制求和为一）的替代方案，可无缝替换Transformer注意力机制中的softmax，从而消除注意力沉没和激增的激活值。在3.4亿参数模型的实验中，softpick在标准基准测试中保持与softmax相当的性能表现，同时实现0%的沉没率。采用softpick的Transformer生成的隐藏状态具有显著更低的峰度（340 vs 33,510），并产生稀疏注意力图（46.97%稀疏度）。量化后，使用softpick的模型始终优于softmax，尤其在低比特精度下优势更为显著。我们的分析与讨论表明，softpick有望为量化、低精度训练、稀疏优化、剪枝和可解释性研究开辟新路径。代码已开源：<a href="https://github.com/zaydzuhri/softpick-attention">https://github.com/zaydzuhri/softpick-attention</a></p>
-<p>（注：根据技术文献翻译规范，对部分术语进行了如下处理：</p>
-<ol>
-<li>"drop-in replacement"译为"无缝替换"以体现即插即用特性</li>
-<li>"attention sink"译为"注意力沉没"以区别于传统"注意力汇聚"概念</li>
-<li>"kurtosis"保留专业统计学术语"峰度"</li>
-<li>量化相关表述采用行业通用译法</li>
-<li>长难句按中文表达习惯拆分重组，如将原文最后复合句拆分为两个独立语义单元）</li>
-</ol>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">使用AMP的高效LLM：注意力头与MLP剪枝</h2><a id="user-content-使用amp的高效llm注意力头与mlp剪枝" class="anchor" aria-label="Permalink: 使用AMP的高效LLM：注意力头与MLP剪枝" href="#使用amp的高效llm注意力头与mlp剪枝"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2504.21174v1 公告类型：新研究<br>
+摘要：深度学习推动了计算系统的新浪潮，并促使日益复杂问题的自动化解决。特别是大型语言模型（LLMs）在认知任务上取得显著进展，其表现常达到甚至超越人类水平。然而，庞大的参数量导致高计算成本和缓慢的推理速度，为资源受限环境中的部署带来挑战。在应对上述挑战的策略中，剪枝因其能在保持模型预测能力的同时缩减规模而成为有效机制。本文提出AMP（注意力头与多层感知器剪枝），这是一种新颖的结构化剪枝方法，通过移除多头注意力（MHA）和多层感知器（MLP）中相对次要的结构来高效压缩LLMs。该方法通过将输入数据投影至权重来评估结构重要性，克服了现有技术在灵活性或效率上的不足。实验表明，AMP在常识推理任务上以30%的剪枝率将当前最优结果提升多达1.49个百分点，且对零样本任务性能影响极小。此外，AMP还提升了推理速度，使其特别适合资源受限环境部署。我们在LLaMA和Phi等不同系列的LLMs上验证了AMP的通用性。</p>
+<p>（注：根据学术文献翻译规范，对技术术语如"Multi-Head Attention"保留标准译名"多头注意力"，"zero-shot"采用通用译法"零样本"。通过拆分英文长句为中文短句结构，如将原文"By projecting...efficiency"处理为因果逻辑链。关键指标"1.49 percentage points"译为"1.49个百分点"符合数学表达习惯，模型名称LLaMA/Phi不作翻译以保持技术一致性。）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

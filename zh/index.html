@@ -12,19 +12,41 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">ICQuant：索引编码助力低比特大语言模型量化</h2><a id="user-content-icquant索引编码助力低比特大语言模型量化" class="anchor" aria-label="Permalink: ICQuant：索引编码助力低比特大语言模型量化" href="#icquant索引编码助力低比特大语言模型量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.00850v1 公告类型：新研究<br>
-摘要：大型语言模型（LLMs）的快速部署凸显了高效低位训练后量化（PTQ）的重要性，因其高昂的内存成本。权重量化中的核心挑战在于异常值的存在，这些异常值会扩大量化范围并导致显著误差。虽然已有多种异常值抑制技术被提出，但它们要么无法有效压缩量化范围，要么需要（相对）较高的比特开销。本文提出ICQuant，一种创新框架，利用异常值统计特性设计高效的索引编码方案，实现异常值感知的仅权重量化。相较于现有技术需约1比特开销才能将量化范围减半，ICQuant仅需约0.3比特——在极端压缩场景（如每权重2-3比特）中实现显著节省。该框架可兼容任何现有量化器以消除异常值，提升量化质量。仅使用每权重2.3比特和简单标量量化器时，ICQuant将2比特Llama3-70B模型的零样本准确率较QTIP和QuIP#分别提升130%和150%；且无需微调即可媲美目前最优微调量化器（PV-tuning）的性能。</p>
-<p>（注：根据学术论文翻译规范，对技术术语如"post-training quantization"统一译为"训练后量化"，"outlier-aware"译为"异常值感知"；保留数学符号如"$\approx$"原貌；长句按中文习惯拆分；"130%"等百分比数据依中文表达习惯处理）</p>
-<div class="markdown-heading"><h2 class="heading-element">大型语言模型的低精度训练：方法、挑战与机遇</h2><a id="user-content-大型语言模型的低精度训练方法挑战与机遇" class="anchor" aria-label="Permalink: 大型语言模型的低精度训练：方法、挑战与机遇" href="#大型语言模型的低精度训练方法挑战与机遇"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.01043v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）已在多个领域展现出卓越性能，但其训练过程所需的庞大硬件资源严重制约了效率与可扩展性。为应对这一挑战，低精度训练技术被广泛采用，显著提升了训练效率。然而，低精度训练涉及权重、激活值和梯度等多个组件$\unicode{x2013}$这些组件可采用不同的数值格式表示。由此产生的多样性使得低精度训练研究领域呈现碎片化态势，研究者难以获得全局视野。本综述系统梳理了现有低精度训练方法：根据底层数值格式（这一关键因素直接影响硬件兼容性、计算效率及读者查阅便利性），我们将现有方法划分为三大类：（1）基于定点数与整数的方案；（2）基于浮点数的方案；（3）基于定制化格式的方案。此外，我们还探讨了与低精度前向传播具有核心共性的量化感知训练方法。最后，我们指出了推动该领域发展的若干前沿研究方向。本综述涉及的论文合集详见：<a href="https://github.com/Hao840/Awesome-Low-Precision-Training%E3%80%82">https://github.com/Hao840/Awesome-Low-Precision-Training。</a></p>
-<p>（注：根据学术规范和技术文档特点，译文采用以下处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">深度求索模型量化中的性能下降定量分析</h2><a id="user-content-深度求索模型量化中的性能下降定量分析" class="anchor" aria-label="Permalink: 深度求索模型量化中的性能下降定量分析" href="#深度求索模型量化中的性能下降定量分析"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.02390v1 公告类型：新研究<br>
+摘要：近期，本地化部署DeepSeek-R1和V3的需求激增，这可能是由于官方服务常出现繁忙状况，且部分机构存在数据隐私顾虑。虽然单机部署能简化基础设施，但模型671B的FP8参数配置远超标准8-GPU服务器的实际内存容量。量化作为一项广泛应用的技术，能有效降低模型内存占用，但DeepSeek-R1与V3量化后的性能表现尚不明确。本技术报告首次对全系列DeepSeek模型进行了多比特位宽量化的系统性评估，核心发现表明：4比特量化在保持与FP8相近性能的同时，可实现标准NVIDIA GPU设备的单机部署。我们进一步提出DQ3_K_M动态3比特量化方法，其在多项基准测试中显著优于传统Q3_K_M变体，且在多数任务中与4比特量化（Q4_K_M）方案表现相当。此外，DQ3_K_M同时支持NVIDIA H100/A100与华为910B的单机部署配置。DQ3_K_M的实现代码已发布于<a href="https://github.com/UnicomAI/DeepSeek-Eval%EF%BC%8C%E5%8C%85%E5%90%ABDeepSeek-R1%E5%92%8CDeepSeek-V3%E7%9A%84%E4%BC%98%E5%8C%963%E6%AF%94%E7%89%B9%E9%87%8F%E5%8C%96%E7%89%88%E6%9C%AC%E3%80%82">https://github.com/UnicomAI/DeepSeek-Eval，包含DeepSeek-R1和DeepSeek-V3的优化3比特量化版本。</a></p>
+<p>（注：根据学术文献翻译规范，对以下术语进行了标准化处理：</p>
 <ol>
-<li>专业术语如"low-precision training"统一译为"低精度训练"</li>
-<li>长句按中文表达习惯拆分为短句群</li>
-<li>被动语态转换为主动表述（如"have been widely adopted"→"被广泛采用"）</li>
-<li>技术概念保留英文缩写+中文全称（如LLMs/大语言模型）</li>
-<li>链接信息完整保留原貌）</li>
+<li>"FP8"保留英文缩写形式，因其为特定精度格式称谓</li>
+<li>"bitwidth"统一译为"比特位宽"以符合计算机领域术语</li>
+<li>"benchmarks"译为"基准测试"保持技术文档一致性</li>
+<li>模型版本号"V3"保留大写字母形式</li>
+<li>GitHub链接保留原始URL确保可访问性）</li>
 </ol>
+<div class="markdown-heading"><h2 class="heading-element">优化资源受限环境下的LLM：模型压缩技术综述</h2><a id="user-content-优化资源受限环境下的llm模型压缩技术综述" class="anchor" aria-label="Permalink: 优化资源受限环境下的LLM：模型压缩技术综述" href="#优化资源受限环境下的llm模型压缩技术综述"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.02309v1 公告类型：新论文<br>
+摘要：大语言模型（LLMs）虽已革新人工智能（AI）诸多领域，但其庞大的资源需求限制了在移动与边缘设备上的部署。本综述论文全面概述了压缩LLMs的技术方案，旨在实现资源受限环境下的高效推理。我们重点探讨三大核心方法：知识蒸馏、模型量化和模型剪枝。针对每种技术，我们阐释其基本原理，介绍不同变体，并列举成功应用案例。同时简要讨论了专家混合与提前退出等补充策略。最后，我们展望了未来研究方向，力求为优化边缘端LLM部署的研究者与实践者提供有价值的参考。</p>
+<p>（注：翻译过程中进行了以下专业处理：</p>
+<ol>
+<li>术语统一："Knowledge Distillation"译为"知识蒸馏"（学界通用译法）</li>
+<li>句式重构：将英文长句拆解为符合中文表达习惯的短句（如原文第一句拆分为两个逻辑单元）</li>
+<li>概念显化："mixture-of-experts"采用"专家混合"译法并保留技术特性</li>
+<li>动态对等："edge deployment"译为"边缘端部署"以准确反映物联网场景</li>
+<li>学术风格：使用"阐释""展望"等符合论文摘要的正式用语）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">EntroLLM：基于熵编码权重量化的边缘设备高效大语言模型推理技术</h2><a id="user-content-entrollm基于熵编码权重量化的边缘设备高效大语言模型推理技术" class="anchor" aria-label="Permalink: EntroLLM：基于熵编码权重量化的边缘设备高效大语言模型推理技术" href="#entrollm基于熵编码权重量化的边缘设备高效大语言模型推理技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明：</p>
+<ol>
+<li>"Entropy Encoded Weight Compression"采用意译为"基于熵编码权重量化"，既保留信息论中"熵编码"的专业性，又通过"量化"体现模型压缩技术特征</li>
+<li>"Efficient"译为"高效"符合中文技术文档表述习惯</li>
+<li>"Edge Devices"统一译为行业通用术语"边缘设备"</li>
+<li>通过增补"技术"二字使技术方案名称更完整，同时采用"：冒号"的标题结构保持学术论文标题的规范性</li>
+<li>整体采用"技术手段+应用目标"的中文技术命名逻辑，符合中文读者认知顺序）</li>
+</ol>
+<p>arXiv:2505.02380v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）在各种任务中展现出卓越性能，但其庞大的存储和计算需求限制了在边缘设备上的部署。为此，我们提出EntroLLM——一种创新压缩框架，通过将混合量化与熵编码相结合，在保持模型精度的同时显著降低存储开销。该方法采用分层混合量化策略，即根据各层权重分布特性动态选择对称或非对称量化方案以优化压缩比。随后运用霍夫曼编码对量化权重进行无损压缩，大幅减少内存带宽需求。我们还创新性地引入并行霍夫曼解码技术，确保推理过程中能高效还原编码权重，将延迟影响降至最低。在smolLM-1.7B-Instruct、phi3-mini-4k-Instruct和mistral-7B-Instruct等适配边缘设备的模型实验中，EntroLLM在语言基准测试上相较uint8模型最高可减少30%存储空间，较uint4模型最高可减少65%，同时保持困惑度与准确率不变。研究进一步表明，该方法通过减少数据移动量，在NVIDIA Jetson P3450等内存带宽受限的边缘设备上可实现31.9%-146.6%的推理吞吐量提升。该方案无需额外重新训练，且完全兼容现有训练后量化方法，为边缘端大语言模型提供了实用化解决方案。</p>
+<div class="markdown-heading"><h2 class="heading-element">Qwen3量化技术的实证研究</h2><a id="user-content-qwen3量化技术的实证研究" class="anchor" aria-label="Permalink: Qwen3量化技术的实证研究" href="#qwen3量化技术的实证研究"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.02214v1 公告类型：新研究<br>
+摘要：Qwen系列已成为开源大语言模型（LLM）领域的领军代表，在自然语言理解任务中展现出卓越能力。随着最新发布的Qwen3在多项基准测试中表现出更优性能，如何在资源受限环境中高效部署这些模型日益受到关注。低比特量化虽是一种颇具前景的解决方案，但其对Qwen3性能的影响尚未得到充分探索。本研究系统评估了Qwen3在不同量化设置下的鲁棒性，旨在揭示这一前沿模型压缩过程中的机遇与挑战。我们严格测试了5种现有经典训练后量化技术对Qwen3的应用效果，涵盖1至8比特的位宽范围，并在多个数据集上评估其有效性。研究发现：Qwen3在中等位宽下能保持竞争力，但在超低精度条件下语言任务性能显著下降，凸显了LLM压缩领域持续存在的难题。这些结果强调需要进一步研究以缓解极端量化场景下的性能损失。我们预期这项实证分析将为改进针对Qwen3及未来LLM的量化方法提供可行见解，最终在不牺牲准确性的前提下提升其实用性。项目已发布于<a href="https://github.com/Efficient-ML/Qwen3-Quantization">https://github.com/Efficient-ML/Qwen3-Quantization</a> 和 <a href="https://huggingface.co/collections/Efficient-ML/qwen3-quantization-68164450decb1c868788cb2b%E3%80%82" rel="nofollow">https://huggingface.co/collections/Efficient-ML/qwen3-quantization-68164450decb1c868788cb2b。</a></p>
+<p>（注：根据学术文献翻译规范，专业术语如"post-training quantization"译为"训练后量化"，"bit-widths"译为"位宽"，"benchmarks"译为"基准测试"；长句按中文表达习惯拆分；项目链接保留原格式以确保可操作性）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

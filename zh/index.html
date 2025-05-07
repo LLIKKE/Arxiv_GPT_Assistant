@@ -12,41 +12,50 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">深度求索模型量化中的性能下降定量分析</h2><a id="user-content-深度求索模型量化中的性能下降定量分析" class="anchor" aria-label="Permalink: 深度求索模型量化中的性能下降定量分析" href="#深度求索模型量化中的性能下降定量分析"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.02390v1 公告类型：新研究<br>
-摘要：近期，本地化部署DeepSeek-R1和V3的需求激增，这可能是由于官方服务常出现繁忙状况，且部分机构存在数据隐私顾虑。虽然单机部署能简化基础设施，但模型671B的FP8参数配置远超标准8-GPU服务器的实际内存容量。量化作为一项广泛应用的技术，能有效降低模型内存占用，但DeepSeek-R1与V3量化后的性能表现尚不明确。本技术报告首次对全系列DeepSeek模型进行了多比特位宽量化的系统性评估，核心发现表明：4比特量化在保持与FP8相近性能的同时，可实现标准NVIDIA GPU设备的单机部署。我们进一步提出DQ3_K_M动态3比特量化方法，其在多项基准测试中显著优于传统Q3_K_M变体，且在多数任务中与4比特量化（Q4_K_M）方案表现相当。此外，DQ3_K_M同时支持NVIDIA H100/A100与华为910B的单机部署配置。DQ3_K_M的实现代码已发布于<a href="https://github.com/UnicomAI/DeepSeek-Eval%EF%BC%8C%E5%8C%85%E5%90%ABDeepSeek-R1%E5%92%8CDeepSeek-V3%E7%9A%84%E4%BC%98%E5%8C%963%E6%AF%94%E7%89%B9%E9%87%8F%E5%8C%96%E7%89%88%E6%9C%AC%E3%80%82">https://github.com/UnicomAI/DeepSeek-Eval，包含DeepSeek-R1和DeepSeek-V3的优化3比特量化版本。</a></p>
-<p>（注：根据学术文献翻译规范，对以下术语进行了标准化处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">RetroInfer：一种面向可扩展长上下文LLM推理的向量存储方案</h2><a id="user-content-retroinfer一种面向可扩展长上下文llm推理的向量存储方案" class="anchor" aria-label="Permalink: RetroInfer：一种面向可扩展长上下文LLM推理的向量存储方案" href="#retroinfer一种面向可扩展长上下文llm推理的向量存储方案"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明如下）</p>
 <ol>
-<li>"FP8"保留英文缩写形式，因其为特定精度格式称谓</li>
-<li>"bitwidth"统一译为"比特位宽"以符合计算机领域术语</li>
-<li>"benchmarks"译为"基准测试"保持技术文档一致性</li>
-<li>模型版本号"V3"保留大写字母形式</li>
-<li>GitHub链接保留原始URL确保可访问性）</li>
+<li>"RetroInfer"作为专有技术名称保留不译，符合技术领域术语处理惯例</li>
+<li>"Vector-Storage Approach"译为"向量存储方案"，其中：
+<ul>
+<li>"Vector"采用计算机领域标准译法"向量"（非"矢量"）</li>
+<li>"Approach"根据技术语境译为"方案"（比"方法"更体现系统性）</li>
+</ul>
+</li>
+<li>"Scalable Long-Context LLM Inference"译为"可扩展长上下文LLM推理"：
+<ul>
+<li>保持"LLM"（大语言模型）缩写形式，符合AI领域术语规范</li>
+<li>"Long-Context"译为"长上下文"，准确传达技术概念</li>
+<li>"Scalable"译为"可扩展"，突出系统扩展能力</li>
+</ul>
+</li>
+<li>整体采用"定语前置"的中文技术文献命名习惯，结构紧凑专业</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">优化资源受限环境下的LLM：模型压缩技术综述</h2><a id="user-content-优化资源受限环境下的llm模型压缩技术综述" class="anchor" aria-label="Permalink: 优化资源受限环境下的LLM：模型压缩技术综述" href="#优化资源受限环境下的llm模型压缩技术综述"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.02309v1 公告类型：新论文<br>
-摘要：大语言模型（LLMs）虽已革新人工智能（AI）诸多领域，但其庞大的资源需求限制了在移动与边缘设备上的部署。本综述论文全面概述了压缩LLMs的技术方案，旨在实现资源受限环境下的高效推理。我们重点探讨三大核心方法：知识蒸馏、模型量化和模型剪枝。针对每种技术，我们阐释其基本原理，介绍不同变体，并列举成功应用案例。同时简要讨论了专家混合与提前退出等补充策略。最后，我们展望了未来研究方向，力求为优化边缘端LLM部署的研究者与实践者提供有价值的参考。</p>
-<p>（注：翻译过程中进行了以下专业处理：</p>
+<p>arXiv:2505.02922v1 公告类型：新成果<br>
+摘要：随着大语言模型（LLM）上下文长度的持续增长，GPU内存与带宽限制导致的推理效率问题日益凸显。我们提出RetroInfer系统，通过将键值（KV）缓存重构为向量存储系统，利用注意力机制固有的稀疏性来加速长上下文LLM推理。其核心是波浪索引（wave index）——一种"注意力感知向量索引"，通过三重注意力近似、精度有界的注意力估计及分段聚类等技术，实现关键令牌的高效精准检索。与之配合的波浪缓冲区（wave buffer）协调KV缓存布局，在GPU与CPU间重叠计算与数据传输以维持高吞吐。不同于以往稀疏化方法在令牌选择和硬件协同上的局限，RetroInfer在保持模型精度的同时提供强劲性能。长上下文基准测试显示：在GPU内存限制内较全注意力提速达4.5倍；当KV缓存扩展至CPU内存时，较稀疏注意力基线提升10.5倍，且始终维持全注意力级别的准确率。</p>
+<p>（翻译说明：</p>
 <ol>
-<li>术语统一："Knowledge Distillation"译为"知识蒸馏"（学界通用译法）</li>
-<li>句式重构：将英文长句拆解为符合中文表达习惯的短句（如原文第一句拆分为两个逻辑单元）</li>
-<li>概念显化："mixture-of-experts"采用"专家混合"译法并保留技术特性</li>
-<li>动态对等："edge deployment"译为"边缘端部署"以准确反映物联网场景</li>
-<li>学术风格：使用"阐释""展望"等符合论文摘要的正式用语）</li>
+<li>专业术语保留英文缩写（如LLM/KV/GPU/CPU）并添加必要中文注解</li>
+<li>"wave index"译为"波浪索引"并保留英文原名首现标注，技术名词如"tripartite attention approximation"采用意译</li>
+<li>长难句拆分重组，如将"techniques such as..."处理为中文惯用的顿号列举结构</li>
+<li>被动语态转换（如"are extended to"译为主动式"扩展至"）</li>
+<li>数字单位标准化（"4.5X"→"4.5倍"）</li>
+<li>保持学术文本严谨性，避免口语化表达）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">EntroLLM：基于熵编码权重量化的边缘设备高效大语言模型推理技术</h2><a id="user-content-entrollm基于熵编码权重量化的边缘设备高效大语言模型推理技术" class="anchor" aria-label="Permalink: EntroLLM：基于熵编码权重量化的边缘设备高效大语言模型推理技术" href="#entrollm基于熵编码权重量化的边缘设备高效大语言模型推理技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明：</p>
+<div class="markdown-heading"><h2 class="heading-element">SPAP：基于交替优化与惩罚方法的结构化剪枝</h2><a id="user-content-spap基于交替优化与惩罚方法的结构化剪枝" class="anchor" aria-label="Permalink: SPAP：基于交替优化与惩罚方法的结构化剪枝" href="#spap基于交替优化与惩罚方法的结构化剪枝"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.03373v1 公告类型：新论文<br>
+摘要：大型语言模型（LLM）的部署常受限于其巨大的计算与内存开销。虽然结构化剪枝通过移除整个网络组件提供了可行方案，但现有方法存在性能下降、依赖启发式指标或微调成本高昂等问题。为应对这些挑战，我们提出SPAP（基于交替优化与惩罚方法的结构化剪枝）——一种基于优化理论的新型高效LLM结构化剪枝框架。SPAP通过混合整数优化模型构建剪枝问题，采用能有效最小化剪枝误差的惩罚方法进行剪枝决策，并针对可拆分问题结构设计了交替最小化算法，以实现高效的权重更新与性能恢复。在OPT、LLaMA-3/3.1/3.2及Qwen2.5模型上的大量实验表明，SPAP优于当前最先进方法，可实现线性推理加速（30%稀疏度时达1.29倍）与按比例降低内存占用。本研究为保持模型性能的同时进行LLM剪枝提供了实用的优化驱动解决方案。</p>
+<p>（注：根据学术论文摘要的文体特征，翻译时注意了以下要点：</p>
 <ol>
-<li>"Entropy Encoded Weight Compression"采用意译为"基于熵编码权重量化"，既保留信息论中"熵编码"的专业性，又通过"量化"体现模型压缩技术特征</li>
-<li>"Efficient"译为"高效"符合中文技术文档表述习惯</li>
-<li>"Edge Devices"统一译为行业通用术语"边缘设备"</li>
-<li>通过增补"技术"二字使技术方案名称更完整，同时采用"：冒号"的标题结构保持学术论文标题的规范性</li>
-<li>整体采用"技术手段+应用目标"的中文技术命名逻辑，符合中文读者认知顺序）</li>
+<li>专业术语统一："structured pruning"译为"结构化剪枝"、"mixed-integer optimization"译为"混合整数优化"等</li>
+<li>技术概念准确传达：如"penalty method"译为"惩罚方法"而非"惩罚机制"以保持数学原意</li>
+<li>长句拆分：将原文复合句按中文习惯分解为多个短句</li>
+<li>数据呈现规范：保留数学符号格式（如1.29×）</li>
+<li>被动语态转换："is formulated"译为主动态的"构建"</li>
+<li>机构名称保留：OPT/LLaMA等模型名称不翻译）</li>
 </ol>
-<p>arXiv:2505.02380v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）在各种任务中展现出卓越性能，但其庞大的存储和计算需求限制了在边缘设备上的部署。为此，我们提出EntroLLM——一种创新压缩框架，通过将混合量化与熵编码相结合，在保持模型精度的同时显著降低存储开销。该方法采用分层混合量化策略，即根据各层权重分布特性动态选择对称或非对称量化方案以优化压缩比。随后运用霍夫曼编码对量化权重进行无损压缩，大幅减少内存带宽需求。我们还创新性地引入并行霍夫曼解码技术，确保推理过程中能高效还原编码权重，将延迟影响降至最低。在smolLM-1.7B-Instruct、phi3-mini-4k-Instruct和mistral-7B-Instruct等适配边缘设备的模型实验中，EntroLLM在语言基准测试上相较uint8模型最高可减少30%存储空间，较uint4模型最高可减少65%，同时保持困惑度与准确率不变。研究进一步表明，该方法通过减少数据移动量，在NVIDIA Jetson P3450等内存带宽受限的边缘设备上可实现31.9%-146.6%的推理吞吐量提升。该方案无需额外重新训练，且完全兼容现有训练后量化方法，为边缘端大语言模型提供了实用化解决方案。</p>
-<div class="markdown-heading"><h2 class="heading-element">Qwen3量化技术的实证研究</h2><a id="user-content-qwen3量化技术的实证研究" class="anchor" aria-label="Permalink: Qwen3量化技术的实证研究" href="#qwen3量化技术的实证研究"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.02214v1 公告类型：新研究<br>
-摘要：Qwen系列已成为开源大语言模型（LLM）领域的领军代表，在自然语言理解任务中展现出卓越能力。随着最新发布的Qwen3在多项基准测试中表现出更优性能，如何在资源受限环境中高效部署这些模型日益受到关注。低比特量化虽是一种颇具前景的解决方案，但其对Qwen3性能的影响尚未得到充分探索。本研究系统评估了Qwen3在不同量化设置下的鲁棒性，旨在揭示这一前沿模型压缩过程中的机遇与挑战。我们严格测试了5种现有经典训练后量化技术对Qwen3的应用效果，涵盖1至8比特的位宽范围，并在多个数据集上评估其有效性。研究发现：Qwen3在中等位宽下能保持竞争力，但在超低精度条件下语言任务性能显著下降，凸显了LLM压缩领域持续存在的难题。这些结果强调需要进一步研究以缓解极端量化场景下的性能损失。我们预期这项实证分析将为改进针对Qwen3及未来LLM的量化方法提供可行见解，最终在不牺牲准确性的前提下提升其实用性。项目已发布于<a href="https://github.com/Efficient-ML/Qwen3-Quantization">https://github.com/Efficient-ML/Qwen3-Quantization</a> 和 <a href="https://huggingface.co/collections/Efficient-ML/qwen3-quantization-68164450decb1c868788cb2b%E3%80%82" rel="nofollow">https://huggingface.co/collections/Efficient-ML/qwen3-quantization-68164450decb1c868788cb2b。</a></p>
-<p>（注：根据学术文献翻译规范，专业术语如"post-training quantization"译为"训练后量化"，"bit-widths"译为"位宽"，"benchmarks"译为"基准测试"；长句按中文表达习惯拆分；项目链接保留原格式以确保可操作性）</p>
+<div class="markdown-heading"><h2 class="heading-element">广播：大型语言模型压缩的率失真优化</h2><a id="user-content-广播大型语言模型压缩的率失真优化" class="anchor" aria-label="Permalink: 广播：大型语言模型压缩的率失真优化" href="#广播大型语言模型压缩的率失真优化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.03031v1 公告类型：新研究<br>
+摘要：近年来，大型语言模型（LLM）的压缩已成为推动LLM在资源有限设备上部署、降低计算成本并减轻大规模AI基础设施对环境影响的关键问题。本文从率失真理论的视角奠定了LLM量化的理论基础，并提出了一种基于简单率失真优化的量化技术。我们的技术可扩展至包含数千亿权重参数的模型，并允许用户在训练后根据需求将模型压缩至指定大小或精度，提供灵活的压缩选择。</p>
+<p>（注：根据学术文献翻译规范，专业术语如"rate-distortion theory"采用"率失真理论"这一标准译法；"post-training"译为"训练后"以准确体现模型压缩阶段；"flexibility"译为"灵活性"时通过增补"提供...选择"使中文表达更流畅；长句如"scales to models..."通过拆分和"可扩展至...并允许..."的句式转换实现中文的流水句效果；被动语态"is specified by"转化为主动式"根据需求"以符合中文表达习惯。）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

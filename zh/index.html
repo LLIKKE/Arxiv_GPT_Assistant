@@ -12,50 +12,90 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">RetroInfer：一种面向可扩展长上下文LLM推理的向量存储方案</h2><a id="user-content-retroinfer一种面向可扩展长上下文llm推理的向量存储方案" class="anchor" aria-label="Permalink: RetroInfer：一种面向可扩展长上下文LLM推理的向量存储方案" href="#retroinfer一种面向可扩展长上下文llm推理的向量存储方案"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明如下）</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">MoEQuant：通过专家均衡采样与亲和力引导增强混合专家大语言模型的量化性能</h2><a id="user-content-moequant通过专家均衡采样与亲和力引导增强混合专家大语言模型的量化性能" class="anchor" aria-label="Permalink: MoEQuant：通过专家均衡采样与亲和力引导增强混合专家大语言模型的量化性能" href="#moequant通过专家均衡采样与亲和力引导增强混合专家大语言模型的量化性能"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明：</p>
 <ol>
-<li>"RetroInfer"作为专有技术名称保留不译，符合技术领域术语处理惯例</li>
-<li>"Vector-Storage Approach"译为"向量存储方案"，其中：
-<ul>
-<li>"Vector"采用计算机领域标准译法"向量"（非"矢量"）</li>
-<li>"Approach"根据技术语境译为"方案"（比"方法"更体现系统性）</li>
-</ul>
-</li>
-<li>"Scalable Long-Context LLM Inference"译为"可扩展长上下文LLM推理"：
-<ul>
-<li>保持"LLM"（大语言模型）缩写形式，符合AI领域术语规范</li>
-<li>"Long-Context"译为"长上下文"，准确传达技术概念</li>
-<li>"Scalable"译为"可扩展"，突出系统扩展能力</li>
-</ul>
-</li>
-<li>整体采用"定语前置"的中文技术文献命名习惯，结构紧凑专业</li>
+<li>"MoEQuant" 作为专有技术名词保留不译，符合技术领域术语惯例</li>
+<li>"Enhancing Quantization" 译为"增强...量化性能"，通过增补"性能"使中文表达更完整</li>
+<li>"Mixture-of-Experts" 采用学界通用译法"混合专家"</li>
+<li>"Large Language Models" 译为"大语言模型"，使用行业标准译法</li>
+<li>"Expert-Balanced Sampling" 译为"专家均衡采样"，准确传达平衡采样的核心概念</li>
+<li>"Affinity Guidance" 译为"亲和力引导"，保留affinity在机器学习中的专业含义</li>
+<li>整体采用"通过..."的句式结构，清晰体现技术方法的实现路径</li>
+<li>使用中文技术论文标题惯用的动宾结构，保持学术严谨性）</li>
 </ol>
-<p>arXiv:2505.02922v1 公告类型：新成果<br>
-摘要：随着大语言模型（LLM）上下文长度的持续增长，GPU内存与带宽限制导致的推理效率问题日益凸显。我们提出RetroInfer系统，通过将键值（KV）缓存重构为向量存储系统，利用注意力机制固有的稀疏性来加速长上下文LLM推理。其核心是波浪索引（wave index）——一种"注意力感知向量索引"，通过三重注意力近似、精度有界的注意力估计及分段聚类等技术，实现关键令牌的高效精准检索。与之配合的波浪缓冲区（wave buffer）协调KV缓存布局，在GPU与CPU间重叠计算与数据传输以维持高吞吐。不同于以往稀疏化方法在令牌选择和硬件协同上的局限，RetroInfer在保持模型精度的同时提供强劲性能。长上下文基准测试显示：在GPU内存限制内较全注意力提速达4.5倍；当KV缓存扩展至CPU内存时，较稀疏注意力基线提升10.5倍，且始终维持全注意力级别的准确率。</p>
+<p>arXiv:2505.03804v1 公告类型：新研究<br>
+摘要：混合专家（Mixture-of-Experts，MoE）大语言模型通过动态路由和稀疏激活机制提升效率与可扩展性，在降低计算成本的同时实现了更高性能。然而，这类模型面临显著的内存开销问题，限制了其实际部署与广泛应用。训练后量化（Post-training Quantization，PTQ）作为大语言模型压缩的常用方法，在应用于MoE模型时会出现严重精度下降与泛化性能衰减。本文探究了MoE的稀疏动态特性对量化的影响，发现两大核心挑战：（1）专家间不平衡——样本在专家间分布不均，导致低频使用专家的校准不足且存在偏差；（2）专家内不平衡——源于MoE独特的聚合机制，使得不同样本与其分配专家间的关联程度存在差异。为此，我们提出专为MoE大语言模型设计的量化框架MoEQuant，其包含两项创新技术：1）专家平衡自采样（EBSS），通过利用词元累积概率和专家平衡指标作为引导因子，高效构建具有均衡专家分布的校准集；2）亲和力引导量化（AGQ），将专家与样本间的亲和关系纳入量化过程，从而精准评估单个样本对MoE层内不同专家的影响。实验表明，MoEQuant在4比特量化下为DeepSeekMoE-16B模型带来显著性能提升（HumanEval基准准确率提高超10分），同时有效提升效率。</p>
 <p>（翻译说明：</p>
 <ol>
-<li>专业术语保留英文缩写（如LLM/KV/GPU/CPU）并添加必要中文注解</li>
-<li>"wave index"译为"波浪索引"并保留英文原名首现标注，技术名词如"tripartite attention approximation"采用意译</li>
-<li>长难句拆分重组，如将"techniques such as..."处理为中文惯用的顿号列举结构</li>
-<li>被动语态转换（如"are extended to"译为主动式"扩展至"）</li>
-<li>数字单位标准化（"4.5X"→"4.5倍"）</li>
-<li>保持学术文本严谨性，避免口语化表达）</li>
+<li>专业术语统一处理："sparse activation"译为"稀疏激活"，"calibration set"译为"校准集"</li>
+<li>长句拆分重构：将原文复合句按中文表达习惯分解为多个短句，如"which leverage..."处理为独立分句</li>
+<li>被动语态转化："are achieved"转译为主动式"实现了"</li>
+<li>概念显化处理："affinities"译为"亲和关系"以准确传达机器学习语境</li>
+<li>技术术语保留：MoE/EBSS/AGQ等缩写首次出现时标注全称</li>
+<li>数据呈现优化："more than 10 points"译为"超10分"符合中文科技论文表述规范）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">SPAP：基于交替优化与惩罚方法的结构化剪枝</h2><a id="user-content-spap基于交替优化与惩罚方法的结构化剪枝" class="anchor" aria-label="Permalink: SPAP：基于交替优化与惩罚方法的结构化剪枝" href="#spap基于交替优化与惩罚方法的结构化剪枝"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.03373v1 公告类型：新论文<br>
-摘要：大型语言模型（LLM）的部署常受限于其巨大的计算与内存开销。虽然结构化剪枝通过移除整个网络组件提供了可行方案，但现有方法存在性能下降、依赖启发式指标或微调成本高昂等问题。为应对这些挑战，我们提出SPAP（基于交替优化与惩罚方法的结构化剪枝）——一种基于优化理论的新型高效LLM结构化剪枝框架。SPAP通过混合整数优化模型构建剪枝问题，采用能有效最小化剪枝误差的惩罚方法进行剪枝决策，并针对可拆分问题结构设计了交替最小化算法，以实现高效的权重更新与性能恢复。在OPT、LLaMA-3/3.1/3.2及Qwen2.5模型上的大量实验表明，SPAP优于当前最先进方法，可实现线性推理加速（30%稀疏度时达1.29倍）与按比例降低内存占用。本研究为保持模型性能的同时进行LLM剪枝提供了实用的优化驱动解决方案。</p>
-<p>（注：根据学术论文摘要的文体特征，翻译时注意了以下要点：</p>
+<div class="markdown-heading"><h2 class="heading-element">RWKVQuant：采用标量与矢量量化代理引导混合方案对RWKV家族模型进行量化</h2><a id="user-content-rwkvquant采用标量与矢量量化代理引导混合方案对rwkv家族模型进行量化" class="anchor" aria-label="Permalink: RWKVQuant：采用标量与矢量量化代理引导混合方案对RWKV家族模型进行量化" href="#rwkvquant采用标量与矢量量化代理引导混合方案对rwkv家族模型进行量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.03803v1 公告类型：新研究<br>
+摘要：RWKV是一种性能媲美Transformer的现代循环神经网络架构，但在部署到资源受限设备时仍面临挑战。训练后量化（PTQ）作为减小模型体积和降低推理延迟的关键技术，已在Transformer模型中广泛应用。然而该技术应用于RWKV时会出现显著的性能下降。本文通过研究揭示了RWKV固有的两大关键约束：（1）非线性算子阻碍了基于平滑和旋转量化的参数融合，引入了额外计算开销；（2）大量均匀分布的权重对基于聚类的量化方法构成挑战，导致精度下降。为此，我们提出RWKVQuant——专为RWKV模型设计的PTQ框架，包含两项创新技术：（1）通过评估权重均匀性及识别异常值，能自适应选择不同量化策略的粗细粒度代理机制；（2）针对RWKV中逐元素乘法运算，提升基于聚类的量化方法性能的码本优化算法。实验表明，RWKVQuant可将RWKV-6-14B模型量化为约3比特，在精度损失小于1%的同时实现2.14倍的加速。</p>
+<p>（注：根据学术论文摘要的文体特点，翻译时特别注意：</p>
 <ol>
-<li>专业术语统一："structured pruning"译为"结构化剪枝"、"mixed-integer optimization"译为"混合整数优化"等</li>
-<li>技术概念准确传达：如"penalty method"译为"惩罚方法"而非"惩罚机制"以保持数学原意</li>
-<li>长句拆分：将原文复合句按中文习惯分解为多个短句</li>
-<li>数据呈现规范：保留数学符号格式（如1.29×）</li>
-<li>被动语态转换："is formulated"译为主动态的"构建"</li>
-<li>机构名称保留：OPT/LLaMA等模型名称不翻译）</li>
+<li>专业术语的准确对应，如"Post Training Quantization"译为行业通用术语"训练后量化"</li>
+<li>长句拆分重构，如将原文复合从句转换为符合中文表达习惯的短句结构</li>
+<li>技术概念的本土化表达，如"coarse-to-fine proxy"意译为"粗细粒度代理机制"以保持可读性</li>
+<li>数量单位的规范处理，如"3-bit"译为"3比特"符合计算机领域术语规范）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">广播：大型语言模型压缩的率失真优化</h2><a id="user-content-广播大型语言模型压缩的率失真优化" class="anchor" aria-label="Permalink: 广播：大型语言模型压缩的率失真优化" href="#广播大型语言模型压缩的率失真优化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.03031v1 公告类型：新研究<br>
-摘要：近年来，大型语言模型（LLM）的压缩已成为推动LLM在资源有限设备上部署、降低计算成本并减轻大规模AI基础设施对环境影响的关键问题。本文从率失真理论的视角奠定了LLM量化的理论基础，并提出了一种基于简单率失真优化的量化技术。我们的技术可扩展至包含数千亿权重参数的模型，并允许用户在训练后根据需求将模型压缩至指定大小或精度，提供灵活的压缩选择。</p>
-<p>（注：根据学术文献翻译规范，专业术语如"rate-distortion theory"采用"率失真理论"这一标准译法；"post-training"译为"训练后"以准确体现模型压缩阶段；"flexibility"译为"灵活性"时通过增补"提供...选择"使中文表达更流畅；长句如"scales to models..."通过拆分和"可扩展至...并允许..."的句式转换实现中文的流水句效果；被动语态"is specified by"转化为主动式"根据需求"以符合中文表达习惯。）</p>
+<div class="markdown-heading"><h2 class="heading-element">通过自适应秩与位宽高效微调量化模型</h2><a id="user-content-通过自适应秩与位宽高效微调量化模型" class="anchor" aria-label="Permalink: 通过自适应秩与位宽高效微调量化模型" href="#通过自适应秩与位宽高效微调量化模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.03802v1 公告类型：新研究<br>
+摘要：QLoRA通过巧妙结合低位数量化与LoRA技术，实现了大语言模型（LLM）内存友好的微调。近期基于SVD的方法通过持续迭代更新来初始化LoRA矩阵以适配量化误差，但普遍未能稳定提升性能。动态混合精度是持续提升量化模型微调性能的自然思路，但既有方法往往单独优化低秩子空间或量化组件，未考虑二者的协同效应。为此，我们提出\textbf{QR-Adaptor}——一种无需梯度的统一策略，利用部分校准数据联合搜索每层的量化组件与低秩空间秩数，从而持续提升模型性能。QR-Adaptor并不最小化量化误差，而是将精度与秩分配视作由实际下游性能和内存占用指导的离散优化问题。相比最先进（SOTA）的量化LoRA微调方法，我们的方案在GSM8K上实现了4.89%的准确率提升，某些情况下甚至超越16位微调模型的表现，同时保持4比特设置的内存占用量。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<ol>
+<li>"low-bit quantization"译为"低位数量化"以保持技术精确性</li>
+<li>"gradient-free"译为"无需梯度"符合机器学习领域表述习惯</li>
+<li>"state-of-the-art"采用学界通用译法"最先进"并保留"SOTA"缩写</li>
+<li>数学符号\textbf{}保留原格式以符合arXiv论文排版要求</li>
+<li>"GSM8K"作为专有数据集名称未翻译）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">设备端LLM赋能情境感知的Wi-Fi漫游</h2><a id="user-content-设备端llm赋能情境感知的wi-fi漫游" class="anchor" aria-label="Permalink: 设备端LLM赋能情境感知的Wi-Fi漫游" href="#设备端llm赋能情境感知的wi-fi漫游"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.04174v1 公告类型：新论文<br>
+摘要：无线漫游是动态移动环境中保持无缝连接的关键性难题。传统基于阈值或启发式方案常因失效导致"粘滞切换"或"过度切换"。我们首次提出设备端大语言模型（LLM）的跨层应用：通过在应用层进行高层推理，实时触发物理层/MAC层栈的执行动作。该LLM主要解决两大任务：（i）上下文感知的AP选择——通过结构化提示融合位置、时间等环境线索，选择最优BSSID；（ii）动态阈值调整——模型自适应决策漫游时机。为满足边缘硬件严格的延迟与资源限制，我们采用思维链提示、参数高效微调和量化三重优化。室内外数据集实验表明，本方案超越传统启发式方法与深度强化学习基线，在漫游稳定性和信号质量间实现优异平衡。这些发现印证了应用层LLM推理对未来边缘系统中底层无线控制的巨大潜力。</p>
+<p>（注：根据学术论文摘要的文体特点，翻译时着重处理了以下要点：</p>
+<ol>
+<li>专业术语统一："BSSID"保留英文缩写，"PHY/MAC stack"译为"物理层/MAC层栈"</li>
+<li>技术概念准确表达："chain-of-thought prompting"采用学界通用译法"思维链提示"</li>
+<li>长句拆分重构：将原文复合长句按中文表达习惯分解为多个短句</li>
+<li>被动语态转化："are applied"等被动式转为主动表述"我们采用"</li>
+<li>学术语气保持：使用"该LLM"、"本方案"等符合学术规范的指代方式）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">大型语言模型压缩：全局秩与稀疏性优化</h2><a id="user-content-大型语言模型压缩全局秩与稀疏性优化" class="anchor" aria-label="Permalink: 大型语言模型压缩：全局秩与稀疏性优化" href="#大型语言模型压缩全局秩与稀疏性优化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.03801v1 公告类型：新研究<br>
+摘要：低秩与稀疏复合近似是压缩大语言模型（LLM）的自然思路，但现有方法面临两大影响性能的核心挑战：一是低秩矩阵与稀疏矩阵间的交互协作问题，二是不同网络层冗余度差异显著导致的权重分配难题。为此，我们提出一种具有全局秩与稀疏度优化能力的双阶段LLM压缩方法。值得注意的是，整体优化空间极为庞大，全面优化在计算上不可行。因此第一阶段采用鲁棒主成分分析将LLM权重矩阵分解为低秩分量和稀疏分量，二者分别生成包含目标矩阵的低维空间与稀疏空间。第二阶段提出概率化全局优化技术，在上述两个空间中联合识别最优低秩与稀疏结构。本方法的突出优势在于能自动感知不同层的冗余特征，并智能调控稀疏与低秩组件的协同关系。大量实验表明，该方法在稀疏化与复合近似任务上显著超越现有最优技术。</p>
+<p>（说明：翻译过程中进行了以下专业处理：</p>
+<ol>
+<li>将"composite approximation"译为专业术语"复合近似"</li>
+<li>"robust principal component analysis"采用学界通用译法"鲁棒主成分分析"</li>
+<li>将技术描述"probabilistic global optimization"转化为符合中文论文习惯的"概率化全局优化"</li>
+<li>通过"智能调控"等措辞准确传达"manage the interaction"的技术内涵</li>
+<li>保持"state-of-the-art"在学术文献中的标准译法"现有最优技术"</li>
+<li>对长难句进行合理切分，如将原文最后复合句拆分为两个中文短句，确保可读性）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">分组序列化排列旋转：免费优化量化旋转变换</h2><a id="user-content-分组序列化排列旋转免费优化量化旋转变换" class="anchor" aria-label="Permalink: 分组序列化排列旋转：免费优化量化旋转变换" href="#分组序列化排列旋转免费优化量化旋转变换"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>注：翻译时尽量保持了术语的准确性和专业性：</p>
+<ol>
+<li>"Grouped Sequency-arranged"译为"分组序列化排列"，其中"sequency"在信号处理领域通常译为"序列性/序列化"</li>
+<li>"Rotation"在数学变换语境下译为"旋转"而非"轮换"</li>
+<li>"Optimizing...for Free"采用意译为"免费优化"，突出技术方案的成本优势特性</li>
+<li>整体采用技术论文标题常见的名词短语结构，通过冒号分层主副标题</li>
+<li>保留了"Quantization"在数字信号处理中的专业译法"量化"</li>
+</ol>
+<p>arXiv:2505.03810v1 公告类型：新研究<br>
+摘要：大型语言模型（LLMs）因高昂计算成本面临部署挑战，虽然训练后量化（PTQ）提供了解决方案，但现有基于旋转的方法在极低比特位宽（如2比特）下表现欠佳。我们提出了一种无需训练的新颖方法，通过构建改进的旋转矩阵解决当前技术的局限性。核心创新包括：采用按序数排列的沃尔什-哈达玛变换，通过聚类相似频率分量来降低量化误差（相比标准哈达玛矩阵），显著提升性能；进一步提出分组序数旋转（GSR）技术，使用包含小型沃尔什矩阵的块对角矩阵，有效隔离异常值影响，在不需任何训练的情况下达到与基于优化的方法相当的性能。我们的方法在推理任务和WikiText-2数据集上的困惑度（PPL）指标均表现优异，即使应用于现有学习型旋转技术之上也能进一步提升效果。</p>
+<p>（注：根据学术论文摘要的文体特点，翻译时进行了以下处理：</p>
+<ol>
+<li>技术术语采用国内计算机领域通用译法（如"Post-Training Quantization"译为"训练后量化"）</li>
+<li>长句拆分重组以符合中文表达习惯（如原文第二句拆分为两个分句）</li>
+<li>专业概念保留英文缩写（如PPL）同时首次出现标注中文全称</li>
+<li>被动语态转换为主动表述（如"is proposed"译为"提出"）</li>
+<li>关键创新点通过分号连接保持逻辑紧凑性）</li>
+</ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

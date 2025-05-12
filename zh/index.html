@@ -12,6 +12,39 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">从损失景观中学习：通过自适应锐度感知梯度对齐实现可推广的混合精度量化</h2><a id="user-content-从损失景观中学习通过自适应锐度感知梯度对齐实现可推广的混合精度量化" class="anchor" aria-label="Permalink: 从损失景观中学习：通过自适应锐度感知梯度对齐实现可推广的混合精度量化" href="#从损失景观中学习通过自适应锐度感知梯度对齐实现可推广的混合精度量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>混合精度量化（MPQ）已成为通过确定每层最优位宽来优化神经网络的关键技术。然而，现有MPQ方法面临一个主要障碍：它们需要在大规模数据集上进行计算成本高昂的量化策略搜索。为解决这一问题，我们提出了一种创新方法——先在小规模数据集上搜索量化策略，再将其泛化至大规模数据集。这种方法简化了流程，既无需进行大规模量化微调，也仅需调整模型权重即可。我们的方法具有三大核心技术特征：采用锐度感知最小化增强量化泛化能力，通过隐式梯度方向对齐处理不同优化目标间的梯度冲突，以及利用自适应扰动半径加速优化过程。理论分析与实验结果均验证了该方法的有效性。使用CIFAR10数据集（仅为ImageNet训练数据规模的0.5%）进行MPQ策略搜索后，我们在ImageNet上以显著降低的计算成本实现了同等精度，同时效率较基线方法提升高达150%。</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">FloE：动态混合专家推理系统</h2><a id="user-content-floe动态混合专家推理系统" class="anchor" aria-label="Permalink: FloE：动态混合专家推理系统" href="#floe动态混合专家推理系统"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：根据技术语境，"On-the-Fly"译为"动态"体现实时处理能力，"MoE"作为"Mixture of Experts"缩写保留专业术语特征，采用"混合专家"的通用译法，"Inference"在AI领域译为"推理"）</p>
+<p>arXiv:2505.05950v1 公告类型：新研究<br>
+摘要：随着混合专家（Mixture-of-Experts, MoE）模型的广泛应用，在内存受限设备上实现高效推理的需求日益增长。虽然将专家参数卸载至CPU内存并按需加载激活专家已成为潜在解决方案，但激活专家的大规模参数会挤占有限的PCIe带宽，在延迟敏感场景中影响效率。为此，我们提出FloE——一种面向内存受限GPU的即时MoE推理系统。FloE的核心洞见在于：稀疏激活的专家内部存在大量未被利用的冗余。该系统通过对专家内部参数矩阵实施多种压缩技术来降低数据传输负载，并结合低成本的稀疏预测，在资源受限设备上实现了可感知的实时推理加速。实验表明，FloE在Mixtral-8x7B模型中将单个专家参数压缩至原体积的1/9.3；仅需11GB显存即可完成部署，内存占用最高减少8.5倍；在单张GeForce RTX 3090显卡上相比DeepSpeed-MII实现48.7倍的推理加速。</p>
+<p>（注：根据学术文献翻译规范，对技术术语保持英文首字母大写（如PCIe/GPU/VRAM），专业名词（如DeepSpeed-MII/Mixtral-8x7B）保留原名。长句按中文表达习惯拆分为短句，被动语态转为主动表述，如"there exists..."译为"存在..."。关键量化数据保留原始精度表述，如"9.3x"译为"9.3倍"。）</p>
+<div class="markdown-heading"><h2 class="heading-element">深度神经网络的低比特模型量化研究综述</h2><a id="user-content-深度神经网络的低比特模型量化研究综述" class="anchor" aria-label="Permalink: 深度神经网络的低比特模型量化研究综述" href="#深度神经网络的低比特模型量化研究综述"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.05530v1 公告类型：新研究<br>
+摘要：深度神经网络（DNNs）以前所未有的速度迅猛发展，已深刻影响了几乎所有领域。然而，其高昂的计算成本和庞大的模型规模在实际部署中往往难以接受。模型量化作为一种有效的权重轻量化技术，已成为整个部署流程中不可或缺的环节。量化加速的本质在于将连续的浮点数转换为离散的整型数，从而显著提升内存I/O和计算（如加法与乘法）效率。但这种转换也因精度损失带来了性能下降。因此，如何执行这种转换以及如何补偿信息损失，已成为日益重要且关键的研究方向。</p>
+<p>本文系统综述了近五年来深度神经网络低比特量化的研究进展。我们讨论并比较了最先进的量化方法，根据其核心技术将其划分为8个主要类别和24个子类别。此外，我们还揭示了模型量化领域潜在的研究机遇。相关量化方法的精选列表可在 <a href="https://github.com/Kai-Liu001/Awesome-Model-Quantization">https://github.com/Kai-Liu001/Awesome-Model-Quantization</a> 获取。</p>
+<p>（注：译文在保持学术严谨性的基础上，对长句进行了符合中文表达习惯的拆分，将被动语态转换为主动表述，并采用"轻量化""离散的整型数"等专业术语确保技术准确性。最后提供的GitHub链接保留原文格式以便读者直接访问。）</p>
+<div class="markdown-heading"><h2 class="heading-element">MxMoE：面向混合专家系统的精度-性能协同设计量化方案</h2><a id="user-content-mxmoe面向混合专家系统的精度-性能协同设计量化方案" class="anchor" aria-label="Permalink: MxMoE：面向混合专家系统的精度-性能协同设计量化方案" href="#mxmoe面向混合专家系统的精度-性能协同设计量化方案"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明如下）</p>
+<ol>
+<li>
+<p><strong>术语处理</strong>：</p>
+<ul>
+<li>"Mixed-precision Quantization" 译为"混合精度量化"，这是AI模型压缩领域的标准术语</li>
+<li>"MoE" 保留英文缩写形式，通过"混合专家系统"补充说明（Mixture of Experts的通用译法）</li>
+</ul>
+</li>
+<li>
+<p><strong>技术概念传达</strong>：</p>
+<ul>
+<li>"Co-Design" 译为"协同设计"，强调精度与性能的联合优化特性</li>
+<li>增加"面向"二字明确技术应用对象，使中文标题更符合技术论文表述习惯</li>
+</ul>
+</li>
+<li>
+<p><strong>结构优化</strong>：<br>
+采用主副标题结构，用破折号连接核心概念，既保持学术严谨性又提升可读性。完整译名在学术文献中首次出现时可附加英文原名："MxMoE（Mixed-precision Mixture of Experts）"</p>
+</li>
+</ol>
+<p>arXiv:2505.05799v1 公告类型：新研究<br>
+摘要：混合专家（MoE）模型因参数量庞大、计算需求高而面临部署挑战。我们探究了MoE模型的量化技术，并揭示两大关键发现：1）线性模块对量化敏感度存在显著差异；2）专家激活频率的分化形成了异构计算特征。基于这些观察，我们提出了MxMoE——一个从算法与系统双重视角优化的MoE模型混合精度框架。该框架通过权衡参数敏感度、专家激活动态与硬件资源之间的设计空间，推导出高效的混合精度配置方案。此外，MxMoE能自动生成优化的混合精度分组矩阵乘法（GroupGEMM）内核，实现不同精度GEMM运算的并行执行。实验表明：在2.25比特量化下，MxMoE以比GPTQ低2.4倍的WikiText-2困惑度胜出；在5比特权重-激活量化条件下，相较全精度实现获得最高3.4倍加速，相比同等精度的均匀量化提升29.4%速度。代码已开源：<a href="https://github.com/cat538/MxMoE">https://github.com/cat538/MxMoE</a></p>
+<p>（注：根据学术文献翻译规范，技术术语保持英文缩写如MoE/GEMM，关键指标"2.4 lower Wikitext-2 perplexity"采用中文科技论文常见表述方式，长句按中文习惯拆分为短句，同时保留arXiv编号等学术引用要素）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

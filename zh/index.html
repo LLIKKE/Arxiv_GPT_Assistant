@@ -12,39 +12,49 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">FloE：动态混合专家推理系统</h2><a id="user-content-floe动态混合专家推理系统" class="anchor" aria-label="Permalink: FloE：动态混合专家推理系统" href="#floe动态混合专家推理系统"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：根据技术语境，"On-the-Fly"译为"动态"体现实时处理能力，"MoE"作为"Mixture of Experts"缩写保留专业术语特征，采用"混合专家"的通用译法，"Inference"在AI领域译为"推理"）</p>
-<p>arXiv:2505.05950v1 公告类型：新研究<br>
-摘要：随着混合专家（Mixture-of-Experts, MoE）模型的广泛应用，在内存受限设备上实现高效推理的需求日益增长。虽然将专家参数卸载至CPU内存并按需加载激活专家已成为潜在解决方案，但激活专家的大规模参数会挤占有限的PCIe带宽，在延迟敏感场景中影响效率。为此，我们提出FloE——一种面向内存受限GPU的即时MoE推理系统。FloE的核心洞见在于：稀疏激活的专家内部存在大量未被利用的冗余。该系统通过对专家内部参数矩阵实施多种压缩技术来降低数据传输负载，并结合低成本的稀疏预测，在资源受限设备上实现了可感知的实时推理加速。实验表明，FloE在Mixtral-8x7B模型中将单个专家参数压缩至原体积的1/9.3；仅需11GB显存即可完成部署，内存占用最高减少8.5倍；在单张GeForce RTX 3090显卡上相比DeepSpeed-MII实现48.7倍的推理加速。</p>
-<p>（注：根据学术文献翻译规范，对技术术语保持英文首字母大写（如PCIe/GPU/VRAM），专业名词（如DeepSpeed-MII/Mixtral-8x7B）保留原名。长句按中文表达习惯拆分为短句，被动语态转为主动表述，如"there exists..."译为"存在..."。关键量化数据保留原始精度表述，如"9.3x"译为"9.3倍"。）</p>
-<div class="markdown-heading"><h2 class="heading-element">深度神经网络的低比特模型量化研究综述</h2><a id="user-content-深度神经网络的低比特模型量化研究综述" class="anchor" aria-label="Permalink: 深度神经网络的低比特模型量化研究综述" href="#深度神经网络的低比特模型量化研究综述"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.05530v1 公告类型：新研究<br>
-摘要：深度神经网络（DNNs）以前所未有的速度迅猛发展，已深刻影响了几乎所有领域。然而，其高昂的计算成本和庞大的模型规模在实际部署中往往难以接受。模型量化作为一种有效的权重轻量化技术，已成为整个部署流程中不可或缺的环节。量化加速的本质在于将连续的浮点数转换为离散的整型数，从而显著提升内存I/O和计算（如加法与乘法）效率。但这种转换也因精度损失带来了性能下降。因此，如何执行这种转换以及如何补偿信息损失，已成为日益重要且关键的研究方向。</p>
-<p>本文系统综述了近五年来深度神经网络低比特量化的研究进展。我们讨论并比较了最先进的量化方法，根据其核心技术将其划分为8个主要类别和24个子类别。此外，我们还揭示了模型量化领域潜在的研究机遇。相关量化方法的精选列表可在 <a href="https://github.com/Kai-Liu001/Awesome-Model-Quantization">https://github.com/Kai-Liu001/Awesome-Model-Quantization</a> 获取。</p>
-<p>（注：译文在保持学术严谨性的基础上，对长句进行了符合中文表达习惯的拆分，将被动语态转换为主动表述，并采用"轻量化""离散的整型数"等专业术语确保技术准确性。最后提供的GitHub链接保留原文格式以便读者直接访问。）</p>
-<div class="markdown-heading"><h2 class="heading-element">MxMoE：面向混合专家系统的精度-性能协同设计量化方案</h2><a id="user-content-mxmoe面向混合专家系统的精度-性能协同设计量化方案" class="anchor" aria-label="Permalink: MxMoE：面向混合专家系统的精度-性能协同设计量化方案" href="#mxmoe面向混合专家系统的精度-性能协同设计量化方案"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明如下）</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">QuantX：面向生成式AI工作负载的硬件感知量化框架</h2><a id="user-content-quantx面向生成式ai工作负载的硬件感知量化框架" class="anchor" aria-label="Permalink: QuantX：面向生成式AI工作负载的硬件感知量化框架" href="#quantx面向生成式ai工作负载的硬件感知量化框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.07531v1 公告类型：新成果<br>
+摘要：我们推出QuantX——一套专为大语言模型（LLM）和视觉语言模型（VLM）量身定制的量化方案。该方案能在将模型量化至3比特分辨率时，仍保持极低的性能损失。QuantX的量化策略充分考虑了硬件特定约束，通过优化推理过程中的反量化效率，实现了运行时速度、内存占用与模型精度之间的灵活权衡。实验表明，在Llava-v1.6模型上，QuantX将模型量化至3比特后，在多项终端用户任务中性能损失不超过6%，且优于近期发表的最先进量化技术。本技术文档深入剖析了LLM量化过程中的关键洞见，这些发现促使我们设计了QuantX中涵盖的多维度量化方案与可配置选项。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>
-<p><strong>术语处理</strong>：</p>
-<ul>
-<li>"Mixed-precision Quantization" 译为"混合精度量化"，这是AI模型压缩领域的标准术语</li>
-<li>"MoE" 保留英文缩写形式，通过"混合专家系统"补充说明（Mixture of Experts的通用译法）</li>
-</ul>
-</li>
-<li>
-<p><strong>技术概念传达</strong>：</p>
-<ul>
-<li>"Co-Design" 译为"协同设计"，强调精度与性能的联合优化特性</li>
-<li>增加"面向"二字明确技术应用对象，使中文标题更符合技术论文表述习惯</li>
-</ul>
-</li>
-<li>
-<p><strong>结构优化</strong>：<br>
-采用主副标题结构，用破折号连接核心概念，既保持学术严谨性又提升可读性。完整译名在学术文献中首次出现时可附加英文原名："MxMoE（Mixed-precision Mixture of Experts）"</p>
-</li>
+<li>"recipes"译为"方案"以符合计算机领域术语</li>
+<li>"state-of-the-art"采用"最先进"的通用译法</li>
+<li>保持"3-bit/3比特"等技术参数的数字直译</li>
+<li>"manuscript"根据上下文译为"技术文档"更符合中文技术文献语境）</li>
 </ol>
-<p>arXiv:2505.05799v1 公告类型：新研究<br>
-摘要：混合专家（MoE）模型因参数量庞大、计算需求高而面临部署挑战。我们探究了MoE模型的量化技术，并揭示两大关键发现：1）线性模块对量化敏感度存在显著差异；2）专家激活频率的分化形成了异构计算特征。基于这些观察，我们提出了MxMoE——一个从算法与系统双重视角优化的MoE模型混合精度框架。该框架通过权衡参数敏感度、专家激活动态与硬件资源之间的设计空间，推导出高效的混合精度配置方案。此外，MxMoE能自动生成优化的混合精度分组矩阵乘法（GroupGEMM）内核，实现不同精度GEMM运算的并行执行。实验表明：在2.25比特量化下，MxMoE以比GPTQ低2.4倍的WikiText-2困惑度胜出；在5比特权重-激活量化条件下，相较全精度实现获得最高3.4倍加速，相比同等精度的均匀量化提升29.4%速度。代码已开源：<a href="https://github.com/cat538/MxMoE">https://github.com/cat538/MxMoE</a></p>
-<p>（注：根据学术文献翻译规范，技术术语保持英文缩写如MoE/GEMM，关键指标"2.4 lower Wikitext-2 perplexity"采用中文科技论文常见表述方式，长句按中文习惯拆分为短句，同时保留arXiv编号等学术引用要素）</p>
+<div class="markdown-heading"><h2 class="heading-element">使用部分运行时重配置实现多个专家混合大语言模型的QoS高效服务</h2><a id="user-content-使用部分运行时重配置实现多个专家混合大语言模型的qos高效服务" class="anchor" aria-label="Permalink: 使用部分运行时重配置实现多个专家混合大语言模型的QoS高效服务" href="#使用部分运行时重配置实现多个专家混合大语言模型的qos高效服务"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.06481v1 公告类型：新研究<br>
+摘要：混合专家（MoE）大语言模型（LLM）的部署因其高内存需求面临重大挑战。这一挑战在多租户环境中尤为突出——共享资源需同时承载多个模型，使得传统虚拟化技术收效甚微。本文研究如何在单块GPU上高效服务多个微调后的MoE-LLM，提出一种通过\textit{基于相似性的专家整合}来共享跨模型相似专家、从而降低总内存占用的服务系统。为保障输出质量，我们引入\textit{运行时部分重配置}技术，在处理不同模型的请求时动态替换非专家层。实验表明，该方法在保持与单模型服务相当吞吐量的同时，仅以可忽略的首令牌延迟（TTFT）增长为代价，实现了具有竞争力的输出质量。在配备NVIDIA A100 GPU（80GB）的服务器上使用Mixtral-8x7B模型的测试显示，相较NVIDIA多实例GPU（MIG）方案，平均任务周转时间缩短85%。此外，在谷歌Switch Transformer Base-8模型（最多四个变体）上的实验验证了本方法在保持输出质量方面的可扩展性与鲁棒性，其表现显著优于其他模型合并基线方案。</p>
+<div class="markdown-heading"><h2 class="heading-element">指导量化：通过利用终端损失引导的大语言模型量化方法</h2><a id="user-content-指导量化通过利用终端损失引导的大语言模型量化方法" class="anchor" aria-label="Permalink: 指导量化：通过利用终端损失引导的大语言模型量化方法" href="#指导量化通过利用终端损失引导的大语言模型量化方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.07004v1 公告类型：新成果<br>
+摘要：训练后量化是通过对权重和激活值进行量化以减少大语言模型内存占用和推理延迟的关键技术，且无需重新训练。然而现有方法存在两大局限：(1) 未能考虑隐藏特征对最终损失的重要性差异；(2) 在引入最终损失时忽略了模型权重间的关键交互关系。为此，我们提出GuidedQuant——一种创新量化方法，既将最终损失的梯度信息融入量化目标，又保持输出通道内跨权重依赖关系。实验表明，该方法在仅权重量化（标量/向量）及权重-激活值联合量化场景下，均能持续提升当前最先进量化方法的性能。此外，我们提出了一种新型非均匀标量量化算法，该算法可保证量化目标值单调递减，其性能优于同类现有方法。代码已发布于<a href="https://github.com/snu-mllab/GuidedQuant%E3%80%82">https://github.com/snu-mllab/GuidedQuant。</a></p>
+<p>（注：根据学术文献翻译规范，对技术术语进行了标准化处理，如"end loss"译为"最终损失"；对长句进行了符合中文表达习惯的拆分；保留arXiv编号格式及项目网址原貌；"monotonically decrease"采用"单调递减"这一数学标准译法；机构名称"snu-mllab"暂未翻译以保持可追溯性）</p>
+<div class="markdown-heading"><h2 class="heading-element">通过4位块级最优浮点数（BOF4）改进块级大语言模型量化：分析与变体</h2><a id="user-content-通过4位块级最优浮点数bof4改进块级大语言模型量化分析与变体" class="anchor" aria-label="Permalink: 通过4位块级最优浮点数（BOF4）改进块级大语言模型量化：分析与变体" href="#通过4位块级最优浮点数bof4改进块级大语言模型量化分析与变体"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.06653v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）在微调与推理过程中需要消耗大量内存。为实现高效内存微调，现有方法采用分块量化技术（如NF4、AF4）对网络权重进行处理。我们研究发现，这些量化方法会产生次优的量化误差。为此，我们首先提出一种创新性的分块量化优化方法，并基于此设计出名为4比特分块最优浮点（BOF4）的量化器家族。相较于基线方法，BOF4能持续降低量化误差。我们为优化过程同时提供了理论解和数据驱动解，并证明二者的实际等效性。</p>
+<p>其次，我们提出基于带符号绝对块最大值（BOF4-S）的归一化方法改进方案，可进一步降低量化误差，实证表明该方法能减少语言建模性能的损失。第三，通过实验研究，我们探索了分块量化方法在LLMs中的其他变体：一方面重点考察精确表示零值权重与大振幅权重的重要性，另一方面针对不同误差指标进行优化。</p>
+<p>最后，我们提出名为离群值保留量化（OPQ）的混合精度策略，以解决分块量化中离群权重导致的分布失配问题。通过将离群权重以16比特精度存储（OPQ）并应用BOF4-S，我们在4比特分块量化技术中实现了最优的困惑度性能。</p>
+<p>（注：w.r.t. 采用学术惯例保留英文缩写，译为"关于"或根据上下文处理；专业术语如NF4/AF4/BOF4等保留英文原名；"perplexity"译为"困惑度"符合NLP领域术语规范；长难句按中文表达习惯拆分重组，保持科技论文严谨性同时提升可读性）</p>
+<div class="markdown-heading"><h2 class="heading-element">ICE剪枝：一种面向深度神经网络的迭代式高性价比剪枝流程</h2><a id="user-content-ice剪枝一种面向深度神经网络的迭代式高性价比剪枝流程" class="anchor" aria-label="Permalink: ICE剪枝：一种面向深度神经网络的迭代式高性价比剪枝流程" href="#ice剪枝一种面向深度神经网络的迭代式高性价比剪枝流程"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（翻译说明：</p>
+<ol>
+<li>"Iterative Cost-Efficient" 译为"迭代式高性价比"，既保留"迭代"的技术特性，又用"高性价比"准确传达"以较低计算成本实现高效剪枝"的核心优势</li>
+<li>"Pipeline" 译为"流程"而非直译"管道"，更符合中文技术文档表述习惯</li>
+<li>采用破折号连接主副标题，保持与原标题相同的结构层次</li>
+<li>补充"面向深度神经网络"的定语，使中文读者更易理解技术应用场景</li>
+<li>保留英文缩写"ICE"音译，维持算法名称识别度）</li>
+</ol>
+<p>arXiv:2505.07411v1 公告类型：新论文<br>
+摘要：<br>
+剪枝是一种广泛使用的深度神经网络（DNN）压缩方法，通过移除模型中相关性较低的参数来减小其规模。然而，参数移除会降低模型精度，因此剪枝通常需结合微调操作，有时还需配合权重回退等其他操作以恢复精度。常见做法是逐步增加剪枝比例，并反复执行剪枝与微调。虽然这种流程易于实现，但由于需要重复微调，传统剪枝流程的计算成本极高。</p>
+<p>本文提出ICE-Pruning——一种可显著降低剪枝时间成本的迭代式DNN剪枝流程，在保持与现有剪枝流程相近精度的同时，通过降低微调总体开销实现加速。ICE-Pruning基于三大核心组件：1) 自动判定何时需执行微调的机制；2) 各剪枝步骤中加速微调的参数冻结策略；3) 专为剪枝设计的自适应学习率调度器，以提升单步精度并减少总耗时。我们还为这三个组件引入的超参数（如冻结比例）设计了高效自动调优方案。在多个DNN模型和数据集上的实验表明，ICE-Pruning最高可实现9.61倍的剪枝加速。代码已开源：<a href="https://github.com/gicLAB/ICE-Pruning">https://github.com/gicLAB/ICE-Pruning</a></p>
+<p>（翻译说明：</p>
+<ol>
+<li>专业术语统一处理："fine-tuning"译为"微调"，"pruning"译为"剪枝"，"rewinding weights"译为"权重回退"</li>
+<li>长句拆分重构：将原文复合长句按中文表达习惯分解为多个短句，如将"pruning is typically combined with..."处理为因果句式</li>
+<li>被动语态转换："parameters are removed"译为主动式"移除参数"</li>
+<li>技术概念显化：如"pruning-aware learning rate scheduler"译为"专为剪枝设计的自适应学习率调度器"以明确功能</li>
+<li>数字规范：保留原文的"9.61x"技术表述形式，符合计算机领域论文惯例</li>
+<li>链接保留：完整保留GitHub代码库链接格式）</li>
+</ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

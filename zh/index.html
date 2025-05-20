@@ -12,73 +12,52 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">SubGCache：利用子图级键值缓存加速基于图的检索增强生成</h2><a id="user-content-subgcache利用子图级键值缓存加速基于图的检索增强生成" class="anchor" aria-label="Permalink: SubGCache：利用子图级键值缓存加速基于图的检索增强生成" href="#subgcache利用子图级键值缓存加速基于图的检索增强生成"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.10951v1 公告类型：新研究<br>
-摘要：基于图谱的检索增强生成（RAG）技术通过图谱检索将结构化知识作为上下文输入整合至大语言模型（LLM），从而提升推理的准确性与情境感知能力。我们发现，针对不同查询可能检索到结构相似的子图作为提示，因此提出SubGCache——该技术通过复用具有相似结构提示（即子图）的查询间计算，显著降低推理延迟。具体而言，SubGCache通过子图嵌入对查询进行聚类，为每个聚类构建代表性子图，并预计算该代表性子图的键值（KV）缓存。当处理同一聚类内带有检索子图的查询时，系统直接复用该聚类代表性子图的预计算KV缓存，避免重复计算KV张量以节省算力。在多个LLM架构和基于图谱的RAG框架上对两个新数据集的实验表明，SubGCache在保持甚至提升生成质量的同时，持续降低推理延迟，首次令牌生成时间（TTFT）最高可减少6.68倍。</p>
-<p>（注：根据学术文献翻译规范，专业术语如"KV cache"保留英文缩写并添加括号注释；技术指标"6.68×"采用标准数学表达；被动语态转换为中文主动句式；长句按中文习惯拆分为短句；"time-to-first-token"译为行业通用表述"首次令牌生成时间"）</p>
-<div class="markdown-heading"><h2 class="heading-element">动态量化的概率框架</h2><a id="user-content-动态量化的概率框架" class="anchor" aria-label="Permalink: 动态量化的概率框架" href="#动态量化的概率框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.10689v1 公告类型：新研究<br>
-摘要：我们提出了一种神经网络动态量化的概率框架，能够以计算高效的方式实现输入自适应的量化参数重缩放。该框架通过轻量级代理模型对网络预激活值建立概率模型，从而无需显著内存开销即可实现基于单次输入的自适应量化参数调整。我们在多个主流计算机视觉任务和模型上验证了该方法，仅观察到可忽略不计的性能损失。与标准量化策略相比，我们的方法实现了最佳性能与计算开销的平衡。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">FreeKV：提升KV缓存检索效率以优化大语言模型推理</h2><a id="user-content-freekv提升kv缓存检索效率以优化大语言模型推理" class="anchor" aria-label="Permalink: FreeKV：提升KV缓存检索效率以优化大语言模型推理" href="#freekv提升kv缓存检索效率以优化大语言模型推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.13109v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）的部署规模正随着快速扩展的上下文窗口而不断扩大，以支持日益苛刻的应用需求。然而，长上下文带来了显著的部署挑战，主要源于键值缓存（KV cache）的大小与上下文长度成比例增长。虽然已有KV缓存压缩方法试图解决这一问题，但KV丢弃方法会导致显著的准确率损失，而KV检索方法则面临严重的效率瓶颈。我们提出FreeKV——一个算法-系统协同优化框架，在保持准确性的同时提升KV检索效率。在算法层面，FreeKV引入推测式检索将KV选择与召回过程移出关键路径，并结合细粒度校正确保准确性；在系统层面，FreeKV采用跨CPU与GPU内存的混合KV布局以消除碎片化数据传输，并利用双缓冲流式召回进一步提升效率。实验表明，FreeKV在多种场景和模型下均能实现接近无损的准确率，相比最先进的KV检索方法可获得高达13倍的加速。</p>
+<p>（注：SOTA保持英文缩写形式，因其在机器学习领域作为"State-Of-The-Art"的通用表述；公式符号"13$\times$"保留原格式以符合学术文献惯例）</p>
+<div class="markdown-heading"><h2 class="heading-element">权重量化的最佳格式</h2><a id="user-content-权重量化的最佳格式" class="anchor" aria-label="Permalink: 权重量化的最佳格式" href="#权重量化的最佳格式"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.12988v1 公告类型：新研究<br>
+摘要：权重量化是实现现代深度学习模型高效训练与部署的关键技术。然而，现有量化方法种类繁多，格式选择往往依赖经验性判断。本文提出一个系统性设计与分析量化格式的框架。通过将格式设计问题与经典量化理论相关联，我们揭示了流行格式优异实践表现的根源——其采用变长编码表示数值的能力。将优化问题构建为最小化原始模型与量化模型输出之间的KL散度，该目标函数等同于最小化模型参数的平方量化误差。基于此，我们针对已知分布开发并评估了平方误差最优的量化格式，观察到变长编码较定长编码实现了显著提升。研究证明：均匀量化配合变长编码的无损压缩是最优方案。有趣的是，常用的分块格式和稀疏离群值格式同样优于定长编码，这表明它们也隐含利用了变长编码原理。最后，通过建立费希尔信息与KL散度的关联，我们推导出模型各层参数张量的最优位宽分配方案，在语言模型的直接转换量化测试中，该方案实现了每参数节省0.25比特的效果。</p>
+<p>（注：根据学术论文翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>"pre-activations"译为"预激活值"（深度学习领域通用译法）</li>
-<li>"lightweight surrogate"译为"轻量级代理模型"（保持技术准确性）</li>
-<li>"per-input basis"译为"基于单次输入"（更符合中文表达习惯）</li>
-<li>保留了专业术语"quantization parameters"的直译"量化参数"</li>
-<li>将英语长句拆分为符合中文阅读习惯的短句结构）</li>
+<li>"variable-length codes"统一译为"变长编码"以保持计算机领域术语一致性</li>
+<li>"Fisher information"采用学科通用译名"费希尔信息"</li>
+<li>长难句按中文表达习惯进行了分拆重组，如将"Framing the optimization problem..."处理为因果句式</li>
+<li>保留了专业缩写如"KL散度"并在首次出现时给出全称"KL divergence"）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">加法几乎是你所需的一切：通过双重二值化分解压缩神经网络</h2><a id="user-content-加法几乎是你所需的一切通过双重二值化分解压缩神经网络" class="anchor" aria-label="Permalink: 加法几乎是你所需的一切：通过双重二值化分解压缩神经网络" href="#加法几乎是你所需的一切通过双重二值化分解压缩神经网络"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.11076v1 公告类型：新研究<br>
-摘要：二值量化方法通过将权重矩阵替换为二值矩阵，并用成本较低的加法运算替代昂贵的乘法运算，为应对大语言模型（LLMs）日益增长的计算和存储需求提供了一种高效的计算方案。然而，严格的量化约束（$\pm1$）可能导致显著的精度下降。本文提出双二值分解（DBF）这一创新方法，将稠密权重矩阵分解为两个二值（符号）矩阵的乘积，每个矩阵均配有缩放向量。DBF在保留二值表示效率优势的同时，实现了与最先进方法相当或更优的压缩率。具体而言，在1比特/权重的范围内，DBF优于现有二值化方法；在2比特/权重的范围内，其性能可与QuIP#、QTIP等最佳量化方法媲美。与多数现有压缩技术仅提供有限压缩级别选择不同，DBF通过调整分解的中间维度，实现了对压缩比的细粒度控制。基于这一优势，我们进一步提出一种算法，依据先前开发的通道剪枝准则，估算DBF的非均匀分层压缩比。<br>
-代码仓库：<a href="https://github.com/usamec/double_binary">https://github.com/usamec/double_binary</a></p>
-<p>（注：根据学术规范，技术术语如"Large Language Models"保留通用译名"大语言模型"；数学符号$\pm1$保留原格式；项目名称"Double Binary Factorization"采用直译+括号注原名的处理方式；URL等专有信息未作翻译。）</p>
-<div class="markdown-heading"><h2 class="heading-element">高斯权重采样：面向可扩展、高效且稳定的伪量化训练</h2><a id="user-content-高斯权重采样面向可扩展高效且稳定的伪量化训练" class="anchor" aria-label="Permalink: 高斯权重采样：面向可扩展、高效且稳定的伪量化训练" href="#高斯权重采样面向可扩展高效且稳定的伪量化训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（翻译说明：</p>
+<div class="markdown-heading"><h2 class="heading-element">使用零阶优化微调量化神经网络</h2><a id="user-content-使用零阶优化微调量化神经网络" class="anchor" aria-label="Permalink: 使用零阶优化微调量化神经网络" href="#使用零阶优化微调量化神经网络"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.13430v1 公告类型：新成果<br>
+摘要：随着大语言模型规模呈指数级增长，GPU内存已成为这些模型适应下游任务的主要瓶颈。本文旨在通过统一框架最小化模型权重、梯度和优化器状态的内存占用，突破高效内存训练的极限。我们的核心思路是结合零阶优化消除梯度与优化器状态——该方法通过前向传播时扰动权重来估算梯度方向。为降低权重内存消耗，我们采用模型量化技术（如将bfloat16转换为int4）。然而，由于离散权重与连续梯度之间的精度鸿沟（需反复解量化与再量化），直接将零阶优化应用于量化权重并不可行。为此，我们提出量化零阶优化（QZO）这一创新方法：通过扰动连续量化尺度进行梯度估计，并采用方向导数裁剪技术稳定训练。QZO与基于标量或码本的训练后量化方法均正交。实验表明，相较于bfloat16全参数微调，QZO能为4位量化大语言模型实现18倍以上的总内存节省，仅需单块24GB GPU即可完成Llama-2-13B和Stable Diffusion 3.5 Large模型的微调。</p>
+<p>（注：根据学术论文翻译规范，对技术术语保持统一："zeroth-order optimization"译为"零阶优化"、"quantization scale"译为"量化尺度"、"directional derivative clipping"译为"方向导数裁剪"。关键数字18$\times$保留原文格式，$\times$符号在中文语境下表示倍数关系时无需调整。长句按中文表达习惯拆分为短句，如将"which approximates..."处理为破折号补充说明句式。）</p>
+<div class="markdown-heading"><h2 class="heading-element">基于模型分割为顺序子图的自动混合精度优化，以受限损失均方误差为准则来提升时间效率</h2><a id="user-content-基于模型分割为顺序子图的自动混合精度优化以受限损失均方误差为准则来提升时间效率" class="anchor" aria-label="Permalink: 基于模型分割为顺序子图的自动混合精度优化，以受限损失均方误差为准则来提升时间效率" href="#基于模型分割为顺序子图的自动混合精度优化以受限损失均方误差为准则来提升时间效率"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.13060v1 公告类型：新研究<br>
+摘要：量化技术对神经网络（NN）压缩至关重要，它通过采用低位宽数据类型来减小模型体积和计算需求，但过度压缩往往会损害精度。混合精度（MP）方法通过在不同网络层间动态调整数值精度，有效缓解了这一矛盾。本研究专注于在训练后量化（PTQ）推理过程中自动选择最优MP配置。首个核心贡献是提出了一种基于损失函数一阶泰勒展开的新型敏感度度量指标，该指标将权重和激活值的量化误差作为变量。通过在小规模校准数据集上执行高精度前向与反向传播，可高效计算出各层基于均方误差（MSE）的敏感度。该指标具有跨层累加特性，且因无需权重优化而显著降低校准内存开销。第二个贡献是提出精确的硬件感知方法，通过将MP时间增益建模为顺序子图的累加效应来预测加速效果：算法先将模型图划分为顺序子图，再通过少量样本测量各配置的时间增益。在完成逐层敏感度和时间增益校准后，构建整数规划（IP）问题以在保证损失MSE不超过设定阈值的前提下最大化时间增益。该方法同时考虑了内存增益和基于乘积累加运算（MAC）的理论时间增益。在英特尔Gaudi 2加速器上对多个大语言模型（LLM）的严格实验验证了该方法的有效性。</p>
+<p>（注：根据学术文献翻译规范，对部分术语处理如下：</p>
 <ol>
-<li>"Gaussian Weight Sampling" 译为"高斯权重采样"，准确传达数学方法与操作对象</li>
-<li>"Scalable, Efficient and Stable" 三个形容词采用递进式翻译"可扩展、高效且稳定的"，通过"且"字增强逻辑连接</li>
-<li>"Pseudo-Quantization Training" 译为"伪量化训练"，其中"伪量化"是深度学习领域的标准术语</li>
-<li>整体采用技术论文标题的简洁风格，使用冒号分层结构，符合中文科技文献标题规范</li>
-<li>保留了原文的学术严谨性，同时确保中文表达流畅自然）</li>
+<li>"Post-Training Quantization"采用"训练后量化"这一通用译法</li>
+<li>"Integer Programming"保留专业术语"整数规划"</li>
+<li>"Multiply and Accumulate"使用"乘积累加运算"标准译名</li>
+<li>长难句按中文表达习惯进行了分拆重组，如将"modeling it as additive for sequential sub-graphs"转化为"通过将...建模为顺序子图的累加效应"</li>
+<li>专业设备名"Intel Gaudi 2 accelerator"保留品牌名直译）</li>
 </ol>
-<p>arXiv:2505.11170v1 公告类型：新研究<br>
-摘要：大型语言模型（LLM）规模的持续扩大对训练效率提出了更高要求，促使全量化训练（FQT）逐渐取代BF16格式。虽然FQT能加速训练，但其存在一致性挑战，且需要搜索指数级数量的案例（每个案例需超过2000亿token才能确保稳定性）。伪量化训练（PQT）能解决FQT的问题，但相关研究尚未深入。</p>
-<p>我们详细探讨了PQT的实际应用价值，并提出一种兼容浮点（FP）运算的噪声分布$R$——该分布具有理想特性（包括随机精度退火机制），从而为低精度FP参数建立了有效的理论基础。该方法通过加法运算与后续FP类型转换，实现了高效的伪量化操作。</p>
-<p>我们证明高斯权重采样具有三大优势：(1) 可扩展性：支持低至FP6的低精度FP参数，同时配合BF16算子实现高达9位的高精度噪声；(2) 高效性：在A100 GPU上仅产生1.40%的计算开销（以Llama2训练token/秒计），且每个参数仅占用2字节GPU内存；(3) 稳定性：在预训练GPT2和Llama2模型（最大10亿参数+3000亿token）时，其表现紧追甚至超越BF16基线。所提方法为基于PQT的低精度FP参数提供了切实可行的解决方案。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了统一处理："token"保留英文形式；"BF16/FP6"等硬件相关术语未强行汉化；长句按中文表达习惯进行了合理切分；数学符号$R$保留原格式；技术概念如"伪量化训练"采用业界通用译法）</p>
-<div class="markdown-heading"><h2 class="heading-element">RanDeS：用于多模型压缩的随机化Delta叠加技术</h2><a id="user-content-randes用于多模型压缩的随机化delta叠加技术" class="anchor" aria-label="Permalink: RanDeS：用于多模型压缩的随机化Delta叠加技术" href="#randes用于多模型压缩的随机化delta叠加技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译时对术语进行了以下处理：</p>
+<div class="markdown-heading"><h2 class="heading-element">Qronos：通过塑造未来修正过去... 在后训练量化领域</h2><a id="user-content-qronos通过塑造未来修正过去-在后训练量化领域" class="anchor" aria-label="Permalink: Qronos：通过塑造未来修正过去... 在后训练量化领域" href="#qronos通过塑造未来修正过去-在后训练量化领域"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.11695v1 公告类型：新成果<br>
+摘要：我们推出Qronos——一种全新的最先进训练后量化算法，通过顺序舍入和更新神经网络权重实现突破。Qronos不仅能显式修正权重和激活值量化导致的误差，还能纠正先前层级量化产生的累积误差。我们的迭代算法基于一个可解释、规范化的优化框架，该框架涵盖并超越了现有数据驱动方法。在每一步中，Qronos通过最优更新规则交替执行误差校正与扩散过程。值得注意的是，我们证明了Qronos可采用Cholesky分解高效求解最小二乘问题。实验还表明，Qronos与现有变换技术（如基于Hadamard变换的非相干处理、权重-激活缩放均衡等）完全兼容。我们在Llama3系列自回归语言生成模型上评估Qronos：当对权重、激活值和/或KV缓存进行量化时，Qronos在各项指标上持续超越先前最先进的自适应舍入方法。</p>
+<div class="markdown-heading"><h2 class="heading-element">InfiJanice：大语言模型量化引发数学性能下降的联合分析与原位校正引擎</h2><a id="user-content-infijanice大语言模型量化引发数学性能下降的联合分析与原位校正引擎" class="anchor" aria-label="Permalink: InfiJanice：大语言模型量化引发数学性能下降的联合分析与原位校正引擎" href="#infijanice大语言模型量化引发数学性能下降的联合分析与原位校正引擎"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.11574v1 公告类型：新研究<br>
+摘要：大型语言模型（LLMs）在GSM8K、MATH和AIME等复杂推理基准测试中展现了卓越性能。然而，这些任务巨大的计算需求给实际部署带来了严峻挑战。模型量化作为一种有前景的解决方案，通过用更低位宽表示权重和激活值，能有效减少内存占用和推理延迟。本研究对主流量化方法（如AWQ、GPTQ、SmoothQuant）在热门开源模型（如Qwen2.5、LLaMA3系列）上的表现进行了系统评估，发现量化可能导致数学推理准确率下降高达69.81%。为深入理解性能衰退机制，我们开发了自动化答案判定流程，将错误定性归类为四种类型，并定量识别受影响最严重的推理能力。基于这些发现，我们采用自动化数据筛选流程构建了精炼的"银弹"数据集。实验表明，在单块GPU上仅需使用332个精选样本进行3-5分钟的微调，即可使量化模型的推理准确率完全恢复至全精度基准水平。</p>
+<p>（注：根据学术论文摘要的文体特征，译文在保持专业性的同时注重句式结构的平衡性，将英语长句合理切分为符合中文阅读习惯的短句。关键术语如"Silver Bullet"采用意译"银弹"保留隐喻色彩，技术概念如"data-curation pipeline"译为"数据筛选流程"以准确传达自动化处理的核心含义。量化比较数据"69.81%"等精确数值予以保留，确保科研严谨性。）</p>
+<div class="markdown-heading"><h2 class="heading-element">SageAttention3：面向推理的微缩放FP4注意力机制及8位训练探索</h2><a id="user-content-sageattention3面向推理的微缩放fp4注意力机制及8位训练探索" class="anchor" aria-label="Permalink: SageAttention3：面向推理的微缩放FP4注意力机制及8位训练探索" href="#sageattention3面向推理的微缩放fp4注意力机制及8位训练探索"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.11594v1 公告类型：新研究<br>
+摘要：注意力机制因其二次时间复杂度而亟需提升效率。我们通过两项关键创新显著优化了注意力计算效率：首先，利用Blackwell GPU新一代FP4张量核心加速注意力运算。在RTX5090上实现1038 TOPS算力，相较同平台最快的FlashAttention提速5倍。实验表明，我们的FP4注意力能以即插即用方式加速各类模型推理。其次，我们开创性地将低位宽注意力应用于训练任务。现有低位宽方案如FlashAttention3和SageAttention仅聚焦推理场景，但大模型训练效率同样关键。为验证低位宽注意力在训练中的适用性，我们设计了精准高效的8位注意力算法，同时支持前向与反向传播。实验显示8位注意力在微调任务中可实现无损性能，但在预训练任务中收敛速度较慢。代码将开源在<a href="https://github.com/thu-ml/SageAttention%E3%80%82">https://github.com/thu-ml/SageAttention。</a></p>
+<p>（注：根据学术论文摘要的文体特点，翻译时进行了以下处理：</p>
 <ol>
-<li>"Randomized Delta Superposition" 译为"随机化Delta叠加技术"，其中：
-<ul>
-<li>"Randomized" 采用计算机领域常用译法"随机化"</li>
-<li>"Delta" 保留英文术语，因在计算机科学中常指代"差异量"</li>
-<li>"Superposition" 译为"叠加"符合量子计算/信号处理领域的术语习惯</li>
-</ul>
-</li>
-<li>"Multi-Model Compression" 译为"多模型压缩"，准确传达原文指多个机器学习模型压缩的语境</li>
-<li>整体采用技术命名惯例，保留首字母缩写"RanDeS"不变，中文译名通过冒号与英文缩写形成对应关系</li>
-<li>使用"技术"二字明确其方法属性，符合中文技术文献命名习惯）</li>
-</ol>
-<p>arXiv:2505.11204v1 公告类型：新研究<br>
-摘要：从多模型压缩的视角来看，模型合并技术能够以内存高效的方式部署源自同一基础模型微调出的多个模型，但由于各任务特定参数调整量（即增量参数）之间的相互干扰，会导致性能下降。本文通过将模型合并重新定义为"压缩-检索"框架，揭示出任务干扰的本质源于检索过程中无关增量参数的简单叠加。为解决该问题，我们采用随机正交变换对增量向量进行解相关处理，使其形成自抵消效应。实验证明该方法能显著降低干扰，在视觉与语言任务中均实现性能提升。由于这些变换完全由随机种子定义，新增模型无需额外存储空间。此外，其数据无关性与模型无关性使得模型的增删操作仅需极低计算开销，为高效灵活的多模型服务提供了支持。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了如下处理：</p>
-<ol>
-<li>"deltas"译为"增量参数"以体现参数微调特性</li>
-<li>"compress-and-retrieve scheme"译为"压缩-检索框架"保持技术一致性</li>
-<li>"self-cancellation"译为"自抵消效应"准确传达数学概念</li>
-<li>被动语态转换为中文主动句式（如"is reformulated as"→"通过将...重新定义为"）</li>
-<li>长句拆分符合中文表达习惯（如最后一句分译为两个短句））</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">Delta注意力机制：通过Delta校正实现快速且精确的稀疏注意力推理</h2><a id="user-content-delta注意力机制通过delta校正实现快速且精确的稀疏注意力推理" class="anchor" aria-label="Permalink: Delta注意力机制：通过Delta校正实现快速且精确的稀疏注意力推理" href="#delta注意力机制通过delta校正实现快速且精确的稀疏注意力推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.11254v1 公告类型：新研究<br>
-摘要：Transformer的注意力机制具有二次方复杂度，导致长序列推理时计算成本高、延迟大。然而注意力矩阵大多是稀疏的，这意味着可以省略大量计算项以实现高效推理。现有稀疏注意力推理方法虽能减轻计算负担，却伴随着令人困扰的性能下降。我们发现性能下降的原因之一在于稀疏计算会引发注意力输出的分布偏移——这种偏移使得解码阶段的查询向量无法与预填充阶段的对应键向量良好对齐，最终导致性能衰退。为此，我们提出了一种简单、新颖且有效的分布偏移校正方案，能使稀疏注意力输出的分布更接近二次方注意力的分布。该方法可适配任何稀疏注意力方法，在131K RULER基准测试中，当应用于带sink token的滑动窗口注意力时，平均性能提升36个百分点，能恢复二次方注意力88%的准确率，且仅增加微小开销。我们的方法能保持约98.5%的全二次方注意力稀疏度，在处理100万token预填充时，模型速度比Flash Attention 2快32倍。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
-<ol>
-<li>"sink tokens"保留技术概念译为"sink token"</li>
-<li>"RULER benchmark"保留原名不译</li>
-<li>"Flash Attention 2"作为专有技术名称保留</li>
-<li>"36%pt"译为"36个百分点"以符合中文计量表述</li>
-<li>长难句按中文表达习惯进行了分句重组）</li>
+<li>将"quadratic time complexity"译为专业术语"二次时间复杂度"</li>
+<li>"plug-and-play"采用计算机领域通用译法"即插即用"</li>
+<li>"lossless performance"译为"无损性能"以准确传达技术含义</li>
+<li>保持1038 TOPS等数值及型号RTX5090的原文形式</li>
+<li>将长复合句合理切分为符合中文表达习惯的短句</li>
+<li>使用"低位宽"统一翻译"low-bit"这一核心概念）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

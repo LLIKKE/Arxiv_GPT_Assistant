@@ -12,48 +12,35 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">突破压缩极限：无数据依赖的超高效增量压缩流程</h2><a id="user-content-突破压缩极限无数据依赖的超高效增量压缩流程" class="anchor" aria-label="Permalink: 突破压缩极限：无数据依赖的超高效增量压缩流程" href="#突破压缩极限无数据依赖的超高效增量压缩流程"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：根据技术翻译的常见处理方式，此处做了以下调整：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">本地化利用大型语言模型：实证结果及对人工智能个人电脑的启示</h2><a id="user-content-本地化利用大型语言模型实证结果及对人工智能个人电脑的启示" class="anchor" aria-label="Permalink: 本地化利用大型语言模型：实证结果及对人工智能个人电脑的启示" href="#本地化利用大型语言模型实证结果及对人工智能个人电脑的启示"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.15030v1 公告类型：新研究<br>
+摘要：随着模型技术的进步与硬件性能的提升，大型语言模型（LLM）在边缘设备上的部署日益增多，这带来了显著的隐私优势。然而，受限于模型容量的缩减与必要的压缩技术，这些设备端LLM天然面临性能瓶颈。为此，我们提出了一套系统化评估方法论——涵盖模型能力、开发效率与系统资源三大维度——用于评估设备端LLM。通过对0.5B至14B参数规模的模型在商用笔记本上实施七种训练后量化（PTQ）方法的全面测试，我们获得以下关键发现：1）系统级指标与有效权重比特数（BPW）呈近似线性关系；2）存在约3.5有效BPW的实用阈值，低比特量化的大模型始终优于高比特精度的小模型；3）低BPW量化仅造成轻微精度损失，却能显著节省内存；4）CPU功耗由底层实现细节决定，计算密集型操作比内存密集型操作耗能更高。这些发现为资源受限的边缘设备高效部署与优化配置LLM提供了重要洞见与实践指南。代码库已开源：<a href="https://github.com/simmonssong/LLMOnDevice%E3%80%82">https://github.com/simmonssong/LLMOnDevice。</a></p>
+<p>（注：根据学术文献翻译规范，专业术语如"post-training quantization (PTQ)"采用通用译法"训练后量化"；技术指标"effective bits-per-weight (BPW)"保留英文缩写但首次出现时标注全称"有效权重比特数"；数学符号"$\sim$3.5"转换为中文常用波浪线"约3.5"；GitHub链接等专有名词保留原格式）</p>
+<div class="markdown-heading"><h2 class="heading-element">《极地稀疏性：利用可扩展上下文稀疏性实现高吞吐量批量LLM推理》</h2><a id="user-content-极地稀疏性利用可扩展上下文稀疏性实现高吞吐量批量llm推理" class="anchor" aria-label="Permalink: 《极地稀疏性：利用可扩展上下文稀疏性实现高吞吐量批量LLM推理》" href="#极地稀疏性利用可扩展上下文稀疏性实现高吞吐量批量llm推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.14884v1 公告类型：新研究<br>
+摘要：加速大语言模型（LLM）推理对于需要高吞吐量和低延迟的实际部署至关重要。上下文稀疏性（即每个令牌动态激活仅一小部分模型参数）虽展现出潜力，但由于活跃神经元的并集会迅速逼近密集计算，难以扩展至大批量场景。我们提出极性稀疏性，揭示了一个关键现象：随着批量规模和序列长度的增加，稀疏性的重要性从MLP层转移至注意力层。虽然MLP层在批处理下计算效率提升，但其稀疏性逐渐消失；而注意力层的计算成本随规模增长急剧上升，其头部稀疏性却保持稳定且与批量无关。我们开发了硬件高效的稀疏感知GPU内核，用于选择性MLP和注意力计算，在OPT、LLaMA-2和3等模型上实现了最高达2.2倍的端到端加速，且在不同批量规模和序列长度下均保持精度无损。据我们所知，这是首个证明上下文稀疏性可有效扩展至大批量规模的研究，通过极小改动即可实现显著推理加速，使极性稀疏性适用于大规模高吞吐LLM部署系统。代码已开源：<a href="https://github.com/susavlsh10/Polar-Sparsity">https://github.com/susavlsh10/Polar-Sparsity</a></p>
+<p>（注：根据学术文献翻译规范，技术术语如"MLP"（多层感知机）、"GPU kernels"（GPU内核）等保留英文缩写；数学符号"(2.2\times)"转换为中文排版习惯的"2.2倍"；长句按中文表达习惯拆分为短句，如将原文条件状语从句重组为分号连接的并列结构；项目名称"Polar Sparsity"采用直译"极性稀疏性"以保持概念一致性）</p>
+<div class="markdown-heading"><h2 class="heading-element">《Quaff：基于离群值空间稳定性假设的量化参数高效微调》</h2><a id="user-content-quaff基于离群值空间稳定性假设的量化参数高效微调" class="anchor" aria-label="Permalink: 《Quaff：基于离群值空间稳定性假设的量化参数高效微调》" href="#quaff基于离群值空间稳定性假设的量化参数高效微调"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译时进行了以下处理：</p>
 <ol>
-<li>"Breaking the Compression Ceiling" 译为"突破压缩极限"，既保留原意又符合中文技术术语习惯</li>
-<li>"Data-Free Pipeline" 译为"无数据依赖流程"，比直译"无数据管道"更准确反映技术含义</li>
-<li>"Delta Compression" 采用计算机领域通用译法"增量压缩"</li>
-<li>添加连接词"的"使整个标题更符合中文语法结构</li>
-<li>"Ultra-Efficient"译为"超高效"准确传达技术性能特征）</li>
+<li>"Quaff" 保留原名不译，作为技术术语标识</li>
+<li>"Quantized Parameter-Efficient Fine-Tuning" 译为"量化参数高效微调"，准确传达"量化+高效参数微调"双重技术特征</li>
+<li>"Outlier Spatial Stability Hypothesis" 译为"离群值空间稳定性假设"，其中：
+<ul>
+<li>"Outlier" 采用统计学通用译法"离群值"</li>
+<li>"Spatial Stability" 译为"空间稳定性"以保持原术语在机器学习中的特定含义</li>
+</ul>
+</li>
+<li>整体采用"基于...假设"的学术论文标题惯用结构，符合中文技术文献命名规范）</li>
 </ol>
-<p>arXiv:2505.13563v1 公告类型：新研究<br>
-摘要：随着"微调-预训练"范式的兴起，为多任务存储大量微调模型带来了巨大的存储开销。Delta压缩技术通过仅存储预训练模型和高度压缩的delta权重（微调模型与预训练模型权重之差）来缓解这一问题。然而现有方法难以同时保持高压缩率与模型性能，且往往依赖数据支持。为解决这些挑战，我们提出了UltraDelta——首个无需数据支持的delta压缩流程，既能实现超高压缩率，又能保持强劲性能。</p>
-<p>UltraDelta通过三个核心组件在层间、层内和全局维度实现冗余最小化、信息最大化与性能稳定化：(1) 基于方差的混合稀疏分配机制，依据方差赋予不同稀疏度，对高方差层分配较低稀疏度以保留层间信息；(2) 分布感知压缩技术，先进行均匀量化，再按参数值分组实施组级剪枝，更好地保持层内分布特征；(3) 迹范数引导的全局重缩放，利用delta权重的迹范数估算全局缩放因子，提升高压缩率下的模型稳定性。</p>
-<p>大量实验证明UltraDelta在以下场景均优于现有方法（尤其在超高压缩率下）：(a) 大语言模型（基于LLaMA-2 7B/13B微调）最高达133倍压缩；(b) 通用NLP模型（RoBERTa-base/T5-base）最高800倍；(c) 视觉模型（ViT-B/32/ViT-L/14）最高400倍；(d) 多模态模型（BEiT-3）40倍压缩比。</p>
-<div class="markdown-heading"><h2 class="heading-element">四重奏：原生FP4训练对大型语言模型而言可臻最优</h2><a id="user-content-四重奏原生fp4训练对大型语言模型而言可臻最优" class="anchor" aria-label="Permalink: 四重奏：原生FP4训练对大型语言模型而言可臻最优" href="#四重奏原生fp4训练对大型语言模型而言可臻最优"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.14669v1 公告类型：新研究<br>
-摘要：随着大语言模型（LLM）的快速发展，其计算需求也呈现出前所未有的增长，顶尖模型的训练成本每几个月便翻倍一次。直接在低精度算术中进行训练提供了一种解决方案，既能提升计算吞吐量，又能提高能源效率。具体而言，英伟达最新的Blackwell架构支持极低精度运算（尤其是FP4变体），有望带来显著的效率提升。然而，当前用于FP4精度训练LLM的算法存在明显的精度下降问题，且往往依赖混合精度补救方案。本文系统研究了硬件支持的FP4训练，并提出Quartet——一种新颖的端到端FP4训练方法，使所有主要计算（如线性层）均能在低精度下完成。通过对Llama类模型的广泛评估，我们发现了一种新的低精度缩放定律，该定律量化了不同位宽下的性能权衡，并帮助我们找到一种在精度与计算效率之间达到"近乎最优"的低精度训练技术，即Quartet。我们使用为英伟达Blackwell GPU定制的优化CUDA内核实现了Quartet，结果表明该方法能在FP4精度下实现最先进的准确度，成功训练十亿级规模的模型。我们的研究证明，完全基于FP4的训练是标准精度和FP8训练的有力替代方案。代码已开源：<a href="https://github.com/IST-DASLab/Quartet">https://github.com/IST-DASLab/Quartet</a></p>
-<p>（注：根据学术规范，保留了专业术语FP4/FP8/CUDA等英文缩写，并采用"低精度算术"等符合中文计算机领域表述习惯的译法。关键概念如"scaling law"译为"缩放定律"遵循学界惯例，项目名称"Quartet"保留英文原名以利读者溯源。）</p>
-<div class="markdown-heading"><h2 class="heading-element">多头时序潜在注意力</h2><a id="user-content-多头时序潜在注意力" class="anchor" aria-label="Permalink: 多头时序潜在注意力" href="#多头时序潜在注意力"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.13544v1 公告类型：新成果<br>
-摘要：虽然Transformer的自注意力机制具备强大的并行计算能力，但其键值（KV）缓存会随序列长度线性增长，成为推理效率的瓶颈。近期提出的多头潜在注意力通过将KV缓存压缩至低秩潜在空间来解决这一问题。本文提出多头时序潜在注意力（MTLA），进一步沿时间维度缩减KV缓存规模，显著降低自注意力推理的内存占用。MTLA采用超网络动态合并相邻时间步的KV缓存向量，并针对压缩后KV缓存与处理序列长度不匹配的问题，提出步长感知因果掩码机制，确保高效并行训练与推理行为的一致性。在语音翻译、语音识别、语音理解及文本摘要等任务上的实验表明，MTLA在保持与标准多头注意力（MHA）相当性能的同时，大幅提升推理速度并降低GPU内存消耗。以英德语音翻译任务为例，MTLA在保持翻译质量的前提下，相比MHA实现5.3倍加速效果，GPU内存占用减少至原来的1/8.3。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了统一处理："hyper-network"译为"超网络"；"stride-aware causal mask"译为"步长感知因果掩码"；技术指标保留原文数字格式；长句按中文表达习惯拆分重组；被动语态转换为主动表述）</p>
-<div class="markdown-heading"><h2 class="heading-element">潜在流变压器</h2><a id="user-content-潜在流变压器" class="anchor" aria-label="Permalink: 潜在流变压器" href="#潜在流变压器"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.14513v1 公告类型：新研究<br>
-摘要：作为大语言模型（LLM）的标准实现架构，Transformer通常由数十至数百个离散层组成。尽管增加层数能提升性能，但这种方法被质疑效率低下——尤其在扩散模型和基于流的图像生成模型已证明连续层结构具有显著优势的背景下。我们提出潜在流变压器（LFT），通过流匹配训练将多个层块替换为单一可学习的传输算子，在保持与原架构兼容性的同时实现显著压缩。针对现有流方法在"保持耦合性"方面的局限，我们进一步提出流步进（FW）算法。在Pythia-410M模型上的实验表明：采用流匹配训练的LFT压缩了24层中的6层，其语言模型logits的KL散度（0.407）优于直接跳过2层的结果（0.529）；当采用FW训练时，LFT将12层蒸馏为1层并将KL散度降至0.736，显著超越跳过3层的结果（0.932），大幅缩小了自回归生成与基于流的生成范式之间的差距。</p>
-<div class="markdown-heading"><h2 class="heading-element">探索大型语言模型的联邦剪枝技术</h2><a id="user-content-探索大型语言模型的联邦剪枝技术" class="anchor" aria-label="Permalink: 探索大型语言模型的联邦剪枝技术" href="#探索大型语言模型的联邦剪枝技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.13547v1 公告类型：新研究<br>
-摘要：大语言模型（LLM）剪枝技术作为一种有前景的模型压缩方法，正推动LLM在资源受限设备上的部署。然而，现有方案通常依赖公开校准样本，这在隐私敏感领域往往难以获取。为此，我们提出FedPrLLM——一个面向隐私保护的LLM压缩联邦学习框架。该框架中，各客户端仅需基于本地校准数据计算剪枝掩码矩阵并上传至服务器，即可协同完成全局模型剪枝。这种方法既实现了基于各客户端知识的全局模型联合剪枝，又严格保障了本地数据隐私。我们通过大量实验系统探索了FedPrLLM框架下的多种可能性，包括不同对照组设置、剪枝策略选择及权重缩放决策等。实验结果表明，采用层间对比的单次剪枝（不进行权重缩放）是FedPrLLM框架下的最优方案。本研究有望为隐私敏感领域的LLM剪枝工作提供重要参考。代码已开源：<a href="https://github.com/Pengxin-Guo/FedPrLLM%E3%80%82">https://github.com/Pengxin-Guo/FedPrLLM。</a></p>
-<p>（翻译说明：</p>
+<p>arXiv:2505.14742v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）在各领域取得了令人振奋的成就，但其在资源受限的个人设备上的部署仍受限于任务特定微调所需的巨大计算与内存开销。虽然量化技术提供了效率提升的路径，但现有方法难以平衡性能与开销——要么导致高昂的计算/内存成本，要么无法解决激活值异常值这一量化微调中的关键瓶颈。针对这些挑战，我们提出<strong>异常值空间稳定性假说（OSSH）</strong>：在微调过程中，某些激活异常通道会保持稳定的空间位置。基于此，我们开发了<strong>Quaff</strong>框架，这是一种面向大语言模型的量化参数高效微调方案，通过定向动量缩放优化低精度激活表示。Quaff利用轻量级操作，仅对空间位置不变的通道进行动态异常值抑制，无需全精度权重存储和全局重缩放，同时降低量化误差。在十个基准测试上的广泛实验验证了OSSH假说，并证明Quaff的有效性。具体而言，在GPQA推理基准测试中，Phi-3模型上Quaff相比全精度微调实现了1.73倍的延迟降低和30%的内存节省，同时准确率提升0.6%，在效率、性能与可部署性的三重权衡中取得突破。通过支持消费级GPU（如RTX 2080 Super）的微调且不牺牲模型性能，Quaff推动了个性化大语言模型的普惠化部署。代码已开源：<a href="https://github.com/Little0o0/Quaff.git">https://github.com/Little0o0/Quaff.git</a></p>
+<p>（注：根据技术文献翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>专业术语处理："pruning"译为"剪枝"符合机器学习领域惯例，"federated"译为"联邦学习"准确传达技术内涵</li>
-<li>长句拆分：将原文复合长句拆分为符合中文表达习惯的短句，如将"each client only needs to..."部分拆分为两个短句</li>
-<li>被动语态转换：将"local data privacy is maintained"主动化为"严格保障了本地数据隐私"</li>
-<li>概念显化："comparison groups"译为"对照组设置"更符合实验方法学表述</li>
-<li>技术表述优化："one-shot pruning with layer comparison"译为"采用层间对比的单次剪枝"既准确又简洁</li>
-<li>学术风格保持：使用"有望为...提供重要参考"等符合学术摘要的表述方式）</li>
+<li>"outlier"统一译为"异常值"而非"离群值"以符合机器学习领域惯例</li>
+<li>"momentum scaling"译为"动量缩放"保留物理含义</li>
+<li>"democratize"意译为"普惠化"以契合技术普惠概念</li>
+<li>长复合句按中文习惯拆分为短句，如将原文"while reducing..."处理为独立分句</li>
+<li>技术指标保留原始数字格式（如1.73x）符合学术文本惯例）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">结构化智能体蒸馏应用于大型语言模型</h2><a id="user-content-结构化智能体蒸馏应用于大型语言模型" class="anchor" aria-label="Permalink: 结构化智能体蒸馏应用于大型语言模型" href="#结构化智能体蒸馏应用于大型语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.13820v1 公告类型：新研究<br>
-摘要：大型语言模型（LLMs）通过交替进行推理与行动（如ReAct式框架所示），展现出强大的决策智能体能力。然而，其实际部署受限于高推理成本与大模型体积。我们提出结构化智能体蒸馏框架，将基于LLM的大型智能体压缩为更小的学生模型，同时保持推理保真度与行动一致性。不同于标准的词元级蒸馏，本方法将行为轨迹分割为{[推理]}与{[行动]}片段，通过片段特异性损失函数使各组件与教师模型行为对齐。这种结构感知的监督机制使紧凑型智能体能更精准复现教师的决策过程。在ALFWorld、HotPotQA-ReAct和WebShop上的实验表明，该方法始终优于词元级蒸馏与模仿学习基线，在实现显著压缩的同时仅带来最小性能损失。扩展性与消融实验结果进一步验证了片段级对齐对构建高效可部署智能体的关键作用。</p>
-<p>（注：根据学术文献翻译规范，技术术语保持统一："ReAct-style frameworks"译为"ReAct式框架"；"token-level distillation"译为"词元级蒸馏"以符合NLP领域术语；使用中文顿号替代英文逗号实现列举；被动语态转换为主动式表达；保留专业缩写如LLM；大括号{}作为原文特殊标记予以保留）</p>
-<div class="markdown-heading"><h2 class="heading-element">量化感知训练的缩放定律</h2><a id="user-content-量化感知训练的缩放定律" class="anchor" aria-label="Permalink: 量化感知训练的缩放定律" href="#量化感知训练的缩放定律"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.14302v1 公告类型：新论文<br>
-摘要：大型语言模型（LLMs）对计算和内存资源的需求极高，这给实际部署带来了挑战。量化感知训练（QAT）通过降低模型精度同时保持性能来应对这些挑战。然而，人们对QAT的扩展规律（尤其是4比特精度W4A4模式）仍缺乏深入理解。现有QAT扩展定律往往忽略训练词元数量、量化粒度等关键因素，限制了其适用性。本文提出统一QAT扩展定律，将量化误差建模为模型规模、训练数据量和量化分组尺寸的函数。通过268次QAT实验，我们发现量化误差随模型规模增大而减小，但会随训练词元增加和量化粒度变粗而上升。为探究W4A4量化误差来源，我们将其分解为权重和激活分量：二者虽均遵循W4A4量化误差的整体趋势，但表现出不同敏感性——权重量化误差会随训练词元增加而更快上升。进一步分析表明，FC2层中由异常值引发的激活量化误差是W4A4 QAT量化误差的主要瓶颈。通过应用混合精度量化解决该瓶颈，我们证明权重与激活量化误差可收敛至相近水平。此外，随着训练数据增加，权重量化误差最终会超过激活量化误差，这表明在此类场景中降低权重量化误差同样重要。这些发现为改进QAT研发提供了关键见解。</p>
-<p>（注：翻译过程中对技术术语进行了标准化处理，如"tokens"译为"词元"符合大语言模型领域最新术语规范；通过拆分英文长句为中文短句结构，如将量化误差分解部分重组为总分句式；保留"FC2层"等专业缩写确保技术准确性；使用"瓶颈""收敛"等工程术语保持学术文本特征；最后通过"此外""这表明"等逻辑连接词保持论证连贯性。）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

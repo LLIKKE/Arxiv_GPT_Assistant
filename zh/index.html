@@ -12,35 +12,43 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">本地化利用大型语言模型：实证结果及对人工智能个人电脑的启示</h2><a id="user-content-本地化利用大型语言模型实证结果及对人工智能个人电脑的启示" class="anchor" aria-label="Permalink: 本地化利用大型语言模型：实证结果及对人工智能个人电脑的启示" href="#本地化利用大型语言模型实证结果及对人工智能个人电脑的启示"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.15030v1 公告类型：新研究<br>
-摘要：随着模型技术的进步与硬件性能的提升，大型语言模型（LLM）在边缘设备上的部署日益增多，这带来了显著的隐私优势。然而，受限于模型容量的缩减与必要的压缩技术，这些设备端LLM天然面临性能瓶颈。为此，我们提出了一套系统化评估方法论——涵盖模型能力、开发效率与系统资源三大维度——用于评估设备端LLM。通过对0.5B至14B参数规模的模型在商用笔记本上实施七种训练后量化（PTQ）方法的全面测试，我们获得以下关键发现：1）系统级指标与有效权重比特数（BPW）呈近似线性关系；2）存在约3.5有效BPW的实用阈值，低比特量化的大模型始终优于高比特精度的小模型；3）低BPW量化仅造成轻微精度损失，却能显著节省内存；4）CPU功耗由底层实现细节决定，计算密集型操作比内存密集型操作耗能更高。这些发现为资源受限的边缘设备高效部署与优化配置LLM提供了重要洞见与实践指南。代码库已开源：<a href="https://github.com/simmonssong/LLMOnDevice%E3%80%82">https://github.com/simmonssong/LLMOnDevice。</a></p>
-<p>（注：根据学术文献翻译规范，专业术语如"post-training quantization (PTQ)"采用通用译法"训练后量化"；技术指标"effective bits-per-weight (BPW)"保留英文缩写但首次出现时标注全称"有效权重比特数"；数学符号"$\sim$3.5"转换为中文常用波浪线"约3.5"；GitHub链接等专有名词保留原格式）</p>
-<div class="markdown-heading"><h2 class="heading-element">《极地稀疏性：利用可扩展上下文稀疏性实现高吞吐量批量LLM推理》</h2><a id="user-content-极地稀疏性利用可扩展上下文稀疏性实现高吞吐量批量llm推理" class="anchor" aria-label="Permalink: 《极地稀疏性：利用可扩展上下文稀疏性实现高吞吐量批量LLM推理》" href="#极地稀疏性利用可扩展上下文稀疏性实现高吞吐量批量llm推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.14884v1 公告类型：新研究<br>
-摘要：加速大语言模型（LLM）推理对于需要高吞吐量和低延迟的实际部署至关重要。上下文稀疏性（即每个令牌动态激活仅一小部分模型参数）虽展现出潜力，但由于活跃神经元的并集会迅速逼近密集计算，难以扩展至大批量场景。我们提出极性稀疏性，揭示了一个关键现象：随着批量规模和序列长度的增加，稀疏性的重要性从MLP层转移至注意力层。虽然MLP层在批处理下计算效率提升，但其稀疏性逐渐消失；而注意力层的计算成本随规模增长急剧上升，其头部稀疏性却保持稳定且与批量无关。我们开发了硬件高效的稀疏感知GPU内核，用于选择性MLP和注意力计算，在OPT、LLaMA-2和3等模型上实现了最高达2.2倍的端到端加速，且在不同批量规模和序列长度下均保持精度无损。据我们所知，这是首个证明上下文稀疏性可有效扩展至大批量规模的研究，通过极小改动即可实现显著推理加速，使极性稀疏性适用于大规模高吞吐LLM部署系统。代码已开源：<a href="https://github.com/susavlsh10/Polar-Sparsity">https://github.com/susavlsh10/Polar-Sparsity</a></p>
-<p>（注：根据学术文献翻译规范，技术术语如"MLP"（多层感知机）、"GPU kernels"（GPU内核）等保留英文缩写；数学符号"(2.2\times)"转换为中文排版习惯的"2.2倍"；长句按中文表达习惯拆分为短句，如将原文条件状语从句重组为分号连接的并列结构；项目名称"Polar Sparsity"采用直译"极性稀疏性"以保持概念一致性）</p>
-<div class="markdown-heading"><h2 class="heading-element">《Quaff：基于离群值空间稳定性假设的量化参数高效微调》</h2><a id="user-content-quaff基于离群值空间稳定性假设的量化参数高效微调" class="anchor" aria-label="Permalink: 《Quaff：基于离群值空间稳定性假设的量化参数高效微调》" href="#quaff基于离群值空间稳定性假设的量化参数高效微调"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译时进行了以下处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">等价剪枝器：通过动作剪枝提升基于大语言模型的搜索效率与质量</h2><a id="user-content-等价剪枝器通过动作剪枝提升基于大语言模型的搜索效率与质量" class="anchor" aria-label="Permalink: 等价剪枝器：通过动作剪枝提升基于大语言模型的搜索效率与质量" href="#等价剪枝器通过动作剪枝提升基于大语言模型的搜索效率与质量"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.16312v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）通过搜索算法擅长复杂推理，但现有策略常因对语义等价步骤的冗余探索而导致大量token消耗。当前语义相似度方法难以在数学推理等专业领域中准确识别此类等价性。为此，我们提出EquivPruner——一种简单高效的方法，能在LLM推理搜索中识别并剪枝语义等价操作。同时我们发布MathEquiv数据集（首个数学命题等价性标注数据集），用于训练轻量级等价检测器。多模型多任务的实验表明，EquivPruner显著降低token消耗，既提升搜索效率又常增强推理准确率。例如在GSM8K任务中应用Qwen2.5-Math-7B-Instruct模型时，EquivPruner减少48.1%的token使用量并同步提升准确率。代码已开源：<a href="https://github.com/Lolo1222/EquivPruner">https://github.com/Lolo1222/EquivPruner</a></p>
+<p>（注：根据学术文献翻译规范，保留技术术语"token"不译；"剪枝"采用计算机领域通用译法；数据集名称MathEquiv保留原名体现专有性；百分比数字格式遵循中文排版规范；GitHub链接保留原始格式确保可操作性）</p>
+<div class="markdown-heading"><h2 class="heading-element">瓶颈式Transformer：面向广义推理的周期性KV缓存抽象</h2><a id="user-content-瓶颈式transformer面向广义推理的周期性kv缓存抽象" class="anchor" aria-label="Permalink: 瓶颈式Transformer：面向广义推理的周期性KV缓存抽象" href="#瓶颈式transformer面向广义推理的周期性kv缓存抽象"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.16950v1 公告类型：新研究<br>
+摘要：尽管大型语言模型展现出令人印象深刻的能力，但其在训练数据分布之外的泛化能力仍存在局限——它们往往表现出复杂的模式插值而非真正的抽象推理（外推）。本研究通过信息瓶颈理论（IB理论）的视角探讨这一局限，该理论认为模型的泛化能力源于潜在表征中输入压缩与预测信息保留之间的最优平衡。我们运用IB理论证明：仅含解码器的Transformer模型在形成任务最优序列表征方面存在固有约束。基于这一结论，我们进一步论证：对内部序列级表征（KV缓存）进行周期性全局变换，是提升Transformer在推理任务中泛化能力的必要计算步骤。</p>
+<p>基于这些理论洞见，我们提出对Transformer架构的改进方案——通过新增模块定期全局重写KV缓存，将其容量从记忆输入前缀转向编码对预测未来token最有用的特征。我们的模型在数学推理基准测试中取得显著提升，其表现不仅优于参数量达3.5倍的原始Transformer模型，也超越了采用启发式缓存压缩机制的修剪方法。该方法可视为现有KV缓存压缩技术的原理性泛化：传统方法仅聚焦于压缩输入表征，却常以损失预测信息为代价，因此其能力本质上受限于无约束模型。本研究建立了运用信息论操控Transformer记忆的原理性框架，解决了单靠规模扩展无法克服的根本性推理局限。</p>
+<p>（注：根据学术文本特点，翻译中采取了以下处理：</p>
 <ol>
-<li>"Quaff" 保留原名不译，作为技术术语标识</li>
-<li>"Quantized Parameter-Efficient Fine-Tuning" 译为"量化参数高效微调"，准确传达"量化+高效参数微调"双重技术特征</li>
-<li>"Outlier Spatial Stability Hypothesis" 译为"离群值空间稳定性假设"，其中：
-<ul>
-<li>"Outlier" 采用统计学通用译法"离群值"</li>
-<li>"Spatial Stability" 译为"空间稳定性"以保持原术语在机器学习中的特定含义</li>
-</ul>
-</li>
-<li>整体采用"基于...假设"的学术论文标题惯用结构，符合中文技术文献命名规范）</li>
+<li>专业术语如"Information Bottleneck"保留理论简称"IB理论"并首次出现时标注全称</li>
+<li>"KV cache"统一译为技术圈通用表述"KV缓存"</li>
+<li>长难句进行合理切分，如将原文最后复合句拆分为两个递进句</li>
+<li>保持被动语态与学术客观性，如"it is proved"译为"我们证明"符合中文主动表述习惯</li>
+<li>概念性表述如"pattern interpolation"意译为"模式插值"而非字面直译）</li>
 </ol>
-<p>arXiv:2505.14742v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）在各领域取得了令人振奋的成就，但其在资源受限的个人设备上的部署仍受限于任务特定微调所需的巨大计算与内存开销。虽然量化技术提供了效率提升的路径，但现有方法难以平衡性能与开销——要么导致高昂的计算/内存成本，要么无法解决激活值异常值这一量化微调中的关键瓶颈。针对这些挑战，我们提出<strong>异常值空间稳定性假说（OSSH）</strong>：在微调过程中，某些激活异常通道会保持稳定的空间位置。基于此，我们开发了<strong>Quaff</strong>框架，这是一种面向大语言模型的量化参数高效微调方案，通过定向动量缩放优化低精度激活表示。Quaff利用轻量级操作，仅对空间位置不变的通道进行动态异常值抑制，无需全精度权重存储和全局重缩放，同时降低量化误差。在十个基准测试上的广泛实验验证了OSSH假说，并证明Quaff的有效性。具体而言，在GPQA推理基准测试中，Phi-3模型上Quaff相比全精度微调实现了1.73倍的延迟降低和30%的内存节省，同时准确率提升0.6%，在效率、性能与可部署性的三重权衡中取得突破。通过支持消费级GPU（如RTX 2080 Super）的微调且不牺牲模型性能，Quaff推动了个性化大语言模型的普惠化部署。代码已开源：<a href="https://github.com/Little0o0/Quaff.git">https://github.com/Little0o0/Quaff.git</a></p>
-<p>（注：根据技术文献翻译规范，对部分术语进行了标准化处理：</p>
+<div class="markdown-heading"><h2 class="heading-element">NQKV：基于正态分布特性的键值缓存量化方案</h2><a id="user-content-nqkv基于正态分布特性的键值缓存量化方案" class="anchor" aria-label="Permalink: NQKV：基于正态分布特性的键值缓存量化方案" href="#nqkv基于正态分布特性的键值缓存量化方案"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：此处采用技术文档常见的简洁译法，保留缩写"NQKV"作为方案名称。"KV Cache"译为"键值缓存"符合计算机领域术语规范，"Quantization Scheme"译为"量化方案"准确体现算法优化特性，"Normal Distribution Characteristics"译为"正态分布特性"既保持数学严谨性又符合中文表达习惯。整体翻译在保持专业性的同时确保技术概念的清晰传达。）</p>
+<p>arXiv:2505.16210v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）已在广泛任务中展现出卓越能力。然而，LLMs通常需要更大的批处理规模以提升吞吐量，或更长的上下文长度以满足任务需求，这显著增加了推理过程中键值（KV）缓存的显存资源消耗，成为LLM部署的主要瓶颈。为解决该问题，量化是一种常见且直接的解决方案。当前激活函数的量化方法仅支持8比特，更低比特的量化会导致精度大幅下降。为了通过更低比特量化KV缓存进一步节省空间，我们分析了KV缓存的元素分布规律，并设计了NQKV算法。由于KV缓存每个分块内的元素服从正态分布，NQKV采用分块分位数量化技术，实现了信息论最优的量化误差。在不显著影响模型输出质量的前提下，NQKV使OPT模型能以2倍批处理规模或4倍上下文长度进行推理，与未使用KV缓存时相比，吞吐量提升了9.3倍。</p>
+<p>（注：根据学术论文摘要的文体特征，翻译时进行了以下处理：</p>
 <ol>
-<li>"outlier"统一译为"异常值"而非"离群值"以符合机器学习领域惯例</li>
-<li>"momentum scaling"译为"动量缩放"保留物理含义</li>
-<li>"democratize"意译为"普惠化"以契合技术普惠概念</li>
-<li>长复合句按中文习惯拆分为短句，如将原文"while reducing..."处理为独立分句</li>
-<li>技术指标保留原始数字格式（如1.73x）符合学术文本惯例）</li>
+<li>技术术语如"throughput"统一译为"吞吐量"，"context length"译为"上下文长度"</li>
+<li>被动语态转换为中文主动表达（如"are limited to"译为"仅支持"）</li>
+<li>长难句拆分重组（如原文最后一句拆分为三个中文短句）</li>
+<li>专业表述保留英文缩写（如OPT模型）同时确保首次出现时全称明确</li>
+<li>量化单位"bit"根据中文计算机领域惯例译为"比特"）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">（选择性）四舍五入量化是否就是您所需的一切？</h2><a id="user-content-选择性四舍五入量化是否就是您所需的一切" class="anchor" aria-label="Permalink: （选择性）四舍五入量化是否就是您所需的一切？" href="#选择性四舍五入量化是否就是您所需的一切"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.15909v1 公告类型：新研究<br>
+摘要：量化技术已成为服务日益增长的大型语言模型（LLM）的必要工具。RTN（就近取整法）可能是最简单的量化方法，早在LLM成为机器学习（ML）研究焦点之前就已存在。然而，近期更先进的量化方法几乎在各方面性能上都宣称优于RTN，导致其长期被忽视。本研究旨在打破这一固有认知，证明RTN不仅应用成本更低，其令牌生成吞吐量可超越先进方法，且准确度也能与之媲美。我们特别讨论了基于最新Marlin内核实现的RTN方案，并展示如何通过选择性提升特定模型层和模块的数据精度格式来逐步改善RTN的准确度。实验结果表明，RTN为LLM量化提供了一个切实可行的优选方案。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了统一处理：</p>
+<ol>
+<li>"Round-to-Nearest" 采用计算机领域通用译法"就近取整法"</li>
+<li>"kernels" 保留技术语境译为"内核"而非字面"核心"</li>
+<li>"throughput" 译为"吞吐量"符合计算机性能术语</li>
+<li>被动语态转换为中文主动表述（如"has been largely dismissed"→"长期被忽视"）</li>
+<li>长句拆分重组以符合中文表达习惯）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

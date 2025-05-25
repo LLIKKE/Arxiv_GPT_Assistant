@@ -12,52 +12,56 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">修剪：通过目标行向迭代度量驱动实现极致稀疏化</h2><a id="user-content-修剪通过目标行向迭代度量驱动实现极致稀疏化" class="anchor" aria-label="Permalink: 修剪：通过目标行向迭代度量驱动实现极致稀疏化" href="#修剪通过目标行向迭代度量驱动实现极致稀疏化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>大型语言模型（LLMs）因其庞大的规模带来了巨大的计算和内存挑战，这使得剪枝技术成为高效部署的关键。现有的一步式剪枝方法通常对各层或层内统一施加稀疏度约束，导致性能欠佳，尤其在较高稀疏度时更为明显。本研究提出TRIM（目标行向迭代度量驱动剪枝），这是一种创新方法，通过对每层内各输出维度（行）施加差异化稀疏度比率，结合质量指标引导的迭代调整过程，优化维度级稀疏度分配。其核心在于减少输出间质量保留的方差，从而保护关键信息。TRIM可与现有分层剪枝策略无缝集成。我们在多样化LLM系列（Qwen2.5、LLaMA-2和OPT）和不同稀疏度下进行的困惑度与零样本任务评估表明，TRIM实现了最先进的性能并显著提升稳定性。例如在80%稀疏度下，相较于基线方法，TRIM将Qwen2.5-14B的困惑度降低48%，OPT-13B的困惑度降幅超90%。我们得出结论：细粒度的维度级稀疏度自适应是突破LLM极限压缩的关键。代码已开源：<a href="https://github.com/flobk/TRIM">https://github.com/flobk/TRIM</a></p>
-<p>（注：根据技术文本特点，翻译时进行了以下处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">修剪（TRIM）：通过目标行向迭代度量驱动实现极致稀疏化</h2><a id="user-content-修剪trim通过目标行向迭代度量驱动实现极致稀疏化" class="anchor" aria-label="Permalink: 修剪（TRIM）：通过目标行向迭代度量驱动实现极致稀疏化" href="#修剪trim通过目标行向迭代度量驱动实现极致稀疏化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>大型语言模型（LLMs）因其庞大的规模带来了显著的计算和内存挑战，这使得剪枝技术对其高效部署至关重要。现有的一步式剪枝方法通常在各层或每层内部采用统一的稀疏度约束，导致性能欠佳，尤其是在高稀疏率情况下。本研究提出了TRIM（目标行向迭代度量驱动剪枝）这一创新方法，该方法对每层内的各个输出维度（行）施加不同的稀疏度比率。TRIM采用由质量指标引导的迭代调整过程，优化维度级稀疏度分配，重点减少各输出间质量保留的方差以保护关键信息。TRIM可与现有分层剪枝策略无缝集成。我们在多样化LLM系列（Qwen2.5、LLaMA-2和OPT）和不同稀疏度水平上进行的困惑度与零样本任务评估表明，TRIM实现了新的最先进成果并增强了稳定性。例如在80%稀疏度下，相较于基线方法，TRIM将Qwen2.5-14B的困惑度降低48%，使OPT-13B的困惑度下降超90%。我们得出结论：细粒度的维度级稀疏度适配对于突破极端LLM压缩的极限至关重要。代码已开源：<a href="https://github.com/flobk/TRIM">https://github.com/flobk/TRIM</a></p>
+<p>（注：根据技术文献翻译规范，对以下术语进行了标准化处理：</p>
 <ol>
-<li>专业术语统一："sparsity"译为"稀疏度"，"pruning"译为"剪枝"</li>
-<li>长句拆分：将原文复合句按中文表达习惯分解为多个短句</li>
-<li>被动语态转换：如"guided by"译为"引导的"而非"被引导"</li>
-<li>数据呈现优化：百分比数字保留原文格式</li>
-<li>技术概念显化：如"zero-shot tasks"明确译为"零样本任务"</li>
-<li>项目名称保留：TRIM作为专有名词不翻译，首字母保持大写）</li>
+<li>"sparsity"统一译为"稀疏度"而非"稀疏性"</li>
+<li>"perplexity"译为"困惑度"（自然语言处理领域标准译法）</li>
+<li>"zero-shot tasks"译为"零样本任务"（机器学习领域通用译法）</li>
+<li>模型名称LLaMA-2、OPT等保留原文</li>
+<li>技术概念"row-wise"译为"行向"以体现矩阵操作特性）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">快速视频：通过系统算法协同设计实现实时长视频理解</h2><a id="user-content-快速视频通过系统算法协同设计实现实时长视频理解" class="anchor" aria-label="Permalink: 快速视频：通过系统算法协同设计实现实时长视频理解" href="#快速视频通过系统算法协同设计实现实时长视频理解"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>长视频理解能力在视频监控、会议摘要、教育讲座分析和体育赛事直播等现实应用中日益重要。然而，受限于两大瓶颈，当前视频大语言模型（VideoLLMs）仍面临巨大计算挑战：1）顺序视频解码——将原始比特流转换为RGB帧的过程可能耗时长达一分钟（针对小时级视频输入）；2）大模型推理时需预填充高达数百万token，导致高延迟和内存占用。为突破这些限制，我们提出QuickVideo系统-算法协同设计方案，通过三大核心创新显著加速长视频理解，支持实时下游应用：</p>
+<div class="markdown-heading"><h2 class="heading-element">NQKV：基于正态分布特性的键值缓存量化方案</h2><a id="user-content-nqkv基于正态分布特性的键值缓存量化方案" class="anchor" aria-label="Permalink: NQKV：基于正态分布特性的键值缓存量化方案" href="#nqkv基于正态分布特性的键值缓存量化方案"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>大型语言模型（LLMs）已展现出跨多种任务的卓越能力。然而，这类模型通常需要更大的批处理规模来提升吞吐量，或更长的上下文长度以满足任务需求，这显著增加了推理过程中键值缓存（KV Cache）的内存资源消耗，成为LLM部署的主要瓶颈。为解决这一问题，量化是一种常见且直接的解决方案。目前针对激活值的量化方法仅支持8比特，更低比特的量化会导致模型精度大幅下降。为了通过更低比特量化KV缓存来进一步节省空间，我们分析了KV缓存的元素分布特征，设计了NQKV算法。由于KV缓存中每个分块内的元素服从正态分布，NQKV采用分块分位数量化方案，实现了信息论意义上的最优量化误差。在基本不影响模型输出质量的前提下，NQKV使OPT模型支持的批处理规模扩大2倍或上下文长度延长4倍，相比不使用KV缓存时吞吐量提升了9.3倍。</p>
+<p>（注：根据技术文献翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>
-<strong>QuickDecoder</strong>：基于CPU的并行视频解码器，通过将视频分割为关键帧对齐区间并行处理，实现2-3倍加速；</li>
-<li>
-<strong>QuickPrefill</strong>：采用KV缓存修剪的内存高效预填充方法，以更少GPU内存支持更多帧处理；</li>
-<li>
-<strong>重叠执行机制</strong>：实现CPU视频解码与GPU推理过程的重叠。</li>
+<li>"throughput"译为"吞吐量"而非"产量"，符合计算机领域术语</li>
+<li>"Key-Value (KV) cache"保留英文缩写并首次出现时标注全称"键值缓存"</li>
+<li>"per-block quantile quantization"译为"分块分位数量化"，准确体现算法分层量化特性</li>
+<li>"OPT model"保留英文缩写因属特定模型名称</li>
+<li>长难句采用拆分策略，如将"which significantly increases..."独立成句，符合中文多用短句的表达习惯）</li>
 </ol>
-<p>该系统将长视频推理时间缩短一分钟以上，即使在有限硬件条件下也能实现可扩展的高质量视频理解。实验表明，QuickVideo能适应不同时长和采样率，使长视频处理真正具备实用可行性。</p>
-<div class="markdown-heading"><h2 class="heading-element">等价剪枝器：通过动作剪枝提升基于大语言模型的搜索效率与质量</h2><a id="user-content-等价剪枝器通过动作剪枝提升基于大语言模型的搜索效率与质量" class="anchor" aria-label="Permalink: 等价剪枝器：通过动作剪枝提升基于大语言模型的搜索效率与质量" href="#等价剪枝器通过动作剪枝提升基于大语言模型的搜索效率与质量"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>大语言模型（LLMs）通过搜索算法在复杂推理任务中表现卓越，但现有策略常因对语义等价步骤的冗余探索而导致大量token消耗。传统语义相似度方法在数学推理等专业领域场景中难以准确识别此类等价性。为此，我们提出EquivPruner——一种简单高效的方法，能在LLM推理搜索过程中识别并剪枝语义等价操作。我们还发布了首个数学命题等价数据集MathEquiv，用于训练轻量级等价检测器。跨模型、跨任务的广泛实验表明，EquivPruner能显著降低token消耗，在提升搜索效率的同时往往增强推理准确率。例如，在GSM8K数据集上应用Qwen2.5-Math-7B-Instruct模型时，EquivPruner将token消耗降低48.1%，同时提高了准确率。代码已开源：<a href="https://github.com/Lolo1222/EquivPruner%E3%80%82">https://github.com/Lolo1222/EquivPruner。</a></p>
-<p>（注：根据技术文本翻译规范，处理要点包括：</p>
+<div class="markdown-heading"><h2 class="heading-element">瓶颈式Transformer：面向广义推理的周期性KV缓存抽象</h2><a id="user-content-瓶颈式transformer面向广义推理的周期性kv缓存抽象" class="anchor" aria-label="Permalink: 瓶颈式Transformer：面向广义推理的周期性KV缓存抽象" href="#瓶颈式transformer面向广义推理的周期性kv缓存抽象"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>尽管大型语言模型展现出强大的能力，但其泛化能力仍受限于训练数据分布，往往表现出复杂的模式插值而非真正的抽象推理（外推）。本研究从信息瓶颈理论视角切入这一局限——该理论认为模型泛化能力源于潜在表征中输入压缩与预测信息保留之间的最优平衡。我们运用信息瓶颈理论严格证明：仅含解码器的Transformer架构在形成任务最优序列表征方面存在固有约束。基于这一结论，我们进一步论证：对内部序列级表征（KV缓存）进行周期性全局变换，是提升Transformer在推理任务中泛化能力的必要计算步骤。</p>
+<p>依托这些理论发现，我们对Transformer架构提出改进方案：新增一个周期性全局重写KV缓存的模块，将其容量分配从记忆输入前缀转向编码对未来token预测最有用的特征。改进后的模型在数学推理基准测试中取得显著提升，其表现不仅优于参数量达3.5倍的标准Transformer，也超越了基于启发式的缓存压缩修剪机制。我们的方法可视为现有KV缓存压缩技术的原理性泛化：传统方法仅聚焦输入表征压缩，却常以损失预测信息为代价，因此其能力天然受限于无约束模型。这项工作建立了运用信息论调控Transformer记忆的原理性框架，解决了仅靠规模扩展无法克服的基础性推理缺陷。</p>
+<p>（注：译文通过以下处理实现专业性与可读性的平衡：</p>
+<ol>
+<li>技术概念采用"信息瓶颈理论""KV缓存"等标准译法</li>
+<li>长难句拆解为符合中文表达习惯的短句结构</li>
+<li>被动语态转换为主动句式（如"are inherently constrained"译为"存在固有约束"）</li>
+<li>关键术语保持前后一致（如"extrapolation"统一译为"外推"）</li>
+<li>学术表述保留严谨性同时增强流畅性（如"principled generalisation"译为"原理性泛化"））</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">等价剪枝器：通过动作剪枝提升基于大语言模型搜索的效率与质量</h2><a id="user-content-等价剪枝器通过动作剪枝提升基于大语言模型搜索的效率与质量" class="anchor" aria-label="Permalink: 等价剪枝器：通过动作剪枝提升基于大语言模型搜索的效率与质量" href="#等价剪枝器通过动作剪枝提升基于大语言模型搜索的效率与质量"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>大语言模型（LLMs）通过搜索算法擅长复杂推理，但现有策略常因对语义等价步骤的冗余探索而导致大量token消耗。传统语义相似度方法在数学推理等专业领域中难以准确识别此类等价性。为此，我们提出EquivPruner——一种简单高效的方法，能在LLM推理搜索中识别并剪枝语义等价操作。我们还发布了首个数学命题等价数据集MathEquiv，用于训练轻量级等价检测器。跨模型与任务的广泛实验表明，EquivPruner显著降低token消耗，既提升搜索效率，又常增强推理准确率。例如在GSM8K数据集上应用Qwen2.5-Math-7B-Instruct模型时，EquivPruner减少48.1%的token消耗，同时提升准确率。代码已开源：<a href="https://github.com/Lolo1222/EquivPruner%E3%80%82">https://github.com/Lolo1222/EquivPruner。</a></p>
+<p>（注：根据技术文本翻译规范，处理要点如下：</p>
 <ol>
 <li>专业术语统一："prune"译为"剪枝"符合计算机领域术语</li>
-<li>被动语态转换："are trained"译为主动式"用于训练"</li>
+<li>被动语态转化："are trained"译为主动式"用于训练"</li>
 <li>长句拆分：将原文复合长句拆分为符合中文表达习惯的短句</li>
-<li>数据呈现：精确保留百分比数字格式"48.1%"</li>
-<li>链接处理：完整保留原始URL</li>
-<li>技术概念保留："token"不作翻译以保持领域特异性）</li>
+<li>数据呈现：精确保留"48.1%"等数字格式</li>
+<li>链接保留：完整呈现GitHub网址不作翻译</li>
+<li>技术概念准确处理："lightweight equivalence detector"译为"轻量级等价检测器"保持技术准确性）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">瓶颈式变换器：面向广义推理的周期性键值缓存抽象</h2><a id="user-content-瓶颈式变换器面向广义推理的周期性键值缓存抽象" class="anchor" aria-label="Permalink: 瓶颈式变换器：面向广义推理的周期性键值缓存抽象" href="#瓶颈式变换器面向广义推理的周期性键值缓存抽象"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>尽管大型语言模型展现出令人印象深刻的能力，但其泛化能力仍受限于训练数据分布，往往表现出复杂的模式内插而非真正的抽象推理（外推）。本研究通过信息瓶颈理论（IB理论）的视角探讨这一局限，该理论认为模型的泛化能力源于潜在表征中输入压缩与预测信息保留之间的最优平衡。我们运用IB理论证明：仅含解码器的Transformer架构在形成任务最优序列表征方面存在固有约束。基于这一结论，我们进一步论证——对内部序列级表征（KV缓存）进行周期性的全局变换，是提升Transformer在推理任务中泛化能力的必要计算步骤。</p>
-<p>依托这些理论洞见，我们对Transformer架构提出改进方案：通过新增模块周期性地全局重写KV缓存，将其能力从记忆输入前缀转向编码对未来token预测最有用的特征。改进后的模型在数学推理基准测试中取得显著提升，其性能不仅超越参数量达3.5倍的原始Transformer，也优于采用启发式剪枝机制的缓存压缩方法。我们的方法可视为现有KV缓存压缩技术的原理性泛化：传统方法仅聚焦于压缩输入表征，却常以损失预测信息为代价，因此其能力天然受限于无约束模型。这为运用信息论调控Transformer记忆建立了理论框架，解决了仅靠规模扩展无法克服的根本性推理缺陷。</p>
-<div class="markdown-heading"><h2 class="heading-element">NQKV：基于正态分布特性的键值缓存量化方案</h2><a id="user-content-nqkv基于正态分布特性的键值缓存量化方案" class="anchor" aria-label="Permalink: NQKV：基于正态分布特性的键值缓存量化方案" href="#nqkv基于正态分布特性的键值缓存量化方案"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：此处采用技术文档常见的简洁译法，保留专业术语"NQKV"作为方案名称不译，通过冒号明确主副标题关系。"KV Cache"译为"键值缓存"符合行业惯例，"Quantization Scheme"译为"量化方案"准确体现技术含义。副标题补充"特性"二字使"Normal Distribution Characteristics"的表述更完整，整体符合中文技术文献标题的表述规范。）</p>
-<p>大型语言模型（LLM）已展现出跨多种任务的卓越能力。然而，这类模型通常需要更大的批处理规模来提升吞吐量，或更长的上下文长度以满足任务需求，这显著增加了推理过程中键值（KV）缓存的显存资源消耗，成为LLM部署的主要瓶颈。为解决这一问题，量化是一种常见且直接的解决方案。目前针对激活值的量化方法仅支持8比特，更低比特的量化会导致精度大幅下降。为了通过更低比特量化KV缓存来进一步节省空间，我们分析了KV缓存的元素分布规律，据此设计了NQKV算法。由于KV缓存每个分块内的元素服从正态分布，NQKV采用分块分位数量化方案，实现了信息论意义上的最优量化误差。在不显著影响模型输出质量的前提下，NQKV使OPT模型能以2倍批处理规模或4倍上下文长度进行推理，与未使用KV缓存时相比，吞吐量提升了9.3倍。</p>
-<p>（译文特点说明：</p>
+<div class="markdown-heading"><h2 class="heading-element">快速视频：通过系统算法协同设计实现实时长视频理解</h2><a id="user-content-快速视频通过系统算法协同设计实现实时长视频理解" class="anchor" aria-label="Permalink: 快速视频：通过系统算法协同设计实现实时长视频理解" href="#快速视频通过系统算法协同设计实现实时长视频理解"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译时采用了以下策略：</p>
 <ol>
-<li>专业术语准确："throughput"译为"吞吐量"，"context length"译为"上下文长度"，"quantization"统一译为"量化"</li>
-<li>技术概念清晰："per-block quantile quantization"译为"分块分位数量化"，"normal distribution"保留专业表述"正态分布"</li>
-<li>句式结构优化：将英语长句拆分为符合中文表达习惯的短句，如将"which significantly increases..."独立译为因果句</li>
-<li>被动语态转化："are limited to 8-bit"转译为主动式"仅支持8比特"</li>
-<li>数据呈现规范：倍数关系严格对应原文"2x/4x/9.3x"，采用中文数字表达习惯</li>
-<li>逻辑连接自然：使用"然而/据此/由于/在不...前提下"等连接词保持论证连贯性）</li>
+<li>"QuickVideo" 译为"快速视频"，保留产品名称特征同时体现速度概念</li>
+<li>"Real-Time" 译为"实时"，准确传达即时处理的特性</li>
+<li>"Long Video Understanding" 译为"长视频理解"，其中"长视频"对应短视频概念，符合中文视频领域术语习惯</li>
+<li>"System Algorithm Co-Design" 译为"系统算法协同设计"，使用"协同"比直译"共同"更体现技术协作的专业性</li>
+<li>整体采用技术论文标题的简洁风格，通过冒号分层，保持原标题的信息结构和专业感）</li>
 </ol>
+<p>长视频理解能力已成为视频监控、会议摘要、教育讲座分析与体育赛事直播等现实应用中的关键技术。然而，受限于两大瓶颈，当前视频大模型（VideoLLMs）仍面临高昂的计算成本：1）顺序视频解码——将原始比特流转换为RGB帧的过程，对一小时长的视频输入可能耗时长达一分钟；2）大模型推理时需预先填充数百万token，导致高延迟与内存占用。为应对这些挑战，我们提出QuickVideo系统-算法协同设计方案，通过三大核心创新显著加速长视频理解，支撑实时下游应用：QuickDecoder采用基于CPU的并行视频解码器，通过将视频分割为关键帧对齐的区间并发处理，实现2-3倍加速；QuickPrefill运用KV缓存剪枝的内存高效预填充方法，以更少GPU内存支持更多帧处理；以及重叠执行方案，使CPU视频解码与GPU推理过程并行化。这些组件共同将长视频输入的推理时间缩短一分钟，即便在有限硬件上也能实现可扩展的高质量视频理解。实验表明QuickVideo能适应不同时长与采样率，使长视频处理真正具备实用可行性。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

@@ -12,56 +12,140 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">修剪（TRIM）：通过目标行向迭代度量驱动实现极致稀疏化</h2><a id="user-content-修剪trim通过目标行向迭代度量驱动实现极致稀疏化" class="anchor" aria-label="Permalink: 修剪（TRIM）：通过目标行向迭代度量驱动实现极致稀疏化" href="#修剪trim通过目标行向迭代度量驱动实现极致稀疏化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>大型语言模型（LLMs）因其庞大的规模带来了显著的计算和内存挑战，这使得剪枝技术对其高效部署至关重要。现有的一步式剪枝方法通常在各层或每层内部采用统一的稀疏度约束，导致性能欠佳，尤其是在高稀疏率情况下。本研究提出了TRIM（目标行向迭代度量驱动剪枝）这一创新方法，该方法对每层内的各个输出维度（行）施加不同的稀疏度比率。TRIM采用由质量指标引导的迭代调整过程，优化维度级稀疏度分配，重点减少各输出间质量保留的方差以保护关键信息。TRIM可与现有分层剪枝策略无缝集成。我们在多样化LLM系列（Qwen2.5、LLaMA-2和OPT）和不同稀疏度水平上进行的困惑度与零样本任务评估表明，TRIM实现了新的最先进成果并增强了稳定性。例如在80%稀疏度下，相较于基线方法，TRIM将Qwen2.5-14B的困惑度降低48%，使OPT-13B的困惑度下降超90%。我们得出结论：细粒度的维度级稀疏度适配对于突破极端LLM压缩的极限至关重要。代码已开源：<a href="https://github.com/flobk/TRIM">https://github.com/flobk/TRIM</a></p>
-<p>（注：根据技术文献翻译规范，对以下术语进行了标准化处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">RAP：面向大语言模型推理的运行时自适应剪枝技术</h2><a id="user-content-rap面向大语言模型推理的运行时自适应剪枝技术" class="anchor" aria-label="Permalink: RAP：面向大语言模型推理的运行时自适应剪枝技术" href="#rap面向大语言模型推理的运行时自适应剪枝技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明：</p>
 <ol>
-<li>"sparsity"统一译为"稀疏度"而非"稀疏性"</li>
-<li>"perplexity"译为"困惑度"（自然语言处理领域标准译法）</li>
-<li>"zero-shot tasks"译为"零样本任务"（机器学习领域通用译法）</li>
-<li>模型名称LLaMA-2、OPT等保留原文</li>
-<li>技术概念"row-wise"译为"行向"以体现矩阵操作特性）</li>
+<li>"Runtime-Adaptive"译为"运行时自适应"符合计算机领域术语规范，强调系统在运行过程中动态调整的特性</li>
+<li>"Pruning"保留专业术语"剪枝"，指神经网络中通过移除冗余参数优化模型的技术</li>
+<li>增补"技术"二字使中文命名更完整，同时用"面向"替代"for"更符合中文技术文献表述习惯</li>
+<li>"LLM"采用行业通用译法"大语言模型"，全称与缩写形式根据中文表达习惯选择保留）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">NQKV：基于正态分布特性的键值缓存量化方案</h2><a id="user-content-nqkv基于正态分布特性的键值缓存量化方案" class="anchor" aria-label="Permalink: NQKV：基于正态分布特性的键值缓存量化方案" href="#nqkv基于正态分布特性的键值缓存量化方案"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>大型语言模型（LLMs）已展现出跨多种任务的卓越能力。然而，这类模型通常需要更大的批处理规模来提升吞吐量，或更长的上下文长度以满足任务需求，这显著增加了推理过程中键值缓存（KV Cache）的内存资源消耗，成为LLM部署的主要瓶颈。为解决这一问题，量化是一种常见且直接的解决方案。目前针对激活值的量化方法仅支持8比特，更低比特的量化会导致模型精度大幅下降。为了通过更低比特量化KV缓存来进一步节省空间，我们分析了KV缓存的元素分布特征，设计了NQKV算法。由于KV缓存中每个分块内的元素服从正态分布，NQKV采用分块分位数量化方案，实现了信息论意义上的最优量化误差。在基本不影响模型输出质量的前提下，NQKV使OPT模型支持的批处理规模扩大2倍或上下文长度延长4倍，相比不使用KV缓存时吞吐量提升了9.3倍。</p>
-<p>（注：根据技术文献翻译规范，对部分术语进行了标准化处理：</p>
+<p>arXiv:2505.17138v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）在语言理解与生成方面表现卓越，但其巨大的计算和内存需求阻碍了实际部署。模型压缩为缓解这些限制提供了潜在解决方案。然而，现有方法大多依赖固定启发式规则，无法适应运行时内存波动或多样化用户请求导致的异构KV缓存需求。为突破这些局限，我们提出RAP——一个由强化学习（RL）驱动的弹性剪枝框架，能够以运行时感知的方式动态调整压缩策略。具体而言，RAP在实际执行过程中动态追踪模型参数与KV缓存比值的演变规律。鉴于前馈网络（FFNs）承载大部分参数，而参数较少的注意力层主导KV缓存构成，RL智能体仅保留在当前内存预算下能最大化效用的组件，其决策基于瞬时工作负载和设备状态。大量实验结果表明，RAP优于现有最先进基线方法，首次实现了模型权重与KV缓存的实时联合优化。</p>
+<p>（注：根据学术论文摘要的文体特征，翻译时注重以下处理：</p>
 <ol>
-<li>"throughput"译为"吞吐量"而非"产量"，符合计算机领域术语</li>
-<li>"Key-Value (KV) cache"保留英文缩写并首次出现时标注全称"键值缓存"</li>
-<li>"per-block quantile quantization"译为"分块分位数量化"，准确体现算法分层量化特性</li>
-<li>"OPT model"保留英文缩写因属特定模型名称</li>
-<li>长难句采用拆分策略，如将"which significantly increases..."独立成句，符合中文多用短句的表达习惯）</li>
+<li>技术术语标准化："KV-cache"统一译为"KV缓存"，"FFNs"译为专业术语"前馈网络"</li>
+<li>长句拆分：将原文复合长句按中文表达习惯分解为多个短句</li>
+<li>逻辑显化：如"conditioned on..."译为"其决策基于..."以明确因果关系</li>
+<li>动态表述："on the fly"译为"实时"而非字面直译</li>
+<li>学术用语："state-of-the-art"规范译为"最先进的"）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">瓶颈式Transformer：面向广义推理的周期性KV缓存抽象</h2><a id="user-content-瓶颈式transformer面向广义推理的周期性kv缓存抽象" class="anchor" aria-label="Permalink: 瓶颈式Transformer：面向广义推理的周期性KV缓存抽象" href="#瓶颈式transformer面向广义推理的周期性kv缓存抽象"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>尽管大型语言模型展现出强大的能力，但其泛化能力仍受限于训练数据分布，往往表现出复杂的模式插值而非真正的抽象推理（外推）。本研究从信息瓶颈理论视角切入这一局限——该理论认为模型泛化能力源于潜在表征中输入压缩与预测信息保留之间的最优平衡。我们运用信息瓶颈理论严格证明：仅含解码器的Transformer架构在形成任务最优序列表征方面存在固有约束。基于这一结论，我们进一步论证：对内部序列级表征（KV缓存）进行周期性全局变换，是提升Transformer在推理任务中泛化能力的必要计算步骤。</p>
-<p>依托这些理论发现，我们对Transformer架构提出改进方案：新增一个周期性全局重写KV缓存的模块，将其容量分配从记忆输入前缀转向编码对未来token预测最有用的特征。改进后的模型在数学推理基准测试中取得显著提升，其表现不仅优于参数量达3.5倍的标准Transformer，也超越了基于启发式的缓存压缩修剪机制。我们的方法可视为现有KV缓存压缩技术的原理性泛化：传统方法仅聚焦输入表征压缩，却常以损失预测信息为代价，因此其能力天然受限于无约束模型。这项工作建立了运用信息论调控Transformer记忆的原理性框架，解决了仅靠规模扩展无法克服的基础性推理缺陷。</p>
-<p>（注：译文通过以下处理实现专业性与可读性的平衡：</p>
+<div class="markdown-heading"><h2 class="heading-element">TrimR：基于验证器的免训练思维压缩技术，助力高效测试时扩展</h2><a id="user-content-trimr基于验证器的免训练思维压缩技术助力高效测试时扩展" class="anchor" aria-label="Permalink: TrimR：基于验证器的免训练思维压缩技术，助力高效测试时扩展" href="#trimr基于验证器的免训练思维压缩技术助力高效测试时扩展"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.17155v1 公告类型：新研究<br>
+摘要：大型推理模型（LRMs）通过扩展的思维链（CoT）推理，在解决复杂数学、逻辑和编程任务方面展现出卓越能力。测试时扩展方法（如通过显式的令牌级探索延长CoT）虽能突破LRMs的准确率边界，但会带来显著的解码开销。一个关键的低效根源在于LRMs常生成冗余的思维链，这些链条呈现出明显的结构化过度思考与思考不足模式。受人类认知推理过程与数值优化理论启发，我们提出TrimR——一个基于验证器的、免训练的、高效的动态CoT压缩框架，通过修剪推理过程来增强测试时扩展能力，专为生产级部署设计。该方法采用轻量级预训练指令微调验证器，无需对LRM或验证器进行微调即可检测并截断LRMs的冗余中间思维。我们同时提出了面向高吞吐工业应用的核心算法与异步在线系统。在昇腾NPU和vLLM上的实证评估表明，该框架在大批量工作负载下显著提升推理效率。具体而言，在MATH500、AIME24、AIME25和GPQA四个基准测试中，盘古R-38B、QwQ-32B和DeepSeek-R1-Distill-Qwen-32B的推理运行时间最高缩短70%，且对准确率影响可忽略。</p>
+<p>（注：根据学术文献翻译规范，技术术语采用如下处理：</p>
 <ol>
-<li>技术概念采用"信息瓶颈理论""KV缓存"等标准译法</li>
-<li>长难句拆解为符合中文表达习惯的短句结构</li>
-<li>被动语态转换为主动句式（如"are inherently constrained"译为"存在固有约束"）</li>
-<li>关键术语保持前后一致（如"extrapolation"统一译为"外推"）</li>
-<li>学术表述保留严谨性同时增强流畅性（如"principled generalisation"译为"原理性泛化"））</li>
+<li>"Chain-of-Thought (CoT)" 保留英文缩写但首译全称"思维链"</li>
+<li>模型名称如"Pangu-R-38B"等保持原貌</li>
+<li>"NPUs"译为"NPU"（神经处理单元），"vLLM"作为专有名词保留</li>
+<li>机构名"Ascend"按华为官方译法保留"昇腾"</li>
+<li>技术概念"fine-tuning"译为"微调"，"throughput"译为"吞吐量"</li>
+<li>长难句按中文表达习惯拆分重组，如将"which demonstrate..."从句转为独立短句）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">等价剪枝器：通过动作剪枝提升基于大语言模型搜索的效率与质量</h2><a id="user-content-等价剪枝器通过动作剪枝提升基于大语言模型搜索的效率与质量" class="anchor" aria-label="Permalink: 等价剪枝器：通过动作剪枝提升基于大语言模型搜索的效率与质量" href="#等价剪枝器通过动作剪枝提升基于大语言模型搜索的效率与质量"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>大语言模型（LLMs）通过搜索算法擅长复杂推理，但现有策略常因对语义等价步骤的冗余探索而导致大量token消耗。传统语义相似度方法在数学推理等专业领域中难以准确识别此类等价性。为此，我们提出EquivPruner——一种简单高效的方法，能在LLM推理搜索中识别并剪枝语义等价操作。我们还发布了首个数学命题等价数据集MathEquiv，用于训练轻量级等价检测器。跨模型与任务的广泛实验表明，EquivPruner显著降低token消耗，既提升搜索效率，又常增强推理准确率。例如在GSM8K数据集上应用Qwen2.5-Math-7B-Instruct模型时，EquivPruner减少48.1%的token消耗，同时提升准确率。代码已开源：<a href="https://github.com/Lolo1222/EquivPruner%E3%80%82">https://github.com/Lolo1222/EquivPruner。</a></p>
-<p>（注：根据技术文本翻译规范，处理要点如下：</p>
+<div class="markdown-heading"><h2 class="heading-element">斑马-骆驼：迈向极致高效的混合模型</h2><a id="user-content-斑马-骆驼迈向极致高效的混合模型" class="anchor" aria-label="Permalink: 斑马-骆驼：迈向极致高效的混合模型" href="#斑马-骆驼迈向极致高效的混合模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.17272v1 公告类型：新研究<br>
+摘要：随着大规模语言模型（LLMs）在各领域应用需求的激增，提升其推理效率对实现可持续发展和普惠化访问至关重要。然而，针对用户特定需求重新训练LLMs成本极其高昂且不符合环保理念。本研究提出了一种实用且可扩展的替代方案：通过组合现有预训练模型构建高效混合语言模型。我们的Zebra-Llama方法通过融合状态空间模型（SSMs）与多头潜在注意力（MLA）层，配合精炼的初始化及后训练流程，构建了1B、3B和8B参数的混合模型系列，可高效迁移预训练Transformer的知识。Zebra-Llama仅需7-11B训练token（相比预训练所需的万亿级token）和8B教师模型，即能达到Transformer级精度与接近SSM的效率。更突出的是，该模型将KV缓存压缩至原始大小的3.9%（1B）、2%（3B）和2.73%（8B），同时在LM Harness基准测试中保持100%（1B/3B）和&gt;97%（8B）的平均零样本性能。相较于MambaInLLaMA、X-EcoMLA、Minitron及Llamba等模型，Zebra-Llama在显著减少训练token、缩小教师模型规模、大幅降低KV缓存内存的条件下，始终提供竞争力相当或更优的准确率。尤为值得注意的是，Zebra-Llama-8B仅用八分之一训练token、超过12倍小的KV缓存及更小的教师模型（8B vs 15B），其少样本准确率反超Minitron-8B达7%。在32k上下文长度内，其吞吐量（token/秒）更是MambaInLlama的2.6-3.8倍。我们将在论文录用后公开代码与模型检查点。</p>
+<p>（注：根据学术文献翻译规范，对技术术语保持统一，如"zero-shot performance"译为"零样本性能"；对数量级表述采用中文习惯单位如"万亿级"；长难句按中文表达习惯拆分重组；专业缩写首次出现时标注全称）</p>
+<div class="markdown-heading"><h2 class="heading-element">神经网络与数据集的高效压缩</h2><a id="user-content-神经网络与数据集的高效压缩" class="anchor" aria-label="Permalink: 神经网络与数据集的高效压缩" href="#神经网络与数据集的高效压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.17469v1 公告类型：新研究<br>
+摘要：我们比较、改进并提出了一系列方法，这些方法能在保持较高测试精度的同时大幅减少神经网络参数量。当应用这些方法最小化描述长度时，我们获得了非常高效的数据压缩算法。具体而言：</p>
 <ol>
-<li>专业术语统一："prune"译为"剪枝"符合计算机领域术语</li>
-<li>被动语态转化："are trained"译为主动式"用于训练"</li>
-<li>长句拆分：将原文复合长句拆分为符合中文表达习惯的短句</li>
-<li>数据呈现：精确保留"48.1%"等数字格式</li>
-<li>链接保留：完整呈现GitHub网址不作翻译</li>
-<li>技术概念准确处理："lightweight equivalence detector"译为"轻量级等价检测器"保持技术准确性）</li>
+<li>针对非线性模型的$\ell_0$正则化优化问题，我们提出了无需蒙特卡洛采样的概率化重构方案，相比现有方法更具优势；</li>
+<li>改进了基于$\ell_0$范数平滑逼近的方法；</li>
+<li>探索了分层优化策略。</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">快速视频：通过系统算法协同设计实现实时长视频理解</h2><a id="user-content-快速视频通过系统算法协同设计实现实时长视频理解" class="anchor" aria-label="Permalink: 快速视频：通过系统算法协同设计实现实时长视频理解" href="#快速视频通过系统算法协同设计实现实时长视频理解"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译时采用了以下策略：</p>
+<p>我们在不同架构和数据集上进行了全面测试，包括图像数据集训练的卷积网络和维基百科数据训练的Transformer模型。为系统研究连续场景下的压缩特性，还专门构建了合成师生模型实验框架。</p>
+<p>最后，我们从理论上建立了压缩算法与所罗门诺夫归纳推理理论的关联，并通过实验验证了正则化模型具有更高样本效率的预测结论。</p>
+<div class="markdown-heading"><h2 class="heading-element">预训练专家剪枝与检索：在有限内存条件下轻量化专家混合模型</h2><a id="user-content-预训练专家剪枝与检索在有限内存条件下轻量化专家混合模型" class="anchor" aria-label="Permalink: 预训练专家剪枝与检索：在有限内存条件下轻量化专家混合模型" href="#预训练专家剪枝与检索在有限内存条件下轻量化专家混合模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.17639v1 公告类型：新研究<br>
+摘要：混合专家（MoE）架构能够将大语言模型（LLMs）的参数规模扩展至巨大数量，而无需按比例增加计算成本。然而，大型MoE模型对内存的高需求阻碍了其在各类计算环境（从云服务器到消费级设备）中的部署。本研究首先揭示了MoE层中专家激活模式存在显著的任务特异性。基于此发现，我们提出了PreMoe框架，为内存受限环境下的超大规模MoE模型部署提供了高效解决方案。</p>
+<p>PreMoe包含两大核心组件：概率性专家剪枝（PEP）与任务自适应专家检索（TAER）。PEP采用一种名为"任务条件期望选择分数"（TCESS）的新度量标准，该指标通过路由器逻辑值量化专家对特定任务的重要性，从而识别出最关键的专家子集。TAER则利用这些任务导向的专家重要性特征实现高效推理：预先计算并存储不同任务的紧凑专家模式，当收到用户查询时，TAER快速匹配最相关的存储任务模式，仅加载该任务所需的关键专家来重构模型。</p>
+<p>该方法显著降低了各类部署场景下的内存占用：DeepSeek-R1 671B模型在8/128配置（专家数减少50%）下保持MATH500数据集97.2%的准确率，即使采用激进的8/32剪枝（专家数减少87.5%）仍能达到72.0%；Pangu-Ultra-MoE 718B模型经8/128剪枝后，在MATH500和AIME24上分别取得97.15%和81.3%的准确率，而进一步剪枝至4/64配置（内存占用390GB）时仍保持MATH500 96.95%的准确率。相关代码已开源：<a href="https://github.com/JarvisPei/PreMoe%E3%80%82">https://github.com/JarvisPei/PreMoe。</a></p>
+<p>（注：专业术语处理说明：</p>
 <ol>
-<li>"QuickVideo" 译为"快速视频"，保留产品名称特征同时体现速度概念</li>
-<li>"Real-Time" 译为"实时"，准确传达即时处理的特性</li>
-<li>"Long Video Understanding" 译为"长视频理解"，其中"长视频"对应短视频概念，符合中文视频领域术语习惯</li>
-<li>"System Algorithm Co-Design" 译为"系统算法协同设计"，使用"协同"比直译"共同"更体现技术协作的专业性</li>
-<li>整体采用技术论文标题的简洁风格，通过冒号分层，保持原标题的信息结构和专业感）</li>
+<li>"router logits"译为"路由器逻辑值"以保持技术文档一致性</li>
+<li>"memory footprint"采用"内存占用"这一通用译法</li>
+<li>模型名称DeepSeek/Pangu-Ultra保留原名体现技术品牌</li>
+<li>数学表达如"8/128"保留原格式确保技术准确性）</li>
 </ol>
-<p>长视频理解能力已成为视频监控、会议摘要、教育讲座分析与体育赛事直播等现实应用中的关键技术。然而，受限于两大瓶颈，当前视频大模型（VideoLLMs）仍面临高昂的计算成本：1）顺序视频解码——将原始比特流转换为RGB帧的过程，对一小时长的视频输入可能耗时长达一分钟；2）大模型推理时需预先填充数百万token，导致高延迟与内存占用。为应对这些挑战，我们提出QuickVideo系统-算法协同设计方案，通过三大核心创新显著加速长视频理解，支撑实时下游应用：QuickDecoder采用基于CPU的并行视频解码器，通过将视频分割为关键帧对齐的区间并发处理，实现2-3倍加速；QuickPrefill运用KV缓存剪枝的内存高效预填充方法，以更少GPU内存支持更多帧处理；以及重叠执行方案，使CPU视频解码与GPU推理过程并行化。这些组件共同将长视频输入的推理时间缩短一分钟，即便在有限硬件上也能实现可扩展的高质量视频理解。实验表明QuickVideo能适应不同时长与采样率，使长视频处理真正具备实用可行性。</p>
+<div class="markdown-heading"><h2 class="heading-element">在嵌入式FPGA上利用微型Transformer实现多功能时间序列分析的自动化</h2><a id="user-content-在嵌入式fpga上利用微型transformer实现多功能时间序列分析的自动化" class="anchor" aria-label="Permalink: 在嵌入式FPGA上利用微型Transformer实现多功能时间序列分析的自动化" href="#在嵌入式fpga上利用微型transformer实现多功能时间序列分析的自动化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.17662v1 公告类型：新研究<br>
+摘要：基于Transformer的模型在多元时间序列任务中展现出强劲性能，但其在资源受限设备上的部署仍面临高内存与计算需求的挑战。尽管先前针对微控制器单元（MCU）的研究探索了硬件专用优化方案，这类方法往往局限于特定任务且仅支持8位定点精度。现场可编程门阵列（FPGA）提供了更高灵活性，能实现对数据精度和架构的细粒度控制。然而现有基于FPGA的时间序列Transformer部署方案通常聚焦于需手动配置的高密度平台。本文提出一种面向嵌入式FPGA的Tiny Transformer统一全自动部署框架，支持在预测、分类和异常检测三类代表性时间序列任务中部署精简的仅编码器架构。该框架融合量化感知训练（最低至4位）、基于Optuna的硬件感知超参数搜索，以及自动VHDL生成技术实现无缝部署。我们在两种嵌入式FPGA平台上对六个公共数据集进行评估，结果表明：该框架生成的纯整数型任务专用Transformer加速器在AMD Spartan-7平台上单次推理能耗低至0.033毫焦，延迟达毫秒级，同时为Lattice iCE40平台的部署可行性提供了实践洞见。全部源代码将在GitHub仓库发布（<a href="https://github.com/Edwina1030/TinyTransformer4TS%EF%BC%89%E3%80%82">https://github.com/Edwina1030/TinyTransformer4TS）。</a></p>
+<p>（注：根据学术文本翻译规范，对以下术语进行了标准化处理：</p>
+<ol>
+<li>"resource-constrained devices"译为"资源受限设备"</li>
+<li>"fine-grained control"译为"细粒度控制"</li>
+<li>"quantization-aware training"保留专业术语特征译为"量化感知训练"</li>
+<li>"millisecond latency"译为"毫秒级延迟"以符合中文科技文献表述习惯</li>
+<li>长难句采用拆分策略，如将原文最后一句拆分为结果陈述与补充说明两个分句）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">ECHO-LLaMA：高效缓存赋能高性能LLaMA训练</h2><a id="user-content-echo-llama高效缓存赋能高性能llama训练" class="anchor" aria-label="Permalink: ECHO-LLaMA：高效缓存赋能高性能LLaMA训练" href="#echo-llama高效缓存赋能高性能llama训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译时做了以下处理：</p>
+<ol>
+<li>保留专业术语"LLaMA"不译，符合技术文献惯例</li>
+<li>"Efficient Caching"译为"高效缓存"，突出技术特性</li>
+<li>"High-Performance"译为"高性能"，符合中文科技表达</li>
+<li>使用"赋能"替代直译"for"，更符合中文技术场景的动宾结构</li>
+<li>整体采用"主标题+副标题"结构，通过冒号分隔保持原格式</li>
+<li>使用四字格"高效缓存"与"高性能"形成对仗，增强专业性）</li>
+</ol>
+<p>arXiv:2505.17331v1 公告类型：新研究<br>
+摘要：本文提出ECHO-LLaMA，一种高效LLaMA架构，旨在提升LLaMA系列模型的训练速度与推理吞吐量，同时保持其学习能力。该架构通过将特定层转换为共享KV缓存机制，显著降低了键值计算复杂度，且语言性能未受损失甚至有所提升。实验结果表明，ECHO-LLaMA在训练阶段每秒可处理token数量最高提升77%，模型浮点运算利用率（MFU）最高提升16%，在同等token训练量下损失值降低达14%。对于11亿参数模型，其推理吞吐量较基线模型提升约7%。通过引入计算高效的适配机制，ECHO-LLaMA为大语言模型的预训练与微调提供了可扩展且经济高效的解决方案，在保持性能的前提下实现更快速、更资源优化的训练过程。</p>
+<div class="markdown-heading"><h2 class="heading-element">NeUQI：近最优均匀量化参数初始化</h2><a id="user-content-neuqi近最优均匀量化参数初始化" class="anchor" aria-label="Permalink: NeUQI：近最优均匀量化参数初始化" href="#neuqi近最优均匀量化参数初始化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.17595v1 公告类型：新研究<br>
+摘要：大型语言模型（LLMs）在各领域展现出卓越性能，但在消费级GPU或个人设备（如笔记本电脑）上部署时，因高内存消耗和推理成本面临重大挑战。后训练量化（PTQ）技术为降低LLMs内存占用和解码延迟提供了可行方案。实践中，采用均匀量化表示的PTQ因其高效性和易部署性备受青睐——主流硬件和软件库普遍支持均匀量化。近期关于≥2位均匀量化的研究显著提升了量化后模型性能，但这些研究主要聚焦量化方法本身，而量化参数初始化策略尚未充分探索，仍依赖次优的Min-Max方法。</p>
+<p>本研究提出NeUQI方法，致力于高效确定均匀量化的近最优初始参数。NeUQI与现有量化方法正交，可无缝集成。在LLaMA和Qwen系列模型上的多任务实验表明，NeUQI始终优于现有方法。此外，结合轻量级蒸馏策略时，NeUQI能达到比资源密集型方法PV-tuning更优的性能。</p>
+<p>（注：根据学术文献翻译规范，保留技术术语如"PTQ"、"Min-Max"等专业缩写；"orthogonal"译为"正交"以保持数学隐喻；"seamlessly integrate"译为"无缝集成"符合中文技术表达习惯；被动语态如"is favored"转化为主动句式"备受青睐"以符合中文表达逻辑。）</p>
+<div class="markdown-heading"><h2 class="heading-element">广义费舍尔加权奇异值分解：面向大规模语言模型压缩的可扩展克罗内克积费舍尔近似方法</h2><a id="user-content-广义费舍尔加权奇异值分解面向大规模语言模型压缩的可扩展克罗内克积费舍尔近似方法" class="anchor" aria-label="Permalink: 广义费舍尔加权奇异值分解：面向大规模语言模型压缩的可扩展克罗内克积费舍尔近似方法" href="#广义费舍尔加权奇异值分解面向大规模语言模型压缩的可扩展克罗内克积费舍尔近似方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明：</p>
+<ol>
+<li>"Generalized Fisher-Weighted SVD"译为"广义费舍尔加权奇异值分解"，完整保留专业术语特征</li>
+<li>"Scalable"译为"可扩展的"，突出算法规模适应性</li>
+<li>"Kronecker-Factored Fisher Approximation"译为"克罗内克积费舍尔近似"，准确翻译数学概念"Kronecker积"</li>
+<li>副标题采用"面向...的..."句式，符合中文技术文献表述习惯</li>
+<li>"Large Language Models"统一译为"大规模语言模型"，与国内人工智能领域术语保持一致</li>
+<li>整体采用学术论文标题的简洁风格，通过冒号分隔主副标题，保持中英文标题结构一致性）</li>
+</ol>
+<p>arXiv:2505.17974v1 公告类型：新研究<br>
+摘要：费舍尔信息是表征神经网络参数敏感性的基本概念。然而，对于大型模型而言，利用完整的观测费舍尔信息计算成本过高，因此大多数方法依赖于简单的对角近似。虽然高效，但这种方法忽略了参数相关性，往往导致下游任务性能下降。在本研究中，我们通过提出广义费舍尔加权奇异值分解（GFWSVD）来缓解这些局限性——这是一种考虑费舍尔信息矩阵对角与非对角元素的后训练大语言模型压缩技术，能更准确地反映参数重要性。为实现该方法的高效计算，我们针对观测费舍尔信息提出了一种可扩展的克罗内克分解近似算法。我们在LLM压缩任务中验证了方法的有效性：在MMLU基准测试20倍压缩率下，本方法比基于费舍尔信息对角近似的FWSVD提升5%，较SVD-LLM提升3%，较ASVD提升6%压缩率。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<ol>
+<li>"Fisher information"统一译为"费舍尔信息"（统计学标准译名）</li>
+<li>"Kronecker-factored approximation"译为"克罗内克分解近似"（矩阵运算领域通用译法）</li>
+<li>保持"LLM"（大语言模型）、"SVD"（奇异值分解）等缩写形式与原文一致</li>
+<li>对长句进行合理切分，如将原文最后一句的多个比较数据整合为符合中文表达习惯的排比结构）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">无SVD的低秩自适应梯度优化在大型语言模型中的应用</h2><a id="user-content-无svd的低秩自适应梯度优化在大型语言模型中的应用" class="anchor" aria-label="Permalink: 无SVD的低秩自适应梯度优化在大型语言模型中的应用" href="#无svd的低秩自适应梯度优化在大型语言模型中的应用"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.17967v1 公告类型：新研究<br>
+摘要：低秩优化已成为训练大语言模型（LLMs）的重要方向，其通过将学习过程约束到低维空间来减少自适应优化器的内存占用。现有工作通常采用基于奇异值分解（SVD）的方法对线性层梯度进行投影。然而，对大型模型中每个层单独应用SVD流程计算成本高昂，且因需存储投影矩阵而产生额外内存开销。本研究提出一种计算高效、概念简洁的双步骤方法，用于近似实现基于SVD的低维梯度投影：首先，我们利用离散余弦变换（DCT）的预定义正交矩阵构建完整正交基；其次，根据各层梯度与基向量的对齐程度自适应选择基列。本方法的每个投影矩阵仅需一次矩阵乘法运算和轻量级排序步骤即可确定最相关基向量。由于正交基的预定义特性，其仅在训练开始时计算一次。训练过程中，我们仅存储所选列的索引，无需为每个层保存完整投影矩阵。在预训练和微调任务上的数值实验表明，这种双重策略能有效逼近最优低秩投影，其性能与高成本的SVD方法相当，同时实现了更快的运行速度和更低的内存消耗。</p>
+<div class="markdown-heading"><h2 class="heading-element">VeriThinker：学会验证让推理模型更高效</h2><a id="user-content-verithinker学会验证让推理模型更高效" class="anchor" aria-label="Permalink: VeriThinker：学会验证让推理模型更高效" href="#verithinker学会验证让推理模型更高效"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.17941v1 公告类型：新论文<br>
+摘要：大型推理模型（LRMs）通过思维链（CoT）推理在复杂任务中表现出色，但其过度思考倾向会导致不必要的冗长推理链条，显著增加推理成本。为缓解这一问题，我们提出VeriThinker——一种创新的CoT压缩方法。与传统方法（使用合成的简洁CoT数据直接在原始推理任务上微调LRMs）不同，我们创新性地仅通过辅助验证任务来微调模型。通过训练LRMs准确验证CoT解决方案的正确性，模型会从根本上提高对后续自省步骤必要性的判断力，从而有效抑制过度思考。大量实验证明，VeriThinker在保持甚至略微提升准确率的同时，大幅缩短了推理链长度。当应用于DeepSeek-R1-Distill-Qwen-7B模型时，我们的方法将MATH500数据集的推理token从3790减少到2125，同时准确率提升0.8%（从94.0%升至94.8%）；在AIME25数据集上，token从14321降至10287，准确率提升2.1%（从38.7%升至40.8%）。此外，实验表明VeriThinker也能零样本泛化至推测性推理。代码已开源：<a href="https://github.com/czg1225/VeriThinker">https://github.com/czg1225/VeriThinker</a></p>
+<p>（注：根据学术规范，技术术语如"zero-shot"保留英文形式更符合中文计算机领域表述习惯；模型名称DeepSeek-R1-Distill-Qwen-7B采用原名以保持可追溯性；数据集名称MATH500/AIME25未采用中文译名以避免歧义）</p>
+<div class="markdown-heading"><h2 class="heading-element">闪铸科技：面向大型语言模型解码的超高效前缀感知注意力机制</h2><a id="user-content-闪铸科技面向大型语言模型解码的超高效前缀感知注意力机制" class="anchor" aria-label="Permalink: 闪铸科技：面向大型语言模型解码的超高效前缀感知注意力机制" href="#闪铸科技面向大型语言模型解码的超高效前缀感知注意力机制"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：根据技术翻译的惯例，"FlashForge"作为专有名词保留不译；"Ultra-Efficient Prefix-Aware Attention"采用"超高效前缀感知注意力机制"的专业译法，其中"前缀感知"对应"Prefix-Aware"这一注意力机制特性；"LLM Decoding"译为"大型语言模型解码"，LLM作为行业通用缩写首次出现时采用全称。整体翻译在保持专业性的同时，通过"面向..."的句式体现技术方案的应用方向。）</p>
+<p>arXiv:2505.17694v1 公告类型：新研究<br>
+摘要：多提示间的共享前缀为合并共享前缀操作提供了可能，而解码阶段的注意力计算随着上下文长度增加成为关键瓶颈，这一内存密集型过程需要对前缀的键值（KV）缓存进行大量内存访问。为此，本文探索了共享前缀在解码阶段注意力计算中的潜力。然而，前缀共享的树状结构为注意力计算带来了重大挑战：需高效处理共享KV缓存的访问模式，同时管理复杂依赖关系并平衡不规则工作负载。</p>
+<p>为解决上述挑战，我们提出了一种专用于合并解码阶段共享前缀内存访问的注意力计算内核——FlashForge。该方案包含两大创新：一是新型共享前缀注意力内核，通过优化内存层次结构同时利用块内与块间并行性；二是全面的负载均衡机制，能高效估算计算成本、划分任务并调度执行。实验结果表明，在解码阶段注意力计算方面，FlashForge较当前最先进的FlashDecoding内核平均实现1.9倍加速和120.9倍内存访问减少；与vLLM相比，每个输出token的端到端时间缩短3.8倍。</p>
+<p>（注：根据学术论文翻译规范，对部分术语进行了标准化处理："key-value (KV) cache"统一译为"键值（KV）缓存"，"kernel"在计算机领域译为"内核"，"workload balancing"译为"负载均衡"。同时采用中文科技论文常用的四字结构如"内存密集型""树状结构"等，确保专业性与可读性平衡。）</p>
+<div class="markdown-heading"><h2 class="heading-element">倒计时：上下文稀疏激活在向下投影中过滤不必要权重</h2><a id="user-content-倒计时上下文稀疏激活在向下投影中过滤不必要权重" class="anchor" aria-label="Permalink: 倒计时：上下文稀疏激活在向下投影中过滤不必要权重" href="#倒计时上下文稀疏激活在向下投影中过滤不必要权重"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：此处采用技术术语的常见译法，并兼顾中文表达习惯：</p>
+<ol>
+<li>"Countdown" 译为"倒计时"保留原意象</li>
+<li>"Contextually Sparse Activation" 译为"上下文稀疏激活"，准确传达神经网络中稀疏激活的概念</li>
+<li>"Filtering Out Unnecessary Weights" 意译为"过滤不必要权重"，突出计算效率优化</li>
+<li>"Down Projection" 译为"向下投影"，符合深度学习领域对降维操作的通用译法
+整体采用"主标题+副标题"结构，既保持技术文档的严谨性，又通过冒号分层实现语义清晰）</li>
+</ol>
+<p>arXiv:2505.17701v1 公告类型：新论文<br>
+摘要：大型语言模型规模的持续增长导致了显著的算力低效问题。为应对这一挑战，稀疏激活方法在推理过程中选择性关闭非必要参数，从而降低前馈神经网络（FFNN）层的计算成本。现有方法主要关注非线性门控机制，而我们提出假设：FFNN层的稀疏性本质上体现为其内部降维矩阵的线性组合形式。基于这一洞见，我们提出两种创新方案：利用间接系数的M-COUNTDOWN，以及采用直接线性组合系数的D-COUNTDOWN。实验结果表明，D-COUNTDOWN在理想情况下可省略90%计算量而性能损失仅5.5%；M-COUNTDOWN则无需预测模块即可实现比现有方法最高29.4%的性能保留优势。我们专门设计的核函数实现成功将这些理论增益转化为显著的现实加速效果。</p>
+<p>（注：根据学术论文摘要的文体特点，翻译时进行了以下处理：</p>
+<ol>
+<li>专业术语统一："FFNN layers"规范译为"前馈神经网络层"</li>
+<li>被动语态转换：将英文被动式调整为中文主动表述（如"has created"译为"导致了"）</li>
+<li>长句拆分：将复合长句分解为符合中文阅读习惯的短句结构</li>
+<li>概念显化："kernel implementations"具体化为"核函数实现"</li>
+<li>数据呈现：精确保留百分比数值和比较关系</li>
+<li>术语一致性："sparse activation methods"统一译为"稀疏激活方法"）</li>
+</ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

@@ -12,31 +12,42 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">FireQ：面向大语言模型推理加速的快速INT4-FP8内核与RoPE感知量化技术</h2><a id="user-content-fireq面向大语言模型推理加速的快速int4-fp8内核与rope感知量化技术" class="anchor" aria-label="Permalink: FireQ：面向大语言模型推理加速的快速INT4-FP8内核与RoPE感知量化技术" href="#fireq面向大语言模型推理加速的快速int4-fp8内核与rope感知量化技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明如下）</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">调优压缩（TuneComp）：面向大型基础模型的联合微调与压缩技术</h2><a id="user-content-调优压缩tunecomp面向大型基础模型的联合微调与压缩技术" class="anchor" aria-label="Permalink: 调优压缩（TuneComp）：面向大型基础模型的联合微调与压缩技术" href="#调优压缩tunecomp面向大型基础模型的联合微调与压缩技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>注：翻译说明：</p>
 <ol>
-<li>保留"FireQ"作为技术品牌名不译，维持技术术语一致性</li>
-<li>"Fast INT4-FP8 Kernel"译为"快速INT4-FP8内核"，其中INT4(4位整数)和FP8(8位浮点)是计算机体系结构标准术语</li>
-<li>"RoPE-aware"译为"RoPE感知"，RoPE(Rotary Position Embedding)是Transformer架构中的旋转位置编码技术</li>
-<li>采用"面向...的"句式体现技术应用场景，将"LLM Inference Acceleration"处理为"大语言模型推理加速"，其中：
-<ul>
-<li>LLM(Large Language Model)采用行业通用译法"大语言模型"</li>
-<li>"推理加速"比直译"推断加速"更符合中文AI领域术语习惯</li>
-</ul>
-</li>
-<li>整体采用技术论文标题常见的名词短语结构，通过"与"字连接两个关键技术点，保持学术严谨性</li>
+<li>"TuneComp"采用音译+意译结合方式，译为"调优压缩"，既保留原词"Tuning"和"Compression"的核心含义，又形成简洁的技术术语</li>
+<li>"Joint"译为"联合"准确传达多任务协同处理的含义</li>
+<li>"Fine-tuning"译为"微调"符合机器学习领域术语规范</li>
+<li>"Large Foundation Models"译为"大型基础模型"准确反映当前AI领域对GPT等预训练模型的称谓</li>
+<li>整体采用"技术方案描述式"标题结构，符合中文技术文献命名习惯，同时通过冒号分层保持原标题的信息层次</li>
 </ol>
-<p>arXiv:2505.20839v1 公告类型：新研究<br>
-摘要：随着大语言模型应用日益广泛，内存带宽限制严重制约了推理吞吐量，这促使后训练量化（PTQ）技术受到关注。本文提出FireQ——一个协同设计的PTQ框架与INT4-FP8矩阵乘法内核，可加速大模型所有线性层的推理。具体而言，FireQ将线性层权重和键值量化为INT4，激活值和查询量化为FP8，显著提升吞吐量。此外，我们为预填充阶段引入三阶段流水线设计，通过改进FlashAttention-3内核，有效缩短预填充阶段的首令牌生成时间。为最小化量化精度损失，我们分别针对线性层和注意力层开发了创新的异常值平滑技术：在线性层中，我们显式采用张量级缩放防止INT4量化的FP8缩放因子导致数值下溢，并通过通道级缩放补偿INT4的粗粒度缺陷；在注意力层中，我们结合旋转位置编码（RoPE）前后的缩放策略，解决了RoPE带来的量化挑战。FireQ显著优于现有最优方法，在Llama2-7B上前馈网络层推理速度达到QServe的1.68倍，在Llama3-8B上预填充阶段性能提升1.26倍，且精度损失可忽略不计。</p>
-<div class="markdown-heading"><h2 class="heading-element">高效大型语言模型推理：基于神经块线性化的方法</h2><a id="user-content-高效大型语言模型推理基于神经块线性化的方法" class="anchor" aria-label="Permalink: 高效大型语言模型推理：基于神经块线性化的方法" href="#高效大型语言模型推理基于神经块线性化的方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.21077v1 公告类型：新研究<br>
-摘要：基于Transformer架构的大语言模型（LLM）在推理时的高计算需求给实际部署带来了巨大挑战。为此，我们提出神经块线性化（NBL）框架，通过用线性最小均方误差估计器导出的线性近似替换自注意力层，显著加速Transformer模型的推理过程。该框架利用典型相关分析计算近似误差的理论上限，并以此作为替换准则，选择线性化误差最低的LLM层进行优化。NBL无需微调即可高效应用于预训练好的大语言模型。实验表明，NBL在多个推理基准测试中既能保持模型竞争力精度，又能实现显著的计算加速。例如，将NBL应用于DeepSeek-R1-Distill-Llama-8B模型的12个自注意力层时，推理速度提升32%的同时精度损失不足1%，这种灵活的方法为提升大语言模型推理效率提供了极具前景的解决方案。</p>
-<p>（注：根据学术文献翻译规范，对技术术语如"Linear Minimum Mean Squared Error estimators"采用"线性最小均方误差估计器"的权威译法；"Canonical Correlation Analysis"保留为"典型相关分析"这一统计学标准译名；模型名称"DeepSeek-R1-Distill-Llama-8B"保持原貌以方便学术检索；通过拆分英文长句为中文短句结构，如将原文最后复合句分解为因果关系的分句表述，符合中文科技文献表达习惯。）</p>
-<div class="markdown-heading"><h2 class="heading-element">硬件高效注意力机制助力快速解码</h2><a id="user-content-硬件高效注意力机制助力快速解码" class="anchor" aria-label="Permalink: 硬件高效注意力机制助力快速解码" href="#硬件高效注意力机制助力快速解码"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.21487v1 公告类型：新研究<br>
-摘要：大批次长上下文场景下，LLM解码过程受限于从高带宽内存加载键值（KV）缓存的操作，这不仅增加了单令牌延迟，其顺序解码特性也制约了并行性。我们系统分析了算术强度、并行化与模型质量之间的相互作用，质疑当前架构是否充分挖掘了现代硬件的潜力。本研究重构注意力机制，通过提升内存每字节载入对应的计算量，在不牺牲并行扩展性的前提下实现硬件效率最大化。我们首先提出分组绑定注意力（GTA），这种简易变体通过合并复用键值状态，在保持模型质量的同时减少内存传输；继而引入分组潜在注意力（GLA），这种并行友好的潜在注意力机制配合底层优化，既能实现快速解码又能维持高模型质量。实验表明：GTA在质量上媲美分组查询注意力（GQA）的同时，KV缓存用量减少约50%；GLA则与多头潜在注意力（MLA）性能相当且更易分片。经优化的GLA内核在推测解码等场景中（当查询长度超过1时）比FlashMLA快达2倍。此外，通过减少单设备KV缓存载入量，GLA在在线服务基准测试中将端到端延迟降低、吞吐量提升最高达2倍。</p>
-<div class="markdown-heading"><h2 class="heading-element">SageAttention2++：SageAttention2的高效实现升级版</h2><a id="user-content-sageattention2sageattention2的高效实现升级版" class="anchor" aria-label="Permalink: SageAttention2++：SageAttention2的高效实现升级版" href="#sageattention2sageattention2的高效实现升级版"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.21136v1 公告类型：新成果<br>
-摘要：注意力机制的效率至关重要，因为其时间复杂度会随着序列长度呈二次方增长。SageAttention2通过量化技术加速注意力中的矩阵乘法（Matmul）来解决这一问题。为了进一步优化SageAttention2，我们提出采用FP8矩阵乘法以FP16累加的快速指令，该指令比SageAttention2原先使用的FP8矩阵乘法快2倍。实验表明，SageAttention2++在保持与SageAttention2相同注意力精度的同时，速度比FlashAttention提升3.9倍。这意味着SageAttention2++能有效加速语言、图像和视频生成等各类模型，且对端到端性能指标的影响可忽略不计。代码将在<a href="https://github.com/thu-ml/SageAttention%E5%BC%80%E6%BA%90%E3%80%82">https://github.com/thu-ml/SageAttention开源。</a></p>
-<p>（注：根据学术惯例，"arXiv"保留不译；"Matmul"作为专业术语采用英文缩写形式；"FP8"/"FP16"为浮点计算标准格式，保留英文缩写；项目名称"SageAttention2++"作为专有名词未翻译；URL链接保留原格式以确保可访问性）</p>
+<p>arXiv:2505.21835v1 公告类型：新研究<br>
+摘要：为在训练后缩减模型规模，知识蒸馏、低秩近似和剪枝等压缩方法通常在对模型微调后实施。然而，这种先微调后压缩的串行操作会牺牲模型性能，且会不必要地生成一个过渡阶段的冗余大模型。本研究致力于通过在下游任务指导下直接构建小型模型来缩小这一差距。我们提出通过逐步将模型蒸馏至剪枝后的低秩结构，实现微调与压缩的联合优化。实验表明，联合微调压缩方法显著优于其他串行压缩方案。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<ol>
+<li>"fine-tuning"统一译为"微调"而非"调优"以保持领域术语一致性</li>
+<li>"low-rank approximation"译为"低秩近似"而非"低阶近似"符合线性代数术语</li>
+<li>将"sequential...sacrifices performance"的主动语态转换为"串行操作会牺牲"更符合中文表达习惯</li>
+<li>"jointly"译为"联合"而非"共同"以体现算法协同性</li>
+<li>保留"arXiv"原始标识符不翻译以符合学术惯例）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">通过训练后量化压缩正弦激活的低秩适配器</h2><a id="user-content-通过训练后量化压缩正弦激活的低秩适配器" class="anchor" aria-label="Permalink: 通过训练后量化压缩正弦激活的低秩适配器" href="#通过训练后量化压缩正弦激活的低秩适配器"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.21895v1 公告类型：新研究<br>
+摘要：低秩自适应（LoRA）已成为参数高效微调的标准方法，通过将参数更新建模为两个低秩矩阵的乘积，可大幅减少可训练参数量。尽管有效，低秩约束本质上限制了表示能力，通常导致性能逊色于全秩微调。Ji等人（2025）的最新研究通过向低秩适配器施加固定频率的正弦变换，在不引入额外参数的情况下提高了其稳定秩，从而解决了这一局限。这引发了一个关键问题：在训练后量化的背景下，同样的正弦激活技术能否成功应用，以在模型压缩后仍保留优势？本文通过将正弦变换框架扩展至量化LoRA适配器来研究该问题。我们建立的理论分析表明，量化适配器的稳定秩与其全精度对应物紧密相关，这促使即使在量化条件下仍可使用此类秩增强函数。实验结果表明，正弦非线性带来的表达能力提升在量化后依然存在，能产生高性能的极致压缩适配器。我们在语言、视觉和文生图等微调任务中验证了该方法，在保持竞争力的准确度同时实现了显著的内存节省。</p>
+<p>（注：根据学术惯例，保留arXiv编号格式；"Post-Training Quantization"译为"训练后量化"是领域标准译法；"stable rank"译为"稳定秩"符合线性代数术语；通过拆分长句为中文惯用的短句结构（如将"motivating..."处理为因果分句），并采用"局限""逊色""引发"等符合中文科技论文表达的词汇，在保持专业性的同时确保行文流畅。）</p>
+<div class="markdown-heading"><h2 class="heading-element">无需注意力的扩展推理</h2><a id="user-content-无需注意力的扩展推理" class="anchor" aria-label="Permalink: 无需注意力的扩展推理" href="#无需注意力的扩展推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.22425v1 公告类型：新研究<br>
+摘要：尽管大语言模型（LLMs）在复杂推理任务上取得了显著进展，但仍受限于两大核心挑战：因依赖Transformer架构导致的效率瓶颈，以及缺乏针对高难度领域的结构化微调方法。我们提出\ourmodel——一种无需注意力机制的语言模型，通过架构革新与数据优化双管齐下解决上述问题。该模型基于Mamba-2的状态空间对偶（SSD）层构建，摒弃了自注意力机制与键值缓存需求，实现了固定内存占用与恒定时间推理。为培养其复杂推理能力，我们基于\textsc{PromptCoT}合成范式设计了两阶段课程微调策略：通过抽象概念筛选与原理引导生成，构建具有教学结构的训练问题。基准测试表明，\ourmodel-7B在同等规模下优于强Transformer与混合模型，更以2.6%（AIME 24）、0.6%（AIME 25）和3.0%（Livecodebench）的优势超越体积大得多的Gemma3-27B。这些成果揭示了状态空间模型作为高效、可扩展架构替代注意力机制的潜力，尤其适用于高容量推理场景。</p>
+<p>（注：译文保留技术术语的准确性，如"state space dual"译为专业术语"状态空间对偶"；"PromptCoT"作为专有名词保留不译；模型名称\ourmodel因原文未明确采用意译处理；通过"双管齐下""构建""培养"等动词增强技术文本的可读性；长句拆分符合中文表达习惯，如将英文复合句转化为多个流水句；百分比数据采用中文数字格式规范呈现）</p>
+<div class="markdown-heading"><h2 class="heading-element">ACE：探索激活余弦相似度与方差以实现精准且校准高效的大语言模型剪枝</h2><a id="user-content-ace探索激活余弦相似度与方差以实现精准且校准高效的大语言模型剪枝" class="anchor" aria-label="Permalink: ACE：探索激活余弦相似度与方差以实现精准且校准高效的大语言模型剪枝" href="#ace探索激活余弦相似度与方差以实现精准且校准高效的大语言模型剪枝"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.21987v1 公告类型：新研究<br>
+摘要：随着大语言模型（LLMs）的快速扩张，对内存和计算资源的需求显著增长。近期LLM剪枝技术的进展旨在降低这些模型的体积和计算成本。然而，现有方法往往存在剪枝效果欠佳或剪枝过程耗时过长的问题。本研究提出了一种高效且精准的剪枝方法，通过改进校准效率，同步实现了优异的剪枝性能和快速的剪枝速度。我们的方法包含两项关键创新：（1）基于激活余弦相似度的损失引导剪枝指标——通过衡量稠密模型与剪枝模型输出激活之间的角度偏差；（2）基于激活方差的引导剪枝指标——通过保持剪枝后输出激活的语义区分度，使得采用更短输入序列进行有效剪枝成为可能。这两个组件可灵活组合，从准确性和效率双重维度提升LLM剪枝效果。实验结果表明，在LLaMA、LLaMA-2和OPT等主流大语言模型上，我们的方法最高可降低18%的困惑度，并减少63%的剪枝时间。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<ol>
+<li>"pruning"统一译为"剪枝"而非"修剪"，符合计算机领域术语习惯</li>
+<li>"perplexity"译为"困惑度"而非"混淆度"，采用自然语言处理标准译法</li>
+<li>技术表述采用"激活余弦相似度/方差"等完整术语，确保专业性</li>
+<li>长难句按中文表达习惯拆分重组，如将嵌套从句转换为分号连接的并列结构</li>
+<li>保留"LLaMA-2"等模型专有名词不翻译，维持技术文档准确性）</li>
+</ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

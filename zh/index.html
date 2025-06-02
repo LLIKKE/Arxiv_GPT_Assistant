@@ -12,77 +12,83 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">锚点注意力：基于条纹粒度的差异感知稀疏注意力</h2><a id="user-content-锚点注意力基于条纹粒度的差异感知稀疏注意力" class="anchor" aria-label="Permalink: 锚点注意力：基于条纹粒度的差异感知稀疏注意力" href="#锚点注意力基于条纹粒度的差异感知稀疏注意力"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>具有超长上下文处理能力的大语言模型（LLMs）在预填充阶段面临严峻的计算挑战，这主要源于自注意力机制的二次方复杂度。现有方法通常采用动态模式匹配和块稀疏底层实现，但其依赖局部信息进行模式识别的特性难以捕捉全局上下文，且粗粒度的块处理会导致持续的内部稀疏性，最终影响准确性与效率。为突破这些局限，我们提出\textbf{锚点注意力（AnchorAttention）}——一种差异感知的动态稀疏注意力机制，能在更精细的条状粒度下高效定位关键注意力区域，同时自适应全局上下文信息，实现速度与精度的双重提升。该机制包含三大核心组件：（1）\textbf{基于模式的锚点计算}：利用输入数据间的共性特征快速计算一组近最大分数作为锚点；（2）\textbf{差异感知的条状稀疏识别}：通过与锚点的差异感知比较，快速获取显著区域在条状稀疏模式中的离散坐标；（3）\textbf{细粒度稀疏计算}：用离散键值位置并行加载取代传统的连续键值块加载方式，在保留硬件完整计算潜力的同时最大化稀疏率。凭借更精细的稀疏策略，\textbf{锚点注意力}在相同召回率下可实现更高稀疏率，显著缩短计算耗时。相比现有最优方法，在处理128k文本长度时实现1.44$\times$加速，同时保持更高召回率。</p>
-<div class="markdown-heading"><h2 class="heading-element">MuLoCo：μ子（Muon）作为DiLoCo的高效内置优化器</h2><a id="user-content-mulocoμ子muon作为diloco的高效内置优化器" class="anchor" aria-label="Permalink: MuLoCo：μ子（Muon）作为DiLoCo的高效内置优化器" href="#mulocoμ子muon作为diloco的高效内置优化器"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>DiLoCo是一种在有限网络条件下训练大语言模型（LLM）的强大框架，其优势在于能显著提升数据中心环境中的并行计算能力与加速器利用率。尽管该框架大幅降低了通信频率，但其通信步骤仍需要对模型全部参数执行全局归约操作。现有研究虽探索了降低DiLoCo通信负荷的方法，但误差反馈累加器的作用及内部优化器对参数可压缩性的影响尚未得到充分研究。本文系统评估了Top-k稀疏化与量化等标准压缩方法在搭配两种本地优化器（AdamW与Muon）时对降低DiLoCo通信开销的有效性。通过预训练仅解码器架构的Transformer语言模型实验，我们发现：采用Muon作为DiLoCo内部优化器并配合误差反馈累加器时，可将通信参数差值激进压缩至2比特且几乎无性能损失。尤为关键的是，MuLoCo（采用Muon内部优化器的DiLoCo）在通信量减少8倍、内存复杂度保持不变的条件下，性能显著超越原始DiLoCo方案。</p>
-<p>（译文特点说明：</p>
-<ol>
-<li>技术术语规范处理："all-reducing"译为"全局归约"，"decoder-only transformer"译为"仅解码器架构的Transformer"</li>
-<li>复杂句式重构：将英文长句拆分为符合中文表达习惯的短句，如将"Despite...however..."转折关系转换为"尽管...但..."的句式</li>
-<li>被动语态转化："remain under-explored"主动化为"尚未得到充分研究"</li>
-<li>概念准确传达："error-feedback accumulator"译为专业术语"误差反馈累加器"，"aggressively compress"意译为"激进压缩"</li>
-<li>技术缩写处理：首次出现LLM时补充完整名称"大语言模型"，MuLoCo保留英文缩写并添加括号说明</li>
-<li>逻辑关系显化：通过"尤为关键的是"等连接词强化段落间的递进关系）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">LoLA：采用稀疏缓存的低秩线性注意力机制</h2><a id="user-content-lola采用稀疏缓存的低秩线性注意力机制" class="anchor" aria-label="Permalink: LoLA：采用稀疏缓存的低秩线性注意力机制" href="#lola采用稀疏缓存的低秩线性注意力机制"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明如下：</p>
-<ol>
-<li>"LoLA"作为专有技术名称保留不译</li>
-<li>"Low-Rank Linear Attention"译为"低秩线性注意力"，其中：
-<ul>
-<li>"Low-Rank"是机器学习术语，标准译法为"低秩"</li>
-<li>"Linear Attention"译为"线性注意力"，这是Transformer架构中的专业概念</li>
-</ul>
-</li>
-<li>"With Sparse Caching"译为"采用稀疏缓存"，其中：
-<ul>
-<li>"Sparse"是计算机术语，译为"稀疏"</li>
-<li>"Caching"译为"缓存"，指临时存储机制</li>
-</ul>
-</li>
-<li>整体采用技术文献常用的名词短语结构，用"机制"二字补足中文表达习惯</li>
-<li>冒号使用中文全角符号，保持中文排版规范）</li>
-</ol>
-<p>基于Transformer的大型语言模型在长序列推理时面临二次方复杂度问题。线性注意力方法虽为高效替代方案，却难以精准逼近softmax注意力的效果。通过在每线性注意力头中引入滑动窗口注意力，可在短上下文任务中弥补这一差距。然而，由于"记忆碰撞"现象，这类方法难以从长上下文中提取关键信息。本文提出LoLA：支持稀疏缓存的低秩线性注意力机制。LoLA通过独立存储可能干扰历史关联记忆的键值对，将过往键值对分配至三种记忆形态：(i) 局部滑动窗口中的近期键值对；(ii) 稀疏全局缓存中难以记忆的键值对；(iii) 线性注意力循环隐状态中的通用键值对。作为纯推理策略，LoLA在RULER基准的"大海捞针"任务中实现了8K上下文长度的密钥检索，将基础次二次模型的准确率从4K长度时的0.6%提升至97.4%，且缓存体积比Llama-3.1 8B小4.6倍。在10亿和80亿参数规模的次二次模型中，LoLA在零样本常识推理任务上表现优异。该方法极具轻量化特性：几乎所有实验均可通过单张消费级GPU复现。</p>
-<div class="markdown-heading"><h2 class="heading-element">降噪旋转器：通过重要性集中提升大型语言模型的修剪鲁棒性</h2><a id="user-content-降噪旋转器通过重要性集中提升大型语言模型的修剪鲁棒性" class="anchor" aria-label="Permalink: 降噪旋转器：通过重要性集中提升大型语言模型的修剪鲁棒性" href="#降噪旋转器通过重要性集中提升大型语言模型的修剪鲁棒性"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>剪枝是一种广泛用于压缩大语言模型（LLM）的技术，通过移除不重要的权重来减小模型规模，但这种方法通常会导致显著的性能下降——尤其是在半结构化稀疏性约束下。现有剪枝方法主要聚焦于评估单个权重的重要性，这种思路限制了其保留模型关键能力的效果。本研究提出新视角：与其单纯筛选待剪枝的权重，不如先对参数重要性进行重新分配，使模型本身更适应剪枝操作。通过最小化归一化重要性分数的信息熵，我们的方法将重要性集中到更小的权重子集上，从而增强剪枝鲁棒性。我们通过DenoiseRotator实现这一理念：该方法对模型权重矩阵施加可学习的正交变换。我们的方案与模型架构无关，可无缝集成Magnitude、SparseGPT、Wanda等现有剪枝技术。在LLaMA3、Qwen2.5和Mistral模型上的评估表明，无论是50%非结构化稀疏还是2:4半结构化稀疏场景，DenoiseRotator均能持续改善困惑度和零样本准确率。以SparseGPT对LLaMA3-70B进行2:4半结构化剪枝为例，DenoiseRotator将困惑度与稠密模型的差距缩小了58%，使性能下降从8.1个点降至3.4个点。代码已开源：<a href="https://github.com/Axel-gu/DenoiseRotator%E3%80%82">https://github.com/Axel-gu/DenoiseRotator。</a></p>
-<p>（注：根据技术文本翻译规范，对以下术语进行了统一处理：</p>
-<ol>
-<li>"pruning"译为"剪枝"而非"修剪"，符合计算机领域术语标准</li>
-<li>"semi-structured sparsity"译为"半结构化稀疏性"，保留"结构化"这一关键特征</li>
-<li>"perplexity"译为"困惑度"，采用自然语言处理领域通用译法</li>
-<li>"zero-shot"保留英文术语特征译为"零样本"，未直译为"零射击"</li>
-<li>长难句采用拆分策略，如将原文"By minimizing..."复合句拆分为两个中文短句，符合汉语表达习惯）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">面向多目标域自适应的合并友好型训练后量化</h2><a id="user-content-面向多目标域自适应的合并友好型训练后量化" class="anchor" aria-label="Permalink: 面向多目标域自适应的合并友好型训练后量化" href="#面向多目标域自适应的合并友好型训练后量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>模型融合已成为一种强大的技术，能够整合任务特定权重，在多目标领域自适应中实现卓越性能。然而，当应用于量化模型等实际场景时，新的挑战随之出现。在实际应用中，量化通常针对特定目标数据进行，但这一过程会限制关注领域并引入离散化效应，使得模型融合变得异常复杂。本研究通过误差屏障的视角，系统分析了量化对模型融合的影响。基于这些发现，我们提出了一种新颖的训练后量化方法——HDRQ（海森矩阵与距离正则化量化），该方法专为多目标领域自适应的模型融合需求而设计。我们的方案确保量化过程与源预训练模型的偏差最小化，同时通过平坦化损失曲面来促进平滑的模型融合。据我们所知，这是针对该挑战的首项研究，大量实验证实了其有效性。</p>
-<p>（注：翻译过程中对以下专业术语进行了标准化处理：</p>
-<ol>
-<li>"error barriers"译为"误差屏障"（机器学习领域常用术语）</li>
-<li>"Hessian"保留专业称谓"海森矩阵"而非直译</li>
-<li>"flattening the loss surface"译为"平坦化损失曲面"以准确反映优化目标</li>
-<li>将英语长句合理切分为符合中文表达习惯的短句，如将原文最后复合句拆分为三个分句）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">"少即是多：通过结构化剪裁解锁时序基础模型的专精化"</h2><a id="user-content-少即是多通过结构化剪裁解锁时序基础模型的专精化" class="anchor" aria-label="Permalink: &quot;少即是多：通过结构化剪裁解锁时序基础模型的专精化&quot;" href="#少即是多通过结构化剪裁解锁时序基础模型的专精化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>扩展定律推动了时间序列基础模型（TSFMs）的发展，这些模型通过预训练海量参数实现了卓越的零样本预测性能。但令人惊讶的是，即便经过微调，TSFMs仍无法持续超越那些基于完整下游数据训练的小型专业模型。核心问题在于：如何实现TSFMs面向目标预测任务的有效适配？通过对多种TSFM的实证研究，我们发现预训练模型往往存在固有的计算稀疏性与冗余性，这表明TSFMs已学会激活任务相关的网络子结构来适应不同预测任务。为保留这一宝贵的先验知识，我们提出结构化剪枝方法，通过将微调过程聚焦于更相关且紧凑的参数空间来实现正则化。在七种TSFM和六个基准测试上的大量实验表明，相比原始模型，对经过剪枝的轻量化TSFM进行微调能显著提升预测性能。这种"先剪枝后微调"范式常能使TSFMs达到最先进的性能水平，甚至超越强大的专业基线模型。</p>
-<div class="markdown-heading"><h2 class="heading-element">模型保持自适应舍入</h2><a id="user-content-模型保持自适应舍入" class="anchor" aria-label="Permalink: 模型保持自适应舍入" href="#模型保持自适应舍入"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>训练后量化（PTQ）的核心目标是生成一个压缩模型，其输出分布尽可能接近原始模型。为实现这一目标，几乎所有大语言模型（LLM）PTQ算法都通过独立最小化即时激活误差来量化线性层。然而，这种局部优化目标忽略了后续层的影响，因此误差的降低未必能使模型更接近原始表现。本研究提出"另一种量化算法"（YAQA），这是一种自适应舍入算法，利用基于\textit{全模型}KL散度的各线性层Hessian矩阵的克罗内克分解近似。YAQA包含两个组件：可高效计算千亿参数LLM全层级Hessian矩阵的克罗内克分解草图，以及利用这些草图并具备理论保证的量化器无关舍入算法。在多种模型和量化器的测试中，YAQA将模型KL散度降低约30%，同时在下游任务中达到最先进性能。</p>
-<div class="markdown-heading"><h2 class="heading-element">KVzip：支持上下文重建的查询无关键值缓存压缩技术</h2><a id="user-content-kvzip支持上下文重建的查询无关键值缓存压缩技术" class="anchor" aria-label="Permalink: KVzip：支持上下文重建的查询无关键值缓存压缩技术" href="#kvzip支持上下文重建的查询无关键值缓存压缩技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">销售：长上下文LLM预填充中高效稀疏注意力的低位估计</h2><a id="user-content-销售长上下文llm预填充中高效稀疏注意力的低位估计" class="anchor" aria-label="Permalink: 销售：长上下文LLM预填充中高效稀疏注意力的低位估计" href="#销售长上下文llm预填充中高效稀疏注意力的低位估计"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.24179v1 公告类型：新论文<br>
+摘要：许多先进的大语言模型（LLM）应用需要处理长上下文，但在推理的预填充阶段，自注意力模块因其随序列长度呈二次方增长的时间复杂度成为性能瓶颈。现有稀疏注意力方法通过跳过注意力图中较不重要的区域来加速计算，但这些方法通常对注意力图进行粗粒度检测，导致模型精度显著下降。本文提出SALE——一种细粒度稀疏注意力方法，能在模型精度损失可忽略的前提下加速LLM的长上下文预填充阶段。SALE通过4位量化的查询-键值乘积实现快速精确的注意力权重估计，再结合块稀疏注意力机制加速预填充计算。针对查询-键值对的重要性评估，我们采用相对注意力分数指标，该指标在我们的框架内具有显著更高的效率。我们为该方法实现了定制化的CUDA内核以提升硬件效率，将额外开销控制在完整注意力延迟的约11%。值得注意的是，SALE无需参数训练，仅需极少的代码修改即可无缝集成到现有系统中。长上下文基准测试表明，本方法在精度-效率权衡上优于现有方案，在Llama-3.1-8B模型上对超过64K长度的序列实现至少3.36倍加速的同时保持模型质量。</p>
+<div class="markdown-heading"><h2 class="heading-element">ReCalKV：基于头部重排序与离线校准的低秩KV缓存压缩技术</h2><a id="user-content-recalkv基于头部重排序与离线校准的低秩kv缓存压缩技术" class="anchor" aria-label="Permalink: ReCalKV：基于头部重排序与离线校准的低秩KV缓存压缩技术" href="#recalkv基于头部重排序与离线校准的低秩kv缓存压缩技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>（注：翻译说明：</p>
 <ol>
-<li>"Query-Agnostic" 译为"查询无关"，表示该技术不受具体查询内容影响</li>
-<li>"KV Cache Compression" 采用计算机领域通用译法"键值缓存压缩"</li>
-<li>副标题采用"支持...的..."句式，通过"上下文重建"准确传达"Context Reconstruction"的技术特性</li>
-<li>整体保持技术术语的准确性，同时符合中文技术文献的命名习惯）</li>
+<li>"Low-Rank KV Cache Compression"译为"低秩KV缓存压缩技术"，其中：
+<ul>
+<li>"KV"作为技术术语保留不译</li>
+<li>"Low-Rank"是线性代数概念，专业场景下译为"低秩"</li>
+</ul>
+</li>
+<li>"Head Reordering"译为"头部重排序"，指注意力机制中多头（multi-head）的重新排列</li>
+<li>"Offline Calibration"译为"离线校准"，强调非实时调校过程</li>
+<li>采用"基于...的"结构保持技术方案描述的准确性</li>
+<li>主副标题用中文破折号连接，符合中文技术文档标题规范）</li>
 </ol>
-<p>基于Transformer架构的大语言模型（LLM）在推理过程中会将上下文缓存为键值对（KV）。随着上下文长度增加，KV缓存规模急剧膨胀，导致显著的内存开销与注意力延迟上升。本文提出KVzip——一种与查询无关的KV缓存淘汰方法，通过压缩KV缓存实现跨多样化查询的高效复用。该方法利用底层LLM量化KV对的重要性：通过重构缓存KV对还原原始上下文，据此淘汰低重要性键值对。大量实验表明，KVzip能将KV缓存体积压缩至1/3-1/4，FlashAttention解码延迟降低约50%，且在问答、检索、推理及代码理解任务中性能损失可忽略不计。评估涵盖LLaMA3.1-8B、Qwen2.5-14B和Gemma3-12B等多种模型，上下文长度最高达17万token。相较于现有查询感知型KV淘汰方案（在多查询场景下即使保留90%缓存仍会出现性能衰减），KVzip展现出显著优势。</p>
-<p>（注：根据技术文献翻译规范，对以下要点进行了专业化处理：</p>
+<p>arXiv:2505.24357v1 公告类型：新研究<br>
+摘要：尽管大语言模型（LLMs）已展现出卓越性能，但其长上下文推理能力常受限于存储键值（KV）缓存所需的高内存消耗。因此，KV缓存压缩成为实现高效长上下文推理的关键步骤。现有方法多尝试降低KV缓存的隐藏维度，但往往需要通过投影层引入额外计算，或在高压缩比下出现显著性能下降。为解决这些问题，我们提出ReCalKV——一种训练后KV缓存压缩方法，通过降低KV缓存的隐藏维度实现高效压缩。基于键和值在注意力机制中的不同作用及重要性差异，我们分别为其设计了专属压缩策略：对于键矩阵，提出<strong>头间相似度感知重排序（HSR）</strong>，通过聚类相似注意力头并对键投影矩阵实施分组奇异值分解（SVD），在减少额外计算的同时保持精度；对于值矩阵，采用**离线校准与矩阵融合（OCMF）**策略，无需增加计算开销即可维持准确性。实验表明，ReCalKV优于现有低秩压缩方法，能以极小的性能损失实现高压缩比。代码已开源：<a href="https://github.com/XIANGLONGYAN/ReCalKV">https://github.com/XIANGLONGYAN/ReCalKV</a></p>
+<p>（翻译说明：</p>
 <ol>
-<li>"3-4×"转换为分数形式"1/3-1/4"更符合中文表达习惯</li>
-<li>"170K tokens"译为"17万token"遵循中文数字单位</li>
-<li>"query-agnostic"译为"与查询无关"准确传达技术概念</li>
-<li>长难句拆分重组，如将原文最后复合句拆分为对比结构</li>
-<li>专业术语如FlashAttention、Transformer等保留英文原名）</li>
+<li>专业术语保留英文缩写（LLMs/KV/HSR/SVD等）并首次出现时标注中文全称</li>
+<li>技术概念如"post-training"译为"训练后"符合机器学习领域惯例</li>
+<li>方法名称采用加粗处理（<strong>头间相似度感知重排序</strong>）突出关键技术</li>
+<li>长句拆分重组（如摘要第二句）以符合中文表达习惯</li>
+<li>被动语态转换为主动句式（如"experiments show"译为"实验表明"）</li>
+<li>保持学术文本的严谨性，避免口语化表达）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">交由专家处理：通过稀疏进化进行稀疏微调以修复稀疏大型语言模型</h2><a id="user-content-交由专家处理通过稀疏进化进行稀疏微调以修复稀疏大型语言模型" class="anchor" aria-label="Permalink: 交由专家处理：通过稀疏进化进行稀疏微调以修复稀疏大型语言模型" href="#交由专家处理通过稀疏进化进行稀疏微调以修复稀疏大型语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.24037v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）虽在多类任务中表现卓越，但其庞大的计算需求给实际部署带来挑战。现有后训练剪枝方法（如SparseGPT和Wanda）虽能有效压缩模型规模，但在高稀疏度下难以保持性能，制约了其在下游任务中的应用。传统微调方法（如全参数微调和LoRA）因需更新完整稠密矩阵而无法保持稀疏性，并不适配稀疏化LLMs。本文提出稀疏演化微调（SEFT）——专为稀疏LLMs设计的新方法，通过在微调过程中动态演化剪枝模型的稀疏拓扑结构，同时全程保持整体稀疏度。SEFT的核心优势在于采用权重丢弃-重生策略实现任务自适应，使剪枝模型能根据目标数据集自主调整稀疏连接模式，并运用敏感度驱动的剪枝准则确保微调全程维持目标稀疏度。我们在LLaMA系列、DeepSeek和Mistral等多种LLMs上的实验表明，相较于现有基线方法，SEFT在保持更优内存和时间效率的同时实现了更强性能。代码已开源：<a href="https://github.com/QiaoXiao7282/SEFT%E3%80%82">https://github.com/QiaoXiao7282/SEFT。</a></p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<ol>
+<li>"sparse topology"译为"稀疏拓扑结构"以保持计算机领域术语一致性</li>
+<li>"weight drop-and-grow strategy"采用"丢弃-重生策略"的意译以准确传达算法机制</li>
+<li>"sensitivity-driven pruning criterion"译为"敏感度驱动的剪枝准则"突出技术特征</li>
+<li>长复合句按中文习惯拆分为多个短句，如将原文最后一句拆分为实验对象说明和结论两个部分）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">HELM：基于混合曲率专家的双曲大型语言模型</h2><a id="user-content-helm基于混合曲率专家的双曲大型语言模型" class="anchor" aria-label="Permalink: HELM：基于混合曲率专家的双曲大型语言模型" href="#helm基于混合曲率专家的双曲大型语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明如下：</p>
+<ol>
+<li>"Hyperbolic" 译为"双曲"，这是数学/几何学中"hyperbolic space"的标准译法</li>
+<li>"Mixture-of-Curvature Experts" 采用意译结合专业术语的处理方式：
+<ul>
+<li>"Mixture-of-Experts"是机器学习领域的专有名词，学界通用译法为"混合专家"</li>
+<li>"Curvature"在此语境下译为"曲率"（几何概念）</li>
+<li>整体采用"混合曲率专家"的译法既保留原术语结构，又准确传达"不同曲率空间的专家网络组合"的技术内涵</li>
+</ul>
+</li>
+<li>标题结构采用主副标题形式，用破折号连接，符合中文技术文献命名惯例</li>
+<li>增补"基于"二字使技术路径描述更完整，同时不改变原意）</li>
+</ol>
+<p>arXiv:2505.24722v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）在跨领域的文本建模任务中展现出卓越成效。然而，自然语言具有内在的语义层级结构和微妙的几何特性，而当前LLMs因依赖欧几里得运算未能完全捕捉这些特征。近期研究还表明，忽视词嵌入的几何特性会导致训练不稳定和生成能力退化。这些发现提示，转向非欧几里得几何能更好地使语言模型与文本的底层几何结构对齐。为此，我们提出在双曲空间（以其可扩展性、无标度性和低失真特性著称）中构建完整运算体系，推出HELM系列双曲大语言模型，对基于Transformer的LLM进行几何重构，解决了现有双曲语言模型表征僵化、必要运算缺失和扩展性不足三大难题。</p>
+<p>我们进一步提出混合曲率专家模型HELM-MICE——每个专家在独特曲率空间中运作以编码更细粒度的文本几何结构，以及稠密模型HELM-D。针对HELM-MICE，我们开发了双曲多头潜在注意力机制（HMLA），实现高效的低KV缓存训练推理。对于两类模型，我们均开发了关键的双曲等效模块：旋转位置编码与RMS归一化。我们率先实现了十亿参数规模的全双曲LLMs训练，并在MMLU、ARC等涵盖STEM问题求解、通识与常识推理的基准测试中评估。实验结果表明，相比LLaMA和DeepSeek采用的欧几里得架构，HELM系列模型性能持续领先（最高提升4%），印证了双曲几何在大规模语言模型预训练中提升推理效能的核心价值。</p>
+<p>（注：根据学术文本翻译规范，关键技术术语保持英文缩写+中文全称的呈现方式；长句按中文表达习惯拆分为逻辑连贯的短句；专业概念如"Mixture-of-Curvature Experts"采用"混合曲率专家"的意译方案；数学符号"KV-cache"保留英文缩写但补充说明性翻译）</p>
+<div class="markdown-heading"><h2 class="heading-element">TSENOR：高效寻找可转置N:M稀疏掩码的算法</h2><a id="user-content-tsenor高效寻找可转置nm稀疏掩码的算法" class="anchor" aria-label="Permalink: TSENOR：高效寻找可转置N:M稀疏掩码的算法" href="#tsenor高效寻找可转置nm稀疏掩码的算法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.23949v1 公告类型：新研究<br>
+摘要：网络剪枝技术通过降低大型神经网络的计算需求来实现模型压缩，其中N:M稀疏模式（即每连续M个权重中仅保留N个）在压缩模型质量与硬件加速之间提供了理想的平衡。然而，N:M稀疏仅能加速前向传播计算，由于矩阵转置时N:M模式无法保持，在训练阶段（正反向传播均需密集计算）的效率受到限制。虽然可转置N:M稀疏方案已被提出以解决这一缺陷，但现有方法要么无法扩展至大型模型，要么仅限于M=4的配置，导致压缩精度权衡欠佳。</p>
+<p>我们提出了一种高效的可转置N:M掩码求解器，可扩展至十亿参数级模型。该方法将掩码生成建模为最优传输问题，通过熵正则化与Dykstra算法求解，辅以舍入处理。基于张量的GPU并行实现相较现有方法提速达100倍，误差仅1-10%。本方案可与Wanda、SparseGPT、ALPS等分层N:M剪枝框架结合，生成任意N:M值的可转置稀疏模型。实验表明，采用可转置16:32稀疏的LLaMA3.2-8B模型性能接近标准N:M版本，且优于标准2:4稀疏模型，验证了本方法的实用价值。</p>
+<p>（注：专业术语处理说明：</p>
+<ol>
+<li>"transposable N:M sparsity"译为"可转置N:M稀疏"，强调矩阵转置特性</li>
+<li>"optimal transport problems"采用学界通用译法"最优传输问题"</li>
+<li>"Dykstra's algorithm"保留算法原名并标注"算法"以符合中文习惯</li>
+<li>"billion-parameter models"译为"十亿参数级模型"以准确反映数量级</li>
+<li>技术名词如"Wanda/SparseGPT/ALPS"保留原名确保专业性）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">AutoChemSchematic AI：一种用于自动生成化工工艺与仪表流程图的闭环物理感知智能体框架</h2><a id="user-content-autochemschematic-ai一种用于自动生成化工工艺与仪表流程图的闭环物理感知智能体框架" class="anchor" aria-label="Permalink: AutoChemSchematic AI：一种用于自动生成化工工艺与仪表流程图的闭环物理感知智能体框架" href="#autochemschematic-ai一种用于自动生成化工工艺与仪表流程图的闭环物理感知智能体框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2505.24584v1 公告类型：新成果<br>
+摘要：尽管生成式AI的最新进展加速了新型化学品与材料的发现，但将这些发现转化为工业化规模生产仍存在关键瓶颈——这需要开发全新的化学制造工艺流程。当前AI方法尚无法自动生成在化工放大过程中至关重要的工艺流程图（PFD）和管道仪表流程图（PID），同时满足工程约束条件。我们提出一种闭环、物理感知的自动化框架，用于生成具备工业可行性的PFD与PID。该框架通过三个核心组件，将面向化工过程QA任务训练的领域专用小规模语言模型（SLM）与第一性原理模拟相结合：（1）包含1,020+种化学品的工艺流程与仪器描述的分层知识图谱；（2）利用监督微调（SFT）、直接偏好优化（DPO）和检索增强指令调优（RAIT）在合成数据集上微调领域专用SLM的多阶段训练管道；（3）基于DWSIM的模拟器闭环验证以确保可行性。为提升运行时效率与模型紧凑性，框架整合了FlashAttention、前瞻解码、支持KV缓存量化的分页注意力机制、测试时推理缩放等先进推理优化技术，并采用启发式重要性引导的结构化剪枝（宽度与深度）以最小精度损失压缩模型规模。实验表明，该框架生成的工艺描述经模拟器验证具有高保真度，在正确性上超越基线方法，并能泛化至未见化学品。通过连接AI驱动设计与工业级可行性，本工作显著缩短了从实验室发现到工厂部署的研发周期。</p>
+<p>（注：专业术语处理说明：</p>
+<ol>
+<li>PFDs/PIDs保留英文缩写并添加中文全称首译注释</li>
+<li>SLMs采用"小规模语言模型"译法突出参数规模特征</li>
+<li>DPO/RAIT等算法名按行业惯例保留英文缩写</li>
+<li>"simulator in the loop"译为"闭环验证"体现控制论概念</li>
+<li>"Lookahead Decoding"译为"前瞻解码"准确传达算法特性）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

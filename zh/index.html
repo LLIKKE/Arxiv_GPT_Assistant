@@ -12,83 +12,73 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">销售：长上下文LLM预填充中高效稀疏注意力的低位估计</h2><a id="user-content-销售长上下文llm预填充中高效稀疏注意力的低位估计" class="anchor" aria-label="Permalink: 销售：长上下文LLM预填充中高效稀疏注意力的低位估计" href="#销售长上下文llm预填充中高效稀疏注意力的低位估计"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.24179v1 公告类型：新论文<br>
-摘要：许多先进的大语言模型（LLM）应用需要处理长上下文，但在推理的预填充阶段，自注意力模块因其随序列长度呈二次方增长的时间复杂度成为性能瓶颈。现有稀疏注意力方法通过跳过注意力图中较不重要的区域来加速计算，但这些方法通常对注意力图进行粗粒度检测，导致模型精度显著下降。本文提出SALE——一种细粒度稀疏注意力方法，能在模型精度损失可忽略的前提下加速LLM的长上下文预填充阶段。SALE通过4位量化的查询-键值乘积实现快速精确的注意力权重估计，再结合块稀疏注意力机制加速预填充计算。针对查询-键值对的重要性评估，我们采用相对注意力分数指标，该指标在我们的框架内具有显著更高的效率。我们为该方法实现了定制化的CUDA内核以提升硬件效率，将额外开销控制在完整注意力延迟的约11%。值得注意的是，SALE无需参数训练，仅需极少的代码修改即可无缝集成到现有系统中。长上下文基准测试表明，本方法在精度-效率权衡上优于现有方案，在Llama-3.1-8B模型上对超过64K长度的序列实现至少3.36倍加速的同时保持模型质量。</p>
-<div class="markdown-heading"><h2 class="heading-element">ReCalKV：基于头部重排序与离线校准的低秩KV缓存压缩技术</h2><a id="user-content-recalkv基于头部重排序与离线校准的低秩kv缓存压缩技术" class="anchor" aria-label="Permalink: ReCalKV：基于头部重排序与离线校准的低秩KV缓存压缩技术" href="#recalkv基于头部重排序与离线校准的低秩kv缓存压缩技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">超低量化：通过1.58位编码实现高效嵌入搜索</h2><a id="user-content-超低量化通过158位编码实现高效嵌入搜索" class="anchor" aria-label="Permalink: 超低量化：通过1.58位编码实现高效嵌入搜索" href="#超低量化通过158位编码实现高效嵌入搜索"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.00528v1 公告类型：新研究<br>
+摘要：许多现代搜索领域涉及源自神经网络的高维浮点数向量，即嵌入向量。典型嵌入向量的维度范围从数百到数千不等，这使得嵌入向量的大小及比较速度成为关键问题。</p>
+<p>量化是一类用更小表示形式（例如短整数）替代浮点数值的机制。这种机制通过近似嵌入空间来换取更小的数据表示和更快的比较函数。</p>
+<p>本文将此理念推向极致：我们展示了如何用元素取自集合{-1,0,1}的向量替代任意精度浮点数值向量。这种方法在保持相似性测量强相关性的同时，实现了存储空间和度量计算成本的显著降低。</p>
+<p>这一成果的数学基础源于高维空间中一类凸多胞体。本文概述了这些几何对象的特性，并演示了如何以其为基础实现如此极端的量化，同时仍能保持惊人的准确性。</p>
+<p>（注：根据学术规范，专业术语如"arXiv"、"embedding"、"quantisation"等保留英文形式；"polytopes"译为"多胞体"符合数学领域习惯；长句按中文表达习惯拆分为短句；被动语态转换为主动表述；抽象概念如"strong correlation"译为"强相关性"以保持精确性。）</p>
+<div class="markdown-heading"><h2 class="heading-element">压缩表示的统一缩放定律</h2><a id="user-content-压缩表示的统一缩放定律" class="anchor" aria-label="Permalink: 压缩表示的统一缩放定律" href="#压缩表示的统一缩放定律"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.01863v1 公告类型：新论文<br>
+摘要：<br>
+缩放定律通过建立模型性能与模型规模、计算量和数据量之间的可预测关系，推动了机器学习领域的最新进展。与此同时，人工智能计算成本的激增催生了模型压缩技术，特别是量化和稀疏化方法，这些技术旨在缓解大规模训练和推理所需的巨额计算需求。本文研究了缩放定律与压缩格式之间的相互作用，探讨当训练过程基于各种压缩表示（如稀疏格式、标量量化、稀疏-量化混合甚至向量量化格式）时，能否通过统一的缩放框架准确预测模型性能。我们的核心贡献包括验证了一个通用缩放定律公式，并证明该公式不仅适用于单一压缩类型，还能跨压缩类型组合使用。基于此，我们通过理论与实证研究表明：存在一个基于"表示能力"（即该表示方法拟合随机高斯数据的能力）的简单"容量"指标，可以稳健预测多种压缩表示下的参数效率。在实践层面，我们扩展了这一公式以直接比较不同压缩格式的精度潜力，并推导出针对稀疏-量化混合格式的更优训练算法。</p>
+<p>（注：根据学术论文摘要的翻译规范，对部分专业术语进行了如下处理：</p>
 <ol>
-<li>"Low-Rank KV Cache Compression"译为"低秩KV缓存压缩技术"，其中：
-<ul>
-<li>"KV"作为技术术语保留不译</li>
-<li>"Low-Rank"是线性代数概念，专业场景下译为"低秩"</li>
-</ul>
-</li>
-<li>"Head Reordering"译为"头部重排序"，指注意力机制中多头（multi-head）的重新排列</li>
-<li>"Offline Calibration"译为"离线校准"，强调非实时调校过程</li>
-<li>采用"基于...的"结构保持技术方案描述的准确性</li>
-<li>主副标题用中文破折号连接，符合中文技术文档标题规范）</li>
+<li>"scaling laws"译为"缩放定律"，这是机器学习领域的标准译法</li>
+<li>"vector-quantized"译为"向量量化"，保持与信号处理领域术语的一致性</li>
+<li>"parameter efficiency"译为"参数效率"，准确传达原文指代模型参数利用率的含义</li>
+<li>长难句采用拆分策略，如将原文"exploring whether..."复杂从句转化为中文的"探讨当...时，能否..."的流水句结构</li>
+<li>保留"arXiv"等专有名词不译，符合学术惯例）</li>
 </ol>
-<p>arXiv:2505.24357v1 公告类型：新研究<br>
-摘要：尽管大语言模型（LLMs）已展现出卓越性能，但其长上下文推理能力常受限于存储键值（KV）缓存所需的高内存消耗。因此，KV缓存压缩成为实现高效长上下文推理的关键步骤。现有方法多尝试降低KV缓存的隐藏维度，但往往需要通过投影层引入额外计算，或在高压缩比下出现显著性能下降。为解决这些问题，我们提出ReCalKV——一种训练后KV缓存压缩方法，通过降低KV缓存的隐藏维度实现高效压缩。基于键和值在注意力机制中的不同作用及重要性差异，我们分别为其设计了专属压缩策略：对于键矩阵，提出<strong>头间相似度感知重排序（HSR）</strong>，通过聚类相似注意力头并对键投影矩阵实施分组奇异值分解（SVD），在减少额外计算的同时保持精度；对于值矩阵，采用**离线校准与矩阵融合（OCMF）**策略，无需增加计算开销即可维持准确性。实验表明，ReCalKV优于现有低秩压缩方法，能以极小的性能损失实现高压缩比。代码已开源：<a href="https://github.com/XIANGLONGYAN/ReCalKV">https://github.com/XIANGLONGYAN/ReCalKV</a></p>
-<p>（翻译说明：</p>
-<ol>
-<li>专业术语保留英文缩写（LLMs/KV/HSR/SVD等）并首次出现时标注中文全称</li>
-<li>技术概念如"post-training"译为"训练后"符合机器学习领域惯例</li>
-<li>方法名称采用加粗处理（<strong>头间相似度感知重排序</strong>）突出关键技术</li>
-<li>长句拆分重组（如摘要第二句）以符合中文表达习惯</li>
-<li>被动语态转换为主动句式（如"experiments show"译为"实验表明"）</li>
-<li>保持学术文本的严谨性，避免口语化表达）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">交由专家处理：通过稀疏进化进行稀疏微调以修复稀疏大型语言模型</h2><a id="user-content-交由专家处理通过稀疏进化进行稀疏微调以修复稀疏大型语言模型" class="anchor" aria-label="Permalink: 交由专家处理：通过稀疏进化进行稀疏微调以修复稀疏大型语言模型" href="#交由专家处理通过稀疏进化进行稀疏微调以修复稀疏大型语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.24037v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）虽在多类任务中表现卓越，但其庞大的计算需求给实际部署带来挑战。现有后训练剪枝方法（如SparseGPT和Wanda）虽能有效压缩模型规模，但在高稀疏度下难以保持性能，制约了其在下游任务中的应用。传统微调方法（如全参数微调和LoRA）因需更新完整稠密矩阵而无法保持稀疏性，并不适配稀疏化LLMs。本文提出稀疏演化微调（SEFT）——专为稀疏LLMs设计的新方法，通过在微调过程中动态演化剪枝模型的稀疏拓扑结构，同时全程保持整体稀疏度。SEFT的核心优势在于采用权重丢弃-重生策略实现任务自适应，使剪枝模型能根据目标数据集自主调整稀疏连接模式，并运用敏感度驱动的剪枝准则确保微调全程维持目标稀疏度。我们在LLaMA系列、DeepSeek和Mistral等多种LLMs上的实验表明，相较于现有基线方法，SEFT在保持更优内存和时间效率的同时实现了更强性能。代码已开源：<a href="https://github.com/QiaoXiao7282/SEFT%E3%80%82">https://github.com/QiaoXiao7282/SEFT。</a></p>
+<div class="markdown-heading"><h2 class="heading-element">Uni-LoRA：一向量足矣</h2><a id="user-content-uni-lora一向量足矣" class="anchor" aria-label="Permalink: Uni-LoRA：一向量足矣" href="#uni-lora一向量足矣"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.00799v1 公告类型：新研究<br>
+摘要：低秩自适应（LoRA）通过将权重更新约束在低秩矩阵上，已成为大语言模型（LLM）参数高效微调（PEFT）的事实标准方法。近期研究如Tied-LoRA、VeRA和VB-LoRA通过引入额外约束进一步压缩可训练参数量来提升效率。本文提出，这些LoRA变体的参数空间压缩策略可统一于Uni-LoRA框架中——将LoRA参数空间展平为高维向量空间$R^D$后，均可通过从子空间$R^d$（$d \ll D$）的投影重构。我们发现不同LoRA方法的本质区别在于投影矩阵$P \in R^{D \times d}$的选择：现有方法多采用逐层或结构特定的投影，限制了跨层参数共享从而影响效率。基于此，我们提出一种高效且理论完备的等距投影矩阵设计，支持全局参数共享并降低计算开销。在Uni-LoRA的统一视角下，该方案仅需单个可训练向量即可重构整个LLM的LoRA参数，使Uni-LoRA兼具统一框架与"单向量解"特性。在GLUE基准、数学推理和指令微调任务上的实验表明，Uni-LoRA在参数效率上达到最先进水平，同时预测性能优于或匹配现有方法。</p>
 <p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>"sparse topology"译为"稀疏拓扑结构"以保持计算机领域术语一致性</li>
-<li>"weight drop-and-grow strategy"采用"丢弃-重生策略"的意译以准确传达算法机制</li>
-<li>"sensitivity-driven pruning criterion"译为"敏感度驱动的剪枝准则"突出技术特征</li>
-<li>长复合句按中文习惯拆分为多个短句，如将原文最后一句拆分为实验对象说明和结论两个部分）</li>
+<li>"de facto"译为"事实标准"以符合技术语境</li>
+<li>"parameter-efficient fine-tuning"统一译为"参数高效微调"</li>
+<li>数学符号保留原文格式确保准确性</li>
+<li>复杂长句按中文习惯拆分为短句，如将"where"从句转换为破折号说明</li>
+<li>技术概念如"isometric projection"译为"等距投影"保持学科一致性）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">HELM：基于混合曲率专家的双曲大型语言模型</h2><a id="user-content-helm基于混合曲率专家的双曲大型语言模型" class="anchor" aria-label="Permalink: HELM：基于混合曲率专家的双曲大型语言模型" href="#helm基于混合曲率专家的双曲大型语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明如下：</p>
+<div class="markdown-heading"><h2 class="heading-element">TAH-QUANT：慢速网络环境下流水线并行中的高效激活量化</h2><a id="user-content-tah-quant慢速网络环境下流水线并行中的高效激活量化" class="anchor" aria-label="Permalink: TAH-QUANT：慢速网络环境下流水线并行中的高效激活量化" href="#tah-quant慢速网络环境下流水线并行中的高效激活量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.01352v1 公告类型：新研究<br>
+摘要：大型语言模型的去中心化训练为跨地域分布式参与者整合计算资源提供了可能，但面临着显著的网络通信瓶颈，尤其在流水线并行场景中。虽然流水线并行通过将模型层划分到不同设备来处理大规模模型，但需要频繁传递中间激活值，这在网络带宽受限时带来巨大挑战。现有激活压缩方法（如AQ-SGD）通过误差补偿缓解量化误差，却因需存储历史激活值而产生过高内存开销。为此，我们提出TAH-Quant（分块自适应哈达玛量化）——专为流水线并行设计的创新激活量化框架。该方法融合三大核心技术：通过细粒度分块量化实现精确控制，基于熵的令牌级自适应比特分配优化比特利用率，以及结合枢轴元素交换的哈达玛变换有效抑制量化异常值。我们进一步给出理论证明：配备TAH-Quant的流水线并行训练保持$\mathcal{O}(1/\sqrt{T})$收敛速率，与标准随机梯度下降相当。在多类LLM任务上的实验表明，TAH-Quant实现了激进的激活压缩（3-4比特），在保证训练收敛性的前提下获得最高4.3$\times$的端到端加速，性能媲美现有最优方法，不产生额外内存开销，且能泛化至不同训练场景。</p>
+<div class="markdown-heading"><h2 class="heading-element">CPU环境下大型语言模型的内存访问特性及其潜在影响</h2><a id="user-content-cpu环境下大型语言模型的内存访问特性及其潜在影响" class="anchor" aria-label="Permalink: CPU环境下大型语言模型的内存访问特性及其潜在影响" href="#cpu环境下大型语言模型的内存访问特性及其潜在影响"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.01827v1 公告类型：新研究<br>
+摘要：随着机器学习算法被证明是一种日益重要的工具，对其访问需求也相应增长。通常，在没有加速器的情况下运行大型模型的推理是不可行的，而在存在能耗、安全性或成本等限制的环境中，加速器可能无法使用。为了提高这些模型的可用性，我们旨在通过修改缓存架构来提升纯CPU环境下的LLM推理速度。为确定可能的改进方向，我们使用Llama.cpp和QWEN模型进行了两项实验：运行不同缓存配置并评估其性能，以及输出内存占用的追踪数据。通过这些实验，我们研究了内存访问模式和性能特征，以识别潜在的优化机会。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>"Hyperbolic" 译为"双曲"，这是数学/几何学中"hyperbolic space"的标准译法</li>
-<li>"Mixture-of-Curvature Experts" 采用意译结合专业术语的处理方式：
-<ul>
-<li>"Mixture-of-Experts"是机器学习领域的专有名词，学界通用译法为"混合专家"</li>
-<li>"Curvature"在此语境下译为"曲率"（几何概念）</li>
-<li>整体采用"混合曲率专家"的译法既保留原术语结构，又准确传达"不同曲率空间的专家网络组合"的技术内涵</li>
-</ul>
-</li>
-<li>标题结构采用主副标题形式，用破折号连接，符合中文技术文献命名惯例</li>
-<li>增补"基于"二字使技术路径描述更完整，同时不改变原意）</li>
+<li>"accelerator"译为"加速器"而非"加速设备"，符合计算机领域术语</li>
+<li>"memory footprint"译为"内存占用"而非"内存足迹"，采用更通用的技术表述</li>
+<li>"trace"在此语境下译为"追踪数据"而非"痕迹"，更准确表达调试数据的含义</li>
+<li>保留了"Llama.cpp"和"QWEN"等专有名词的原始拼写</li>
+<li>将长句拆分为符合中文阅读习惯的短句结构，如将原文最后一句分译为两个分句）</li>
 </ol>
-<p>arXiv:2505.24722v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）在跨领域的文本建模任务中展现出卓越成效。然而，自然语言具有内在的语义层级结构和微妙的几何特性，而当前LLMs因依赖欧几里得运算未能完全捕捉这些特征。近期研究还表明，忽视词嵌入的几何特性会导致训练不稳定和生成能力退化。这些发现提示，转向非欧几里得几何能更好地使语言模型与文本的底层几何结构对齐。为此，我们提出在双曲空间（以其可扩展性、无标度性和低失真特性著称）中构建完整运算体系，推出HELM系列双曲大语言模型，对基于Transformer的LLM进行几何重构，解决了现有双曲语言模型表征僵化、必要运算缺失和扩展性不足三大难题。</p>
-<p>我们进一步提出混合曲率专家模型HELM-MICE——每个专家在独特曲率空间中运作以编码更细粒度的文本几何结构，以及稠密模型HELM-D。针对HELM-MICE，我们开发了双曲多头潜在注意力机制（HMLA），实现高效的低KV缓存训练推理。对于两类模型，我们均开发了关键的双曲等效模块：旋转位置编码与RMS归一化。我们率先实现了十亿参数规模的全双曲LLMs训练，并在MMLU、ARC等涵盖STEM问题求解、通识与常识推理的基准测试中评估。实验结果表明，相比LLaMA和DeepSeek采用的欧几里得架构，HELM系列模型性能持续领先（最高提升4%），印证了双曲几何在大规模语言模型预训练中提升推理效能的核心价值。</p>
-<p>（注：根据学术文本翻译规范，关键技术术语保持英文缩写+中文全称的呈现方式；长句按中文表达习惯拆分为逻辑连贯的短句；专业概念如"Mixture-of-Curvature Experts"采用"混合曲率专家"的意译方案；数学符号"KV-cache"保留英文缩写但补充说明性翻译）</p>
-<div class="markdown-heading"><h2 class="heading-element">TSENOR：高效寻找可转置N:M稀疏掩码的算法</h2><a id="user-content-tsenor高效寻找可转置nm稀疏掩码的算法" class="anchor" aria-label="Permalink: TSENOR：高效寻找可转置N:M稀疏掩码的算法" href="#tsenor高效寻找可转置nm稀疏掩码的算法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.23949v1 公告类型：新研究<br>
-摘要：网络剪枝技术通过降低大型神经网络的计算需求来实现模型压缩，其中N:M稀疏模式（即每连续M个权重中仅保留N个）在压缩模型质量与硬件加速之间提供了理想的平衡。然而，N:M稀疏仅能加速前向传播计算，由于矩阵转置时N:M模式无法保持，在训练阶段（正反向传播均需密集计算）的效率受到限制。虽然可转置N:M稀疏方案已被提出以解决这一缺陷，但现有方法要么无法扩展至大型模型，要么仅限于M=4的配置，导致压缩精度权衡欠佳。</p>
-<p>我们提出了一种高效的可转置N:M掩码求解器，可扩展至十亿参数级模型。该方法将掩码生成建模为最优传输问题，通过熵正则化与Dykstra算法求解，辅以舍入处理。基于张量的GPU并行实现相较现有方法提速达100倍，误差仅1-10%。本方案可与Wanda、SparseGPT、ALPS等分层N:M剪枝框架结合，生成任意N:M值的可转置稀疏模型。实验表明，采用可转置16:32稀疏的LLaMA3.2-8B模型性能接近标准N:M版本，且优于标准2:4稀疏模型，验证了本方法的实用价值。</p>
-<p>（注：专业术语处理说明：</p>
+<div class="markdown-heading"><h2 class="heading-element">训练优质模型需以优质模型为基：广义高斯先验助力优化大语言模型</h2><a id="user-content-训练优质模型需以优质模型为基广义高斯先验助力优化大语言模型" class="anchor" aria-label="Permalink: 训练优质模型需以优质模型为基：广义高斯先验助力优化大语言模型" href="#训练优质模型需以优质模型为基广义高斯先验助力优化大语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>注：翻译要点说明：</p>
 <ol>
-<li>"transposable N:M sparsity"译为"可转置N:M稀疏"，强调矩阵转置特性</li>
-<li>"optimal transport problems"采用学界通用译法"最优传输问题"</li>
-<li>"Dykstra's algorithm"保留算法原名并标注"算法"以符合中文习惯</li>
-<li>"billion-parameter models"译为"十亿参数级模型"以准确反映数量级</li>
-<li>技术名词如"Wanda/SparseGPT/ALPS"保留原名确保专业性）</li>
+<li>主标题采用对仗式处理，"It Takes a Good Model to Train a Good Model"译为"训练优质模型需以优质模型为基"，既保持原文回环结构，又符合中文表达习惯</li>
+<li>"Generalized Gaussian Priors"专业术语译为"广义高斯先验"，准确体现统计学概念</li>
+<li>"Optimized LLMs"采用行业通用译法"优化大语言模型"，其中LLMs（Large Language Models）使用中文领域通用简称"大语言模型"</li>
+<li>整体采用学术论文标题的简洁风格，通过冒号分层保持原标题结构，同时使用"助力"一词体现技术方案的支撑作用，比直译"为了"更符合中文技术文献表达惯例</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">AutoChemSchematic AI：一种用于自动生成化工工艺与仪表流程图的闭环物理感知智能体框架</h2><a id="user-content-autochemschematic-ai一种用于自动生成化工工艺与仪表流程图的闭环物理感知智能体框架" class="anchor" aria-label="Permalink: AutoChemSchematic AI：一种用于自动生成化工工艺与仪表流程图的闭环物理感知智能体框架" href="#autochemschematic-ai一种用于自动生成化工工艺与仪表流程图的闭环物理感知智能体框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2505.24584v1 公告类型：新成果<br>
-摘要：尽管生成式AI的最新进展加速了新型化学品与材料的发现，但将这些发现转化为工业化规模生产仍存在关键瓶颈——这需要开发全新的化学制造工艺流程。当前AI方法尚无法自动生成在化工放大过程中至关重要的工艺流程图（PFD）和管道仪表流程图（PID），同时满足工程约束条件。我们提出一种闭环、物理感知的自动化框架，用于生成具备工业可行性的PFD与PID。该框架通过三个核心组件，将面向化工过程QA任务训练的领域专用小规模语言模型（SLM）与第一性原理模拟相结合：（1）包含1,020+种化学品的工艺流程与仪器描述的分层知识图谱；（2）利用监督微调（SFT）、直接偏好优化（DPO）和检索增强指令调优（RAIT）在合成数据集上微调领域专用SLM的多阶段训练管道；（3）基于DWSIM的模拟器闭环验证以确保可行性。为提升运行时效率与模型紧凑性，框架整合了FlashAttention、前瞻解码、支持KV缓存量化的分页注意力机制、测试时推理缩放等先进推理优化技术，并采用启发式重要性引导的结构化剪枝（宽度与深度）以最小精度损失压缩模型规模。实验表明，该框架生成的工艺描述经模拟器验证具有高保真度，在正确性上超越基线方法，并能泛化至未见化学品。通过连接AI驱动设计与工业级可行性，本工作显著缩短了从实验室发现到工厂部署的研发周期。</p>
-<p>（注：专业术语处理说明：</p>
+<p>arXiv:2506.00486v1 公告类型：新研究<br>
+摘要：尽管大语言模型（LLMs）的研究与部署进展迅猛，但模型参数的统计分布及其对初始化、训练动态和下游效率的影响却鲜少受到关注。近期一项研究提出了训练时压缩算法BackSlash，首次证明预训练LLM参数更符合广义高斯分布（GGDs）。通过在训练过程中优化广义高斯先验，BackSlash能在性能损失极小的情况下将参数减少高达90%。基于这一关键发现，我们提出一个基于GG模型的统一端到端LLM优化框架，贡献包括：（1）符合训练模型统计结构的GG初始化方案，可加速收敛并提升精度；（2）DeepShape后训练正则化方法，通过重塑权重分布匹配GG轮廓，在最小化性能损失的同时提升压缩潜力；（3）专为GG分布初始化BackSlash训练设计的RF8——一种紧凑且硬件高效的8位浮点格式，可在保持精度的前提下实现低成本推理。跨多种模型架构的实验表明，该框架始终能生成更小更快的模型，其性能持平或超越标准训练基线。通过将LLM开发建立在严谨的统计建模基础上，本研究为高效、可扩展且硬件感知的AI系统开辟了新路径。代码已发布于项目页：<a href="https://huggingface.co/spaces/shifeng3711/gg_prior" rel="nofollow">https://huggingface.co/spaces/shifeng3711/gg_prior</a></p>
+<p>（注：根据学术文献翻译规范，专业术语如"generalized Gaussian distributions"采用"广义高斯分布"标准译法；技术概念如"end-to-end"译为"端到端"；机构名"HuggingFace"保留英文品牌名；长难句按中文表达习惯拆分重组；URL链接保留原格式以确保可访问性）</p>
+<div class="markdown-heading"><h2 class="heading-element">MLorc：面向大语言模型适配的动量低秩压缩技术</h2><a id="user-content-mlorc面向大语言模型适配的动量低秩压缩技术" class="anchor" aria-label="Permalink: MLorc：面向大语言模型适配的动量低秩压缩技术" href="#mlorc面向大语言模型适配的动量低秩压缩技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明：</p>
 <ol>
-<li>PFDs/PIDs保留英文缩写并添加中文全称首译注释</li>
-<li>SLMs采用"小规模语言模型"译法突出参数规模特征</li>
-<li>DPO/RAIT等算法名按行业惯例保留英文缩写</li>
-<li>"simulator in the loop"译为"闭环验证"体现控制论概念</li>
-<li>"Lookahead Decoding"译为"前瞻解码"准确传达算法特性）</li>
+<li>保留技术术语"MLorc"作为专有名词不译</li>
+<li>"Momentum"译为"动量"，遵循物理学/优化算法领域的既定译法</li>
+<li>"Low-rank Compression"译为"低秩压缩"，采用线性代数术语的标准翻译</li>
+<li>"Adaptation"译为"适配"而非"适应"，更符合计算机领域的术语使用习惯</li>
+<li>整体采用"技术"作为隐性中心词，符合中文技术名称的简洁性要求</li>
+<li>使用"面向...的"结构准确传达"for"的功能性含义</li>
+<li>通过四字格"动量低秩"保持术语的紧凑性，同时确保专业准确性）</li>
 </ol>
+<p>arXiv:2506.01897v1 公告类型：新研究<br>
+摘要：随着大语言模型（LLMs）规模的不断扩大，全参数微调对内存的需求急剧增加。为缓解这一问题，我们提出了一种新型内存高效训练范式——动量低秩压缩（MLorc）。该方法通过直接压缩并重建动量（而非梯度），避免了在权重更新矩阵上施加固定秩约束，从而更好地保持了全参数微调的动态特性，这与LoRA、GaLore等现有低秩方法形成鲜明对比。实验表明，MLorc在内存高效训练方法中持续领先，即使采用极小秩数（如$r=4$）也能匹配甚至超越全微调性能，且在不同优化器间展现出优异泛化能力——同时完全不牺牲时间或内存效率。此外，我们在合理假设下为其收敛性提供了理论保证。</p>
+<p>（注：根据学术规范，专业术语如"momentum"在优化算法领域通常译为"动量"；"low-rank compression"译为"低秩压缩"是标准译法；"full-parameter fine-tuning"译为"全参数微调"符合NLP领域惯例；数学符号$r=4$保留原文格式；被动语态"is proposed"按中文习惯转化为主动句式"我们提出"）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

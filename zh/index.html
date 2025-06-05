@@ -12,51 +12,21 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">神经网络架构中的可交换性及其在动态剪枝中的应用</h2><a id="user-content-神经网络架构中的可交换性及其在动态剪枝中的应用" class="anchor" aria-label="Permalink: 神经网络架构中的可交换性及其在动态剪枝中的应用" href="#神经网络架构中的可交换性及其在动态剪枝中的应用"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.02210v1 公告类型：新研究<br>
-摘要：神经网络（NNs）的参数规模日益增大，部署所需资源也越来越多。研究者们已探索了多种通过识别和减少冗余来提高神经网络效率的方法，例如剪枝或量化不重要权重。先前工作已发现神经网络架构中的对称性可能构成一类冗余，但如何利用这种特性实现高效推理尚未得到充分探索。本研究利用可交换性的统计特性，对神经网络参数和中间值的对称性进行了形式化定义。我们发现神经网络计算中具有可交换性的值可能包含重叠信息，从而导致冗余。基于这一洞见，我们提出了一种原则性的通用动态剪枝算法ExPrune，能够根据每个输入动态消除对称性诱导的冗余。同时我们还实现了ExPrune的具体实例，通过预测ReLU激活函数的负输入来实现神经元级动态剪枝。我们在两个计算机视觉模型、一个图模型和一个语言模型上评估了ExPrune，结果显示：在精度损失可忽略的情况下实现了10.98-26.3%的FLOPs（浮点运算次数）削减，在精度损失不超过1%时实现了21.01-39.05%的FLOPs削减。实验还证明ExPrune可与静态剪枝组合使用——对于经过激进静态剪枝的模型，ExPrune能在精度损失可忽略时额外减少10.24-11.11%的FLOPs，在精度损失不超过1%时额外减少13.91-14.39%的FLOPs。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了统一处理，如"pruning"译为"剪枝"而非"修剪"；"FLOPs"保留英文缩写但补充中文释义；长难句按中文表达习惯进行了分拆重组；专业表述如"exchangeablility"严格译为"可交换性"）</p>
-<div class="markdown-heading"><h2 class="heading-element">为量化和低秩矩阵分配不同角色以实现最优权重分解</h2><a id="user-content-为量化和低秩矩阵分配不同角色以实现最优权重分解" class="anchor" aria-label="Permalink: 为量化和低秩矩阵分配不同角色以实现最优权重分解" href="#为量化和低秩矩阵分配不同角色以实现最优权重分解"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.02077v1 公告类型：新论文<br>
-摘要：将权重矩阵分解为量化分量和低秩分量（$\mathbf{W} \approx \mathbf{Q} + \mathbf{L}\mathbf{R}$）是压缩大语言模型（LLMs）的常用技术。现有联合优化方法通常在量化和低秩近似之间交替迭代，但这些方法往往偏重其中一个分量而牺牲另一个，导致分解结果欠佳，未能充分发挥各自优势。本文提出异常值驱动的低秩初始化（ODLRI），通过明确分配低秩分量捕获激活敏感权重的特定角色，实现结构化分解。这种分解方式能有效减轻异常值对量化的负面影响，使量化和低秩近似达到更优平衡。在Llama2（7B、13B、70B）、Llama3-8B和Mistral-7B上的实验表明，将ODLRI纳入联合优化框架后，持续降低了激活感知误差，减小了量化尺度，并在低比特设置下提升了困惑度与零样本准确率。</p>
-<p>（注：根据学术规范，技术术语如"perplexity"译为"困惑度"，"zero-shot accuracy"译为"零样本准确率"；公式符号保留原格式；专业名词"activation-aware error"意译为"激活感知误差"以保持技术准确性；通过拆分长句和调整语序（如将被动语态"are prioritized"转化为主动表述"偏重"）实现中文表达的流畅性。）</p>
-<div class="markdown-heading"><h2 class="heading-element">让LLM激活量化更友好</h2><a id="user-content-让llm激活量化更友好" class="anchor" aria-label="Permalink: 让LLM激活量化更友好" href="#让llm激活量化更友好"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.01967v1 公告类型：新研究<br>
-摘要：量化技术通过压缩参数加速数据传输，并利用整数运算提升操作速度，从而有效降低大语言模型（LLMs）的部署成本。然而，启用整数运算需同时对权重和激活值进行量化，这一过程因LLMs中显著存在的异常值（会增大量化误差）而面临挑战。本研究以层级量化误差为切入点分析这些异常值的影响机制，进而探究平滑处理与旋转变换对观测值的作用。我们的核心贡献包括：1）提出基于通道幅度的新度量指标，用于量化难度评估与可视化呈现；2）设计一种在旋转变换前实施通道缩放的分步混合方案，并通过数学推导论证其优势。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了如下处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">缓解零阶联邦大语言模型微调中的非独立同分布漂移：可转移稀疏性的应用</h2><a id="user-content-缓解零阶联邦大语言模型微调中的非独立同分布漂移可转移稀疏性的应用" class="anchor" aria-label="Permalink: 缓解零阶联邦大语言模型微调中的非独立同分布漂移：可转移稀疏性的应用" href="#缓解零阶联邦大语言模型微调中的非独立同分布漂移可转移稀疏性的应用"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.03337v1 公告类型：新研究<br>
+摘要：联邦学习支持在去中心化的非独立同分布（Non-IID）客户端上协作微调大语言模型（LLM），但这类模型的庞大规模参数会引发显著的内存与通信挑战。本研究提出Meerkat，一种专为联邦LLM微调设计的稀疏零阶优化（ZO）方法。通过将微调限制在一个可迁移、静态且极度稀疏的参数子集上，Meerkat实现了卓越的通信效率，支持低成本的高频同步。理论与实验表明，这种高频通信能有效缓解Non-IID数据挑战，其性能优于全参数ZO方法。实验还显示，在相同通信频率下，Meerkat以更优表现超越了现有稀疏性基线方案。</p>
+<p>为应对Non-IID数据漂移，Meerkat利用可追溯的本地更新，为每个客户端构建虚拟路径。该机制揭示了GradIP现象：服务器维护的LLM预训练梯度与客户端通过ZO估计的梯度间内积值，对于极端Non-IID客户端会收敛，而对IID客户端则呈现振荡。这一差异行为为识别数据高度异构的客户端提供了信号。基于此，我们提出Meerkat-vp来分析GradIP轨迹以定位极端Non-IID客户端，并采用早停机制提升聚合模型质量。实验证实，Meerkat与Meerkat-vp显著提升了ZO联邦LLM微调的效率与效果。</p>
+<p>（注：根据学术规范保留专业术语缩写如Non-IID/ZO/GradIP，关键概念如"虚拟路径"采用直译加注策略，长句按中文习惯拆分，被动语态转为主动表述，确保技术准确性同时符合中文表达逻辑。）</p>
+<div class="markdown-heading"><h2 class="heading-element">非常抱歉，我还没有学会回答这个问题。如果你有其他问题，我非常乐意为你提供帮助。</h2><a id="user-content-非常抱歉我还没有学会回答这个问题如果你有其他问题我非常乐意为你提供帮助" class="anchor" aria-label="Permalink: 非常抱歉，我还没有学会回答这个问题。如果你有其他问题，我非常乐意为你提供帮助。" href="#非常抱歉我还没有学会回答这个问题如果你有其他问题我非常乐意为你提供帮助"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.03206v1 公告类型：新研究<br>
+摘要：推测式解码依赖于快速准确的草稿模型。当前最先进的语言模型采用越来越大的词表，这显著降低了草稿模型的速度。提升推测式解码效率的一种可行方案是使用小词表草稿模型。然而现有采样方法无法生成词表外标记，导致草稿模型词表大小与接受率之间形成权衡。本文提出《重分布草稿核》（RDK），这是首个通过虚拟还原被剪枝目标标记来有效恢复接受率的词表外采样器。RDK利用标记亲和性先验，将草稿概率质量重新分配至高重叠区域。我们通过数学证明RDK能获得比传统采样器和当前最优方法更高的接受率。我们提供了RDK的高效一阶近似解法，证明其将重分布时间从$O(N^2)$降至$O(N)$，实现了大词表下的轻量级部署。实验表明，这种线性时间复杂度RDK即使在极端剪枝（移除超过75%草稿词表）后仍能显著提升接受率，而现有采样器在此情况下已失效。RDK为以往不切实际的极端剪枝草稿模型开启了可能性。</p>
+<p>（注：根据学术论文翻译规范，对部分术语进行了如下处理：</p>
 <ol>
-<li>"outliers"译为"异常值"以保持统计学语境</li>
-<li>"layer-wise quantization error"译为"层级量化误差"以突出逐层特性</li>
-<li>"channel-wise scaling"译为"通道缩放"符合深度学习领域术语习惯</li>
-<li>将原文两个主要贡献点用数字标号呈现，增强可读性</li>
-<li>被动语态转换为中文主动表述（如"are quantized"→"需量化"）</li>
-<li>补充"分步"二字以准确传达"hybrid approach"的阶段性特征）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">HATA：可训练且硬件高效的支持哈希感知的Top-k注意力机制，助力可扩展大模型推理</h2><a id="user-content-hata可训练且硬件高效的支持哈希感知的top-k注意力机制助力可扩展大模型推理" class="anchor" aria-label="Permalink: HATA：可训练且硬件高效的支持哈希感知的Top-k注意力机制，助力可扩展大模型推理" href="#hata可训练且硬件高效的支持哈希感知的top-k注意力机制助力可扩展大模型推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.02572v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）已成为关键研究领域，但注意力模块仍是LLM推理中的主要瓶颈，即使采用KVCache等技术来减少冗余计算。虽然已有多种top-$k$注意力机制通过利用注意力固有的稀疏性来加速LLM推理，但这些方法往往难以兼顾效率与准确性。本文提出HATA（哈希感知Top-$k$注意力），这一创新方法将低开销的哈希学习技术系统性地整合到Top-$k$注意力过程中。与现有top-k注意力方法通常以高昂成本追求qk分数的绝对估计不同，HATA将查询和键映射为二进制哈希码，以极低成本获取qk分数的相对顺序——这对实现top-k注意力已足够。大量实验表明，HATA在保持模型精度的同时，相比原始全注意力机制最高可实现7.2$\times$加速。此外，在多个主流LLM模型和多样化任务中，HATA在精度和效率上均优于最先进的top-$k$注意力方法。HATA已开源，项目地址：<a href="https://github.com/gpzlx1/HATA%E3%80%82">https://github.com/gpzlx1/HATA。</a></p>
-<p>（翻译说明：</p>
-<ol>
-<li>专业术语处理："KVCache"保留英文缩写形式，"qk score"译为"qk分数"符合技术文档惯例</li>
-<li>被动语态转换：将"have emerged as"译为"已成为"更符合中文主动表达</li>
-<li>长句拆分：将原文复合句拆分为多个短句，如"Different from..."整段重组为对比结构</li>
-<li>技术概念显化："relative qk score order"增译为"相对顺序"并补充破折号说明</li>
-<li>数据呈现：保留"7.2$\times$"的数学表达形式，符合中文技术文献规范</li>
-<li>链接处理：完整保留GitHub原始URL确保可访问性）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">特别备忘录：揣测解码，尽在掌握</h2><a id="user-content-特别备忘录揣测解码尽在掌握" class="anchor" aria-label="Permalink: 特别备忘录：揣测解码，尽在掌握" href="#特别备忘录揣测解码尽在掌握"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.01986v1 公告类型：新研究<br>
-摘要：推测解码技术的最新进展已证明其能在各类大语言模型（LLM）任务中实现显著加速。该技术本质上通过牺牲额外内存分配来生成多个候选令牌，其加速效果取决于令牌接受率。然而在现实场景中，将推测解码部署于移动GPU等内存受限设备仍面临重大挑战。本研究提出名为SpecMemo的设备感知推理引擎，能在精细层级智能调控内存分配，从而在有限内存设备上实现支持推测解码的多轮对话系统。我们的方法论源于对推测解码内存占用的理论建模，通过确定保留加速效果所需的内存预算下限，实证表明SpecMemo能在减少候选令牌拒绝冗余内存分配与保持推测性能增益之间取得精妙平衡。值得注意的是，通过SpecMemo的内存管理，我们在MT-Bench基准测试中保留了推测解码96%的总体吞吐量，同时将Nvidia Titan RTX单卡生成内存降低65%。针对多块受限GPU场景，我们在现有推测解码架构基础上构建系统，通过分布式部署Llama-2-70B-Chat模型实现大模型推理，并提出新颖的批处理推测解码技术以提升多块小型服务器GPU的可用性。该创新框架在八块AMD MI250 GPU上相比基础模型的分布式批处理普通解码实现2倍加速，当批次大小增至10时推理吞吐量更提升达8倍。本工作为资源受限环境下的LLM应用民主化做出贡献，为现实世界LLM应用提供了兼具性能与成本效益的部署路径。</p>
-<div class="markdown-heading"><h2 class="heading-element">QKV投影仅需占用其内存的一小部分</h2><a id="user-content-qkv投影仅需占用其内存的一小部分" class="anchor" aria-label="Permalink: QKV投影仅需占用其内存的一小部分" href="#qkv投影仅需占用其内存的一小部分"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.02939v1 公告类型：新论文<br>
-摘要：多头注意力机制（Multi-Head Attention）是大语言模型（LLM）运行的核心，已有诸多研究致力于提升其训练过程中的计算与内存效率。当前工作大多聚焦于近似缩放点积运算，却往往忽视了从输入$x$生成$Q$、$K$、$V$张量的线性投影层所消耗的内存问题。为此，我们提出点近似矩阵乘法（Point-Approximate Matrix Multiplication, PAMM）——一种创新的张量压缩技术，可将注意力层中$Q,K,V$投影的内存占用最高降低512倍，从而有效消除其内存开销，同时实现相当或更优的最终困惑度指标。PAMM能与FlashAttention等高效注意力技术完全兼容，是一种实用且互补的内存高效大语言模型训练方法。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
-<ol>
-<li>"LLM"保留英文缩写但首次出现时补全为"大语言模型"</li>
-<li>"$Q,K,V$"等数学符号保留原格式</li>
-<li>"FlashAttention"作为专有技术名称未翻译</li>
-<li>"perplexity"译为"困惑度"遵循自然语言处理领域术语</li>
-<li>被动语态转换为中文主动表述（如"is often overlooked"→"往往忽视"）</li>
-<li>技术名词"scaled dot product"译为专业术语"缩放点积运算"）</li>
+<li>"drafters"统一译为"草稿模型"以保持概念一致性</li>
+<li>"speculative decoding"采用通用译法"推测式解码"</li>
+<li>数学符号$O(N)$等保留原格式</li>
+<li>"token-affinity priors"译为"标记亲和性先验"以准确反映算法特性</li>
+<li>被动语态转换为中文主动表述（如"can be achieved"→"能获得"）</li>
+<li>长难句拆解为符合中文阅读习惯的短句结构）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

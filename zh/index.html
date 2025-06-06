@@ -12,21 +12,41 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">缓解零阶联邦大语言模型微调中的非独立同分布漂移：可转移稀疏性的应用</h2><a id="user-content-缓解零阶联邦大语言模型微调中的非独立同分布漂移可转移稀疏性的应用" class="anchor" aria-label="Permalink: 缓解零阶联邦大语言模型微调中的非独立同分布漂移：可转移稀疏性的应用" href="#缓解零阶联邦大语言模型微调中的非独立同分布漂移可转移稀疏性的应用"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.03337v1 公告类型：新研究<br>
-摘要：联邦学习支持在去中心化的非独立同分布（Non-IID）客户端上协作微调大语言模型（LLM），但这类模型的庞大规模参数会引发显著的内存与通信挑战。本研究提出Meerkat，一种专为联邦LLM微调设计的稀疏零阶优化（ZO）方法。通过将微调限制在一个可迁移、静态且极度稀疏的参数子集上，Meerkat实现了卓越的通信效率，支持低成本的高频同步。理论与实验表明，这种高频通信能有效缓解Non-IID数据挑战，其性能优于全参数ZO方法。实验还显示，在相同通信频率下，Meerkat以更优表现超越了现有稀疏性基线方案。</p>
-<p>为应对Non-IID数据漂移，Meerkat利用可追溯的本地更新，为每个客户端构建虚拟路径。该机制揭示了GradIP现象：服务器维护的LLM预训练梯度与客户端通过ZO估计的梯度间内积值，对于极端Non-IID客户端会收敛，而对IID客户端则呈现振荡。这一差异行为为识别数据高度异构的客户端提供了信号。基于此，我们提出Meerkat-vp来分析GradIP轨迹以定位极端Non-IID客户端，并采用早停机制提升聚合模型质量。实验证实，Meerkat与Meerkat-vp显著提升了ZO联邦LLM微调的效率与效果。</p>
-<p>（注：根据学术规范保留专业术语缩写如Non-IID/ZO/GradIP，关键概念如"虚拟路径"采用直译加注策略，长句按中文习惯拆分，被动语态转为主动表述，确保技术准确性同时符合中文表达逻辑。）</p>
-<div class="markdown-heading"><h2 class="heading-element">非常抱歉，我还没有学会回答这个问题。如果你有其他问题，我非常乐意为你提供帮助。</h2><a id="user-content-非常抱歉我还没有学会回答这个问题如果你有其他问题我非常乐意为你提供帮助" class="anchor" aria-label="Permalink: 非常抱歉，我还没有学会回答这个问题。如果你有其他问题，我非常乐意为你提供帮助。" href="#非常抱歉我还没有学会回答这个问题如果你有其他问题我非常乐意为你提供帮助"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.03206v1 公告类型：新研究<br>
-摘要：推测式解码依赖于快速准确的草稿模型。当前最先进的语言模型采用越来越大的词表，这显著降低了草稿模型的速度。提升推测式解码效率的一种可行方案是使用小词表草稿模型。然而现有采样方法无法生成词表外标记，导致草稿模型词表大小与接受率之间形成权衡。本文提出《重分布草稿核》（RDK），这是首个通过虚拟还原被剪枝目标标记来有效恢复接受率的词表外采样器。RDK利用标记亲和性先验，将草稿概率质量重新分配至高重叠区域。我们通过数学证明RDK能获得比传统采样器和当前最优方法更高的接受率。我们提供了RDK的高效一阶近似解法，证明其将重分布时间从$O(N^2)$降至$O(N)$，实现了大词表下的轻量级部署。实验表明，这种线性时间复杂度RDK即使在极端剪枝（移除超过75%草稿词表）后仍能显著提升接受率，而现有采样器在此情况下已失效。RDK为以往不切实际的极端剪枝草稿模型开启了可能性。</p>
-<p>（注：根据学术论文翻译规范，对部分术语进行了如下处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">MUC-G4：面向深度神经网络压缩的最小不可满足核引导增量验证方法</h2><a id="user-content-muc-g4面向深度神经网络压缩的最小不可满足核引导增量验证方法" class="anchor" aria-label="Permalink: MUC-G4：面向深度神经网络压缩的最小不可满足核引导增量验证方法" href="#muc-g4面向深度神经网络压缩的最小不可满足核引导增量验证方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明：</p>
 <ol>
-<li>"drafters"统一译为"草稿模型"以保持概念一致性</li>
-<li>"speculative decoding"采用通用译法"推测式解码"</li>
-<li>数学符号$O(N)$等保留原格式</li>
-<li>"token-affinity priors"译为"标记亲和性先验"以准确反映算法特性</li>
-<li>被动语态转换为中文主动表述（如"can be achieved"→"能获得"）</li>
-<li>长难句拆解为符合中文阅读习惯的短句结构）</li>
+<li>"MUC-G4"作为技术术语名称保留不译，以保持与原文的一致性及领域内的通用性。</li>
+<li>"Minimal Unsat Core-Guided" 译为"最小不可满足核引导"，其中：
+<ul>
+<li>"Unsat Core"是形式化验证领域的专业术语，标准译法为"不可满足核"</li>
+<li>"Guided"采用"引导"这一动词的过去分词形式作形容词，符合中文技术文献表述习惯</li>
+</ul>
+</li>
+<li>"Incremental Verification"译为"增量验证"，准确传达逐步/迭代验证的技术内涵</li>
+<li>补充"方法"二字使中文名称更完整，符合中文论文标题常以名词性短语结尾的惯例</li>
+<li>整体采用"面向...的..."结构，既保持学术严谨性又使中文表达流畅</li>
+<li>使用中文顿号替代原标题中的空格，符合中文标点规范）</li>
 </ol>
+<p>arXiv:2506.04268v1 公告类型：新成果<br>
+摘要：深度学习的快速发展使得在边缘设备上部署神经网络面临挑战，主要源于其高昂的内存需求和运行时复杂度。网络压缩技术（如量化和剪枝）旨在保持精度的同时降低复杂度，但现有增量验证方法往往仅针对量化设计，难以应对结构变化。本文提出MUC-G4（最小不可满足核引导的增量验证框架），该创新框架通过将原始网络与压缩网络编码为SMT公式，对变更进行分类，并利用原始网络的\emph{最小不可满足核（MUCs）}来高效指导压缩网络验证。实验结果表明，该方法能有效处理量化和剪枝，相比传统验证方式具有更高的证明复用率与显著加速效果。MUC-G4为保障实际应用中压缩神经网络的安全性与可靠性提供了可行解决方案。</p>
+<p>（注：根据学术文献翻译规范，对以下术语进行了标准化处理：</p>
+<ol>
+<li>"edge devices"译为"边缘设备"（物联网领域标准译法）</li>
+<li>"Minimal Unsat Cores"保留专业缩写"MUCs"并首次出现时标注全称"最小不可满足核"</li>
+<li>"SMT formulas"译为"SMT公式"（形式化方法领域通用译法）</li>
+<li>被动语态转换为中文主动句式（如"is encoded"译为"通过...编码"）</li>
+<li>长难句拆分重组，符合中文多用短句的表述习惯）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">FPTQuant：面向大语言模型量化的函数保持性变换</h2><a id="user-content-fptquant面向大语言模型量化的函数保持性变换" class="anchor" aria-label="Permalink: FPTQuant：面向大语言模型量化的函数保持性变换" href="#fptquant面向大语言模型量化的函数保持性变换"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.04985v1 公告类型：新研究<br>
+摘要：大型语言模型（LLM）在推理阶段需要消耗大量算力，因而能耗极高。虽然对权重和激活值进行量化能有效提升效率，但传统量化方法会因大幅值异常值导致模型性能显著下降。本文提出的FPTQuant引入了四种新颖、轻量且富有表现力的函数保持变换（FPT）：(1) 适用于查询和键的可合并预RoPE变换；(2) 适用于值的可合并变换；(3) MLP模块内可合并的缩放变换；(4) 低成本动态缩放变换。通过利用标准Transformer运算固有的等变性和独立性特征，这些FPT能在保持模型功能的同时，使中间激活值分布更适配量化需求。FPTQuant无需定制内核，推理时几乎不增加额外开销。FPT通过局部训练减少异常值，并通过端到端训练确保量化模型与全精度模型输出一致。该方法支持静态INT4量化且开销极小，相比FP实现最高达3.9倍的加速效果。实验表明，FPTQuant在精度与速度的权衡上表现卓越——其性能持平或超越多数现有方案，仅比速度慢29%的方法略逊精度。</p>
+<div class="markdown-heading"><h2 class="heading-element">推理时超规模扩展与KV缓存压缩</h2><a id="user-content-推理时超规模扩展与kv缓存压缩" class="anchor" aria-label="Permalink: 推理时超规模扩展与KV缓存压缩" href="#推理时超规模扩展与kv缓存压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.05345v1 公告类型：新研究<br>
+摘要：推理时扩展（inference-time scaling）通过生成更长或更并行的序列，以效率为代价换取推理准确率的提升。然而在Transformer大语言模型中，生成成本的瓶颈在于键值缓存（KV cache）的大小，而非生成标记的数量。为此，我们探索推理时超扩展（hyper-scaling）技术：通过压缩KV缓存，在相同计算预算下生成更多标记，从而进一步提升扩展推理的准确率。但该方法的成功关键在于压缩技术能否在高压缩率下保持准确率。</p>
+<p>为实现实用的超扩展，我们提出动态记忆稀疏化（DMS）——一种新型KV缓存稀疏化方法，仅需1,000次训练步骤即可实现8倍压缩，同时比免训练的稀疏注意力方法保持更高准确率。DMS并非过早丢弃缓存标记，而是延迟标记淘汰，通过隐式合并表征来保留关键信息。我们在多个大语言模型系列上验证了DMS驱动的推理时超扩展效果，证明该方法能在同等推理时间和内存负载下提升准确率。例如在Qwen-R1 32B模型上，我们将AIME 24平均提升9.1分，GPQA提升7.6分，LiveCodeBench提升9.6分（跨不同计算预算）。</p>
+<p>（注：根据学术文献翻译规范，专业术语如"KV cache"首次出现时保留英文缩写并添加中文注释；技术名称如"DMS"采用中文译名后标注英文缩写；长数字保持原文格式；指标名称如"AIME 24"保留英文缩写以确保准确性）</p>
+<div class="markdown-heading"><h2 class="heading-element">《幂律引导的动态筛选实现高效注意力机制》</h2><a id="user-content-幂律引导的动态筛选实现高效注意力机制" class="anchor" aria-label="Permalink: 《幂律引导的动态筛选实现高效注意力机制》" href="#幂律引导的动态筛选实现高效注意力机制"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.05300v1 公告类型：新研究<br>
+摘要：由于内存带宽限制，在GPU上使用大型语言模型进行高效推理仍具挑战性，尤其是在注意力计算中高带宽内存（HBM）与静态随机存取存储器（SRAM）之间的数据传输阶段。近似注意力方法通过降低计算和内存开销来解决这一问题，但通常依赖于昂贵的top-$k$操作，这类操作在GPU上表现不佳。我们提出SiftAttention——一种新颖的近似注意力方法，它用基于阈值的计算高效逐元素过滤操作取代了top-$k$步骤。这一设计的直觉源于我们通过实证观察发现：注意力分数的$\tau$分位数在序列生成步骤中遵循可预测的幂律分布。利用这一洞见，我们的方法在每步生成时动态估算每个提示词的阈值，仅加载/使用高于该阈值的注意力分数及其对应的值向量来计算注意力输出，从而减少了HBM与SRAM之间的数据迁移。评估表明，SiftAttention在降低值向量加载内存带宽使用的同时，比现有近似注意力方法更好地保持了模型质量。</p>
+<p>（注：根据学术规范，专业术语如HBM/SRAM保持英文缩写，关键概念"power-law"译为"幂律分布"以符合统计学表述习惯；技术动作"loading/used"采用"加载/使用"的并列译法体现操作连续性；长难句通过拆分和添加衔接词（如"源于"）确保中文流畅性；被动语态"are loaded/used"转化为主动式"仅加载/使用"以符合中文表达偏好。）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

@@ -12,28 +12,23 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">幂律引导的动态筛选以实现高效注意力机制</h2><a id="user-content-幂律引导的动态筛选以实现高效注意力机制" class="anchor" aria-label="Permalink: 幂律引导的动态筛选以实现高效注意力机制" href="#幂律引导的动态筛选以实现高效注意力机制"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>由于内存带宽限制，特别是在注意力计算中高带宽内存（HBM）与静态随机存取存储器（SRAM）之间的数据传输过程中，利用大型语言模型在GPU上实现高效推理仍具挑战性。近似注意力方法通过降低计算和内存开销来解决这一问题，但通常依赖于昂贵的top-$k$操作，而这类操作在GPU上表现不佳。我们提出SiftAttention——一种创新的近似注意力方法，它基于阈值计算高效的元素级过滤操作，取代了top-$k$步骤。这一设计的直觉源于我们的实证观察：注意力分数的$\tau$分位数在序列生成步骤中遵循可预测的幂律规律。利用这一发现，我们的方法在每一步生成时动态估算每个提示词对应的阈值。只有超过该阈值的注意力分数及其对应的值向量才会被加载/用于计算注意力输出，从而减少HBM与SRAM之间的数据迁移。评估表明，与现有近似注意力方法相比，SiftAttention在降低值向量加载内存带宽使用量的同时，能更好地保持模型质量。</p>
-<p>（译文特点说明：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">PCDVQ：基于极坐标解耦增强大语言模型的向量量化技术</h2><a id="user-content-pcdvq基于极坐标解耦增强大语言模型的向量量化技术" class="anchor" aria-label="Permalink: PCDVQ：基于极坐标解耦增强大语言模型的向量量化技术" href="#pcdvq基于极坐标解耦增强大语言模型的向量量化技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.05432v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）因其庞大的参数量，在边缘设备部署上面临重大挑战。向量量化（VQ）作为一种基于聚类的量化方法，凭借其极低位宽（可低至2比特）和保持较高精度的特性，成为解决该问题的主流方案。由于向量在数学和物理学中是兼具方向与大小的量，现有VQ工作通常对二者进行耦合式量化。但我们发现，方向对量化的敏感度远高于大小——例如在LLaMA-2-7B模型中对权重向量方向和大小分别聚类时，零样本任务准确率分别下降46.5%和2.3%，且该差距随聚类中心减少进一步扩大。此外，当前VQ工作中衡量向量相似性的常用指标欧氏距离更侧重减小大小误差，这一特性与前述发现相悖，必然导致更大的量化误差。</p>
+<p>为此，本文提出极坐标解耦向量量化框架（PCDVQ），其核心包含两个创新模块：1）极坐标解耦（PCD）：将向量转换为极坐标表示，分别对方向参数与大小参数进行独立量化；2）分布对齐码本构建（DACC）：根据原始分布特性分别优化方向码本和大小码本。实验表明，PCDVQ在2比特量化级别上以至少1.5%的零样本准确率优势超越基线方法，为高精度、高压缩比的LLMs建立了新范式。</p>
+<div class="markdown-heading"><h2 class="heading-element">GPU上支持多样化掩码的快速稀疏Transformer之灵活算子融合</h2><a id="user-content-gpu上支持多样化掩码的快速稀疏transformer之灵活算子融合" class="anchor" aria-label="Permalink: GPU上支持多样化掩码的快速稀疏Transformer之灵活算子融合" href="#gpu上支持多样化掩码的快速稀疏transformer之灵活算子融合"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.06095v1 公告类型：新研究<br>
+摘要：大型语言模型因其强大的理解能力在全球范围内广受欢迎。作为其核心组件，通过并行化加速Transformer逐渐成为研究热点。掩码层通过引入稀疏性来减少Transformer的计算量，但现有研究鲜少关注稀疏Transformer的性能优化。此外，基于规则的机制忽视了混合类型算子的融合机会，且难以适应多样化的序列长度。针对上述问题，我们提出STOF框架——通过GPU上的灵活掩码与算子融合实现稀疏Transformer优化。我们首先统一了多头注意力机制的存储格式与内核实现，随后将融合方案映射至编译模板，并通过两阶段搜索引擎确定最优参数配置。实验表明，相较于最先进方案，STOF在多头注意力计算中最高实现1.7倍加速，在端到端推理中最高获得1.5倍性能提升。</p>
+<p>（注：根据学术文献翻译规范，专业术语如"Transformer"、"GPU"等保留英文原名；"MHA"作为常用缩写首次出现时译为全称"多头注意力机制"，后文可直接使用缩写；技术概念如"two-stage search engine"采用"两阶段搜索引擎"等符合中文计算机领域表述习惯的译法；长句按中文表达习惯拆分为短句，同时保持技术描述的准确性。）</p>
+<div class="markdown-heading"><h2 class="heading-element">BAQ：面向大型语言模型的高效比特分配量化方法</h2><a id="user-content-baq面向大型语言模型的高效比特分配量化方法" class="anchor" aria-label="Permalink: BAQ：面向大型语言模型的高效比特分配量化方法" href="#baq面向大型语言模型的高效比特分配量化方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.05664v1 公告类型：新研究<br>
+摘要：训练后模型量化是一种被广泛采用的、用于降低大语言模型（LLM）内存与计算开销的技术。然而，现有方法多依赖均匀或启发式比特位宽分配策略，未能充分考虑权重对量化噪声的非均匀敏感性。本文提出一种基于海森矩阵代理敏感性度量的新型比特位宽分配框架。通过关键假设，我们将逐层/组件的损失函数显式表达为比特位宽的函数，从而将比特分配问题转化为凸优化任务，其闭式解通过自适应调整权重精度来最小化分层量化损失。通过对解的解析，我们获得了若干重要发现（如等损失结构），并据此设计出\textbf{BAQ}（比特分配量化）算法。该算法在损失最小化与复杂度之间实现了良好平衡，且能以极小开销整合至标准量化流程。实验表明，在125M至30B参数规模的大语言模型上，BAQ始终优于GPTQ，相同比特位宽下困惑度最高降低56倍。基于最优比特分配问题的解析结果，我们还为观测到的性能提升提供了理论解释。本文全部代码已开源：<a href="https://github.com/CSU-ModelCompression/BAQ%E3%80%82">https://github.com/CSU-ModelCompression/BAQ。</a></p>
+<p>（注：译文严格遵循技术文献的表述规范，处理要点包括：</p>
 <ol>
-<li>技术术语准确统一："High Bandwidth Memory"译为行业通用术语"高带宽内存"，"SRAM"保留英文缩写但补充全称"静态随机存取存储器"</li>
-<li>复杂句式重构：将英语长句拆分为符合中文表达习惯的短句，如将"our intuition...steps"重组为因果逻辑分句</li>
-<li>被动语态转化："are loaded/used"译为主动态"才会被加载/用于"</li>
-<li>概念显化处理："power-law"补充译为"幂律规律"以明确数学概念</li>
-<li>技术表述精准："element-wise filtering operation"译为"元素级过滤操作"准确体现计算粒度</li>
-<li>保持学术严谨性：保留数学符号"$\tau$分位数"等专业表述）</li>
+<li>专业术语标准化："Hessian proxy"译为"海森矩阵代理"，"perplexity"保留专业译法"困惑度"</li>
+<li>数学概念准确转化："closed-form solution"译为"闭式解"，"convex optimization"译为"凸优化"</li>
+<li>算法名称保留英文缩写BAQ并补充中文全称，符合计算机领域惯例</li>
+<li>数量级表述采用中文习惯："56$\times$ lower"译为"降低56倍"</li>
+<li>被动语态转换："are derived from"译为"通过...获得"，符合中文主动表达习惯）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">FPTQuant：面向大语言模型量化的函数保持型变换方法</h2><a id="user-content-fptquant面向大语言模型量化的函数保持型变换方法" class="anchor" aria-label="Permalink: FPTQuant：面向大语言模型量化的函数保持型变换方法" href="#fptquant面向大语言模型量化的函数保持型变换方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明：</p>
-<ol>
-<li>"Function-Preserving"译为"函数保持型"既保留了技术含义（保持模型数学函数的特性），又符合中文技术文献表述习惯</li>
-<li>"Transforms"译为"变换方法"比直译"转换"更准确，体现其系统性方法特征</li>
-<li>副标题采用"面向...的"结构，清晰表明技术应用领域</li>
-<li>整体采用技术论文标题的简洁风格，避免冗长，同时保留原标题的技术精确性</li>
-<li>首字母缩略词FPTQuant保持原样不翻译，符合学术惯例）</li>
-</ol>
-<p>大型语言模型（LLM）在推理阶段需要大量计算资源，因而消耗巨大能量。虽然对权重和激活值进行量化能有效提升效率，但直接对LLM进行简单量化会因大幅离群值导致性能显著下降。本文提出的FPTQuant引入了四种新颖、轻量级且富有表现力的函数保持变换（FPT）来优化Transformer量化：(1) 适用于查询和键的可合并预RoPE变换；(2) 适用于值的可合并变换；(3) MLP模块内可合并的缩放变换；(4) 低成本动态缩放变换。通过利用标准Transformer操作固有的等变性和独立性，这些FPT能在保持模型功能的同时，使中间激活值分布更适配量化需求。FPTQuant无需定制内核，推理时几乎不产生额外开销。FPT通过局部训练减少离群值，并通过端到端训练确保量化模型与全精度模型输出一致。该方法实现了静态INT4量化且开销极小，相比FP精度可获得最高3.9倍的领先加速效果。实证表明FPTQuant在精度与速度间取得卓越平衡——其性能持平或超越多数现有方案，仅比速度慢29%的方法略逊精度。</p>
-<div class="markdown-heading"><h2 class="heading-element">推理时超规模扩展与KV缓存压缩技术</h2><a id="user-content-推理时超规模扩展与kv缓存压缩技术" class="anchor" aria-label="Permalink: 推理时超规模扩展与KV缓存压缩技术" href="#推理时超规模扩展与kv缓存压缩技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>推理时扩展通过生成更长或更并行的序列，以效率为代价换取推理精度的提升。然而在Transformer大语言模型中，生成成本的关键瓶颈在于键值（KV）缓存的规模，而非生成标记的数量。为此，我们探索了推理时超扩展技术：通过压缩KV缓存，在相同计算预算内生成更多标记，从而进一步提升扩展推理的精度。但该方法的成功取决于压缩技术能否在高压缩比下保持精度。</p>
-<p>为实现超扩展的实用化，我们提出了动态记忆稀疏化（DMS）——一种创新的KV缓存稀疏化方法，仅需1千次训练步骤即可实现8倍压缩，同时比免训练的稀疏注意力方法保持更高精度。DMS并非过早丢弃缓存标记，而是延迟标记淘汰，通过隐式合并表征来保留关键信息。我们在多个大语言模型家族上验证了DMS超扩展的有效性，证明该方法在同等推理时间和内存负载下能提升精度。例如在Qwen-R1 32B模型中，AIME 24平均提升9.1分，GPQA提升7.6分，LiveCodeBench提升9.6分，且不增加计算预算。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

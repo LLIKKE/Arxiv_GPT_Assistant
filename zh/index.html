@@ -12,43 +12,27 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">自动压缩网络</h2><a id="user-content-自动压缩网络" class="anchor" aria-label="Permalink: 自动压缩网络" href="#自动压缩网络"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.09714v1 公告类型：新研究<br>
-摘要：具有短残差连接的深度神经网络已在多个领域展现出卓越成就，但增加深度往往会引入计算冗余，而表征质量并未相应提升。本文提出自动压缩网络（ACNs），这种架构变体用从每层直达输出的加性长前馈连接取代传统短残差连接。ACNs展现了一种我们称为"自动压缩"的独特属性——仅通过架构设计，网络就能在梯度下降训练过程中有机地压缩信息。通过自动压缩，信息在训练期间被动态"推送"至浅层，增强其表征质量并揭示深层潜在冗余。我们从理论上证明，这一特性源于ACNs特有的分层训练模式：各层会根据任务需求在训练过程中被动态调用。与残差网络相比，ACNs还表现出更强的噪声鲁棒性、在小数据场景下的优越性能、更佳的迁移学习能力，并能缓解灾难性遗忘，这表明其学习到的表征具有更强的泛化能力，尽管参数更少。实验结果显示，在视觉Transformer、MLP-Mixer和BERT架构中，ACNs在保持精度的同时实现了最高18%的灾难性遗忘减少和30-80%的架构压缩。此外，与传统架构相比，ACNs结合传统剪枝技术能实现显著更优的稀疏性-性能权衡。这些发现确立了ACNs作为一种实用方法，可开发能根据任务复杂度自动调整计算需求的高效神经架构，同时学习到鲁棒的表征。</p>
-<p>（注：翻译过程中对部分专业术语进行了如下处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">MNN-LLM：面向移动设备快速部署大型语言模型的通用推理引擎</h2><a id="user-content-mnn-llm面向移动设备快速部署大型语言模型的通用推理引擎" class="anchor" aria-label="Permalink: MNN-LLM：面向移动设备快速部署大型语言模型的通用推理引擎" href="#mnn-llm面向移动设备快速部署大型语言模型的通用推理引擎"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.10443v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）已在多项任务中展现出卓越性能，但其庞大规模导致推理过程中消耗大量计算资源，成本高昂。因此，边缘设备推理成为颇具前景的解决方案。边缘推理的主要挑战在于内存占用与推理速度。本文提出MNN-LLM框架，专为加速大语言模型在移动端部署而设计。该框架通过模型量化和DRAM-Flash混合存储技术应对LLMs的运行时特性，显著降低内存使用；基于移动端CPU指令集与GPU特性重组权重与输入数据，同时采用多核负载均衡、混合精度浮点运算及几何计算等策略提升性能。值得注意的是，MNN-LLM相比当前主流LLM专用框架最高可实现8.6倍的加速比。</p>
+<p>（译文说明：</p>
 <ol>
-<li>"auto-compression"译为"自动压缩"以保持技术一致性</li>
-<li>"catastrophic forgetting"采用通用译法"灾难性遗忘"</li>
-<li>长复合句按中文习惯拆分为短句，如将"through architectural design alone"处理为独立分句</li>
-<li>被动语态转换为主动表述，如"information is dynamically pushed"译为"信息被动态推送"</li>
-<li>技术指标保留原始数字格式，如"30-80%"不作汉字转换）</li>
+<li>专业术语保留英文缩写如LLMs/DRAM-Flash，首次出现时标注中文全称</li>
+<li>技术概念如"quantization"译为"量化"符合计算机领域惯例</li>
+<li>长句拆分重组，如将原文复合状语结构转换为分号连接的并列句式</li>
+<li>被动语态转换为主动表述，如"are rearranged"译为"重组"</li>
+<li>关键性能指标"8.6x speed increase"采用"8.6倍加速比"的行业标准表述</li>
+<li>保持学术论文摘要的客观严谨风格，避免口语化表达）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">动态自适应蒸馏：将Transformer转化为双态线性注意力模型</h2><a id="user-content-动态自适应蒸馏将transformer转化为双态线性注意力模型" class="anchor" aria-label="Permalink: 动态自适应蒸馏：将Transformer转化为双态线性注意力模型" href="#动态自适应蒸馏将transformer转化为双态线性注意力模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.09316v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）通过自注意力机制擅长捕捉全局词元依赖关系，但在处理长序列输入时面临高昂的计算和内存成本。虽然次二次方法（如线性注意力）能降低这些成本，但它们往往因过度关注近期词元而导致准确率下降。本研究首先提出<strong>双态线性注意力（DSLA）</strong>，该创新设计通过维护两个专用隐藏状态——一个用于保留历史上下文，另一个用于追踪近期信息——从而缓解线性注意力架构常见的短程偏差。为进一步在动态工作负载下平衡效率与精度，我们提出<strong>SERVE</strong>，这是一种在线<strong>自适应蒸馏</strong>框架，通过基于敏感度的层级替换策略，在推理时逐步将Transformer层替换为DSLA层。SERVE采用链式微调策略，确保每个新转换的DSLA层与先前替换的层保持一致性，从而维持整体模型质量。在常识推理、长上下文问答和文本摘要上的大量实验表明，SERVE的推理速度比Llama2-7B快<strong>2.3倍</strong>，比混合架构Zamba-7B快<strong>3.0倍</strong>，同时在下游任务中保持可比性能。消融研究证实，DSLA的双态机制能同时捕获全局和局部依赖关系，解决了现有线性注意力对历史词元表征不足的问题。代码已开源：<a href="https://github.com/utnslab/DSLA-Serve%E3%80%82">https://github.com/utnslab/DSLA-Serve。</a></p>
-<p>（注：根据学术文献翻译规范，技术术语如"self-attention"译为"自注意力"、"linear attention"译为"线性注意力"；创新方法名称DSLA和框架名SERVE保留英文缩写，首次出现时标注中文全称；长句按中文表达习惯拆分为短句；被动语态转换为主动表述；URL等专有信息保留原格式。）</p>
-<div class="markdown-heading"><h2 class="heading-element">将分块式PTQ与基于蒸馏的QAT相统一，实现渐进式量化以构建2位指令调优大语言模型</h2><a id="user-content-将分块式ptq与基于蒸馏的qat相统一实现渐进式量化以构建2位指令调优大语言模型" class="anchor" aria-label="Permalink: 将分块式PTQ与基于蒸馏的QAT相统一，实现渐进式量化以构建2位指令调优大语言模型" href="#将分块式ptq与基于蒸馏的qat相统一实现渐进式量化以构建2位指令调优大语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.09104v1 公告类型：新研究<br>
-摘要：随着大语言模型（LLM）规模的迅速扩大，其在资源受限设备上的部署面临重大挑战，极低比特量化（如2比特）技术日益受到关注。尽管先前研究表明，2比特大模型在准确性和延迟方面均优于4比特小模型，呈现帕累托最优，但这些进展仅限于预训练LLM，尚未扩展至指令微调模型。为填补这一空白，我们提出统一渐进式量化框架（UPQ）——一种融合块级训练后量化（PTQ）与基于蒸馏的量化感知训练（Distill-QAT）的渐进式量化方案（FP16→INT4→INT2），专为INT2指令微调LLM设计。UPQ首先通过块级PTQ将FP16指令微调模型量化为INT4，显著降低后续INT2量化引入的误差；继而采用Distill-QAT，通过最小化广义Jensen-Shannon散度（JSD），使INT2指令微调LLM生成的响应与原始FP16模型保持一致。据我们所知，这是首个在不依赖专有训练后数据的情况下，将开源指令微调LLM量化为INT2的研究，并在MMLU和IFEval（评估指令微调LLM的两大最具代表性基准测试）上实现了最先进性能。</p>
-<div class="markdown-heading"><h2 class="heading-element">稀疏SSM：高效的选择性结构化状态空间模型可一次性剪枝完成</h2><a id="user-content-稀疏ssm高效的选择性结构化状态空间模型可一次性剪枝完成" class="anchor" aria-label="Permalink: 稀疏SSM：高效的选择性结构化状态空间模型可一次性剪枝完成" href="#稀疏ssm高效的选择性结构化状态空间模型可一次性剪枝完成"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.09613v1 公告类型：新论文<br>
-摘要：诸如Mamba之类的状态空间语言模型在保持线性推理复杂度的同时达到了与Transformer相当的性能，但其数十亿参数规模仍阻碍实际部署。现有的一剪枝方法专为注意力模块设计，未能有效处理选择性状态空间模块（SSM）核心的时间共享离散化状态转移矩阵。本文提出SparseSSM——首个免训练的剪枝框架，将经典最优脑外科医生（OBS）框架扩展至状态空间架构。我们的分层算法：（i）推导出聚合跨时间步Hessian迹信息的近似二阶显著性评分；（ii）引入组件敏感性分析指导前馈网络（FFN）剪枝，同时揭示Mamba架构中的冗余分布；（iii）可轻松扩展至半结构化和结构化稀疏场景。实验表明，我们在不微调的情况下剪除50%的SSM权重且零样本准确率无损，创下当前基于Mamba的大型语言模型剪枝算法的最高水平。</p>
+<div class="markdown-heading"><h2 class="heading-element">AWP：基于激活感知的权重剪枝与投影梯度下降量化</h2><a id="user-content-awp基于激活感知的权重剪枝与投影梯度下降量化" class="anchor" aria-label="Permalink: AWP：基于激活感知的权重剪枝与投影梯度下降量化" href="#awp基于激活感知的权重剪枝与投影梯度下降量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.10205v1 公告类型：新研究<br>
+摘要：为解决大语言模型（LLMs）参数量庞大的问题，模型压缩技术（如量化和剪枝）常被采用，尤其在边缘设备上。本研究聚焦于逐层训练后量化和剪枝。通过建立激活感知权重剪枝与稀疏近似问题之间的联系，并受迭代硬阈值法（IHT）成功的启发，我们提出了一种基于投影梯度下降的统一方法——激活感知权重剪枝与量化联合优化（AWP）。实验表明，AWP在LLM剪枝与量化任务上超越了现有最优方法。同时，我们还为所提剪枝方法提供了理论收敛性保证。</p>
 <p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>"time-shared and discretized state-transition matrix"译为"时间共享离散化状态转移矩阵"以保持控制理论术语一致性</li>
-<li>"optimal brain surgeon"保留经典译名"最优脑外科医生"</li>
-<li>"zero-shot accuracy"译为"零样本准确率"遵循机器学习领域惯例</li>
-<li>长难句采用拆分策略，如将"Empirically..."整句按中文表达习惯重组为因果句式）</li>
+<li>"post-training quantization"译为"训练后量化"（业界通用译法）</li>
+<li>"Iterative Hard Thresholding"保留英文缩写IHT但首次出现时给出全称"迭代硬阈值法"</li>
+<li>"Projected gradient descent"译为"投影梯度下降"（数学优化领域标准译名）</li>
+<li>保持"activation-aware"为"激活感知"的连贯性</li>
+<li>将"state-of-the-art"译为"现有最优"以符合中文论文表述习惯）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">将量化大型语言模型（LLMs）作为边缘人工智能集成到机器人系统中，以利用其自然语言处理能力</h2><a id="user-content-将量化大型语言模型llms作为边缘人工智能集成到机器人系统中以利用其自然语言处理能力" class="anchor" aria-label="Permalink: 将量化大型语言模型（LLMs）作为边缘人工智能集成到机器人系统中，以利用其自然语言处理能力" href="#将量化大型语言模型llms作为边缘人工智能集成到机器人系统中以利用其自然语言处理能力"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.09581v1 公告类型：新研究<br>
-摘要：过去一年中，大语言模型（LLMs）取得重大进展，促使这些模型在应对自然语言任务的多个领域加速普及。将此类模型整合到机器人技术中，可显著提升人机交互、导航、路径规划与决策等多方面能力。为此，本文推出llama_ros工具，旨在通过ROS 2框架将量化大语言模型集成至机器人系统。该工具基于高度优化的llama.cpp运行时引擎，能够在资源受限的机器人系统中高效运行量化LLMs，实现边缘人工智能（AI）部署，有效解决计算效率与内存限制的挑战。通过部署量化LLMs，llama_ros使机器人能够利用自然语言理解与生成能力增强决策与交互，并可结合提示工程、知识图谱、本体论等工具进一步提升自主机器人性能。本文还深入探讨了llama_ros在机器人任务规划与可解释性方面的应用场景。</p>
-<p>（注：根据学术文献翻译规范，对以下术语采用专业译法：</p>
-<ul>
-<li>"quantized"译为"量化"而非"量子化"，符合机器学习领域术语</li>
-<li>"edge artificial intelligence"译为"边缘人工智能"而非"边缘AI"，保持术语完整性</li>
-<li>"prompt engineering"译为"提示工程"，采用学界通用译法</li>
-<li>长句按中文习惯拆分为多个短句，如原文第一句拆分为因果逻辑更清晰的两部分</li>
-<li>被动语态转换为主动表述，如"can be paired"译为"可结合"）</li>
-</ul>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

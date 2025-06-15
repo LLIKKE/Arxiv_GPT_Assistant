@@ -12,27 +12,10 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">MNN-LLM：面向移动设备快速部署大型语言模型的通用推理引擎</h2><a id="user-content-mnn-llm面向移动设备快速部署大型语言模型的通用推理引擎" class="anchor" aria-label="Permalink: MNN-LLM：面向移动设备快速部署大型语言模型的通用推理引擎" href="#mnn-llm面向移动设备快速部署大型语言模型的通用推理引擎"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.10443v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）已在多项任务中展现出卓越性能，但其庞大规模导致推理过程中消耗大量计算资源，成本高昂。因此，边缘设备推理成为颇具前景的解决方案。边缘推理的主要挑战在于内存占用与推理速度。本文提出MNN-LLM框架，专为加速大语言模型在移动端部署而设计。该框架通过模型量化和DRAM-Flash混合存储技术应对LLMs的运行时特性，显著降低内存使用；基于移动端CPU指令集与GPU特性重组权重与输入数据，同时采用多核负载均衡、混合精度浮点运算及几何计算等策略提升性能。值得注意的是，MNN-LLM相比当前主流LLM专用框架最高可实现8.6倍的加速比。</p>
-<p>（译文说明：</p>
-<ol>
-<li>专业术语保留英文缩写如LLMs/DRAM-Flash，首次出现时标注中文全称</li>
-<li>技术概念如"quantization"译为"量化"符合计算机领域惯例</li>
-<li>长句拆分重组，如将原文复合状语结构转换为分号连接的并列句式</li>
-<li>被动语态转换为主动表述，如"are rearranged"译为"重组"</li>
-<li>关键性能指标"8.6x speed increase"采用"8.6倍加速比"的行业标准表述</li>
-<li>保持学术论文摘要的客观严谨风格，避免口语化表达）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">AWP：基于激活感知的权重剪枝与投影梯度下降量化</h2><a id="user-content-awp基于激活感知的权重剪枝与投影梯度下降量化" class="anchor" aria-label="Permalink: AWP：基于激活感知的权重剪枝与投影梯度下降量化" href="#awp基于激活感知的权重剪枝与投影梯度下降量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.10205v1 公告类型：新研究<br>
-摘要：为解决大语言模型（LLMs）参数量庞大的问题，模型压缩技术（如量化和剪枝）常被采用，尤其在边缘设备上。本研究聚焦于逐层训练后量化和剪枝。通过建立激活感知权重剪枝与稀疏近似问题之间的联系，并受迭代硬阈值法（IHT）成功的启发，我们提出了一种基于投影梯度下降的统一方法——激活感知权重剪枝与量化联合优化（AWP）。实验表明，AWP在LLM剪枝与量化任务上超越了现有最优方法。同时，我们还为所提剪枝方法提供了理论收敛性保证。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
-<ol>
-<li>"post-training quantization"译为"训练后量化"（业界通用译法）</li>
-<li>"Iterative Hard Thresholding"保留英文缩写IHT但首次出现时给出全称"迭代硬阈值法"</li>
-<li>"Projected gradient descent"译为"投影梯度下降"（数学优化领域标准译名）</li>
-<li>保持"activation-aware"为"激活感知"的连贯性</li>
-<li>将"state-of-the-art"译为"现有最优"以符合中文论文表述习惯）</li>
-</ol>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">超越注意力或相似性：最大化MLLM中令牌剪枝的条件多样性</h2><a id="user-content-超越注意力或相似性最大化mllm中令牌剪枝的条件多样性" class="anchor" aria-label="Permalink: 超越注意力或相似性：最大化MLLM中令牌剪枝的条件多样性" href="#超越注意力或相似性最大化mllm中令牌剪枝的条件多样性"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>在多模态大语言模型（MLLMs）中，输入视觉标记的长度通常远超过文本标记，导致高昂的推理成本。许多研究试图通过去除冗余视觉标记来解决这一问题，但现有方法要么依赖基于注意力的剪枝（仍保留大量重复标记），要么采用基于相似性的剪枝（忽视指令相关性），最终导致性能欠佳。本文突破注意力或相似性框架，提出名为CDPruner的新型视觉标记剪枝方法，通过最大化保留标记的条件多样性实现优化。我们首先定义基于指令条件的视觉标记间条件相似性，随后用行列式点过程（DPP）重构标记剪枝问题，使所选子集的条件多样性最大化。CDPruner无需训练且与模型无关，可轻松适配各类MLLMs。跨多模型的广泛实验表明，CDPruner在各类视觉-语言基准测试中创造了新性能纪录。通过DPP实现的条件多样性最大化，所选子集既能更好表征输入图像，又能紧密遵循用户指令，即使在高压缩率下仍保持强劲性能。应用于LLaVA时，CDPruner在保持94%原始精度的同时，将FLOPs降低95%，CUDA延迟减少78%。代码已开源：<a href="https://github.com/Theia-4869/CDPruner%E3%80%82">https://github.com/Theia-4869/CDPruner。</a></p>
+<div class="markdown-heading"><h2 class="heading-element">初始位置的重要性：神经网络量化中更优权重初始化的研究</h2><a id="user-content-初始位置的重要性神经网络量化中更优权重初始化的研究" class="anchor" aria-label="Permalink: 初始位置的重要性：神经网络量化中更优权重初始化的研究" href="#初始位置的重要性神经网络量化中更优权重初始化的研究"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>深度神经网络（DNN）量化技术作为实现快速高效推理的重要工具，在降低机器学习（ML）模型推理成本方面发挥着关键作用。量化专用模型开发技术（如正则化、量化感知训练和量化鲁棒性惩罚）的应用，显著提升了现代DNN的精度与稳健性。然而，针对量化场景优化DNN训练初始条件的研究却鲜有涉足。正如随机权重初始化已被证明会显著影响浮点模型的测试精度，不同权重初始化方法理应会影响训练后模型的量化鲁棒性。我们通过系统研究揭示了不同权重初始化方法对高效CNN常用构建模块的影响规律：即使CNN架构各异，随机权重初始化器的选择仍会显著影响最终量化鲁棒性。进而，我们探索了一种量化鲁棒CNN初始化新范式——采用图超网络（GHN）来预测量化DNN参数。研究发现：1）经过常规float32预训练的GHN所预测参数即具备量化鲁棒性；2）通过微调GHN使其专精于量化图参数预测（称为GHN-QAT），可进一步提升CNN的量化精度。值得注意的是，GHN-QAT在4位量化场景下仍能实现显著精度提升，在2位极端量化下仍保持优于随机初始化的精度。据我们所知，这是首个针对量化感知DNN权重初始化的深度研究。GHN-QAT为量化DNN模型设计开辟了新路径，未来研究（如将GHN-QAT初始化参数用于量化感知训练）有望进一步简化DNN量化流程。</p>
+<div class="markdown-heading"><h2 class="heading-element">MNN-LLM：面向移动设备快速部署大语言模型的通用推理引擎</h2><a id="user-content-mnn-llm面向移动设备快速部署大语言模型的通用推理引擎" class="anchor" aria-label="Permalink: MNN-LLM：面向移动设备快速部署大语言模型的通用推理引擎" href="#mnn-llm面向移动设备快速部署大语言模型的通用推理引擎"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>大型语言模型（LLM）已在多种任务中展现出卓越性能，但其庞大规模导致推理过程中消耗大量计算资源，造成高昂成本。因此，边缘设备推理成为极具前景的解决方案。边缘推理的主要挑战在于内存占用与推理速度。本文推出专为移动端优化的MNN-LLM框架，通过模型量化与DRAM-Flash混合存储机制应对LLM运行时特性，显著降低内存消耗。该框架基于移动端CPU指令集与GPU特性重构权重与输入布局，同时采用多核负载均衡、混合精度浮点运算及几何计算等策略提升性能。实验表明，MNN-LLM相较当前主流专用框架最高可实现8.6倍加速比。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

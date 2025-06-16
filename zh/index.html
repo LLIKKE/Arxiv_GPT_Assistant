@@ -12,10 +12,93 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">超越注意力或相似性：最大化MLLM中令牌剪枝的条件多样性</h2><a id="user-content-超越注意力或相似性最大化mllm中令牌剪枝的条件多样性" class="anchor" aria-label="Permalink: 超越注意力或相似性：最大化MLLM中令牌剪枝的条件多样性" href="#超越注意力或相似性最大化mllm中令牌剪枝的条件多样性"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>在多模态大语言模型（MLLMs）中，输入视觉标记的长度通常远超过文本标记，导致高昂的推理成本。许多研究试图通过去除冗余视觉标记来解决这一问题，但现有方法要么依赖基于注意力的剪枝（仍保留大量重复标记），要么采用基于相似性的剪枝（忽视指令相关性），最终导致性能欠佳。本文突破注意力或相似性框架，提出名为CDPruner的新型视觉标记剪枝方法，通过最大化保留标记的条件多样性实现优化。我们首先定义基于指令条件的视觉标记间条件相似性，随后用行列式点过程（DPP）重构标记剪枝问题，使所选子集的条件多样性最大化。CDPruner无需训练且与模型无关，可轻松适配各类MLLMs。跨多模型的广泛实验表明，CDPruner在各类视觉-语言基准测试中创造了新性能纪录。通过DPP实现的条件多样性最大化，所选子集既能更好表征输入图像，又能紧密遵循用户指令，即使在高压缩率下仍保持强劲性能。应用于LLaVA时，CDPruner在保持94%原始精度的同时，将FLOPs降低95%，CUDA延迟减少78%。代码已开源：<a href="https://github.com/Theia-4869/CDPruner%E3%80%82">https://github.com/Theia-4869/CDPruner。</a></p>
-<div class="markdown-heading"><h2 class="heading-element">初始位置的重要性：神经网络量化中更优权重初始化的研究</h2><a id="user-content-初始位置的重要性神经网络量化中更优权重初始化的研究" class="anchor" aria-label="Permalink: 初始位置的重要性：神经网络量化中更优权重初始化的研究" href="#初始位置的重要性神经网络量化中更优权重初始化的研究"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>深度神经网络（DNN）量化技术作为实现快速高效推理的重要工具，在降低机器学习（ML）模型推理成本方面发挥着关键作用。量化专用模型开发技术（如正则化、量化感知训练和量化鲁棒性惩罚）的应用，显著提升了现代DNN的精度与稳健性。然而，针对量化场景优化DNN训练初始条件的研究却鲜有涉足。正如随机权重初始化已被证明会显著影响浮点模型的测试精度，不同权重初始化方法理应会影响训练后模型的量化鲁棒性。我们通过系统研究揭示了不同权重初始化方法对高效CNN常用构建模块的影响规律：即使CNN架构各异，随机权重初始化器的选择仍会显著影响最终量化鲁棒性。进而，我们探索了一种量化鲁棒CNN初始化新范式——采用图超网络（GHN）来预测量化DNN参数。研究发现：1）经过常规float32预训练的GHN所预测参数即具备量化鲁棒性；2）通过微调GHN使其专精于量化图参数预测（称为GHN-QAT），可进一步提升CNN的量化精度。值得注意的是，GHN-QAT在4位量化场景下仍能实现显著精度提升，在2位极端量化下仍保持优于随机初始化的精度。据我们所知，这是首个针对量化感知DNN权重初始化的深度研究。GHN-QAT为量化DNN模型设计开辟了新路径，未来研究（如将GHN-QAT初始化参数用于量化感知训练）有望进一步简化DNN量化流程。</p>
-<div class="markdown-heading"><h2 class="heading-element">MNN-LLM：面向移动设备快速部署大语言模型的通用推理引擎</h2><a id="user-content-mnn-llm面向移动设备快速部署大语言模型的通用推理引擎" class="anchor" aria-label="Permalink: MNN-LLM：面向移动设备快速部署大语言模型的通用推理引擎" href="#mnn-llm面向移动设备快速部署大语言模型的通用推理引擎"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>大型语言模型（LLM）已在多种任务中展现出卓越性能，但其庞大规模导致推理过程中消耗大量计算资源，造成高昂成本。因此，边缘设备推理成为极具前景的解决方案。边缘推理的主要挑战在于内存占用与推理速度。本文推出专为移动端优化的MNN-LLM框架，通过模型量化与DRAM-Flash混合存储机制应对LLM运行时特性，显著降低内存消耗。该框架基于移动端CPU指令集与GPU特性重构权重与输入布局，同时采用多核负载均衡、混合精度浮点运算及几何计算等策略提升性能。实验表明，MNN-LLM相较当前主流专用框架最高可实现8.6倍加速比。</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">基于预测与上下文建模的深度神经网络检查点高效压缩方法</h2><a id="user-content-基于预测与上下文建模的深度神经网络检查点高效压缩方法" class="anchor" aria-label="Permalink: 基于预测与上下文建模的深度神经网络检查点高效压缩方法" href="#基于预测与上下文建模的深度神经网络检查点高效压缩方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.12000v1 公告类型：新论文<br>
+摘要：本文致力于高效压缩神经网络训练过程中不同阶段获得的权重及优化器状态（统称为检查点）。首先，我们提出一种基于预测的压缩方法，利用先前保存的检查点数据作为算术编码的上下文建模依据。其次，为提升压缩性能，我们还提出对检查点数值进行剪枝和量化处理。实验结果表明，该方法能显著减少比特量，同时支持从还原的检查点进行近乎无损的训练恢复，在保持模型性能的前提下，使其适用于存储受限的环境。</p>
+<p>（注：根据学术文献翻译规范，对以下术语进行了专业处理：</p>
+<ol>
+<li>"checkpoints" 译为"检查点"（计算机领域标准译法）</li>
+<li>"arithmetic coding" 译为"算术编码"（信息论标准术语）</li>
+<li>"pruning and quantization" 译为"剪枝和量化"（深度学习领域通用译法）</li>
+<li>"near-lossless" 译为"近乎无损"（平衡技术准确性与语言流畅性）</li>
+<li>被动语态转为主动语态（如"are used"→"利用"），符合中文表达习惯）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">TruncQuant：面向深度神经网络的截断就绪量化技术——支持灵活权重位精度</h2><a id="user-content-truncquant面向深度神经网络的截断就绪量化技术支持灵活权重位精度" class="anchor" aria-label="Permalink: TruncQuant：面向深度神经网络的截断就绪量化技术——支持灵活权重位精度" href="#truncquant面向深度神经网络的截断就绪量化技术支持灵活权重位精度"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.11431v1 公告类型：新研究<br>
+摘要：由于最先进模型日益复杂，在边缘设备上部署深度神经网络面临巨大挑战，亟需通过减小模型规模和降低推理延迟来优化性能。近期研究探索了在不同量化设置下运行的模型，以寻找兼顾计算效率与精度的最佳平衡点。截断法作为一种实现更低比特精度映射的有效手段，能使单一模型几乎零成本地适配多种硬件平台。然而，当前量化感知训练方案并非为截断过程设计，如何构建能抵御截断所引入误差的深度神经网络训练方案仍具挑战性。我们提出TruncQuant——一种支持运行时通过比特位移实现灵活精度调节的新型截断就绪训练方案。该方案通过使训练过程与截断输出对齐，展现出跨比特宽度设置的强大鲁棒性，并提供了可轻松集成至现有量化感知框架的训练方案。代码已发布于<a href="https://github.com/a2jinhee/TruncQuant%E3%80%82">https://github.com/a2jinhee/TruncQuant。</a></p>
+<p>（翻译说明：</p>
+<ol>
+<li>专业术语保留英文原词如"arXiv"、"TruncQuant"，技术概念如"quantization-aware training"译为"量化感知训练"</li>
+<li>长难句拆分重组，如将"requiring efforts to..."独立译为分句"亟需..."</li>
+<li>被动语态转换，如"is not designed for"译为主动式"并非为...设计"</li>
+<li>技术动作描述采用动词化处理，如"bit-shifting"译为"比特位移"</li>
+<li>保持学术论文的客观严谨风格，避免口语化表达</li>
+<li>链接信息完整保留原格式）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">EMLoC：基于模拟器的内存高效微调与LoRA校正技术</h2><a id="user-content-emloc基于模拟器的内存高效微调与lora校正技术" class="anchor" aria-label="Permalink: EMLoC：基于模拟器的内存高效微调与LoRA校正技术" href="#emloc基于模拟器的内存高效微调与lora校正技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.12015v1 公告类型：新研究<br>
+摘要：开源基础模型正经历快速普及与发展，其强大的通用能力已覆盖多个领域。然而，由于微调大型基础模型所需的内存开销远超推理阶段，针对领域特定或个性化任务的模型调优对大多数用户而言仍成本过高。我们提出EMLoC框架——一种基于模拟器的内存高效微调方案，通过LoRA修正技术，实现在与推理阶段相同的内存预算下完成模型微调。该框架首先利用下游小型校准数据集，采用激活感知的奇异值分解（SVD）构建任务特定的轻量级模拟器，随后通过LoRA在该模拟器上进行微调。针对原始模型与压缩模拟器间的偏差问题，我们创新性地提出补偿算法来修正微调后的LoRA模块，使其能无缝集成至原始模型进行推理。EMLoC支持灵活的压缩比和标准训练流程，可适配多样化应用场景。大量实验表明，该方法在多个数据集和模态上均优于基线模型。尤为突出的是，在不使用量化技术的情况下，EMLoC能在单块24GB消费级GPU上完成380亿参数模型的微调——真正为个体用户带来高效实用的模型适配能力。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了如下处理：</p>
+<ol>
+<li>"foundation models"译为"基础模型"（学界通用译法）</li>
+<li>"LoRA"保留英文缩写（原意为Low-Rank Adaptation，在中文论文中通常不翻译）</li>
+<li>"SVD"译为"奇异值分解"（数学标准译名）</li>
+<li>技术名词首次出现时均保留英文缩写并在括号内标注全称</li>
+<li>38B/24GB等计量单位严格保留原始数字格式）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">对角稀疏网络的动态稀疏训练</h2><a id="user-content-对角稀疏网络的动态稀疏训练" class="anchor" aria-label="Permalink: 对角稀疏网络的动态稀疏训练" href="#对角稀疏网络的动态稀疏训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.11449v1 公告类型：新研究<br>
+摘要：动态稀疏训练（DST）领域的最新进展突破了结构化与无结构稀疏神经网络训练的边界，在显著减少参数数量以促进模型扩展的同时，实现了与密集模型相当的性能。然而，无结构稀疏性往往无法在现代硬件上转化为实际加速效果。针对这一缺陷，我们提出DynaDiag——一种创新的结构化稀疏到稀疏DST方法，其性能与无结构稀疏性相当。DynaDiag在训练过程中强制执行对角线稀疏模式，并在前向与反向传播中保持稀疏计算。我们进一步利用对角线结构通过定制CUDA内核加速计算，使该方法具备硬件友好性。在多种神经架构上的实证评估表明，本方法在保持与无结构稀疏模型同等精度的同时，能获得切实的计算收益。值得注意的是，在视觉Transformer（ViT）中90%稀疏度的线性层上，我们观察到在线推理速度最高提升3.13倍（且不损失模型性能），GPU训练速度较等效无结构层提升1.59倍。项目源代码已发布于<a href="https://github.com/horizon-research/DynaDiag/%E3%80%82">https://github.com/horizon-research/DynaDiag/。</a></p>
+<p>（注：根据学术文献翻译规范，对部分术语处理如下：</p>
+<ol>
+<li>"Dynamic Sparse Training"译为"动态稀疏训练"并保留缩写DST</li>
+<li>"ViTs"采用行业通用译法"视觉Transformer"并首次出现标注英文全称</li>
+<li>"CUDA kernel"译为"CUDA内核"符合计算机领域术语</li>
+<li>保留所有技术参数和比例数据的精确性</li>
+<li>长句按中文表达习惯拆分为短句，保持逻辑清晰）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">压缩感知认证训练</h2><a id="user-content-压缩感知认证训练" class="anchor" aria-label="Permalink: 压缩感知认证训练" href="#压缩感知认证训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.11992v1 公告类型：新研究<br>
+摘要：部署在安全关键型资源受限环境中的深度神经网络，必须在效率与鲁棒性之间取得平衡。现有方法将压缩与认证鲁棒性视为独立目标，往往需要牺牲效率或安全性。我们提出CACTUS框架（基于网络集的压缩感知认证训练），通过统一训练目标来解决这一矛盾。经CACTUS训练的模型在压缩后仍能保持高认证精度。该框架可同时应用于剪枝与量化场景，实验表明其能有效训练出既满足高效压缩需求，又保持高精度与可认证鲁棒性的模型。在多种数据集和输入规范下，CACTUS在剪枝与量化任务中均实现了当前最优的精度与认证性能。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了专业处理：</p>
+<ol>
+<li>"certified robustness"译为"认证鲁棒性"以保持形式验证领域的术语一致性</li>
+<li>"network Sets"采用意译"网络集"而非直译"网络集合"</li>
+<li>"state-of-the-art"译为"当前最优"符合中文文献表述习惯</li>
+<li>通过拆分英文长句为中文短句结构（如将"models which can..."处理为"既...又..."句式）</li>
+<li>保留CACTUS作为专有名词不翻译，同时补充括号注释其全称）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">ADAMIX：面向大语言模型的自适应混合精度差分压缩与量化误差优化技术</h2><a id="user-content-adamix面向大语言模型的自适应混合精度差分压缩与量化误差优化技术" class="anchor" aria-label="Permalink: ADAMIX：面向大语言模型的自适应混合精度差分压缩与量化误差优化技术" href="#adamix面向大语言模型的自适应混合精度差分压缩与量化误差优化技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（翻译说明：</p>
+<ol>
+<li>"Adaptive"译为"自适应"，体现算法动态调整特性；</li>
+<li>"Mixed-Precision"采用计算机领域标准译法"混合精度"；</li>
+<li>"Delta-Compression"译为"差分压缩"，准确表达差值压缩技术本质；</li>
+<li>通过添加"技术"二字符合中文论文标题习惯；</li>
+<li>使用破折号连接主副标题，保持学术标题规范；</li>
+<li>"Quantization Error Optimization"译为"量化误差优化"，精准传达数学优化过程；</li>
+<li>整体采用"定语前置+中心词后置"的中文技术术语结构）</li>
+</ol>
+<p>arXiv:2506.11087v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）在不同领域的知识密集型复杂推理任务中展现出卓越性能。在多租户服务等场景中，通常需要部署大量基于同一基础模型微调的LLM以满足用户复杂需求。近期研究探索了通过差值压缩方法，对定制化LLM与基础模型间的增量参数（delta参数）进行量化和压缩。然而现有方案要么在高压缩比下性能欠佳，要么依赖于经验性比特分配策略。本研究提出ADAMIX框架——一种高效的自适应混合精度差值压缩方法。我们通过量化误差的数学推导提出混合精度压缩策略，并将最优比特分配问题转化为0/1整数线性规划求解。该策略在满足预设压缩率要求的同时最小化量化误差。多模型与基准测试表明，我们的方法显著优于现有最佳基线：在AIME2024和GQA任务中（当$\Delta \mathbf{W}$范数较大且基础模型能力不足时），ADAMIX使用7B模型分别以22.3%和6.1%的优势超越最佳基线Delta-CoMe。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<ol>
+<li>"delta parameters"译为"增量参数"并括号标注英文术语</li>
+<li>"0/1 integer linear programming"保留数学表达形式</li>
+<li>模型名称ADAMIX/Delta-CoMe保持原貌</li>
+<li>数学符号$\Delta \mathbf{W}$完整保留</li>
+<li>长难句按中文习惯拆分重组，如将"formulate...problem"转化为"将...转化为...求解"的主动句式）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">通过零空间优化提升大语言模型的训练后量化效果</h2><a id="user-content-通过零空间优化提升大语言模型的训练后量化效果" class="anchor" aria-label="Permalink: 通过零空间优化提升大语言模型的训练后量化效果" href="#通过零空间优化提升大语言模型的训练后量化效果"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.11044v1 公告类型：新研究<br>
+摘要：现有的大语言模型（LLM）训练后量化方法已取得显著成功，但性能提升的边际效益递减表明，当前量化策略难以支撑更高压缩率模型的开发。为启发未来研究新方向，本文首次将"零空间"概念引入LLM量化领域，提出通过约束量化后权重扰动处于输入激活值的零空间内，可有效缓解量化误差。为验证该理论，我们为现有PTQ基准方法设计了一个即插即用的零空间投影模块Q2N：首先针对LLM特性设计了高效精确的零空间投影近似方法；随后通过理论推导获得投影矩阵等效向量的闭式解，在满足实际推理条件的同时避免额外内存开销。我们在LLaMA3、DeepSeek、Qwen3等前沿LLM及多个基准上的实验表明，Q2N方案及零空间优化视角对LLM量化的有效性。本文作为基于零空间洞察进一步降低量化误差的初步探索，希望启发未来研究者设计更先进的量化方法。代码已开源：<a href="https://github.com/zjq0455/q2n%E3%80%82">https://github.com/zjq0455/q2n。</a></p>
+<p>（注：根据学术论文摘要的文体特点，翻译时进行了以下处理：</p>
+<ol>
+<li>将英文被动语态转换为中文主动表述</li>
+<li>专业术语如"null space"统一译为"零空间"</li>
+<li>长难句拆解为符合中文表达习惯的短句结构</li>
+<li>技术概念如"closed-form solution"保留专业译法"闭式解"</li>
+<li>项目名称Q2N保持原貌不翻译</li>
+<li>补充"注"字使arXiv编号更符合中文文献引用习惯）</li>
+</ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

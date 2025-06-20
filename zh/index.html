@@ -12,91 +12,21 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">FlexQuant：一种面向大语言模型量化的灵活高效动态精度切换框架</h2><a id="user-content-flexquant一种面向大语言模型量化的灵活高效动态精度切换框架" class="anchor" aria-label="Permalink: FlexQuant：一种面向大语言模型量化的灵活高效动态精度切换框架" href="#flexquant一种面向大语言模型量化的灵活高效动态精度切换框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.12024v1 公告类型：新论文<br>
-摘要：大型语言模型（LLM）的快速发展加剧了内存瓶颈问题，这是因为模型参数规模与硬件能力之间的差距日益扩大。虽然训练后量化（PTQ）技术能有效降低内存开销，但现有方法主要依赖静态量化策略，难以适应动态工作负载。为此，我们提出FlexQuant——一种动态精度切换框架，通过优化推理速度与准确率之间的权衡来解决这一问题。该框架利用模型困惑度熵和Kullback-Leibler（KL）散度，实现细粒度的分层混合精度量化，并在每个令牌生成过程中动态调整位宽。我们的工作不仅提供了量化策略的全面分析，还引入了用于最优切换的精度需求模型，并实现了高效的细粒度精度管理。实验结果表明，FlexQuant在多样化语言任务中实现了1.3倍的端到端加速，且引入的准确率损失可忽略不计。这一框架为高效部署LLM提供了灵活自适应的解决方案。</p>
-<p>（注：根据学术文献翻译规范，术语处理如下：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">内在与外在的有组织注意：Softmax不变性与网络稀疏性</h2><a id="user-content-内在与外在的有组织注意softmax不变性与网络稀疏性" class="anchor" aria-label="Permalink: 内在与外在的有组织注意：Softmax不变性与网络稀疏性" href="#内在与外在的有组织注意softmax不变性与网络稀疏性"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>我们研究了Transformer中自注意力机制的内在（注意力头内部）与外在（注意力头之间）结构。通过运用仿微分算子理论（并辅以计算实例佐证），我们获得了自注意力机制对softmax激活具有不变性的理论证据，这一特性源于注意力头内在的组织方式。此外，我们采用现有的张量层次组织方法，通过沿网络三维张量的查询轴、键轴和头轴构建层次划分树来解析网络结构。这种组织结构具有重要价值，它使得我们能够在呈现规律性的网络三维张量几何空间上高效执行常规信号处理任务。我们通过双重方式对此进行例证：定性方面，可视化由注意力头构成的层次树结构及其扩散图嵌入；定量方面，通过分析网络稀疏性——分别基于查询、键和头空间的双哈尔基与三哈尔基，考察单个注意力头及整个网络的展开系数。为展示理论与方法学发现的应用价值，我们提供了视觉与语言Transformer的计算实例。这些发现具有双重意义：（1）从理论上为可解释性分析的后续步骤提供了依据，并可在下游可解释性任务中加以实证利用；（2）网络三维张量组织结构可应用于模型剪枝（基于网络稀疏性）和网络架构比较等实际网络任务。</p>
+<div class="markdown-heading"><h2 class="heading-element">基于Kronecker适应的大型语言模型奇异值分解</h2><a id="user-content-基于kronecker适应的大型语言模型奇异值分解" class="anchor" aria-label="Permalink: 基于Kronecker适应的大型语言模型奇异值分解" href="#基于kronecker适应的大型语言模型奇异值分解"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>大规模预训练的Transformer模型在各类语言与推理任务中取得了最先进的性能，但完整微调会带来巨大的存储、内存和计算开销。参数高效微调（PEFT）方法通过学习少量任务特定参数来降低这些成本，然而现有方案要么会引入推理延迟（适配器模块），要么存在收敛欠佳问题（随机初始化的低秩更新），或依赖于可能不匹配任务复杂度的固定秩选择（基于Kronecker积的分解）。我们提出SoKA（基于Kronecker适应的SVD分解），这是一种新颖的PEFT策略，将Kronecker积张量分解与SVD驱动的初始化、频谱感知动态秩选择相结合。我们的Kronecker积SVD（KPSVD）流程将完整权重更新的主成分提取为紧凑的Kronecker因子，同时自适应秩选择算法通过能量阈值和肘点准则来修剪可忽略的分量。在LLaMA2-7B模型上针对算术推理（GSM8K）、形式数学（MATH）和代码生成（MBPP）任务的实验表明，SoKA仅需0.99M可训练参数，比LoRA/PiSSA减少25%，同时达到或超越基线性能。此外，SoKA展现出更快的收敛速度和更稳定的梯度，凸显了其在大规模模型适配中的鲁棒性与高效性。</p>
+<div class="markdown-heading"><h2 class="heading-element">MoTE：面向内存高效大型多模态模型的三元专家混合架构</h2><a id="user-content-mote面向内存高效大型多模态模型的三元专家混合架构" class="anchor" aria-label="Permalink: MoTE：面向内存高效大型多模态模型的三元专家混合架构" href="#mote面向内存高效大型多模态模型的三元专家混合架构"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>大规模多模态混合专家模型（MoEs）通过扩展模型规模提升性能，同时保持固定的激活参数量。然而既有研究在稀疏升级周期中主要采用全精度专家，虽在终端任务上表现优异，但海量专家导致内存占用激增，为边缘设备部署带来严峻挑战。本研究提出MoTE方案——一种基于稠密检查点训练三值化混合专家模型的可扩展内存优化方法。我们突破传统"少量高精度专家"的训练范式，在升级周期中转而训练"大量低精度专家"。具体而言，我们将预训练前馈网络（FFN）作为共享专家，同时训练参数取值限于{-1, 0, 1}的三值路由专家。大量实验表明，该方法随模型规模扩大呈现良好的扩展趋势：MoTE在保持与全精度基线模型MoE-LLaVA相当性能的同时，显著降低了内存占用。此外，本方案与训练后量化方法高度兼容，当内存约束更严格时优势进一步放大。在专家内存占用同为3.4GB的条件下，结合训练后量化技术，MoTE在终端任务上的平均准确率较MoE-LLaVA提升4.3%，充分证明了其在内存受限设备上的有效性与应用潜力。</p>
+<div class="markdown-heading"><h2 class="heading-element">《通过分布匹配增强向量量化：一项理论与实证研究》</h2><a id="user-content-通过分布匹配增强向量量化一项理论与实证研究" class="anchor" aria-label="Permalink: 《通过分布匹配增强向量量化：一项理论与实证研究》" href="#通过分布匹配增强向量量化一项理论与实证研究"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>注：</p>
 <ol>
-<li>"large language models"统一译为"大型语言模型"并保留缩写LLM</li>
-<li>"post-training quantization"采用通用译法"训练后量化"并标注PTQ</li>
-<li>"Kullback-Leibler divergence"保留专业术语"Kullback-Leibler散度"并首次出现标注KL</li>
-<li>技术概念如"fine-grained precision management"译为"细粒度精度管理"以保持工程语境</li>
-<li>动态描述"during each token generation"译为"每个令牌生成过程中"符合NLP领域表述习惯）</li>
+<li>"Enhancing"译为"增强"，体现技术改进的主动性</li>
+<li>"Vector Quantization"采用专业术语"向量量化"，保持计算机领域术语一致性</li>
+<li>"Distributional Matching"译为"分布匹配"，准确表达概率分布对齐的数学概念</li>
+<li>副标题采用学术论文常见译法"理论与实证研究"，其中"empirical"对应"实证"更符合中文社科研究表述习惯</li>
+<li>整体采用书名号《》标注，符合中文出版物标题规范</li>
+<li>保留原文的冒号分隔主副标题结构，维持学术标题的严谨层次感</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">MaskPro：面向大型语言模型的严格（N:M）稀疏性线性空间概率学习方法</h2><a id="user-content-maskpro面向大型语言模型的严格nm稀疏性线性空间概率学习方法" class="anchor" aria-label="Permalink: MaskPro：面向大型语言模型的严格（N:M）稀疏性线性空间概率学习方法" href="#maskpro面向大型语言模型的严格nm稀疏性线性空间概率学习方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：根据技术术语的常见译法及上下文进行了以下调整：</p>
-<ol>
-<li>"MaskPro" 保留不译，作为专有技术名称</li>
-<li>"Strict (N:M)-Sparsity" 译为"严格(N:M)稀疏性"，其中N:M表示结构化稀疏的经典表述</li>
-<li>"Linear-Space Probabilistic Learning" 译为"线性空间概率学习"，突出算法在内存效率（线性空间复杂度）和概率建模的特性</li>
-<li>补充"面向大型语言模型"以明确应用场景，符合中文技术文献表述习惯）</li>
-</ol>
-<p>arXiv:2506.12876v1 公告类型：新研究<br>
-摘要：大型语言模型（LLM）的快速扩展使得推理效率成为实际部署中的主要瓶颈。为解决这一问题，半结构化稀疏性提供了一种前景广阔的解决方案——通过策略性地在每M个权重中保留N个元素，从而实现硬件友好的加速并降低内存占用。然而，现有的（N:M）兼容方法通常存在两类局限：基于规则的逐层贪婪搜索会引入显著误差，而基于梯度的组合学习则会产生难以承受的训练成本。为应对这些挑战，我们提出了一种名为MaskPro的新型线性空间概率框架，该框架通过学习每M个连续权重的先验分类分布，进而利用该分布通过N次无放回抽样生成（N:M）稀疏模式。此外，为缓解超大规模组合空间中策略梯度方差过高导致的训练不稳定性，我们创新性地引入损失残差移动平均跟踪器替代原始损失值进行参数更新。最终，我们通过全面的理论分析和大量实验验证了MaskPro的卓越性能，包括其在内存效率上的优异可扩展性以及对数据样本的出色鲁棒性。代码已开源：<a href="https://github.com/woodenchild95/Maskpro.git">https://github.com/woodenchild95/Maskpro.git</a></p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
-<ol>
-<li>"semi-structured sparsity"译为"半结构化稀疏性"以保持领域术语一致性</li>
-<li>"N-way sampling without replacement"译为"N次无放回抽样"以准确表达统计学概念</li>
-<li>保留了原文中的数学符号格式（N:M）以符合计算机领域论文惯例</li>
-<li>"moving average tracker of loss residuals"采用增译法处理为"损失残差移动平均跟踪器"以确保技术准确性）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">《元修剪：基于图元网络——一种网络修剪的元学习框架》</h2><a id="user-content-元修剪基于图元网络一种网络修剪的元学习框架" class="anchor" aria-label="Permalink: 《元修剪：基于图元网络——一种网络修剪的元学习框架》" href="#元修剪基于图元网络一种网络修剪的元学习框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.12041v1 公告类型：新研究<br>
-摘要：网络剪枝技术旨在缩减网络规模的同时保持精度，已引发广泛研究关注。随着时间推移，大量剪枝方法被提出，其效果日益显著，但复杂性和可解释性也随之降低。鉴于神经网络固有的复杂性，我们认为人工设计剪枝标准已遭遇瓶颈。为此，我们提出创新方案——"用神经网络来剪枝神经网络"。具体而言，我们将元学习领域新发展的元网络概念引入剪枝任务。元网络是一种以其他网络为输入、并输出经修改网络的神经网络。本文首先建立神经网络与图结构的双射映射，随后采用图神经网络作为元网络。我们训练出的元网络能自动学习剪枝策略，将难以剪枝的网络转化为更易剪枝的形态。元网络训练完成后，仅需前馈传播结合标准微调即可实现最先进水平的剪枝。该方法在多项经典剪枝任务中表现卓越（包括CIFAR10上的ResNet56、CIFAR100上的VGG19、ImageNet上的ResNet50）。代码已开源：<a href="https://github.com/Yewei-Liu/MetaPruning">https://github.com/Yewei-Liu/MetaPruning</a></p>
-<p>（注：根据学术文献翻译规范，对技术术语如"metanetwork"统一译为"元网络"，"feedforward"译为"前馈传播"，"finetuning"译为"微调"；长句按中文习惯拆分为短句；项目链接保留原始格式；专业名词如ResNet/VGG等保持英文原名）</p>
-<div class="markdown-heading"><h2 class="heading-element">量化小型状态空间模型以用于边缘人工智能</h2><a id="user-content-量化小型状态空间模型以用于边缘人工智能" class="anchor" aria-label="Permalink: 量化小型状态空间模型以用于边缘人工智能" href="#量化小型状态空间模型以用于边缘人工智能"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.12480v1 公告类型：新研究<br>
-摘要：状态空间模型（SSMs）近期在深度学习领域崭露头角，因其能高效建模长程依赖关系，成为边缘AI应用的有力候选者。本文系统分析了量化技术对小规模SSMs的影响，重点研究如何在保持任务性能的同时降低内存与计算成本。基于S4D架构，我们首先探究训练后量化（PTQ），发现状态矩阵A和内部状态x对量化尤为敏感。进一步，我们分析了S4D架构中参数和激活值采用不同量化技术的影响。针对训练后量化（PTQ）导致的性能下降问题，我们采用量化感知训练（QAT），在8比特精度下将顺序MNIST基准任务的准确率从40%（PTQ）显著提升至96%。我们还验证了QAT在实现8比特以下精度的潜力，并评估了不同参数化方案对QAT稳定性的影响。此外，我们提出一种异构量化策略，为模型组件分配不同精度级别，在保持性能的同时将总体内存占用减少6倍。这些研究成果为在资源受限环境中部署量化SSM提供了可落地的技术方案。</p>
-<p>（注：根据学术论文摘要的文体特点，翻译时注重以下处理：</p>
-<ol>
-<li>专业术语统一："state-space models"固定译为"状态空间模型"，"quantization-aware training"采用通用译法"量化感知训练"</li>
-<li>技术概念准确表达：将"memory footprint"译为"内存占用"而非字面直译"内存足迹"</li>
-<li>句式结构调整：将英语长句拆分为符合中文表达习惯的短句，如原句"we analyze the effects..."拆分为"系统分析...重点研究..."</li>
-<li>数据呈现规范化：保留"8-bit"等技术指标的标准表述，补充"比特"单位</li>
-<li>学术用语精确化：用"探究""验证""显著提升"等符合科研论文表述的动词）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">BTC-LLM：通过可学习变换与二进制码本实现的高效亚1比特大型语言模型量化</h2><a id="user-content-btc-llm通过可学习变换与二进制码本实现的高效亚1比特大型语言模型量化" class="anchor" aria-label="Permalink: BTC-LLM：通过可学习变换与二进制码本实现的高效亚1比特大型语言模型量化" href="#btc-llm通过可学习变换与二进制码本实现的高效亚1比特大型语言模型量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.12040v1 公告类型：新研究<br>
-摘要：二值量化是大型语言模型（LLM）压缩的极端形式，通过将权重简化为±1来实现内存和计算效率的最大化。虽然近期基于稀疏感知的二值化方法通过剪枝冗余二值权重实现了亚1比特压缩，但它们面临三个关键挑战：性能下降、稀疏掩码管理带来的计算复杂性，以及有限的硬件兼容性。本文提出BTC-LLM——一种创新的亚1比特LLM量化框架，通过自适应权重变换和二进制模式聚类突破这些限制，在精度与效率上均实现卓越表现。我们的方法包含两大核心创新：（1）<strong>可学习变换</strong>：通过优化可逆缩放和旋转矩阵，使二值化权重与全精度分布对齐，利用非相干处理提升层级表征质量；（2）<strong>快速精确二进制码本</strong>：识别重复出现的二值向量聚类，采用定制距离度量和基于符号的质心更新机制将其压缩为紧凑索引。该方法无需稀疏掩码，可在标准硬件上实现高效推理。代码已开源：<a href="https://github.com/Chooovy/BTC-LLM%E3%80%82">https://github.com/Chooovy/BTC-LLM。</a></p>
-<p>（注：根据技术文本特点，翻译时做了以下处理：</p>
-<ol>
-<li>专业术语统一："incoherence processing"译为"非相干处理"，"centroid updates"译为"质心更新"</li>
-<li>被动语态转换：如"are compressed"译为主动式"将其压缩"</li>
-<li>长句拆分：将原文复合从句分解为符合中文表达习惯的短句</li>
-<li>概念显化：如"Flash and Accurate Binary Codebook"意译为"快速精确二进制码本"以突出功能特性</li>
-<li>技术符号保留：数学符号$\pm$1保持原格式）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">为什么某些输入会破坏低比特大语言模型的量化效果？</h2><a id="user-content-为什么某些输入会破坏低比特大语言模型的量化效果" class="anchor" aria-label="Permalink: 为什么某些输入会破坏低比特大语言模型的量化效果？" href="#为什么某些输入会破坏低比特大语言模型的量化效果"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.12044v1 公告类型：新研究<br>
-摘要：低比特权重量化技术能显著减少大语言模型（LLMs）的内存占用，但对特定样本的影响尤为严重。我们分析了7B至70B参数规模LLM的多种3-4比特量化方法，发现FineWeb数据集样本上50组方法的量化误差呈现强相关性（平均0.82）。此外，全精度模型的残差流幅值能有效预示后续量化误差。我们进一步提出一个理论假设，将残差流幅值与误差在层级间的放大和累积机制联系起来。通过LLM定位技术、早期退出机制和激活修补实验，我们证明高误差样本依赖深层网络中精确的残差激活，且MLP门控输出对维持模型困惑度起关键作用。本研究揭示了特定样本产生大量化误差的根源，并明确了模型中最关键的性能保持组件。</p>
-<p>（注：根据学术文献翻译规范，对以下术语进行了专业化处理：</p>
-<ol>
-<li>"residual stream magnitudes"译为"残差流幅值"（神经网络残差连接信号强度）</li>
-<li>"error amplification and accumulation"译为"误差放大和累积"</li>
-<li>"MLP gates"译为"MLP门控"（前馈神经网络中的门控机制）</li>
-<li>"perplexity"保留专业术语译为"困惑度"）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">LCD：通过知识蒸馏推进大型语言模型的极低位聚类技术</h2><a id="user-content-lcd通过知识蒸馏推进大型语言模型的极低位聚类技术" class="anchor" aria-label="Permalink: LCD：通过知识蒸馏推进大型语言模型的极低位聚类技术" href="#lcd通过知识蒸馏推进大型语言模型的极低位聚类技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.12038v1 公告类型：新论文<br>
-摘要：大语言模型（LLMs）在自然语言处理领域取得了显著进展，但由于高内存和计算需求，其实际部署面临挑战。权重量化是解决这些问题的常用方法，但实现有效的低位压缩仍具挑战性。本文提出的LCD框架，将基于聚类的量化学习统一在知识蒸馏框架中。通过精心设计的优化技术，LCD即使在2-3比特的超低位宽下仍能保持LLM性能。此外，LCD通过平滑技术压缩激活值，并采用基于查找表（LUT）的设计加速推理。实验结果表明，LCD优于现有方法，推理速度最高提升6.2倍。值得注意的是，LCD被证明更具成本效益，这使其成为实际应用的可行解决方案。</p>
-<p>（注：根据学术文献翻译规范，专业术语如"LUT"保留英文缩写并添加括号注释；技术表述如"ultra-low bit widths"译为"超低位宽"以符合中文计算机领域习惯；被动语态"is shown to be"转化为主动句式"被证明"以增强可读性；长句如优化技术描述拆分为短句结构，符合中文表达习惯。）</p>
-<div class="markdown-heading"><h2 class="heading-element">属性引导剪枝：用于大型语言模型的压缩、电路发现与定向修正</h2><a id="user-content-属性引导剪枝用于大型语言模型的压缩电路发现与定向修正" class="anchor" aria-label="Permalink: 属性引导剪枝：用于大型语言模型的压缩、电路发现与定向修正" href="#属性引导剪枝用于大型语言模型的压缩电路发现与定向修正"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明如下：</p>
-<ol>
-<li>"Attribution-guided Pruning"译为"属性引导剪枝"，其中"Attribution"在机器学习领域通常指归因分析，这里意译为"属性"更符合中文技术术语习惯；</li>
-<li>"Compression"保持专业术语直译为"压缩"；</li>
-<li>"Circuit Discovery"译为"电路发现"，保留神经网络中"电路"的比喻概念；</li>
-<li>"Targeted Correction"译为"定向修正"，强调有针对性的调整；</li>
-<li>补充"大型语言模型"明确LLMs的全称，符合中文技术文档的完整性要求；</li>
-<li>整体采用技术论文标题常用的名词短语结构，通过顿号连接三个并列应用场景，符合中文标点规范）</li>
-</ol>
-<p>arXiv:2506.13727v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）是当代许多人工智能应用的核心，但其庞大的参数量给内存和计算资源受限的部署环境带来了重大挑战。可解释人工智能（XAI）领域的最新研究，特别是归因方法，表明通过识别并移除与推理无关的组件，可解释性技术也能实现模型压缩。本文利用分层相关性传播（LRP）进行归因引导的大语言模型剪枝。虽然LRP在视觉模型的结构化剪枝中已展现出潜力，但我们将其扩展至大语言模型的无结构化剪枝，并证明该方法能以极小的性能损失显著减小模型规模。我们的方法在提取任务相关子图（即所谓"电路"）方面尤为有效，这些子图可表征核心功能（例如间接宾语识别）。基于此，我们提出了一种模型校正技术，通过选择性移除导致虚假行为（如有害输出）的电路。我们将这些技术整合为统一的整体框架，并通过对Llama和OPT模型在压缩、电路发现和模型校正方面的广泛实验，展示了其有效性与局限性，凸显了该方法在提升模型效率与安全性方面的潜力。代码已开源：<a href="https://github.com/erfanhatefi/SparC3">https://github.com/erfanhatefi/SparC3</a></p>
-<p>（注：根据学术文献翻译规范，对以下术语进行了统一处理：</p>
-<ol>
-<li>"circuits"译为"电路"（对应神经科学中的神经回路概念）</li>
-<li>"spurious behaviors"译为"虚假行为"（指模型产生的非预期输出）</li>
-<li>保留原模型名称Llama/OPT不翻译</li>
-<li>采用"剪枝"而非"修剪"保持计算机领域术语一致性）</li>
-</ol>
+<p>自回归模型的成功很大程度上依赖于向量量化的有效性，该技术通过将连续特征映射至可学习码本中的最近邻码向量来实现特征离散化。现有向量量化方法存在两个关键问题：训练不稳定性和码本坍塌。训练不稳定性源于直通估计器引入的梯度差异（在量化误差较大时尤为明显），而码本坍塌则表现为训练过程中仅激活少量码向量。深入分析表明，这些问题主要由特征分布与码向量分布失配所驱动，导致码向量缺乏代表性且压缩过程中存在显著数据信息损失。为此，我们采用Wasserstein距离对齐这两个分布，实现了接近100%的码本利用率并显著降低量化误差。实证分析与理论验证均证实了该方法的有效性。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

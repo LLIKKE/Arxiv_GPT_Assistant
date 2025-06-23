@@ -12,4 +12,67 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div></div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">早期注意力稀疏化加速神经语音转录</h2><a id="user-content-早期注意力稀疏化加速神经语音转录" class="anchor" aria-label="Permalink: 早期注意力稀疏化加速神经语音转录" href="#早期注意力稀疏化加速神经语音转录"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.15912v1 公告类型：新研究<br>
+摘要：基于Transformer的神经语音处理技术已实现最先进性能。鉴于语音音频信号具有高度可压缩性，本研究尝试在神经编码阶段早期通过时域信号稀疏化来加速语音转录，充分利用Transformer音频编码器中自注意力机制的可解释性特性。以Whisper系列模型为基础，我们在稀疏化阶段（特定编码层）与压缩比（稀疏度）的联合空间内进行了系统架构搜索。研究发现，在准确率下降不超过1%的前提下，最优解决方案选择在编码早期阶段将隐藏状态稀疏化至40-60%的稀疏度，从而在Nvidia GPU上英语语音转录任务中实现了最高1.6倍的运行时加速，且无需任何微调。</p>
+<p>（注：根据学术文献翻译规范，关键术语处理如下：</p>
+<ol>
+<li>"sparsification"译为"稀疏化"以保持计算机领域术语一致性</li>
+<li>"self-attention mechanism"保留专业表述译为"自注意力机制"</li>
+<li>"architecture search"译为"架构搜索"符合机器学习领域习惯</li>
+<li>长难句采用拆分策略，如将"taking advantage of..."独立译为分句</li>
+<li>技术指标"1.6x"保留原始表述形式确保精确性）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">懒惰淘汰法：基于注意力模式观察的延迟键值淘汰技术，助力高效长程推理</h2><a id="user-content-懒惰淘汰法基于注意力模式观察的延迟键值淘汰技术助力高效长程推理" class="anchor" aria-label="Permalink: 懒惰淘汰法：基于注意力模式观察的延迟键值淘汰技术，助力高效长程推理" href="#懒惰淘汰法基于注意力模式观察的延迟键值淘汰技术助力高效长程推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（翻译说明：</p>
+<ol>
+<li>"LazyEviction" 采用意译"懒惰淘汰法"，既保留"Lazy"的拟人化特征，又准确传达技术本质</li>
+<li>"Lagged KV Eviction" 译为"延迟键值淘汰"，其中"KV"是机器学习领域的通用术语，保留缩写形式</li>
+<li>"Attention Pattern Observation" 处理为"注意力模式观察"，精准对应transformer架构的核心概念</li>
+<li>"Efficient Long Reasoning" 译为"高效长程推理"，"长程"比直译"长"更符合中文技术文献表述习惯</li>
+<li>整体采用"技术手段+技术效果"的中文标题惯用结构，通过"助力"连接，使技术价值更突出）</li>
+</ol>
+<p>arXiv:2506.15969v1 公告类型：新论文<br>
+摘要：大语言模型（LLMs）通过采用思维链（CoT）展现出增强的推理能力。然而，由于关键值（KV）缓存大小随推理序列延长而显著增加，尤其在数学和编程等需要长推理序列的任务中，会引入巨大的GPU内存开销。现有KV缓存压缩方法虽能缓解内存瓶颈，但在长推理任务中表现欠佳。本文通过分析推理任务中的注意力模式，揭示了"令牌重要性重现"现象：大量令牌在经过多个解码步骤后会重新获得关注，而现有研究未能捕捉这一规律，可能导致此类周期性关键令牌被不可预测地淘汰。为此，我们提出LazyEviction——一种延迟KV淘汰框架，在降低KV内存的同时保持推理性能。该框架基于观察窗口的延迟淘汰机制，通过跨解码步骤的滞后淘汰来保留潜在重现令牌，包含两个核心组件：（1）用于捕捉令牌重要性时序变化的"重现间隔追踪"；（2）以"最大重现间隔"为核心的淘汰策略，根据令牌重现模式确定优先级。大量实验表明，LazyEviction能在数学推理数据集上保持相当准确性的同时将KV缓存缩减50%，性能优于现有最佳方法。我们的研究结果强调了保留重现令牌的重要性，这对维持多步推理任务中的知识连续性至关重要。</p>
+<p>（注：根据学术文献翻译规范，关键术语处理如下：</p>
+<ol>
+<li>"Token"译为"令牌"（计算机领域标准译法）</li>
+<li>"Chain-of-Thought"保留英文缩写"CoT"并首次出现时标注全称</li>
+<li>"Lag"译为"延迟/滞后"以体现时间差特性</li>
+<li>技术概念如"Observation Window"采用功能化译法"观察窗口"而非字面直译</li>
+<li>保持被动语态与长句结构以符合中文科技论文表述习惯）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">以史为鉴：大型语言模型解码的快速稀疏索引技术</h2><a id="user-content-以史为鉴大型语言模型解码的快速稀疏索引技术" class="anchor" aria-label="Permalink: 以史为鉴：大型语言模型解码的快速稀疏索引技术" href="#以史为鉴大型语言模型解码的快速稀疏索引技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.15704v1 公告类型：新论文<br>
+摘要：随着大语言模型（LLM）支持的上下文长度持续增长，解码过程中键值（KV）缓存的内存需求急剧上升，成为GPU内存容量和PCIe带宽的关键瓶颈。稀疏注意力机制通过仅计算选定键值对的注意力权重来缓解这一问题，但其索引计算通常需要遍历所有键向量，导致显著的计算和数据迁移开销。为降低索引检索成本，现有方法往往将每个解码步骤视为独立过程，未能利用历史解码信息中蕴含的时间相关性。</p>
+<p>为此，我们提出LFPS（基于历史学习的稀疏索引加速法），该方法通过动态构建基于历史注意力模式的稀疏索引候选集来加速解码。LFPS捕捉解码器注意力中两种普遍趋势——垂直模式（关注固定位置）和斜线模式（关注相对位置），并融入位置扩展策略以精准预测当前步骤的Top-k索引。我们在LongBench-RULER等挑战性长上下文基准测试中，以Llama-3.1-8B-Instruct为基础模型验证LFPS。实验结果表明：在RTX 4090 GPU和至强Gold 6430单CPU核心上，LFPS分别实现较全注意力机制22.8倍、较精确Top-k检索9.6倍的加速，同时保持生成准确性。这些结果证明LFPS为长上下文LLM推理中的解码优化提供了实用高效的解决方案。</p>
+<p>（注：PCIe根据计算机领域术语规范保留英文缩写；Top-k作为技术术语保留英文形式；模型名称Llama-3.1-8B-Instruct按学术惯例保留原命名；RTX 4090/至强Gold 6430等硬件名称采用中文标准译法结合型号数字的混合表述）</p>
+<div class="markdown-heading"><h2 class="heading-element">MadaKV：面向高效多模态长上下文推理的自适应模态感知键值缓存淘汰机制</h2><a id="user-content-madakv面向高效多模态长上下文推理的自适应模态感知键值缓存淘汰机制" class="anchor" aria-label="Permalink: MadaKV：面向高效多模态长上下文推理的自适应模态感知键值缓存淘汰机制" href="#madakv面向高效多模态长上下文推理的自适应模态感知键值缓存淘汰机制"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明如下：</p>
+<ol>
+<li>保留"MadaKV"作为技术专有名词不译，维持原文格式</li>
+<li>"Adaptive Modality-Perception"译为"自适应模态感知"，其中"modality"在多媒体领域标准译法为"模态"</li>
+<li>"KV Cache Eviction"译为"键值缓存淘汰机制"，完整呈现缓存管理的技术语义</li>
+<li>"Efficient Multimodal Long-Context Inference"处理为"高效多模态长上下文推理"，其中：
+<ul>
+<li>"Multimodal"采用行业通用译法"多模态"</li>
+<li>"Long-Context"译为"长上下文"，符合NLP领域术语</li>
+<li>增补"机制"二字使技术方案表述更完整</li>
+</ul>
+</li>
+<li>整体采用技术文献常见的"功能描述+技术特性"句式结构，符合中文计算机论文标题规范）</li>
+</ol>
+<p>arXiv:2506.15724v1 公告类型：新论文<br>
+摘要：本文提出MadaKV——一种模态自适应的键值（KV）缓存淘汰策略，旨在提升多模态大语言模型（MLLMs）在长上下文推理中的效率。在多模态场景下，注意力头对不同模态表现出差异性偏好，导致各注意力头间的模态重要性存在显著差异。传统针对单模态设计的KV缓存淘汰方法无法捕捉模态特异性信息，因而表现欠佳。MadaKV通过两大核心机制应对这些挑战：模态偏好自适应与分层压缩补偿。该策略通过动态感知注意力头内的模态信息，并自适应保留关键令牌，在保持各类多模态长上下文任务高准确率的同时，显著降低了KV缓存内存占用和模型推理解码延迟（性能提升1.3至1.5倍）。基于代表性MLLMs和MileBench基准的广泛实验表明，MadaKV相较于现有KV缓存淘汰方法具有显著优势。</p>
+<p>（注：根据学术论文摘要的翻译规范，对部分术语进行了如下处理：</p>
+<ol>
+<li>"modality-adaptive"译为"模态自适应"以保持技术术语一致性</li>
+<li>"attention heads"保留专业表述"注意力头"而非直译</li>
+<li>"hierarchical compression compensation"译为"分层压缩补偿"以准确传达技术内涵</li>
+<li>长复合句按中文表达习惯拆分为短句，如将原文最后一句拆分为实验描述和结论两部分</li>
+<li>测量数据"1.3 to 1.5 times improvement"转换为中文惯用的"性能提升1.3至1.5倍"表述）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">BASE-Q：面向大语言模型的偏置与不对称缩放增强型旋转量化技术</h2><a id="user-content-base-q面向大语言模型的偏置与不对称缩放增强型旋转量化技术" class="anchor" aria-label="Permalink: BASE-Q：面向大语言模型的偏置与不对称缩放增强型旋转量化技术" href="#base-q面向大语言模型的偏置与不对称缩放增强型旋转量化技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.15689v1 公告类型：新研究<br>
+摘要：在大语言模型（LLM）的量化流程中，旋转操作通过有效平滑权重和激活值中的异常值，已成为关键技术。然而，进一步优化旋转参数带来的性能提升有限，却会引入显著的训练开销：由于旋转参数共享，必须同时加载完整模型才能进行反向传播，导致内存消耗激增且实用性受限。本文揭示了当前旋转量化方法的两个根本缺陷：（i）旋转无法对齐通道均值，导致量化边界扩大并增加舍入误差；（ii）旋转使激活值分布趋近高斯形态，加剧了截断误差带来的能量损失。为此，我们提出<strong>BASE-Q</strong>方法——通过结合偏置校正与非对称缩放，以简洁而强大的方式有效降低舍入与截断误差。此外，BASE-Q支持分块优化，无需消耗大量内存的全模型反向传播。在多种LLM和基准测试上的实验表明，BASE-Q显著缩小了与全精度模型的精度差距，相较于QuaRot、SpinQuant和OSTQuant分别提升了50.5%、42.9%和29.2%。代码即将开源。</p>
+</div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

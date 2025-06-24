@@ -12,67 +12,80 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">早期注意力稀疏化加速神经语音转录</h2><a id="user-content-早期注意力稀疏化加速神经语音转录" class="anchor" aria-label="Permalink: 早期注意力稀疏化加速神经语音转录" href="#早期注意力稀疏化加速神经语音转录"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.15912v1 公告类型：新研究<br>
-摘要：基于Transformer的神经语音处理技术已实现最先进性能。鉴于语音音频信号具有高度可压缩性，本研究尝试在神经编码阶段早期通过时域信号稀疏化来加速语音转录，充分利用Transformer音频编码器中自注意力机制的可解释性特性。以Whisper系列模型为基础，我们在稀疏化阶段（特定编码层）与压缩比（稀疏度）的联合空间内进行了系统架构搜索。研究发现，在准确率下降不超过1%的前提下，最优解决方案选择在编码早期阶段将隐藏状态稀疏化至40-60%的稀疏度，从而在Nvidia GPU上英语语音转录任务中实现了最高1.6倍的运行时加速，且无需任何微调。</p>
-<p>（注：根据学术文献翻译规范，关键术语处理如下：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">NestQuant：面向设备端深度神经网络的后训练整数嵌套量化技术</h2><a id="user-content-nestquant面向设备端深度神经网络的后训练整数嵌套量化技术" class="anchor" aria-label="Permalink: NestQuant：面向设备端深度神经网络的后训练整数嵌套量化技术" href="#nestquant面向设备端深度神经网络的后训练整数嵌套量化技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明：</p>
 <ol>
-<li>"sparsification"译为"稀疏化"以保持计算机领域术语一致性</li>
-<li>"self-attention mechanism"保留专业表述译为"自注意力机制"</li>
-<li>"architecture search"译为"架构搜索"符合机器学习领域习惯</li>
-<li>长难句采用拆分策略，如将"taking advantage of..."独立译为分句</li>
-<li>技术指标"1.6x"保留原始表述形式确保精确性）</li>
+<li>"NestQuant"作为专有技术名词保留不译，以保持技术一致性</li>
+<li>"Integer-Nesting"译为"整数嵌套"，准确表达嵌套式整数量化的技术特征</li>
+<li>"Post-Training"译为"后训练"，符合深度学习领域对模型训练阶段的通用表述</li>
+<li>"On-Device DNN"译为"设备端深度神经网络"，突出在边缘设备部署的特性</li>
+<li>整体采用技术文档的简洁命名风格，同时通过"技术"二字明确量化方法的属性）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">懒惰淘汰法：基于注意力模式观察的延迟键值淘汰技术，助力高效长程推理</h2><a id="user-content-懒惰淘汰法基于注意力模式观察的延迟键值淘汰技术助力高效长程推理" class="anchor" aria-label="Permalink: 懒惰淘汰法：基于注意力模式观察的延迟键值淘汰技术，助力高效长程推理" href="#懒惰淘汰法基于注意力模式观察的延迟键值淘汰技术助力高效长程推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（翻译说明：</p>
+<p>arXiv:2506.17870v1 公告类型：新研究<br>
+摘要：在泛在物联网（IoT）设备上部署具备资源自适应能力的量化深度神经网络（DNN）模型，既能发挥模型压缩优势，又可满足多场景资源需求。然而现有动态/混合精度量化需重新训练或专用硬件支持，而训练后量化（PTQ）在资源自适应方面存在两大局限：（i）当前最优PTQ方法仅提供单一固定位宽模型，难以适应IoT设备的动态资源变化；（ii）部署多个不同位宽的PTQ模型会占用大量存储资源并产生切换开销。为此，本文提出一种资源友好的训练后整数嵌套量化方法NestQuant，支持IoT设备端量化模型切换。该方法通过整数权重分解将量化权重按比特位拆分为高比特与低比特整型权重，并采用分解权重嵌套机制，通过自适应舍入优化高比特权重后将其嵌套回原始量化权重中。实际部署时仅需传输存储单个NestQuant模型，通过动态加载/卸载低比特权重即可实现全比特/部分比特模型切换，既能适应资源波动又可降低消耗。ImageNet-1K预训练DNN的实验表明，NestQuant模型在top-1准确率上表现优异，同时显著降低了数据传输量、存储消耗和切换开销。以ResNet-101为例，INT8嵌套INT6模型的全比特/部分比特准确率分别达78.1%和77.9%，相比多位宽PTQ模型可降低约78.1%的切换开销。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>"LazyEviction" 采用意译"懒惰淘汰法"，既保留"Lazy"的拟人化特征，又准确传达技术本质</li>
-<li>"Lagged KV Eviction" 译为"延迟键值淘汰"，其中"KV"是机器学习领域的通用术语，保留缩写形式</li>
-<li>"Attention Pattern Observation" 处理为"注意力模式观察"，精准对应transformer架构的核心概念</li>
-<li>"Efficient Long Reasoning" 译为"高效长程推理"，"长程"比直译"长"更符合中文技术文献表述习惯</li>
-<li>整体采用"技术手段+技术效果"的中文标题惯用结构，通过"助力"连接，使技术价值更突出）</li>
+<li>"ubiquitous Internet of Things (IoT) devices"译为"泛在物联网设备"以体现普适性</li>
+<li>"bit-wise splits"译为"按比特位拆分"以明确操作粒度</li>
+<li>"paging in/out"译为"动态加载/卸载"更符合嵌入式系统术语</li>
+<li>保持INT8/INT6等量化位宽标准写法</li>
+<li>长句按中文习惯切分为短句，如嵌套机制描述部分）</li>
 </ol>
-<p>arXiv:2506.15969v1 公告类型：新论文<br>
-摘要：大语言模型（LLMs）通过采用思维链（CoT）展现出增强的推理能力。然而，由于关键值（KV）缓存大小随推理序列延长而显著增加，尤其在数学和编程等需要长推理序列的任务中，会引入巨大的GPU内存开销。现有KV缓存压缩方法虽能缓解内存瓶颈，但在长推理任务中表现欠佳。本文通过分析推理任务中的注意力模式，揭示了"令牌重要性重现"现象：大量令牌在经过多个解码步骤后会重新获得关注，而现有研究未能捕捉这一规律，可能导致此类周期性关键令牌被不可预测地淘汰。为此，我们提出LazyEviction——一种延迟KV淘汰框架，在降低KV内存的同时保持推理性能。该框架基于观察窗口的延迟淘汰机制，通过跨解码步骤的滞后淘汰来保留潜在重现令牌，包含两个核心组件：（1）用于捕捉令牌重要性时序变化的"重现间隔追踪"；（2）以"最大重现间隔"为核心的淘汰策略，根据令牌重现模式确定优先级。大量实验表明，LazyEviction能在数学推理数据集上保持相当准确性的同时将KV缓存缩减50%，性能优于现有最佳方法。我们的研究结果强调了保留重现令牌的重要性，这对维持多步推理任务中的知识连续性至关重要。</p>
-<p>（注：根据学术文献翻译规范，关键术语处理如下：</p>
+<div class="markdown-heading"><h2 class="heading-element">SlimMoE：通过专家精简与蒸馏实现大型混合专家模型的结构化压缩</h2><a id="user-content-slimmoe通过专家精简与蒸馏实现大型混合专家模型的结构化压缩" class="anchor" aria-label="Permalink: SlimMoE：通过专家精简与蒸馏实现大型混合专家模型的结构化压缩" href="#slimmoe通过专家精简与蒸馏实现大型混合专家模型的结构化压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.18349v1 公告类型：新研究<br>
+摘要：混合专家（MoE）架构已成为扩展大语言模型（LLM）规模同时保持推理效率的强大范式。然而，其巨大的内存需求使得在资源受限环境中进行微调或部署成本极高。为解决这一挑战，我们提出SlimMoE——一个多阶段压缩框架，能将大型MoE模型转化为更小、更高效的变体，而无需承担从头训练的巨额成本。该方法通过精简专家模块和分阶段知识迁移，系统性地减少参数量，有效缓解了一刀切剪枝方法常见的性能下降问题。</p>
+<p>利用该框架，我们仅使用4000亿token（不足原模型训练数据的10%），将Phi 3.5-MoE（总计419亿/激活66亿参数）压缩为Phi-mini-MoE（总计76亿/激活24亿参数）和Phi-tiny-MoE（总计38亿/激活11亿参数）。这些压缩模型可在单张GPU（Phi-mini-MoE需A100，Phi-tiny-MoE需A6000）上完成微调，非常适合学术和资源有限场景。实验表明，这些压缩模型不仅优于同规模模型，还能与更大模型竞争：Phi-mini-MoE仅用2/3的激活参数就达到甚至超越Phi-3-mini的性能，其MMLU分数与Llama 3.1 8B相当，同时延迟显著更低。</p>
+<p>我们的研究证明，结构化剪枝与分阶段蒸馏相结合，能有效创建高质量紧凑型MoE模型，为MoE架构的广泛采用铺平道路。模型已开源：<br>
+<a href="https://huggingface.co/microsoft/Phi-mini-MoE-instruct" rel="nofollow">https://huggingface.co/microsoft/Phi-mini-MoE-instruct</a><br>
+<a href="https://huggingface.co/microsoft/Phi-tiny-MoE-instruct" rel="nofollow">https://huggingface.co/microsoft/Phi-tiny-MoE-instruct</a></p>
+<p>（注：根据学术文献翻译规范，技术术语如"token"、"MMLU"保留英文形式；长数字采用"亿"为单位符合中文表达习惯；模型名称保留英文品牌标识；超链接格式完整保留以便实际使用）</p>
+<div class="markdown-heading"><h2 class="heading-element">对数正态乘法动态：实现大型网络稳定低精度训练的方法</h2><a id="user-content-对数正态乘法动态实现大型网络稳定低精度训练的方法" class="anchor" aria-label="Permalink: 对数正态乘法动态：实现大型网络稳定低精度训练的方法" href="#对数正态乘法动态实现大型网络稳定低精度训练的方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.17768v1 公告类型：新研究<br>
+摘要：神经科学研究表明，生物突触遵循对数正态分布，其状态转换可通过噪声乘性动力学解释。即使在由不可靠突触传递导致的动态波动条件下，生物神经网络仍能保持稳定运作。本文探讨：能否在人工神经网络中设计类似的乘性训练机制？为此，我们推导出贝叶斯学习规则，假设权重服从对数正态后验分布，从而提出新型对数正态乘性动力学（LMD）算法。该算法采用乘性更新机制，噪声与正则化均以乘性方式施加。其实现简易度与Adam优化器相当，仅需额外存储一个向量。实验表明，LMD在视觉Transformer和GPT-2的低精度前向运算中实现了稳定且准确的从零训练。这些结果表明，乘性动力学这一生物特征可能为未来高能效硬件实现稳定的低精度推理与学习提供支持。</p>
+<p>（注：根据学术文献翻译规范，关键术语保持一致性处理：</p>
 <ol>
-<li>"Token"译为"令牌"（计算机领域标准译法）</li>
-<li>"Chain-of-Thought"保留英文缩写"CoT"并首次出现时标注全称</li>
-<li>"Lag"译为"延迟/滞后"以体现时间差特性</li>
-<li>技术概念如"Observation Window"采用功能化译法"观察窗口"而非字面直译</li>
-<li>保持被动语态与长句结构以符合中文科技论文表述习惯）</li>
+<li>"log-normal distribution"统一译为"对数正态分布"</li>
+<li>"multiplicative dynamics"译为"乘性动力学"（区别于"乘法动力学"以强调数学特性）</li>
+<li>"Bayesian learning rule"译为"贝叶斯学习规则"</li>
+<li>保留Adam/ViT/GPT-2等专有名词不译</li>
+<li>采用"从零训练"而非"从头训练"以符合机器学习领域术语习惯）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">以史为鉴：大型语言模型解码的快速稀疏索引技术</h2><a id="user-content-以史为鉴大型语言模型解码的快速稀疏索引技术" class="anchor" aria-label="Permalink: 以史为鉴：大型语言模型解码的快速稀疏索引技术" href="#以史为鉴大型语言模型解码的快速稀疏索引技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.15704v1 公告类型：新论文<br>
-摘要：随着大语言模型（LLM）支持的上下文长度持续增长，解码过程中键值（KV）缓存的内存需求急剧上升，成为GPU内存容量和PCIe带宽的关键瓶颈。稀疏注意力机制通过仅计算选定键值对的注意力权重来缓解这一问题，但其索引计算通常需要遍历所有键向量，导致显著的计算和数据迁移开销。为降低索引检索成本，现有方法往往将每个解码步骤视为独立过程，未能利用历史解码信息中蕴含的时间相关性。</p>
-<p>为此，我们提出LFPS（基于历史学习的稀疏索引加速法），该方法通过动态构建基于历史注意力模式的稀疏索引候选集来加速解码。LFPS捕捉解码器注意力中两种普遍趋势——垂直模式（关注固定位置）和斜线模式（关注相对位置），并融入位置扩展策略以精准预测当前步骤的Top-k索引。我们在LongBench-RULER等挑战性长上下文基准测试中，以Llama-3.1-8B-Instruct为基础模型验证LFPS。实验结果表明：在RTX 4090 GPU和至强Gold 6430单CPU核心上，LFPS分别实现较全注意力机制22.8倍、较精确Top-k检索9.6倍的加速，同时保持生成准确性。这些结果证明LFPS为长上下文LLM推理中的解码优化提供了实用高效的解决方案。</p>
-<p>（注：PCIe根据计算机领域术语规范保留英文缩写；Top-k作为技术术语保留英文形式；模型名称Llama-3.1-8B-Instruct按学术惯例保留原命名；RTX 4090/至强Gold 6430等硬件名称采用中文标准译法结合型号数字的混合表述）</p>
-<div class="markdown-heading"><h2 class="heading-element">MadaKV：面向高效多模态长上下文推理的自适应模态感知键值缓存淘汰机制</h2><a id="user-content-madakv面向高效多模态长上下文推理的自适应模态感知键值缓存淘汰机制" class="anchor" aria-label="Permalink: MadaKV：面向高效多模态长上下文推理的自适应模态感知键值缓存淘汰机制" href="#madakv面向高效多模态长上下文推理的自适应模态感知键值缓存淘汰机制"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明如下：</p>
+<div class="markdown-heading"><h2 class="heading-element">EQuARX：面向分布式机器学习加速的XLA高效量化AllReduce技术</h2><a id="user-content-equarx面向分布式机器学习加速的xla高效量化allreduce技术" class="anchor" aria-label="Permalink: EQuARX：面向分布式机器学习加速的XLA高效量化AllReduce技术" href="#equarx面向分布式机器学习加速的xla高效量化allreduce技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明如下）</p>
 <ol>
-<li>保留"MadaKV"作为技术专有名词不译，维持原文格式</li>
-<li>"Adaptive Modality-Perception"译为"自适应模态感知"，其中"modality"在多媒体领域标准译法为"模态"</li>
-<li>"KV Cache Eviction"译为"键值缓存淘汰机制"，完整呈现缓存管理的技术语义</li>
-<li>"Efficient Multimodal Long-Context Inference"处理为"高效多模态长上下文推理"，其中：
+<li>保持首字母缩写"EQuARX"不变，符合技术术语惯例</li>
+<li>"Efficient Quantized AllReduce"译为"高效量化AllReduce"，其中：
 <ul>
-<li>"Multimodal"采用行业通用译法"多模态"</li>
-<li>"Long-Context"译为"长上下文"，符合NLP领域术语</li>
-<li>增补"机制"二字使技术方案表述更完整</li>
+<li>Quantized采用计算机领域通用译法"量化"</li>
+<li>AllReduce作为MPI操作术语保留英文</li>
 </ul>
 </li>
-<li>整体采用技术文献常见的"功能描述+技术特性"句式结构，符合中文计算机论文标题规范）</li>
+<li>"in XLA"处理为"面向...的XLA"，通过语序调整使中文更流畅</li>
+<li>"Distributed Machine Learning Acceleration"译为"分布式机器学习加速"，采用行业标准译法</li>
+<li>整体采用"技术"作为结尾词，符合中文技术名称命名习惯，比直译"加速"更准确</li>
 </ol>
-<p>arXiv:2506.15724v1 公告类型：新论文<br>
-摘要：本文提出MadaKV——一种模态自适应的键值（KV）缓存淘汰策略，旨在提升多模态大语言模型（MLLMs）在长上下文推理中的效率。在多模态场景下，注意力头对不同模态表现出差异性偏好，导致各注意力头间的模态重要性存在显著差异。传统针对单模态设计的KV缓存淘汰方法无法捕捉模态特异性信息，因而表现欠佳。MadaKV通过两大核心机制应对这些挑战：模态偏好自适应与分层压缩补偿。该策略通过动态感知注意力头内的模态信息，并自适应保留关键令牌，在保持各类多模态长上下文任务高准确率的同时，显著降低了KV缓存内存占用和模型推理解码延迟（性能提升1.3至1.5倍）。基于代表性MLLMs和MileBench基准的广泛实验表明，MadaKV相较于现有KV缓存淘汰方法具有显著优势。</p>
-<p>（注：根据学术论文摘要的翻译规范，对部分术语进行了如下处理：</p>
+<p>arXiv:2506.17615v1 公告类型：新研究<br>
+摘要：尽管大语言模型（LLMs）已产生深远影响，但其庞大规模带来了显著的部署挑战。高效部署这些模型通常需要将其分布式部署在多个加速器设备上，而设备间通信（集合操作）会引入显著的性能开销。虽然模型量化技术已广泛用于降低LLM权重和激活函数的内存与计算需求（且对质量影响极小），但由于涉及设备间求和操作，直接对AllReduce等集合操作进行量化存在固有困难，可能导致数值不稳定或严重误差累积。本研究提出了一种在TPU的XLA编译器内原生实现的动态分块高效量化AllReduce方法（EQuARX）。通过采用TPU友好的量化技术并深度流水线化通信与计算流程，使用int8精度的EQuARX在不同网络拓扑下相比基准BF16 AllReduce实现了1.8倍加速。此外，EQuARX将Gemma 3 27B模型的预填充阶段提速1.25倍，Gemma 3 12B模型提速1.1倍，且对模型质量的影响微乎其微。</p>
+<div class="markdown-heading"><h2 class="heading-element">超速写大语言模型：基于显著性的超低比特大模型压缩速写技术</h2><a id="user-content-超速写大语言模型基于显著性的超低比特大模型压缩速写技术" class="anchor" aria-label="Permalink: 超速写大语言模型：基于显著性的超低比特大模型压缩速写技术" href="#超速写大语言模型基于显著性的超低比特大模型压缩速写技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.17255v1 公告类型：新研究<br>
+摘要：大型语言模型（LLMs）的快速发展已超越边缘设备的内存限制，亟需突破1比特极限的极致权重压缩技术。现有量化方法虽能缩减模型体积，但其本质仍受限于每权重1比特的底线。当前的多对一压缩方案要么依赖映射表（导致内存开销），要么因随机权重分组引发严重精度损失。我们提出UltraSketchLLM——一种基于数据素描技术的无索引框架，在实现超低比特压缩（最低至每权重0.5比特）的同时保持模型性能。该框架创新性地运用流式计算中的亚线性表示技术，通过有界误差将多个权重映射为单一数值。具体实现包含：采用低估式AbsMaxMin素描算法以减小小权重的相对误差，基于重要性感知的空间分配机制优先处理关键权重，以及通过直通估计器实现压缩感知微调。Llama-3.2-1B上的实验表明，该方法在实现0.5比特压缩的同时保持竞争力困惑度，且延迟开销处于可接受范围。UltraSketchLLM为资源受限环境下的LLM部署提供了实用解决方案。</p>
+<p>（注：根据学术文献翻译规范，对以下术语进行了专业处理：</p>
 <ol>
-<li>"modality-adaptive"译为"模态自适应"以保持技术术语一致性</li>
-<li>"attention heads"保留专业表述"注意力头"而非直译</li>
-<li>"hierarchical compression compensation"译为"分层压缩补偿"以准确传达技术内涵</li>
-<li>长复合句按中文表达习惯拆分为短句，如将原文最后一句拆分为实验描述和结论两部分</li>
-<li>测量数据"1.3 to 1.5 times improvement"转换为中文惯用的"性能提升1.3至1.5倍"表述）</li>
+<li>"sketch"译为"素描"（计算机领域标准译法）</li>
+<li>"perplexity"译为"困惑度"（NLP领域标准评估指标）</li>
+<li>"straight-through estimator"译为"直通估计器"（深度学习领域通用译法）</li>
+<li>保留Llama-3.2-1B等模型名称原文以方便学术检索）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">BASE-Q：面向大语言模型的偏置与不对称缩放增强型旋转量化技术</h2><a id="user-content-base-q面向大语言模型的偏置与不对称缩放增强型旋转量化技术" class="anchor" aria-label="Permalink: BASE-Q：面向大语言模型的偏置与不对称缩放增强型旋转量化技术" href="#base-q面向大语言模型的偏置与不对称缩放增强型旋转量化技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.15689v1 公告类型：新研究<br>
-摘要：在大语言模型（LLM）的量化流程中，旋转操作通过有效平滑权重和激活值中的异常值，已成为关键技术。然而，进一步优化旋转参数带来的性能提升有限，却会引入显著的训练开销：由于旋转参数共享，必须同时加载完整模型才能进行反向传播，导致内存消耗激增且实用性受限。本文揭示了当前旋转量化方法的两个根本缺陷：（i）旋转无法对齐通道均值，导致量化边界扩大并增加舍入误差；（ii）旋转使激活值分布趋近高斯形态，加剧了截断误差带来的能量损失。为此，我们提出<strong>BASE-Q</strong>方法——通过结合偏置校正与非对称缩放，以简洁而强大的方式有效降低舍入与截断误差。此外，BASE-Q支持分块优化，无需消耗大量内存的全模型反向传播。在多种LLM和基准测试上的实验表明，BASE-Q显著缩小了与全精度模型的精度差距，相较于QuaRot、SpinQuant和OSTQuant分别提升了50.5%、42.9%和29.2%。代码即将开源。</p>
+<div class="markdown-heading"><h2 class="heading-element">RLRC：基于强化学习的压缩视觉-语言-动作模型恢复方法</h2><a id="user-content-rlrc基于强化学习的压缩视觉-语言-动作模型恢复方法" class="anchor" aria-label="Permalink: RLRC：基于强化学习的压缩视觉-语言-动作模型恢复方法" href="#rlrc基于强化学习的压缩视觉-语言-动作模型恢复方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译时采用了技术文献常见的"方法"作为隐性后缀，将"Recovery"译为"恢复"以准确体现算法功能，"Reinforcement Learning-based"采用"基于强化学习的"的标准译法，"Compressed Vision-Language-Action Models"使用"压缩视觉-语言-动作模型"保持术语一致性，整体结构符合中文技术命名习惯）</p>
+<p>arXiv:2506.17639v1 公告类型：新研究<br>
+摘要：视觉-语言-动作模型（VLA）在解决复杂机器人操作任务中展现出卓越能力和广阔前景，但其庞大的参数量和高推理延迟对实际部署（尤其在资源受限的机器人平台）构成了重大挑战。为此，我们首先开展系统性实证研究，探索模型压缩技术在VLA上的应用效果。基于这些初步实验的启示，我们提出RLRC——一种三阶段压缩模型恢复方法，包括结构化剪枝、基于监督微调（SFT）和强化学习（RL）的性能恢复，以及进一步量化。该方法实现了高达8倍的内存占用缩减和2.3倍的推理吞吐量提升，同时保持甚至超越原始VLA的任务成功率。大量实验表明，RLRC始终优于现有压缩基线，展现出VLA在终端设备部署的强劲潜力。项目网站：<a href="https://rlrc-vla.github.io" rel="nofollow">https://rlrc-vla.github.io</a></p>
+<p>（注：根据学术文献翻译规范，术语处理如下：</p>
+<ol>
+<li>"Vision-Language-Action models" 采用学界通用译法"视觉-语言-动作模型"并保留缩写VLA</li>
+<li>"structured pruning" 译为"结构化剪枝"（计算机领域标准译法）</li>
+<li>"SFT"首次出现时译为"监督微调"并标注英文缩写，符合中文论文惯例</li>
+<li>技术指标"8x reduction"等采用中文数字规范表述为"8倍缩减"</li>
+<li>长难句按中文表达习惯拆分重组，如将"particularly on..."处理为括号补充说明）</li>
+</ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

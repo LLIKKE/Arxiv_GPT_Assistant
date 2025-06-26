@@ -12,22 +12,30 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">安全修剪LoRA：大语言模型适应中基于距离引导的鲁棒性修剪以保障安全对齐</h2><a id="user-content-安全修剪lora大语言模型适应中基于距离引导的鲁棒性修剪以保障安全对齐" class="anchor" aria-label="Permalink: 安全修剪LoRA：大语言模型适应中基于距离引导的鲁棒性修剪以保障安全对齐" href="#安全修剪lora大语言模型适应中基于距离引导的鲁棒性修剪以保障安全对齐"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.18931v1 公告类型：新研究<br>
-摘要：采用低秩自适应（LoRA）对大型语言模型（LLM）进行微调，能在降低计算成本的同时提升模型适应性。然而，微调过程可能破坏模型的安全对齐性——即使使用良性数据也会增加有害输出的风险。现有安全对齐方法难以捕捉复杂的参数变化，导致安全性与实用性的权衡失衡。为此，我们提出安全剪枝LoRA（SPLoRA），通过选择性移除削弱安全对齐的LoRA层，在保持性能的同时提升安全性。其核心是创新性提出的E-DIEM评估指标，这种维度不敏感的相似性度量能有效检测LoRA适配模型的安全偏差。我们在混合恶意/良性数据及纯良性数据微调的LLMs上进行了全面实验，从实用性、安全性和可靠性多维度评估SPLoRA。结果表明，SPLoRA显著优于现有安全对齐技术，在维持或提升模型性能的同时大幅降低安全风险。此外，SPLoRA还能减少推理开销，为部署更安全可靠的LLM提供了可扩展的高效解决方案。代码已开源：<a href="https://github.com/AoShuang92/SPLoRA">https://github.com/AoShuang92/SPLoRA</a></p>
-<p>（注：E-DIEM保留英文缩写形式以符合学术惯例，首次出现时补充说明"Empirical-DIEM"；"dimension-insensitive similarity metric"译为"维度不敏感的相似性度量"以准确传达技术特性；长复合句按中文表达习惯拆分为短句，如将原文核心方法描述重组为"其核心是..."的递进句式；专业术语如"Low-Rank Adaptation"沿用业界通用译名"低秩自适应"。）</p>
-<div class="markdown-heading"><h2 class="heading-element">异常值安全的预训练：面向大语言模型稳健4位量化的方法</h2><a id="user-content-异常值安全的预训练面向大语言模型稳健4位量化的方法" class="anchor" aria-label="Permalink: 异常值安全的预训练：面向大语言模型稳健4位量化的方法" href="#异常值安全的预训练面向大语言模型稳健4位量化的方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.19697v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）中的极端激活异常值会严重降低量化性能，阻碍高效的设备端部署。尽管通道级操作和自适应梯度缩放已被确认为成因，但实际缓解仍具挑战性。我们提出"异常值安全预训练"（OSP），这是一套主动预防异常值形成的实用准则，而非依赖事后补救。OSP融合了三大创新：（1）Muon优化器，在保持训练效率的同时消除特权基向量；（2）单尺度RMSNorm，防止通道级放大效应；（3）可学习的嵌入投影，重新分配源自嵌入矩阵的激活强度。我们通过在1万亿token上训练14亿参数模型验证OSP，这是首个无此类异常值的生产级LLM。在激进的4比特量化下，OSP模型在10个基准测试中平均得分达35.7（对比Adam训练模型的26.5），仅带来2%的训练开销。值得注意的是，OSP模型的超额峰度接近零（0.04），而标准模型该值极高（1818.56），从根本上改变了LLM的量化行为。我们的工作证明异常值并非LLM固有特性，而是训练策略的产物，为更高效的LLM部署铺平道路。源代码与预训练模型见<a href="https://github.com/dmis-lab/Outlier-Safe-Pre-Training%E3%80%82">https://github.com/dmis-lab/Outlier-Safe-Pre-Training。</a></p>
-<p>（注：根据学术文献翻译规范，技术术语如"RMSNorm"、"kurtosis"等保留英文原名；长句按中文表达习惯拆分；被动语态转为主动表述；项目名称"OSP"首次出现时标注全称；URL保留原格式以确保可访问性）</p>
-<div class="markdown-heading"><h2 class="heading-element">预算有限也能玩转大模型？试试HOLA</h2><a id="user-content-预算有限也能玩转大模型试试hola" class="anchor" aria-label="Permalink: 预算有限也能玩转大模型？试试HOLA" href="#预算有限也能玩转大模型试试hola"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.18952v1 公告类型：新成果<br>
-摘要：在边缘设备上运行大语言模型（LLM）受限于高计算量和内存需求，这阻碍了医疗、教育和嵌入式系统等领域实时应用的发展。现有解决方案如量化、剪枝和检索增强生成（RAG）仅能实现局部优化，且往往需要牺牲速度或准确性。我们提出HOLA——一个面向高效LLM部署的端到端优化框架。其内部采用分层推测解码（HSD）技术实现无损加速推理；外部通过AdaComp-RAG动态调整检索复杂度以适应上下文需求。结合融合结构化剪枝（LoRA）与量化的LoBi技术，HOLA实现了显著性能提升：在GSM8K基准上获得17.6%的EMA提升，ARC基准上MCA提升10.5%，并在Jetson Nano等边缘设备上降低延迟与内存占用，兼具可扩展性与生产环境就绪性。</p>
-<p>（注：专业术语处理说明：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">DuoGPT：基于激活感知剪枝的大语言模型免训练双稀疏化方法</h2><a id="user-content-duogpt基于激活感知剪枝的大语言模型免训练双稀疏化方法" class="anchor" aria-label="Permalink: DuoGPT：基于激活感知剪枝的大语言模型免训练双稀疏化方法" href="#duogpt基于激活感知剪枝的大语言模型免训练双稀疏化方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明：</p>
 <ol>
-<li>EMA/MCA保留英文缩写+中文全称（指数移动平均/多选准确率）</li>
-<li>LoRA/LoBi等技术术语首次出现时保留英文缩写+括号注释</li>
-<li>"production-ready"译为"生产环境就绪性"符合技术文档惯例</li>
-<li>长难句拆分重构，如将"Together with..."独立为短句保持中文表达习惯）</li>
+<li>"Training-free" 译为"免训练"，强调该方法不需要额外训练过程</li>
+<li>"Dual Sparsity" 译为"双稀疏化"，指代同时实现两种稀疏性（通常指权重和激活的稀疏）</li>
+<li>"Activation-aware Pruning" 译为"激活感知剪枝"，准确表达根据激活模式进行剪枝的技术特性</li>
+<li>"in LLMs" 补充为"大语言模型"，既保留英文缩写又便于中文读者理解</li>
+<li>整体采用技术论文标题常用的名词化结构，符合学术翻译规范）</li>
 </ol>
+<p>arXiv:2506.20194v1 公告类型：新论文<br>
+摘要：大语言模型（LLMs）虽展现出强大性能，却因高昂的内存与计算成本难以部署。传统剪枝方法虽能降低需求，但大多忽略了运行时观察到的激活稀疏性。我们创新性地将激活稀疏性重新解读为动态结构化权重稀疏性，并提出DuoGPT框架——该框架通过结合非结构化权重剪枝与激活稀疏性，构建了双稀疏（spMspV）计算负载。为保持模型精度，我们扩展了最优脑压缩（OBC）框架，引入激活感知校准技术，并采用稠密模型的输出残差作为修正项。此外，我们还针对GPU执行效率优化了解决方案，使其可扩展至数十亿参数的LLMs。在LLaMA-2和LLaMA-3上的评估表明：相较于基准稠密模型，DuoGPT在1.39倍等速加速条件下，以最高9.17%的准确度优势超越了当前最先进的结构化剪枝方法。</p>
+<p>（注：spMspV为专业术语，指"稀疏矩阵-稀疏向量"计算模式，在学术文献中通常保留英文缩写形式）</p>
+<div class="markdown-heading"><h2 class="heading-element">DipSVD：双重重要性保护的奇异值分解技术，助力高效大语言模型压缩</h2><a id="user-content-dipsvd双重重要性保护的奇异值分解技术助力高效大语言模型压缩" class="anchor" aria-label="Permalink: DipSVD：双重重要性保护的奇异值分解技术，助力高效大语言模型压缩" href="#dipsvd双重重要性保护的奇异值分解技术助力高效大语言模型压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.20353v1 公告类型：新论文<br>
+摘要：大型语言模型（LLM）持续增长的计算需求与部署成本催生了众多压缩方法。与量化和非结构化剪枝相比，奇异值分解（SVD）压缩具有更优的硬件兼容性与理论保障。然而现有基于SVD的方法仅关注原始矩阵与压缩矩阵的整体差异，却忽视了矩阵内部关键成分的保护，导致压缩后模型性能下降。本文提出双重重要性保护机制以增强SVD压缩方法：（1）局部重要性保护：通过通道加权数据白化技术保留每个权重矩阵中最关键的奇异向量；（2）全局重要性保护：通过启发式或优化分配策略，使次要层级承担更多压缩负担，从而最大限度降低压缩对关键层的影响。大量实验表明，DipSVD在多个基准测试中优于现有SVD压缩方法，尤其在较高压缩率下仍能保持卓越的模型性能。</p>
+<p>（注：根据学术论文翻译规范，对部分术语进行了标准化处理：</p>
+<ol>
+<li>"channel-weighted data whitening"译为"通道加权数据白化"（计算机视觉领域通用译法）</li>
+<li>"heuristic or optimization-based approach"译为"启发式或优化分配策略"（体现方法论的实质）</li>
+<li>保留"SVD"等专业缩写以符合中文计算机论文惯例</li>
+<li>采用"奇异值分解"全称与缩写混用以确保首次出现时的清晰性）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">Q-resafe：量化大语言模型的安全风险评估与量化感知安全补丁</h2><a id="user-content-q-resafe量化大语言模型的安全风险评估与量化感知安全补丁" class="anchor" aria-label="Permalink: Q-resafe：量化大语言模型的安全风险评估与量化感知安全补丁" href="#q-resafe量化大语言模型的安全风险评估与量化感知安全补丁"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.20251v1 公告类型：新研究<br>
+摘要：量化大型语言模型（LLMs）因其在资源受限环境中的部署潜力而日益受到关注。然而，最新针对少数无需校准数据集的量化方法研究表明，量化可能损害LLMs的安全防护能力，这凸显了系统化安全评估与有效缓解策略的迫切需求。本文通过广泛认可的安全基准测试，对多种主流量化技术和多样化校准数据集进行了全面的安全评估。针对发现的安全漏洞，我们提出了一种量化感知的安全修补框架Q-resafe，该框架能高效恢复量化后LLMs的安全能力，同时将对模型效用的负面影响降至最低。大量实验结果表明，即使在严苛的评估场景下，Q-resafe也能成功使量化LLMs的安全性与原始模型重新对齐。项目页面详见：<a href="https://github.com/Thecommonirin/Qresafe%E3%80%82">https://github.com/Thecommonirin/Qresafe。</a></p>
+<p>（注：根据学术规范，arXiv标识符"arXiv:2506.20251v1"保留原文格式；技术术语如"quantization-aware"译为"量化感知"符合计算机领域惯例；长句按中文表达习惯拆分为短句；项目URL保留原始链接确保可追溯性。）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

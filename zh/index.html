@@ -12,30 +12,23 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">DuoGPT：基于激活感知剪枝的大语言模型免训练双稀疏化方法</h2><a id="user-content-duogpt基于激活感知剪枝的大语言模型免训练双稀疏化方法" class="anchor" aria-label="Permalink: DuoGPT：基于激活感知剪枝的大语言模型免训练双稀疏化方法" href="#duogpt基于激活感知剪枝的大语言模型免训练双稀疏化方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">PsyLite技术报告</h2><a id="user-content-psylite技术报告" class="anchor" aria-label="Permalink: PsyLite技术报告" href="#psylite技术报告"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：根据技术文档常见的命名规范，"Technical Report"译为"技术报告"；"PsyLite"作为专有名词采用音译加意译结合的方式处理，译为"PsyLite"保持产品名称一致性。整体采用简洁专业的科技文献标题风格，符合中文技术文档的表述习惯）</p>
+<p>arXiv:2506.21536v1 公告类型：新研究<br>
+摘要：随着数字技术的快速发展，AI驱动的心理咨询逐渐成为心理健康领域的重要研究方向。然而现有模型在对话安全性、细节场景处理与轻量化部署方面仍存在不足。为此，本研究基于基座模型InternLM2-7B-chat提出了轻量化心理咨询大语言模型智能体PsyLite，通过两阶段训练策略（混合蒸馏数据微调与ORPO偏好优化）增强模型的深度推理能力、心理咨询能力和安全对话能力。采用Ollama与Open WebUI部署后，通过Pipelines构建定制工作流，创新性地设计了条件式RAG机制，能在心理咨询过程中适时引入相声幽默元素以提升用户体验，并主动拒绝危险请求以强化对话安全性。评估显示PsyLite在中文通用评测（CEval）、心理咨询专业评测（CPsyCounE）和对话安全性评测（SafeDialBench）中均优于基线模型，尤其在心理咨询专业性（CPsyCounE分数提升47.6%）与对话安全性（\safe{}分数提升2.4%）方面表现突出。此外，模型通过量化技术（GGUF q4_k_m）实现了低硬件部署需求（5GB内存即可运行），为资源受限环境下的心理咨询应用提供了可行方案。</p>
+<p>（注：根据学术论文摘要的翻译规范，对技术术语如"ORPO偏好优化"、"RAG机制"等保留英文缩写并添加中文注释；量化技术"GGUF q4_k_m"作为专有名词保留原格式；评测名称CEval/CPsyCounE等采用中英对照形式；特殊符号如"\safe{}"保留原格式以符合学术文献引用惯例）</p>
+<div class="markdown-heading"><h2 class="heading-element">基于线性度的神经网络压缩</h2><a id="user-content-基于线性度的神经网络压缩" class="anchor" aria-label="Permalink: 基于线性度的神经网络压缩" href="#基于线性度的神经网络压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.21146v1 公告类型：新研究<br>
+摘要：在神经网络压缩领域，当前多数方法通过评估参数重要性与冗余度来削减不必要的参数。为了进一步增强现有高度优化的解决方案，我们提出了一种基于线性特性的新型神经网络权重压缩方法。该方法基于这样的洞察：当使用ReLU类激活函数时，那些几乎始终处于激活状态的神经元会表现出线性行为，这使得后续层的合并成为可能。我们阐述了支撑该压缩方法的理论基础，并通过实验验证了其有效性。这一创新方法在大多数测试模型中实现了无损压缩，压缩率可达原始模型大小的1/4。将本方法应用于已通过重要性剪枝的模型时，不同类型压缩技术之间几乎不存在干扰，这证明了多种技术成功组合的可能性。总体而言，我们的工作为一种新型压缩方法奠定了基础，该方法能实现更小、最终更高效的神经网络模型。</p>
+<p>（注：根据学术文献翻译规范，对以下术语进行了专业处理：</p>
 <ol>
-<li>"Training-free" 译为"免训练"，强调该方法不需要额外训练过程</li>
-<li>"Dual Sparsity" 译为"双稀疏化"，指代同时实现两种稀疏性（通常指权重和激活的稀疏）</li>
-<li>"Activation-aware Pruning" 译为"激活感知剪枝"，准确表达根据激活模式进行剪枝的技术特性</li>
-<li>"in LLMs" 补充为"大语言模型"，既保留英文缩写又便于中文读者理解</li>
-<li>整体采用技术论文标题常用的名词化结构，符合学术翻译规范）</li>
+<li>"ReLU-like activation functions"译为"ReLU类激活函数"以保持专业一致性</li>
+<li>"lossless compression"译为"无损压缩"符合信息论术语</li>
+<li>"importance-based pruned models"译为"通过重要性剪枝的模型"准确传达技术内涵</li>
+<li>长难句采用拆分策略，如将原文最后一句拆分为两个中文句子以符合汉语表达习惯）</li>
 </ol>
-<p>arXiv:2506.20194v1 公告类型：新论文<br>
-摘要：大语言模型（LLMs）虽展现出强大性能，却因高昂的内存与计算成本难以部署。传统剪枝方法虽能降低需求，但大多忽略了运行时观察到的激活稀疏性。我们创新性地将激活稀疏性重新解读为动态结构化权重稀疏性，并提出DuoGPT框架——该框架通过结合非结构化权重剪枝与激活稀疏性，构建了双稀疏（spMspV）计算负载。为保持模型精度，我们扩展了最优脑压缩（OBC）框架，引入激活感知校准技术，并采用稠密模型的输出残差作为修正项。此外，我们还针对GPU执行效率优化了解决方案，使其可扩展至数十亿参数的LLMs。在LLaMA-2和LLaMA-3上的评估表明：相较于基准稠密模型，DuoGPT在1.39倍等速加速条件下，以最高9.17%的准确度优势超越了当前最先进的结构化剪枝方法。</p>
-<p>（注：spMspV为专业术语，指"稀疏矩阵-稀疏向量"计算模式，在学术文献中通常保留英文缩写形式）</p>
-<div class="markdown-heading"><h2 class="heading-element">DipSVD：双重重要性保护的奇异值分解技术，助力高效大语言模型压缩</h2><a id="user-content-dipsvd双重重要性保护的奇异值分解技术助力高效大语言模型压缩" class="anchor" aria-label="Permalink: DipSVD：双重重要性保护的奇异值分解技术，助力高效大语言模型压缩" href="#dipsvd双重重要性保护的奇异值分解技术助力高效大语言模型压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.20353v1 公告类型：新论文<br>
-摘要：大型语言模型（LLM）持续增长的计算需求与部署成本催生了众多压缩方法。与量化和非结构化剪枝相比，奇异值分解（SVD）压缩具有更优的硬件兼容性与理论保障。然而现有基于SVD的方法仅关注原始矩阵与压缩矩阵的整体差异，却忽视了矩阵内部关键成分的保护，导致压缩后模型性能下降。本文提出双重重要性保护机制以增强SVD压缩方法：（1）局部重要性保护：通过通道加权数据白化技术保留每个权重矩阵中最关键的奇异向量；（2）全局重要性保护：通过启发式或优化分配策略，使次要层级承担更多压缩负担，从而最大限度降低压缩对关键层的影响。大量实验表明，DipSVD在多个基准测试中优于现有SVD压缩方法，尤其在较高压缩率下仍能保持卓越的模型性能。</p>
-<p>（注：根据学术论文翻译规范，对部分术语进行了标准化处理：</p>
-<ol>
-<li>"channel-weighted data whitening"译为"通道加权数据白化"（计算机视觉领域通用译法）</li>
-<li>"heuristic or optimization-based approach"译为"启发式或优化分配策略"（体现方法论的实质）</li>
-<li>保留"SVD"等专业缩写以符合中文计算机论文惯例</li>
-<li>采用"奇异值分解"全称与缩写混用以确保首次出现时的清晰性）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">Q-resafe：量化大语言模型的安全风险评估与量化感知安全补丁</h2><a id="user-content-q-resafe量化大语言模型的安全风险评估与量化感知安全补丁" class="anchor" aria-label="Permalink: Q-resafe：量化大语言模型的安全风险评估与量化感知安全补丁" href="#q-resafe量化大语言模型的安全风险评估与量化感知安全补丁"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.20251v1 公告类型：新研究<br>
-摘要：量化大型语言模型（LLMs）因其在资源受限环境中的部署潜力而日益受到关注。然而，最新针对少数无需校准数据集的量化方法研究表明，量化可能损害LLMs的安全防护能力，这凸显了系统化安全评估与有效缓解策略的迫切需求。本文通过广泛认可的安全基准测试，对多种主流量化技术和多样化校准数据集进行了全面的安全评估。针对发现的安全漏洞，我们提出了一种量化感知的安全修补框架Q-resafe，该框架能高效恢复量化后LLMs的安全能力，同时将对模型效用的负面影响降至最低。大量实验结果表明，即使在严苛的评估场景下，Q-resafe也能成功使量化LLMs的安全性与原始模型重新对齐。项目页面详见：<a href="https://github.com/Thecommonirin/Qresafe%E3%80%82">https://github.com/Thecommonirin/Qresafe。</a></p>
-<p>（注：根据学术规范，arXiv标识符"arXiv:2506.20251v1"保留原文格式；技术术语如"quantization-aware"译为"量化感知"符合计算机领域惯例；长句按中文表达习惯拆分为短句；项目URL保留原始链接确保可追溯性。）</p>
+<div class="markdown-heading"><h2 class="heading-element">微观尺度格式下训练不稳定性的表征与缓解策略</h2><a id="user-content-微观尺度格式下训练不稳定性的表征与缓解策略" class="anchor" aria-label="Permalink: 微观尺度格式下训练不稳定性的表征与缓解策略" href="#微观尺度格式下训练不稳定性的表征与缓解策略"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.20752v1 公告类型：新研究<br>
+摘要：训练大型语言模型是一个昂贵且受计算资源限制的过程，随着模型规模扩大、算法改进和新数据收集，这一过程必须重复进行。为应对此问题，下一代硬件加速器日益支持低精度算术格式，例如NVIDIA Blackwell架构引入的微缩放（MX）格式。这些格式通过在参数块内共享缩放因子来扩展可表示范围，并以降低的精度执行前向/反向GEMM运算以获得效率提升。本研究探讨了块缩放精度格式在模型训练中的挑战与可行性。通过对近千个从头训练的模型（计算预算从$2 \times 10^{17}$到$4.8 \times 10^{19}$ FLOPs，覆盖广泛的权重-激活精度组合）进行分析，我们一致观察到MX格式训练会出现损失函数的急剧随机不稳定，尤其在更大计算规模时。为解释该现象，我们在一个表现出类似行为的小型代理模型上进行对照实验与消融研究，遍历架构设置、超参数和精度格式。这些实验揭示了一个简单模型：由层归一化仿射参数及少量激活值量化引入的乘法梯度偏差可能引发失控性发散。通过在代理模型上进行原位干预实验，我们证明通过中途调整精度方案可避免或延迟不稳定现象。基于这些发现，我们在LLM场景下评估稳定策略，证明某些混合配置能恢复与全精度训练相当的性能。代码已发布于<a href="https://github.com/Hither1/systems-scaling%E3%80%82">https://github.com/Hither1/systems-scaling。</a></p>
+<p>（注：根据学术规范，技术术语如GEMM/gradient bias等保留英文形式；公式单位FLOPs未翻译；URL保留原貌；层归一化（layer-norm）采用通用译法；被动语态转换为主动句式；长句合理切分以符合中文表达习惯）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

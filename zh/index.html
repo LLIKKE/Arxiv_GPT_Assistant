@@ -12,61 +12,18 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">面向经济高效长视频理解的任务感知型键值压缩技术</h2><a id="user-content-面向经济高效长视频理解的任务感知型键值压缩技术" class="anchor" aria-label="Permalink: 面向经济高效长视频理解的任务感知型键值压缩技术" href="#面向经济高效长视频理解的任务感知型键值压缩技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>长视频理解（LVU）对现有多模态大语言模型（MLLM）仍是严峻挑战，主要源于高昂的计算成本。近期研究尝试通过KV压缩缓解此问题，但高压缩比下往往伴随显著信息损失。本文提出Video-X^2L框架，其核心创新在于为不同LVU任务动态保留关键视频信息。该框架包含两项关键技术：首先，双层级KV压缩——在MLLM预填充阶段，同步生成低压缩KV（L-KV）以捕捉细粒度视频细节，与高压缩KV（H-KV）以提供紧凑视频表征；其次，选择性KV重加载——在解码阶段，仅对最关键视频片段重新加载L-KV，其余部分则保持H-KV处理。这种机制既确保任务相关信息的充分利用，又维持整体计算效率。Video-X^2L无需额外训练即可适配现有支持KV压缩的MLLM，具有即插即用优势。我们在VideoMME、MLVU、LongVideoBench和VNBench等主流LVU基准测试中验证了该框架：实验表明，Video-X^2L在显著降低计算开销的同时，以显著优势超越现有KV压缩方法。</p>
-<p>（注：根据技术文献翻译规范，对原文进行了以下优化处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">面向经济高效长视频理解的"任务感知型键值压缩"技术</h2><a id="user-content-面向经济高效长视频理解的任务感知型键值压缩技术" class="anchor" aria-label="Permalink: 面向经济高效长视频理解的&quot;任务感知型键值压缩&quot;技术" href="#面向经济高效长视频理解的任务感知型键值压缩技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>长视频理解（LVU）对现有多模态大语言模型（MLLMs）仍是严峻挑战，主要源于高昂的计算成本。近期研究尝试通过KV压缩缓解该问题，但高压缩比下往往伴随显著信息损失。本文提出Video-X^2L框架，其核心在于为每项LVU任务灵活保留关键视频信息。该框架包含两项关键操作：首先是双层KV压缩——在MLLM的预填充阶段，同时生成低压缩KV（L-KV）以捕捉细粒度视频细节，以及高压缩KV（H-KV）提供紧凑视频表征；其次是选择性KV重载——在解码阶段，仅对最关键视频片段重新加载L-KV，其余部分则保持H-KV处理。这种机制使模型既能充分利用任务特定信息，又能维持整体计算紧凑性。Video-X^2L无需额外训练即可实现，且完全兼容现有支持KV压缩的MLLMs。我们在VideoMME、MLVU、LongVideoBench和VNBench等主流LVU基准测试中验证了该框架：实验表明Video-X^2L在显著节省计算成本的同时，以巨大优势超越了现有KV压缩方法。</p>
+<div class="markdown-heading"><h2 class="heading-element">PsyLite 技术报告</h2><a id="user-content-psylite-技术报告" class="anchor" aria-label="Permalink: PsyLite 技术报告" href="#psylite-技术报告"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>随着数字技术的快速发展，AI驱动的心理咨询逐渐成为心理健康领域的重要研究方向。然而现有模型在对话安全性、细粒度场景处理及轻量化部署方面仍存在不足。为解决这些问题，本研究基于基座模型InternLM2-7B-chat开发了轻量化心理咨询大语言模型智能体PsyLite。通过两阶段训练策略（混合蒸馏数据微调与ORPO偏好优化），增强了模型的深度推理能力、心理咨询能力和安全对话能力。采用Ollama与Open WebUI部署后，通过Pipelines构建定制化工作流，创新性地设计了条件式RAG机制，在心理咨询过程中适时引入相声幽默元素以提升用户体验，并通过对危险请求的拒答强化对话安全性。评估显示PsyLite在中文通用评估（CEval）、心理咨询专业评估（CPsyCounE）和对话安全评估（SafeDialBench）中均优于基线模型，尤其在心理咨询专业性（CPsyCounE分数提升47.6%）和对话安全性（\safe{}分数提升2.4%）方面表现突出。此外，模型采用量化技术（GGUF q4_k_m）实现了低硬件部署（5GB内存即可运行），为资源受限环境下的心理咨询应用提供了可行方案。</p>
+<p>（注：根据学术规范对部分技术术语进行了标准化处理：</p>
 <ol>
-<li>专业术语统一："KV"保留英文缩写形式，首次出现时括号注明全称</li>
-<li>长句拆分：将原文复合句重组为符合中文表达习惯的短句结构</li>
-<li>被动语态转换："are generated"等被动式转为主动表述</li>
-<li>概念显化："bi-level"译为"双层级"而非字面直译，更符合中文技术文档用语</li>
-<li>逻辑连接强化：通过"既...又..."等关联词明确技术方案的辩证关系</li>
-<li>数据呈现优化：基准测试列表采用中文顿号分隔，符合出版规范）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">PsyLite技术报告</h2><a id="user-content-psylite技术报告" class="anchor" aria-label="Permalink: PsyLite技术报告" href="#psylite技术报告"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>随着数字技术的快速发展，AI驱动的心理咨询已逐渐成为心理健康领域的重要研究方向。然而现有模型在对话安全性、细节场景处理与轻量化部署方面仍存在不足。为解决这些问题，本研究基于基座模型InternLM2-7B-chat开发了轻量化心理咨询大语言模型智能体PsyLite。通过两阶段训练策略（混合蒸馏数据微调与ORPO偏好优化），增强了模型的深度推理能力、心理咨询能力与安全对话能力。使用Ollama与Open WebUI部署后，通过Pipelines构建定制工作流，创新性地设计了条件式RAG机制，在心理咨询过程中适时引入相声幽默元素以提升用户体验，并主动拒绝危险请求以强化对话安全性。评估显示PsyLite在中文通用评估（CEval）、心理咨询专业评估（CPsyCounE）与对话安全评估（SafeDialBench）中均优于基线模型，尤其在心理咨询专业性（CPsyCounE分数提升47.6%）与对话安全性（\safe{}分数提升2.4%）方面表现突出。此外，模型采用量化技术（GGUF q4_k_m）实现低硬件部署（5GB内存即可运行），为资源受限环境下的心理咨询应用提供了可行方案。</p>
-<div class="markdown-heading"><h2 class="heading-element">Q-resafe：量化大语言模型的安全风险评估与量化感知安全补丁</h2><a id="user-content-q-resafe量化大语言模型的安全风险评估与量化感知安全补丁" class="anchor" aria-label="Permalink: Q-resafe：量化大语言模型的安全风险评估与量化感知安全补丁" href="#q-resafe量化大语言模型的安全风险评估与量化感知安全补丁"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>量化大型语言模型（LLMs）因其能在资源受限环境中部署而日益受到关注。然而，最新研究表明，某些无需校准数据集的量化方法可能会削弱LLMs的安全防护能力，这凸显出系统化安全评估与有效缓解策略的迫切需求。本文通过主流量化技术和多样化校准数据集，结合广泛认可的安全基准测试，开展了全面的安全评估。针对发现的安全隐患，我们提出量化感知的安全修复框架Q-resafe，该方案能高效恢复量化后LLMs的安全防护能力，同时将对模型实用性的影响降至最低。大量实验证明，即使在严苛的评估场景下，Q-resafe也能成功使量化后LLMs的安全性与原始模型重新对齐。项目页面详见：<a href="https://github.com/Thecommonirin/Qresafe%E3%80%82">https://github.com/Thecommonirin/Qresafe。</a></p>
-<p>（注：根据技术文本特性，译文采用以下处理：</p>
-<ol>
-<li>"calibration dataset-free"译为"无需校准数据集的"以准确传达技术概念</li>
-<li>"safety capabilities"统一译为"安全防护能力"保持术语一致性</li>
-<li>"quantization-aware"译为"量化感知的"遵循行业惯例</li>
-<li>长难句拆分重组，如将原文最后复合句分解为因果逻辑清晰的中文短句</li>
-<li>被动语态转换为主动表述，如"underscoring"译为"这凸显出"</li>
-<li>专业表述保留英文缩写（LLMs）与数字单位等国际通用形式）</li>
+<li>"ORPO"作为算法名称保留不译</li>
+<li>"RAG"全称为检索增强生成（Retrieval-Augmented Generation），采用"条件式RAG机制"的译法体现其创新性</li>
+<li>量化技术"GGUF q4_k_m"作为标准格式保留</li>
+<li>评估指标"CEval/CPsyCounE/SafeDialBench"首次出现时标注中文译名，后文直接使用英文缩写</li>
+<li>特殊符号"\safe{}"保留原格式以准确反映论文数据）</li>
 </ol>
 <div class="markdown-heading"><h2 class="heading-element">基于线性度的神经网络压缩</h2><a id="user-content-基于线性度的神经网络压缩" class="anchor" aria-label="Permalink: 基于线性度的神经网络压缩" href="#基于线性度的神经网络压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>在神经网络压缩领域，当前主流方法通过评估参数重要性与冗余度来削减不必要的参数。为了进一步增强现有高度优化的解决方案，我们提出了一种基于线性特性的新型神经网络权重压缩方法。该方法源于一个关键发现：当使用ReLU类激活函数时，持续处于激活状态的神经元会表现出线性行为，这使得后续层的合并成为可能。我们系统阐述了该压缩方法的理论基础，并通过实验验证其有效性。这项创新技术在超过三分之二的测试模型中实现了无损压缩，可将模型体积缩减至原始大小的1/4。即使在经过重要性剪枝的模型上应用本方法，不同压缩技术之间也几乎不会产生干扰，这证明了多种技术协同应用的可行性。本研究为开发新型压缩方法奠定了基础，有助于构建更精简、更高效的神经网络模型。</p>
-<div class="markdown-heading"><h2 class="heading-element">DipSVD：面向高效大语言模型压缩的双重重要性保护奇异值分解</h2><a id="user-content-dipsvd面向高效大语言模型压缩的双重重要性保护奇异值分解" class="anchor" aria-label="Permalink: DipSVD：面向高效大语言模型压缩的双重重要性保护奇异值分解" href="#dipsvd面向高效大语言模型压缩的双重重要性保护奇异值分解"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>大型语言模型（LLMs）持续增长的计算需求与部署成本，催生了大量压缩方法。与量化和非结构化剪枝相比，SVD压缩具有更优的硬件兼容性和理论保障。然而现有基于SVD的方法仅关注原始矩阵与压缩矩阵的整体差异，却忽视了矩阵内部关键成分的保护，导致压缩后模型性能显著下降。本文提出双重重要性保护机制以增强SVD压缩方法：（1）局部重要性保护：通过通道加权数据白化技术，保留每个权重矩阵中最关键的奇异向量；（2）全局重要性保护：采用启发式或基于优化的策略，使次要网络层承担更多压缩负担，从而最大限度降低压缩对关键层的影响。大量实验表明，DipSVD在多个基准测试中优于现有SVD压缩方法，尤其在较高压缩比下仍能保持卓越的模型性能。</p>
-<p>（注：根据学术论文翻译规范，对部分术语进行了标准化处理：</p>
-<ol>
-<li>"LLMs"保留英文缩写但补充全称</li>
-<li>"SVD"作为通用技术术语保留不译</li>
-<li>"DipSVD"作为方法名称保留原命名</li>
-<li>"channel-weighted data whitening"译为"通道加权数据白化"符合深度学习领域术语惯例</li>
-<li>长难句按中文表达习惯拆分为短句，如将原文"through either...approach"处理为分号隔开的并列结构）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">面向深度神经网络加速的结构化剪枝准则的损失感知自动选择</h2><a id="user-content-面向深度神经网络加速的结构化剪枝准则的损失感知自动选择" class="anchor" aria-label="Permalink: 面向深度神经网络加速的结构化剪枝准则的损失感知自动选择" href="#面向深度神经网络加速的结构化剪枝准则的损失感知自动选择"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>结构化剪枝是一种成熟的神经网络压缩技术，使其适合部署在资源有限的边缘设备上。本文提出了一种高效的损失感知结构化剪枝准则自动选择方法（LAASP），用于深度神经网络的高效瘦身与加速。传统剪枝方法通常采用"训练-剪枝-微调"的三阶段串行流程，而本技术采用"边训练边剪枝"的创新范式，省去第一阶段训练，并将剪枝与微调融合为单一循环流程。该方法通过神经网络在训练数据子集上的总体损失值，动态指导每次剪枝迭代时从预设准则池中选择基于幅值或相似性的滤波器剪枝准则，并确定具体剪枝层。为缓解剪枝导致的精度骤降，算法在每完成预定浮点运算量（FLOPs）的削减后，会对网络进行短暂重训练。各层最优剪枝率由算法自动确定，无需人工预设固定或可变剪枝比例。在CIFAR-10和ImageNet基准数据集上对VGGNet和ResNet模型的实验验证了该方法的有效性。其中CIFAR-10数据集上的ResNet56和ResNet110模型在减少52% FLOPs的同时，top-1准确率显著优于现有最优方法；ImageNet数据集上的ResNet50模型在FLOPs降低超42%的情况下，top-5准确率仅微降0.33%。本文源代码已开源：<a href="https://github.com/ghimiredhikura/laasp%E3%80%82">https://github.com/ghimiredhikura/laasp。</a></p>
-<div class="markdown-heading"><h2 class="heading-element">DuoGPT：基于激活感知剪枝的大模型免训练双稀疏化方法</h2><a id="user-content-duogpt基于激活感知剪枝的大模型免训练双稀疏化方法" class="anchor" aria-label="Permalink: DuoGPT：基于激活感知剪枝的大模型免训练双稀疏化方法" href="#duogpt基于激活感知剪枝的大模型免训练双稀疏化方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明：</p>
-<ol>
-<li>"Training-free" 译为"免训练"，强调无需重新训练的特性</li>
-<li>"Dual Sparsity" 译为"双稀疏化"，指同时实现权重和激活的稀疏性</li>
-<li>"Activation-aware Pruning" 译为"激活感知剪枝"，突出根据神经元激活状态进行动态剪枝</li>
-<li>"LLMs" 采用行业通用译法"大模型"（大型语言模型）</li>
-<li>整体采用"方法"作为隐性后缀，符合中文技术命名习惯）</li>
-</ol>
-<p>大型语言模型（LLMs）虽展现出强大性能，却因高昂的内存与计算成本而难以部署。传统剪枝技术虽能降低需求，但多数方法忽视了运行时观察到的激活稀疏性。我们将激活稀疏性重新阐释为动态结构化权重稀疏性，并提出DuoGPT框架——通过融合非结构化权重剪枝与激活稀疏性，构建双重稀疏（spMspV）计算负载。为保持精度，我们在最优大脑压缩（OBC）框架中引入激活感知校准机制，并将稠密模型的输出残差作为修正项。通过针对GPU执行效率的深度优化，该方案可扩展至数十亿参数规模的LLM。在LLaMA-2和LLaMA-3上的实验表明：在1.39倍于基准稠密模型的等效加速下，DuoGPT以最高9.17%的精度优势超越当前最先进的结构化剪枝方法。</p>
-<p>（注：专业术语处理说明：</p>
-<ol>
-<li>"spMspV"保留英文缩写形式，符合中文技术文献惯例</li>
-<li>"OBC"采用"最优大脑压缩"译法并标注英文全称，兼顾可读性与专业性</li>
-<li>"iso-speedup"译为"等效加速"，准确传达基准对比含义</li>
-<li>"activation-aware calibration"译为"激活感知校准"，保持计算机视觉领域术语一致性）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">微观尺度格式下训练不稳定性的表征与缓解策略</h2><a id="user-content-微观尺度格式下训练不稳定性的表征与缓解策略" class="anchor" aria-label="Permalink: 微观尺度格式下训练不稳定性的表征与缓解策略" href="#微观尺度格式下训练不稳定性的表征与缓解策略"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>训练大规模语言模型是一个计算密集且成本高昂的过程，随着模型规模扩大、算法改进和新数据收集，这一过程必须不断重复。为解决这一问题，下一代硬件加速器正逐步支持更低精度的算术格式，例如英伟达Blackwell架构引入的微缩放（MX）格式。这些格式通过在参数块内共享缩放因子来扩展可表示范围，并以降低的精度执行前向/反向GEMM运算以获得效率提升。本研究探讨了块缩放精度格式在模型训练中的挑战与可行性。通过对近千个从头训练的模型（计算预算从2×10¹⁷到4.8×10¹⁹ FLOPs不等）进行广泛权重-激活精度组合扫描，我们持续观察到MX格式训练会出现损失函数的急剧随机不稳定，尤其在更大计算规模时。为解释该现象，我们在一个表现出类似行为的小型代理模型上进行了控制实验和消融研究，遍历架构设置、超参数和精度格式。这些实验揭示了一个简单模型：由层归一化仿射参数和少量激活值量化引入的乘法梯度偏差可能引发失控发散。通过在代理模型上进行原位干预实验，我们证明通过中途修改精度方案可以避免或延迟不稳定现象。基于这些发现，我们在LLM场景下评估了稳定策略，证明某些混合配置能恢复与全精度训练相当的性能。代码已发布于<a href="https://github.com/Hither1/systems-scaling%E3%80%82">https://github.com/Hither1/systems-scaling。</a></p>
+<p>在神经网络压缩领域，当前主流方法大多通过衡量参数重要性与冗余度来削减不必要的参数。为了进一步增强现有高度优化的解决方案，我们提出了一种基于线性特性的新型神经网络权重压缩方法。该方法源于一个关键洞见：当使用类ReLU激活函数时，那些几乎总是被激活的神经元会表现出线性行为，这使得后续层的合并成为可能。我们系统阐述了该压缩方法的理论基础，并通过实验验证了其有效性。在大多数测试模型中，这种创新方法实现了高达原始模型1/4大小的无损压缩。当应用于已通过重要性剪枝的模型时，该方法与其他压缩技术几乎不存在干扰，展现出多技术协同应用的潜力。本研究为开发新型压缩方法奠定了基础，有助于构建更精简、更高效的神经网络模型。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

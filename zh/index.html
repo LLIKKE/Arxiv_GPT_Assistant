@@ -12,18 +12,14 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">面向经济高效长视频理解的"任务感知型键值压缩"技术</h2><a id="user-content-面向经济高效长视频理解的任务感知型键值压缩技术" class="anchor" aria-label="Permalink: 面向经济高效长视频理解的&quot;任务感知型键值压缩&quot;技术" href="#面向经济高效长视频理解的任务感知型键值压缩技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>长视频理解（LVU）对现有多模态大语言模型（MLLMs）仍是严峻挑战，主要源于高昂的计算成本。近期研究尝试通过KV压缩缓解该问题，但高压缩比下往往伴随显著信息损失。本文提出Video-X^2L框架，其核心在于为每项LVU任务灵活保留关键视频信息。该框架包含两项关键操作：首先是双层KV压缩——在MLLM的预填充阶段，同时生成低压缩KV（L-KV）以捕捉细粒度视频细节，以及高压缩KV（H-KV）提供紧凑视频表征；其次是选择性KV重载——在解码阶段，仅对最关键视频片段重新加载L-KV，其余部分则保持H-KV处理。这种机制使模型既能充分利用任务特定信息，又能维持整体计算紧凑性。Video-X^2L无需额外训练即可实现，且完全兼容现有支持KV压缩的MLLMs。我们在VideoMME、MLVU、LongVideoBench和VNBench等主流LVU基准测试中验证了该框架：实验表明Video-X^2L在显著节省计算成本的同时，以巨大优势超越了现有KV压缩方法。</p>
-<div class="markdown-heading"><h2 class="heading-element">PsyLite 技术报告</h2><a id="user-content-psylite-技术报告" class="anchor" aria-label="Permalink: PsyLite 技术报告" href="#psylite-技术报告"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>随着数字技术的快速发展，AI驱动的心理咨询逐渐成为心理健康领域的重要研究方向。然而现有模型在对话安全性、细粒度场景处理及轻量化部署方面仍存在不足。为解决这些问题，本研究基于基座模型InternLM2-7B-chat开发了轻量化心理咨询大语言模型智能体PsyLite。通过两阶段训练策略（混合蒸馏数据微调与ORPO偏好优化），增强了模型的深度推理能力、心理咨询能力和安全对话能力。采用Ollama与Open WebUI部署后，通过Pipelines构建定制化工作流，创新性地设计了条件式RAG机制，在心理咨询过程中适时引入相声幽默元素以提升用户体验，并通过对危险请求的拒答强化对话安全性。评估显示PsyLite在中文通用评估（CEval）、心理咨询专业评估（CPsyCounE）和对话安全评估（SafeDialBench）中均优于基线模型，尤其在心理咨询专业性（CPsyCounE分数提升47.6%）和对话安全性（\safe{}分数提升2.4%）方面表现突出。此外，模型采用量化技术（GGUF q4_k_m）实现了低硬件部署（5GB内存即可运行），为资源受限环境下的心理咨询应用提供了可行方案。</p>
-<p>（注：根据学术规范对部分技术术语进行了标准化处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">投影压缩：面向高效Transformer压缩的可训练投影方法</h2><a id="user-content-投影压缩面向高效transformer压缩的可训练投影方法" class="anchor" aria-label="Permalink: 投影压缩：面向高效Transformer压缩的可训练投影方法" href="#投影压缩面向高效transformer压缩的可训练投影方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.22255v1 公告类型：新成果<br>
+摘要：大型语言模型通过持续扩大规模来提升性能，但这也导致了更长的推理时间和更高的计算需求。因此，模型压缩方法正受到越来越多的关注。为解决这一问题，我们提出"投影压缩"（Projected Compression）这一新型模型压缩技术，通过投影模块实现权重降维。具体而言，我们首先训练额外的可学习投影权重，同时保留对原始模型所有参数的访问权限；随后将这些投影合并为一个低维乘积矩阵，最终得到一个标准Transformer架构的压缩模型。与其他需要额外计算开销的方法不同，我们的技术在FLOPs指标上完全匹配基础模型的单标记计算量。实验结果表明，在高质量模型上，投影压缩法的表现优于传统的硬性剪枝+重训练方案，且这种性能优势随着标记数量的增加而显著扩大。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了如下处理：</p>
 <ol>
-<li>"ORPO"作为算法名称保留不译</li>
-<li>"RAG"全称为检索增强生成（Retrieval-Augmented Generation），采用"条件式RAG机制"的译法体现其创新性</li>
-<li>量化技术"GGUF q4_k_m"作为标准格式保留</li>
-<li>评估指标"CEval/CPsyCounE/SafeDialBench"首次出现时标注中文译名，后文直接使用英文缩写</li>
-<li>特殊符号"\safe{}"保留原格式以准确反映论文数据）</li>
+<li>"Projected Compression"译为"投影压缩"并首次出现时标注英文原名</li>
+<li>"FLOPs"保留英文缩写形式</li>
+<li>"Transformer-based"译为"标准Transformer架构的"以符合中文技术文献表述习惯</li>
+<li>将原文复合长句拆分为符合中文表达习惯的短句结构）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">基于线性度的神经网络压缩</h2><a id="user-content-基于线性度的神经网络压缩" class="anchor" aria-label="Permalink: 基于线性度的神经网络压缩" href="#基于线性度的神经网络压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>在神经网络压缩领域，当前主流方法大多通过衡量参数重要性与冗余度来削减不必要的参数。为了进一步增强现有高度优化的解决方案，我们提出了一种基于线性特性的新型神经网络权重压缩方法。该方法源于一个关键洞见：当使用类ReLU激活函数时，那些几乎总是被激活的神经元会表现出线性行为，这使得后续层的合并成为可能。我们系统阐述了该压缩方法的理论基础，并通过实验验证了其有效性。在大多数测试模型中，这种创新方法实现了高达原始模型1/4大小的无损压缩。当应用于已通过重要性剪枝的模型时，该方法与其他压缩技术几乎不存在干扰，展现出多技术协同应用的潜力。本研究为开发新型压缩方法奠定了基础，有助于构建更精简、更高效的神经网络模型。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

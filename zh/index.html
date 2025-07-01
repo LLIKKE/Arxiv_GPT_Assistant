@@ -12,14 +12,34 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">投影压缩：面向高效Transformer压缩的可训练投影方法</h2><a id="user-content-投影压缩面向高效transformer压缩的可训练投影方法" class="anchor" aria-label="Permalink: 投影压缩：面向高效Transformer压缩的可训练投影方法" href="#投影压缩面向高效transformer压缩的可训练投影方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.22255v1 公告类型：新成果<br>
-摘要：大型语言模型通过持续扩大规模来提升性能，但这也导致了更长的推理时间和更高的计算需求。因此，模型压缩方法正受到越来越多的关注。为解决这一问题，我们提出"投影压缩"（Projected Compression）这一新型模型压缩技术，通过投影模块实现权重降维。具体而言，我们首先训练额外的可学习投影权重，同时保留对原始模型所有参数的访问权限；随后将这些投影合并为一个低维乘积矩阵，最终得到一个标准Transformer架构的压缩模型。与其他需要额外计算开销的方法不同，我们的技术在FLOPs指标上完全匹配基础模型的单标记计算量。实验结果表明，在高质量模型上，投影压缩法的表现优于传统的硬性剪枝+重训练方案，且这种性能优势随着标记数量的增加而显著扩大。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了如下处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">子专家混合：通过子空间专家合并实现高效专家混合大语言模型压缩</h2><a id="user-content-子专家混合通过子空间专家合并实现高效专家混合大语言模型压缩" class="anchor" aria-label="Permalink: 子专家混合：通过子空间专家合并实现高效专家混合大语言模型压缩" href="#子专家混合通过子空间专家合并实现高效专家混合大语言模型压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.23266v1 公告类型：新研究<br>
+摘要：混合专家（MoE）大语言模型因其庞大的参数量而面临内存、存储和部署方面的重大挑战。尽管现有的专家合并方法通过整合多个专家提升了效率，但专家专业化导致的参数冲突从根本上制约了这些方法的效果。本文提出Sub-MoE——一种基于子空间专家合并的新型MoE压缩框架。我们的核心思路是对拼接后的专家权重矩阵进行联合奇异值分解（SVD），通过提取共享的$U$矩阵减少冲突参数，同时有效合并专家特定的$V$矩阵组件。具体而言，Sub-MoE包含两个创新阶段：（1）自适应专家聚类：基于专家输出余弦相似度的K-means聚类，将功能连贯的专家分组；（2）子空间专家合并：首先通过专家联合分解获得同组专家的共享$U$矩阵，随后对个体$V$矩阵实施基于频率的合并，最终利用合并后的$V$矩阵完成专家重构。该方法实现了共享子空间内的专家对齐与融合，并可结合专家内部压缩技术进一步优化推理效率。在Mixtral、DeepSeek和Qwen-1.5|3等MoE大模型上的实验表明，Sub-MoE显著优于现有专家剪枝与合并方法。值得注意的是，在Mixtral-8x7B的零样本测试中，我们的方法在减少25%|50%专家时仍能保持原始模型96%|86%的性能。代码将在<a href="https://github.com/lliai/MoERazor%E5%8F%91%E5%B8%83%E3%80%82">https://github.com/lliai/MoERazor发布。</a></p>
+<p>（注：根据学术文献翻译规范，对技术术语进行了标准化处理：</p>
 <ol>
-<li>"Projected Compression"译为"投影压缩"并首次出现时标注英文原名</li>
-<li>"FLOPs"保留英文缩写形式</li>
-<li>"Transformer-based"译为"标准Transformer架构的"以符合中文技术文献表述习惯</li>
-<li>将原文复合长句拆分为符合中文表达习惯的短句结构）</li>
+<li>"Mixture of Experts"统一译为"混合专家"</li>
+<li>"Singular Value Decomposition"保留专业缩写"SVD"并首次出现时标注全称</li>
+<li>"zero-shot benchmarks"译为"零样本测试"以符合机器学习领域术语</li>
+<li>数学符号$U$/$V$矩阵保留原格式以保持技术准确性</li>
+<li>长难句采用拆分策略，如将"promise greater efficiency..."译为"通过...提升了效率"的主动句式）</li>
 </ol>
+<div class="markdown-heading"><h2 class="heading-element">P²U：渐进式精准更新助力高效模型分发</h2><a id="user-content-pu渐进式精准更新助力高效模型分发" class="anchor" aria-label="Permalink: P²U：渐进式精准更新助力高效模型分发" href="#pu渐进式精准更新助力高效模型分发"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.22871v1 公告类型：新研究<br>
+摘要：在带宽受限的环境中，高效的模型分发正变得愈发关键。本文提出了一种简单而有效的解决方案——渐进式精度更新（P$^2$U）。该方法不直接传输原始高精度模型，而是传输一个低比特精度的模型版本，并辅以一个表示原始高精度模型与传输版本差异的模型更新项。通过在多种模型架构（从小型模型（1-600万参数）到大型模型（超1亿参数））和三个不同数据集（胸部X光片、PASCAL-VOC和CIFAR-100）上的大量实验，我们证明P$^2$U始终能在精度、带宽占用和延迟之间实现更优的平衡。此外，研究显示当带宽或启动时间是首要考量时，即使采用激进量化策略（如4比特）也不会严重损害性能。这些结果表明，P$^2$U是联邦学习、边缘计算和物联网部署等资源受限场景下可扩展、高效模型分发的实用解决方案。由于P$^2$U可与现有压缩技术（如稀疏化、量化、剪枝等）互补使用，其性能提升潜力更为可观。</p>
+<div class="markdown-heading"><h2 class="heading-element">光谱1.1：三元语言模型的缩放法则与高效推理</h2><a id="user-content-光谱11三元语言模型的缩放法则与高效推理" class="anchor" aria-label="Permalink: 光谱1.1：三元语言模型的缩放法则与高效推理" href="#光谱11三元语言模型的缩放法则与高效推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.23025v1 公告类型：新论文<br>
+摘要：大语言模型（LLMs）在科研与工业应用中的使用日益广泛，但其推理效率仍是重大挑战。随着现代GPU架构计算能力的持续提升，其内存带宽与容量并未实现等比增长，形成了推理过程中的关键瓶颈。为此，我们研究了三值语言模型（TriLMs），通过量化感知训练显著降低内存需求。我们首先通过扩展律分析探究TriLMs的可扩展性，发现相较于扩大模型参数量，增加训练数据量能为TriLMs带来更大收益。基于这一发现，我们推出了Spectra-1.1——一个基于最高1.2万亿token训练的开源TriLM套件，证明了三值模型在大规模场景下持续的性能优势。为进一步提升推理效率，我们提出了创新的2比特和1.6比特三值权重量化压缩方案，在多种CPU架构上均实现了加速推理。基于2比特压缩方案，我们还开发了名为TriRun的GPU内核，相较浮点基线将端到端模型推理速度提升高达5倍。为促进TriLMs的进一步探索与发展，我们将公开Spectra-1.1模型套件与TriRun推理内核。本研究为构建与部署高效大语言模型奠定了基础，为研究社区提供了宝贵资源。</p>
+<p>（翻译说明：</p>
+<ol>
+<li>专业术语处理：LLMs/TriLMs保留英文缩写但首次出现时标注全称，量化技术术语如"packing schemes"译为"压缩方案"</li>
+<li>技术概念转化："scaling law analysis"译为行业通用表述"扩展律分析"，"quantization-aware training"采用学界通行译法"量化感知训练"</li>
+<li>长句拆分：将原文复合句按中文表达习惯分解为多个短句，如GPU架构描述部分</li>
+<li>数据呈现："1.2 trillion tokens"转换为中文计量单位"1.2万亿token"</li>
+<li>被动语态转换："will be released"主动化为"将公开"</li>
+<li>技术动作强化："propose"译为更具工程色彩的"提出创新方案"，"develop"译为"开发"以突出实践性）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">掩蔽门控线性单元</h2><a id="user-content-掩蔽门控线性单元" class="anchor" aria-label="Permalink: 掩蔽门控线性单元" href="#掩蔽门控线性单元"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2506.23225v1 公告类型：新研究<br>
+摘要：门控线性单元（GLUs）已成为当前最先进大语言模型（LLM）前馈网络的核心组件。然而，由于需为门控流和值流分别使用独立的权重矩阵，其内存读取量是无门控结构前馈层的两倍。为突破这一瓶颈，我们提出了掩码门控线性单元（MGLUs）——一种具备高效内核实现的新型GLU架构。MGLUs的核心创新包括：（1）混合逐元素门控（MoEG）架构，该架构通过一组学习到的二值掩码在共享权重矩阵上动态分配门控与值计算的元素级位置，从而显著降低内存传输量；（2）FlashMGLU硬件优化内核，在RTX5090 GPU上相比原生PyTorch实现实现19.7倍推理加速，即使增加架构复杂度，仍比标准GLUs内存效率提升47%、速度提高34%。在LLM实验中，采用Swish激活的变体SwiMGLU在保持内存优势的同时，下游任务精度与基线SwiGLU持平甚至超越。</p>
+<p>（注：RTX5090应为虚构型号，原文可能指RTX4090或未来显卡，此处保留技术参数不作修改）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

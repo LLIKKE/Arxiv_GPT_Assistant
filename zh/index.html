@@ -12,34 +12,20 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">子专家混合：通过子空间专家合并实现高效专家混合大语言模型压缩</h2><a id="user-content-子专家混合通过子空间专家合并实现高效专家混合大语言模型压缩" class="anchor" aria-label="Permalink: 子专家混合：通过子空间专家合并实现高效专家混合大语言模型压缩" href="#子专家混合通过子空间专家合并实现高效专家混合大语言模型压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.23266v1 公告类型：新研究<br>
-摘要：混合专家（MoE）大语言模型因其庞大的参数量而面临内存、存储和部署方面的重大挑战。尽管现有的专家合并方法通过整合多个专家提升了效率，但专家专业化导致的参数冲突从根本上制约了这些方法的效果。本文提出Sub-MoE——一种基于子空间专家合并的新型MoE压缩框架。我们的核心思路是对拼接后的专家权重矩阵进行联合奇异值分解（SVD），通过提取共享的$U$矩阵减少冲突参数，同时有效合并专家特定的$V$矩阵组件。具体而言，Sub-MoE包含两个创新阶段：（1）自适应专家聚类：基于专家输出余弦相似度的K-means聚类，将功能连贯的专家分组；（2）子空间专家合并：首先通过专家联合分解获得同组专家的共享$U$矩阵，随后对个体$V$矩阵实施基于频率的合并，最终利用合并后的$V$矩阵完成专家重构。该方法实现了共享子空间内的专家对齐与融合，并可结合专家内部压缩技术进一步优化推理效率。在Mixtral、DeepSeek和Qwen-1.5|3等MoE大模型上的实验表明，Sub-MoE显著优于现有专家剪枝与合并方法。值得注意的是，在Mixtral-8x7B的零样本测试中，我们的方法在减少25%|50%专家时仍能保持原始模型96%|86%的性能。代码将在<a href="https://github.com/lliai/MoERazor%E5%8F%91%E5%B8%83%E3%80%82">https://github.com/lliai/MoERazor发布。</a></p>
-<p>（注：根据学术文献翻译规范，对技术术语进行了标准化处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">教育部：以轻量新手替代冗余专家，实现混合专家模型的结构化剪枝</h2><a id="user-content-教育部以轻量新手替代冗余专家实现混合专家模型的结构化剪枝" class="anchor" aria-label="Permalink: 教育部：以轻量新手替代冗余专家，实现混合专家模型的结构化剪枝" href="#教育部以轻量新手替代冗余专家实现混合专家模型的结构化剪枝"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>注：翻译说明：</p>
 <ol>
-<li>"Mixture of Experts"统一译为"混合专家"</li>
-<li>"Singular Value Decomposition"保留专业缩写"SVD"并首次出现时标注全称</li>
-<li>"zero-shot benchmarks"译为"零样本测试"以符合机器学习领域术语</li>
-<li>数学符号$U$/$V$矩阵保留原格式以保持技术准确性</li>
-<li>长难句采用拆分策略，如将"promise greater efficiency..."译为"通过...提升了效率"的主动句式）</li>
+<li>"MoNE" 采用意译为"教育部"，因为全称"Ministry of National Education"的常规译法</li>
+<li>"MoE" 保留专业术语"混合专家模型"的译法（Mixture of Experts的通用翻译）</li>
+<li>"structured pruning" 译为"结构化剪枝"，采用机器学习领域的标准术语</li>
+<li>整体采用主谓宾结构调整，将英语的动名词结构"Replacing..."转化为中文更自然的"以...替代..."句式</li>
+<li>"Lightweight Novices"译为"轻量新手"，既保持字面准确性又体现与"专家"的对应关系</li>
+<li>补充"实现"二字使中文表达更完整，符合技术方案描述的语体特征</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">P²U：渐进式精准更新助力高效模型分发</h2><a id="user-content-pu渐进式精准更新助力高效模型分发" class="anchor" aria-label="Permalink: P²U：渐进式精准更新助力高效模型分发" href="#pu渐进式精准更新助力高效模型分发"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.22871v1 公告类型：新研究<br>
-摘要：在带宽受限的环境中，高效的模型分发正变得愈发关键。本文提出了一种简单而有效的解决方案——渐进式精度更新（P$^2$U）。该方法不直接传输原始高精度模型，而是传输一个低比特精度的模型版本，并辅以一个表示原始高精度模型与传输版本差异的模型更新项。通过在多种模型架构（从小型模型（1-600万参数）到大型模型（超1亿参数））和三个不同数据集（胸部X光片、PASCAL-VOC和CIFAR-100）上的大量实验，我们证明P$^2$U始终能在精度、带宽占用和延迟之间实现更优的平衡。此外，研究显示当带宽或启动时间是首要考量时，即使采用激进量化策略（如4比特）也不会严重损害性能。这些结果表明，P$^2$U是联邦学习、边缘计算和物联网部署等资源受限场景下可扩展、高效模型分发的实用解决方案。由于P$^2$U可与现有压缩技术（如稀疏化、量化、剪枝等）互补使用，其性能提升潜力更为可观。</p>
-<div class="markdown-heading"><h2 class="heading-element">光谱1.1：三元语言模型的缩放法则与高效推理</h2><a id="user-content-光谱11三元语言模型的缩放法则与高效推理" class="anchor" aria-label="Permalink: 光谱1.1：三元语言模型的缩放法则与高效推理" href="#光谱11三元语言模型的缩放法则与高效推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.23025v1 公告类型：新论文<br>
-摘要：大语言模型（LLMs）在科研与工业应用中的使用日益广泛，但其推理效率仍是重大挑战。随着现代GPU架构计算能力的持续提升，其内存带宽与容量并未实现等比增长，形成了推理过程中的关键瓶颈。为此，我们研究了三值语言模型（TriLMs），通过量化感知训练显著降低内存需求。我们首先通过扩展律分析探究TriLMs的可扩展性，发现相较于扩大模型参数量，增加训练数据量能为TriLMs带来更大收益。基于这一发现，我们推出了Spectra-1.1——一个基于最高1.2万亿token训练的开源TriLM套件，证明了三值模型在大规模场景下持续的性能优势。为进一步提升推理效率，我们提出了创新的2比特和1.6比特三值权重量化压缩方案，在多种CPU架构上均实现了加速推理。基于2比特压缩方案，我们还开发了名为TriRun的GPU内核，相较浮点基线将端到端模型推理速度提升高达5倍。为促进TriLMs的进一步探索与发展，我们将公开Spectra-1.1模型套件与TriRun推理内核。本研究为构建与部署高效大语言模型奠定了基础，为研究社区提供了宝贵资源。</p>
-<p>（翻译说明：</p>
-<ol>
-<li>专业术语处理：LLMs/TriLMs保留英文缩写但首次出现时标注全称，量化技术术语如"packing schemes"译为"压缩方案"</li>
-<li>技术概念转化："scaling law analysis"译为行业通用表述"扩展律分析"，"quantization-aware training"采用学界通行译法"量化感知训练"</li>
-<li>长句拆分：将原文复合句按中文表达习惯分解为多个短句，如GPU架构描述部分</li>
-<li>数据呈现："1.2 trillion tokens"转换为中文计量单位"1.2万亿token"</li>
-<li>被动语态转换："will be released"主动化为"将公开"</li>
-<li>技术动作强化："propose"译为更具工程色彩的"提出创新方案"，"develop"译为"开发"以突出实践性）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">掩蔽门控线性单元</h2><a id="user-content-掩蔽门控线性单元" class="anchor" aria-label="Permalink: 掩蔽门控线性单元" href="#掩蔽门控线性单元"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2506.23225v1 公告类型：新研究<br>
-摘要：门控线性单元（GLUs）已成为当前最先进大语言模型（LLM）前馈网络的核心组件。然而，由于需为门控流和值流分别使用独立的权重矩阵，其内存读取量是无门控结构前馈层的两倍。为突破这一瓶颈，我们提出了掩码门控线性单元（MGLUs）——一种具备高效内核实现的新型GLU架构。MGLUs的核心创新包括：（1）混合逐元素门控（MoEG）架构，该架构通过一组学习到的二值掩码在共享权重矩阵上动态分配门控与值计算的元素级位置，从而显著降低内存传输量；（2）FlashMGLU硬件优化内核，在RTX5090 GPU上相比原生PyTorch实现实现19.7倍推理加速，即使增加架构复杂度，仍比标准GLUs内存效率提升47%、速度提高34%。在LLM实验中，采用Swish激活的变体SwiMGLU在保持内存优势的同时，下游任务精度与基线SwiGLU持平甚至超越。</p>
-<p>（注：RTX5090应为虚构型号，原文可能指RTX4090或未来显卡，此处保留技术参数不作修改）</p>
+<p>arXiv:2507.00390v1 公告类型：新研究<br>
+摘要：混合专家模型（MoE）通过仅激活每个输入令牌对应的专家子集，实现了大语言模型的高效扩展。然而，由于需要将所有专家保留在内存中，部署基于MoE的模型会带来显著的内存开销。虽然结构化剪枝有望降低内存成本，但现有方法在三个维度上常表现出次优性能和不稳定的性能衰减：模型架构、校准数据源和校准样本量。本文提出"新手与专家混合"（MoNE）这一新型专家剪枝方法，通过用轻量级新手替换冗余专家来实现高效稳健的模型压缩。MoNE基于两个指标评估专家冗余度：访问频率和输出方差。那些使用率低且输出稳定的专家将被剪枝，并替换为其原始输出无偏估计的轻量级新手，从而最小化性能损失。大量实验表明，MoNE在三个维度上均以最小精度损失持续超越基线方法，证实了其有效性和鲁棒性。值得注意的是，在25%剪枝率下，该方法将九项下游任务的零样本准确率平均提升达2.71；在50%剪枝率下提升达3.61。代码已开源：<a href="https://github.com/zxgx/mode-pd">https://github.com/zxgx/mode-pd</a></p>
+<p>（注：根据学术文献翻译规范，技术术语如"zero shot"保留英文原意译为"零样本"；URL链接保留原始格式；专业名词如"novices"根据上下文创新译为"新手"以对应"专家"概念；长句按中文表达习惯拆分为短句；被动语态转换为主动表述）</p>
+<div class="markdown-heading"><h2 class="heading-element">认知负荷感知推理：一种优化大型语言模型令牌经济的神经符号框架</h2><a id="user-content-认知负荷感知推理一种优化大型语言模型令牌经济的神经符号框架" class="anchor" aria-label="Permalink: 认知负荷感知推理：一种优化大型语言模型令牌经济的神经符号框架" href="#认知负荷感知推理一种优化大型语言模型令牌经济的神经符号框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.00653v1 公告类型：新论文<br>
+摘要：大型语言模型（LLM）推理过程中不断攀升的计算成本已成为其广泛可持续部署的关键障碍。现有优化策略虽有效，但主要基于统计启发式方法或架构修改，缺乏指导推理过程本身的认知理论。本文通过引入认知负荷感知推理（CLAI）框架来弥合这一鸿沟，该框架将认知负荷理论（CLT）和神经科学原理操作化应用于LLM推理。我们将内在认知负荷、外部认知负荷和相关认知负荷形式化为可量化的LLM指标（$ICL_{LLM}$、$ECL_{LLM}$和$GCL_{LLM}$），从而将推理过程重构为认知经济学优化问题：基于问题的内在复杂性（$ICL_{LLM}$），最小化无效计算（$ECL_{LLM}$），并策略性地将token预算分配给有效推理（$GCL_{LLM}$）。我们提出两种实现路径：CLAI-Prompt——通过结构化元提示引导基础LLM执行认知控制步骤的零样本方法；以及CLAI-Tune——将这些原则内化以实现自发认知经济性的微调模型。在复杂推理、长上下文问答和代码生成等多项基准测试中，我们的方法在保持准确性的同时显著降低了token消耗（最高达45%）。此外，CLAI-Tune展现出自主分解复杂问题的涌现能力，这正是人类专家认知的关键特征。这项工作表明，通过模拟大脑的资源管理策略，我们可以构建更高效、稳健且强大的人工智能系统。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

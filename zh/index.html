@@ -12,4 +12,105 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div></div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">BLaST：采用块稀疏变换器实现高性能推理与预训练</h2><a id="user-content-blast采用块稀疏变换器实现高性能推理与预训练" class="anchor" aria-label="Permalink: BLaST：采用块稀疏变换器实现高性能推理与预训练" href="#blast采用块稀疏变换器实现高性能推理与预训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.03117v1 公告类型：新研究<br>
+摘要：大规模机器学习模型的能耗主要来自于数据迁移——在内存层级和数据中心之间传输数十亿参数。有效的稀疏化剪枝冗余参数仍具挑战性：现有方法会导致显著的精度下降、性能开销或两者兼有。我们提出(Bl)ock (a)nd (S)parse (T)ransformers（BLaST），这是一种通用、稳健且可靠的稀疏化方法，适用于所有场景中的线性层。我们的方法通过迭代将权重矩阵稀疏化为适合高效稀疏矩阵乘法（SpMM）的块稀疏模式。BLaST能在多层感知机（MLP）权重上实现高达95%的稀疏度，且精度损失可忽略不计。经过融合高度优化的稀疏MLP内核，在9种架构和8个数据集上相比稠密MLP实现了最高16.7倍的加速，推理速度提升达1.6倍，预训练速度提升1.11倍，推理内存占用最高减少3.12倍。BLaST通过降低能耗、内存占用和延迟，为下一代大规模人工智能系统铺平道路。</p>
+<p>（注：根据学术文献翻译规范，技术术语采用业界通用译法，如"sparsification"译为"稀疏化"、"SpMM"保留英文缩写并补充中文全称。长难句按中文表达习惯拆分重组，如将原文"iteratively sparsifies weight matrices into..."处理为"通过迭代将权重矩阵稀疏化为..."以符合中文动词优先原则。关键性能数据保留原始数字格式确保精确性。）</p>
+<div class="markdown-heading"><h2 class="heading-element">MGAA：面向大语言模型低秩压缩的多粒度自适应分配方案</h2><a id="user-content-mgaa面向大语言模型低秩压缩的多粒度自适应分配方案" class="anchor" aria-label="Permalink: MGAA：面向大语言模型低秩压缩的多粒度自适应分配方案" href="#mgaa面向大语言模型低秩压缩的多粒度自适应分配方案"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明：</p>
+<ol>
+<li>"Multi-Granular Adaptive Allocation" 译为"多粒度自适应分配"，准确传达算法能根据不同粒度进行动态资源分配的特性</li>
+<li>"Low-Rank Compression" 保留专业术语"低秩压缩"的直译，这是机器学习模型压缩领域的标准术语</li>
+<li>"LLMs" 译为"大语言模型"，采用业界对Large Language Models的通用中文译法</li>
+<li>添加"方案"二字使中文名称更符合技术论文标题的表述习惯</li>
+<li>整体采用"算法简称：技术特性+应用对象"的中文标题结构，与计算机领域论文标题规范保持一致）</li>
+</ol>
+<p>arXiv:2507.03294v1 公告类型：新研究<br>
+摘要：大型语言模型（LLM）庞大的参数量级使得模型压缩成为研究热点，其目标在于缓解部署和推理过程中的计算资源需求。作为一种前景广阔的技术方向，低秩近似方法已取得显著成果。然而遗憾的是，绝大多数低秩近似压缩研究对所有权重矩阵统一采用相同的压缩比率，却忽视了它们对模型性能的差异化影响。尽管近期少数研究尝试通过启发式搜索策略实现最优参数分配，但此类策略计算效率低下，且在LLM时代丧失了泛化能力。本研究提出一种新颖的多粒度自适应参数分配方法（MGAA），能在压缩过程中无需任务特定评估的情况下，自适应地实现子层间与子层内的参数分配。MGAA包含两大核心组件：1）在不同子层间，根据其输入输出余弦相似度分配压缩比率，从而对重要性各异的子层实现定制化压缩；2）在每个子层内部，基于权重矩阵的能量分布特征分配差异化压缩比率，在保持能量留存率一致的同时优化压缩效率。通过在多个LLM骨干模型和基准数据集上的全面评估，MGAA展现出卓越性能。此外，我们将MGAA应用于多模态模型LLaVA，亦观察到显著的性能提升。</p>
+<div class="markdown-heading"><h2 class="heading-element">any4：面向大型语言模型学习的4位数字表示法</h2><a id="user-content-any4面向大型语言模型学习的4位数字表示法" class="anchor" aria-label="Permalink: any4：面向大型语言模型学习的4位数字表示法" href="#any4面向大型语言模型学习的4位数字表示法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.04610v1 公告类型：新成果<br>
+摘要：我们推出any4，一种针对大语言模型（LLMs）的4比特权重量化解决方案，该方案无需对权重或激活值进行预处理即可提供任意数值表示。经在多种模型规模、代际和家族（Llama 2、Llama 3、Mistral和Mixtral）上验证，any4相比其他4比特数值表示类型（int4、fp4和nf4）具有更高精度。虽然any4不需要权重或激活值的预处理，但其性能也可与需要此类预处理的专业技术（如AWQ和GPTQ）相媲美。我们还实验了any3和any2方案，证明其在更低比特位宽下仍具竞争力。此外，我们提出仅需使用单个精选多样化样本进行校准，而非像多数量化方法那样需要数百个数据集样本。同时我们开源了tinygemm——一个为LLMs优化的低延迟GPU矩阵乘法库，该库采用GPU高效查表策略实现any4及其他常见量化方法。代码已开源：<a href="https://github.com/facebookresearch/any4">https://github.com/facebookresearch/any4</a></p>
+<p>（注：根据技术文档翻译规范，专业术语保持英文缩写形式，关键概念首次出现时标注中文解释；长句按中文表达习惯拆分；URL保留原格式；被动语态转换为主动表述；学术用语保持精确性。）</p>
+<div class="markdown-heading"><h2 class="heading-element">HGCA：面向长上下文LLM推理的混合GPU-CPU注意力机制</h2><a id="user-content-hgca面向长上下文llm推理的混合gpu-cpu注意力机制" class="anchor" aria-label="Permalink: HGCA：面向长上下文LLM推理的混合GPU-CPU注意力机制" href="#hgca面向长上下文llm推理的混合gpu-cpu注意力机制"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：根据技术术语翻译规范，此处处理说明：</p>
+<ol>
+<li>保留首字母缩略词"HGCA"不译，符合计算机领域术语惯例</li>
+<li>"Hybrid GPU-CPU"译为"混合GPU-CPU"，准确表达硬件协同概念</li>
+<li>"Attention"译为"注意力机制"，补全中文专业术语表述</li>
+<li>"Long Context LLM Inference"采用"长上下文LLM推理"的译法：
+<ul>
+<li>"Long Context"对应"长上下文"（自然语言处理标准译法）</li>
+<li>"LLM"保留英文缩写（大语言模型领域通用做法）</li>
+<li>"Inference"译为"推理"（AI领域标准术语）</li>
+</ul>
+</li>
+<li>整体采用"面向...的..."句式，符合中文技术文献命名习惯）</li>
+</ol>
+<p>arXiv:2507.03153v1 公告类型：新成果<br>
+摘要：大型语言模型（LLM）的推理扩展日益受到GPU内存限制的制约，尤其是长文本生成所需的关键值（KV）缓存持续增长。现有方案虽将KV缓存卸载至CPU内存或采用稀疏注意力以减轻GPU负载，但往往未能充分利用CPU计算资源且牺牲了准确性。我们提出HGCA——一种混合CPU-GPU注意力机制，可在保持近乎完整注意力质量的前提下实现可扩展的高吞吐量LLM推理。HGCA对保留在GPU内存中的近期生成KV条目执行密集注意力计算，同时对CPU内存中筛选出的关键KV条目进行并行稀疏注意力计算。通过log-sum-exp融合技术高效合并注意力输出，最小化PCIe传输开销。该机制还创新性地采用针对CPU执行优化的细粒度分头稀疏化策略，在降低计算量的同时保持上下文相关性。我们的实现无需重新训练模型即可无缝集成至现有LLM框架。多样化模型与工作负载的实验表明，HGCA在商品级GPU硬件上实现了卓越的可扩展性：支持更长序列和更大批量，其性能与准确性均超越现有稀疏注意力基线方案。</p>
+<p>（注：翻译过程中对技术术语进行了如下统一处理：</p>
+<ol>
+<li>"KV caches"译为"KV缓存"</li>
+<li>"log-sum-exp fusion"保留技术术语特征译为"log-sum-exp融合"</li>
+<li>"commodity GPU hardware"译为"商品级GPU硬件"以区别于专业级设备</li>
+<li>长复合句按中文科技论文习惯拆分为短句，如将原文最后一句拆分为成果展示与实验结论两部分</li>
+<li>被动语态转换为主动表述，如"are efficiently merged"译为"高效合并"）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">《思维链压缩的激活导向》</h2><a id="user-content-思维链压缩的激活导向" class="anchor" aria-label="Permalink: 《思维链压缩的激活导向》" href="#思维链压缩的激活导向"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.04742v1 公告类型：新论文<br>
+摘要：大语言模型（LLMs）在包含中间步骤（即"思维链"CoTs）时能出色完成复杂推理。然而这些推理过程往往过于冗长，即使是简单问题也会导致上下文浪费、延迟增加和能耗上升。我们发现，以英语为主的冗长CoTs和以数学为核心的简洁CoTs在模型残差流激活空间中占据不同区域。通过提取并注入"引导向量"实现模式切换，无需重新训练即可稳定生成更简练的推理过程，有效压缩思维链。我们将该方法形式化为"激活引导压缩"（ASC），这种推理时技术通过直接修改隐藏表征来缩短推理轨迹。此外，我们通过闭式KL散度有界约束理论分析了ASC对输出分布的影响，以此调节引导强度。仅需100组冗长与简洁样本对，ASC在MATH500和GSM8K数据集上实现最高67.43%的思维链长度缩减，同时在70亿、80亿和320亿参数模型中保持准确率。作为免训练方法，ASC引入的运行时开销可忽略不计，在MATH500测试中，80亿模型端到端推理实际耗时平均加速2.73倍。这使得ASC成为在延迟敏感或成本敏感场景中精简可推理LLM部署的高效实用工具。代码已开源：<a href="https://github.com/ArminAzizi98/ASC">https://github.com/ArminAzizi98/ASC</a></p>
+<p>（翻译说明：</p>
+<ol>
+<li>专业术语处理："residual-stream activation space"译为"残差流激活空间"，"steering vector"译为"引导向量"以保持技术准确性</li>
+<li>句式重构：将英语长句拆分为符合中文表达习惯的短句，如理论分析部分采用分号结构</li>
+<li>概念显化："closed-form KL-divergence-bounded constraint"译为"闭式KL散度有界约束"以突出数学形式</li>
+<li>动态对等："latency- or cost-sensitive settings"译为"延迟敏感或成本敏感场景"实现功能对等</li>
+<li>数据呈现：保留精确百分比和倍数关系，维持学术严谨性</li>
+<li>被动转主动："are often overly verbose"译为"往往过于冗长"更符合中文表达逻辑）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">超越令牌剪枝：视觉语言模型中的操作剪枝</h2><a id="user-content-超越令牌剪枝视觉语言模型中的操作剪枝" class="anchor" aria-label="Permalink: 超越令牌剪枝：视觉语言模型中的操作剪枝" href="#超越令牌剪枝视觉语言模型中的操作剪枝"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.02909v1 公告类型：新研究<br>
+摘要：现有视觉语言模型（VLM）的令牌剪枝技术通过剔除被剪枝令牌的注意力和前馈运算来降低计算量，同时保留关键令牌的全部运算。但这种二元处理方式混淆了令牌与运算的冗余性——关键运算可能随废弃令牌被误删，而保留的令牌却继续执行所有潜在冗余运算。为实现精准剔除冗余运算而保留关键操作，我们提出贪心排序运算剪枝法（GSOP），这种数据驱动方法直接对运算而非令牌进行剪枝。GSOP首先将VLM解码器的计算沿三个维度分解为原子操作：令牌组、层位置和计算模块。随后通过贪心排序确定剪枝顺序：在考虑已剪枝操作的前提下，GSOP迭代选择导致性能下降最小的冗余运算。该方法无需重复搜索即可适配不同计算预算，只需按既定顺序剪枝直至满足目标算力需求。GSOP通过以下策略提升排序效率：a)利用历史运算排名避免重复评估；b)将"可自由剪枝"和"禁止剪枝"操作排除在排序之外。GSOP实现了卓越的效率-性能平衡，在计算量减少70%时仅造成4%的性能损失，且在跨多种VLM和任务迁移时保持较现有最优方法高达18%的性能优势。真实GPU效率评估验证了其实用价值。代码已开源：<a href="https://github.com/zxcvfd13502/GSOP%E3%80%82">https://github.com/zxcvfd13502/GSOP。</a></p>
+<p>（注：根据学术文献翻译规范，对以下术语进行了统一处理：</p>
+<ol>
+<li>"token pruning"译为"令牌剪枝"而非"标记剪枝"，保持与计算机视觉领域术语一致性</li>
+<li>"feed-forward operations"译为"前馈运算"而非"前向传播操作"，符合神经网络计算模块的常规译法</li>
+<li>"data-driven method"译为"数据驱动方法"而非"以数据为导向的方法"，采用更简洁的术语表达</li>
+<li>"atomic operations"译为"原子操作"而非"基本运算"，突出其不可再分性</li>
+<li>"real GPU efficiency evaluations"译为"真实GPU效率评估"而非"实际GPU效能评测"，更贴近硬件性能测试的专业表述）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">DOTResize：基于离散最优传输的神经元合并缩减大型语言模型宽度</h2><a id="user-content-dotresize基于离散最优传输的神经元合并缩减大型语言模型宽度" class="anchor" aria-label="Permalink: DOTResize：基于离散最优传输的神经元合并缩减大型语言模型宽度" href="#dotresize基于离散最优传输的神经元合并缩减大型语言模型宽度"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.04517v1 公告类型：新研究<br>
+摘要：模型压缩为降低大型预训练模型的高成本与使用门槛提供了一条可行路径，同时能基本保持其卓越性能。包括大语言模型（LLMs）在内的Transformer模型往往存在计算冗余，这为新型模型压缩方法提供了优化空间。本研究针对模型层中的神经元级冗余，通过将相似神经元组合并为更少神经元来实现压缩。我们将这种宽度缩减问题构建为离散最优传输问题，并提出DOTResize——一种基于最优传输理论来转换和压缩模型权重的创新Transformer压缩方法。为适配Transformer架构特性，我们在传输映射中创新性地引入了熵正则化与矩阵分解机制。与基于重要性评估丢弃神经元的剪枝方法不同，DOTResize通过重投影整个神经元宽度，在缩减层中保留并重新分配有效信号。实验表明，相较于基础或前沿的神经元宽度剪枝技术，DOTResize在多个LLM系列及规模上均表现更优，同时能显著降低实际计算成本。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<ol>
+<li>"computational redundancy"译为"计算冗余"以符合计算机领域术语</li>
+<li>"Discrete Optimal Transport"保留专业名称"离散最优传输"并首次出现时标注英文</li>
+<li>"entropic regularization"译为"熵正则化"遵循机器学习领域惯例</li>
+<li>长难句采用拆分策略，如将"motivate and incorporate..."处理为"创新性地引入"以符合中文表达习惯</li>
+<li>保持被动语态与主动语态的合理转换，如"are combined"译为主动式"通过合并"）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">影响：重要性感知的激活空间重构</h2><a id="user-content-影响重要性感知的激活空间重构" class="anchor" aria-label="Permalink: 影响：重要性感知的激活空间重构" href="#影响重要性感知的激活空间重构"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.03828v1 公告类型：新论文<br>
+摘要：大语言模型（LLMs）在多个领域展现出卓越性能，但由于其庞大参数量，难以在资源受限的环境中部署。低秩权重矩阵压缩是一种常用的模型压缩策略，通常基于权重矩阵具有低秩特性的假设，通过最小化权重重构误差来实现。然而这一假设在LLMs中往往不成立。研究发现，LLM的激活值反而呈现更强的低秩结构特征——这促使我们将优化目标转向最小化激活重构误差。</p>
+<p>我们指出仅此转变并不足够：激活值的不同维度对模型性能贡献不均，统一重构反而可能损害性能。为此提出IMPACT框架，该重要性感知的激活重构方法将压缩决策与模型行为影响建立理论关联。IMPACT构建了一个同时考虑激活结构和梯度敏感度的优化问题，并推导出闭式解——其最优重构基向量是重要性加权激活协方差矩阵的特征向量。这种显式优化机制使低秩近似能精准保持模型精度。在多样化模型和任务的实验中，IMPACT在保持与最先进基线相当准确度的前提下，实现了最高达48.6%的模型体积压缩。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了如下处理：</p>
+<ol>
+<li>"importance-weighted activation covariance matrix"译为"重要性加权激活协方差矩阵"以保持数学严谨性</li>
+<li>"closed-form solution"译为"闭式解"符合控制理论术语惯例</li>
+<li>长难句采用拆分策略，如将原文最后一句拆分为理论解析和实验验证两个层次</li>
+<li>专业缩略语LLMs首次出现时保留英文并标注中文全称，后续直接使用）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">大型语言模型(LLMs)中从2:4到8:16的稀疏模式——针对异常值与权重的方差校正处理</h2><a id="user-content-大型语言模型llms中从24到816的稀疏模式针对异常值与权重的方差校正处理" class="anchor" aria-label="Permalink: 大型语言模型(LLMs)中从2:4到8:16的稀疏模式——针对异常值与权重的方差校正处理" href="#大型语言模型llms中从24到816的稀疏模式针对异常值与权重的方差校正处理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：根据技术文档翻译规范，对专业术语进行了以下处理：</p>
+<ol>
+<li>"sparsity patterns"译为"稀疏模式"而非字面的"稀疏模式"，更符合机器学习领域术语</li>
+<li>"Variance Correction"译为"方差校正"而非"差异修正"，采用统计学标准译法</li>
+<li>使用破折号替代原文介词结构，符合中文技术文献标题常用表达</li>
+<li>补充"处理"二字使动宾结构完整，体现技术文档的动词显化特征</li>
+<li>保留"LLMs"缩写但添加全称注释，兼顾专业读者和普通读者的理解需求）</li>
+</ol>
+<p>arXiv:2507.03052v1 公告类型：新论文<br>
+摘要：随着大语言模型（LLM）规模不断扩大，量化与稀疏化等高效压缩技术变得至关重要。量化通过降低数值精度保持模型性能，而结构化稀疏方法（如N:M稀疏化）常因灵活性不足和对异常权重的敏感性难以达到理想效果。我们探索了8:16半结构化稀疏方案，证明其能够突破性能临界点——即在同等内存限制下，压缩模型的准确率可媲美未压缩模型或更小规模的基准模型。相较于2:4稀疏方案，8:16在存储开销仅略微增加（0.875比特/元素 vs. 0.75比特/元素）的前提下提供了更高灵活性。我们还对显著权重应用结构化稀疏模式，表明针对异常值的结构化稀疏方法与非结构化方法性能相当甚至更优。最后，我们证实方差校正和类SmoothQuant的权重均衡等简单技术能有效提升稀疏模型性能。</p>
+<p>（注：根据学术文献翻译规范，关键术语保持英文缩写形式如LLM/N:M/SmoothQuant；技术概念采用"半结构化稀疏""性能临界点"等符合中文计算机领域表述习惯的译法；长句按中文表达习惯拆分重组，同时保留原文严谨性；被动语态转换为主动句式以符合中文科技文本特征。）</p>
+</div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

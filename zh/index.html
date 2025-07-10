@@ -12,24 +12,23 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">利用可解释人工智能压缩深度神经网络</h2><a id="user-content-利用可解释人工智能压缩深度神经网络" class="anchor" aria-label="Permalink: 利用可解释人工智能压缩深度神经网络" href="#利用可解释人工智能压缩深度神经网络"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2507.05286v1 公告类型：新研究<br>
-摘要：深度神经网络（DNNs）虽在多项任务中展现出卓越性能，但其高计算成本与内存消耗常成瓶颈。通过剪枝与量化等压缩技术，可缩减DNNs的内存占用，使其能部署于资源受限的边缘设备。近年来，可解释人工智能（XAI）方法被引入以理解和解释AI模型的工作原理，其可用于剖析DNNs的内部机制，例如揭示不同神经元与特征对模型整体性能的重要性。本文提出一种基于XAI的新型DNN压缩方法，能在精度损失可忽略的前提下高效减小模型体积。该方法采用梯度类XAI技术——层相关传播（LRP）计算网络参数（即权重）的重要性分数，并据此实施压缩：1）剪除重要性分数为零或负值的参数；2）对高/低重要性权重分别实施高/低位数量化。实验表明，相较于最先进的基于XAI的压缩方法，所提方案在模型体积缩减64%的同时，精度提升达42%。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">SlimCaching：面向分布式推理的专家混合模型边缘缓存技术</h2><a id="user-content-slimcaching面向分布式推理的专家混合模型边缘缓存技术" class="anchor" aria-label="Permalink: SlimCaching：面向分布式推理的专家混合模型边缘缓存技术" href="#slimcaching面向分布式推理的专家混合模型边缘缓存技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明：</p>
 <ol>
-<li>"resource-constrained edge devices"译为"资源受限的边缘设备"以保持技术文档准确性</li>
-<li>"mixed-precision quantization"译为"混合精度量化"符合行业惯例</li>
-<li>将原文两个压缩步骤的并列结构转换为中文更易读的分号分隔句式</li>
-<li>42%精度提升采用"达42%"的表述，既忠实原意又符合中文数据强调习惯）</li>
+<li>"SlimCaching"作为专有技术名词保留不译，采用首字母大写形式保持技术术语一致性</li>
+<li>"Edge Caching"译为"边缘缓存"符合边缘计算领域术语规范</li>
+<li>"Mixture-of-Experts"采用学术届通用译法"专家混合模型"，准确反映机器学习中MoE架构概念</li>
+<li>"Distributed Inference"译为"分布式推理"保持人工智能领域术语统一性</li>
+<li>整体采用"技术"作为隐性后缀，既符合中文技术文档命名习惯，又完整传达原文技术方案内涵）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">QS4D：面向结构化状态空间序列模型高效硬件部署的量化感知训练</h2><a id="user-content-qs4d面向结构化状态空间序列模型高效硬件部署的量化感知训练" class="anchor" aria-label="Permalink: QS4D：面向结构化状态空间序列模型高效硬件部署的量化感知训练" href="#qs4d面向结构化状态空间序列模型高效硬件部署的量化感知训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2507.06079v1 公告类型：新研究<br>
-摘要：结构化状态空间模型（SSM）作为深度学习领域的新兴模型类别，近期展现出处理长序列数据的独特优势。与Transformer内存需求随序列长度线性增长的特性不同，SSM的恒定内存占用使其成为资源受限边缘计算设备的理想选择。尽管已有研究探索了量化感知训练（QAT）对SSM的影响，但这些研究通常未涉及其在专用边缘硬件（如模拟存内计算芯片AIMC）上的应用意义。本研究表明，QAT能在多项性能指标上将SSM的复杂度降低多达两个数量级。我们系统分析了模型规模与数值精度之间的关系，证实QAT不仅能增强模型对模拟噪声的鲁棒性，还能实现结构化剪枝。最终，我们通过将这些技术集成到忆阻器模拟存内计算基底上，成功部署了SSM模型，并量化展示了其在计算效率方面带来的显著提升。</p>
-<p>（注：根据学术文献翻译规范，对以下术语进行了专业处理：</p>
+<p>arXiv:2507.06567v1 公告类型：新研究<br>
+摘要：混合专家（Mixture-of-Experts，MoE）模型通过仅为每个输入激活一小部分相关专家，提升了大规模语言模型（LLMs）的可扩展性。然而，MoE模型中庞大的专家网络数量给边缘设备带来了巨大的存储负担。为应对这一挑战，我们考虑将专家分散部署在边缘网络中进行分布式推理的场景。基于流行的Top-$K$专家选择策略，我们通过优化边缘服务器在存储约束下的专家缓存配置，构建了一个延迟最小化问题。当$K=1$时，该问题可转化为带背包约束的单调子模最大化问题，我们为此设计了一种基于贪心算法的$(1 - 1/e)$近似保证解法。对于$K\geq1$的一般情况，同一MoE层内专家的协同激活会引入非子模特性，导致传统贪心算法失效。针对此问题，我们提出了一种逐次贪心分解方法，将原问题分解为一系列子问题，每个子问题通过动态规划求解。此外，基于最大卷积技术设计了加速算法，可在多项式时间内获得具有理论保证的近似解。在不同MoE模型上的仿真结果表明，相较于现有基线方法，我们的方案能显著降低推理延迟。</p>
+<p>（注：根据学术文本翻译规范，对以下术语进行了标准化处理：</p>
 <ol>
-<li>"memristive analog in-memory computing substrate"译为"忆阻器模拟存内计算基底"</li>
-<li>"structural pruning"译为"结构化剪枝"</li>
-<li>保持"quantization-aware training (QAT)"和"analog in-memory computing (AIMC)"的英文缩写形式以符合领域惯例</li>
-<li>将原文三个长句按中文表达习惯拆分为多个短句，同时通过"研究表明""我们系统分析""最终"等连接词保持逻辑连贯性）</li>
+<li>"knapsack constraints"译为"背包约束"——运筹学标准译法</li>
+<li>"submodular maximization"译为"子模最大化"——数学优化领域通用译法</li>
+<li>"dynamic programming"译为"动态规划"——计算机算法经典译名</li>
+<li>保留了"Top-$K$"等原文公式表示法以符合技术文献惯例</li>
+<li>"edge device/network"统一译为"边缘设备/网络"——物联网领域通用术语）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

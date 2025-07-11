@@ -12,23 +12,58 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">SlimCaching：面向分布式推理的专家混合模型边缘缓存技术</h2><a id="user-content-slimcaching面向分布式推理的专家混合模型边缘缓存技术" class="anchor" aria-label="Permalink: SlimCaching：面向分布式推理的专家混合模型边缘缓存技术" href="#slimcaching面向分布式推理的专家混合模型边缘缓存技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">UnIT：面向MCU上MAC高效神经推理的可扩展非结构化推理时剪枝技术</h2><a id="user-content-unit面向mcu上mac高效神经推理的可扩展非结构化推理时剪枝技术" class="anchor" aria-label="Permalink: UnIT：面向MCU上MAC高效神经推理的可扩展非结构化推理时剪枝技术" href="#unit面向mcu上mac高效神经推理的可扩展非结构化推理时剪枝技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：根据技术术语的常见译法及上下文进行了优化：</p>
+<ol>
+<li>"Scalable"译为"可扩展"以体现其扩展能力</li>
+<li>"Unstructured Inference-Time Pruning"采用"非结构化推理时剪枝"的专业译法</li>
+<li>"MAC-efficient"意译为"MAC高效"（MAC指Multiply-Accumulate运算）</li>
+<li>"Neural Inference"译为"神经推理"符合AI领域术语</li>
+<li>"MCUs"保留英文缩写并补充说明为"微控制器单元"，在标题中简化为"MCU"符合技术文档惯例）</li>
+</ol>
+<p>arXiv:2507.07885v1 公告类型：新研究<br>
+摘要：现有剪枝方法通常应用于训练或编译阶段，且多依赖结构化稀疏性。虽然这类方法与低功耗微控制器（MCU）兼容，但在缺乏SIMD支持或并行计算的设备上，结构化剪枝未能充分发挥细粒度效率优化的潜力。为突破这些限制，我们提出UnIT（非结构化推理时剪枝）——一种轻量级方法，通过输入特定的激活模式动态识别并跳过推理过程中不必要的乘累加（MAC）运算。与结构化剪枝不同，UnIT支持非规则稀疏性，且无需重新训练或专用硬件支持。该方法将剪枝决策转化为轻量级比较运算，用阈值比较和近似除法替代乘法操作。UnIT还通过跨连接复用阈值计算、应用分层分组敏感剪枝策略进一步优化计算。我们针对常见嵌入式平台特性提出了三种快速硬件友好的除法近似算法。在MSP430微控制器上的实验表明：相比训练时剪枝模型，UnIT可实现11.02%至82.03%的MAC运算削减，推理速度提升27.30%至84.19%，能耗降低27.33%至84.38%，同时保持0.48-7%的精度损失。在领域偏移场景下，UnIT以显著更少的MAC运算量达到甚至超过重新训练模型的精度。这些成果证明，非结构化推理时剪枝是一种可行且实用的解决方案，能实现深度神经网络在MCU上高效、免重训练的部署。</p>
+<p>（注：根据学术论文摘要的文体特点，翻译时注重以下处理：</p>
+<ol>
+<li>专业术语标准化："multiply-accumulate"统一译为"乘累加"，"SIMD"保留英文缩写</li>
+<li>长句拆分：将原文复合句分解为符合中文表达习惯的短句结构</li>
+<li>被动语态转化："are typically applied"译为主动式"通常应用于"</li>
+<li>技术概念显化："group-specific pruning sensitivity"意译为"分层分组敏感剪枝策略"</li>
+<li>数据呈现规范化：百分比范围保持原文数字间隔符"至"而非"~"以符合学术文献惯例）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">CCQ：面向大语言模型极低位量化的卷积编码技术</h2><a id="user-content-ccq面向大语言模型极低位量化的卷积编码技术" class="anchor" aria-label="Permalink: CCQ：面向大语言模型极低位量化的卷积编码技术" href="#ccq面向大语言模型极低位量化的卷积编码技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>（注：翻译说明：</p>
 <ol>
-<li>"SlimCaching"作为专有技术名词保留不译，采用首字母大写形式保持技术术语一致性</li>
-<li>"Edge Caching"译为"边缘缓存"符合边缘计算领域术语规范</li>
-<li>"Mixture-of-Experts"采用学术届通用译法"专家混合模型"，准确反映机器学习中MoE架构概念</li>
-<li>"Distributed Inference"译为"分布式推理"保持人工智能领域术语统一性</li>
-<li>整体采用"技术"作为隐性后缀，既符合中文技术文档命名习惯，又完整传达原文技术方案内涵）</li>
+<li>"Convolutional Code" 译为"卷积编码技术"，既保留了专业术语的准确性，又符合中文技术文献的表述习惯</li>
+<li>"Extreme Low-bit Quantization" 采用中文技术领域常见的四字格处理为"极低位量化"，其中"极端"简化为"极"更符合中文简洁性</li>
+<li>"in LLMs" 补充译为"面向大语言模型"，通过"面向"二字明确技术应用领域，比简单直译"在...中"更具专业文献特征</li>
+<li>整体采用"技术"作为中心词，比直译为"代码"更符合中文技术命名规范</li>
+<li>保留英文缩写CCQ作为技术简称，符合国内学术界的通用做法）</li>
 </ol>
-<p>arXiv:2507.06567v1 公告类型：新研究<br>
-摘要：混合专家（Mixture-of-Experts，MoE）模型通过仅为每个输入激活一小部分相关专家，提升了大规模语言模型（LLMs）的可扩展性。然而，MoE模型中庞大的专家网络数量给边缘设备带来了巨大的存储负担。为应对这一挑战，我们考虑将专家分散部署在边缘网络中进行分布式推理的场景。基于流行的Top-$K$专家选择策略，我们通过优化边缘服务器在存储约束下的专家缓存配置，构建了一个延迟最小化问题。当$K=1$时，该问题可转化为带背包约束的单调子模最大化问题，我们为此设计了一种基于贪心算法的$(1 - 1/e)$近似保证解法。对于$K\geq1$的一般情况，同一MoE层内专家的协同激活会引入非子模特性，导致传统贪心算法失效。针对此问题，我们提出了一种逐次贪心分解方法，将原问题分解为一系列子问题，每个子问题通过动态规划求解。此外，基于最大卷积技术设计了加速算法，可在多项式时间内获得具有理论保证的近似解。在不同MoE模型上的仿真结果表明，相较于现有基线方法，我们的方案能显著降低推理延迟。</p>
-<p>（注：根据学术文本翻译规范，对以下术语进行了标准化处理：</p>
+<p>arXiv:2507.07145v1 公告类型：新研究<br>
+摘要：大语言模型（LLM）的快速规模化推升了推理成本，加剧了实际部署的障碍。虽然8位或4位量化能缓解这一问题，但低于3位的量化方法会面临严重的准确率下降、可扩展性受限和效率劣化。我们提出卷积码量化（CCQ），这是一种为推理优化的量化方法，能将LLM压缩至2.0-2.75位且保持最小精度损失。该方法摒弃了易出错的标量量化或低效的向量量化，通过整合硬件感知的位移位编解码方案与卷积码、混合编码及码簇技术，协同突破精度-速度的瓶颈。我们构建了免查表的编码空间，实现码本与权重向量的线性映射，从而优化推理性能。同时借鉴向量量化的数据映射思想，在极低位宽条件下最大限度降低模型性能损失。实验表明，CCQ在不同基准测试的LLM上均取得卓越表现：我们将DeepSeek-V3（总参数量6710亿）压缩至184GB，将ERNIE-4.5-300B-A47B压缩至89GB，实现ERNIE 4.5的单GPU部署并消除卡间通信。2位量化的ERNIE-4.5-300B-A47B模型及推理引擎已开源。</p>
+<p>（注：根据技术文档翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>"knapsack constraints"译为"背包约束"——运筹学标准译法</li>
-<li>"submodular maximization"译为"子模最大化"——数学优化领域通用译法</li>
-<li>"dynamic programming"译为"动态规划"——计算机算法经典译名</li>
-<li>保留了"Top-$K$"等原文公式表示法以符合技术文献惯例</li>
-<li>"edge device/network"统一译为"边缘设备/网络"——物联网领域通用术语）</li>
+<li>"sub-3-bit"译为"低于3位"以明确量化位宽阈值</li>
+<li>"lookup-free encoding space"采用"免查表编码空间"突出硬件优化特性</li>
+<li>"inter-card communication"译为"卡间通信"符合AI加速器领域表述习惯</li>
+<li>模型名称ERNIE-4.5-300B-A47B保留原文格式确保可追溯性）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">COALA：面向上下文感知低秩逼近的数值稳定高效框架</h2><a id="user-content-coala面向上下文感知低秩逼近的数值稳定高效框架" class="anchor" aria-label="Permalink: COALA：面向上下文感知低秩逼近的数值稳定高效框架" href="#coala面向上下文感知低秩逼近的数值稳定高效框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.07580v1 公告类型：新成果<br>
+摘要：近期研究表明，基于上下文感知的低秩近似是压缩和微调现代大规模神经网络的有效工具。此类近似通过输入激活矩阵对范数进行加权，相较未加权情况显著提升了各项指标。然而，现有神经网络方法因依赖涉及显式格拉姆矩阵计算及后续求逆的经典公式，存在数值不稳定性问题。我们证明这会导致近似质量下降或出现数值奇异矩阵。</p>
+<p>为突破这些局限，我们提出了一种基于稳定分解的新型免求逆正则化框架，从根本上克服了现有技术的数值缺陷。我们的方法能应对以下挑战性场景：(1) 校准矩阵超出GPU内存容量时；(2) 输入激活矩阵接近奇异时；甚至(3) 数据不足导致无法唯一近似时。针对最后一种情况，我们证明了所提解会收敛到期望近似，并推导出明确的误差边界。</p>
+<p>（注：根据学术文献翻译规范，对技术术语进行了统一处理："Gram matrix"译为"格拉姆矩阵"，"numerically singular matrices"译为"数值奇异矩阵"，"regularized framework"译为"正则化框架"等。同时采用中文科技论文常用的四字结构如"显著提升""数值缺陷"等，确保专业性与可读性平衡。）</p>
+<div class="markdown-heading"><h2 class="heading-element">跳过一层还是循环利用？预训练大语言模型的测试时深度自适应</h2><a id="user-content-跳过一层还是循环利用预训练大语言模型的测试时深度自适应" class="anchor" aria-label="Permalink: 跳过一层还是循环利用？预训练大语言模型的测试时深度自适应" href="#跳过一层还是循环利用预训练大语言模型的测试时深度自适应"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.07996v1 公告类型：新研究<br>
+摘要：未经微调的预训练神经网络能否根据不同输入自适应调整架构？简单任务是否需要所有层，而困难任务现有层是否足够？我们发现预训练大语言模型（LLM）的各层可作为独立模块进行操控，从而为每个测试样本构建更优甚至更浅的定制化模型。具体而言，预训练模型的每一层可被跳过/剪枝或像循环神经网络（RNN）般多次重复，并以任意顺序与其他层堆叠，形成每个样本专属的层链（CoLa）。这种组合空间极大拓展了现有循环预训练模块、层剪枝或提前退出网络的研究范畴。我们开发了蒙特卡洛树搜索（MCTS）协议，从数学和常识推理基准中探索并确定每个样本的最优CoLa。相比固定深度的静态模型，CoLa支持快捷路径（快思考）、单层循环（慢思考）及二者组合，为不同输入提供更灵活的动态架构。通过对MCTS优化的CoLa进行深入分析，我们获得两个关键发现：（1）在原始LLM预测正确的样本中，&gt;75%能找到更短的CoLa，表明推理效率存在巨大提升空间；（2）在原始预测错误的样本中，&gt;60%可通过特定CoLa获得正确预测，显示性能增强潜力巨大。这些结果揭示了固定架构预训练LLM在不同样本推理中的局限性，为解锁测试时深度自适应的泛化能力开辟了新途径。</p>
+<p>（注：翻译过程中对部分术语进行了本土化处理：</p>
+<ol>
+<li>"finetuning"译为"微调"符合机器学习领域惯例</li>
+<li>"chain-of-layers"创造性译为"层链"并保留缩写CoLa</li>
+<li>"fast thinking/slow thinking"借用心理学经典概念译为"快思考/慢思考"</li>
+<li>长复合句按中文习惯拆分为短句，如蒙特卡洛树搜索协议部分</li>
+<li>保持技术术语一致性（如RNN统一译为循环神经网络）</li>
+<li>数据百分比表达转换为中文惯用的&gt;符号）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

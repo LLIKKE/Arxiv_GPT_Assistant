@@ -12,25 +12,51 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">BlockFFN：面向终端侧加速友好的专家混合模型与块级激活稀疏化</h2><a id="user-content-blockffn面向终端侧加速友好的专家混合模型与块级激活稀疏化" class="anchor" aria-label="Permalink: BlockFFN：面向终端侧加速友好的专家混合模型与块级激活稀疏化" href="#blockffn面向终端侧加速友好的专家混合模型与块级激活稀疏化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>注：翻译说明：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">清晰思考：通过冗余标记剪枝提升推理能力</h2><a id="user-content-清晰思考通过冗余标记剪枝提升推理能力" class="anchor" aria-label="Permalink: 清晰思考：通过冗余标记剪枝提升推理能力" href="#清晰思考通过冗余标记剪枝提升推理能力"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.08806v1 公告类型：新成果<br>
+摘要：近期的大型语言模型在长链推理任务中展现出令人期待的能力，能够遵循结构化的思维链最终得出答案。然而我们观察到，这些推理路径往往存在大量冗余；通过分析注意力模式发现，注意力分数呈现广泛分散状态，尤其在错误答案中表现出更明显的注意力稀疏性。本文证明，通过"清晰思考"（即消除干扰）刻意去除推理过程中的冗余可显著提升模型表现。具体而言，我们通过测量对特殊"思考终止标记"的token级注意力分数来系统识别推理冗余，该标记被附加在显式指令后用于终结每个中间推理步骤。此外，我们提出结构感知剪枝方法，优先移除低贡献推理块而非孤立token。消除冗余token后，我们移除注入的思考终止指令，继而恢复推理生成。实验表明，该方法无需任何训练即可显著提升多个推理密集型基准测试的整体准确率。特别是在AIME、AMC等数学竞赛基准测试中，当推理冗余更为普遍时，我们的方法展现出强劲性能。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>"BlockFFN" 保持原名不译，作为专有技术名词</li>
-<li>"End-Side" 译为"终端侧"，指代边缘计算/终端设备场景</li>
-<li>"Acceleration-Friendly" 采用"加速友好"的意译，符合中文技术文献表述习惯</li>
-<li>"Mixture-of-Experts" 译为"专家混合模型"，是机器学习领域的标准译法</li>
-<li>"Chunk-Level" 译为"块级"，对应神经网络中的分块处理粒度</li>
-<li>"Activation Sparsity" 译为"激活稀疏化"，准确表达神经网络激活函数的稀疏特性</li>
-<li>整体采用"面向...的..."句式，既保持技术准确性又符合中文标题简洁性要求</li>
+<li>"long-form reasoning"译为"长链推理"以突出连续性</li>
+<li>"chains of thought"采用通用译法"思维链"</li>
+<li>"attention sparsity"译为"注意力稀疏性"保持技术一致性</li>
+<li>机构名称AIME/AMC保留英文缩写，首次出现时标注全称</li>
+<li>被动语态转换为中文主动句式（如"is appended"→"被附加"）</li>
+<li>专业表述如"token-level"保留技术概念译为"token级"）</li>
 </ol>
-<p>arXiv:2507.08771v1 公告类型：新论文<br>
-摘要：为缓解大语言模型（LLMs）的计算负担，以专家混合（MoE）为代表的激活稀疏架构日益受到关注。然而，传统MoE不可微分且僵化的路由机制会损害模型性能。此外，虽然每个令牌仅激活少量参数，但这些稀疏激活架构在分块级别仍呈现低稀疏性——即多个连续令牌的联合激活会触发大部分参数。这种稀疏模式不利于低资源条件（如终端设备）下的加速，也与主流加速技术（如推测解码）不兼容。为解决这些挑战，我们提出新型MoE架构BlockFFN及其高效训练与部署技术：首先采用集成ReLU激活和RMSNorm的路由器实现可微分灵活路由；其次设计分块稀疏感知训练目标，同步提升令牌级稀疏度（TLS）和分块级稀疏度（CLS），使BlockFFN更适配加速需求；最终实现融合激活稀疏与推测解码的高效加速内核。实验表明BlockFFN优于其他MoE基线，达到80%以上TLS和70%的8令牌CLS，终端设备实测加速比最高达3.67倍。所有代码与检查点均已开源（<a href="https://github.com/thunlp/BlockFFN%EF%BC%89%E3%80%82">https://github.com/thunlp/BlockFFN）。</a></p>
-<p>（注：根据技术文本特点，译文采用以下处理：</p>
+<div class="markdown-heading"><h2 class="heading-element">关于模型压缩中的信息几何与迭代优化：算子分解</h2><a id="user-content-关于模型压缩中的信息几何与迭代优化算子分解" class="anchor" aria-label="Permalink: 关于模型压缩中的信息几何与迭代优化：算子分解" href="#关于模型压缩中的信息几何与迭代优化算子分解"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.09428v1 公告类型：新研究<br>
+摘要：深度学习模型参数量的持续增长，亟需有效的压缩技术以部署于资源受限设备。本文探索了信息几何学（研究参数空间上密度诱导度量的学科）在模型压缩领域的应用，主要聚焦于算子分解方法。通过这一视角，我们揭示了核心挑战在于：定义最优低计算量子流形（或子集）并实现投影。我们论证了现有成功模型压缩方法均可理解为对该投影信息散度的隐式逼近。研究发现，当压缩预训练模型时，使用信息散度对提升零样本准确率至关重要；但在模型微调场景下，这一条件可能不再成立。此时，瓶颈模型的训练能力成为实现高压缩比且性能损失最小的关键因素，需要采用迭代方法。在此背景下，我们证明了针对软秩约束神经网络的迭代奇异值阈值训练算法的收敛性。为进一步阐释该视角的实用性，我们展示了通过对现有方法进行更柔和秩缩减的简单修改，如何在固定压缩率下获得更优性能。</p>
+<p>（注：翻译过程中对以下要点进行了专业处理：</p>
 <ol>
-<li>专业术语如"speculative decoding"采用学界通用译法"推测解码"</li>
-<li>"chunk-level sparsity"译为"分块级稀疏度"以准确反映技术概念</li>
-<li>长难句拆分重组，如将原文最后实验结果的复杂句式拆分为三个短句</li>
-<li>保留数学符号"3.67$\times$"的原始格式</li>
-<li>技术指标"80% TLS"等采用数字+中文单位混合表述）</li>
+<li>"information geometry"译为"信息几何学"，符合数学学科命名规范</li>
+<li>"zero-shot accuracy"保留专业术语特征译为"零样本准确率"</li>
+<li>"soft rank constraint"译为"软秩约束"，与"hard constraint"（硬约束）形成术语对应</li>
+<li>长难句拆分重组，如将原文"Adopting this perspective..."处理为中文流水句结构</li>
+<li>被动语态转换，如"it may no longer be the case"译为"这一条件可能不再成立"</li>
+<li>数学概念"singular value thresholding"规范译为"奇异值阈值"）</li>
 </ol>
+<div class="markdown-heading"><h2 class="heading-element">由Multiverse Computing旗下CompactifAI提供的压缩模型精度与消耗分析</h2><a id="user-content-由multiverse-computing旗下compactifai提供的压缩模型精度与消耗分析" class="anchor" aria-label="Permalink: 由Multiverse Computing旗下CompactifAI提供的压缩模型精度与消耗分析" href="#由multiverse-computing旗下compactifai提供的压缩模型精度与消耗分析"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.08836v1 公告类型：新研究<br>
+摘要：本研究评估了Multiverse Computing开发的CompactifAI压缩方法在大型语言模型Llama 3.1 8B\cite{llama}上的应用效果。评估分别采用Codecarbon\cite{codecarbon}和Ragas\cite{ragas}框架，重点衡量了模型效率（以能耗为指标）与准确性。通过对比CompactifAI\cite{compactifai}\cite{compactifai2}压缩后的模型与完整版本，我们发现：经CompactifAI压缩的模型不仅显著降低了计算资源消耗，同时保持了模型精度，使得模型在效率、扩展性和成本效益方面更具优势。</p>
+<p>（注：保留原文中的文献引用标记\cite{}格式以符合学术规范，实际翻译中可根据目标期刊要求调整为中文引用格式或保留原格式）</p>
+<div class="markdown-heading"><h2 class="heading-element">MLoRQ：融合低秩与量化技术，实现Transformer模型高效压缩</h2><a id="user-content-mlorq融合低秩与量化技术实现transformer模型高效压缩" class="anchor" aria-label="Permalink: MLoRQ：融合低秩与量化技术，实现Transformer模型高效压缩" href="#mlorq融合低秩与量化技术实现transformer模型高效压缩"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.09616v1 公告类型：新研究<br>
+摘要：在资源受限的边缘设备上部署基于Transformer的神经网络面临重大挑战。现有解决方案通常采用低秩近似和混合精度量化等技术。本研究提出混合低秩量化（MLoRQ）方法，通过两阶段优化流程实现两种技术的协同：首先进行层内优化，从所有低秩与量化组合中筛选潜在最优压缩方案；其次执行层间优化，在满足内存约束的前提下为每层分配比特精度和秩值。可选最终步骤采用改进的自适应舍入技术进行序列化优化，以缓解联合低秩近似与量化带来的误差。该方法兼容性强，可与多数现有量化算法无缝集成。在视觉Transformer的测试中，MLoRQ在图像分类、目标检测和实例分割任务上实现了最高15%的性能提升，达到当前最优水平。</p>
+<p>（注：根据学术文献翻译规范，对技术术语保持统一："low-rank approximation"译为"低秩近似"、"mixed-precision quantization"译为"混合精度量化"；将英文长句拆分为符合中文表达习惯的短句；"state-of-the-art"采用"当前最优水平"的意译；保留专业缩写MLoRQ不作翻译；调整被动语态为主动表述）</p>
+<div class="markdown-heading"><h2 class="heading-element">实时机器人系统中的轻量级深度学习用于协作机器人手势识别</h2><a id="user-content-实时机器人系统中的轻量级深度学习用于协作机器人手势识别" class="anchor" aria-label="Permalink: 实时机器人系统中的轻量级深度学习用于协作机器人手势识别" href="#实时机器人系统中的轻量级深度学习用于协作机器人手势识别"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.10055v1 公告类型：新研究<br>
+摘要：直接自然的交互是实现人机协作直觉化的关键，它能消除对摇杆、平板或可穿戴传感器等额外设备的依赖。本文提出一种基于轻量化深度学习的手势识别系统，使人能通过自然高效的方式控制协作机器人。该模型仅需1,103个参数（22KB体积）即可识别八种不同手势，准确率达93.5%。为优化模型在边缘设备上的实际部署，我们运用TensorFlow Lite进行量化和剪枝处理，最终模型体积压缩至7KB。该系统已在基于ROS2的实时机器人框架中成功部署于UR5协作机器人，测试结果表明：即便极度轻量化的模型也能为协作机器人提供精准灵敏的手势控制，为受限环境中的自然人机交互开辟了新可能。</p>
+<p>（注：根据学术文献翻译规范，对部分表述进行了技术性调整：</p>
+<ol>
+<li>"collaborative robots"统一译为"协作机器人"（行业标准术语）</li>
+<li>"quantization and pruning"译为"量化和剪枝"（深度学习领域固定译法）</li>
+<li>"edge devices"译为"边缘设备"（物联网领域通用译法）</li>
+<li>保留ROS2、TensorFlow Lite等专业名词不译</li>
+<li>将英文长句拆解为符合中文表达习惯的短句结构）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">基于随机矩阵理论视角的多头潜在注意力学习动态解析</h2><a id="user-content-基于随机矩阵理论视角的多头潜在注意力学习动态解析" class="anchor" aria-label="Permalink: 基于随机矩阵理论视角的多头潜在注意力学习动态解析" href="#基于随机矩阵理论视角的多头潜在注意力学习动态解析"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.09394v1 公告类型：新研究<br>
+摘要：本研究探讨了多头潜在注意力（MLA）——一种流行的键值记忆压缩策略——如何影响预训练期间Transformer模型的内部容量。通过轻量级的马尔琴科-帕斯图尔（MP）诊断工具组，我们全程追踪训练过程中$W_{Q}W_{K}^\top$格拉姆矩阵的谱分布，对比了三种变体：标准多头注意力（MHA）基线、压缩前应用旋转位置编码的MLA-PreRoPE，以及所有头共享单一旋转子向量的MLA-Decoupled。随机矩阵分析揭示了<strong>三个关键发现</strong>：<strong>i）</strong> 容量瓶颈呈现局部性：MHA和MLA-PreRoPE均在特定网络层早期出现尖锐的谱峰并持续传播，破坏主体分布与异常方向的平衡；<strong>ii）</strong> 这些谱峰与秩坍缩同步出现，将模型表达能力压缩至狭窄子空间；<strong>iii）</strong> 唯有解耦变体能阻断此连锁反应，在各层保持宽广的谱支持并抑制异常值形成。结果表明，旋转位置编码的<strong>应用方式</strong>与压缩发生的<strong>位置</strong>同等关键——跨头共享旋转分量能有效缓解谱碎片化并保持表征容量。</p>
+<p>（注：根据学术文献翻译规范，关键技术术语保持英文缩写并首次出现时标注全称；数学符号保留原始格式；通过增补"呈现局部性""连锁反应"等四字结构增强专业性；将"bulk and outlier directions"意译为"主体分布与异常方向"以符合中文统计学术语习惯；最后结论部分采用分号衔接保持逻辑严密性。）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

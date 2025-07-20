@@ -12,42 +12,7 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">PRISM：面向边缘场景的基础模型分布式推理框架</h2><a id="user-content-prism面向边缘场景的基础模型分布式推理框架" class="anchor" aria-label="Permalink: PRISM：面向边缘场景的基础模型分布式推理框架" href="#prism面向边缘场景的基础模型分布式推理框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>基础模型（FMs）在从图像分类到自然语言处理等广泛领域取得了显著成功，但其在边缘端的部署仍面临重大挑战。这促使业界日益关注如何开发实用高效的策略，将基础模型引入边缘环境。本研究提出PRISM——一种面向边缘设备分布式Transformer推理的通信高效且计算感知的策略。该方法采用分段均值表示法（Segment Means）来近似中间输出特征，大幅降低设备间通信开销。同时，我们重构了自注意力机制以消除位置划分中因各设备独立计算键/值向量导致的冗余运算，并针对自回归模型设计了分区感知的因果掩码方案。我们在ViT、BERT和GPT-2模型上进行了多数据集（CIFAR-10、CIFAR-100、ImageNet-1k、GLUE和CBT）验证，结果表明：在压缩率CR=128时，BERT模型的通信开销最高降低99.2%，单设备计算量减少51.24%，而精度损失微乎其微。该方法为资源受限的分布式环境部署基础模型提供了可扩展的实用解决方案。</p>
-<p>（注：根据技术文本特点，翻译中进行了以下处理：</p>
-<ol>
-<li>专业术语统一："foundation models"译为"基础模型"并保留英文缩写FMs</li>
-<li>技术概念准确传达："Segment Means representation"译为"分段均值表示法"并保留英文原名</li>
-<li>长句拆分重构：将原文复合长句按中文表达习惯分解为多个短句</li>
-<li>被动语态转换："are evaluated"等被动结构转为主动语态</li>
-<li>数据呈现优化：百分比数据保留原文精确数值</li>
-<li>技术表述规范化："causal masking scheme"译为专业术语"因果掩码方案"）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">PoTPTQ：面向大语言模型的两步幂次二次后训练方法</h2><a id="user-content-potptq面向大语言模型的两步幂次二次后训练方法" class="anchor" aria-label="Permalink: PoTPTQ：面向大语言模型的两步幂次二次后训练方法" href="#potptq面向大语言模型的两步幂次二次后训练方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明：</p>
-<ol>
-<li>"PoTPTQ"作为专有技术术语保留不译，以保持技术文献的准确性</li>
-<li>"Two-step"译为"两步"明确量化过程的分阶段特性</li>
-<li>"Power-of-Two"采用数学术语"幂次二次"的译法，准确表达算法核心的二次幂量化特征</li>
-<li>"Post-training"译为"后训练"符合机器学习领域术语规范</li>
-<li>增补"方法"二字使技术方案表述更完整</li>
-<li>整体采用"面向...的..."技术方案命名结构，符合中文技术文档命名习惯）</li>
-</ol>
-<p>大语言模型（LLM）在各类自然语言处理任务中展现出卓越性能，但其部署却因庞大的计算资源需求而面临挑战。二次幂（PoT）量化是应对这一难题的通用工具。尽管前人研究的PoT量化方案可利用定点加法在CPU上高效反量化，但在GPU上效果欠佳，原因在于符号位纠缠与反量化所需的串行位操作。我们提出了一种新颖的LLM权重PoT量化框架：（1）在极低精度数格式下超越现有最优精度；（2）通过更高效的反量化实现更快推理。为保持量化模型精度，我们引入两步式训练后算法：（1）以鲁棒的初始值设定量化尺度；（2）通过极小校准集优化这些尺度。我们的PoT训练后算法在整数量化领域超越当前最优水平，尤其在2/3比特等低精度格式下表现突出。相比均匀整数反量化，我们的PoT量化加速了浮点推理所需的反量化步骤，在NVIDIA V100上实现3.67倍加速，在NVIDIA RTX 4090上实现1.63倍加速。</p>
-<p>（注：根据技术文献翻译规范，对以下术语进行了标准化处理：</p>
-<ol>
-<li>"Power-of-two"译为"二次幂"而非字面直译"二的幂次方"</li>
-<li>"dequantization"统一译为"反量化"而非"去量化"</li>
-<li>"calibration set"译为"校准集"而非"校正集"</li>
-<li>保留"NVIDIA V100/RTX 4090"等硬件型号原文</li>
-<li>使用"鲁棒"对应"robust"的学术惯用译法</li>
-<li>数学表达"$3.67\times$"保留原格式符合中文科技文献排版惯例）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">针对ONNX模型的选择性量化调优</h2><a id="user-content-针对onnx模型的选择性量化调优" class="anchor" aria-label="Permalink: 针对ONNX模型的选择性量化调优" href="#针对onnx模型的选择性量化调优"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>量化是一种通过降低深度神经网络模型精度来减少模型大小和计算需求的技术，但通常会以牺牲准确率为代价。然而，完全量化的模型可能会因性能下降至可接受水平以下而表现欠佳，同时由于实际限制，在低端硬件加速器上部署时也面临挑战。为解决这些问题，可以选择性地仅对部分网络层进行量化，但如何筛选排除的层却非易事。为此，我们提出了TuneQn——一套支持选择性量化、部署并在各类CPU与GPU设备上运行ONNX模型的工具集，结合了性能分析与多目标优化技术。TuneQn能生成选择性量化的ONNX模型，将其部署到不同硬件，测量准确率、模型大小等性能指标，通过帕累托前沿最小化筛选最优模型候选方案，并可视化呈现结果。为验证TuneQn的有效性，我们在CPU和GPU设备上对四个ONNX模型进行了两种量化配置的评估。实验表明，该工具能高效实现选择性量化与调优：相比完全量化模型，所选最优模型候选方案最高可减少54.14%的准确率损失；相较原始模型，最高可实现72.9%的模型体积压缩。</p>
-<div class="markdown-heading"><h2 class="heading-element">基于方差的剪枝技术：加速与压缩训练后网络</h2><a id="user-content-基于方差的剪枝技术加速与压缩训练后网络" class="anchor" aria-label="Permalink: 基于方差的剪枝技术：加速与压缩训练后网络" href="#基于方差的剪枝技术加速与压缩训练后网络"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>随着视觉Transformer等超大规模模型的训练成本日益攀升，复用现有训练好的顶尖模型库变得愈发重要。然而这些模型的延迟高、计算开销大、内存需求多，在资源受限的硬件上部署面临严峻挑战。虽然结构化剪枝方法能缓解这些问题，但通常需要代价高昂的重新训练——有时需数百个训练周期，甚至要从头开始训练以弥补结构调整导致的精度损失。如何在结构化剪枝后保持模型原有性能，从而避免大量重复训练，仍是亟待解决的难题。</p>
-<p>为此，我们提出基于方差的剪枝法——这是一种简单高效的结构化单次剪枝技术，仅需微调即可实现网络压缩。该方法首先收集激活统计量用于筛选待剪枝神经元，同时将平均激活值回注模型以保持高性能。在ImageNet-1k识别任务中，DeiT-Base模型剪枝后立即保留原性能70%以上，仅需10个周期的微调即可恢复99%的原精度，同时运算量(MACs)减少35%，模型体积缩小36%，推理速度提升1.44倍。</p>
-<div class="markdown-heading"><h2 class="heading-element">IAM：通过不同规模大语言模型间的注意力映射实现高效推理</h2><a id="user-content-iam通过不同规模大语言模型间的注意力映射实现高效推理" class="anchor" aria-label="Permalink: IAM：通过不同规模大语言模型间的注意力映射实现高效推理" href="#iam通过不同规模大语言模型间的注意力映射实现高效推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>当前，大型语言模型（LLM）在资源消耗方面面临重大挑战，尤其是处理长上下文时。尽管学界已投入大量精力提升推理效率，但现有方法主要利用模型内部稀疏性进行优化，未能借助外部信息实现突破。我们通过研究发现：不同规模LLM的注意力矩阵具有高度相似性，这为优化提供了全新思路。我们首先系统分析了三个核心问题——相似性度量方法、映射层选择策略以及映射一致性验证。基于这些发现，我们提出了IAM框架，该框架通过在小型和大型LLM之间建立注意力映射机制，同时实现了注意力计算加速和KV缓存占用量降低的双重优势。实验结果表明，IAM能在几乎不损失模型性能的前提下，使预填充阶段加速15%，KV缓存使用量减少22.1%。跨模型系列的测试验证了IAM的普适性。值得注意的是，该框架与现有多种KV缓存优化方法具有正交性，可作为提升LLM效率工具箱中的通用增强组件。</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">基于方差的剪枝：加速与压缩训练网络</h2><a id="user-content-基于方差的剪枝加速与压缩训练网络" class="anchor" aria-label="Permalink: 基于方差的剪枝：加速与压缩训练网络" href="#基于方差的剪枝加速与压缩训练网络"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>随着视觉变换器等大型模型的训练成本日益攀升，复用已训练好的顶尖模型库变得尤为重要。然而，这些模型的高延迟、庞大计算开销和内存需求给实际部署（尤其在资源受限的硬件上）带来了巨大挑战。虽然结构化剪枝方法能缓解这些问题，但通常需要代价高昂的重新训练——有时需数百个训练周期，甚至需要从头开始训练以弥补结构调整导致的精度损失。如何在结构化剪枝后保持模型原有性能，从而避免大量重复训练，仍是业界难题。</p>
+<p>为此，我们提出基于方差的剪枝技术——这是一种简单高效的结构化单次剪枝方法，仅需极少量微调即可实现网络压缩。该方法首先收集激活统计数据用于筛选待剪枝神经元，同时将平均激活值回嵌至模型中以保持高性能表现。在ImageNet-1k图像识别任务中，DeiT-Base模型经剪枝后立即保留超过70%的原始性能，仅需10个周期的微调即可恢复99%的原始准确率，同时将乘加运算量降低35%、模型体积缩小36%，最终实现1.44倍的推理加速。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

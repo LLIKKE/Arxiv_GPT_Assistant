@@ -12,7 +12,22 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">基于方差的剪枝：加速与压缩训练网络</h2><a id="user-content-基于方差的剪枝加速与压缩训练网络" class="anchor" aria-label="Permalink: 基于方差的剪枝：加速与压缩训练网络" href="#基于方差的剪枝加速与压缩训练网络"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>随着视觉变换器等大型模型的训练成本日益攀升，复用已训练好的顶尖模型库变得尤为重要。然而，这些模型的高延迟、庞大计算开销和内存需求给实际部署（尤其在资源受限的硬件上）带来了巨大挑战。虽然结构化剪枝方法能缓解这些问题，但通常需要代价高昂的重新训练——有时需数百个训练周期，甚至需要从头开始训练以弥补结构调整导致的精度损失。如何在结构化剪枝后保持模型原有性能，从而避免大量重复训练，仍是业界难题。</p>
-<p>为此，我们提出基于方差的剪枝技术——这是一种简单高效的结构化单次剪枝方法，仅需极少量微调即可实现网络压缩。该方法首先收集激活统计数据用于筛选待剪枝神经元，同时将平均激活值回嵌至模型中以保持高性能表现。在ImageNet-1k图像识别任务中，DeiT-Base模型经剪枝后立即保留超过70%的原始性能，仅需10个周期的微调即可恢复99%的原始准确率，同时将乘加运算量降低35%、模型体积缩小36%，最终实现1.44倍的推理加速。</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">苹果智能基础语言模型：2025技术报告</h2><a id="user-content-苹果智能基础语言模型2025技术报告" class="anchor" aria-label="Permalink: 苹果智能基础语言模型：2025技术报告" href="#苹果智能基础语言模型2025技术报告"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：根据技术文档的常见译法，"Tech Report"通常译为"技术报告"或"技术白皮书"，此处采用更简洁的版本；"Apple Intelligence"作为专有名词保留"苹果智能"的直译，同时"Foundation Language Models"译为"基础语言模型"以体现其在AI领域的专业定位；年份"2025"按中文习惯置于标题末尾，符合技术文献的标题规范。）</p>
+<p>arXiv:2507.13575v1 公告类型：新模型<br>
+摘要：我们推出两款多语言、多模态基础语言模型，为苹果设备及服务中的"Apple Intelligence"功能提供支持：<br>
+i) 专为苹果芯片优化的30亿参数端侧模型，通过KV缓存共享、2比特量化感知训练等架构创新实现高效运行；<br>
+ii) 基于创新性并行轨道专家混合（PT-MoE） transformer架构的可扩展服务器模型，结合轨道并行计算、专家混合稀疏计算和交错式全局-局部注意力机制，在苹果隐私云计算平台上实现优质服务与成本效益的平衡。</p>
+<p>两款模型均通过负责任的网络爬取、授权语料库和高质量合成数据构建的大规模多语言多模态数据集进行训练，并基于新型异步平台通过监督微调与强化学习进一步优化。最终模型在支持图像理解和工具调用的同时，新增了多种语言能力。在公开基准测试和人工评估中，服务器模型与端侧模型均达到或超越同规模开源基线水平。</p>
+<p>全新的Swift-centric基础模型框架提供引导式生成、约束性工具调用和LoRA适配器微调功能，开发者仅需数行代码即可集成这些能力。Apple Intelligence模型的最新进展植根于我们的"负责任AI"理念，通过内容过滤、本地化评估等保障措施，以及隐私云计算等创新技术守护用户隐私。</p>
+<div class="markdown-heading"><h2 class="heading-element">生物医学本体对齐中的搜索优化量化</h2><a id="user-content-生物医学本体对齐中的搜索优化量化" class="anchor" aria-label="Permalink: 生物医学本体对齐中的搜索优化量化" href="#生物医学本体对齐中的搜索优化量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.13742v1 公告类型：新研究<br>
+摘要：在人工智能快速发展的浪潮中，随着各机构和研究者开发出更先进的模型，模型庞大的体量和计算需求带来了严峻挑战。将此类模型部署在边缘设备或资源受限的环境中时，能耗、内存占用和延迟问题进一步凸显。为应对这些挑战，新兴技术趋势正在塑造高效模型优化方法的未来。基于此背景，本研究采用监督式前沿基于Transformer的模型，提出了一种系统化的本体对齐方法——通过计算生物医学通俗词汇表与统一医学语言系统（UMLS）元词库之间的余弦语义相似度实现。研究利用Microsoft Olive工具在ONNX Runtime后端上搜索不同执行提供程序（EPs）的优化目标，随后组合运用Intel Neural Compressor和IPEX（英特尔PyTorch扩展）进行动态量化处理。通过这套优化流程，我们在DEFT 2020评估活动的两项任务中展开全面测试，双双刷新了当前最佳性能记录。在保持原有性能指标不变的前提下，平均推理速度提升20倍，内存占用减少约70%。</p>
+<p>（注：根据学术文献翻译规范，对部分术语处理如下：</p>
+<ol>
+<li>"Execution Providers"保留技术缩写"EPs"并添加括号注释</li>
+<li>"Intel Extension for PyTorch"采用官方中文名"英特尔PyTorch扩展"</li>
+<li>"dynamic quantization"译为"动态量化"符合行业惯例</li>
+<li>长难句进行合理切分，如将原文最后复合句拆分为三个中文短句以符合表达习惯）</li>
+</ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

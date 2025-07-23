@@ -12,47 +12,31 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">通过激活模式聚类的大型语言模型稀疏性预测方法</h2><a id="user-content-通过激活模式聚类的大型语言模型稀疏性预测方法" class="anchor" aria-label="Permalink: 通过激活模式聚类的大型语言模型稀疏性预测方法" href="#通过激活模式聚类的大型语言模型稀疏性预测方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2507.14179v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）表现出显著的激活稀疏性，即对于给定输入仅部分神经元被激活。虽然这种稀疏性为降低计算成本提供了机会，但要有效利用它，需要以可扩展的方式预测激活模式。然而，由于现代大语言模型中神经元数量庞大，直接在神经元级别进行预测的计算成本极高。为实现激活稀疏性的高效预测与利用，我们提出了一种基于聚类的激活模式压缩框架。该方法不单独处理每个神经元，而是将相似的激活模式分组为少量代表性聚类簇。我们的方法实现了高达79.34%的聚类精确度，在保持困惑度（PPL）分数仅轻微下降的同时，优于标准二元聚类方法。当聚类簇数量足够大时，该方法可获得低至12.49的PPL分数，证明其在保持模型质量同时降低计算开销的有效性。通过预测聚类分配而非单个神经元状态，未来模型可从预计算的聚类中心高效推断激活模式。我们详细阐述了聚类算法，分析了其在捕捉有效激活结构方面的性能，并论证了其提升稀疏计算效率的潜力。这种基于聚类的框架为未来激活模式预测研究奠定了基础，为大规模语言模型的高效推理开辟了新途径。</p>
-<div class="markdown-heading"><h2 class="heading-element">催化剂：一种用于结构化剪枝的新型正则化器，附带参数空间的辅助扩展</h2><a id="user-content-催化剂一种用于结构化剪枝的新型正则化器附带参数空间的辅助扩展" class="anchor" aria-label="Permalink: 催化剂：一种用于结构化剪枝的新型正则化器，附带参数空间的辅助扩展" href="#催化剂一种用于结构化剪枝的新型正则化器附带参数空间的辅助扩展"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2507.14170v1 公告类型：新论文<br>
-摘要：结构化剪枝旨在通过移除完整的滤波器或通道来减小深度神经网络的规模与计算成本。传统正则化方法（如L1、Group Lasso及其变体）会导致基于幅度的剪枝决策偏差——即幅度较小的滤波器更易被剪除。此外，这些方法常产生紧贴剪枝决策边界的零边际结果，使得滤波器幅度的微小扰动就可能逆转剪枝决策。本文首先精确界定了保持模型性能的剪枝操作所需满足的代数条件，并利用该条件在扩展参数空间中通过辅助催化剂变量构建了一种新型正则化器。所提出的催化剂正则化（Catalyst regularization）能确保各滤波器获得公平的剪枝机会：理论上可证明其完全不受幅度偏差影响，且通过保留与剪除滤波器间幅度值的宽边际分岔实现鲁棒的剪枝行为。这些理论特性自然转化为实际效能，催化剂剪枝算法（Catalyst Pruning）的实证验证表明：在多数据集与多模型上的剪枝效果均优于当前最先进的滤波器剪枝方法，同时证实了该算法具有理论预测的鲁棒性与公平性剪枝特征。</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">机密计算环境中的蒸馏大型语言模型助力系统级芯片设计</h2><a id="user-content-机密计算环境中的蒸馏大型语言模型助力系统级芯片设计" class="anchor" aria-label="Permalink: 机密计算环境中的蒸馏大型语言模型助力系统级芯片设计" href="#机密计算环境中的蒸馏大型语言模型助力系统级芯片设计"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.16226v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）在电路设计任务中的应用日益广泛，这类模型通常经过多轮训练。无论是训练完成的模型还是相关训练数据，都被视为机密知识产权（IP），必须防止泄露。机密计算技术通过可信执行环境（TEEs）为保护数据和模型提供了可行方案，但现有TEE实现方案难以高效支持LLMs的高资源需求。本研究首次对基于TEE的机密计算环境（特别是采用英特尔信任域扩展TDX技术）中的LLMs进行了全面评估。我们在三种实验环境中进行测试：基于TEE的环境、纯CPU环境以及CPU-GPU混合环境，并以每秒生成token数作为性能指标。</p>
+<p>我们的首要发现是蒸馏模型（如DeepSeek）凭借更少的参数量，在性能上超越其他模型，尤其适合资源受限设备。在量化模型方面（如4位量化Q4和8位量化Q8），其性能较FP16模型提升最高达3倍。研究结果表明，对于参数量较少的模型（如DeepSeek-r1-1.5B），TDX实现在安全环境中的计算执行效率优于纯CPU版本。我们进一步通过面向SoC设计任务的测试平台验证了这些结果，证实了轻量化LLMs在资源受限系统中高效部署的潜力，可有效支持半导体CAD应用。</p>
+<div class="markdown-heading"><h2 class="heading-element">论稀疏自编码器在解释压缩模型中的可迁移性</h2><a id="user-content-论稀疏自编码器在解释压缩模型中的可迁移性" class="anchor" aria-label="Permalink: 论稀疏自编码器在解释压缩模型中的可迁移性" href="#论稀疏自编码器在解释压缩模型中的可迁移性"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.15977v1 公告类型：新研究<br>
+摘要：现代大型语言模型（LLM）因其规模庞大而面临推理效率挑战。为此，研究者提出了剪枝、量化等多种压缩方法，但压缩对模型可解释性的影响尚不明确。尽管目前已存在电路发现等多种模型解释方法，其中稀疏自编码器（SAE）在将模型激活空间分解为特征基向量方面表现尤为突出。本研究探索了原始模型与压缩模型在SAE解释上的差异。我们发现：基于原始模型训练的SAE仍能有效解释压缩模型，尽管其性能略逊于直接在压缩模型上训练的SAE；更值得注意的是，直接对原始SAE进行剪枝所获得的性能，与在剪枝后模型上重新训练的SAE相当。这一发现使我们能够规避SAE训练过程中的巨大计算成本。</p>
 <p>（翻译说明：</p>
 <ol>
-<li>专业术语处理："structured pruning"译为"结构化剪枝"，"filters/channels"统一译为"滤波器/通道"，"regularizer"译为"正则化器/方法"</li>
-<li>技术概念显化："magnitude-biased"译为"基于幅度的偏差"，"wide-margin bifurcation"译为"宽边际分岔"既保留数学意象又确保可读性</li>
-<li>长句拆分重构：将原文复合从句按中文表达习惯分解为多个短句，如将"such that..."结构转换为破折号解释说明</li>
-<li>被动语态转化："are likely to be pruned"译为"更易被剪除"符合中文主动表达习惯</li>
-<li>学术风格保持：使用"界定""构建""证实"等学术动词，保持论文摘要的严谨性</li>
-<li>理论-实践衔接："naturally lead to"译为"自然转化为"准确传达因果关系）</li>
+<li>专业术语保留英文缩写并首次出现时标注全称（如SAE/Sparse Autoencoders）</li>
+<li>"elusive"译为"尚不明确"体现学术文本的严谨性</li>
+<li>"albeit with slight performance degradation"处理为"尽管其性能略逊于"，通过"略逊"准确传达轻微程度</li>
+<li>被动语态转换为中文主动句式（如"have been proposed"译为"研究者提出了"）</li>
+<li>长难句拆分重组（如最后两句通过分号连接保持逻辑连贯）</li>
+<li>"mitigate the extensive training costs"意译为"规避...巨大计算成本"，更符合中文表达习惯）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">IPPRO：基于重要性且带有投影偏移的修剪方法，适用于与规模无关的结构化剪枝</h2><a id="user-content-ippro基于重要性且带有投影偏移的修剪方法适用于与规模无关的结构化剪枝" class="anchor" aria-label="Permalink: IPPRO：基于重要性且带有投影偏移的修剪方法，适用于与规模无关的结构化剪枝" href="#ippro基于重要性且带有投影偏移的修剪方法适用于与规模无关的结构化剪枝"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2507.14171v1 公告类型：新论文<br>
-摘要：随着神经网络压缩方法需求的增长，基于重要性判定的结构化剪枝方法（包括重要性评估法）正被广泛研究。传统幅度重要性及诸多现代关联判定标准往往限制剪枝决策的灵活性——只要较小幅度的滤波器未被剪除，较大幅度的滤波器即使冗余也难以被移除。本文提出一种创新剪枝策略：通过将滤波器投影至射影空间，挑战幅度参数的主导地位，使每个滤波器获得公平的剪枝机会。随后通过观察梯度下降过程中滤波器是否向原点移动，量化其可剪枝性。基于此构建PROscore新型重要性评分，进而提出IPPRO框架——首个对幅度参数不敏感的基于重要性的结构化剪枝方法。实验结果表明，采用射影空间的重要性标准能实现接近无损的剪枝效果，显著降低剪枝过程中的性能损失，并在微调后展现优异性能。本研究打破了剪枝领域"以大小论重要性"的迷思，从理论与实证双重维度拓展了基于重要性的剪枝技术边界。</p>
-<p>（注：翻译过程中对以下术语进行了专业处理：</p>
+<div class="markdown-heading"><h2 class="heading-element">TorchAO：基于PyTorch原生框架的训练至服务全流程模型优化工具</h2><a id="user-content-torchao基于pytorch原生框架的训练至服务全流程模型优化工具" class="anchor" aria-label="Permalink: TorchAO：基于PyTorch原生框架的训练至服务全流程模型优化工具" href="#torchao基于pytorch原生框架的训练至服务全流程模型优化工具"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（翻译说明：1. 保留TorchAO专业术语不译以保持技术一致性 2. "PyTorch-Native"译为"基于PyTorch原生框架"突出技术特性 3. "Training-to-Serving"采用"训练至服务全流程"的意译方式体现端到端特性 4. 增补"工具"二字符合中文技术文档命名习惯 5. 整体采用技术文档标准的四字格+补充说明结构）</p>
+<p>arXiv:2507.16099v1 公告类型：新成果<br>
+摘要：我们推出TorchAO——一个基于PyTorch的原生模型优化框架，通过量化和稀疏化技术为AI模型提供从训练到服务的端到端工作流。该框架支持多种主流模型优化方法，包括FP8量化训练、量化感知训练（QAT）、训练后量化（PTQ）以及2:4稀疏化，并创新性地采用张量子类抽象来表示多种广泛使用且后端无关的低精度数据类型，如INT4、INT8、FP8、MXFP4、MXFP6和MXFP8。TorchAO在模型优化流程的每个环节（从预训练TorchTitan到微调TorchTune/Axolotl，再到服务部署HuggingFace/vLLM/SGLang/ExecuTorch）都与更广泛的生态系统深度集成，将原本碎片化的技术领域统一到单一工作流中。该框架已成功支撑量化版Llama 3.2 1B/3B与LlamaGuard3-8B模型的近期发布，项目开源地址为<a href="https://github.com/pytorch/ao/%E3%80%82">https://github.com/pytorch/ao/。</a></p>
+<p>（注：根据技术文档翻译规范，对以下术语进行了标准化处理：</p>
 <ol>
-<li>"projective space"译为"射影空间"符合数学规范</li>
-<li>"magnitude-indifference"创造性译为"对幅度参数不敏感"以保持技术准确性</li>
-<li>"near-lossless pruning"译为"接近无损的剪枝"体现工程术语特征</li>
-<li>将原文被动语态转换为中文主动表述（如"are actively studied"→"正被广泛研究"）</li>
-<li>保留专业缩写"IPPRO"及数学概念"PROscore"的英文原名）</li>
+<li>"backend agnostic"译为"后端无关"而非字面直译</li>
+<li>"tensor subclass abstraction"译为"张量子类抽象"以保持PyTorch术语体系一致性</li>
+<li>产品名称TorchTitan/TorchTune等保留原名不译</li>
+<li>长复合句拆分为符合中文表达习惯的短句结构）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">通过软系数优化实现深度神经网络中特定应用组件感知的结构化剪枝</h2><a id="user-content-通过软系数优化实现深度神经网络中特定应用组件感知的结构化剪枝" class="anchor" aria-label="Permalink: 通过软系数优化实现深度神经网络中特定应用组件感知的结构化剪枝" href="#通过软系数优化实现深度神经网络中特定应用组件感知的结构化剪枝"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2507.14882v1 公告类型：新研究<br>
-摘要：深度神经网络（DNNs）虽具有显著的通用性与性能优势，但其广泛应用常受限于高模型复杂度与计算需求。剪枝等模型压缩技术已成为解决这些挑战的有效方案，但确保压缩过程中保持应用场景特定的性能特征仍至关重要。在结构化剪枝（即移除结构连贯的元件组时），传统重要性度量标准往往难以维持这些关键性能属性。本研究提出一个增强的重要性度量框架，不仅能缩减模型规模，还能显式地兼顾应用特定的性能约束。我们采用多策略确定各组的最佳剪枝强度，实现压缩量与任务性能的平衡。该方法在用于MNIST图像重建的自编码器上进行评估，实验结果表明：通过满足应用特定标准，所提方案能有效保留任务相关性能，即使经过大幅剪枝后仍可维持模型的可用性。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
-<ol>
-<li>"pruning"统一译为"剪枝"（计算机领域标准译法）</li>
-<li>"autoencoder"译为"自编码器"（保留专业术语一致性）</li>
-<li>长难句采用分译法处理（如原文第二句拆分为两个中文句子）</li>
-<li>被动语态转换为主动句式（如"are preserved"译为"保持"）</li>
-<li>补充衔接词"即"增强逻辑性，符合中文表达习惯）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">LaCache：阶梯式键值缓存助力大语言模型高效长上下文建模</h2><a id="user-content-lacache阶梯式键值缓存助力大语言模型高效长上下文建模" class="anchor" aria-label="Permalink: LaCache：阶梯式键值缓存助力大语言模型高效长上下文建模" href="#lacache阶梯式键值缓存助力大语言模型高效长上下文建模"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2507.14204v1 公告类型：新研究<br>
-摘要：大型语言模型（LLMs）的最新进展激发了人们对众多应用场景的兴趣，这些场景需要强大的长程处理能力，以应对冗长的输入上下文并持续生成扩展输出。随着序列长度的增加，LLMs中的键值对（KV）数量急剧上升，形成显著的效率瓶颈。本文提出一种名为LaCache的新型KV缓存优化范式，这是一种无需重新训练即可实现LLMs高效精准生成推理的方法。LaCache使LLMs能够同时解决长程建模中的两大关键挑战：在保持强大长程能力的同时，实现持续生成而不触发内存溢出（OOM）。</p>
-<p>具体而言，LaCache融合了两项核心创新：（1）阶梯式KV缓存模式——不仅在各层内部按序存储KV对（从左至右），还实现了跨层存储（从浅层到深层），在固定存储容量下为捕捉长程依赖提供了扩展空间，从而增强长程处理能力；（2）迭代压缩机制——基于令牌距离动态压缩历史缓存，在固定缓存容量内为新令牌释放空间。这种动态压缩策略使模型在受限缓存条件下能更有效地进行持续生成。</p>
-<p>在多种任务、基准测试和LLM模型上的实验一致验证了LaCache提升LLMs长程能力的有效性。我们的代码已开源：<a href="https://github.com/GATECH-EIC/LaCache%E3%80%82">https://github.com/GATECH-EIC/LaCache。</a></p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理："generative inference"译为"生成推理"，"out-of-memory"保留英文缩写"OOM"并添加括号注释，技术概念如"KV pairs"保持"键值对"的通用译法。长句按中文表达习惯拆分，并采用"阶梯式""迭代"等工程术语保持专业性的同时确保可读性。）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

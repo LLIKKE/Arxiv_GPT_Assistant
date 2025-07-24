@@ -12,31 +12,24 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">机密计算环境中的蒸馏大型语言模型助力系统级芯片设计</h2><a id="user-content-机密计算环境中的蒸馏大型语言模型助力系统级芯片设计" class="anchor" aria-label="Permalink: 机密计算环境中的蒸馏大型语言模型助力系统级芯片设计" href="#机密计算环境中的蒸馏大型语言模型助力系统级芯片设计"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2507.16226v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）在电路设计任务中的应用日益广泛，这类模型通常经过多轮训练。无论是训练完成的模型还是相关训练数据，都被视为机密知识产权（IP），必须防止泄露。机密计算技术通过可信执行环境（TEEs）为保护数据和模型提供了可行方案，但现有TEE实现方案难以高效支持LLMs的高资源需求。本研究首次对基于TEE的机密计算环境（特别是采用英特尔信任域扩展TDX技术）中的LLMs进行了全面评估。我们在三种实验环境中进行测试：基于TEE的环境、纯CPU环境以及CPU-GPU混合环境，并以每秒生成token数作为性能指标。</p>
-<p>我们的首要发现是蒸馏模型（如DeepSeek）凭借更少的参数量，在性能上超越其他模型，尤其适合资源受限设备。在量化模型方面（如4位量化Q4和8位量化Q8），其性能较FP16模型提升最高达3倍。研究结果表明，对于参数量较少的模型（如DeepSeek-r1-1.5B），TDX实现在安全环境中的计算执行效率优于纯CPU版本。我们进一步通过面向SoC设计任务的测试平台验证了这些结果，证实了轻量化LLMs在资源受限系统中高效部署的潜力，可有效支持半导体CAD应用。</p>
-<div class="markdown-heading"><h2 class="heading-element">论稀疏自编码器在解释压缩模型中的可迁移性</h2><a id="user-content-论稀疏自编码器在解释压缩模型中的可迁移性" class="anchor" aria-label="Permalink: 论稀疏自编码器在解释压缩模型中的可迁移性" href="#论稀疏自编码器在解释压缩模型中的可迁移性"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2507.15977v1 公告类型：新研究<br>
-摘要：现代大型语言模型（LLM）因其规模庞大而面临推理效率挑战。为此，研究者提出了剪枝、量化等多种压缩方法，但压缩对模型可解释性的影响尚不明确。尽管目前已存在电路发现等多种模型解释方法，其中稀疏自编码器（SAE）在将模型激活空间分解为特征基向量方面表现尤为突出。本研究探索了原始模型与压缩模型在SAE解释上的差异。我们发现：基于原始模型训练的SAE仍能有效解释压缩模型，尽管其性能略逊于直接在压缩模型上训练的SAE；更值得注意的是，直接对原始SAE进行剪枝所获得的性能，与在剪枝后模型上重新训练的SAE相当。这一发现使我们能够规避SAE训练过程中的巨大计算成本。</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">大型语言模型量化技术的综合评估</h2><a id="user-content-大型语言模型量化技术的综合评估" class="anchor" aria-label="Permalink: 大型语言模型量化技术的综合评估" href="#大型语言模型量化技术的综合评估"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.17417v1 公告类型：新研究<br>
+摘要：对于大语言模型（LLM）而言，训练后量化（PTQ）能显著降低内存占用和计算开销。模型量化是一个快速发展的研究领域。尽管许多论文报道了突破性性能，但由于每种量化方法通常包含多个组件，这些实验可能未在相同基准下进行。此外，深入理解现有方法之间的理论关联至关重要。为弥合这些空白，我们对前沿方法进行了系统性梳理，并在统一实验框架下进行全面评估以确保公平比较。据我们所知，这种公平且全面的调研仍具有关键意义却尚未充分探索。</p>
+<p>为解析理论关联，我们将已发表的量化方法解耦为两个步骤：预量化变换与量化误差补偿。前者定义为量化前应用的预处理步骤，旨在通过减少异常值影响使数据分布更平坦，从而适配量化操作；后者则指通过技术手段抵消量化过程中引入的误差以提升模型性能。我们评估并量化了各方法组件的实际影响，同时针对新型MXFP4数据格式及其性能进行了分析验证。</p>
+<p>实验结果表明：在预量化变换中，优化旋转与缩放策略能实现最佳性能；而在误差补偿方面，低秩修正与GPTQ的组合使用偶尔能超越单独使用GPTQ的效果。此外，我们对MXFP4量化的潜力进行探索，发现INT4最优预量化策略并不能直接迁移至MXFP4，这一发现为后续研究提供了新方向。</p>
+<div class="markdown-heading"><h2 class="heading-element">HydraOpt：驾驭适配器合并的效率与性能权衡之道</h2><a id="user-content-hydraopt驾驭适配器合并的效率与性能权衡之道" class="anchor" aria-label="Permalink: HydraOpt：驾驭适配器合并的效率与性能权衡之道" href="#hydraopt驾驭适配器合并的效率与性能权衡之道"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.17706v1 公告类型：新论文<br>
+摘要：大语言模型（LLMs）常采用适配器（如基于低秩分解的适配器）来在下游任务中实现强劲性能。然而，为每个任务单独存储适配器会显著增加内存需求，这对移动设备等资源受限的环境构成挑战。虽然模型融合技术可以降低存储成本，但通常会导致性能大幅下降。本研究提出HydraOpt——一种新型模型融合技术，该技术通过挖掘低秩适配器矩阵间的固有相似性实现优化。与现有方法只能在存储空间和性能之间形成固定权衡不同，HydraOpt使我们能够自主调节效率与性能的平衡曲线。实验表明，相较于存储全部适配器的基准方案，HydraOpt在保持竞争力性能（仅下降0.2-1.8%）的同时，显著减少了存储占用（降幅达48%）。此外，在相同或略逊的存储效率条件下，其性能表现优于现有融合技术。</p>
 <p>（翻译说明：</p>
 <ol>
-<li>专业术语保留英文缩写并首次出现时标注全称（如SAE/Sparse Autoencoders）</li>
-<li>"elusive"译为"尚不明确"体现学术文本的严谨性</li>
-<li>"albeit with slight performance degradation"处理为"尽管其性能略逊于"，通过"略逊"准确传达轻微程度</li>
-<li>被动语态转换为中文主动句式（如"have been proposed"译为"研究者提出了"）</li>
-<li>长难句拆分重组（如最后两句通过分号连接保持逻辑连贯）</li>
-<li>"mitigate the extensive training costs"意译为"规避...巨大计算成本"，更符合中文表达习惯）</li>
+<li>专业术语处理："low-rank-based adapters"译为"基于低秩分解的适配器"，既保留数学概念又符合中文表达；</li>
+<li>技术概念转化："navigate this spectrum"意译为"自主调节平衡曲线"，将抽象概念具象化；</li>
+<li>数据呈现优化：括号内百分比统一采用中文表述习惯；</li>
+<li>被动语态转换："are produced"转为主动式"形成"；</li>
+<li>长句拆分：将原文复合句拆分为符合中文短句习惯的表达；</li>
+<li>技术名词一致性："HydraOpt"保留原名不翻译，符合机器学习领域惯例）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">TorchAO：基于PyTorch原生框架的训练至服务全流程模型优化工具</h2><a id="user-content-torchao基于pytorch原生框架的训练至服务全流程模型优化工具" class="anchor" aria-label="Permalink: TorchAO：基于PyTorch原生框架的训练至服务全流程模型优化工具" href="#torchao基于pytorch原生框架的训练至服务全流程模型优化工具"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（翻译说明：1. 保留TorchAO专业术语不译以保持技术一致性 2. "PyTorch-Native"译为"基于PyTorch原生框架"突出技术特性 3. "Training-to-Serving"采用"训练至服务全流程"的意译方式体现端到端特性 4. 增补"工具"二字符合中文技术文档命名习惯 5. 整体采用技术文档标准的四字格+补充说明结构）</p>
-<p>arXiv:2507.16099v1 公告类型：新成果<br>
-摘要：我们推出TorchAO——一个基于PyTorch的原生模型优化框架，通过量化和稀疏化技术为AI模型提供从训练到服务的端到端工作流。该框架支持多种主流模型优化方法，包括FP8量化训练、量化感知训练（QAT）、训练后量化（PTQ）以及2:4稀疏化，并创新性地采用张量子类抽象来表示多种广泛使用且后端无关的低精度数据类型，如INT4、INT8、FP8、MXFP4、MXFP6和MXFP8。TorchAO在模型优化流程的每个环节（从预训练TorchTitan到微调TorchTune/Axolotl，再到服务部署HuggingFace/vLLM/SGLang/ExecuTorch）都与更广泛的生态系统深度集成，将原本碎片化的技术领域统一到单一工作流中。该框架已成功支撑量化版Llama 3.2 1B/3B与LlamaGuard3-8B模型的近期发布，项目开源地址为<a href="https://github.com/pytorch/ao/%E3%80%82">https://github.com/pytorch/ao/。</a></p>
-<p>（注：根据技术文档翻译规范，对以下术语进行了标准化处理：</p>
-<ol>
-<li>"backend agnostic"译为"后端无关"而非字面直译</li>
-<li>"tensor subclass abstraction"译为"张量子类抽象"以保持PyTorch术语体系一致性</li>
-<li>产品名称TorchTitan/TorchTune等保留原名不译</li>
-<li>长复合句拆分为符合中文表达习惯的短句结构）</li>
-</ol>
+<div class="markdown-heading"><h2 class="heading-element">SiLQ：简易大型语言模型量化感知训练</h2><a id="user-content-silq简易大型语言模型量化感知训练" class="anchor" aria-label="Permalink: SiLQ：简易大型语言模型量化感知训练" href="#silq简易大型语言模型量化感知训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.16933v1 公告类型：新研究<br>
+摘要：大型语言模型可通过量化降低推理延迟、缩小模型体积并减少能耗，从而以更低成本提供更佳用户体验。当前挑战在于如何以合理时间实现精度损失最小的量化模型，尤其需避免使用与专用推理加速器不兼容的机制。本文展示了一种简单的端到端量化感知训练方法：在总训练预算增加不足0.1%的情况下，该方法在多个现代基准测试中（包括基础模型和指令变体）以显著优势超越现有主流量化方案。该方法能轻松适配不同模型架构，可同时应用于激活值、缓存和权重，且除量化操作外无需引入任何额外计算。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

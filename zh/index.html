@@ -12,16 +12,26 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">《Squeeze10-LLM：通过分阶段混合精度量化方法将大语言模型权重压缩十倍》</h2><a id="user-content-squeeze10-llm通过分阶段混合精度量化方法将大语言模型权重压缩十倍" class="anchor" aria-label="Permalink: 《Squeeze10-LLM：通过分阶段混合精度量化方法将大语言模型权重压缩十倍》" href="#squeeze10-llm通过分阶段混合精度量化方法将大语言模型权重压缩十倍"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>注：译文采用技术文档常见的标题命名规范，保留英文模型名称"Squeeze10-LLM"保持专业性，通过冒号分层解释技术原理。"Staged Mixed-Precision Quantization Method"译为"分阶段混合精度量化方法"准确体现算法特征，其中：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">第三步：规模大且经济实惠——面向高性价比解码的模型系统协同设计</h2><a id="user-content-第三步规模大且经济实惠面向高性价比解码的模型系统协同设计" class="anchor" aria-label="Permalink: 第三步：规模大且经济实惠——面向高性价比解码的模型系统协同设计" href="#第三步规模大且经济实惠面向高性价比解码的模型系统协同设计"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.19427v1 公告类型：新研究<br>
+摘要：大语言模型（LLM）在解码过程中面临硬件效率低下的问题，尤其在长上下文推理任务中。本文提出Step-3模型，这是一个通过硬件感知的模型-系统协同设计优化的3210亿参数视觉语言模型（VLM），旨在最小化解码成本。Step-3在两大核心维度实现创新：（1）新型多矩阵分解注意力机制（MFA），在保持高注意力表达能力的同时，显著减少键值缓存（KV Cache）大小和计算量；（2）注意力-前馈网络解耦系统（AFD），将注意力层与前馈网络层（FFN）分离为专用子系统进行分布式推理。该协同设计实现了前所未有的成本效益：相比DeepSeek-V3和Qwen3 MoE 235B等模型，Step-3在理论解码成本上显著降低，且上下文越长优势越明显。Step-3在每令牌激活380亿参数（超过DeepSeek-V3和Qwen3 MoE 235B）的情况下仍保持低成本，证明硬件对齐的注意力计算强度、混合专家（MoE）稀疏性和AFD系统对成本效益至关重要。我们在DeepSeek-V3的优势场景中与其进行直接对比。基于Hopper GPU的实现显示，在50毫秒每令牌服务等级协议（4K上下文、FP8精度、无多令牌并行）下，单GPU解码吞吐量高达4,039令牌/秒，优于同等条件下DeepSeek-V3的2,324令牌/秒，为LLM解码树立了新的帕累托前沿。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>"Staged"译为"分阶段"强调流程化特性</li>
-<li>"Mixed-precision"采用行业通用译法"混合精度"</li>
-<li>量词"10 Times"转换符合中文习惯的"十倍"表达</li>
-<li>动词"Squeezing"意译为"压缩"更符合中文技术语境</li>
+<li>"KV cache"译为"键值缓存"（行业通用译法）</li>
+<li>"TPOT SLA"译为"每令牌服务等级协议"（结合Time-Per-Token和SLA的意译）</li>
+<li>"Pareto frontier"保留经济学经典译法"帕累托前沿"</li>
+<li>模型参数规模"321B"译为"3210亿"符合中文计数习惯）</li>
 </ol>
-<p>部署大型语言模型（LLMs）面临巨大参数量和高计算成本的挑战。超低位数量化技术能显著降低存储需求并加速推理，但极端压缩（即平均位宽≤2比特）往往导致性能严重下降。为此，我们提出Squeeze10-LLM方案，将16比特LLM的权重高效"压缩"至原体积的1/10。具体而言，该框架采用分阶段混合精度训练后量化（PTQ）策略，通过将80%权重量化为1比特、20%量化为4比特，实现平均1.6比特/权重的突破性成果。</p>
-<p>Squeeze10-LLM的核心创新在于两项关键技术：后二值化激活鲁棒性（PBAR）和全信息激活监督（FIAS）。PBAR作为改进的权重重要性度量标准，量化时兼顾对激活值的影响，有效提升低位宽环境下的精度；FIAS策略则在量化过程中完整保留激活信息，缓解误差跨层累积传播问题。在LLaMA和LLaMA2上的实验表明，该方案在2比特以下权重专用量化领域达到最先进水平——在六个零样本分类任务中平均准确率从43%提升至56%，较现有PTQ方法实现显著突破。相关代码将在论文发表时开源。</p>
-<div class="markdown-heading"><h2 class="heading-element">大语言模型量化的几何视角：GPTQ即巴拜最近平面算法</h2><a id="user-content-大语言模型量化的几何视角gptq即巴拜最近平面算法" class="anchor" aria-label="Permalink: 大语言模型量化的几何视角：GPTQ即巴拜最近平面算法" href="#大语言模型量化的几何视角gptq即巴拜最近平面算法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>将大型语言模型（LLM）的权重从16位量化至更低比特宽度，是将海量Transformer模型部署到经济型加速器上的实际解决方案。GPTQ作为LLM规模下单次训练后量化的标准方法之一崭露头角，但其内部机制被描述为一系列临时性代数更新步骤，掩盖了几何意义与最坏情况保障。本研究揭示：当对线性层执行从后向前（即从末维到首维）的量化时，GPTQ在数学上等同于Babai最近平面算法——该算法用于求解由输入海森矩阵定义的格上经典最近向量问题（CVP）。这一等价性基于严密的数学论证，并产生两项分析性推论：(i) GPTQ误差传播步骤获得了直观的几何解释；(ii) 在无剪裁条件下，GPTQ继承了Babai算法的误差上界。这些发现为GPTQ奠定了坚实的理论基础，并为将格算法领域数十年的进展引入未来百亿参数模型的量化算法设计开启了新篇章。</p>
+<div class="markdown-heading"><h2 class="heading-element">知识嫁接：一种在资源受限环境中优化AI模型部署的机制</h2><a id="user-content-知识嫁接一种在资源受限环境中优化ai模型部署的机制" class="anchor" aria-label="Permalink: 知识嫁接：一种在资源受限环境中优化AI模型部署的机制" href="#知识嫁接一种在资源受限环境中优化ai模型部署的机制"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.19261v1 公告类型：新研究<br>
+摘要：随着人工智能（AI）应用的日益普及，模型规模不断扩大、复杂度持续攀升，海量参数需要强大的计算力支撑——而这正是许多现实应用场景所缺乏的。本文提出"知识嫁接"这一创新机制，通过将大型供体模型中的精选特征（接穗）移植到小型砧木模型上，实现了资源受限环境下的AI模型优化。该方法使模型体积缩减88.54%（从64.39 MB降至7.38 MB），同时提升了模型的泛化能力。新培育的砧木模型验证准确率达89.97%（供体模型为87.47%），保持更低的验证损失（0.2976 vs 0.5068），在未见测试数据上表现尤为出色，准确率高达90.45%。这一突破性进展成功解决了模型规模与性能的经典权衡问题，使得增强性能的AI框架能够部署在资源受限设备上。虽然我们以农业杂草检测场景进行验证，但该方法可扩展至各类边缘计算场景——正如园艺嫁接技术能在恶劣农业环境中实现高效栽培那样，这种机制有望在软硬件支持有限的领域加速AI技术的落地应用。</p>
+<p>（翻译说明：</p>
+<ol>
+<li>专业术语处理："knowledge grafting"译为"知识嫁接"，保留园艺学隐喻；"scion/rootstock"对应"接穗/砧木"的植物学术语</li>
+<li>技术概念转化：将"edge computing scenarios"意译为"边缘计算场景"而非字面直译</li>
+<li>数据呈现：精确保持所有百分比和数值的原始格式</li>
+<li>长句拆分：将原文复合句重组为符合中文表达习惯的短句结构</li>
+<li>修辞对应："mirroring..."的隐喻通过"正如...那样"的句式自然呈现</li>
+<li>学术风格：使用"泛化能力""权衡问题"等符合计算机领域论文摘要的规范表述）</li>
+</ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

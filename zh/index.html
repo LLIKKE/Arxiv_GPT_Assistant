@@ -12,49 +12,27 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">小思想家（SmallThinker）：专为本地部署原生训练的高效大语言模型家族</h2><a id="user-content-小思想家smallthinker专为本地部署原生训练的高效大语言模型家族" class="anchor" aria-label="Permalink: 小思想家（SmallThinker）：专为本地部署原生训练的高效大语言模型家族" href="#小思想家smallthinker专为本地部署原生训练的高效大语言模型家族"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2507.20984v1 公告类型：新研究<br>
-摘要：尽管前沿大语言模型（LLM）不断突破能力边界，但其部署仍局限于依赖GPU的云端基础设施。我们通过SmallThinker系列模型向这一范式发起挑战——这是首个专为本地设备独特限制（算力薄弱、内存有限、存储速度慢）原生设计（而非适配）的LLM家族。与传统主要压缩云端模型的思路不同，我们从底层架构开始重构，使模型能在这些限制下蓬勃发展。我们的创新在于将约束条件转化为设计原则的部署感知架构：</p>
-<p>首先，我们提出结合细粒度混合专家系统（MoE）与稀疏前馈网络的双层稀疏结构，在保持模型容量的同时大幅降低计算需求。其次，为攻克慢速存储的I/O瓶颈，我们设计了预注意力路由机制，使协同优化的推理引擎能在计算注意力时并行预取专家参数，有效隐藏原本会瘫痪设备端推理的存储延迟。第三，通过NoPE-RoPE混合稀疏注意力机制显著减少KV缓存的内存占用。</p>
-<p>我们开源了SmallThinker-4B-A0.6B和SmallThinker-21B-A3B两款模型，其性能不仅刷新当前基准，甚至超越更大体量的LLM。值得注意的是，这套协同设计系统几乎无需昂贵GPU硬件：在Q4_0量化下，两款模型在普通消费级CPU上均实现超过20 token/s的速度，内存占用仅分别为1GB和8GB。模型已公开发布于：<br>
-hf.co/PowerInfer/SmallThinker-4BA0.6B-Instruct<br>
-hf.co/PowerInfer/SmallThinker-21BA3B-Instruct</p>
-<p>（注：严格遵循技术文档翻译规范，保留专业术语缩写如MoE/KV cache，数字单位按中文习惯空格处理，长句合理切分，重要概念首次出现标注英文原文，URL保留原始格式）</p>
-<div class="markdown-heading"><h2 class="heading-element">DeltaLLM：一种利用时间稀疏性实现高效边缘大模型推理的无训练框架</h2><a id="user-content-deltallm一种利用时间稀疏性实现高效边缘大模型推理的无训练框架" class="anchor" aria-label="Permalink: DeltaLLM：一种利用时间稀疏性实现高效边缘大模型推理的无训练框架" href="#deltallm一种利用时间稀疏性实现高效边缘大模型推理的无训练框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2507.19608v1 公告类型：新研究<br>
-摘要：由于计算量随序列长度呈二次方增长，在边缘设备上部署大语言模型（LLM）仍面临挑战。现有动态注意力剪枝研究主要针对具有大规模并行计算能力的硬件（如GPU/TPU），且面向长上下文场景（如64K），难以适配边缘计算场景。我们提出DeltaLLM——一种无需重新训练即可利用注意力模式时序稀疏性的框架，可在资源受限的边缘设备上实现预填充和解码阶段的高效LLM推理。该框架包含两项核心技术：1）精度-内存感知的增量矩阵构建策略，通过引入时序稀疏性优化计算；2）上下文感知的混合注意力机制，在局部上下文窗口内保持全注意力计算，在外部区域采用增量近似以提升准确性。我们在边缘友好的BitNet-b1.58-2B-4T模型和Llama3.2-1B-Instruct模型上进行了多语言任务验证。结果显示：对于BitNet模型，预填充阶段注意力稀疏度从0%提升至60%（WG任务准确率略有提高），预填充+解码阶段稀疏度达57%（SQuAD-v2任务F1分数从29.63升至30.97）；Llama模型预填充阶段稀疏度最高达60%，双阶段稀疏度约57%且精度损失可忽略。这些结果表明DeltaLLM为边缘部署提供了免调优、可无缝集成现有推理流程的高效解决方案。</p>
-<div class="markdown-heading"><h2 class="heading-element">EcoTransformer：无需乘法的注意力机制</h2><a id="user-content-ecotransformer无需乘法的注意力机制" class="anchor" aria-label="Permalink: EcoTransformer：无需乘法的注意力机制" href="#ecotransformer无需乘法的注意力机制"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译时做了以下处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">压缩技术对医疗领域大型多模态语言模型的影响</h2><a id="user-content-压缩技术对医疗领域大型多模态语言模型的影响" class="anchor" aria-label="Permalink: 压缩技术对医疗领域大型多模态语言模型的影响" href="#压缩技术对医疗领域大型多模态语言模型的影响"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.21976v1 公告类型：新研究<br>
+摘要：多模态大语言模型（MLLMs）在医疗领域具有巨大应用潜力，但其高昂的计算成本亟需高效压缩技术。本文评估了结构剪枝和激活感知量化对医疗应用微调版LLAVA模型的影响，提出了一种新颖的剪枝层选择方法，分析了不同量化技术，并在剪枝-监督微调-量化流程中评估了性能权衡。我们提出的方法使70亿参数MLLMs仅需4GB显存即可运行，内存占用降低70%，同时在相同压缩率下，模型性能较传统剪枝与量化技术提升4%。</p>
+<p>（说明：根据学术文献翻译规范，处理了以下要点：</p>
 <ol>
-<li>保留"EcoTransformer"作为专有名词不译，维持技术术语一致性</li>
-<li>"Attention without Multiplication"译为"无需乘法的注意力机制"，其中：
-<ul>
-<li>"without Multiplication"采用肯定式表达为"无需乘法"，比直译"没有乘法"更符合中文技术文献表述习惯</li>
-<li>增译"机制"二字以明确这是指神经网络中的注意力机制</li>
-</ul>
-</li>
-<li>整体采用简洁的冒号分隔结构，与原标题形式保持一致</li>
-<li>使用"乘法"而非"相乘"更符合计算机领域术语规范）</li>
+<li>专业术语统一："pruning"译为"剪枝"，"quantization"译为"量化"</li>
+<li>技术概念准确表达："activation-aware"译为"激活感知"，"SFT"扩展为"监督微调"</li>
+<li>数据呈现优化：将"7B"译为"70亿"符合中文计数习惯</li>
+<li>被动语态转换："are necessitated"译为主动态"亟需"</li>
+<li>复杂句式拆分：将原文复合长句拆分为符合中文表达习惯的短句）</li>
 </ol>
-<p>arXiv:2507.20096v1 公告类型：新研究<br>
-摘要：Transformer模型凭借其缩放点积注意力机制，已成为现代人工智能的基础架构。然而，该机制计算密集且能耗巨大。我们提出新型EcoTransformer架构，通过采用拉普拉斯核函数对值向量进行卷积运算来构建输出上下文向量，其中查询向量与键向量之间的距离采用L1度量计算。相较于基于点积的注意力机制，新算法的注意力得分计算完全无需矩阵乘法。在自然语言处理、生物信息学和视觉任务中，其表现与缩放点积注意力相当甚至更优，同时能耗显著降低。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<div class="markdown-heading"><h2 class="heading-element">MemShare：通过KV缓存复用实现大型推理模型的高效内存推理</h2><a id="user-content-memshare通过kv缓存复用实现大型推理模型的高效内存推理" class="anchor" aria-label="Permalink: MemShare：通过KV缓存复用实现大型推理模型的高效内存推理" href="#memshare通过kv缓存复用实现大型推理模型的高效内存推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2507.21433v1 公告类型：新研究<br>
+摘要：大型推理模型（LRMs）在数学推理和形式逻辑任务中取得了显著进展。然而，其生成冗长思维链的倾向导致推理过程中出现巨大的内存开销。我们发现，LRMs频繁产生高度相似的中间推理步骤，这些步骤对应着各层间相似的KV缓存状态。受此启发，我们提出MemShare——一种新型KV缓存管理方法，能有效降低内存开销。该方案采用协同过滤算法高效识别可复用的KV缓存块，并通过零拷贝缓存重用技术显著减少内存占用，在保持准确率的同时提升吞吐量。实验结果表明，与现有KV缓存管理方法相比，MemShare在保持更高准确率的同时，最高可实现84.79%的吞吐量提升。</p>
+<p>（注：根据学术论文摘要的文体特点，翻译时进行了以下处理：</p>
 <ol>
-<li>"scaled dot-product attention mechanism"译为"缩放点积注意力机制"（保留专业术语一致性）</li>
-<li>"Laplacian kernel"译为"拉普拉斯核函数"（数学领域标准译法）</li>
-<li>"L1 metric"译为"L1度量"（保持数学表达式）</li>
-<li>被动语态转换为中文主动表述（如"is constructed"译为"通过...构建"）</li>
-<li>长句拆分符合中文表达习惯（如将原文最后复合句拆分为两个递进短句））</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">提升大型多模态模型：自适应稀疏性与KV缓存压缩技术的融合</h2><a id="user-content-提升大型多模态模型自适应稀疏性与kv缓存压缩技术的融合" class="anchor" aria-label="Permalink: 提升大型多模态模型：自适应稀疏性与KV缓存压缩技术的融合" href="#提升大型多模态模型自适应稀疏性与kv缓存压缩技术的融合"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2507.20613v1 公告类型：新研究<br>
-摘要：大型多模态模型（LMMs）通过将视觉编码器与大规模语言模型相结合取得了显著进展，展现出强大的推理能力。然而，如何压缩LMMs以部署在边缘设备上仍是一个关键挑战。本研究提出一种自适应搜索算法，通过优化稀疏性和KV缓存压缩来提升LMM效率。该方法基于树结构Parzen估计器，以模型性能为优化目标，动态调整不同LMM层的剪枝比例和KV缓存量化带宽。该方案创新性地将剪枝技术与键值缓存量化相结合，并采用无需额外微调或权重调整的快速剪枝技术，在保持精度的同时实现高效压缩。基于LLaVA-1.5 7B和13B等基准数据集的全面评估表明，本方法在多种压缩级别下均优于SparseGPT、Wanda等前沿技术。尤其值得注意的是，该框架自动分配KV缓存压缩资源的能力为LMM优化树立了新标杆，在几乎不损失性能的前提下实现了卓越的内存效率。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
-<ol>
-<li>"edge devices"译为"边缘设备"（而非"终端设备"以保持领域一致性）</li>
-<li>"Tree-structured Parzen Estimator"保留技术名称"树结构Parzen估计器"</li>
-<li>"fine-tuning"统一译为"微调"</li>
-<li>"state-of-the-art"译为"前沿技术/最先进技术"根据上下文灵活处理</li>
-<li>被动语态"demonstrate"转化为主动式"表明"使中文更流畅）</li>
+<li>专业术语保留英文缩写（LRMs/KV）并首次出现时标注全称</li>
+<li>"chain-of-thought"采用通用译法"思维链"</li>
+<li>"zero copy"译为技术领域惯用表述"零拷贝"</li>
+<li>数据呈现方式调整为中文科技论文常用格式（84.79%→84.79%）</li>
+<li>被动语态转换为中文主动表述（"are observed"→"我们发现"）</li>
+<li>长难句拆分重组（如将"Motivated by..."状语从句转化为独立短句））</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

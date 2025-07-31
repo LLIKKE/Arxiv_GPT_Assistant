@@ -12,32 +12,21 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h1 class="heading-element">Personalized Daily Arxiv Papers 07/30/2025</h1><a id="user-content-personalized-daily-arxiv-papers-07302025" class="anchor" aria-label="Permalink: Personalized Daily Arxiv Papers 07/30/2025" href="#personalized-daily-arxiv-papers-07302025"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Total relevant papers: 2</p>
+})();</script><div><div class="markdown-heading"><h1 class="heading-element">Personalized Daily Arxiv Papers 07/31/2025</h1><a id="user-content-personalized-daily-arxiv-papers-07312025" class="anchor" aria-label="Permalink: Personalized Daily Arxiv Papers 07/31/2025" href="#personalized-daily-arxiv-papers-07312025"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Total relevant papers: 1</p>
 <p>Paper selection prompt and criteria at the bottom</p>
 <p>Table of contents with paper titles:</p>
 <ol start="0">
 <li>
-<p><a href="#link0">The Effect of Compression Techniques on Large Multimodal Language Models in the Medical Domain</a>
-<strong>Authors:</strong> Tanvir Ahmed Khan, Aranya Saha, Ismam Nur Swapnil, Mohammad Ariful Haque</p>
-</li>
-<li>
-<p><a href="#link1">MemShare: Memory Efficient Inference for Large Reasoning Models through KV Cache Reuse</a>
-<strong>Authors:</strong> Kaiwen Chen, Xin Tan, Minchen Yu, Hong Xu</p>
-</li>
+<a href="#link0">MSQ: Memory-Efficient Bit Sparsification Quantization</a>
+<strong>Authors:</strong> Seokho Han, Seoyeon Yoon, Jinhee Kim, Dongwei Wang, Kang Eun Jeon, Huanrui Yang, Jong Hwan Ko</li>
 </ol>
 <hr>
-<div class="markdown-heading"><h2 class="heading-element">0. <a href="https://arxiv.org/abs/2507.21976" rel="nofollow">The Effect of Compression Techniques on Large Multimodal Language Models in the Medical Domain</a> <a id="user-content-link0"></a>
-</h2><a id="user-content-0-the-effect-of-compression-techniques-on-large-multimodal-language-models-in-the-medical-domain-" class="anchor" aria-label="Permalink: 0. The Effect of Compression Techniques on Large Multimodal Language Models in the Medical Domain" href="#0-the-effect-of-compression-techniques-on-large-multimodal-language-models-in-the-medical-domain-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>ArXiv ID:</strong> 2507.21976
-<strong>Authors:</strong> Tanvir Ahmed Khan, Aranya Saha, Ismam Nur Swapnil, Mohammad Ariful Haque</p>
-<p><strong>Abstract:</strong> arXiv:2507.21976v1 Announce Type: new  Abstract: Multimodal Large Language Models (MLLMs) hold huge potential for usage in the medical domain, but their computational costs necessitate efficient compression techniques. This paper evaluates the impact of structural pruning and activation-aware quantization on a fine-tuned LLAVA model for medical applications. We propose a novel layer selection method for pruning, analyze different quantization techniques, and assess the performance trade-offs in a prune-SFT-quantize pipeline. Our proposed method enables MLLMs with 7B parameters to run within 4 GB of VRAM, reducing memory usage by 70% while achieving 4% higher model performance compared to traditional pruning and quantization techniques in the same compression ratio.</p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">1. <a href="https://arxiv.org/abs/2507.21433" rel="nofollow">MemShare: Memory Efficient Inference for Large Reasoning Models through KV Cache Reuse</a> <a id="user-content-link1"></a>
-</h2><a id="user-content-1-memshare-memory-efficient-inference-for-large-reasoning-models-through-kv-cache-reuse-" class="anchor" aria-label="Permalink: 1. MemShare: Memory Efficient Inference for Large Reasoning Models through KV Cache Reuse" href="#1-memshare-memory-efficient-inference-for-large-reasoning-models-through-kv-cache-reuse-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>ArXiv ID:</strong> 2507.21433
-<strong>Authors:</strong> Kaiwen Chen, Xin Tan, Minchen Yu, Hong Xu</p>
-<p><strong>Abstract:</strong> arXiv:2507.21433v1 Announce Type: new  Abstract: Large Reasoning Models (LRMs) have achieved significant advances in mathematical reasoning and formal logic tasks. However, their tendency to generate lengthy chain-of-thought sequences leads to substantial memory overhead during inference. We observe that LRMs frequently produce highly similar intermediate reasoning steps, which correspond to similar KV cache states across layers. Motivated by this observation, we propose MemShare, a novel KV cache management approach that effectively reduces memory overhead. MemShare employs a collaborative filtering algorithm to efficiently identify reusable KV cache blocks and enables zero copy cache reuse to significantly reduce memory overhead, improve throughput while maintaining accuracy. Experimental results demonstrate that MemShare delivers up to 84.79% improvement in throughput while maintaining better accuracy compared to existing KV cache management methods.</p>
+<div class="markdown-heading"><h2 class="heading-element">0. <a href="https://arxiv.org/abs/2507.22349" rel="nofollow">MSQ: Memory-Efficient Bit Sparsification Quantization</a> <a id="user-content-link0"></a>
+</h2><a id="user-content-0-msq-memory-efficient-bit-sparsification-quantization-" class="anchor" aria-label="Permalink: 0. MSQ: Memory-Efficient Bit Sparsification Quantization" href="#0-msq-memory-efficient-bit-sparsification-quantization-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>ArXiv ID:</strong> 2507.22349
+<strong>Authors:</strong> Seokho Han, Seoyeon Yoon, Jinhee Kim, Dongwei Wang, Kang Eun Jeon, Huanrui Yang, Jong Hwan Ko</p>
+<p><strong>Abstract:</strong> arXiv:2507.22349v1 Announce Type: new  Abstract: As deep neural networks (DNNs) see increased deployment on mobile and edge devices, optimizing model efficiency has become crucial. Mixed-precision quantization is widely favored, as it offers a superior balance between efficiency and accuracy compared to uniform quantization. However, finding the optimal precision for each layer is challenging. Recent studies utilizing bit-level sparsity have shown promise, yet they often introduce substantial training complexity and high GPU memory requirements. In this paper, we propose Memory-Efficient Bit Sparsification Quantization (MSQ), a novel approach that addresses these limitations. MSQ applies a round-clamp quantizer to enable differentiable computation of the least significant bits (LSBs) from model weights. It further employs regularization to induce sparsity in these LSBs, enabling effective precision reduction without explicit bit-level parameter splitting. Additionally, MSQ incorporates Hessian information, allowing the simultaneous pruning of multiple LSBs to further enhance training efficiency. Experimental results show that MSQ achieves up to 8.00x reduction in trainable parameters and up to 86% reduction in training time compared to previous bit-level quantization, while maintaining competitive accuracy and compression rates. This makes it a practical solution for training efficient DNNs on resource-constrained devices.</p>
 <hr>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">Paper selection prompt</h2><a id="user-content-paper-selection-prompt" class="anchor" aria-label="Permalink: Paper selection prompt" href="#paper-selection-prompt"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>

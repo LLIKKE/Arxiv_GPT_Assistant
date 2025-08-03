@@ -1,3 +1,9 @@
  1. Quantization, Pruning, and KVCache Compression for Efficient Large Language Models
     - Relevant: To optimize large language models (LLMs) for reduced memory and computational costs while maintaining performance, this research direction integrates quantization, pruning, and KVCache compression into a unified framework.
+ 2. Token-Level Expert Selection and Activation Calibration for Efficient Mixture-of-Experts Models
+    Relevant: To enhance the efficiency and performance of Mixture-of-Experts (MoE) models, this research direction investigates token-level expert selection strategies, sparse activation patterns, and calibration set optimization to improve routing decisions while minimizing computational overhead.
+    Key Focus Areas: Dynamic Token-to-Expert Assignment: Analyzing how input tokens are routed to experts, including top-k gating, noisy top-k, and learnable routing policies.
+    Activation Sparsity & Load Balancing: Studying expert utilization and methods (e.g., auxiliary loss, expert choice routing) to prevent underused or overloaded experts.
+    Calibration for Robust Routing: Optimizing validation set selection and fine-tuning strategies to adapt routing behavior for downstream tasks.
+    Efficiency-Accuracy Trade-offs: Evaluating how different expert selection mechanisms impact model size, inference speed, and task performance.
 In suggesting papers to your friend, remember that he enjoys papers on large language model (llm) compression, inference acceleration techniques, and related algorithms such as quantization and pruning. He is particularly interested in research that explores new methods for reducing large language model size and improving inference speed, as well as innovative approaches to optimizing large language model.

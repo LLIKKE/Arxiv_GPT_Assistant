@@ -12,167 +12,58 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">量化BERT模型的隐私保护推理</h2><a id="user-content-量化bert模型的隐私保护推理" class="anchor" aria-label="Permalink: 量化BERT模型的隐私保护推理" href="#量化bert模型的隐私保护推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.01636v1 公告类型：新研究<br>
-摘要：随着生成式机器学习模型在医疗健康、个性化服务等隐私敏感领域的广泛应用，确保安全推理已成为关键挑战。安全多方计算（MPC）能实现隐私保护的模型推理，但存在通信与计算开销过高的问题，其核心瓶颈在于浮点运算的安全评估成本高昂。量化技术通过将浮点运算转换为低精度整数计算，可显著降低开销，但现有基于MPC的量化推理方法存在两大缺陷：要么依赖公开的量化参数（带来隐私风险），要么在处理激活函数、Softmax等非线性运算时效率低下。本研究提出一种细粒度的分层量化方案，在安全环境下支持1比特权重的全连接层；设计多输入查找表协议以实现Softmax的高效安全评估；通过双秘密共享方案结合查找表实现精度转换，完全消除了截断运算开销。在BERT-base模型上的实验表明，我们的方法相比Lu等人（NDSS 25）提速达8倍，相比Gupta等人（PETS 24）提速9倍，较Knott等人（NeurIPS 21）实现22倍加速。</p>
-<p>（注：根据学术文献翻译规范，对以下内容进行了优化处理：</p>
-<ol>
-<li>专业术语统一："Secure multi-party computation"译为"安全多方计算"（MPC标准译法）</li>
-<li>技术表述调整："fine-grained, layer-wise quantization scheme"译为"细粒度的分层量化方案"更符合中文技术文献习惯</li>
-<li>被动语态转换："suffers from high communication"处理为主动式"存在...过高的问题"</li>
-<li>长句拆分：将原文最后一句的多个对比数据拆分为中文惯用的分号结构</li>
-<li>补充说明：对"dual secret sharing schemes"增加"结合查找表"以明确技术实现逻辑）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">克罗内克-低秩适配混合体（Kronecker-LoRA）：用于可扩展、可持续微调的混合型适配器</h2><a id="user-content-克罗内克-低秩适配混合体kronecker-lora用于可扩展可持续微调的混合型适配器" class="anchor" aria-label="Permalink: 克罗内克-低秩适配混合体（Kronecker-LoRA）：用于可扩展、可持续微调的混合型适配器" href="#克罗内克-低秩适配混合体kronecker-lora用于可扩展可持续微调的混合型适配器"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明：</p>
-<ol>
-<li>采用"克罗内克"音译数学术语"Kronecker"，保持学术术语一致性</li>
-<li>"LoRA"译为"低秩适配"，既保留英文缩写辨识度又体现技术特性（Low-Rank Adaptation）</li>
-<li>"hybrid"译为"混合型"以强调技术融合特性</li>
-<li>"scalable, sustainable fine-tuning"译为"可扩展、可持续微调"，准确传达技术目标</li>
-<li>整体采用"术语解释+功能说明"的复合译法，既保留专业术语又突出技术价值）</li>
-</ol>
-<p>arXiv:2508.01961v1 公告类型：新研究<br>
-摘要：针对大规模预训练语言模型在多任务上的微调需求，需要兼具参数高效性与高表达能力的适配器。我们提出<strong>Kron-LoRA</strong>——一种两阶段适配器：首先将冻结的线性更新分解为克罗内克积 [ \Delta W = A \otimes B ]，随后通过(r)秩LoRA分解将矩阵[ B \in \mathbb{R}^{d_{B2}\times d_{B1}} ]压缩为(B \approx B_{1}B_{2})。基于[ \mathrm{rank}(A \otimes B) ;=; \mathrm{rank}(A),\mathrm{rank}(B) ]的特性，Kron-LoRA在保持更新表达力的同时，相比标准秩8的LoRA适配器最多减少$4!\times!$参数量。其紧凑的适配器矩阵在量化为8位或4位时，精度损失也小于LoRA，从而为端侧部署节省更多内存与存储空间。我们在DistilBERT和Mistral-7B模型上进行了五任务测试（PIQA、HellaSwag、WinoGrande、ARC-Easy、ARC-Challenge），经过多轮纯适配器微调：在DistilBERT上，84万参数的Kron-LoRA可达到LoRA-16的性能；在Mistral-7B上，570万参数的Kron-LoRA与LoRA-8表现相当，内存占用显著降低且仅带来3-8%的速度开销。在从ARC-Challenge到ARC-Easy的顺序微调中，Kron-LoRA以仅四分之一的适配器参数量，保持了55.18%的准确率（LoRA-8为53.17%），凸显其跨任务迁移竞争力。通过整合克罗内克结构、低秩压缩、量化友好性，并提供透明的权衡分析，Kron-LoRA为大型语言模型的多任务适配提供了可扩展、可持续且支持持续学习的解决方案。</p>
-<div class="markdown-heading"><h2 class="heading-element">LeanK：可学习的K缓存通道剪枝技术助力高效解码</h2><a id="user-content-leank可学习的k缓存通道剪枝技术助力高效解码" class="anchor" aria-label="Permalink: LeanK：可学习的K缓存通道剪枝技术助力高效解码" href="#leank可学习的k缓存通道剪枝技术助力高效解码"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.02215v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）虽能处理长上下文任务，但随键值（KV）缓存增长面临效率挑战。我们提出LeanK——一种基于学习的方法，通过利用静态通道稀疏性来修剪不重要的键（K）缓存通道。该方案采用创新的两阶段训练流程，学习满足特定稀疏率与硬件对齐要求的通道级静态掩码。LeanK在保持精度的同时，显著降低GPU内存占用并加速解码过程。实验表明其最高可减少70%的K缓存和16%-18%的V缓存内存，定制解码内核使注意力计算速度提升1.3倍。通过分析学习到的重要性分布，我们还揭示了模型在长上下文推理过程中通道与注意力头的行为特性。代码已开源：<a href="https://aka.ms/LeanK" rel="nofollow">https://aka.ms/LeanK</a></p>
-<p>（注：根据学术文献翻译规范，对技术术语如"KV cache"保留英文缩写形式；"two-stage training process"等专业表述采用中文技术社区通用译法；长句按中文习惯拆分为短句；URL保留原貌以确保可访问性）</p>
-<div class="markdown-heading"><h2 class="heading-element">超越人工设计的剪枝策略：基于二级性能预测的大语言模型剪枝框架</h2><a id="user-content-超越人工设计的剪枝策略基于二级性能预测的大语言模型剪枝框架" class="anchor" aria-label="Permalink: 超越人工设计的剪枝策略：基于二级性能预测的大语言模型剪枝框架" href="#超越人工设计的剪枝策略基于二级性能预测的大语言模型剪枝框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明：</p>
-<ol>
-<li>"Beyond Manually Designed Pruning Policies" 译为"超越人工设计的剪枝策略"，采用意译手法突出技术突破性</li>
-<li>"Second-Level Performance Prediction" 译为"二级性能预测"，保留技术术语的准确性</li>
-<li>通过冒号分层处理原标题的递进关系，主标题强调方法论创新，副标题说明具体应用领域</li>
-<li>"LLMs" 采用行业通用译法"大语言模型"，全称应为"大型语言模型"但为保持简洁性采用通用简称</li>
-<li>整体采用"创新方法+技术应用"的标题结构，符合中文科技论文标题的常见范式）</li>
-</ol>
-<p>arXiv:2508.02381v1 公告类型：新研究<br>
-摘要：非均匀结构化剪枝方法通过移除冗余通道或层级，能有效缩减大语言模型（LLM）规模，其性能衰减显著低于均匀剪枝策略。然而现有非均匀方法高度依赖人工设计的剪枝策略（如层级重要性和缩放因子），难以高效适应动态剪枝比例需求场景。此外，一个关键瓶颈——剪枝策略评估耗时过长——进一步限制了迭代动态寻优的可行性。为此，我们提出PPF（预测式剪枝框架），这一创新框架通过秒级性能预测摆脱人工设计依赖。PPF不仅能支持动态剪枝比例下的实时决策，还可应用于静态剪枝场景：其采用智能体生成自适应实时剪枝动作，配合轻量级性能预测器（秒级完成策略评估），显著加速迭代优化过程。在Llama2-7B和Llama3-8B上的实验表明，PPF可生成动态/静态剪枝策略，其困惑度较现有方法降低达33.4%（动态剪枝）和84.78%（静态剪枝），优于人工设计策略。性能预测器实现高精度秒级预测（误差&lt;0.0011），将平均评估延迟从分钟级（测试集评估法需1分38.02秒）压缩至秒级（1.52秒），加速超64倍。代码将发布于<a href="https://github.com/Ma-zx/PPF%E3%80%82">https://github.com/Ma-zx/PPF。</a></p>
-<p>（注：根据技术文档翻译规范，对以下要点进行了优化处理：</p>
-<ol>
-<li>专业术语统一："pruning"译为"剪枝"，"performance prediction"译为"性能预测"</li>
-<li>长句拆分：将原文复合句按中文表达习惯分解为多个短句</li>
-<li>被动语态转换："are applicable to"转为主动式"可应用于"</li>
-<li>数字呈现：保留精确数值的同时添加中文量级单位（如"秒级"）</li>
-<li>技术概念显化：如"agent"译为"智能体"以体现AI特性</li>
-<li>保持技术文档简洁性，避免过度文学化修饰）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">丢失：针对大型语言模型的低秩与稀疏预训练</h2><a id="user-content-丢失针对大型语言模型的低秩与稀疏预训练" class="anchor" aria-label="Permalink: 丢失：针对大型语言模型的低秩与稀疏预训练" href="#丢失针对大型语言模型的低秩与稀疏预训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.02668v1 公告类型：新研究<br>
-摘要：尽管大语言模型（LLMs）在各类任务中展现出卓越性能，但其庞大规模导致从头预训练时产生难以承受的计算与内存开销。近期研究探索了采用低秩参数化作为缩小模型规模、降低训练成本的手段。在此背景下，稀疏性常被用作补充技术，通过捕捉残差空间中的显著特征来恢复低秩压缩丢失的重要信息。然而现有方法通常以简单或临时方式组合低秩与稀疏组件，往往导致性能较全秩训练出现显著退化。本文提出面向大语言模型的<strong>低秩稀疏预训练方法（LOST）</strong>，该创新方法巧妙整合低秩与稀疏结构，能在严格效率约束下实现大语言模型的高效从头训练。LOST对权重矩阵应用奇异值分解，保留主导性低秩成分，同时分配剩余奇异值构建通道级稀疏组件以增强低秩训练的表达能力。我们在6000万至70亿参数规模的大语言模型预训练中评估LOST，实验表明该方法在显著降低内存与计算开销的同时，取得了与全秩模型相当或更优的性能。代码已发布于\href{<a href="https://github.com/JiaxiLi1/LOST-Low-rank-and-Sparse-Training-for-Large-Language-Models%7D%7BLOST%E4%BB%A3%E7%A0%81%E5%BA%93%7D">https://github.com/JiaxiLi1/LOST-Low-rank-and-Sparse-Training-for-Large-Language-Models}{LOST代码库}</a></p>
-<p>（注：根据学术文献翻译规范，对技术术语如"singular value decomposition"采用"奇异值分解"标准译法；长难句按中文表达习惯拆分为短句；被动语态转换为主动句式；超链接保留原始格式；数学符号\textbf{LOST}保留加粗格式以突出方法名称）</p>
-<div class="markdown-heading"><h2 class="heading-element">联邦视觉-语言-动作学习（FedVLA）：采用双门控专家混合机制的机器人操作研究</h2><a id="user-content-联邦视觉-语言-动作学习fedvla采用双门控专家混合机制的机器人操作研究" class="anchor" aria-label="Permalink: 联邦视觉-语言-动作学习（FedVLA）：采用双门控专家混合机制的机器人操作研究" href="#联邦视觉-语言-动作学习fedvla采用双门控专家混合机制的机器人操作研究"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>注：翻译说明：</p>
-<ol>
-<li>"Federated"译为"联邦"符合机器学习领域对分布式学习范式的标准译法</li>
-<li>"Vision-Language-Action"采用连字符直译为"视觉-语言-动作"，准确传达多模态学习内涵</li>
-<li>"Dual Gating Mixture-of-Experts"专业术语译为"双门控专家混合机制"，其中：
-<ul>
-<li>"Dual Gating"体现控制逻辑</li>
-<li>"Mixture-of-Experts"沿用学界通用译法</li>
-</ul>
-</li>
-<li>补充"研究"二字使中文标题更符合学术表述习惯</li>
-<li>整体采用"主标题（创新方法）+副标题（技术特征）"的中文论文标题常见结构</li>
-</ol>
-<p>arXiv:2508.02190v1 公告类型：新研究<br>
-摘要：视觉-语言-动作（VLA）模型通过使机器人能够解析语言指令来执行任务，显著推动了机器人操控技术的发展。然而，这类模型的训练通常依赖于大规模用户特定数据，引发了隐私与安全方面的担忧，从而限制了其更广泛的应用。为此，我们提出FedVLA——首个联邦化VLA学习框架，支持分布式模型训练，在保护数据隐私的同时不牺牲性能。该框架整合了任务感知表征学习、自适应专家选择与专家驱动的联邦聚合技术，实现了高效且隐私保护的VLA模型训练。</p>
-<p>具体而言，我们提出一种"指令导向的场景解析"机制，通过任务指令分解并增强对象级特征，从而提升上下文理解能力。为有效学习多样化任务模式，设计了双门控专家混合机制（DGMoE），其中不仅输入标记能自适应决策，自感知专家模块也动态调节其激活状态。最后在联邦服务器端采用专家驱动聚合策略，以激活的专家模块为指导进行模型聚合，确保跨客户端知识的高效迁移。</p>
-<p>大量仿真与真实机器人实验验证了方案的有效性：DGMoE较基线模型显著提升计算效率，而FedVLA在保持数据隐私的同时，任务成功率与集中式训练相当。</p>
-<div class="markdown-heading"><h2 class="heading-element">VFP：面向多模态机器人操作的变分流匹配策略</h2><a id="user-content-vfp面向多模态机器人操作的变分流匹配策略" class="anchor" aria-label="Permalink: VFP：面向多模态机器人操作的变分流匹配策略" href="#vfp面向多模态机器人操作的变分流匹配策略"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.01622v1 公告类型：新研究<br>
-摘要：基于流匹配的策略近期成为学习型机器人操作领域的重要突破，相比基于扩散的策略，其动作采样速度显著提升。然而传统流匹配方法在处理多模态任务时存在局限，常导致复杂操作任务中出现行为平均化或模糊化现象。为此，我们提出变分流匹配策略（VFP），通过引入变分潜在先验实现模态感知的动作生成，有效捕捉任务级和轨迹级的双重多模态特性。VFP进一步采用坎托罗维奇最优传输（K-OT）进行分布级对齐，并集成专家混合（MoE）解码器实现模态专业化与高效推理。我们在四大基准环境的41项任务中全面评估VFP，证明其在任务多模态和路径多模态场景中的卓越性能与采样效率。实验表明，VFP相较标准流匹配基线取得49%的相对任务成功率提升，同时保持快速推理与紧凑模型体积。更多细节详见项目页：<a href="https://sites.google.com/view/varfp/" rel="nofollow">https://sites.google.com/view/varfp/</a></p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">博学者：一种具备动态分层工作流程的自优化智能体</h2><a id="user-content-博学者一种具备动态分层工作流程的自优化智能体" class="anchor" aria-label="Permalink: 博学者：一种具备动态分层工作流程的自优化智能体" href="#博学者一种具备动态分层工作流程的自优化智能体"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.02959v1 公告类型：新论文<br>
+摘要：大语言模型（LLMs）通过执行由详细指令和结构化操作组成的智能工作流，在解决复杂任务方面表现出色。然而，目前通过文本界面手动将基础模型嵌入到思维链（Chain-of-Thought）、自我反思（Self-Reflection）、ReACT等智能系统中的通用代理构建方法，存在可扩展性和效率的局限。近期，许多研究者尝试通过基于代码的表征来自动生成和优化这些工作流。但现有方法通常依赖标注数据集来训练和优化工作流，在缺乏标注数据的现实动态问题中效果有限且缺乏灵活性。</p>
+<p>为解决这一挑战，我们提出Polymath——一种具备动态分层工作流的自优化智能体。它结合任务流图的灵活性与代码表征工作流的表达能力，可广泛解决现实中的动态问题。该优化方法融合了多网格启发的图优化技术与自我反思引导的进化算法，无需标注数据即可优化工作流。在编码、数学和多轮问答六个基准数据集上的实验表明，Polymath相比最先进基线模型平均提升8.1%。</p>
+<p>（注：根据学术规范，专业术语如"Chain-of-Thought"保留英文原名并首次出现时标注中文译名；技术术语如"multi-grid-inspired"采用意译"多网格启发的"；长句按中文习惯拆分为短句；被动语态转换为主动表述；"state-of-the-art"译为"最先进的"符合国内学术惯例）</p>
+<div class="markdown-heading"><h2 class="heading-element">探索小语言模型训练后量化中逐层信息有效性的研究</h2><a id="user-content-探索小语言模型训练后量化中逐层信息有效性的研究" class="anchor" aria-label="Permalink: 探索小语言模型训练后量化中逐层信息有效性的研究" href="#探索小语言模型训练后量化中逐层信息有效性的研究"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.03332v1 公告类型：新研究<br>
+摘要：具有数十亿参数的大语言模型往往存在资源过度配置问题：许多网络层贡献的独特信息有限，却在推理过程中占据大量内存和能耗。我们提出LieQ框架，这种基于度量的训练后量化方法解决了7B以下模型在超低位宽压缩下保持精度的关键挑战。通过三种互补的层级诊断指标——困惑度下降、表征紧凑度和Top-k能量增益，我们揭示了各网络层的典型分工模式，无需梯度更新即可实现自动位宽分配。相较于现有方法在2-3比特精度下出现的严重性能衰退，LieQ实现了最先进的压缩-精度平衡：在Qwen3-4B模型上，2.05比特量化时能恢复FP16基线性能的95.9%，在七项零样本推理任务中平均表现超越GPTQ 19.7%、优于AWQ 18.1%。应用于LLaMA3.2-3B时，LieQ以2.07比特精度保持98.2%的基线准确率，同时实现4倍内存压缩，为资源受限的边缘设备部署小语言模型建立了新范式。</p>
+<p>（注：根据学术文献翻译规范，技术术语保持统一，如"quantization"译为"量化"，"zero-shot"译为"零样本"，"edge devices"译为"边缘设备"。长句按中文表达习惯切分，被动语态转为主动表述，如"are often over-provisioned"处理为"往往存在...问题"。关键性能数据保留原始数字格式以确保准确性。）</p>
+<div class="markdown-heading"><h2 class="heading-element">DMSC：面向时间序列预测的动态多尺度协同框架</h2><a id="user-content-dmsc面向时间序列预测的动态多尺度协同框架" class="anchor" aria-label="Permalink: DMSC：面向时间序列预测的动态多尺度协同框架" href="#dmsc面向时间序列预测的动态多尺度协同框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.02753v1 公告类型：新研究<br>
+摘要：时间序列预测（TSF）领域在建模多尺度复杂时序依赖关系方面长期面临挑战。尽管近期研究基于CNN、MLP或Transformer架构结合多种分解操作取得进展，现有方法仍受限于静态分解策略、碎片化依赖建模和僵化的融合机制，难以有效捕捉复杂时序依赖。为针对性解决上述三大问题，我们提出动态多尺度协同框架（DMSC），其核心包含多尺度分块分解模块（EMPD）、三元交互模块（TIB）和自适应尺度路由混合专家模块（ASR-MoE）。具体而言：EMPD作为内置组件动态将序列分割为具有指数级粒度差异的层次化片段，通过输入自适应的片段调整消除预设尺度限制；TIB在每层分解表征中联合建模片段内、片段间和跨变量依赖关系；EMPD与TIB通过多层渐进级联架构整合，其中早期层的粗粒度表征通过门控通路自适应指导后续层细粒度特征提取；ASR-MoE则利用具有时序感知加权的全局/局部专家动态融合多尺度预测。在13个真实世界基准测试上的综合实验表明，DMSC在保持最优计算效率的同时，始终维持最先进的预测性能。代码已开源：<a href="https://github.com/1327679995/DMSC%E3%80%82">https://github.com/1327679995/DMSC。</a></p>
 <p>（注：根据学术文献翻译规范，对以下术语进行了标准化处理：</p>
 <ol>
-<li>"Variational Flow-Matching Policy" 译为"变分流匹配策略"（"变分"为概率论常用译法）</li>
-<li>"Kantorovich Optimal Transport" 保留学界通用译名"坎托罗维奇最优传输"</li>
-<li>"Mixture-of-Experts" 采用计算机领域惯用译法"专家混合"</li>
-<li>技术指标"49% relative improvement" 译为"49%的相对提升"以准确反映原文比较关系）</li>
+<li>"patch"在时序分析语境下译为"片段"而非字面"补丁"</li>
+<li>"granularities"译为"粒度"以准确表达尺度概念</li>
+<li>"gated pathways"译为"门控通路"符合神经网络术语惯例</li>
+<li>"state-of-the-art"采用学界通用译法"最先进的"</li>
+<li>保留所有技术缩写（EMPD/TIB/ASR-MoE）确保学术严谨性）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">参数高效路由微调：专家混合需适配模块混合</h2><a id="user-content-参数高效路由微调专家混合需适配模块混合" class="anchor" aria-label="Permalink: 参数高效路由微调：专家混合需适配模块混合" href="#参数高效路由微调专家混合需适配模块混合"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.02587v1 公告类型：新论文<br>
-摘要：混合专家模型（MoE）的优势在于其专用专家间的动态路由机制，而现有参数高效微调（PEFT）策略未能充分利用这一特性。这促使我们思考：适配模块本身是否应引入路由机制以匹配MoE的多专家架构？我们深入分析了将PEFT应用于MoE语言模型时核心组件的动态变化，并探究不同路由策略对适配效果的影响。通过让OLMoE-1B-7B和Mixtral-8x7B在多项常识推理与数学推理任务上进行广泛实验，我们验证了路由式方法的性能与效率优势。研究不仅确定了不同场景下的最优配置方案，还通过实证分析提供了实用见解，为PEFT与MoE的更好应用铺平道路。</p>
-<p>（注：根据学术论文摘要的文体特征，译文在保持专业性的同时：</p>
+<div class="markdown-heading"><h2 class="heading-element">何处及如何增强：探索位宽贡献以实现混合精度量化</h2><a id="user-content-何处及如何增强探索位宽贡献以实现混合精度量化" class="anchor" aria-label="Permalink: 何处及如何增强：探索位宽贡献以实现混合精度量化" href="#何处及如何增强探索位宽贡献以实现混合精度量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.03002v1 公告类型：新研究<br>
+摘要：混合精度量化（MPQ）是一种通过为神经网络每层的激活值和权重分配不同位宽，以实现精度-复杂度权衡的有效量化方法。现有MPQ方法的典型做法是以梯度下降方式优化量化策略（即位宽分配），称为可微分混合精度量化（DMPQ）。在搜索结束时，选择与量化参数最大值对应的位宽来形成最终的混合精度量化策略，其隐含假设是量化参数值反映了操作对精度提升的贡献程度。虽然关于MPQ改进的讨论很多，但位宽选择过程却鲜少受到关注。我们研究这一问题并指出：量化参数的大小未必能反映位宽对任务性能的实际贡献。为此，我们提出基于Shapley值的混合精度量化（SMPQ）方法，直接度量位宽操作对MPQ任务的贡献。为降低计算成本，针对Shapley值计算提出了一种基于蒙特卡洛采样的近似策略。在主流基准测试上的大量实验表明，我们的SMPQ方法始终比基于梯度的竞争方法具有更优的性能，达到了当前最先进水平。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了统一处理：</p>
 <ol>
-<li>将"Parameter-Efficient Fine-Tuning"规范译为"参数高效微调"并首次出现标注缩写PEFT</li>
-<li>"routed approach"意译为"路由式方法"以突出其技术特性</li>
-<li>被动语态转换为中文主动表述（如"validate"译为"验证了"）</li>
-<li>长难句拆分重组（如最后一句拆分为两个递进分句）</li>
-<li>专业术语如"Mixtral-8x7B"保留原名确保准确性）</li>
+<li>"bit-width"统一译为"位宽"</li>
+<li>"quantization parameters"译为"量化参数"</li>
+<li>"state-of-the-art"译为"当前最先进水平"</li>
+<li>专业缩写MPQ/DMPQ/SMPQ首次出现时标注全称，后续直接使用缩写</li>
+<li>被动语态转换为主动语态（如"has received little attention"译为"鲜少受到关注"）</li>
+<li>长难句拆分重组（如原文最后一句拆分为两个中文分句））</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">统一专家混合与多头潜在注意力机制以构建高效语言模型</h2><a id="user-content-统一专家混合与多头潜在注意力机制以构建高效语言模型" class="anchor" aria-label="Permalink: 统一专家混合与多头潜在注意力机制以构建高效语言模型" href="#统一专家混合与多头潜在注意力机制以构建高效语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.01261v1 公告类型：新研究<br>
-摘要：我们提出MoE-MLA-RoPE——一种融合混合专家系统（MoE）、多头潜在注意力（MLA）与旋转位置编码（RoPE）的创新架构组合，旨在实现高效语言建模。该研究通过三项关键创新解决了模型容量与计算效率之间的根本矛盾：（1）采用64个微专家与top-k选择机制的细粒度专家路由，通过3.6×10⁷种可能的专家组合实现灵活专业化；（2）共享专家隔离机制，固定激活2个通用模式专家，同时从62个专业专家中动态路由6个；（3）无梯度冲突的负载均衡策略，在不干扰主损失优化的前提下维持专家利用率。</p>
-<p>在1.7亿至2.02亿参数规模的模型实验中，压缩比为r=d/2的MoE-MLA-RoPE在保持竞争力（困惑度仅上升0.8%）的同时，实现了68%的KV缓存内存削减和3.2倍推理加速。相较于5300万参数的基准模型，该架构在前向传播中减少42%激活参数量的情况下，验证损失降低6.9%。FLOP匹配实验显示更大优势：在3.2倍推理加速下实现11.1%的性能提升。基于GPT-4的自动评估证实生成质量改进，在连贯性（8.1/10）、创造性（7.9/10）和语法正确性（8.2/10）方面均获更高评分。本研究证明：在资源受限的语言模型部署中，决定效率边界的核心是架构创新，而非参数规模扩张。</p>
-<div class="markdown-heading"><h2 class="heading-element">FlashSVD：面向低秩模型的流式内存高效推理</h2><a id="user-content-flashsvd面向低秩模型的流式内存高效推理" class="anchor" aria-label="Permalink: FlashSVD：面向低秩模型的流式内存高效推理" href="#flashsvd面向低秩模型的流式内存高效推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.01506v1 公告类型：新研究<br>
-摘要：奇异值分解（SVD）作为一种简单而强大的大语言模型（LLM）压缩工具，近期受到广泛关注。越来越多研究表明，该方法能在精度损失极小的情况下减少20-80%的参数量。现有基于SVD的方法主要聚焦于降低模型权重的内存占用，却普遍忽视了通过标准密集CUDA核应用截断因子时，推理过程中产生的额外激活内存开销。我们的实验表明，这种随序列长度和隐藏维度增长的激活内存开销，使得当前SVD压缩技术无法降低峰值推理内存，从而限制了其在现实世界设备端部署的可行性。</p>
-<p>我们提出FlashSVD——一个专为SVD压缩大语言模型设计的、端到端支持秩感知的流式推理框架。该框架可与任何采用SVD参数压缩方法的模型无缝集成。通过将低秩投影核直接融合到自注意力机制和前馈网络（FFN）的计算流水线中，FlashSVD避免了全尺寸激活缓冲区的实体化存储。取而代之的是，将截断因子的小型数据块加载至片上SRAM，实时进行乘法和归约运算后立即释放，既保持了GPU的高占用率，又未引入额外延迟。在标准编码器基准测试（如BERT-Base）中，FlashSVD将峰值激活内存降低达70.2%，中间临时内存减少75%，且在与上游压缩方法配合时保持零精度损失，为内存受限环境下的低秩大语言模型部署提供了可行路径。</p>
-<div class="markdown-heading"><h2 class="heading-element">灵活自动识别与移除（FAIR）-修剪器：一种高效的神经网络修剪方法</h2><a id="user-content-灵活自动识别与移除fair-修剪器一种高效的神经网络修剪方法" class="anchor" aria-label="Permalink: 灵活自动识别与移除（FAIR）-修剪器：一种高效的神经网络修剪方法" href="#灵活自动识别与移除fair-修剪器一种高效的神经网络修剪方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.02291v1 公告类型：新研究<br>
-摘要：神经网络剪枝是一种关键压缩技术，通过识别并移除冗余或次要参数来降低计算与内存开销，从而助力大规模神经网络在资源受限的边缘设备上部署。本文提出"灵活自动识别与移除剪枝器"（FAIR-Pruner），这是一种新颖的神经网络结构化剪枝方法。具体而言，FAIR-Pruner首先通过Wasserstein距离量化的利用率评分评估每个单元（如神经元或通道）的重要性；为反映单元移除后的性能衰减，继而引入基于损失函数泰勒展开计算的重构误差；最终通过控制提出的"差异容忍度"指标——该指标衡量无关紧要单元与导致性能下降单元间的差异——来识别对模型性能影响可忽略的冗余单元。FAIR-Pruner的主要优势在于能自动确定逐层剪枝率，相比采用统一剪枝率可获得更高效的子网络结构；另一优势是其卓越的"一次性"性能，无需剪枝后微调。此外，借助利用率评分和重构误差，用户可灵活获取不同剪枝比例下的精简模型。在多样化基准数据集（如ImageNet）和多种神经网络架构（如VGG）上的综合实验验证表明，FAIR-Pruner在保持高精度的同时实现了显著的模型压缩效果。</p>
-<p>（翻译说明：</p>
+<div class="markdown-heading"><h2 class="heading-element">EoH-S：基于大型语言模型的启发式集合进化——自动化启发式设计方法</h2><a id="user-content-eoh-s基于大型语言模型的启发式集合进化自动化启发式设计方法" class="anchor" aria-label="Permalink: EoH-S：基于大型语言模型的启发式集合进化——自动化启发式设计方法" href="#eoh-s基于大型语言模型的启发式集合进化自动化启发式设计方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：翻译说明：</p>
 <ol>
-<li>专业术语处理："Wasserstein distance"保留学术惯用译法"Wasserstein距离"，"Taylor expansion"译为"泰勒展开"</li>
-<li>技术概念显化："one-shot performance"意译为"一次性性能"并添加引号强调</li>
-<li>长句拆分：将原文复合长句按中文表达习惯分解为多个短句，如重构误差定义部分</li>
-<li>被动语态转化："it is computed"转为主动式"基于...计算"</li>
-<li>逻辑连接显化：通过分号与破折号明确方法步骤间的递进关系</li>
-<li>术语一致性："pruning rate"统一译为"剪枝率"，"subnetwork"译为"子网络"</li>
-<li>文化适配："edge devices"采用国内学界通用译法"边缘设备"而非直译"边缘装置"）</li>
+<li>"Evolution of Heuristic Set" 采用"启发式集合进化"的译法，既保持学术术语的准确性，又通过"集合"明确表达set的群体概念</li>
+<li>"using LLMs" 译为"基于大型语言模型"，符合中文前置修饰的语序习惯</li>
+<li>"Automated Heuristic Design" 处理为"自动化启发式设计方法"，补充"方法"二字使中文更完整，同时保留自动化(Automated)与启发式(Heuristic)的专业术语对应</li>
+<li>整体采用破折号连接主副标题，符合中文技术文献标题的常见结构</li>
+<li>保留英文缩写"EoH-S"和"LLMs"以方便学术检索，首次出现时标注全称）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">CAPO：通过可验证的生成式信用分配提升大语言模型推理能力</h2><a id="user-content-capo通过可验证的生成式信用分配提升大语言模型推理能力" class="anchor" aria-label="Permalink: CAPO：通过可验证的生成式信用分配提升大语言模型推理能力" href="#capo通过可验证的生成式信用分配提升大语言模型推理能力"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.02298v1 公告类型：新研究<br>
-摘要：可验证奖励的强化学习（RLVR）通过基于规则的二元反馈提升了大型语言模型（LLM）的推理能力，有助于缓解奖励破解问题。然而，现有RLVR方法通常将完整回答视为单一动作，为每个令牌分配相同的奖励。这种粗粒度的反馈阻碍了精确的信用分配，使模型难以识别哪些推理步骤导致成功或失败，往往导致策略次优和学习效率低下。像PPO这样的方法通过价值估计实现信用分配，但由于采样有限，常产生不准确且不可验证的信号。另一方面，使用过程奖励模型的方法能对每个推理步骤逐步评判，但需要高质量的过程监督标注，且应用于在线强化学习（RL）时耗时较长。</p>
-<p>为突破这些限制，我们提出了一种简单高效的方法——信用分配策略优化（CAPO）。给定策略模型生成的推理响应轨迹，CAPO直接利用现成的通用LLM作为生成式过程奖励模型（LLM-as-GenPRM），通过单次生成所有步骤级评判，从而为原本分配相同规则奖励的令牌提供可验证的令牌级奖励。这实现了更细粒度的信用分配。此外，为提高CAPO的准确性和鲁棒性，我们采用随生成评判数量扩展的投票机制。</p>
-<p>在Llama和Qwen等不同架构及规模的模型上进行的广泛实验表明，在六个高难度数学基准和三个域外基准测试中，CAPO始终优于基于监督学习和基于RL的微调方法。</p>
-<div class="markdown-heading"><h2 class="heading-element">MicroMix：面向大语言模型的微缩格式高效混合精度量化技术</h2><a id="user-content-micromix面向大语言模型的微缩格式高效混合精度量化技术" class="anchor" aria-label="Permalink: MicroMix：面向大语言模型的微缩格式高效混合精度量化技术" href="#micromix面向大语言模型的微缩格式高效混合精度量化技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（翻译说明：1. 保留技术品牌名"MicroMix"不译以维持专业性；2. "Microscaling Formats"译为"微缩格式"准确体现该量化方法的核心特征；3. "Efficient Mixed-Precision"采用前置定语"高效混合精度"的紧凑结构；4. 补充"技术"二字使中文更符合技术文献表述习惯；5. 使用"面向"替代简单介词"for"增强技术文档的专业性；6. 整体采用四六句式保持学术论文标题的平衡感）</p>
-<p>arXiv:2508.02343v1 公告类型：新研究<br>
-摘要：量化技术通过将原始高精度矩阵替换为低精度版本，显著加速了大语言模型（LLM）的推理过程。近年来，权重-激活量化的研究进展主要集中在将权重和激活映射至INT4格式。尽管英伟达Blackwell架构中新型FP4张量核心相较于FP16可实现高达4倍的加速，但现有基于INT4的计算内核因数据格式不匹配而无法充分利用这一优势。为弥合这一差距，我们提出MicroMix——一种基于微缩放（MX）数据格式的混合精度量化算法与矩阵乘法计算内核协同设计方案。该内核专为Blackwell架构定制，支持MXFP4、MXFP6和MXFP8通道的任意组合，并输出BFloat16格式结果。</p>
-<p>为实现每个线性层在精度与效率之间的最佳平衡，我们引入了量化阈值机制，用于识别低精度格式（MXFP4或MXFP6）会导致过量量化误差的激活元素。我们的算法通过动态分配高精度通道来保持计算效率的同时确保精度。MicroMix在多样化下游任务（包括零样本/小样本学习、语言建模、代码生成和数学推理）中展现出具有竞争力或更优的性能。在消费级（RTX 5070Ti笔记本）和服务器级（RTX 5090）GPU上，我们的内核执行速度比TensorRT-FP8至少快20%。此外，当应用于各类Llama和Qwen模型时，MicroMix在不同批量大小下相比TensorRT基线持续优化预填充延迟和内存效率。项目代码已开源：<a href="https://github.com/lwy2020/MicroMix">https://github.com/lwy2020/MicroMix</a></p>
-<p>（注：根据技术文档翻译规范，保留专业术语如"TensorRT"、"BFloat16"等原名称，URL链接保持可点击格式。采用"微缩放"对应"Microscaling"的学术译法，"预填充延迟"等术语符合计算机领域表述习惯。）</p>
-<div class="markdown-heading"><h2 class="heading-element">琥珀·普鲁纳：利用N:M激活稀疏性提升大型语言模型预填充效率</h2><a id="user-content-琥珀普鲁纳利用nm激活稀疏性提升大型语言模型预填充效率" class="anchor" aria-label="Permalink: 琥珀·普鲁纳：利用N:M激活稀疏性提升大型语言模型预填充效率" href="#琥珀普鲁纳利用nm激活稀疏性提升大型语言模型预填充效率"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.02128v1 公告类型：新研究<br>
-摘要：在大语言模型（LLM）时代，N:M稀疏性已成为加速推理的关键结构化压缩技术。虽然先前研究主要集中于权重稀疏化，但往往面临显著的精度损失问题。激活稀疏化虽前景广阔，但通常依赖训练过程且存在泛化挑战。为突破这些局限，我们提出Amber剪枝器——一种专为预填充阶段设计的免训练N:M激活稀疏化方法，旨在加速LLM中的线性投影层。通过在多种模型和稀疏比例（2:4、4:8和8:16）上的大量实验表明，Amber剪枝器无需模型重训练即可有效稀疏化并加速超过55%的线性计算。为进一步提升通用性与效率，我们提出Outstanding稀疏框架，将Amber剪枝器与训练后W8A8量化技术相融合。该方法在各类下游任务中保持强劲性能，尤其在生成任务中优势显著。本研究开创了激活稀疏化的新范式，其基础性见解有望指导下一代AI系统中算法与架构的协同演进设计。</p>
-<p>（注：根据学术文献翻译规范，专业术语如"prefill stage"译为技术界通用的"预填充阶段"，"W8A8 quantization"保留原格式并补充说明为"8位权重8位激活量化"的简写。长句采用分切重组策略，如将原文最后复合长句拆分为三个中文短句，既保持学术严谨性又符合中文表达习惯。）</p>
-<div class="markdown-heading"><h2 class="heading-element">EAC-MoE：面向专家混合大语言模型的专家选择感知压缩器</h2><a id="user-content-eac-moe面向专家混合大语言模型的专家选择感知压缩器" class="anchor" aria-label="Permalink: EAC-MoE：面向专家混合大语言模型的专家选择感知压缩器" href="#eac-moe面向专家混合大语言模型的专家选择感知压缩器"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明如下）</p>
+<p>arXiv:2508.03082v1 公告类型：新研究<br>
+摘要：基于大语言模型（LLM）的自动化启发式设计（AHD）近年来取得显著成功。尽管现有方法效果显著，但它们仅设计单一启发式策略应对所有问题实例，往往导致对不同分布或场景的泛化能力不足。为此，我们提出自动化启发式集合设计（AHSD）这一LLM驱动AHD的新范式，其核心目标是自动生成小型互补启发式集合，使每个问题实例都能被集合中至少一个启发式策略优化。我们证明AHSD的目标函数具有单调性和超模性，进而提出启发式集合进化算法（EoH-S）来实现LLM驱动的AHSD。通过互补种群管理和互补意识模因搜索两项创新机制，EoH-S能有效生成高质量且互补的启发式策略集合。在涵盖不同规模与分布实例的三大AHD任务实验中，EoH-S持续超越现有最优AHD方法，最高可实现60%的性能提升。</p>
+<p>（注：根据学术文本翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>
-<p><strong>术语处理</strong>：</p>
-<ul>
-<li>"Expert-Selection Aware" 译为"专家选择感知"，既保留技术概念（专家选择机制），又体现"感知"的动态性。</li>
-<li>"Compressor" 译为"压缩器"符合机器学习领域术语惯例（如模型压缩技术）。</li>
-<li>"Mixture-of-Experts" 采用学界通用译法"专家混合"，与"大语言模型"形成完整技术名词。</li>
-</ul>
-</li>
-<li>
-<p><strong>结构优化</strong>：<br>
-通过添加破折号和调整语序，将英文复合名词转换为符合中文阅读习惯的技术名称，同时保留原缩写"EAC-MoE"的完整性。</p>
-</li>
-<li>
-<p><strong>领域适配性</strong>：<br>
-译文准确反映该技术（针对MoE架构中大语言模型的参数压缩方法）的核心功能，便于研究人员快速理解其技术定位。</p>
-</li>
+<li>"formulation"译为"范式"以体现方法论创新</li>
+<li>"memetic search"采用通用译法"模因搜索"</li>
+<li>保持"monotone and supermodular"数学术语的准确性</li>
+<li>将长复合句合理切分为符合中文表达习惯的短句</li>
+<li>百分比符号统一采用中文全角格式"％"）</li>
 </ol>
-<p>arXiv:2508.01625v1 公告类型：新研究<br>
-摘要：混合专家模型（MoE）在扩展大语言模型规模方面展现出巨大潜力，但仍面临两大关键挑战：（1）加载所有专家模型需要消耗大量GPU内存；（2）低激活参数量无法等效转化为推理加速效果。本研究提出EAC-MoE框架——一种面向MoE大语言模型的专家选择感知压缩器，通过量化和剪枝两个维度深度适配MoE特性，并分别引入两大创新模块：（1）低比特量化导致的专家选择偏差是造成MoE-LLM性能下降的主因。基于此，我们提出专家选择校准量化（QESC），通过校准MoE内部的路由机制来消除这种偏差；（2）总存在某些专家对当前任务非关键却导致推理延迟。为此我们提出基于专家选择频率的剪枝（PESF），通过修剪低频使用专家显著提升推理速度。大量实验表明，该方法在保持性能微降的同时，显著降低了内存占用并提升了推理速度。</p>
-<div class="markdown-heading"><h2 class="heading-element">神经网络量化的格点几何——GPTQ与Babai算法的简短等价性证明</h2><a id="user-content-神经网络量化的格点几何gptq与babai算法的简短等价性证明" class="anchor" aria-label="Permalink: 神经网络量化的格点几何——GPTQ与Babai算法的简短等价性证明" href="#神经网络量化的格点几何gptq与babai算法的简短等价性证明"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.01077v1 公告类型：新论文<br>
-摘要：我们阐释了神经网络中线性单元的数据驱动量化过程，如何对应于针对由输入数据生成的特定格点的最近向量问题求解。我们证明GPTQ算法等价于Babai著名的最近平面算法，并进一步为这两种算法提供几何直观解释。最后，我们指出这些研究结果的影响，特别是暗示了利用格基约化实现更优量化的可能性。</p>
-<p>（注：根据学术文献翻译规范，技术术语采用如下处理：</p>
-<ol>
-<li>"closest vector problem"译为"最近向量问题"（计算数学标准译法）</li>
-<li>"nearest-plane algorithm"译为"最近平面算法"（保持Babai原始论文命名）</li>
-<li>"lattice basis reduction"译为"格基约化"（数论领域通用译法）
-译文通过以下方式增强专业性：</li>
-</ol>
-<ul>
-<li>使用"对应于"替代简单对应关系表述</li>
-<li>采用"阐释...过程"的学术化句式结构</li>
-<li>保留算法名称GPTQ的英文缩写（该算法在机器学习领域以缩写形式通用）</li>
-<li>使用"暗示...可能性"的谨慎学术表达替代绝对化断言）</li>
-</ul>
+<div class="markdown-heading"><h2 class="heading-element">小型KV：借助小模型辅助补偿KV缓存压缩，以实现高效大型语言模型推理</h2><a id="user-content-小型kv借助小模型辅助补偿kv缓存压缩以实现高效大型语言模型推理" class="anchor" aria-label="Permalink: 小型KV：借助小模型辅助补偿KV缓存压缩，以实现高效大型语言模型推理" href="#小型kv借助小模型辅助补偿kv缓存压缩以实现高效大型语言模型推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.02751v1 公告类型：新研究<br>
+摘要：KV缓存淘汰已成为缓解大语言模型（LLM）在长上下文场景中资源限制的有效方案。然而现有基于令牌级的淘汰方法往往忽视两个关键问题：（1）其不可逆的淘汰策略无法适应解码过程中动态变化的注意力模式（显著性漂移问题）；（2）将边缘重要令牌与真正不重要的令牌同等对待，尽管这些边缘令牌对模型性能具有集体重要性（边缘信息过度压缩问题）。为此，我们基于不同规模LLM注意力矩阵的高度相似性，设计了两项补偿机制，提出SmallKV——一种小模型辅助的KV缓存压缩补偿方法。SmallKV能保持不同规模LLM间的注意力匹配以实现：1）协助大模型感知注意力的全局重要信息；2）利用小模型的注意力分数来近似大模型中边缘令牌的注意力分布。在GSM8K、BBH、MT-Bench和LongBench等基准测试上的大量实验验证了SmallKV的有效性。效率评估表明，SmallKV的吞吐量比基线方法提升1.75-2.56倍，凸显了其在资源受限环境下实现高效高性能LLM推理的潜力。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

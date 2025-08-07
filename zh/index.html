@@ -12,58 +12,21 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">博学者：一种具备动态分层工作流程的自优化智能体</h2><a id="user-content-博学者一种具备动态分层工作流程的自优化智能体" class="anchor" aria-label="Permalink: 博学者：一种具备动态分层工作流程的自优化智能体" href="#博学者一种具备动态分层工作流程的自优化智能体"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.02959v1 公告类型：新论文<br>
-摘要：大语言模型（LLMs）通过执行由详细指令和结构化操作组成的智能工作流，在解决复杂任务方面表现出色。然而，目前通过文本界面手动将基础模型嵌入到思维链（Chain-of-Thought）、自我反思（Self-Reflection）、ReACT等智能系统中的通用代理构建方法，存在可扩展性和效率的局限。近期，许多研究者尝试通过基于代码的表征来自动生成和优化这些工作流。但现有方法通常依赖标注数据集来训练和优化工作流，在缺乏标注数据的现实动态问题中效果有限且缺乏灵活性。</p>
-<p>为解决这一挑战，我们提出Polymath——一种具备动态分层工作流的自优化智能体。它结合任务流图的灵活性与代码表征工作流的表达能力，可广泛解决现实中的动态问题。该优化方法融合了多网格启发的图优化技术与自我反思引导的进化算法，无需标注数据即可优化工作流。在编码、数学和多轮问答六个基准数据集上的实验表明，Polymath相比最先进基线模型平均提升8.1%。</p>
-<p>（注：根据学术规范，专业术语如"Chain-of-Thought"保留英文原名并首次出现时标注中文译名；技术术语如"multi-grid-inspired"采用意译"多网格启发的"；长句按中文习惯拆分为短句；被动语态转换为主动表述；"state-of-the-art"译为"最先进的"符合国内学术惯例）</p>
-<div class="markdown-heading"><h2 class="heading-element">探索小语言模型训练后量化中逐层信息有效性的研究</h2><a id="user-content-探索小语言模型训练后量化中逐层信息有效性的研究" class="anchor" aria-label="Permalink: 探索小语言模型训练后量化中逐层信息有效性的研究" href="#探索小语言模型训练后量化中逐层信息有效性的研究"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.03332v1 公告类型：新研究<br>
-摘要：具有数十亿参数的大语言模型往往存在资源过度配置问题：许多网络层贡献的独特信息有限，却在推理过程中占据大量内存和能耗。我们提出LieQ框架，这种基于度量的训练后量化方法解决了7B以下模型在超低位宽压缩下保持精度的关键挑战。通过三种互补的层级诊断指标——困惑度下降、表征紧凑度和Top-k能量增益，我们揭示了各网络层的典型分工模式，无需梯度更新即可实现自动位宽分配。相较于现有方法在2-3比特精度下出现的严重性能衰退，LieQ实现了最先进的压缩-精度平衡：在Qwen3-4B模型上，2.05比特量化时能恢复FP16基线性能的95.9%，在七项零样本推理任务中平均表现超越GPTQ 19.7%、优于AWQ 18.1%。应用于LLaMA3.2-3B时，LieQ以2.07比特精度保持98.2%的基线准确率，同时实现4倍内存压缩，为资源受限的边缘设备部署小语言模型建立了新范式。</p>
-<p>（注：根据学术文献翻译规范，技术术语保持统一，如"quantization"译为"量化"，"zero-shot"译为"零样本"，"edge devices"译为"边缘设备"。长句按中文表达习惯切分，被动语态转为主动表述，如"are often over-provisioned"处理为"往往存在...问题"。关键性能数据保留原始数字格式以确保准确性。）</p>
-<div class="markdown-heading"><h2 class="heading-element">DMSC：面向时间序列预测的动态多尺度协同框架</h2><a id="user-content-dmsc面向时间序列预测的动态多尺度协同框架" class="anchor" aria-label="Permalink: DMSC：面向时间序列预测的动态多尺度协同框架" href="#dmsc面向时间序列预测的动态多尺度协同框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.02753v1 公告类型：新研究<br>
-摘要：时间序列预测（TSF）领域在建模多尺度复杂时序依赖关系方面长期面临挑战。尽管近期研究基于CNN、MLP或Transformer架构结合多种分解操作取得进展，现有方法仍受限于静态分解策略、碎片化依赖建模和僵化的融合机制，难以有效捕捉复杂时序依赖。为针对性解决上述三大问题，我们提出动态多尺度协同框架（DMSC），其核心包含多尺度分块分解模块（EMPD）、三元交互模块（TIB）和自适应尺度路由混合专家模块（ASR-MoE）。具体而言：EMPD作为内置组件动态将序列分割为具有指数级粒度差异的层次化片段，通过输入自适应的片段调整消除预设尺度限制；TIB在每层分解表征中联合建模片段内、片段间和跨变量依赖关系；EMPD与TIB通过多层渐进级联架构整合，其中早期层的粗粒度表征通过门控通路自适应指导后续层细粒度特征提取；ASR-MoE则利用具有时序感知加权的全局/局部专家动态融合多尺度预测。在13个真实世界基准测试上的综合实验表明，DMSC在保持最优计算效率的同时，始终维持最先进的预测性能。代码已开源：<a href="https://github.com/1327679995/DMSC%E3%80%82">https://github.com/1327679995/DMSC。</a></p>
-<p>（注：根据学术文献翻译规范，对以下术语进行了标准化处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">可扩展的预训练框架：面向高效适配的链接预测</h2><a id="user-content-可扩展的预训练框架面向高效适配的链接预测" class="anchor" aria-label="Permalink: 可扩展的预训练框架：面向高效适配的链接预测" href="#可扩展的预训练框架面向高效适配的链接预测"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.04645v1 公告类型：新研究<br>
+摘要：链接预测（LP）是图机器学习中的核心任务。尽管图神经网络（GNNs）近期显著提升了LP性能，现有方法仍面临关键挑战：稀疏连接导致的监督信号不足、对初始化的敏感性，以及分布偏移下的泛化能力弱。我们探索通过预训练解决这些问题。与节点分类不同，LP本质上是成对任务，需要融合节点级和边级信息。本研究首次系统分析了这两类模块的可迁移性，并提出一种延迟融合策略以有效整合其输出，从而提升性能。针对预训练数据多样性并避免负迁移，我们引入了混合专家（MoE）框架，通过独立专家捕获不同模式，使预训练模型能无缝应用于多样化下游数据集。为实现快速适配，开发了参数高效的调优策略，使预训练模型能以极低计算开销适应未知数据集。在跨两个领域的16个数据集上的实验表明，我们的方法在低资源链接预测中达到最先进性能，同时相比端到端训练方法获得具有竞争力的结果，且计算开销降低超过10,000倍。</p>
+<p>（翻译说明：</p>
 <ol>
-<li>"patch"在时序分析语境下译为"片段"而非字面"补丁"</li>
-<li>"granularities"译为"粒度"以准确表达尺度概念</li>
-<li>"gated pathways"译为"门控通路"符合神经网络术语惯例</li>
-<li>"state-of-the-art"采用学界通用译法"最先进的"</li>
-<li>保留所有技术缩写（EMPD/TIB/ASR-MoE）确保学术严谨性）</li>
+<li>专业术语统一处理："Link Prediction"译为"链接预测"，"Graph Neural Networks"保留缩写"GNNs"并首次出现时标注全称</li>
+<li>技术概念准确转化："Mixture-of-Experts"采用学界通用译法"混合专家"，"negative transfer"译为"负迁移"</li>
+<li>长句拆分重构：将原文复合句按中文表达习惯分解为多个短句，如将"which requires..."独立成短句</li>
+<li>数量级表达本地化："over 10,000x lower"译为"降低超过10,000倍"符合中文科技文献表述</li>
+<li>被动语态转化："it is demonstrated"转为主动式"实验表明"</li>
+<li>保持学术文本严谨性：精确翻译"distribution shifts"为"分布偏移"而非字面"分布变化"）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">何处及如何增强：探索位宽贡献以实现混合精度量化</h2><a id="user-content-何处及如何增强探索位宽贡献以实现混合精度量化" class="anchor" aria-label="Permalink: 何处及如何增强：探索位宽贡献以实现混合精度量化" href="#何处及如何增强探索位宽贡献以实现混合精度量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.03002v1 公告类型：新研究<br>
-摘要：混合精度量化（MPQ）是一种通过为神经网络每层的激活值和权重分配不同位宽，以实现精度-复杂度权衡的有效量化方法。现有MPQ方法的典型做法是以梯度下降方式优化量化策略（即位宽分配），称为可微分混合精度量化（DMPQ）。在搜索结束时，选择与量化参数最大值对应的位宽来形成最终的混合精度量化策略，其隐含假设是量化参数值反映了操作对精度提升的贡献程度。虽然关于MPQ改进的讨论很多，但位宽选择过程却鲜少受到关注。我们研究这一问题并指出：量化参数的大小未必能反映位宽对任务性能的实际贡献。为此，我们提出基于Shapley值的混合精度量化（SMPQ）方法，直接度量位宽操作对MPQ任务的贡献。为降低计算成本，针对Shapley值计算提出了一种基于蒙特卡洛采样的近似策略。在主流基准测试上的大量实验表明，我们的SMPQ方法始终比基于梯度的竞争方法具有更优的性能，达到了当前最先进水平。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了统一处理：</p>
-<ol>
-<li>"bit-width"统一译为"位宽"</li>
-<li>"quantization parameters"译为"量化参数"</li>
-<li>"state-of-the-art"译为"当前最先进水平"</li>
-<li>专业缩写MPQ/DMPQ/SMPQ首次出现时标注全称，后续直接使用缩写</li>
-<li>被动语态转换为主动语态（如"has received little attention"译为"鲜少受到关注"）</li>
-<li>长难句拆分重组（如原文最后一句拆分为两个中文分句））</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">EoH-S：基于大型语言模型的启发式集合进化——自动化启发式设计方法</h2><a id="user-content-eoh-s基于大型语言模型的启发式集合进化自动化启发式设计方法" class="anchor" aria-label="Permalink: EoH-S：基于大型语言模型的启发式集合进化——自动化启发式设计方法" href="#eoh-s基于大型语言模型的启发式集合进化自动化启发式设计方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明：</p>
-<ol>
-<li>"Evolution of Heuristic Set" 采用"启发式集合进化"的译法，既保持学术术语的准确性，又通过"集合"明确表达set的群体概念</li>
-<li>"using LLMs" 译为"基于大型语言模型"，符合中文前置修饰的语序习惯</li>
-<li>"Automated Heuristic Design" 处理为"自动化启发式设计方法"，补充"方法"二字使中文更完整，同时保留自动化(Automated)与启发式(Heuristic)的专业术语对应</li>
-<li>整体采用破折号连接主副标题，符合中文技术文献标题的常见结构</li>
-<li>保留英文缩写"EoH-S"和"LLMs"以方便学术检索，首次出现时标注全称）</li>
-</ol>
-<p>arXiv:2508.03082v1 公告类型：新研究<br>
-摘要：基于大语言模型（LLM）的自动化启发式设计（AHD）近年来取得显著成功。尽管现有方法效果显著，但它们仅设计单一启发式策略应对所有问题实例，往往导致对不同分布或场景的泛化能力不足。为此，我们提出自动化启发式集合设计（AHSD）这一LLM驱动AHD的新范式，其核心目标是自动生成小型互补启发式集合，使每个问题实例都能被集合中至少一个启发式策略优化。我们证明AHSD的目标函数具有单调性和超模性，进而提出启发式集合进化算法（EoH-S）来实现LLM驱动的AHSD。通过互补种群管理和互补意识模因搜索两项创新机制，EoH-S能有效生成高质量且互补的启发式策略集合。在涵盖不同规模与分布实例的三大AHD任务实验中，EoH-S持续超越现有最优AHD方法，最高可实现60%的性能提升。</p>
-<p>（注：根据学术文本翻译规范，对部分术语进行了标准化处理：</p>
-<ol>
-<li>"formulation"译为"范式"以体现方法论创新</li>
-<li>"memetic search"采用通用译法"模因搜索"</li>
-<li>保持"monotone and supermodular"数学术语的准确性</li>
-<li>将长复合句合理切分为符合中文表达习惯的短句</li>
-<li>百分比符号统一采用中文全角格式"％"）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">小型KV：借助小模型辅助补偿KV缓存压缩，以实现高效大型语言模型推理</h2><a id="user-content-小型kv借助小模型辅助补偿kv缓存压缩以实现高效大型语言模型推理" class="anchor" aria-label="Permalink: 小型KV：借助小模型辅助补偿KV缓存压缩，以实现高效大型语言模型推理" href="#小型kv借助小模型辅助补偿kv缓存压缩以实现高效大型语言模型推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.02751v1 公告类型：新研究<br>
-摘要：KV缓存淘汰已成为缓解大语言模型（LLM）在长上下文场景中资源限制的有效方案。然而现有基于令牌级的淘汰方法往往忽视两个关键问题：（1）其不可逆的淘汰策略无法适应解码过程中动态变化的注意力模式（显著性漂移问题）；（2）将边缘重要令牌与真正不重要的令牌同等对待，尽管这些边缘令牌对模型性能具有集体重要性（边缘信息过度压缩问题）。为此，我们基于不同规模LLM注意力矩阵的高度相似性，设计了两项补偿机制，提出SmallKV——一种小模型辅助的KV缓存压缩补偿方法。SmallKV能保持不同规模LLM间的注意力匹配以实现：1）协助大模型感知注意力的全局重要信息；2）利用小模型的注意力分数来近似大模型中边缘令牌的注意力分布。在GSM8K、BBH、MT-Bench和LongBench等基准测试上的大量实验验证了SmallKV的有效性。效率评估表明，SmallKV的吞吐量比基线方法提升1.75-2.56倍，凸显了其在资源受限环境下实现高效高性能LLM推理的潜力。</p>
+<div class="markdown-heading"><h2 class="heading-element">FlexQ：通过算法-系统协同设计实现高效LLM服务后训练INT6量化</h2><a id="user-content-flexq通过算法-系统协同设计实现高效llm服务后训练int6量化" class="anchor" aria-label="Permalink: FlexQ：通过算法-系统协同设计实现高效LLM服务后训练INT6量化" href="#flexq通过算法-系统协同设计实现高效llm服务后训练int6量化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.04405v1 公告类型：新研究<br>
+摘要：大语言模型（LLMs）展现出卓越性能，但需要极高的内存和计算成本，限制了实际部署。现有INT4/INT8量化虽能降低开销，却常导致精度下降或效率欠佳。INT6量化在模型精度与推理效率间提供了更优平衡，但现代GPU缺乏硬件支持，只能通过高精度算术单元模拟，制约了加速效果。</p>
+<p>本文提出FlexQ——一种结合算法创新与系统级优化的新型训练后INT6量化框架。FlexQ采用全层统一6比特权重量化，并通过逐层敏感度分析自适应保留部分层的8比特激活值。为最大化硬件效率，我们开发了专用高性能GPU内核，通过二进制张量核心（BTC）等效方案支持W6A6和W6A8表示的矩阵运算，有效规避了原生INT6张量核心的缺失。在LLaMA模型上的评估表明，FlexQ保持接近FP16的精度，困惑度增幅不超过0.05。所提内核在LLaMA-2-70B线性层上较ABQ-LLM平均实现1.39倍加速。端到端测试中，FlexQ相比SmoothQuant带来1.33倍推理加速和1.21倍内存节省。代码已开源：<a href="https://github.com/FlyFoxPlayer/FlexQ%E3%80%82">https://github.com/FlyFoxPlayer/FlexQ。</a></p>
+<p>（注：根据技术文献翻译规范，专业术语如"Binary Tensor Core"保留英文缩写"BTC"并首次出现时标注中文全称；数学符号"$\times$"转换为中文惯用的"倍"；长句按中文表达习惯拆分为短句；被动语态转换为主动表述；项目名称"FlexQ"等专有名词不作翻译。）</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

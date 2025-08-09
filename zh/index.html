@@ -12,45 +12,39 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">可验证的训练后量化：OPTQ与Qronos的理论分析</h2><a id="user-content-可验证的训练后量化optq与qronos的理论分析" class="anchor" aria-label="Permalink: 可验证的训练后量化：OPTQ与Qronos的理论分析" href="#可验证的训练后量化optq与qronos的理论分析"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.04853v1 公告类型：新论文<br>
-摘要：训练后量化（PTQ）已成为降低现代深度神经网络（包括大语言模型/LLMs）内存与计算成本的关键技术。在众多PTQ算法中，OPTQ框架（又称GPTQ）因其计算高效性和卓越的实证表现成为主流方法。然而尽管被广泛采用，OPTQ始终缺乏严格的量化理论保证。本文首次为OPTQ的确定性/随机变体以及近期相关的前沿PTQ算法Qronos提供了定量误差界。我们分析了OPTQ迭代过程如何引致量化误差，推导出显式依赖于校准数据和OPTQ正则化参数的非渐近二范数误差界。该分析为多项实践设计选择提供了理论依据：包括按特征范数降序排列的常用启发式方法，以及正则化参数的选择指导。对于随机变体，我们建立了更强的无穷范数误差界，可实现对量化字母表的精确控制，这对下游层和非线性处理尤为重要。最后，我们将分析延伸至Qronos算法，为其确定性/随机变体提供了新的理论边界，从而解释其实证优势。</p>
-<p>（注：根据学术文献翻译规范，对以下术语进行了统一处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">Fairy$\pm i$：首个全参数为${\pm1, \pm i}$的2比特复数大语言模型</h2><a id="user-content-fairypm-i首个全参数为pm1-pm-i的2比特复数大语言模型" class="anchor" aria-label="Permalink: Fairy$\pm i$：首个全参数为${\pm1, \pm i}$的2比特复数大语言模型" href="#fairypm-i首个全参数为pm1-pm-i的2比特复数大语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：根据技术术语惯例，"LLM"译为"大语言模型"；"All Parameters in ${\pm1, \pm i}$"采用数学符号保持原格式，补充"为"字使中文更通顺；复数概念"complex"通过保留数学符号$\pm i$自然体现；"2-bit"译为"2比特"符合计算机领域术语规范）</p>
+<p>量化感知训练（QAT）将量化过程融入训练循环，使大语言模型能够学习鲁棒的低比特表示，被公认为最具前景的研究方向之一。现有QAT研究均致力于最小化全精度模型的量化误差——此时全精度准确率构成量化模型的上限（精度天花板），尚无任何方法尝试突破这一极限。为打破此限制，我们提出全新范式：先抬升天花板（优化全精度模型），再将其高效量化为2比特。我们推出首个面向复数值大语言模型的2比特量化框架Fairy$\pm i$，其核心在于利用复数域的表示优势提升全精度模型准确率：将权重映射至四次单位根${\pm1, \pm i}$，形成完全对称且信息论最优的2比特表示。关键创新在于，每个量化权值的实部或虚部必为零，使得推理过程仅需加法与元素交换即可完成，彻底消除乘法运算。实验表明，Fairy$\pm i$在PPL和下游任务上均超越现有2比特量化方法的精度天花板，同时严格保持存储与计算效率。这项研究为在极低比特约束下构建高精度实用化大语言模型开辟了新方向。</p>
+<div class="markdown-heading"><h2 class="heading-element">MoBE：基于专家混合的压缩技术——面向MoE架构的大语言模型</h2><a id="user-content-mobe基于专家混合的压缩技术面向moe架构的大语言模型" class="anchor" aria-label="Permalink: MoBE：基于专家混合的压缩技术——面向MoE架构的大语言模型" href="#mobe基于专家混合的压缩技术面向moe架构的大语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>专家混合（Mixture-of-Experts，MoE）架构已成为扩展大语言模型（LLM）的主流范式。尽管DeepSeek-V3-0324、Kimi-K2-Instruct等基于MoE的大型语言模型展现出卓越性能和计算效率，但其部署时巨大的内存需求仍构成严峻挑战。虽然近期研究尝试通过MoE压缩解决该问题，但现有方法即便在适度压缩率下也常伴随显著准确率下降（相对下降7%-14%）。本文提出创新的"基础专家混合"（Mixture-of-Basis-Experts，MoBE）方法，在实现模型压缩的同时将准确率损失降至最低。具体而言，该方法通过秩分解将每个专家中的上投影/门控矩阵表示为W=AB，其中矩阵A保持专家独特性；而规模较大的共享矩阵B则进一步重构为MoE层内所有专家共用的基础矩阵{Bi}的线性组合。通过最小化权重矩阵重构误差学习分解参数。实验表明，MoBE相较现有方法能显著降低准确率损失。例如对Qwen3-235B-A22B-2507、DeepSeek-V3-0324（671B）和Kimi-K2-Instruct（1T）进行24%-30%参数压缩时，MoBE仅产生1%-2%绝对准确率下降（相对下降约2%）。</p>
+<div class="markdown-heading"><h2 class="heading-element">通过识别与保护功能网络来修剪大型语言模型</h2><a id="user-content-通过识别与保护功能网络来修剪大型语言模型" class="anchor" aria-label="Permalink: 通过识别与保护功能网络来修剪大型语言模型" href="#通过识别与保护功能网络来修剪大型语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>结构化剪枝是压缩大型语言模型（LLM）的代表性技术之一，旨在降低GPU内存消耗并加速推理速度。该技术对于提升LLM在实际应用中的效率具有重要实用价值。当前的结构化剪枝方法通常依赖于对结构单元重要性的评估，并剪除重要性较低的单元。然而，这些方法大多忽视了人工神经元之间的交互与协作——这些特性对LLM的功能实现至关重要——导致LLM的宏观功能架构遭到破坏，进而影响剪枝效果。</p>
+<p>受人工神经网络与人脑功能神经网络内在相似性的启发，本研究通过识别并保留LLM内部的功能网络来解决这一难题。具体而言，我们将LLM视为数字大脑，仿照神经影像数据中功能脑网络的识别方法，将LLM分解为多个功能网络。随后通过保留这些功能网络中的关键神经元来实现模型剪枝。实验结果表明，该方法能成功识别并定位LLM中的功能网络与关键神经元，从而实现高效模型压缩。项目代码已开源：<a href="https://github.com/WhatAboutMyStar/LLM_ACTIVATION%E3%80%82">https://github.com/WhatAboutMyStar/LLM_ACTIVATION。</a></p>
+<p>（注：根据技术文本翻译规范，对以下要点进行了优化处理：</p>
 <ol>
-<li>"Post-training quantization"译为"训练后量化"（PTQ标准译法）</li>
-<li>"large language models"保留英文缩写"LLMs"并首次出现时标注中文全称</li>
-<li>"non-asymptotic 2-norm"译为"非渐近二范数"保持数学术语准确性</li>
-<li>"downstream layers and nonlinearities"意译为"下游层和非线性处理"以符合中文表达习惯）</li>
+<li>"functional neural networks"统一译为"功能神经网络"以保持神经科学术语一致性</li>
+<li>"digital brain"译为"数字大脑"既保留隐喻又符合中文认知</li>
+<li>长难句拆分重组，如将"leading to..."因果链转换为显性连接词"导致...进而..."</li>
+<li>被动语态转换，如"are crucial for"译为"对...至关重要"</li>
+<li>专业表述统一性："structured pruning"全篇统一为"结构化剪枝"</li>
+<li>补充了原文隐含逻辑，如"仿照神经影像数据中..."使类比关系更清晰）</li>
 </ol>
+<div class="markdown-heading"><h2 class="heading-element">分享你的注意力：基于矩阵字典学习的Transformer权重共享</h2><a id="user-content-分享你的注意力基于矩阵字典学习的transformer权重共享" class="anchor" aria-label="Permalink: 分享你的注意力：基于矩阵字典学习的Transformer权重共享" href="#分享你的注意力基于矩阵字典学习的transformer权重共享"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>大型语言模型（LLMs）虽已彻底改变人工智能应用，但其高昂的计算与内存需求阻碍了广泛部署。现有压缩技术主要关注块内优化（如低秩近似、注意力头剪枝），而Transformer的重复分层结构暗示着显著的块间冗余——这一维度除键值（KV）缓存外尚未得到充分探索。受CNN中字典学习的启发，我们提出跨Transformer层的结构化权重共享框架。该方法将注意力投影矩阵分解为共享字典原子，在保持性能相当的同时将注意力模块参数量减少66.7%。不同于需要知识蒸馏或架构修改的复杂方案，MASA（注意力矩阵原子共享）可作为即插即用方案——使用标准优化器训练——通过共享矩阵原子的线性组合表征各层权重。不同规模实验（1亿-7亿参数）表明，在同等参数量级下，MASA相比分组查询注意力（GQA）、低秩基线及近期提出的全重复/顺序共享方案，能获得更优的基准准确率与困惑度。消融研究验证了其对字典尺寸的鲁棒性，以及共享表征在捕捉跨层统计规律方面的有效性。扩展至视觉Transformer（ViT）时，MASA在图像分类与检测任务上以66.7%更少的注意力参数达到同等指标。通过将字典学习策略与Transformer效率相结合，MASA为不牺牲性能的参数高效模型提供了可扩展的蓝图。最后，我们探索了在预训练LLMs上应用MASA以削减参数量而不显著影响性能的可能性。</p>
 <div class="markdown-heading"><h2 class="heading-element">InfoQ：基于全局信息流的混合精度量化技术</h2><a id="user-content-infoq基于全局信息流的混合精度量化技术" class="anchor" aria-label="Permalink: InfoQ：基于全局信息流的混合精度量化技术" href="#infoq基于全局信息流的混合精度量化技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.04753v1 公告类型：新研究<br>
-摘要：混合精度量化（MPQ）对于在资源受限设备上部署深度神经网络至关重要，但为每一层寻找最优位宽是一个复杂的组合优化问题。当前最先进的方法依赖于计算成本高昂的搜索算法或局部敏感性启发式代理（如Hessian矩阵），这些方法无法捕捉量化误差的级联全局效应。本研究提出，层的量化敏感性不应通过其局部属性衡量，而应通过其对整个网络信息流的影响来评估。我们引入InfoQ这一新颖的MPQ框架，在位宽搜索阶段无需训练。InfoQ通过将每层以不同位宽量化，并通过单次前向传播测量后续层中互信息的变化来评估层敏感性，从而量化每层量化对网络信息流的影响。所得分数用于将位宽分配表述为整数线性规划问题，通过高效求解在给定约束（如模型大小或BitOps）下最小化总体敏感性。我们的免重训练搜索阶段实现了更优的搜索时间/准确率权衡（相比LIMPQ等最先进方法减少两个数量级的数据使用），同时在ImageNet数据集上对MobileNetV2和ResNet18在高压缩率（14倍和10.66倍）下实现了最高1%的准确率提升。</p>
-<div class="markdown-heading"><h2 class="heading-element">Fairy$\pm i$：首个全参数为${\pm1, \pm i}$的2位复数大语言模型</h2><a id="user-content-fairypm-i首个全参数为pm1-pm-i的2位复数大语言模型" class="anchor" aria-label="Permalink: Fairy$\pm i$：首个全参数为${\pm1, \pm i}$的2位复数大语言模型" href="#fairypm-i首个全参数为pm1-pm-i的2位复数大语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：根据技术翻译惯例，"via"在此上下文中译为"基于"更符合中文技术文献的表达习惯；"Global Information Flow"采用直译加专业术语处理，确保技术准确性；"Mixed-Precision Quantization"译为"混合精度量化技术"，补充"技术"二字使中文表述更完整；整体采用主谓宾结构，符合中文技术标题简洁明了的特征。）</p>
+<p>混合精度量化（MPQ）技术对于在资源受限设备上部署深度神经网络至关重要，但为每个网络层寻找最优位宽是一个复杂的组合优化问题。当前最先进的方法依赖于计算成本高昂的搜索算法或局部敏感性启发式代理指标（如Hessian矩阵），这些方法无法捕捉量化误差的级联全局效应。本研究提出，网络层的量化敏感性不应由其局部特性决定，而应通过其对整个网络信息流动的影响来衡量。我们创新性地开发了InfoQ框架——一种在比特宽度搜索阶段无需重新训练的MPQ解决方案。该框架通过以下方式评估层敏感性：以不同位宽量化目标层后，仅需单次前向传播即可测量后续层间互信息的变化量，从而量化每个层的量化操作对网络信息流的扰动程度。基于这些敏感性评分，我们将位宽分配问题建模为整数线性规划问题，在给定约束条件（如模型大小或BitOps运算量）下高效求解全局敏感性最小化方案。相比LIMPQ等前沿方法，我们的免训练搜索机制实现了更优的搜索效率/精度平衡（数据消耗量降低两个数量级），同时在ImageNet数据集上对MobileNetV2和ResNet18模型实现14倍和10.66倍高压缩率时，最高可获得1%的精度提升。</p>
+<div class="markdown-heading"><h2 class="heading-element">可验证的训练后量化：OPTQ与Qronos的理论分析</h2><a id="user-content-可验证的训练后量化optq与qronos的理论分析" class="anchor" aria-label="Permalink: 可验证的训练后量化：OPTQ与Qronos的理论分析" href="#可验证的训练后量化optq与qronos的理论分析"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>训练后量化（PTQ）已成为降低现代深度神经网络（包括大语言模型）内存与计算成本的关键技术。在众多PTQ算法中，OPTQ框架（又称GPTQ）凭借其计算效率和卓越的实证表现脱颖而出。然而尽管该技术已被广泛采用，OPTQ始终缺乏严谨的量化理论保证。本文首次为OPTQ的确定性与随机变体，以及近期相关的最先进PTQ算法Qronos，建立了定量误差界限。我们通过分析OPTQ迭代过程如何引发量化误差，推导出显式依赖于校准数据和OPTQ所用正则化参数的非渐近二范数误差界。该分析为多项实践设计选择提供了理论依据，包括按特征范数降序排列这一广泛采用的启发式策略，并为正则化参数的选择提供了指导。针对随机变体，我们建立了更强的无穷范数误差界，可实现对量化字母表的精确控制，这对下游层和非线性处理尤为重要。最后，我们将分析延伸至Qronos算法，为其确定性与随机变体提供了新的理论界限，这些发现有助于解释该算法的实证优势。</p>
+<div class="markdown-heading"><h2 class="heading-element">FlexQ：通过算法-系统协同设计实现高效LLM服务的训练后INT6量化技术</h2><a id="user-content-flexq通过算法-系统协同设计实现高效llm服务的训练后int6量化技术" class="anchor" aria-label="Permalink: FlexQ：通过算法-系统协同设计实现高效LLM服务的训练后INT6量化技术" href="#flexq通过算法-系统协同设计实现高效llm服务的训练后int6量化技术"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>（注：翻译说明：</p>
 <ol>
-<li>保留"Fairy$\pm i$"作为专有名称不译，数学符号$\pm$和复数单位$i$维持原格式以保持技术准确性</li>
-<li>"2-bit complex LLM"译为"2位复数大语言模型"，其中：
-<ul>
-<li>"2-bit"采用计算机领域常规译法"2位"（非"2比特"）</li>
-<li>"complex"明确译为"复数"以强调其数学属性</li>
-<li>"LLM"使用行业通用译法"大语言模型"</li>
-</ul>
-</li>
-<li>技术描述"All Parameters in ${\pm1, \pm i}$"译为"全参数为${\pm1, \pm i}$"，保持数学集合符号的规范表达</li>
-<li>整体采用技术论文标题的简洁风格，通过冒号分层表述核心创新点）</li>
+<li>"FlexQ" 作为专有技术名词保留不译</li>
+<li>"INT6" 是6位整数量化的技术术语，保留英文缩写</li>
+<li>"Algorithm-System Co-Design" 译为"算法-系统协同设计"，这是计算机领域的标准译法</li>
+<li>"Post-training" 译为"训练后"，准确表达模型训练完成后进行量化的含义</li>
+<li>整体采用技术文献的简洁风格，通过"实现...技术"的句式保持专业感）</li>
 </ol>
-<p>arXiv:2508.05571v1 公告类型：新研究<br>
-摘要：量化感知训练（QAT）将量化过程整合到训练循环中，使大语言模型（LLM）能够学习鲁棒的低比特表示，被广泛视为最具前景的研究方向之一。当前所有QAT研究都聚焦于最小化全精度模型的量化误差——此时全精度模型的准确率构成量化模型的上限（精度天花板）。现有方法均未尝试突破这一极限。为打破此天花板，我们提出新范式：先抬升天花板（提升全精度模型性能），再将其高效量化为2比特。我们推出Fairy$\pm i$，首个面向复数值大语言模型的2比特量化框架。具体而言，该方法利用复数域的表示优势提升全精度模型准确率：将权重映射至四次单位根${\pm1, \pm i}$，形成完全对称且信息论最优的2比特表示。关键创新在于，每个量化权重的实部或虚部必为零，使得推理过程仅需加法和元素交换即可完成，彻底消除乘法运算。实验表明，Fairy$\pm i$在PPL和下游任务中的表现均超越现有2比特量化方法的精度天花板，同时严格保持存储和计算效率。此项工作为在极低比特约束下构建高精度、实用化大语言模型开辟了新方向。</p>
-<p>（注：根据技术文本特点，翻译中采取以下处理：</p>
-<ol>
-<li>专业术语保留英文缩写（如QAT, LLM, PPL）并首次出现时标注中文全称</li>
-<li>数学符号$\pm i$等保留原格式以保持精确性</li>
-<li>"multiplication-free inference"译为"消除乘法运算"以突出技术突破点</li>
-<li>长句按中文习惯切分，如将原文最后复合句拆分为三个短句，保持逻辑清晰）</li>
-</ol>
-<div class="markdown-heading"><h2 class="heading-element">MoBE：基于专家混合的压缩技术，面向MoE架构的大语言模型</h2><a id="user-content-mobe基于专家混合的压缩技术面向moe架构的大语言模型" class="anchor" aria-label="Permalink: MoBE：基于专家混合的压缩技术，面向MoE架构的大语言模型" href="#mobe基于专家混合的压缩技术面向moe架构的大语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：此处采用意译与直译结合的方式，既保留"Mixture-of-Basis-Experts"的技术概念特征，又通过"专家混合的压缩技术"明确其功能属性。"MoE-based LLMs"译为"MoE架构的大语言模型"既体现模型结构特性，又符合中文技术文献表述习惯。整体译名在保持专业性的同时确保可读性，其中"MoBE"作为专有名词保留不译。）</p>
-<p>arXiv:2508.05257v1 公告类型：新研究<br>
-摘要：混合专家（MoE）架构已成为扩展大语言模型（LLM）的主流范式。尽管DeepSeek-V3-0324、Kimi-K2-Instruct等基于MoE的大型LLM在性能和计算效率上表现优异，但其部署时巨大的内存需求带来严峻挑战。虽然近期研究探索了MoE压缩技术以解决此问题，但现有方法即使在中等压缩率下也常伴随显著精度下降（例如相对下降7%-14%）。本文提出一种新颖的混合基底专家（MoBE）方法，能在实现模型压缩的同时将精度损失降至最低。具体而言，该方法通过秩分解将每个专家中的上投影/门控矩阵表示为W=AB，其中矩阵A为各专家独有；而较大的共享矩阵B则进一步参数化为同一MoE层内所有专家共用的基底矩阵{Bi}的线性组合。通过最小化权重矩阵重构误差学习该分解结构。实验表明，MoBE相比现有方法显著降低了精度损失。例如，MoBE能将Qwen3-235B-A22B-2507、DeepSeek-V3-0324（671B）和Kimi-K2-Instruct（1T）参数量减少24%-30%，仅产生1%-2%的绝对精度下降（相对下降约2%）。</p>
-<p>（注：模型名称如"DeepSeek-V3-0324"等保留原名称不译；技术术语"rank decomposition"译为"秩分解"，"re-parameterized"译为"参数化重构"；长句按中文习惯拆分为短句；数值范围表达调整为中文惯用格式）</p>
+<p>大语言模型（LLMs）虽展现出卓越性能，却伴随着高昂的内存与计算成本，制约了实际部署。现有INT4/INT8量化虽能降低开销，但往往导致精度下降或效率欠佳。INT6量化在模型精度与推理效率间提供了更优平衡，但现代GPU缺乏硬件支持，被迫通过高精度算术单元模拟运行，严重限制了加速效果。</p>
+<p>本文提出FlexQ——一种融合算法创新与系统级优化的新型训练后INT6量化框架。该方案采用全层统一的6比特权重量化，并通过层级敏感度分析自适应保留特定层的8比特激活值。为实现硬件效率最大化，我们开发了专用高性能GPU核，通过二进制张量核心（BTC）等效运算支持W6A6与W6A8表示的矩阵乘法，有效规避了原生INT6张量核心的缺失。LLaMA系列模型评估表明，FlexQ在保持接近FP16精度的同时，困惑度增幅不超过0.05。所提核函数在LLaMA-2-70B线性层上较ABQ-LLM平均实现1.39倍加速。端到端测试中，FlexQ相比SmoothQuant带来1.33倍推理加速与1.21倍内存节省。代码已开源：<a href="https://github.com/FlyFoxPlayer/FlexQ%E3%80%82">https://github.com/FlyFoxPlayer/FlexQ。</a></p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

@@ -12,44 +12,49 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">Fairy$\pm i$：首个全参数为${\pm1, \pm i}$的2位复数大语言模型</h2><a id="user-content-fairypm-i首个全参数为pm1-pm-i的2位复数大语言模型" class="anchor" aria-label="Permalink: Fairy$\pm i$：首个全参数为${\pm1, \pm i}$的2位复数大语言模型" href="#fairypm-i首个全参数为pm1-pm-i的2位复数大语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：此翻译在保持数学符号规范性的同时，采用以下处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">修剪无惊喜之处：通过首词惊异值实现高效代码推理</h2><a id="user-content-修剪无惊喜之处通过首词惊异值实现高效代码推理" class="anchor" aria-label="Permalink: 修剪无惊喜之处：通过首词惊异值实现高效代码推理" href="#修剪无惊喜之处通过首词惊异值实现高效代码推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.05988v1 公告类型：新研究<br>
+摘要：近期，大型推理模型（LRMs）通过扩展思维链（CoT）的长度，在代码推理任务中展现出卓越能力。然而，过长的推理轨迹会带来训练成本、推理延迟和部署可行性方面的重大挑战。虽然目前已有多种CoT压缩方法应对这一挑战，但它们存在固有缺陷：基于词元级别的压缩往往会破坏语法和逻辑连贯性，而基于困惑度的步骤级方法又难以可靠捕捉逻辑关键推理步骤。本文提出ASAP（锚点引导的基于惊异值的剪枝框架），一种新颖的"由粗到细"CoT压缩框架。ASAP首先执行锚点引导剪枝以保留核心推理结构，有效缩小后续处理搜索空间；随后通过基于首创的"首词惊异值"指标选择逻辑关键步骤，实现逻辑感知的剪枝；最终指导模型在推理时自主生成并利用这些精简CoT，实现高效的代码任务推理。实验表明，ASAP在多个代码生成基准测试中达到最先进准确率，同时显著降低训练和推理成本。在极具挑战性的LiveCodeBench v4_v5基准测试中，相较最强基线方法，我们的方案减少了23.5%的词元生成和43.5%的推理延迟，同时保持36.19%的Pass@1竞争性准确率。这一成果为构建强大且高效的大型推理模型指明了前景广阔的发展方向。</p>
+<p>（注：专业术语说明：</p>
 <ol>
-<li>保留技术术语"LLM"的标准译法"大语言模型"</li>
-<li>复数单位"i"沿用数学领域通用符号不作翻译</li>
-<li>"2-bit"译为"2位"符合中文计算机术语习惯</li>
-<li>使用中文括号保持数学集合表示规范</li>
-<li>标题结构采用中文技术文献常用的冒号分层表述）</li>
+<li>"surprisal"译为"惊异值"，是信息论中衡量事件意外程度的指标</li>
+<li>"Pass@1"保留英文术语，指模型首次生成即通过测试的准确率</li>
+<li>"Chain-of-Thought"统一译为"思维链"，简称CoT保持英文缩写</li>
+<li>"LiveCodeBench"作为专有名称保留不译）</li>
 </ol>
-<p>量化感知训练（QAT）将量化过程融入训练循环，使大语言模型能够学习鲁棒的低比特表征，被公认为最具前景的研究方向之一。现有QAT研究均致力于最小化全精度模型的量化误差——全精度模型的准确率在此被视为不可逾越的上限（精度天花板）。目前尚无任何方法尝试突破这一极限。为打破此桎梏，我们提出全新范式：先抬升天花板（全精度模型性能），再将其高效量化为2比特。我们推出首个面向复数值大语言模型的2比特量化框架Fairy$\pm i$。具体而言，该方法利用复数域的表示优势提升全精度准确率：将权重映射至四次单位根${\pm1, \pm i}$，形成完全对称且信息论最优的2比特表征。关键突破在于，每个量化权重的实部或虚部必为零，使得推理过程仅需加法与元素交换即可完成，彻底消除乘法运算。实验表明，Fairy$\pm i$在PPL和下游任务中均超越现有2比特量化方法的精度上限，同时严格保持存储与计算效率。此项研究为在极低比特约束下构建高精度实用化大语言模型开辟了新方向。</p>
+<div class="markdown-heading"><h2 class="heading-element">DP-LLM：运行时模型自适应与动态分层精度分配</h2><a id="user-content-dp-llm运行时模型自适应与动态分层精度分配" class="anchor" aria-label="Permalink: DP-LLM：运行时模型自适应与动态分层精度分配" href="#dp-llm运行时模型自适应与动态分层精度分配"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.06041v1 公告类型：新研究<br>
+摘要：如何有效处理对设备端大型语言模型（LLM）的多样化运行时约束查询（如延迟与精度需求）？多尺度量化通过叠加不同比特宽度量化的模型变体，实现了内存高效的LLM运行时自适应。然而，一个关键问题仍未解决：如何合理配置模型以匹配目标精度或延迟？混合精度虽提供了可行方案，但我们进一步利用核心发现——各层敏感性在解码迭代过程中会动态变化。基于此，我们提出DP-LLM创新机制，该机制根据输入值动态分配每层计算精度。DP-LLM为LLM中的每个线性层增设精度选择器，通过轻量级误差估计器和微调学习的阈值，在运行时动态确定比特宽度。多模型多基准测试表明，DP-LLM实现了更优的性能-延迟权衡，显著超越现有方法。</p>
+<p>（注：翻译严格遵循技术文献规范，处理要点包括：</p>
+<ol>
+<li>专业术语统一（如"quantization"译为"量化"、"fine-tuning"译为"微调"）</li>
+<li>长句拆分重组（如将原文复合从句转化为中文短句链）</li>
+<li>被动语态转化（如"models be properly configured"译为主动式"合理配置模型"）</li>
+<li>概念显化（如"runtime"译为"运行时"而非字面直译"运行时间"）</li>
+<li>技术表述准确性（如"mixed-precision"译为专业术语"混合精度"而非字面直译））</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">《第四态：带符号零的三进制系统——稳定大语言模型量化的新途径（及其他应用）》</h2><a id="user-content-第四态带符号零的三进制系统稳定大语言模型量化的新途径及其他应用" class="anchor" aria-label="Permalink: 《第四态：带符号零的三进制系统——稳定大语言模型量化的新途径（及其他应用）》" href="#第四态带符号零的三进制系统稳定大语言模型量化的新途径及其他应用"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>（翻译说明：</p>
 <ol>
-<li>专业术语处理："Quantization-Aware Training"采用业界通用译名"量化感知训练"，"LLMs"译为"大语言模型"</li>
-<li>数学概念本地化："fourth roots of unity"译为"四次单位根"符合数学术语规范</li>
-<li>技术亮点传达：通过"实部或虚部必为零"准确表达复数量化的核心创新</li>
-<li>句式重构：将英语长句拆分为符合中文表达习惯的短句，如对实验结果的描述</li>
-<li>文化适配："ceiling"译为"天花板"并保留括号英文注释，兼顾专业性与可读性</li>
-<li>符号保留：框架名称Fairy$\pm i$保留原始数学符号，维持学术严谨性）</li>
+<li>"The Fourth State" 译为"第四态"，呼应物理学中物质第四态（等离子体）的命名逻辑，突出技术突破性</li>
+<li>"Signed-Zero Ternary" 采用技术领域惯用译法"带符号零的三进制"，精确传达-0/+0的数学特性</li>
+<li>副标题处理为破折号连接主副标题，符合中文技术论文标题规范</li>
+<li>"Stable LLM Quantization" 译为"稳定大语言模型量化"，其中：
+<ul>
+<li>"Stable" 取计算机领域常用译法"稳定"而非"稳固"</li>
+<li>"LLM" 使用中文领域通用全称"大语言模型"</li>
+</ul>
+</li>
+<li>括号中的"(and More)" 译为"及其他应用"，既保留原文的开放性暗示，又符合中文标题简洁性要求）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">MoBE：基于专家混合的压缩技术——面向MoE架构的大语言模型</h2><a id="user-content-mobe基于专家混合的压缩技术面向moe架构的大语言模型" class="anchor" aria-label="Permalink: MoBE：基于专家混合的压缩技术——面向MoE架构的大语言模型" href="#mobe基于专家混合的压缩技术面向moe架构的大语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（翻译说明：</p>
+<p>arXiv:2508.05905v1 公告类型：新研究<br>
+摘要：量化通常被视为一种以性能质量换取计算需求降低的手段，即作为一种次优近似方案。然而，若从固定总资源预算的角度审视，则会得出截然不同的结论。我们提出有符号零三元量化（SZT）——这种2比特量化方法能确定性提供梯度信息，且不造成前向路径的性能损失。分析表明，与非量化方案相比，该量化方式可能提升信息密度。</p>
+<p>（注：根据学术论文摘要的翻译规范，进行了以下处理：</p>
 <ol>
-<li>采用"专家混合"对应"Mixture-of-Experts"的标准学术译法</li>
-<li>"Basis-Experts"创造性译为"基础专家"，保留算法层级含义
-3 使用破折号衔接副标题，符合中文技术文献标题规范</li>
-<li>"LLMs"完整展开为"大语言模型"，避免术语缩写</li>
-<li>整体结构保持原标题的技术精确性，同时通过"面向"一词增强中文动态表达）</li>
-</ol>
-<p>混合专家（Mixture-of-Experts，MoE）架构已成为扩展大语言模型（LLM）的主流范式。尽管DeepSeek-V3-0324、Kimi-K2-Instruct等基于MoE的大型语言模型展现出卓越性能和计算效率，但其部署时巨大的内存需求带来了严峻挑战。虽然近期研究尝试通过MoE压缩解决该问题，但现有方法即便在适度压缩率下也常伴随显著精度下降（例如相对下降7%-14%）。本文提出一种创新的混合基底专家（Mixture-of-Basis-Experts，MoBE）方法，能在几乎不损失精度的情况下实现模型压缩。具体而言，该方法通过秩分解将每个专家模块的上投影/门控矩阵表示为W = AB，其中矩阵A为专家独有；而规模较大的共享矩阵B则被进一步重构为MoE层内所有专家共用的基底矩阵{Bi}的线性组合。通过最小化权重矩阵重构误差学习分解参数，实验表明MoBE相比现有方法能显著降低精度损失。例如在Qwen3-235B-A22B-2507、DeepSeek-V3-0324（671B）和Kimi-K2-Instruct（1T）等模型上，MoBE可实现24%-30%的参数缩减，绝对精度损失仅1%-2%（相对精度损失约2%）。</p>
-<div class="markdown-heading"><h2 class="heading-element">通过识别并保留功能网络来修剪大型语言模型</h2><a id="user-content-通过识别并保留功能网络来修剪大型语言模型" class="anchor" aria-label="Permalink: 通过识别并保留功能网络来修剪大型语言模型" href="#通过识别并保留功能网络来修剪大型语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>结构化剪枝是压缩大型语言模型（LLM）的代表性技术之一，旨在降低GPU内存消耗并加速推理速度。该技术对于提升LLM在实际应用中的效率具有重要实用价值。当前主流的结构化剪枝方法通常基于对结构单元重要性的评估，进而裁剪重要性较低的单元。然而这类方法大多忽视了人工神经元间的交互与协作——这些特性对LLM的功能实现至关重要，往往会导致LLM宏观功能架构的破坏，最终造成剪枝效果下降。</p>
-<p>受人工神经网络与人脑功能神经网络内在相似性的启发，本研究通过识别并保留LLM内部的功能网络来解决这一难题。具体而言，我们将LLM视为数字大脑，仿照神经影像数据中功能脑网络的识别方法，将LLM分解为多个功能网络。随后通过保留这些功能网络中的关键神经元来实现模型剪枝。实验结果表明，所提方法能成功识别并定位LLM中的功能网络与关键神经元，实现高效模型压缩。项目代码已开源：<a href="https://github.com/WhatAboutMyStar/LLM_ACTIVATION%E3%80%82">https://github.com/WhatAboutMyStar/LLM_ACTIVATION。</a></p>
-<p>（注：根据技术文本特点，翻译中进行了以下处理：</p>
-<ol>
-<li>专业术语统一："structured pruning"译为"结构化剪枝"，"functional networks"译为"功能网络"</li>
-<li>长句拆分：将原文复合句按中文表达习惯分解为多个短句</li>
-<li>概念显化："digital brain"译为"数字大脑"并补充说明其类比关系</li>
-<li>被动语态转换："are crucial for"译为"对...至关重要"</li>
-<li>学术规范：保留技术缩写LLM及项目URL原貌）</li>
+<li>保留arXiv编号格式和公告类型标记</li>
+<li>"Signed-Zero Ternary"采用技术术语译法"有符号零三元量化"并附加括号标注原缩写"SZT"</li>
+<li>"deterministically"译为"确定性"以保持数学严谨性</li>
+<li>"information density"译为"信息密度"符合信息论术语惯例</li>
+<li>通过破折号和分号重构长句结构，符合中文表达习惯）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

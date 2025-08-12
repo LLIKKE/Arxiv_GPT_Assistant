@@ -12,49 +12,53 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">修剪无惊喜之处：通过首词惊异值实现高效代码推理</h2><a id="user-content-修剪无惊喜之处通过首词惊异值实现高效代码推理" class="anchor" aria-label="Permalink: 修剪无惊喜之处：通过首词惊异值实现高效代码推理" href="#修剪无惊喜之处通过首词惊异值实现高效代码推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.05988v1 公告类型：新研究<br>
-摘要：近期，大型推理模型（LRMs）通过扩展思维链（CoT）的长度，在代码推理任务中展现出卓越能力。然而，过长的推理轨迹会带来训练成本、推理延迟和部署可行性方面的重大挑战。虽然目前已有多种CoT压缩方法应对这一挑战，但它们存在固有缺陷：基于词元级别的压缩往往会破坏语法和逻辑连贯性，而基于困惑度的步骤级方法又难以可靠捕捉逻辑关键推理步骤。本文提出ASAP（锚点引导的基于惊异值的剪枝框架），一种新颖的"由粗到细"CoT压缩框架。ASAP首先执行锚点引导剪枝以保留核心推理结构，有效缩小后续处理搜索空间；随后通过基于首创的"首词惊异值"指标选择逻辑关键步骤，实现逻辑感知的剪枝；最终指导模型在推理时自主生成并利用这些精简CoT，实现高效的代码任务推理。实验表明，ASAP在多个代码生成基准测试中达到最先进准确率，同时显著降低训练和推理成本。在极具挑战性的LiveCodeBench v4_v5基准测试中，相较最强基线方法，我们的方案减少了23.5%的词元生成和43.5%的推理延迟，同时保持36.19%的Pass@1竞争性准确率。这一成果为构建强大且高效的大型推理模型指明了前景广阔的发展方向。</p>
-<p>（注：专业术语说明：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">大型语言模型知识蒸馏中的成员资格与记忆化</h2><a id="user-content-大型语言模型知识蒸馏中的成员资格与记忆化" class="anchor" aria-label="Permalink: 大型语言模型知识蒸馏中的成员资格与记忆化" href="#大型语言模型知识蒸馏中的成员资格与记忆化"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.07054v1 公告类型：新研究<br>
+摘要：知识蒸馏（KD）领域的最新进展旨在通过将大型"教师"模型的知识迁移到较小"学生"模型，以缓解大语言模型（LLMs）的高计算需求。然而当教师模型在私有数据上训练时，学生模型可能会继承其隐私风险。本研究系统性地刻画并调研了六种LLM知识蒸馏技术中固有的成员推断与记忆复现隐私风险。通过在涵盖七个NLP任务的指令微调场景下，结合三种教师模型家族（GPT-2、LLAMA-2和OPT）及不同规模的学生模型进行实验，我们证明所有现有LLM知识蒸馏方法都会将教师模型的成员与记忆隐私风险传递给学生模型，但不同KD技术的隐私风险程度存在差异。我们系统分析了关键LLM知识蒸馏组件（KD目标函数、学生训练数据和NLP任务）如何影响此类隐私风险，并揭示了LLM知识蒸馏技术的记忆复现风险与成员推断风险之间存在显著不一致性。最后，我们量化了分块隐私风险，证明不同模块的隐私风险存在显著差异。</p>
+<p>（注：根据学术论文翻译规范，对部分术语进行了专业处理：</p>
 <ol>
-<li>"surprisal"译为"惊异值"，是信息论中衡量事件意外程度的指标</li>
-<li>"Pass@1"保留英文术语，指模型首次生成即通过测试的准确率</li>
-<li>"Chain-of-Thought"统一译为"思维链"，简称CoT保持英文缩写</li>
-<li>"LiveCodeBench"作为专有名称保留不译）</li>
+<li>"instruction-tuning"译为"指令微调"——这是NLP领域对模型进行任务适配的标准译法</li>
+<li>"memorization privacy risks"译为"记忆复现隐私风险"——强调模型对训练数据的记忆特性</li>
+<li>"per-block"译为"分块"——指模型的不同模块组件</li>
+<li>保留了GPT-2/LLAMA-2等模型名称的原始写法</li>
+<li>将长复合句拆解为符合中文表达习惯的短句结构）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">DP-LLM：运行时模型自适应与动态分层精度分配</h2><a id="user-content-dp-llm运行时模型自适应与动态分层精度分配" class="anchor" aria-label="Permalink: DP-LLM：运行时模型自适应与动态分层精度分配" href="#dp-llm运行时模型自适应与动态分层精度分配"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.06041v1 公告类型：新研究<br>
-摘要：如何有效处理对设备端大型语言模型（LLM）的多样化运行时约束查询（如延迟与精度需求）？多尺度量化通过叠加不同比特宽度量化的模型变体，实现了内存高效的LLM运行时自适应。然而，一个关键问题仍未解决：如何合理配置模型以匹配目标精度或延迟？混合精度虽提供了可行方案，但我们进一步利用核心发现——各层敏感性在解码迭代过程中会动态变化。基于此，我们提出DP-LLM创新机制，该机制根据输入值动态分配每层计算精度。DP-LLM为LLM中的每个线性层增设精度选择器，通过轻量级误差估计器和微调学习的阈值，在运行时动态确定比特宽度。多模型多基准测试表明，DP-LLM实现了更优的性能-延迟权衡，显著超越现有方法。</p>
-<p>（注：翻译严格遵循技术文献规范，处理要点包括：</p>
+<div class="markdown-heading"><h2 class="heading-element">高效可靠的隐式命中集方法中的命中集计算</h2><a id="user-content-高效可靠的隐式命中集方法中的命中集计算" class="anchor" aria-label="Permalink: 高效可靠的隐式命中集方法中的命中集计算" href="#高效可靠的隐式命中集方法中的命中集计算"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.07015v1 公告类型：新研究<br>
+摘要：隐式命中集（IHS）方法为以声明式求解计算困难的组合优化问题提供了通用框架。IHS在决策预言机（用于提取不一致性来源）与优化器（用于计算这些累积不一致性来源的所谓命中集）之间迭代运行。虽然决策预言机与具体语言相关，但优化器通常通过整数规划实现。</p>
+<p>我们探索了基于伪布尔（PB）推理不同应用方式及随机局部搜索的命中集优化替代算法技术。特别是在伪布尔（0-1整数规划）优化这一IHS最新应用场景中，我们对这些替代方案的实践可行性进行了全面评估。研究揭示了效率与可靠性之间的权衡：尽管商业整数规划求解器仍是命中集计算的最有效实现方式，但其数值不稳定性可能导致正确性问题；事实上，我们证明通过PB推理实现的精确命中集计算可与数值精确的整数规划求解器相媲美。此外，以PB推理为基础进行命中集计算，可获得IHS计算正确性证明，该证明可普遍适用于任何IHS实例——只要所涉声明式语言的推理能被纳入我们采用的基于PB的证明格式。</p>
+<p>（注：根据学术规范，专业术语如"IHS/HS"首次出现时保留英文缩写并标注中文全称，后续直接使用缩写；"pseudo-Boolean"采用学界通用译法"伪布尔"；长难句按中文习惯拆分为短句，如将"iterates between..."处理为"在...之间迭代运行"；被动语态转换为主动表述，如"can be made competitive"译为"可相媲美"；技术表述如"numerical instability"保留专业性的"数值不稳定性"译法）</p>
+<div class="markdown-heading"><h2 class="heading-element">突破AI-PC上LLM推理的极限</h2><a id="user-content-突破ai-pc上llm推理的极限" class="anchor" aria-label="Permalink: 突破AI-PC上LLM推理的极限" href="#突破ai-pc上llm推理的极限"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.06753v1 公告类型：新研究<br>
+摘要：超低比特大语言模型（1/1.58/2比特）的出现正为资源受限环境（如边缘设备和AI PC）开启LLM推理的新纪元。这些模型在相同参数量下，其困惑度与终端任务性能已媲美全精度模型。虽然量化技术的进步使模型在延迟、内存占用、吞吐量和能耗方面更具成本效益，但用于部署这些模型的尖端推理运行时（如bitnet.cpp）的计算效率仍待深入探索。本研究采用自底向上方法：首先针对现代CPU设计并实现了1比特与2比特微内核，在多种CPU平台上实现了峰值计算效率。我们将这些微内核集成至领先的LLM推理框架PyTorch-TPP中，展示的2比特模型端到端推理性能较当前最优运行时bitnet.cpp提升达2.2倍，相比16比特模型推理实现最高7倍加速。这项优化运行为AI PC和边缘设备的LLM推理树立了新标杆，为超低比特大语言模型的高效部署铺平道路。</p>
+<p>（注：根据学术文献翻译规范，关键术语处理如下：</p>
 <ol>
-<li>专业术语统一（如"quantization"译为"量化"、"fine-tuning"译为"微调"）</li>
-<li>长句拆分重组（如将原文复合从句转化为中文短句链）</li>
-<li>被动语态转化（如"models be properly configured"译为主动式"合理配置模型"）</li>
-<li>概念显化（如"runtime"译为"运行时"而非字面直译"运行时间"）</li>
-<li>技术表述准确性（如"mixed-precision"译为专业术语"混合精度"而非字面直译））</li>
+<li>"perplexity"保留专业术语"困惑度"</li>
+<li>"state-of-the-art"统一译为"尖端/最优"以符合中文语境</li>
+<li>"microkernels"译为"微内核"遵循计算机体系结构术语</li>
+<li>被动语态如"remain underexplored"转换为主动句式"仍待探索"</li>
+<li>长复合句按中文表达习惯拆分为短句，如将"which引导的定语从句"转为独立分句）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">《第四态：带符号零的三进制系统——稳定大语言模型量化的新途径（及其他应用）》</h2><a id="user-content-第四态带符号零的三进制系统稳定大语言模型量化的新途径及其他应用" class="anchor" aria-label="Permalink: 《第四态：带符号零的三进制系统——稳定大语言模型量化的新途径（及其他应用）》" href="#第四态带符号零的三进制系统稳定大语言模型量化的新途径及其他应用"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（翻译说明：</p>
+<div class="markdown-heading"><h2 class="heading-element">Ethics2vec：实现智能体与人类偏好的对齐</h2><a id="user-content-ethics2vec实现智能体与人类偏好的对齐" class="anchor" aria-label="Permalink: Ethics2vec：实现智能体与人类偏好的对齐" href="#ethics2vec实现智能体与人类偏好的对齐"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.07673v1 公告类型：新研究<br>
+摘要：尽管智能代理本应提升人类体验（或使其更高效），但从人类视角出发，很难明确把握代理行为中显性或隐性嵌入的伦理价值。这就是著名的"对齐问题"——即设计符合人类价值观、目标与偏好的AI系统所面临的挑战。该问题尤为棘手，因为大多数人类伦理考量涉及\emph{不可通约}（即不可测量和/或不可比较）的价值标准。以医疗代理为癌症患者制定治疗方案为例：它该如何权衡人类生命价值与治疗成本这类不可通约的要素？要实现人类价值观与人工智能价值观的对齐，必须首先定义一个可建立度量标准的共同空间。本文提出将广泛应用于自然语言处理、推荐系统与图分析等复杂量化领域的"Anything2vec"方法拓展至伦理领域，通过将自动代理决策（或控制律）策略映射为多元向量表示，实现与人类价值观对齐度的比较评估。我们首先以二元决策自动代理为例引入Ethics2Vec方法，继而通过自动驾驶汽车等自动控制场景中的控制律向量化，展示该方法的可扩展性。</p>
+<p>（注：译文通过以下处理实现学术文本的精准传达：</p>
 <ol>
-<li>"The Fourth State" 译为"第四态"，呼应物理学中物质第四态（等离子体）的命名逻辑，突出技术突破性</li>
-<li>"Signed-Zero Ternary" 采用技术领域惯用译法"带符号零的三进制"，精确传达-0/+0的数学特性</li>
-<li>副标题处理为破折号连接主副标题，符合中文技术论文标题规范</li>
-<li>"Stable LLM Quantization" 译为"稳定大语言模型量化"，其中：
-<ul>
-<li>"Stable" 取计算机领域常用译法"稳定"而非"稳固"</li>
-<li>"LLM" 使用中文领域通用全称"大语言模型"</li>
-</ul>
-</li>
-<li>括号中的"(and More)" 译为"及其他应用"，既保留原文的开放性暗示，又符合中文标题简洁性要求）</li>
+<li>专业术语统一："alignment"译为"对齐问题"并添加引导性解释</li>
+<li>概念显化：将"incommensurable"译为"不可通约"并保留斜体强调</li>
+<li>逻辑显化：通过冒号、破折号重构英文长句的隐含逻辑关系</li>
+<li>技术术语处理："Anything2vec/Ethics2Vec"保留原名体现方法论传承</li>
+<li>动态对等："control law"根据语境分别译为"控制律/控制策略"</li>
+<li>文化适配：将"weigh"译为更具中文学术风格的"权衡"而非字面直译）</li>
 </ol>
-<p>arXiv:2508.05905v1 公告类型：新研究<br>
-摘要：量化通常被视为一种以性能质量换取计算需求降低的手段，即作为一种次优近似方案。然而，若从固定总资源预算的角度审视，则会得出截然不同的结论。我们提出有符号零三元量化（SZT）——这种2比特量化方法能确定性提供梯度信息，且不造成前向路径的性能损失。分析表明，与非量化方案相比，该量化方式可能提升信息密度。</p>
-<p>（注：根据学术论文摘要的翻译规范，进行了以下处理：</p>
+<div class="markdown-heading"><h2 class="heading-element">高效边缘大语言模型部署：基于Hessian感知量化与CPU-GPU协同计算</h2><a id="user-content-高效边缘大语言模型部署基于hessian感知量化与cpu-gpu协同计算" class="anchor" aria-label="Permalink: 高效边缘大语言模型部署：基于Hessian感知量化与CPU-GPU协同计算" href="#高效边缘大语言模型部署基于hessian感知量化与cpu-gpu协同计算"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.07329v1 公告类型：新研究<br>
+摘要：随着大语言模型（LLM）在自然语言处理和多模态任务中的突破性进展，如何将其高效部署在资源受限的边缘设备上成为关键挑战。混合专家（MoE）架构通过稀疏激活提升模型容量，但在实际部署中面临两大难题：（1）激活分布中存在大量离群值，导致激活和权重量化精度严重下降，显著损害推理性能；（2）有限内存下，专家模块的高效卸载与协同推理难以平衡延迟与吞吐量。针对这些问题，本文提出基于Hessian感知量化（HAQ）和CPU-GPU协同推理的高效MoE边缘部署方案。首先，通过引入平滑Hessian矩阵量化技术，实现激活与权重的联合8比特量化，在确保主流硬件高效执行的同时，显著缓解离群值导致的精度损失；其次，设计专家级协同卸载与推理机制，结合专家激活路径统计，实现CPU与GPU间专家模块的高效部署与调度，大幅降低内存占用和推理延迟。大量实验在OPT系列、Mixtral 8*7B等主流大模型上验证了方法的有效性：在Wikitext2、C4等数据集上，低比特量化模型的推理精度接近全精度模型，同时GPU内存占用降低约60%，推理延迟显著改善。</p>
+<p>（注：根据学术论文摘要的翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>保留arXiv编号格式和公告类型标记</li>
-<li>"Signed-Zero Ternary"采用技术术语译法"有符号零三元量化"并附加括号标注原缩写"SZT"</li>
-<li>"deterministically"译为"确定性"以保持数学严谨性</li>
-<li>"information density"译为"信息密度"符合信息论术语惯例</li>
-<li>通过破折号和分号重构长句结构，符合中文表达习惯）</li>
+<li>"Hessian-Aware Quantization"保留首字母缩写HAQ并译为"Hessian感知量化"以符合技术术语习惯</li>
+<li>"Mixture of Experts"采用学界通用译名"混合专家"</li>
+<li>长难句按中文表达习惯拆分重组，如将"which significantly alleviates..."独立成句</li>
+<li>保持量化精度（8-bit）、百分比（60%）等技术细节的精确传达）</li>
 </ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

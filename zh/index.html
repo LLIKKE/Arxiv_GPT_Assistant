@@ -12,20 +12,40 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">机器学习与统计方法在γ射线能谱自动识别与定量分析中的比较研究</h2><a id="user-content-机器学习与统计方法在γ射线能谱自动识别与定量分析中的比较研究" class="anchor" aria-label="Permalink: 机器学习与统计方法在γ射线能谱自动识别与定量分析中的比较研究" href="#机器学习与统计方法在γ射线能谱自动识别与定量分析中的比较研究"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.08306v1 公告类型：新研究<br>
-摘要：过去十年间，学界提出了大量数值方法用于实现γ能谱的自动核素识别与活度定量。然而由于缺乏包含数据集、代码和评估指标的通用基准平台，这些方法的性能评估与横向对比始终面临挑战。为此，我们构建了一个开源基准平台，集成多种γ能谱场景的模拟数据集、不同分析方法的实现代码以及标准化评估体系。基于该平台，我们首次对"端到端机器学习"与"全谱统计解混"两种前沿方法进行了系统对比。研究聚焦三种典型场景：(1) 核素特征谱已知；(2) 特征谱因康普顿散射、吸收等物理效应发生畸变；(3) 特征谱存在能峰偏移（如温度变化导致）。每个场景均采用包含9种放射性核素及实验本底的20万条模拟能谱数据集，且所有谱线均存在多核素共存情况。</p>
-<p>在核素识别方面，统计解混方法在三种场景下的所有评估指标中均稳定优于机器学习方法。但研究发现，当特征谱建模不准确时，统计方法的性能会出现显著下降。这表明全谱统计方法在特征谱已知或可精确建模时最具优势，而端到端机器学习在测量条件不确定时可作为核素识别的有效替代方案。在活度定量任务中，统计方法能提供精确的核素计数估计，而机器学习方法的定量结果则相对欠佳。</p>
-<p>（注：根据学术翻译规范，对部分术语进行了标准化处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">EGGS-PTP：一种基于扩展图引导的大型语言模型结构化训练后剪枝方法</h2><a id="user-content-eggs-ptp一种基于扩展图引导的大型语言模型结构化训练后剪枝方法" class="anchor" aria-label="Permalink: EGGS-PTP：一种基于扩展图引导的大型语言模型结构化训练后剪枝方法" href="#eggs-ptp一种基于扩展图引导的大型语言模型结构化训练后剪枝方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.09471v1 公告类型：新成果<br>
+摘要：随着大语言模型（LLMs）的广泛应用和规模扩张，部署这些巨型基础模型所面临的计算与内存挑战日益严峻。这迫切要求开发更高效的模型变体。面对这一挑战，本研究提出EGGS-PTP方法——一种基于扩展图引导的结构化训练后剪枝技术。该创新方案运用图论来指导N:M结构化剪枝的设计，有效缩减模型规模并降低计算需求。通过引入扩展图的概念，EGGS-PTP能确保剪枝后网络中的信息流动，保留模型的核心功能。大量实验数据表明，EGGS-PTP不仅凭借结构化稀疏性实现了显著的加速效果和内存节省，更在各类大语言模型的准确率指标上超越了现有结构化剪枝技术。</p>
+<p>（注：根据学术文本翻译规范，对部分术语进行了标准化处理：</p>
 <ol>
-<li>"γ-ray spectrometry"统一译为"γ能谱"而非"伽马能谱"</li>
-<li>"end-to-end machine learning"采用通用译法"端到端机器学习"</li>
-<li>"Compton scattering"使用专业术语"康普顿散射"</li>
-<li>长句按中文表达习惯进行了合理切分，如将原文最后两句合并为逻辑连贯的结论段</li>
-<li>保留技术缩略语"arXiv"及版本号不译）</li>
+<li>"Expander-Graph"译为"扩展图"（图论标准译法）</li>
+<li>"Post-training Pruning"译为"训练后剪枝"（机器学习领域通用译法）</li>
+<li>保持"N:M"原写法以符合技术文献惯例</li>
+<li>"structured sparsity"译为"结构化稀疏性"以准确传达其数学特性）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">过载：高效语言模型解码的双阶段模型</h2><a id="user-content-过载高效语言模型解码的双阶段模型" class="anchor" aria-label="Permalink: 过载：高效语言模型解码的双阶段模型" href="#过载高效语言模型解码的双阶段模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.08446v1 公告类型：新研究<br>
-摘要：大语言模型（LLMs）在多样化任务中表现卓越，但受限于高推理成本，其部署面临重大挑战。LLM推理包含预填充（计算密集型）和解码（内存密集型）两个阶段，其中长序列任务尤其受解码阶段的延迟影响。当前仅解码架构的模型对这两个阶段采用统一处理，忽视了其截然不同的计算特性。我们提出OverFill方法，通过解耦这两个阶段来优化准确性与效率的平衡。OverFill首先使用完整模型进行预填充，并行处理系统与用户输入；随后切换至密集剪枝模型进行序列化令牌生成。该方法在预填充阶段充分利用计算资源，以极小的延迟开销提升生成质量。实验表明，3B参数降至1B的OverFill配置相比纯1B剪枝模型平均提升83.2%性能，8B降至3B配置则在标准测试集上较纯3B剪枝模型平均提升79.2%。OverFill达到了同规模从头训练模型的性能水平，同时显著减少训练数据需求。代码已开源：<a href="https://github.com/friendshipkim/overfill%E3%80%82">https://github.com/friendshipkim/overfill。</a></p>
-<p>（注：根据学术文献翻译规范，技术术语如"prefill/decode"采用"预填充/解码"的译法；"dense pruned model"译为"密集剪枝模型"以准确表达模型压缩技术；长难句进行合理切分，如将原文"Leveraging more compute..."处理为独立短句；百分比数据保留原文精确数值；GitHub链接保留原始格式以便查阅）</p>
+<div class="markdown-heading"><h2 class="heading-element">DQT：基于无去量化嵌套整数运算的动态量化训练</h2><a id="user-content-dqt基于无去量化嵌套整数运算的动态量化训练" class="anchor" aria-label="Permalink: DQT：基于无去量化嵌套整数运算的动态量化训练" href="#dqt基于无去量化嵌套整数运算的动态量化训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.09176v1 公告类型：新研究<br>
+摘要：在资源受限设备上部署深度神经网络依赖于量化技术。传统的静态均匀量化对所有输入采用固定位宽，无法适应其复杂度变化。基于实例的动态混合精度量化通过按需分配更高精度，有望实现更优的精度-效率权衡。然而，现有方法存在一个关键瓶颈：改变精度时需要昂贵的"反量化-浮点运算-再量化"循环，这不仅打破了纯整数硬件范式，更削弱了性能收益。本文提出的动态量化训练框架（DQT）通过创新设计消除了这一瓶颈。DQT的核心是嵌套整数表示法——将低位宽数值以位级方式嵌入高位宽容器中。该设计结合定制化的纯整数运算，可通过近乎零成本的位移操作实现实时位宽切换。这使得DQT成为首个同时支持以下特性的量化框架：骨干网络的免反量化静态混合精度，以及通过轻量级运行时控制器实现真正高效的实例级动态量化。我们在CIFAR-10数据集（ResNet18）和ImageNet数据集（ResNet50）上验证了DQT的领先性能。在ImageNet上，4位动态量化的ResNet50达到77.00% top-1准确率，优于同类静态方法（LSQ 76.70%）和动态方法（DQNET 76.94%），且计算量（BitOPs）相当。最关键的是，DQT实现位宽转换仅需2820万次简单位移操作，相比先前动态方法所需的5660万次高成本浮点乘累加（MAC）运算，开创了高效自适应AI的新纪元。</p>
+<div class="markdown-heading"><h2 class="heading-element">MoQE：通过混合量化专家提升量化模型性能</h2><a id="user-content-moqe通过混合量化专家提升量化模型性能" class="anchor" aria-label="Permalink: MoQE：通过混合量化专家提升量化模型性能" href="#moqe通过混合量化专家提升量化模型性能"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.09204v1 公告类型：新研究<br>
+摘要：量化方法在提升模型效率、降低部署成本方面具有关键作用，使得深度学习模型能够在资源受限设备上广泛应用。然而量化过程不可避免地会引发精度损失。本文提出基于混合专家架构的量化推理框架MoQE（量化专家混合体），旨在协同提升量化模型的性能表现。该框架将全精度模型的多个量化变体组合为专业化的"量化专家"，并根据输入数据特征动态路由至最合适的专家节点。通过这种专家模型专业化分工，MoQE有效缓解了单一量化模型常见的性能下降问题。我们针对CV和NLP任务分别设计了轻量级、结构感知的路由器模型。在ResNet、LLaMA和Qwen模型家族上的实验评估表明，在ImageNet、WikiText、C4和OpenWebText等基准数据集上，MoQE达到了与当前最优量化模型相当的性能水平，且未显著增加推理延迟。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<ol>
+<li>"SOTA"译为"当前最优"而非字面直译</li>
+<li>模型名称LLaMA/Qwen保留原名不译</li>
+<li>技术术语"router models"译为"路由器模型"以保持架构一致性</li>
+<li>数据集名称统一采用英文原名</li>
+<li>"specialization quantization expert models"采用意译"专家模型专业化分工"以符合中文表达习惯）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">MiCo：面向边缘AI的端到端混合精度神经网络协同探索框架</h2><a id="user-content-mico面向边缘ai的端到端混合精度神经网络协同探索框架" class="anchor" aria-label="Permalink: MiCo：面向边缘AI的端到端混合精度神经网络协同探索框架" href="#mico面向边缘ai的端到端混合精度神经网络协同探索框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.09500v1 公告类型：新成果<br>
+摘要：极低比特位宽的量化神经网络（QNN）已被证实在边缘设备的高效存储与计算方面具有显著优势。为在提升加速比的同时进一步降低精度损失，分层混合精度量化（MPQ）逐渐成为主流解决方案。然而现有MPQ方案搜索算法在灵活性与效率上存在局限——传统方法难以全面评估不同MPQ方案对训练后量化与量化感知训练结果的复杂影响。此外，当前研究尚缺乏支持MPQ模型优化与部署的端到端框架。</p>
+<p>本文提出MiCo框架，这是面向边缘AI应用的混合精度量化全流程解决方案。该框架采用创新优化算法搜索满足时延约束条件下的最优量化方案，通过为不同硬件目标构建时延感知模型实现快速方案探索。探索完成后，框架支持从PyTorch MPQ模型直接部署为裸机C代码，在实现端到端加速的同时将精度损失控制在最小范围。</p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了专业处理：</p>
+<ol>
+<li>"bare-metal C codes"译为"裸机C代码"以体现直接运行在硬件层的特性</li>
+<li>"holistic"译为"全流程"突出框架的完整性</li>
+<li>将原文两个长句拆分为符合中文阅读习惯的短句结构</li>
+<li>保留专业缩写QNN/MPQ并在首次出现时标注全称</li>
+<li>"latency constraints"统一译为"时延约束"保持术语一致性）</li>
+</ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

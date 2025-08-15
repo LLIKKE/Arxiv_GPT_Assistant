@@ -12,40 +12,41 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">EGGS-PTP：一种基于扩展图引导的大型语言模型结构化训练后剪枝方法</h2><a id="user-content-eggs-ptp一种基于扩展图引导的大型语言模型结构化训练后剪枝方法" class="anchor" aria-label="Permalink: EGGS-PTP：一种基于扩展图引导的大型语言模型结构化训练后剪枝方法" href="#eggs-ptp一种基于扩展图引导的大型语言模型结构化训练后剪枝方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.09471v1 公告类型：新成果<br>
-摘要：随着大语言模型（LLMs）的广泛应用和规模扩张，部署这些巨型基础模型所面临的计算与内存挑战日益严峻。这迫切要求开发更高效的模型变体。面对这一挑战，本研究提出EGGS-PTP方法——一种基于扩展图引导的结构化训练后剪枝技术。该创新方案运用图论来指导N:M结构化剪枝的设计，有效缩减模型规模并降低计算需求。通过引入扩展图的概念，EGGS-PTP能确保剪枝后网络中的信息流动，保留模型的核心功能。大量实验数据表明，EGGS-PTP不仅凭借结构化稀疏性实现了显著的加速效果和内存节省，更在各类大语言模型的准确率指标上超越了现有结构化剪枝技术。</p>
-<p>（注：根据学术文本翻译规范，对部分术语进行了标准化处理：</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">KompeteAI：面向机器学习问题的端到端流程生成加速型自主多智能体系统</h2><a id="user-content-kompeteai面向机器学习问题的端到端流程生成加速型自主多智能体系统" class="anchor" aria-label="Permalink: KompeteAI：面向机器学习问题的端到端流程生成加速型自主多智能体系统" href="#kompeteai面向机器学习问题的端到端流程生成加速型自主多智能体系统"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.10177v1 公告类型：新研究<br>
+摘要：当前基于大语言模型（LLM）的自动机器学习（AutoML）系统虽展现出强大能力，但仍存在两大核心局限：探索策略受限与执行效率瓶颈。传统探索方式受限于缺乏多样性的单次生成方法，以及蒙特卡洛树搜索（MCTS）策略无法有效重组优质局部解；而冗长的代码验证周期则严重阻碍了迭代优化。为此，我们提出创新性AutoML框架KompeteAI，其突破性在于：</p>
 <ol>
-<li>"Expander-Graph"译为"扩展图"（图论标准译法）</li>
-<li>"Post-training Pruning"译为"训练后剪枝"（机器学习领域通用译法）</li>
-<li>保持"N:M"原写法以符合技术文献惯例</li>
-<li>"structured sparsity"译为"结构化稀疏性"以准确传达其数学特性）</li>
+<li>
+<strong>动态解空间探索</strong>：首创"候选方案融合"机制，通过组合最优子方案突破传统MCTS的孤立评估模式；</li>
+<li>
+<strong>知识增强假设空间</strong>：集成检索增强生成（RAG）技术，从Kaggle竞赛方案和arXiv论文中提取真实世界策略；</li>
+<li>
+<strong>执行加速引擎</strong>：
+<ul>
+<li>预测性评分模型：基于早期指标预判方案潜力，避免全量执行</li>
+<li>快速调试方法：将管道评估速度提升6.9倍</li>
+</ul>
+</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">DQT：基于无去量化嵌套整数运算的动态量化训练</h2><a id="user-content-dqt基于无去量化嵌套整数运算的动态量化训练" class="anchor" aria-label="Permalink: DQT：基于无去量化嵌套整数运算的动态量化训练" href="#dqt基于无去量化嵌套整数运算的动态量化训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.09176v1 公告类型：新研究<br>
-摘要：在资源受限设备上部署深度神经网络依赖于量化技术。传统的静态均匀量化对所有输入采用固定位宽，无法适应其复杂度变化。基于实例的动态混合精度量化通过按需分配更高精度，有望实现更优的精度-效率权衡。然而，现有方法存在一个关键瓶颈：改变精度时需要昂贵的"反量化-浮点运算-再量化"循环，这不仅打破了纯整数硬件范式，更削弱了性能收益。本文提出的动态量化训练框架（DQT）通过创新设计消除了这一瓶颈。DQT的核心是嵌套整数表示法——将低位宽数值以位级方式嵌入高位宽容器中。该设计结合定制化的纯整数运算，可通过近乎零成本的位移操作实现实时位宽切换。这使得DQT成为首个同时支持以下特性的量化框架：骨干网络的免反量化静态混合精度，以及通过轻量级运行时控制器实现真正高效的实例级动态量化。我们在CIFAR-10数据集（ResNet18）和ImageNet数据集（ResNet50）上验证了DQT的领先性能。在ImageNet上，4位动态量化的ResNet50达到77.00% top-1准确率，优于同类静态方法（LSQ 76.70%）和动态方法（DQNET 76.94%），且计算量（BitOPs）相当。最关键的是，DQT实现位宽转换仅需2820万次简单位移操作，相比先前动态方法所需的5660万次高成本浮点乘累加（MAC）运算，开创了高效自适应AI的新纪元。</p>
-<div class="markdown-heading"><h2 class="heading-element">MoQE：通过混合量化专家提升量化模型性能</h2><a id="user-content-moqe通过混合量化专家提升量化模型性能" class="anchor" aria-label="Permalink: MoQE：通过混合量化专家提升量化模型性能" href="#moqe通过混合量化专家提升量化模型性能"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.09204v1 公告类型：新研究<br>
-摘要：量化方法在提升模型效率、降低部署成本方面具有关键作用，使得深度学习模型能够在资源受限设备上广泛应用。然而量化过程不可避免地会引发精度损失。本文提出基于混合专家架构的量化推理框架MoQE（量化专家混合体），旨在协同提升量化模型的性能表现。该框架将全精度模型的多个量化变体组合为专业化的"量化专家"，并根据输入数据特征动态路由至最合适的专家节点。通过这种专家模型专业化分工，MoQE有效缓解了单一量化模型常见的性能下降问题。我们针对CV和NLP任务分别设计了轻量级、结构感知的路由器模型。在ResNet、LLaMA和Qwen模型家族上的实验评估表明，在ImageNet、WikiText、C4和OpenWebText等基准数据集上，MoQE达到了与当前最优量化模型相当的性能水平，且未显著增加推理延迟。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<p>在主流AutoML基准测试MLE-Bench中，KompeteAI以平均3%的优势超越RD-agent、AIDE等领先方法。针对MLE-Bench的固有缺陷，我们同步提出Kompete-bench新基准，KompeteAI在该基准上同样达到最先进水平。</p>
+<p>（注：译文采用技术报告特有的信息密度结构，通过分项列举突出创新点；专业术语如"RAG"保留英文缩写但首次出现标注全称；"pipeline"译为"管道"符合ML领域习惯；"state-of-the-art"采用"最先进水平"的通用译法；长难句拆解为符合中文阅读习惯的短句群）</p>
+<div class="markdown-heading"><h2 class="heading-element">嵌套式ReFT：通过离策略展开实现大规模语言模型微调的高效强化学习</h2><a id="user-content-嵌套式reft通过离策略展开实现大规模语言模型微调的高效强化学习" class="anchor" aria-label="Permalink: 嵌套式ReFT：通过离策略展开实现大规模语言模型微调的高效强化学习" href="#嵌套式reft通过离策略展开实现大规模语言模型微调的高效强化学习"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.10123v1 公告类型：新研究<br>
+摘要：针对大语言模型（LLMs）在数学推理等复杂领域的高级推理能力，可采用基于可验证奖励的强化微调方法（ReFT）进行提升。传统ReFT框架中，行为模型需为每个问题生成多个含答案的补全结果，再由奖励函数对答案进行评分。虽然这类RL后训练方法在复杂推理领域展现出显著性能提升，但由于训练过程中需通过多次推理步骤生成补全结果，其计算成本使得训练开销不容忽视。</p>
+<p>为解决这一问题，我们受离策略RL和推测解码技术启发，提出新型ReFT框架——Nested-ReFT。该框架以目标模型的部分层作为行为模型，在训练期间生成离策略补全结果。通过动态层跳过配置，行为模型在每批次训练中可降低推理成本。理论分析表明，Nested-ReFT能提供方差可控的无偏梯度估计。实证研究显示，该方法在多个数学推理基准测试和不同规模模型中均实现了以"令牌/秒"为衡量的计算效率提升。</p>
+<p>此外，我们探索了三种偏差缓解变体，通过最小化梯度更新中的策略偏离度，使模型性能与基线ReFT保持相当。</p>
+<p>（注：根据学术文献翻译规范，关键术语处理如下：</p>
 <ol>
-<li>"SOTA"译为"当前最优"而非字面直译</li>
-<li>模型名称LLaMA/Qwen保留原名不译</li>
-<li>技术术语"router models"译为"路由器模型"以保持架构一致性</li>
-<li>数据集名称统一采用英文原名</li>
-<li>"specialization quantization expert models"采用意译"专家模型专业化分工"以符合中文表达习惯）</li>
+<li>"off-policy RL"译为"离策略强化学习"（强化学习领域标准译法）</li>
+<li>"speculative decoding"译为"推测解码"（参照NLP领域新兴技术译法）</li>
+<li>"dynamic layer skipping"译为"动态层跳过"（保持技术描述准确性）</li>
+<li>保留"ReFT"作为专业缩写在首次出现时标注全称，后续直接使用）</li>
 </ol>
-<div class="markdown-heading"><h2 class="heading-element">MiCo：面向边缘AI的端到端混合精度神经网络协同探索框架</h2><a id="user-content-mico面向边缘ai的端到端混合精度神经网络协同探索框架" class="anchor" aria-label="Permalink: MiCo：面向边缘AI的端到端混合精度神经网络协同探索框架" href="#mico面向边缘ai的端到端混合精度神经网络协同探索框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>arXiv:2508.09500v1 公告类型：新成果<br>
-摘要：极低比特位宽的量化神经网络（QNN）已被证实在边缘设备的高效存储与计算方面具有显著优势。为在提升加速比的同时进一步降低精度损失，分层混合精度量化（MPQ）逐渐成为主流解决方案。然而现有MPQ方案搜索算法在灵活性与效率上存在局限——传统方法难以全面评估不同MPQ方案对训练后量化与量化感知训练结果的复杂影响。此外，当前研究尚缺乏支持MPQ模型优化与部署的端到端框架。</p>
-<p>本文提出MiCo框架，这是面向边缘AI应用的混合精度量化全流程解决方案。该框架采用创新优化算法搜索满足时延约束条件下的最优量化方案，通过为不同硬件目标构建时延感知模型实现快速方案探索。探索完成后，框架支持从PyTorch MPQ模型直接部署为裸机C代码，在实现端到端加速的同时将精度损失控制在最小范围。</p>
-<p>（注：根据学术文献翻译规范，对部分术语进行了专业处理：</p>
-<ol>
-<li>"bare-metal C codes"译为"裸机C代码"以体现直接运行在硬件层的特性</li>
-<li>"holistic"译为"全流程"突出框架的完整性</li>
-<li>将原文两个长句拆分为符合中文阅读习惯的短句结构</li>
-<li>保留专业缩写QNN/MPQ并在首次出现时标注全称</li>
-<li>"latency constraints"统一译为"时延约束"保持术语一致性）</li>
-</ol>
+<div class="markdown-heading"><h2 class="heading-element">XQuant：通过KV缓存重计算突破大语言模型推理的内存壁垒</h2><a id="user-content-xquant通过kv缓存重计算突破大语言模型推理的内存壁垒" class="anchor" aria-label="Permalink: XQuant：通过KV缓存重计算突破大语言模型推理的内存壁垒" href="#xquant通过kv缓存重计算突破大语言模型推理的内存壁垒"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.10395v1 公告类型：新研究<br>
+摘要：尽管大语言模型（LLM）推理已成为众多下游应用的关键工作负载，但由于其巨大的内存占用和带宽需求，高效推理LLM仍面临挑战。与此同时，过去几十年间计算能力的增长速度持续超越内存容量和带宽的提升，这一趋势在现代GPU硬件中依然显著，进一步加剧了LLM推理的难度。为此，新兴算法开始通过增加计算量来减少内存操作。基于此，我们提出XQuant方法，利用这一趋势实现内存消耗的阶跃式降低——通过低比特量化技术，相比最先进的KV缓存量化方法，在显著提升精度的同时将内存占用减少一个数量级。</p>
+<p>我们的核心创新在于：不再使用标准KV缓存，而是对层输入激活值X进行量化缓存，并在推理过程中动态重构键值（Keys/Values）。这一方案相比KV缓存可立即实现2倍内存节省。应用XQuant后，与FP16基线相比，我们实现了最高约7.7倍的内存节省且困惑度（perplexity）上升小于0.1。此外，该方法利用X值在模型各层间具有相似性的特点，进一步提出XQuant-CL方案，通过跨层X嵌入的相似性实现极致压缩。在不同模型测试中，XQuant-CL相较FP16基线实现了：<br>
+• 10倍内存节省（困惑度仅上升0.01）<br>
+• 12.5倍内存节省（困惑度仅上升0.1）</p>
+<p>XQuant通过充分挖掘硬件平台快速提升的计算能力，成功消除了内存瓶颈，其性能超越现有最先进的KV缓存量化方法，在各类模型上均达到接近FP16的精度水平。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

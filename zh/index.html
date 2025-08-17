@@ -12,31 +12,8 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">XQuant：通过KV缓存重计算突破大语言模型推理的内存墙</h2><a id="user-content-xquant通过kv缓存重计算突破大语言模型推理的内存墙" class="anchor" aria-label="Permalink: XQuant：通过KV缓存重计算突破大语言模型推理的内存墙" href="#xquant通过kv缓存重计算突破大语言模型推理的内存墙"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>尽管大语言模型（LLM）推理已成为众多下游应用的关键工作负载，但由于其巨大的内存占用和带宽需求，实现高效推理仍面临挑战。与此同时，过去几十年间计算能力的提升速度持续超越内存容量与带宽的增长，这一趋势在现代GPU硬件中依然显著，进一步加剧了LLM推理的难度。为此，新兴算法正通过增加计算量来换取内存操作的减少。基于此，我们提出XQuant方案——该技术顺应这一趋势，通过低位量化实现内存消耗的指数级降低，其精度表现显著优于当前最先进的KV缓存量化方法。我们的核心创新在于：放弃传统KV缓存机制，转而量化并缓存层输入激活值X，在推理过程中动态重构键值对（Keys/Values），从而立即实现2倍内存节省。应用XQuant后，相比FP16基线，我们最高可节省约7.7倍内存且困惑度损失&lt;0.1。此外，我们发现各层X值具有相似性特征，据此提出XQuant-CL方案，通过跨层X嵌入相似性实现极致压缩。在不同模型中，XQuant-CL相较FP16基线最高可实现10倍内存节省（困惑度仅增加0.01），或12.5倍内存节省（困惑度仅增加0.1）。XQuant充分利用硬件平台快速提升的计算能力来消除内存瓶颈，在超越现有KV缓存量化技术的同时，在各类模型上实现接近FP16的精度水平。</p>
-<div class="markdown-heading"><h2 class="heading-element">EGGS-PTP：一种基于扩展图引导的结构化后训练剪枝方法，适用于大型语言模型</h2><a id="user-content-eggs-ptp一种基于扩展图引导的结构化后训练剪枝方法适用于大型语言模型" class="anchor" aria-label="Permalink: EGGS-PTP：一种基于扩展图引导的结构化后训练剪枝方法，适用于大型语言模型" href="#eggs-ptp一种基于扩展图引导的结构化后训练剪枝方法适用于大型语言模型"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>随着大型语言模型（LLMs）应用范围的扩大与模型规模的持续增长，部署这些巨型基础模型所面临的计算与内存挑战日益严峻。这凸显了开发更高效模型变体的迫切需求。针对这一挑战，本研究提出了EGGS-PTP方法——一种基于扩展图引导的结构化训练后剪枝技术。该创新方案运用图论原理指导N:M结构化剪枝设计，有效缩减模型规模并降低计算需求。通过引入扩展图的概念，EGGS-PTP确保了剪枝后网络中的信息流动，从而保留了模型的核心功能。大量实验数据表明，EGGS-PTP不仅通过结构化稀疏性实现了显著的加速效果和内存节省，更在多种LLM模型的精度指标上超越了现有结构化剪枝技术。</p>
-<div class="markdown-heading"><h2 class="heading-element">HierMoE：通过层次化令牌去重与专家交换加速MoE训练</h2><a id="user-content-hiermoe通过层次化令牌去重与专家交换加速moe训练" class="anchor" aria-label="Permalink: HierMoE：通过层次化令牌去重与专家交换加速MoE训练" href="#hiermoe通过层次化令牌去重与专家交换加速moe训练"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>（注：翻译说明：</p>
-<ol>
-<li>"HierMoE"作为专有技术名词保留不译，符合技术领域术语惯例</li>
-<li>"Hierarchical Token Deduplication"译为"层次化令牌去重"，其中：
-<ul>
-<li>"Hierarchical"采用计算机领域常用译法"层次化"</li>
-<li>"Token"在NLP领域规范译为"令牌"</li>
-<li>"Deduplication"译为"去重"简洁准确</li>
-</ul>
-</li>
-<li>"Expert Swap"译为"专家交换"，其中：
-<ul>
-<li>"Expert"指混合专家模型(MoE)中的子网络专家模块</li>
-<li>"Swap"译为"交换"体现动态调度特性</li>
-</ul>
-</li>
-<li>整体采用"通过...加速..."的主动句式，突出该方法的两大技术亮点</li>
-<li>保持与原文相同的专业性与简洁性，同时符合中文技术文献表达习惯）</li>
-</ol>
-<p>稀疏激活的专家混合（MoE）Transformer因其稀疏性已成为大语言模型（LLMs）的常用架构——这种设计能以更少的计算需求轻松扩展模型规模。在MoE模型中，每个MoE层需动态选择令牌来激活特定专家进行计算，但被激活的专家可能与令牌不在同一设备或GPU上。这会导致GPU集群内产生大量通信和负载不均衡问题，阻碍分布式系统的可扩展性。为此，我们提出HierMoE框架，通过两种拓扑感知技术加速MoE模型训练：1）令牌去重以减少通信流量；2）专家交换以实现GPU间负载均衡。为使这两种方法更具普适性，我们建立了理论模型，旨在不同模型配置和硬件环境下实现最优的令牌复制与专家交换策略。基于Megatron-LM实现的HierMoE原型系统在32-GPU集群上进行了DeepSeek-V3和Qwen3-30B-A3B模型的实验。结果表明：相比当前最先进的MoE训练系统（Tutel-2DH、SmartMoE和Megatron-LM），HierMoE实现了1.55倍至3.32倍的通信加速，端到端训练速度提升达1.18倍至1.27倍。</p>
-<div class="markdown-heading"><h2 class="heading-element">速度制胜：大型语言模型高效架构综述</h2><a id="user-content-速度制胜大型语言模型高效架构综述" class="anchor" aria-label="Permalink: 速度制胜：大型语言模型高效架构综述" href="#速度制胜大型语言模型高效架构综述"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>大型语言模型（LLM）在语言理解、生成与推理任务中展现出卓越性能，同时不断拓展多模态模型的能力边界。作为现代LLM基石的Transformer模型，虽凭借优异的扩展特性奠定了强大基准，但其传统架构存在计算需求庞大、阻碍大规模训练与实际部署的固有缺陷。本综述系统性地梳理了突破Transformer局限性、提升模型效率的创新架构体系：从语言建模基础出发，详尽解析线性与稀疏序列建模方法、高效全注意力机制变体、稀疏专家混合系统、融合上述技术的混合架构，以及新兴的扩散型LLM等技术路径。此外，我们探讨了这些技术在跨模态领域的迁移应用，并对其在构建可扩展、资源敏感的基础模型方面的深远影响进行展望。通过将前沿研究归类至上述框架，本文勾勒出现代高效LLM架构的演进蓝图，以期推动未来人工智能系统向更高效、更通用的方向持续进化。</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">XQuant：通过KV缓存重计算突破大语言模型推理的内存壁垒</h2><a id="user-content-xquant通过kv缓存重计算突破大语言模型推理的内存壁垒" class="anchor" aria-label="Permalink: XQuant：通过KV缓存重计算突破大语言模型推理的内存壁垒" href="#xquant通过kv缓存重计算突破大语言模型推理的内存壁垒"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>尽管大语言模型（LLM）推理已成为众多下游应用的关键工作负载，但由于其巨大的内存占用和带宽需求，实现高效推理仍面临挑战。与此同时，过去几十年来计算能力的提升速度持续超越内存容量与带宽的增长，这一趋势在现代GPU硬件中依然显著，进一步加剧了LLM推理的难度。为此，新兴算法正通过增加计算量来换取内存操作的减少。基于此背景，我们提出XQuant方法——该技术顺应硬件发展趋势，通过低位宽量化实现内存消耗的指数级降低，其精度表现显著优于当前最先进的KV缓存量化方案。</p>
+<p>我们的核心创新在于：放弃传统KV缓存机制，转而量化并缓存神经网络层的输入激活值X，在推理过程中动态重构键值（Keys/Values）。这一策略直接实现了2倍内存节省。应用XQuant后，相比FP16基线模型，我们最高可达成约7.7倍内存节省，同时保持困惑度（perplexity）增长小于0.1。进一步研究发现，不同神经网络层的X值具有高度相似性。基于这一观察，我们提出增强版XQuant-CL方案，通过跨层X嵌入相似性实现极致压缩。实验表明，XQuant-CL在不同模型上均可实现：相比FP16基线最高10倍内存节省（仅0.01困惑度上升），或12.5倍内存节省（仅0.1困惑度上升）。</p>
+<p>XQuant技术充分利用硬件平台快速提升的计算能力，成功消除了内存瓶颈。其性能不仅全面超越现有KV缓存量化方法，更能在大范围模型中实现接近FP16的精度水平。</p>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

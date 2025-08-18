@@ -12,8 +12,47 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h2 class="heading-element">XQuant：通过KV缓存重计算突破大语言模型推理的内存壁垒</h2><a id="user-content-xquant通过kv缓存重计算突破大语言模型推理的内存壁垒" class="anchor" aria-label="Permalink: XQuant：通过KV缓存重计算突破大语言模型推理的内存壁垒" href="#xquant通过kv缓存重计算突破大语言模型推理的内存壁垒"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>尽管大语言模型（LLM）推理已成为众多下游应用的关键工作负载，但由于其巨大的内存占用和带宽需求，实现高效推理仍面临挑战。与此同时，过去几十年来计算能力的提升速度持续超越内存容量与带宽的增长，这一趋势在现代GPU硬件中依然显著，进一步加剧了LLM推理的难度。为此，新兴算法正通过增加计算量来换取内存操作的减少。基于此背景，我们提出XQuant方法——该技术顺应硬件发展趋势，通过低位宽量化实现内存消耗的指数级降低，其精度表现显著优于当前最先进的KV缓存量化方案。</p>
-<p>我们的核心创新在于：放弃传统KV缓存机制，转而量化并缓存神经网络层的输入激活值X，在推理过程中动态重构键值（Keys/Values）。这一策略直接实现了2倍内存节省。应用XQuant后，相比FP16基线模型，我们最高可达成约7.7倍内存节省，同时保持困惑度（perplexity）增长小于0.1。进一步研究发现，不同神经网络层的X值具有高度相似性。基于这一观察，我们提出增强版XQuant-CL方案，通过跨层X嵌入相似性实现极致压缩。实验表明，XQuant-CL在不同模型上均可实现：相比FP16基线最高10倍内存节省（仅0.01困惑度上升），或12.5倍内存节省（仅0.1困惑度上升）。</p>
-<p>XQuant技术充分利用硬件平台快速提升的计算能力，成功消除了内存瓶颈。其性能不仅全面超越现有KV缓存量化方法，更能在大范围模型中实现接近FP16的精度水平。</p>
+})();</script><div><div class="markdown-heading"><h2 class="heading-element">通过分段仿射正则化的量化方法：优化与统计保证</h2><a id="user-content-通过分段仿射正则化的量化方法优化与统计保证" class="anchor" aria-label="Permalink: 通过分段仿射正则化的量化方法：优化与统计保证" href="#通过分段仿射正则化的量化方法优化与统计保证"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.11112v1 公告类型：新研究<br>
+摘要：离散或量化变量上的优化问题因其搜索空间的组合性质而通常极具挑战性。分段仿射正则化（PAR）为基于连续优化的量化问题提供了灵活的建模与计算框架。本研究聚焦监督学习场景，从优化与统计双重视角探究PAR的理论基础。首先，我们证明在过参数化机制（即参数量超过样本量）下，PAR正则化损失函数的每个临界点都展现出高度量化特性。其次，我们推导了多种（凸、拟凸及非凸）PAR的闭式近端映射，并阐述如何运用近端梯度法、其加速变体以及交替方向乘子法求解PAR正则化问题。第三，我们研究了PAR正则化线性回归问题的统计保证：通过PAR可近似经典$\ell_1$-、平方$\ell_2$-及非凸正则化形式，在获得量化解的同时保持相似的统计保证。</p>
+<p>（注：根据学术文献翻译规范，关键术语保持英文缩写+中文全称的呈现方式；数学符号$\ell_1$等保留原格式；长句按中文表达习惯拆分为短句；专业表述如"proximal gradient method"采用学界通用译法"近端梯度法"）</p>
+<div class="markdown-heading"><h2 class="heading-element">量化与剪枝：来自“强彩票假设”的启示</h2><a id="user-content-量化与剪枝来自强彩票假设的启示" class="anchor" aria-label="Permalink: 量化与剪枝：来自“强彩票假设”的启示" href="#量化与剪枝来自强彩票假设的启示"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>（注：根据计算机领域术语使用习惯，"Quantization"译为"量化"，指降低模型参数精度的技术；"Pruning"译为"剪枝"，指移除神经网络中冗余连接的技术。"Strong Lottery Ticket Hypothesis"是深度学习理论中的重要概念，直译为"强彩票假设"，指存在某些随机初始化的子网络无需训练即可达到良好性能的理论假说。标题采用学术论文常见的对比结构，通过冒号分隔主副标题，既保持术语准确性又符合中文科技文献标题规范。）</p>
+<p>arXiv:2508.11020v1 公告类型：新研究<br>
+摘要：量化是提升神经网络效率的关键技术，然而我们对其的理论认知仍显不足。先前研究表明，通过修剪大型随机初始化网络可构建极低精度网络（如二值网络），并证明原始网络与修剪后网络的规模比至多为多对数关系。这类特定修剪方法催生了被称为"强彩票假设"（SLTH）的理论研究，其核心思想源自随机子集和问题的启示。然而，这些成果主要针对连续场景，无法直接将SLTH结论推广至量化场景。</p>
+<p>本研究基于Borgs等人关于数字划分问题的基础性成果，推导出量化场景下随机子集和问题的新理论。运用这些结论，我们将SLTH框架拓展至有限精度网络。与先前SLTH研究仅证明修剪可逼近特定神经网络类别不同，我们证实在量化场景下，对应的离散目标神经网络类别可被精确表示，并给出了初始网络所需过参数化程度与目标网络精度之间的最优边界。</p>
+<p>（注：根据学术文本特点，翻译中进行了以下处理：</p>
+<ol>
+<li>专业术语如"polylogarithmic"译为"多对数"符合数学文献惯例</li>
+<li>"Strong Lottery Ticket Hypothesis"保留英文缩写SLTH并补充中文全称，符合科技术语首次出现规范</li>
+<li>长难句拆分重组，如将原文最后复合句分解为对比结构，突出新研究的突破点</li>
+<li>被动语态转换，如"it remains limited"译为主动式"仍显不足"更符合中文表达习惯</li>
+<li>概念性表述如"overparameterization"译为"过参数化"准确传达机器学习领域特定含义）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">通过共享潜在空间中的黑盒引导对抗体序列与结构的生成式协同设计</h2><a id="user-content-通过共享潜在空间中的黑盒引导对抗体序列与结构的生成式协同设计" class="anchor" aria-label="Permalink: 通过共享潜在空间中的黑盒引导对抗体序列与结构的生成式协同设计" href="#通过共享潜在空间中的黑盒引导对抗体序列与结构的生成式协同设计"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.11424v1 公告类型：新研究<br>
+摘要：随着深度生成模型的进步，在给定抗原-抗体复合物作为上下文的情况下，抗体序列与结构的联合建模已成为可能。然而，现有优化互补决定区（CDRs）以提升可开发属性的方法均在原始数据空间操作，由于搜索过程效率低下，导致评估成本过高。为此，我们提出潜在空间黑盒设计框架（LEAD），该框架可在序列与结构共享的潜在空间内同步优化二者。优化共享潜在编码不仅能突破现有方法的局限，还能确保不同模态设计的同步性。特别地，我们设计了一种黑盒引导策略，以适应现实场景中许多属性评估器不可微分的特点。实验结果表明，LEAD在单属性和多属性优化目标上均表现出卓越性能。值得注意的是，LEAD在属性优化方面超越基线方法的同时，将查询消耗降低了一半。代码已开源：<a href="https://github.com/EvaFlower/LatEnt-blAck-box-Design">https://github.com/EvaFlower/LatEnt-blAck-box-Design</a></p>
+<p>（注：根据学术翻译规范，技术术语采用生物医学领域通用译法，如"complementarity-determining regions"译为"互补决定区"；"developability properties"译为"可开发属性"；框架名称LEAD保留英文缩写但补充中文全称以利理解；长难句按中文表达习惯拆分重组，确保专业性与可读性平衡。）</p>
+<div class="markdown-heading"><h2 class="heading-element">治愈：关键令牌引导的重组以预防熵崩溃</h2><a id="user-content-治愈关键令牌引导的重组以预防熵崩溃" class="anchor" aria-label="Permalink: 治愈：关键令牌引导的重组以预防熵崩溃" href="#治愈关键令牌引导的重组以预防熵崩溃"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.11016v1 公告类型：新研究<br>
+摘要：带验证奖励的强化学习（RLVR）近期取得的进展，推动了大语言模型（LLM）中更复杂认知行为的涌现，从而增强了其推理能力。然而，在以往的RLVR流程中，每次采样阶段重复使用完全来自数据集分布的静态初始状态采样，导致模型行为过于确定性且多样性不足，表现为熵值快速崩溃，阻碍了长期训练中的持续性能提升。为解决这一问题，我们提出CURE（基于关键令牌引导的重组接防熵崩溃框架），这是一个平衡探索与利用的两阶段框架。具体而言：第一阶段，为引导模型主动进入新颖但连贯的上下文环境，我们在高熵关键令牌处进行再生，并联合优化原始轨迹与分支轨迹。与原始DAPO方法的对比表明，该再生过程在数学推理任务中表现更优，同时维持了高熵探索水平；第二阶段，我们继续采用DAPO的静态初始状态采样进行训练，有意让模型处于熟悉状态以逐步强化利用能力。在Qwen-2.5-Math-7B模型上的大量实验表明，相较于其他RLVR方法，CURE在六项数学基准测试中实现了5%的性能提升，在熵值与准确率方面均达到最先进水平。一系列实验进一步验证了该方法的有效性。代码已开源：<a href="https://github.com/CURE-Project/CURE%E3%80%82">https://github.com/CURE-Project/CURE。</a></p>
+<p>（注：根据学术文献翻译规范，对部分术语进行了标准化处理：</p>
+<ol>
+<li>"RLVR"保留英文缩写并在首次出现时标注全称</li>
+<li>"entropy collapse"译为"熵崩溃"以符合信息论术语</li>
+<li>"DAPO"作为方法名保留不译</li>
+<li>长难句按中文表达习惯拆分重组，如将"manifested as..."处理为因果句式</li>
+<li>技术概念如"exploration and exploitation"采用计算机领域通用译法"探索与利用"）</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">NeMo：一种在训练过程中实现神经元级模块化的深度神经网络模型分解方法</h2><a id="user-content-nemo一种在训练过程中实现神经元级模块化的深度神经网络模型分解方法" class="anchor" aria-label="Permalink: NeMo：一种在训练过程中实现神经元级模块化的深度神经网络模型分解方法" href="#nemo一种在训练过程中实现神经元级模块化的深度神经网络模型分解方法"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>arXiv:2508.11348v1 公告类型：新研究<br>
+摘要：随着深度神经网络（DNN）模型日益融入现代软件系统，其高昂的构建成本已成为重大挑战。模型重用技术虽被广泛用于降低训练开销，但盲目复用整个模型会带来显著的推理开销。为此，DNN模块化技术通过分解模型实现模块复用，逐渐受到关注。新兴的"训练即模块化"（MwT）范式将模块化融入训练过程，其表现优于训练后模块化方法。然而现有MwT方法仅针对小规模CNN模型在卷积核层面操作，难以应对多样化DNN及大规模模型（尤其是基于Transformer的模型）。为突破这些局限，我们提出NeMo——一种可扩展、泛化性强的MwT方法。NeMo在神经元层面（所有DNN共有的基础组件）进行操作，确保其适用于Transformer及各类架构。我们设计了基于对比学习的模块化训练方法，配合高效复合损失函数，使其能扩展至大规模模型。在两种Transformer模型和四种CNN模型上的跨数据集分类实验表明，NeMo优于当前最先进的MwT方法：模块分类准确率平均提升1.72%，模块体积减少58.10%，在CNN和大型Transformer模型上均表现优异。开源项目案例研究证实了NeMo在实际场景中的应用潜力，为可扩展、泛化性强的DNN模块化提供了创新解决方案。</p>
+<p>（注：根据学术论文摘要的文体特点，翻译时：</p>
+<ol>
+<li>专业术语如"contrastive learning"译为"对比学习"，"composite loss function"译为"复合损失函数"</li>
+<li>保持被动语态与原文学术风格一致，如"has been widely applied"译为"被广泛用于"</li>
+<li>长难句进行合理切分，如原文最后一句拆分为成果展示和意义阐述两部分</li>
+<li>数字和百分比保留原文精确表述</li>
+<li>技术名词首字母缩写（如MwT）在首次出现时保留英文并添加中文注释）</li>
+</ol>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

@@ -29,6 +29,8 @@ jobs:
         OAI_KEY: ${{ secrets.OAI_KEY }}
         SLACK_KEY: ${{ secrets.SLACK_KEY }}
         SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+        SECRET_ID: ${{ secrets.SECRET_ID }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         python main.py
     - name: Upload results

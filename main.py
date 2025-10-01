@@ -17,6 +17,7 @@ from filter_papers import filter_by_author, filter_by_gpt, filter_papers_by_hind
 from parse_json_to_md import render_md_string
 from push_to_slack import push_to_slack
 from arxiv_scraper import EnhancedJSONEncoder
+from translate import TencentCloudTranslator
 
 T = TypeVar("T")
 
@@ -214,7 +215,8 @@ if __name__ == "__main__":
     config.read("configs/config.ini")
 
     S2_API_KEY = os.environ.get("S2_KEY")
-
+    secret_id = os.environ.get("secret_id")
+    secret_key = os.environ.get("secret_key")
     OAI_KEY = os.environ.get("OAI_KEY")
     if OAI_KEY is None:
         raise ValueError(
@@ -255,8 +257,6 @@ if __name__ == "__main__":
     for paper in papers:
         all_papers[paper.arxiv_id] = paper
 
-    # selected_papers 是根据作者选出来的论文
-
     filter_by_gpt(
         papers,
         config,
@@ -265,12 +265,20 @@ if __name__ == "__main__":
         selected_papers,
     )
 
-    #增加翻译成中文的模块
-    # 对筛选出的论文标题和摘要进行翻译
+
+    translator = TencentCloudTranslator(secret_id, secret_key)
+
     for paper_id, paper in selected_papers.items():
         print(f"Translating paper: {paper['title']}")
-        paper['title_cn'] = translate_to_chinese_via_deepseek(paper['title'], openai_client,config)
-        paper['abstract_cn'] = translate_to_chinese_via_deepseek(paper['abstract'], openai_client,config)
+        # 翻译标题并进行错误处理
+        paper['title_cn'] = translator.translate(paper['title'])
+        if paper['title_cn'] is None:
+            paper['title_cn'] = "[Translation Failed]"
+
+        # 翻译摘要并进行错误处理
+        paper['abstract_cn'] = translator.translate(paper['abstract'])
+        if paper['abstract_cn'] is None:
+            paper['abstract_cn'] = "[Translation Failed]"
 
     # sort the papers by relevance and novelty
 

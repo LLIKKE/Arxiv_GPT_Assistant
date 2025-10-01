@@ -254,16 +254,16 @@ if __name__ == "__main__":
 
     all_papers = {}
     selected_papers = {}
-    for paper in papers[:1]:
+    for paper in papers:
         all_papers[paper.arxiv_id] = paper
 
-    '''filter_by_gpt(
+    filter_by_gpt(
         papers,
         config,
         openai_client,
         all_papers,
         selected_papers,
-    )'''
+    )
 
     print(secret_id, secret_key)
     translator = TencentCloudTranslator(secret_id, secret_key)

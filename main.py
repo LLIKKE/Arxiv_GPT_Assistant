@@ -252,7 +252,7 @@ if __name__ == "__main__":
 
     all_papers = {}
     selected_papers = {}
-    for paper in papers[:10]:
+    for paper in papers:
         all_papers[paper.arxiv_id] = paper
 
     # selected_papers 是根据作者选出来的论文

@@ -215,8 +215,8 @@ if __name__ == "__main__":
     config.read("configs/config.ini")
 
     S2_API_KEY = os.environ.get("S2_KEY")
-    secret_id = os.environ.get("secret_id")
-    secret_key = os.environ.get("secret_key")
+    secret_id = os.environ.get("SECRET_ID")
+    secret_key = os.environ.get("SECRET_KEY")
     OAI_KEY = os.environ.get("OAI_KEY")
     if OAI_KEY is None:
         raise ValueError(

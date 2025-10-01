@@ -265,7 +265,7 @@ if __name__ == "__main__":
         selected_papers,
     )'''
 
-
+    print(secret_id, secret_key)
     translator = TencentCloudTranslator(secret_id, secret_key)
 
     for paper_id, paper in selected_papers.items():

@@ -11,3 +11,4 @@ slack_sdk
 arxiv~=2.0.0
 zhipuai
 secure-smtplib
+tencentcloud-sdk-python

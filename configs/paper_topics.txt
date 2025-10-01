@@ -2,5 +2,5 @@
     - Relevant: To optimize large language models (LLMs) for reduced memory and computational costs while maintaining performance, this research direction integrates quantization, pruning, and KVCache compression into a unified framework.
  2. Voice, Language, and Visual Multimodal Large Models
     - Relevant: This research aims to train a model that effectively integrates multiple modalities, such as text, language, and vision, to enhance the model's performance and generalization ability. The approach helps optimize model training and improves the synergy between different modalities during the fusion process.
-In suggesting papers to your friend, remember that he enjoys papers on large language model (llm) compression, , and related algorithms such as quantization and pruning. He is particularly interested in research that explores new methods for reducing large language model size and improving inference speed, as well as innovative approaches to optimizing large language model. Furthermore, it incorporates Mixture-of-Experts (MoE) architectures to significantly decrease deployment overhead and accelerate inference speed, enabling more efficient and scalable model serving in resource-constrained environments.
+In suggesting papers to your friend, remember that he enjoys papers on large language model (llm) compression, Multimodal Large Models.
 

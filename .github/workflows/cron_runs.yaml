@@ -2,7 +2,10 @@ name: Run daily arxiv
 
 on:
   workflow_dispatch:
-  
+  schedule:
+    # UTC 时间 21:00（即北京时间次日凌晨 5:00）
+    - cron: "0 21 * * 1-5"
+
 
 permissions:
   contents: read

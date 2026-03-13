@@ -1,8 +1,17 @@
- 1. Quantization, Pruning, and KVCache Compression for Efficient Large Language Models
-    - Relevant: To optimize large language models (LLMs) and Mixture of Experts (MoE) for reduced memory and computational costs while maintaining performance, this research direction integrates quantization, pruning, and KVCache compression into a unified framework.
- 2. Voice, Language, and Visual Multimodal Large Models
-    - Relevant: This research introduces a novel multimodal large model that integrates text, language, and vision modalities. The goal is to advance the performance and generalization capabilities of the model by establishing a new approach for training and fusing these modalities effectively, rather than focusing on incremental optimizations.
- 3. Prompt Engineering 
-    – Relevant: Exploring how to improve language model performance by adjusting prompts and context, with an emphasis on adaptive context methods, how to enable LLMs or MLLMs to automatically generate prompts that are well-suited to a given task.
+1. Supervised Fine-Tuning (SFT) for LLMs
+ Supervised Fine-Tuning (SFT) is a critical technique for adapting pre-trained Large Language Models (LLMs) to specific downstream tasks or domains. This process involves further training the model on a curated dataset of high-quality, labeled examples that reflect the target behavior. Our research focuses on optimizing the SFT process to enhance model performance, alignment, and efficiency.
+ - Key Direction: Investigating novel data-sourcing and data-synthesis strategies to construct high-quality, diverse, and instruction-rich SFT datasets.
+ - Key Direction: Developing advanced SFT algorithms and optimization techniques to improve the efficiency and effectiveness of fine-tuning on specialized tasks.
+ - Potential Contribution: Establishing best practices for curating SFT data and designing fine-tuning protocols that lead to more capable and reliable LLMs.
+2. Reinforcement Learning (RL) for LLMs
+ Reinforcement Learning, particularly from human or AI-generated feedback, offers a powerful paradigm for aligning LLM behavior with complex human preferences and objectives. This research area explores methods beyond simple instruction-following, aiming to imbue models with more nuanced capabilities. Our work centers on creating robust RL pipelines and novel reward mechanisms to steer LLM development.
+ - Relevance: We explore cutting-edge RL techniques, including rejection sampling and unsupervised reinforcement learning with verifiable rewards, to build sophisticated data pipelines that continuously enhance LLM capabilities.
+ - Key Direction: Designing novel reward functions that directly target improvements in key metrics such as helpfulness, honesty, harmlessness, and reductions in hallucination.
+ - Potential Contribution: Pioneering new research directions in RL for LLMs that inspire further investigation and bridge the gap between theoretical advancements and practical, large-scale model improvements.
+3. Agents for LLMs
+ Autonomous agents built upon LLMs are a key step towards creating general-purpose problem-solving systems, but our emphasis is on self-evolving agents: agents that can iteratively improve their policies, tools, and internal knowledge through experience. This direction studies the mechanisms that make agent behavior not only autonomous at inference time, but continually improving over long horizons via self-generated feedback and data. The goal is to design agent architectures that translate self-evolution into measurable capability gains and strong real-world deployability.
+ - Relevance: Centering on self-evolving agents—agent systems that autonomously generate supervision signals, curate experience, and improve themselves over time rather than remaining static after deployment.
+ - Key Direction: Building closed-loop improvement frameworks, e.g., self-reflection and self-critique, automated curriculum generation, and learning from interaction traces (including tool-use trajectories) to drive continual adaptation.
+ - Potential Contribution: Delivering practical, deployable self-evolving agents that demonstrate sustained improvements in reasoning, planning, and tool use, with clear evaluation protocols that quantify long-horizon learning progress and reliability.
 In suggesting papers to your friend, remember that he enjoys papers on large language model (llm) compression, Multimodal Large Models, LLM Prompt Engineering.
 

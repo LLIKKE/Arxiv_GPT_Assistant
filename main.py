@@ -1,193 +1,98 @@
 import json
 import configparser
 import os
-import time
+import io
+import logging
+from typing import List, Tuple, Set
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
 from zhipuai import ZhipuAI
 from openai import OpenAI
-import openai
-from requests import Session
-from typing import TypeVar, Generator
-import io
-import dataclasses
-from retry import retry
-from tqdm import tqdm
 
-from arxiv_scraper import get_papers_from_arxiv_rss_api
-from filter_papers import filter_by_author, filter_by_gpt, filter_papers_by_hindex
-from parse_json_to_md import render_md_string
-from push_to_slack import push_to_slack
-from arxiv_scraper import EnhancedJSONEncoder
-from translate import TencentCloudTranslator
+from src.scraper.arxiv_scraper import get_papers_from_arxiv_rss_api, Paper
+from src.filter.filter_papers import filter_by_gpt, filter_by_author
+from src.utils.formatters import render_md_string
+from src.notify.slack import push_to_slack
+from src.translate.tencent_translate import TencentCloudTranslator
 
-T = TypeVar("T")
+# Configure basic logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-
-def batched(items: list[T], batch_size: int) -> list[T]:
-    # takes a list and returns a list of list with batch_size
-    return [items[i : i + batch_size] for i in range(0, len(items), batch_size)]
-
-
-def argsort(seq):
-    # native python version of an 'argsort'
-    # http://stackoverflow.com/questions/3071415/efficient-method-to-calculate-the-rank-vector-of-a-list-in-python
-    return sorted(range(len(seq)), key=seq.__getitem__)
-
-
-def get_paper_batch(
-    session: Session,
-    ids: list[str],
-    S2_API_KEY: str,
-    fields: str = "paperId,title",
-    **kwargs,
-) -> list[dict]:
-    # gets a batch of papers. taken from the sem scholar example.
-    params = {
-        "fields": fields,
-        **kwargs,
-    }
-    if S2_API_KEY is None:
-        headers = {}
-    else:
-        headers = {
-            "X-API-KEY": S2_API_KEY,
-        }
-    body = {
-        "ids": ids,
-    }
-
-    # https://api.semanticscholar.org/api-docs/graph#tag/Paper-Data/operation/post_graph_get_papers
-    with session.post(
-        "https://api.semanticscholar.org/graph/v1/paper/batch",
-        params=params,
-        headers=headers,
-        json=body,
-    ) as response:
-        response.raise_for_status()
-        return response.json()
-
-
-def get_author_batch(
-    session: Session,
-    ids: list[str],
-    S2_API_KEY: str,
-    fields: str = "name,hIndex,citationCount",
-    **kwargs,
-) -> list[dict]:
-    # gets a batch of authors. analogous to author batch
-    params = {
-        "fields": fields,
-        **kwargs,
-    }
-    if S2_API_KEY is None:
-        headers = {}
-    else:
-        headers = {
-            "X-API-KEY": S2_API_KEY,
-        }
-    body = {
-        "ids": ids,
-    }
-
-    with session.post(
-        "https://api.semanticscholar.org/graph/v1/author/batch",
-        params=params,
-        headers=headers,
-        json=body,
-    ) as response:
-        response.raise_for_status()
-        return response.json()
-
-
-@retry(tries=3, delay=2.0)
-def get_one_author(session, author: str, S2_API_KEY: str) -> str:
-    # query the right endpoint https://api.semanticscholar.org/graph/v1/author/search?query=adam+smith
-    params = {"query": author, "fields": "authorId,name,hIndex", "limit": "10"}
-    if S2_API_KEY is None:
-        headers = {}
-    else:
-        headers = {
-            "X-API-KEY": S2_API_KEY,
-        }
-    with session.get(
-        "https://api.semanticscholar.org/graph/v1/author/search",
-        params=params,
-        headers=headers,
-    ) as response:
-        # try catch for errors
-        try:
-            response.raise_for_status()
-            response_json = response.json()
-            if len(response_json["data"]) >= 1:
-                return response_json["data"]
-            else:
-                return None
-        except Exception as ex:
-            print("exception happened" + str(ex))
-            return None
-
-
-def get_papers(
-    ids: list[str], S2_API_KEY: str, batch_size: int = 100, **kwargs
-) -> Generator[dict, None, None]:
-    # gets all papers, doing batching to avoid hitting the max paper limit.
-    # use a session to reuse the same TCP connection
-    with Session() as session:
-        # take advantage of S2 batch paper endpoint
-        for ids_batch in batched(ids, batch_size=batch_size):
-            yield from get_paper_batch(session, ids_batch, S2_API_KEY, **kwargs)
-
-
-def get_authors(
-    all_authors: list[str], S2_API_KEY: str, batch_size: int = 100, **kwargs
-):
-    # first get the list of all author ids by querying by author names
-    author_metadata_dict = {}
-    with Session() as session:
-        for author in tqdm(all_authors):
-            auth_map = get_one_author(session, author, S2_API_KEY)
-            if auth_map is not None:
-                author_metadata_dict[author] = auth_map
-            # add a 20ms wait time to avoid rate limiting
-            # otherwise, semantic scholar aggressively rate limits, so do 1s
-            if S2_API_KEY is not None:
-                time.sleep(0.02)
-            else:
-                time.sleep(1.0)
-    return author_metadata_dict
-
-
-def get_papers_from_arxiv(config):
+def get_papers_from_arxiv(config: configparser.ConfigParser) -> Set[Paper]:
+    """
+    Fetch papers from Arxiv based on categories specified in the configuration.
+    """
     area_list = config["FILTERING"]["arxiv_category"].split(",")
     paper_set = set()
     for area in area_list:
         papers = get_papers_from_arxiv_rss_api(area.strip(), config)
         paper_set.update(set(papers))
-    if config["OUTPUT"].getboolean("debug_messages"):
-        print("Number of papers:" + str(len(paper_set)))
+        
+    if config["OUTPUT"].getboolean("debug_messages", fallback=False):
+        logging.info(f"Number of papers fetched: {len(paper_set)}")
+        
     return paper_set
 
-
-def parse_authors(lines):
-    # parse the comma-separated author list, ignoring lines that are empty and starting with #
+def parse_authors(lines: List[str]) -> Tuple[List[str], List[str]]:
+    """
+    Parse a comma-separated author list, ignoring empty lines or comments starting with '#'.
+    """
     author_ids = []
     authors = []
     for line in lines:
-        if line.startswith("#"):
-            continue
-        if not line.strip():
+        line = line.strip()
+        if not line or line.startswith("#"):
             continue
         author_split = line.split(",")
-        author_ids.append(author_split[1].strip())
-        authors.append(author_split[0].strip())
+        if len(author_split) >= 2:
+            authors.append(author_split[0].strip())
+            author_ids.append(author_split[1].strip())
     return authors, author_ids
 
-
-def translate_to_chinese_via_deepseek(text: str, client: OpenAI,config) -> str:
+def generate_daily_summary(selected_papers: dict, client: OpenAI, config: configparser.ConfigParser) -> str:
     """
-    使用 DeepSeek API 将英文文本翻译成中文
+    Generate a daily summary using LLM based on the selected papers.
+    """
+    if not selected_papers:
+        return "No relevant papers found today."
+        
+    papers_context = ""
+    for idx, (paper_id, paper) in enumerate(selected_papers.items(), 1):
+        title = paper.get('title', 'Unknown Title')
+        comment = paper.get('COMMENT', '')
+        papers_context += f"{idx}. {title}\nHighlight: {comment}\n\n"
+        
+    prompt = (
+        "You are an expert AI researcher. I will provide you with a list of the most important AI papers published today, "
+        "along with a brief highlight for each. \n\n"
+        "Your task is to write a highly professional 'Daily Research Summary'. \n"
+        "Please categorize your summary based on the main research directions (e.g., SFT, RL for LLMs, Agents, Multimodal, Compression). "
+        "For each direction that has relevant papers today, write ONE concise and insightful paragraph summarizing the general trend or key breakthroughs. "
+        "Do NOT just list the papers again. Synthesize the information.\n\n"
+        "Output the summary in Markdown format. Use `###` for direction headers.\n\n"
+        f"Here are the papers:\n{papers_context}"
+    )
+    
+    try:
+        response = client.chat.completions.create(
+            model=config["SELECTION"]["model"],
+            messages=[
+                {"role": "system", "content": "You are a senior AI research scientist writing a newsletter summary."},
+                {"role": "user", "content": prompt},
+            ],
+            stream=False,
+            temperature=0.7,
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        logging.error(f"Failed to generate daily summary: {e}")
+        return "Failed to generate daily summary due to an API error."
+
+def translate_to_chinese_via_deepseek(text: str, client: OpenAI, config: configparser.ConfigParser) -> str:
+    """
+    Optional alternative: Translate English text to Chinese using DeepSeek API.
     """
     try:
-        # 使用 DeepSeek API 的 chat.completions.create 方法
         response = client.chat.completions.create(
             model=config["SELECTION"]["model"],
             messages=[
@@ -198,101 +103,131 @@ def translate_to_chinese_via_deepseek(text: str, client: OpenAI,config) -> str:
             temperature=1.0,
             seed=0
         )
-        # 获取返回的翻译文本
-        translated_text = response.choices[0].message.content.strip()
-        return translated_text
+        return response.choices[0].message.content.strip()
     except Exception as e:
-        print(f"翻译失败: {e}")
+        logging.error(f"Translation failed: {e}")
         return text
 
-
-
-if __name__ == "__main__":
-    # now load config.ini
-    # 设置 OpenAI API 密钥和 DeepSeek base_url
-    
+def main():
     config = configparser.ConfigParser()
     config.read("configs/config.ini")
 
+    # API Keys
     S2_API_KEY = os.environ.get("S2_KEY")
     secret_id = os.environ.get("SECRET_ID")
     secret_key = os.environ.get("SECRET_KEY")
     OAI_KEY = os.environ.get("OAI_KEY")
+    
     if OAI_KEY is None:
-        raise ValueError(
-            "OpenAI key is not set - please set OAI_KEY to your OpenAI key"
-        )
+        raise ValueError("OpenAI key is not set - please set OAI_KEY to your API key")
 
+    # Initialize AI Client
     if "deepseek" in config["SELECTION"]["model"]:
         openai_client = OpenAI(api_key=OAI_KEY, base_url="https://api.deepseek.com")
     elif "glm" in config["SELECTION"]["model"]:
         openai_client = ZhipuAI(api_key=OAI_KEY)
     else:
-        raise ValueError()
+        openai_client = OpenAI(api_key=OAI_KEY) # Fallback to default OpenAI
 
-    # load the author list
-    with io.open("configs/authors.txt", "r") as fopen:
-        author_names, author_ids = parse_authors(fopen.readlines())
-    author_id_set = set(author_ids)
+    # Load author list
+    try:
+        with io.open("configs/authors.txt", "r", encoding="utf-8") as fopen:
+            author_names, author_ids = parse_authors(fopen.readlines())
+        author_id_set = set(author_ids)
+    except FileNotFoundError:
+        logging.warning("configs/authors.txt not found, author filtering will be skipped.")
+        author_id_set = set()
 
+    # Fetch papers
     papers = list(get_papers_from_arxiv(config))
-    # dump all papers for debugging
-
+    
     all_authors = set()
     for paper in papers:
         all_authors.update(set(paper.authors))
 
-    if config["OUTPUT"].getboolean("debug_messages"):
-        print("Getting author info for " + str(len(all_authors)) + " authors")
+    if config["OUTPUT"].getboolean("debug_messages", fallback=False):
+        logging.info(f"Gathered {len(all_authors)} unique authors from papers.")
 
-    #all_authors = get_authors(list(all_authors), S2_API_KEY) # 耗时,得到作者id信息和对应hindx
+    # Note: Semantic Scholar author fetching and author-based filtering is disabled by default
+    # If needed, it can be re-enabled here using src.scraper.semantic_scholar
 
-    # selected_papers首先根据作者来保留一部分论文到
-    #selected_papers, all_papers = filter_by_author(
-    #    all_authors, papers, author_id_set, config
-    #)
-
-    all_papers = {}
+    all_papers = {paper.arxiv_id: paper for paper in papers}
     selected_papers = {}
-    for paper in papers:
-        all_papers[paper.arxiv_id] = paper
 
-    filter_by_gpt(
-        papers,
-        config,
-        openai_client,
-        all_papers,
-        selected_papers,
-    )
+    # Filter papers via GPT
+    logging.info("Starting GPT filtering...")
+    filter_by_gpt(papers, config, openai_client, all_papers, selected_papers)
 
-    print(secret_id, secret_key)
-    translator = TencentCloudTranslator(secret_id, secret_key)
+    # Generate Daily Summary
+    logging.info("Generating daily summary...")
+    daily_summary_en = generate_daily_summary(selected_papers, openai_client, config)
 
-    for paper_id, paper in selected_papers.items():
-        print(f"Translating paper: {paper['title']}")
-        # 翻译标题并进行错误处理
-        paper['title_cn'] = translator.translate(paper['title'])
-        if paper['title_cn'] is None:
-            paper['title_cn'] = "[Translation Failed]"
+    # Translate titles and abstracts using Tencent Cloud
+    daily_summary_cn = daily_summary_en
+    if secret_id and secret_key:
+        logging.info("Starting translation...")
+        translator = TencentCloudTranslator(secret_id, secret_key)
+        
+        # Translate the daily summary
+        logging.info("Translating daily summary...")
+        try:
+            translated_summary = translator.translate(daily_summary_en)
+            if translated_summary:
+                daily_summary_cn = translated_summary
+        except Exception as e:
+            logging.error(f"Failed to translate daily summary: {e}")
 
-        # 翻译摘要并进行错误处理
-        paper['abstract_cn'] = translator.translate(paper['abstract'])
-        if paper['abstract_cn'] is None:
-            paper['abstract_cn'] = "[Translation Failed]"
+        def translate_paper(paper_id, paper):
+            try:
+                title_cn = translator.translate(paper.get('title', ''))
+                abstract_cn = translator.translate(paper.get('abstract', ''))
+                return paper_id, {
+                    'title_cn': title_cn if title_cn else "[Translation Failed]",
+                    'abstract_cn': abstract_cn if abstract_cn else "[Translation Failed]"
+                }
+            except Exception as e:
+                logging.error(f"Failed to translate paper {paper_id}: {e}")
+                return paper_id, {
+                    'title_cn': "[Translation Failed]",
+                    'abstract_cn': "[Translation Failed]"
+                }
 
-    # sort the papers by relevance and novelty
+        logging.info("Translating papers concurrently...")
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            futures = {executor.submit(translate_paper, pid, p): pid for pid, p in selected_papers.items()}
+            for future in as_completed(futures):
+                pid, translated_data = future.result()
+                selected_papers[pid].update(translated_data)
+                
+    else:
+        logging.warning("Tencent Cloud SECRET_ID or SECRET_KEY missing. Skipping translation.")
 
-    # pick endpoints and push the summaries
-    if True:
-        if config["OUTPUT"].getboolean("dump_json"):
-            with open(config["OUTPUT"]["output_path"] + "output.json", "w") as outfile:
-                json.dump(selected_papers, outfile, indent=4)
-        if config["OUTPUT"].getboolean("dump_md"):
-            with open(config["OUTPUT"]["output_path"] + "output.md", "w") as f:
-                f.write(render_md_string(selected_papers))
-            # 生成包含中文翻译的 Markdown 文件
-            with open(config["OUTPUT"]["output_path"] + "output_translated.md", "w") as f:
-                for paper_id, paper in selected_papers.items():
-                    f.write(f"## {paper['title_cn']}\n\n")
-                    f.write(f"{paper['abstract_cn']}\n\n")
+    # Output generation
+    output_path = config["OUTPUT"].get("output_path", "out/")
+    os.makedirs(output_path, exist_ok=True)
 
+    if config["OUTPUT"].getboolean("dump_json", fallback=True):
+        with open(os.path.join(output_path, "output.json"), "w", encoding="utf-8") as outfile:
+            json.dump(selected_papers, outfile, indent=4, ensure_ascii=False)
+
+    if config["OUTPUT"].getboolean("dump_md", fallback=True):
+        # Generate standard markdown
+        with open(os.path.join(output_path, "output.md"), "w", encoding="utf-8") as f:
+            f.write(render_md_string(selected_papers, daily_summary_en))
+            
+        # Generate translated markdown
+        with open(os.path.join(output_path, "output_translated.md"), "w", encoding="utf-8") as f:
+            # Add translated summary to the top
+            f.write(f"# 💡 今日研究速览 (Daily Summary)\n\n{daily_summary_cn}\n\n---\n\n")
+            
+            for idx, (paper_id, paper) in enumerate(selected_papers.items(), 1):
+                f.write(f"## {idx}. {paper.get('title_cn', 'Untitled')}\n\n")
+                f.write(f"**作者**: {', '.join(paper.get('authors', []))}\n\n")
+                f.write(f"**机构**: {paper.get('AFFILIATIONS', 'Unknown Institution')}\n\n")
+                f.write(f"**摘要**: {paper.get('abstract_cn', 'No abstract')}\n\n")
+                f.write(f"[阅读原文](https://arxiv.org/abs/{paper_id})\n\n---\n\n")
+                
+    logging.info("Pipeline completed successfully.")
+
+if __name__ == "__main__":
+    main()

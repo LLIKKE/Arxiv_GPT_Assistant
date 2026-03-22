@@ -48,47 +48,32 @@ jobs:
       - name: Set environment variables
         run: echo "OAI_KEY=${{ secrets.OAI_KEY }}" >> $GITHUB_ENV  # Adds secret OAI_KEY to the GitHub environment
 
-      # Step 5: Run the arxiv_scraper.py script
-      - name: Run arxiv_scraper.py to fetch papers
-        run: |
-          python arxiv_scraper.py  # This script will scrape the papers from arXiv
-
-      # Step 6: Run filter_papers.py to filter the papers
-      - name: Run filter_papers.py to filter scraped papers
-        run: |
-          python filter_papers.py  # Filters the papers based on your criteria
-
-      # Step 7: Run main.py to generate the output
+      # Step 5: Run main.py to process filtered papers and generate output
       - name: Run main.py to process filtered papers and generate output
         run: |
           python main.py  # Main program that processes the filtered papers and generates the output
 
-      # Step 8: Run parse_json_to_md.py to convert the JSON output into Markdown
-      - name: Run parse_json_to_md.py to convert JSON to markdown
+      # Step 6: Run push_to_slack to send notifications to Slack (optional, if necessary)
+      - name: Run push_to_slack to send notifications
         run: |
-          python parse_json_to_md.py  # Converts JSON output into markdown files
+          python src/notify/slack.py  # Optionally send a Slack notification after deployment
 
-      # Step 9: Run push_to_slack.py to send notifications to Slack (optional, if necessary)
-      - name: Run push_to_slack.py to send notifications
-        run: |
-          python push_to_slack.py  # Optionally send a Slack notification after deployment
-
-      # Step 10: List the files generated in the 'out' folder
+      # Step 7: List the files generated in the 'out' folder
       - name: List output files
         run: ls -alh ./out  # Verifies that the expected output files are generated in the 'out' folder
 
-      # Step 11: Upload the generated output as an artifact to GitHub Pages
+      # Step 8: Upload the generated output as an artifact to GitHub Pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './out'  # Specifies the directory containing the output files to be uploaded
 
-      # Step 12: Deploy to GitHub Pages
+      # Step 9: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4  # This action deploys the artifact to GitHub Pages
 
-      # Step 13: Verify Pages deployment and output the deployment URL
+      # Step 10: Verify Pages deployment and output the deployment URL
       - name: Verify Pages deployment
         run: |
           echo "Deployment URL: https://<your-username>.github.io/<repository-name>/"  # Prints the deployment URL

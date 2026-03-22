@@ -66,28 +66,96 @@ jobs:
         run: |
           current_date=$(TZ="Asia/Shanghai" date "+%Y-%m-%d %H:%M:%S")
           
-          echo "<!DOCTYPE html>" > dist/index.html
-          echo "<html lang=\"en\">" >> dist/index.html
-          echo "<head>" >> dist/index.html
-          echo "    <meta charset=\"UTF-8\">" >> dist/index.html
-          echo "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">" >> dist/index.html
-          echo "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" >> dist/index.html
-          echo "    <title>GPT Paper Assistant</title>" >> dist/index.html
-          echo "</head>" >> dist/index.html
-          echo "<body>" >> dist/index.html
-          echo "    <h1>GPT Paper Assistant</h1>" >> dist/index.html
-          echo "    <p>Update Date and Time: $current_date</p>" >> dist/index.html
-
-          echo "    <p>Welcome to the Arxiv Paper Assistant! Please select a language:</p>" >> dist/index.html
-          echo "    <ul>" >> dist/index.html
-          echo "        <li><a href=\"./en\">English Version</a></li>" >> dist/index.html
-          echo "        <li><a href=\"./zh\">中文版本</a></li>" >> dist/index.html
-          echo "    </ul>" >> dist/index.html
-          echo "    <footer>" >> dist/index.html
-          echo "        <small>&copy; 2025 GPT Paper Assistant. All rights reserved.</small>" >> dist/index.html
-          echo "    </footer>" >> dist/index.html
-          echo "</body>" >> dist/index.html
-          echo "</html>" >> dist/index.html
+          cat << 'EOF' > dist/index.html
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta http-equiv="X-UA-Compatible" content="IE=edge">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>ArXiv GPT Assistant - Daily Papers</title>
+              <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+              <style>
+                  body {
+                      font-family: 'Inter', sans-serif;
+                      background-color: #f3f4f6;
+                      color: #1f2937;
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      justify-content: center;
+                      min-height: 100vh;
+                      margin: 0;
+                  }
+                  .container {
+                      background: white;
+                      padding: 40px;
+                      border-radius: 12px;
+                      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                      text-align: center;
+                      max-width: 500px;
+                      width: 90%;
+                  }
+                  h1 {
+                      font-size: 1.8rem;
+                      color: #111827;
+                      margin-bottom: 10px;
+                  }
+                  p.date {
+                      color: #6b7280;
+                      font-size: 0.9rem;
+                      margin-bottom: 30px;
+                  }
+                  .links {
+                      display: flex;
+                      flex-direction: column;
+                      gap: 15px;
+                  }
+                  a.button {
+                      display: inline-block;
+                      padding: 12px 24px;
+                      background-color: #3b82f6;
+                      color: white;
+                      text-decoration: none;
+                      border-radius: 8px;
+                      font-weight: 600;
+                      transition: background-color 0.3s;
+                  }
+                  a.button:hover {
+                      background-color: #2563eb;
+                  }
+                  a.button.zh {
+                      background-color: #10b981;
+                  }
+                  a.button.zh:hover {
+                      background-color: #059669;
+                  }
+                  footer {
+                      margin-top: 40px;
+                      color: #9ca3af;
+                      font-size: 0.8rem;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h1>📚 ArXiv GPT Assistant</h1>
+                  <p class="date">Updated: <strong>EOF
+          echo "$current_date" >> dist/index.html
+          cat << 'EOF' >> dist/index.html
+                  </strong></p>
+                  <p style="margin-bottom: 25px; color: #4b5563;">Select your preferred language to read today's AI papers summary.</p>
+                  <div class="links">
+                      <a href="./en" class="button">🇺🇸 Read in English</a>
+                      <a href="./zh" class="button zh">🇨🇳 中文版本 (Chinese)</a>
+                  </div>
+              </div>
+              <footer>
+                  <small>&copy; 2025 ArXiv GPT Assistant. Auto-generated by GitHub Actions.</small>
+              </footer>
+          </body>
+          </html>
+          EOF
 
       - name: Debug deployment condition
         run: |
@@ -115,4 +183,4 @@ jobs:
       # Step 5: Sent email
       - name: sent .html to email
         run: |
-          python sent_email.py
+          python src/notify/email.py

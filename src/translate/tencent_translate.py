@@ -4,14 +4,18 @@ from tencentcloud.common.exception.tencent_cloud_sdk_exception import TencentClo
 from tencentcloud.tmt.v20180321 import tmt_client, models
 from tencentcloud.common.profile.client_profile import ClientProfile
 from tencentcloud.common.profile.http_profile import HttpProfile
-
+from typing import Optional
+from retry import retry
 
 class TencentCloudTranslator:
-    def __init__(self, secret_id, secret_key, project_id=0, region="ap-shanghai"):
-        # 初始化时设置腾讯云的认证信息
+    """
+    Wrapper for Tencent Cloud Machine Translation API.
+    """
+    def __init__(self, secret_id: str, secret_key: str, project_id: int = 0, region: str = "ap-shanghai"):
+        # Setup Tencent Cloud credentials
         self.cred = credential.Credential(secret_id, secret_key)
 
-        # 配置 httpProfile
+        # Configure HTTP profile
         self.httpProfile = HttpProfile()
         self.httpProfile.protocol = "https"
         self.httpProfile.keepAlive = True
@@ -19,35 +23,34 @@ class TencentCloudTranslator:
         self.httpProfile.reqTimeout = 30
         self.httpProfile.endpoint = "tmt.ap-shanghai.tencentcloudapi.com"
 
-        # 配置 clientProfile
+        # Configure client profile
         self.clientProfile = ClientProfile()
         self.clientProfile.signMethod = "TC3-HMAC-SHA256"
         self.clientProfile.language = "en-US"
         self.clientProfile.httpProfile = self.httpProfile
 
-        # 创建客户端对象
+        # Create the client
         self.client = tmt_client.TmtClient(self.cred, region, self.clientProfile)
-
-        # 默认 ProjectId，可以在初始化时修改
         self.project_id = project_id
 
-    def translate(self, source_text):
+    @retry(tries=3, delay=2, backoff=2)
+    def translate(self, source_text: str) -> Optional[str]:
+        """
+        Translates English text to Chinese.
+        """
         try:
-            # 创建翻译请求对象
             req = models.TextTranslateRequest()
+            req.SourceText = source_text
+            req.Source = "en"
+            req.Target = "zh"
+            req.ProjectId = self.project_id
 
-            # 填充请求参数
-            req.SourceText = source_text  # 需要翻译的文本
-            req.Source = "en"  # 源语言（英语）
-            req.Target = "zh"  # 目标语言（中文）
-            req.ProjectId = self.project_id  # 设置 ProjectId
-
-            # 通过client对象调用TextTranslate方法发起请求
             resp = self.client.TextTranslate(req)
-
-            # 返回翻译后的文本
             return resp.TargetText
 
         except TencentCloudSDKException as err:
-            logging.error(f"Error: {err}")
-            return None
+            logging.error(f"Translation Error: {err}")
+            raise err
+        except Exception as e:
+            logging.error(f"Unexpected error during translation: {e}")
+            raise e

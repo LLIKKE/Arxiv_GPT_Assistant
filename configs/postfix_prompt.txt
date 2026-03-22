@@ -1,3 +1,13 @@
-Write the response in JSONL format with {ARXIVID, RELEVANCE} on each line, one for each paper.
-The ARXIVID should be the ArXiv ID.
-The RELEVANCE should be judged as either true or false. Return false if the paper is irrelevant to very criterion or unrelated to the general interest area.
+# Output Instructions
+
+You must respond ONLY with a valid JSONL (JSON Lines) format. Do not include any introductory or concluding text, explanations, or markdown formatting (e.g., do not wrap in ```jsonl). 
+
+Each line of your response must be a single, valid JSON object representing one paper, containing exactly the following keys:
+- "ARXIVID": (string) The ArXiv ID of the paper.
+- "RELEVANCE": (boolean) Set to `true` if the paper strongly matches ANY of the research criteria or general interest areas described above. Set to `false` if the paper is completely irrelevant to all criteria.
+- "COMMENT": (string) A concise 1-sentence summary explaining WHY this paper is relevant and highlighting its core contribution. (If RELEVANCE is false, this can be an empty string).
+- "AFFILIATIONS": (string) Based on the abstract, title, or authors, guess or extract the primary institutions/affiliations of the authors (e.g., "Google DeepMind, Stanford University"). If you cannot determine it, output "Unknown Institution".
+
+Example of expected output format:
+{"ARXIVID": "2401.00001", "RELEVANCE": true, "COMMENT": "Proposes a novel self-evolving agent framework that improves tool-use via reflection.", "AFFILIATIONS": "Stanford University"}
+{"ARXIVID": "2401.00002", "RELEVANCE": false, "COMMENT": "", "AFFILIATIONS": "Unknown Institution"}

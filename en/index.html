@@ -12,81 +12,119 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h1 class="heading-element">Personalized Daily Arxiv Papers 03/20/2026</h1><a id="user-content-personalized-daily-arxiv-papers-03202026" class="anchor" aria-label="Permalink: Personalized Daily Arxiv Papers 03/20/2026" href="#personalized-daily-arxiv-papers-03202026"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Total relevant papers: 4</p>
-<p>Paper selection prompt and criteria at the bottom</p>
-<p>Table of contents with paper titles:</p>
-<ol start="0">
-<li>
-<p><a href="#link0">SpecForge: A Flexible and Efficient Open-Source Training Framework for Speculative Decoding</a>
-<strong>Authors:</strong> Shenggui Li, Chao Wang, Yikai Zhu, Yubo Wang, Fan Yin, Shuai Shi, Yefei Chen, Xiaomin Dong, Qiaoling Chen, Jin Pan, Ji Li, Laixin Xie, Yineng Zhang, Lei Yu, Yonggang Wen, Ivor Tsang, Tianwei Zhang</p>
-</li>
-<li>
-<p><a href="#link1">dTRPO: Trajectory Reduction in Policy Optimization of Diffusion Large Language Models</a>
-<strong>Authors:</strong> Wenxuan Zhang, Lemeng Wu, Changsheng Zhao, Ernie Chang, Mingchen Zhuge, Zechun Liu, Andy Su, Hanxian Huang, Jun Chen, Chong Zhou, Raghuraman Krishnamoorthi, Vikas Chandra, Mohamed Elhoseiny, Wei Wen</p>
-</li>
-<li>
-<p><a href="#link2">Proceedings of the 2nd Workshop on Advancing Artificial Intelligence through Theory of Mind</a>
-<strong>Authors:</strong> Nitay Alon, Joseph M. Barnby, Reuth Mirsky, Stefan Sarkadi</p>
-</li>
-<li>
-<p><a href="#link3">Correlation-Weighted Multi-Reward Optimization for Compositional Generation</a>
-<strong>Authors:</strong> Jungmyung Wi, Hyunsoo Kim, Donghyun Kim</p>
-</li>
-</ol>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">0. <a href="https://arxiv.org/abs/2603.18567" rel="nofollow">SpecForge: A Flexible and Efficient Open-Source Training Framework for Speculative Decoding</a> <a id="user-content-link0"></a>
-</h2><a id="user-content-0-specforge-a-flexible-and-efficient-open-source-training-framework-for-speculative-decoding-" class="anchor" aria-label="Permalink: 0. SpecForge: A Flexible and Efficient Open-Source Training Framework for Speculative Decoding" href="#0-specforge-a-flexible-and-efficient-open-source-training-framework-for-speculative-decoding-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>ArXiv ID:</strong> 2603.18567
-<strong>Authors:</strong> Shenggui Li, Chao Wang, Yikai Zhu, Yubo Wang, Fan Yin, Shuai Shi, Yefei Chen, Xiaomin Dong, Qiaoling Chen, Jin Pan, Ji Li, Laixin Xie, Yineng Zhang, Lei Yu, Yonggang Wen, Ivor Tsang, Tianwei Zhang</p>
-<p><strong>Abstract:</strong> arXiv:2603.18567v1 Announce Type: new  Abstract: Large language models incur high inference latency due to sequential autoregressive decoding. Speculative decoding alleviates this bottleneck by using a lightweight draft model to propose multiple tokens for batched verification. However, its adoption has been limited by the lack of high-quality draft models and scalable training infrastructure. We introduce SpecForge, an open-source, production-oriented framework for training speculative decoding models with full support for EAGLE-3. SpecForge incorporates target-draft decoupling, hybrid parallelism, optimized training kernels, and integration with production-grade inference engines, enabling up to 9.9x faster EAGLE-3 training for Qwen3-235B-A22B. In addition, we release SpecBundle, a suite of production-grade EAGLE-3 draft models trained with SpecForge for mainstream open-source LLMs. Through a systematic study of speculative decoding training recipes, SpecBundle addresses the scarcity of high-quality drafts in the community, and our draft models achieve up to 4.48x end-to-end inference speedup on SGLang, establishing SpecForge as a practical foundation for real-world speculative decoding deployment.</p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">1. <a href="https://arxiv.org/abs/2603.18806" rel="nofollow">dTRPO: Trajectory Reduction in Policy Optimization of Diffusion Large Language Models</a> <a id="user-content-link1"></a>
-</h2><a id="user-content-1-dtrpo-trajectory-reduction-in-policy-optimization-of-diffusion-large-language-models-" class="anchor" aria-label="Permalink: 1. dTRPO: Trajectory Reduction in Policy Optimization of Diffusion Large Language Models" href="#1-dtrpo-trajectory-reduction-in-policy-optimization-of-diffusion-large-language-models-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>ArXiv ID:</strong> 2603.18806
-<strong>Authors:</strong> Wenxuan Zhang, Lemeng Wu, Changsheng Zhao, Ernie Chang, Mingchen Zhuge, Zechun Liu, Andy Su, Hanxian Huang, Jun Chen, Chong Zhou, Raghuraman Krishnamoorthi, Vikas Chandra, Mohamed Elhoseiny, Wei Wen</p>
-<p><strong>Abstract:</strong> arXiv:2603.18806v1 Announce Type: new  Abstract: Diffusion Large Language Models (dLLMs) introduce a new paradigm for language generation, which in turn presents new challenges for aligning them with human preferences. In this work, we aim to improve the policy optimization for dLLMs by reducing the cost of the trajectory probability calculation, thereby enabling scaled-up offline policy training. We prove that: (i) under reference policy regularization, the probability ratio of the newly unmasked tokens is an unbiased estimate of that of intermediate diffusion states, and (ii) the probability of the full trajectory can be effectively estimated with a single forward pass of a re-masked final state. By integrating these two trajectory reduction strategies into a policy optimization objective, we propose Trajectory Reduction Policy Optimization (dTRPO). We evaluate dTRPO on 7B dLLMs across instruction-following and reasoning benchmarks. Results show that it substantially improves the core performance of state-of-the-art dLLMs, achieving gains of up to 9.6% on STEM tasks, up to 4.3% on coding tasks, and up to 3.0% on instruction-following tasks. Moreover, dTRPO exhibits strong training efficiency due to its offline, single-forward nature, and achieves improved generation efficiency through high-quality outputs.</p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">2. <a href="https://arxiv.org/abs/2603.18786" rel="nofollow">Proceedings of the 2nd Workshop on Advancing Artificial Intelligence through Theory of Mind</a> <a id="user-content-link2"></a>
-</h2><a id="user-content-2-proceedings-of-the-2nd-workshop-on-advancing-artificial-intelligence-through-theory-of-mind-" class="anchor" aria-label="Permalink: 2. Proceedings of the 2nd Workshop on Advancing Artificial Intelligence through Theory of Mind" href="#2-proceedings-of-the-2nd-workshop-on-advancing-artificial-intelligence-through-theory-of-mind-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>ArXiv ID:</strong> 2603.18786
-<strong>Authors:</strong> Nitay Alon, Joseph M. Barnby, Reuth Mirsky, Stefan Sarkadi</p>
-<p><strong>Abstract:</strong> arXiv:2603.18786v1 Announce Type: new  Abstract: This volume includes a selection of papers presented at the 2nd Workshop on Advancing Artificial Intelligence through Theory of Mind held at AAAI 2026 in Singapore on 26th January 2026. The purpose of this volume is to provide an open access and curated anthology for the ToM and AI research community.</p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">3. <a href="https://arxiv.org/abs/2603.18528" rel="nofollow">Correlation-Weighted Multi-Reward Optimization for Compositional Generation</a> <a id="user-content-link3"></a>
-</h2><a id="user-content-3-correlation-weighted-multi-reward-optimization-for-compositional-generation-" class="anchor" aria-label="Permalink: 3. Correlation-Weighted Multi-Reward Optimization for Compositional Generation" href="#3-correlation-weighted-multi-reward-optimization-for-compositional-generation-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>ArXiv ID:</strong> 2603.18528
-<strong>Authors:</strong> Jungmyung Wi, Hyunsoo Kim, Donghyun Kim</p>
-<p><strong>Abstract:</strong> arXiv:2603.18528v1 Announce Type: new  Abstract: Text-to-image models produce images that align well with natural language prompts, but compositional generation has long been a central challenge. Models often struggle to satisfy multiple concepts within a single prompt, frequently omitting some concepts and resulting in partial success. Such failures highlight the difficulty of jointly optimizing multiple concepts during reward optimization, where competing concepts can interfere with one another. To address this limitation, we propose Correlation-Weighted Multi-Reward Optimization (\ours), a framework that leverages the correlation structure among concept rewards to adaptively weight each attribute concept in optimization. By accounting for interactions among concepts, \ours balances competing reward signals and emphasizes concepts that are partially satisfied yet inconsistently generated across samples, improving compositional generation. Specifically, we decompose multi-concept prompts into pre-defined concept groups (\eg, objects, attributes, and relations) and obtain reward signals from dedicated reward models for each concept. We then adaptively reweight these rewards, assigning higher weights to conflicting or hard-to-satisfy concepts using correlation-based difficulty estimation. By focusing optimization on the most challenging concepts within each group, \ours encourages the model to consistently satisfy all requested attributes simultaneously. We apply our approach to train state-of-the-art diffusion models, SD3.5 and FLUX.1-dev, and demonstrate consistent improvements on challenging multi-concept benchmarks, including ConceptMix, GenEval 2, and T2I-CompBench.</p>
-<hr>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">Paper selection prompt</h2><a id="user-content-paper-selection-prompt" class="anchor" aria-label="Permalink: Paper selection prompt" href="#paper-selection-prompt"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+})();</script><div><div class="markdown-heading"><h1 class="heading-element">📚 Personalized Daily Arxiv Papers - March 22, 2026</h1><a id="user-content--personalized-daily-arxiv-papers---march-22-2026" class="anchor" aria-label="Permalink: 📚 Personalized Daily Arxiv Papers - March 22, 2026" href="#-personalized-daily-arxiv-papers---march-22-2026"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>Total relevant papers:</strong> 4</p>
+<div class="markdown-heading"><h2 class="heading-element">💡 Daily Research Summary</h2><a id="user-content--daily-research-summary" class="anchor" aria-label="Permalink: 💡 Daily Research Summary" href="#-daily-research-summary"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div>
+### Daily Research Summary
+<div class="markdown-heading"><h4 class="heading-element">RL for LLMs</h4><a id="user-content-rl-for-llms" class="anchor" aria-label="Permalink: RL for LLMs" href="#rl-for-llms"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Today's research demonstrates a significant push toward refining the reward modeling and policy optimization foundations of RLHF. A key trend is the move from purely empirical reward models to more principled, theoretically-grounded frameworks. <strong>CausalRM</strong> exemplifies this by applying causal inference to learn from observational feedback, aiming to produce more robust and unbiased reward signals. Complementing this, <strong>MoRI</strong> and <strong>AutoPipe</strong> focus on the practical orchestration of RL. MoRI shows the value of composite, motivation-grounded rewards for complex tasks like scientific reasoning, while AutoPipe addresses the critical engineering challenge of automatically configuring the entire SFT+RL pipeline for optimal performance and efficiency. Together, these works signal a maturation of RL for LLMs, tackling both the theoretical integrity of the reward function and the systemic optimization of the training process.</p>
+<div class="markdown-heading"><h4 class="heading-element">SFT (Supervised Fine-Tuning)</h4><a id="user-content-sft-supervised-fine-tuning" class="anchor" aria-label="Permalink: SFT (Supervised Fine-Tuning)" href="#sft-supervised-fine-tuning"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>The papers highlight an evolving view of SFT as a versatile tool for specialization and alignment, often serving as a crucial precursor or component within larger pipelines. <strong>MoRI</strong> utilizes SFT to initially ground models in motivation-based reasoning before RL refinement. <strong>Expert Personas</strong> research reveals a nuanced role for SFT in creating specialized expert personas, which can enhance alignment on subjective traits but may trade off factual accuracy, prompting the need for careful routing mechanisms like PRISM. Furthermore, <strong>AutoPipe</strong> implicitly treats SFT not as a standalone step but as an integral, configurable module within an automated post-training workflow. The collective insight is that modern SFT is increasingly targeted (e.g., for specific reasoning styles or expert roles) and systematically integrated into broader, optimized training regimes.</p>
+<div class="markdown-heading"><h4 class="heading-element">Agents</h4><a id="user-content-agents" class="anchor" aria-label="Permalink: Agents" href="#agents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Research on expert personas, while often framed as an alignment or prompting technique, directly advances the architecture of LLM-based agents. The work on <strong>Expert Personas</strong> and the <strong>PRISM</strong> bootstrapping method moves beyond simple prompt engineering toward a more structured paradigm of intent-based routing to specialized agent sub-models. This approach essentially creates a multi-agent system within a single model framework, where different "personas" act as expert agents invoked based on the user's inferred intent. This direction points toward more modular, reliable, and capable AI systems that can dynamically assemble the right expertise for a given task, a core challenge in agent design.</p>
+</div>
+<div class="markdown-heading"><h2 class="heading-element">📑 Table of Contents</h2><a id="user-content--table-of-contents" class="anchor" aria-label="Permalink: 📑 Table of Contents" href="#-table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ol>
-<li>Supervised Fine-Tuning (SFT) for LLMs
-Supervised Fine-Tuning (SFT) is a critical technique for adapting pre-trained Large Language Models (LLMs) to specific downstream tasks or domains. This process involves further training the model on a curated dataset of high-quality, labeled examples that reflect the target behavior. Our research focuses on optimizing the SFT process to enhance model performance, alignment, and efficiency.</li>
+<li>
+<p><a href="#link1">CausalRM: Causal-Theoretic Reward Modeling for RLHF from Observational User Feedbacks</a>
+<strong>Authors:</strong> Hao Wang, Licheng Pan, Zhichao Chen, Chunyuan Zheng, Zhixuan Chu, Xiaoxi Li, Yuan Lu, Xinggao Liu, Haoxuan Li, Zhouchen Lin</p>
+</li>
+<li>
+<p><a href="#link2">MoRI: Learning Motivation-Grounded Reasoning for Scientific Ideation in Large Language Models</a>
+<strong>Authors:</strong> Chenyang Gu, Jiahao Cheng, Meicong Zhang, Pujun Zheng, Jinquan Zheng, Guoxiu He</p>
+</li>
+<li>
+<p><a href="#link3">Expert Personas Improve LLM Alignment but Damage Accuracy: Bootstrapping Intent-Based Persona Routing with PRISM</a>
+<strong>Authors:</strong> Zizhao Hu, Mohammad Rostami, Jesse Thomason</p>
+</li>
+<li>
+<p><a href="#link4">Automatic Configuration of LLM Post-Training Pipelines</a>
+<strong>Authors:</strong> Channe Chwa, Xinle Wu, Yao Lu</p>
+</li>
 </ol>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">📝 Detailed Papers</h2><a id="user-content--detailed-papers" class="anchor" aria-label="Permalink: 📝 Detailed Papers" href="#-detailed-papers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div>
+<div class="markdown-heading"><h2 class="heading-element">1. <a href="https://arxiv.org/abs/2603.18736v1" rel="nofollow">CausalRM: Causal-Theoretic Reward Modeling for RLHF from Observational User Feedbacks</a> <a id="user-content-link1"></a>
+</h2><a id="user-content-1-causalrm-causal-theoretic-reward-modeling-for-rlhf-from-observational-user-feedbacks-" class="anchor" aria-label="Permalink: 1. CausalRM: Causal-Theoretic Reward Modeling for RLHF from Observational User Feedbacks" href="#1-causalrm-causal-theoretic-reward-modeling-for-rlhf-from-observational-user-feedbacks-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>ArXiv ID:</strong> 2603.18736v1 | </p>
+<p><strong>👥 Authors:</strong> <em>Hao Wang, Licheng Pan, Zhichao Chen, Chunyuan Zheng, Zhixuan Chu, Xiaoxi Li, Yuan Lu, Xinggao Liu, Haoxuan Li, Zhouchen Lin</em></p>
+<p><strong>🏫 Affiliations:</strong> Unknown Institution</p>
+<div>
+<strong>💡 Highlight:</strong> Proposes a causal-theoretic reward modeling framework (CausalRM) for RLHF using observational user feedback, directly addressing a key direction in RL for LLMs.</div>
+<details><summary>View Abstract</summary><p>Despite the success of reinforcement learning from human feedback (RLHF) in aligning language models, current reward modeling heavily relies on experimental feedback data collected from human annotators under controlled and costly conditions. In this work, we introduce observational reward modeling -- learning reward models with observational user feedback (e.g., clicks, copies, and upvotes) -- as a scalable and cost-effective alternative. We identify two fundamental challenges in this setting: (1) observational feedback is noisy due to annotation errors, which deviates it from true user preference; (2) observational feedback is biased by user preference, where users preferentially provide feedback on responses they feel strongly about, which creats a distribution shift between training and inference data. To address these challenges, we propose CausalRM, a causal-theoretic reward modeling framework that aims to learn unbiased reward models from observational feedback. To tackle challenge (1), CausalRM introduces a noise-aware surrogate loss term that is provably equivalent to the primal loss under noise-free conditions by explicitly modeling the annotation error generation process. To tackle challenge (2), CausalRM uses propensity scores -- the probability of a user providing feedback for a given response -- to reweight training samples, yielding a loss function that eliminates user preference bias. Extensive experiments across diverse LLM backbones and benchmark datasets validate that CausalRM effectively learns accurate reward signals from noisy and biased observational feedback and delivers substantial performance improvements on downstream RLHF tasks -- including a 49.2% gain on WildGuardMix and a 32.7% improvement on HarmBench. Code is available on our project website.</p></details>
+</div>
+<div>
+<div class="markdown-heading"><h2 class="heading-element">2. <a href="https://arxiv.org/abs/2603.19044v1" rel="nofollow">MoRI: Learning Motivation-Grounded Reasoning for Scientific Ideation in Large Language Models</a> <a id="user-content-link2"></a>
+</h2><a id="user-content-2-mori-learning-motivation-grounded-reasoning-for-scientific-ideation-in-large-language-models-" class="anchor" aria-label="Permalink: 2. MoRI: Learning Motivation-Grounded Reasoning for Scientific Ideation in Large Language Models" href="#2-mori-learning-motivation-grounded-reasoning-for-scientific-ideation-in-large-language-models-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>ArXiv ID:</strong> 2603.19044v1 | </p>
+<p><strong>👥 Authors:</strong> <em>Chenyang Gu, Jiahao Cheng, Meicong Zhang, Pujun Zheng, Jinquan Zheng, Guoxiu He</em></p>
+<p><strong>🏫 Affiliations:</strong> ECNU-Text-Computing</p>
+<div>
+<strong>💡 Highlight:</strong> Introduces MoRI, a framework using SFT and a composite RL reward to ground scientific ideation in motivation-based reasoning, aligning with both SFT and RL for LLMs research.</div>
+<details><summary>View Abstract</summary><p>Scientific ideation aims to propose novel solutions within a given scientific context. Existing LLM-based agentic approaches emulate human research workflows, yet inadequately model scientific reasoning, resulting in surface-level conceptual recombinations that lack technical depth and scientific grounding. To address this issue, we propose \textbf{MoRI} (\textbf{Mo}tivation-grounded \textbf{R}easoning for Scientific \textbf{I}deation), a framework that enables LLMs to explicitly learn the reasoning process from research motivations to methodologies. The base LLM is initialized via supervised fine-tuning to generate a research motivation from a given context, and is subsequently trained under a composite reinforcement learning reward that approximates scientific rigor: (1) entropy-aware information gain encourages the model to uncover and elaborate high-complexity technical details grounded in ground-truth methodologies, and (2) contrastive semantic gain constrains the reasoning trajectory to maintain conceptually aligned with scientifically valid solutions. Empirical results show that MoRI significantly outperforms strong commercial LLMs and complex agentic baselines across multiple dimensions, including novelty, technical rigor, and feasibility. The code will be made available on \href{<a href="https://github.com/ECNU-Text-Computing/IdeaGeneration}{GitHub">https://github.com/ECNU-Text-Computing/IdeaGeneration}{GitHub</a>}.</p></details>
+</div>
+<div>
+<div class="markdown-heading"><h2 class="heading-element">3. <a href="https://arxiv.org/abs/2603.18507v1" rel="nofollow">Expert Personas Improve LLM Alignment but Damage Accuracy: Bootstrapping Intent-Based Persona Routing with PRISM</a> <a id="user-content-link3"></a>
+</h2><a id="user-content-3-expert-personas-improve-llm-alignment-but-damage-accuracy-bootstrapping-intent-based-persona-routing-with-prism-" class="anchor" aria-label="Permalink: 3. Expert Personas Improve LLM Alignment but Damage Accuracy: Bootstrapping Intent-Based Persona Routing with PRISM" href="#3-expert-personas-improve-llm-alignment-but-damage-accuracy-bootstrapping-intent-based-persona-routing-with-prism-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>ArXiv ID:</strong> 2603.18507v1 | </p>
+<p><strong>👥 Authors:</strong> <em>Zizhao Hu, Mohammad Rostami, Jesse Thomason</em></p>
+<p><strong>🏫 Affiliations:</strong> Unknown Institution</p>
+<div>
+<strong>💡 Highlight:</strong> Investigates expert personas for LLM alignment and proposes PRISM, a bootstrapping method to distill intent-conditioned personas, relevant to SFT and advanced prompt engineering.</div>
+<details><summary>View Abstract</summary><p>Persona prompting can steer LLM generation towards a domain-specific tone and pattern. This behavior enables use cases in multi-agent systems where diverse interactions are crucial and human-centered tasks require high-level human alignment. Prior works provide mixed opinions on their utility: some report performance gains when using expert personas for certain domains and their contribution to data diversity in synthetic data creation, while others find near-zero or negative impact on general utility. To fully leverage the benefits of the LLM persona and avoid its harmfulness, a more comprehensive investigation of the mechanism is crucial. In this work, we study how model optimization, task type, prompt length, and placement can impact expert persona effectiveness across instruction-tuned and reasoning LLMs, and provide insight into conditions under which expert personas fail and succeed. Based on our findings, we developed a pipeline to fully leverage the benefits of an expert persona, named PRISM (Persona Routing via Intent-based Self-Modeling), which self-distills an intent-conditioned expert persona into a gated LoRA adapter through a bootstrapping process that requires no external data, models, or knowledge. PRISM enhances human preference and safety alignment on generative tasks while maintaining accuracy on discriminative tasks across all models, with minimal memory and computing overhead.</p></details>
+</div>
+<div>
+<div class="markdown-heading"><h2 class="heading-element">4. <a href="https://arxiv.org/abs/2603.18773v1" rel="nofollow">Automatic Configuration of LLM Post-Training Pipelines</a> <a id="user-content-link4"></a>
+</h2><a id="user-content-4-automatic-configuration-of-llm-post-training-pipelines-" class="anchor" aria-label="Permalink: 4. Automatic Configuration of LLM Post-Training Pipelines" href="#4-automatic-configuration-of-llm-post-training-pipelines-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>ArXiv ID:</strong> 2603.18773v1 | </p>
+<p><strong>👥 Authors:</strong> <em>Channe Chwa, Xinle Wu, Yao Lu</em></p>
+<p><strong>🏫 Affiliations:</strong> Unknown Institution</p>
+<div>
+<strong>💡 Highlight:</strong> Presents AutoPipe, an automatic configuration framework for LLM post-training pipelines (SFT+RL), directly relevant to optimizing SFT and RL processes for efficiency.</div>
+<details><summary>View Abstract</summary><p>LLM post-training pipelines that combine supervised fine-tuning and reinforcement learning are difficult to configure under realistic compute budgets: the configuration space is high-dimensional and heterogeneous, stages are strongly coupled, and each end-to-end evaluation is expensive. We propose AutoPipe, a budget-aware two-stage framework for configuration selection in LLM post-training. Offline, AutoPipe learns a dataset-conditioned learning-to-rank surrogate from historical runs, capturing within-dataset preferences and providing transferable guidance toward promising regions of the configuration space. Online, for a new dataset, AutoPipe uses the offline guidance to steer Bayesian optimization and models dataset-specific deviations with a Gaussian-process residual surrogate. To reduce evaluation cost, each trial is early-stopped and scored by a learned predictor that maps early training signals to a low-cost proxy for final post-training performance. Experiments on biomedical reasoning tasks show that AutoPipe consistently outperforms offline-only baselines and achieves comparable performance with the strongest online HPO baselines while using less than 10\% of their computational cost.</p></details>
+</div>
+<hr>
+<details><summary>Click to view Paper Selection Criteria</summary>
+<div class="markdown-heading"><h1 class="heading-element">Research Interest Criteria</h1><a id="user-content-research-interest-criteria" class="anchor" aria-label="Permalink: Research Interest Criteria" href="#research-interest-criteria"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Please evaluate the papers based on the following three core areas:</p>
+<div class="markdown-heading"><h2 class="heading-element">1. Supervised Fine-Tuning (SFT) for LLMs</h2><a id="user-content-1-supervised-fine-tuning-sft-for-llms" class="anchor" aria-label="Permalink: 1. Supervised Fine-Tuning (SFT) for LLMs" href="#1-supervised-fine-tuning-sft-for-llms"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Supervised Fine-Tuning (SFT) is a critical technique for adapting pre-trained Large Language Models (LLMs) to specific downstream tasks or domains. This process involves further training the model on a curated dataset of high-quality, labeled examples that reflect the target behavior. Our research focuses on optimizing the SFT process to enhance model performance, alignment, and efficiency.</p>
 <ul>
-<li>Key Direction: Investigating novel data-sourcing and data-synthesis strategies to construct high-quality, diverse, and instruction-rich SFT datasets.</li>
-<li>Key Direction: Developing advanced SFT algorithms and optimization techniques to improve the efficiency and effectiveness of fine-tuning on specialized tasks.</li>
-<li>Potential Contribution: Establishing best practices for curating SFT data and designing fine-tuning protocols that lead to more capable and reliable LLMs.</li>
+<li>
+<strong>Key Direction 1:</strong> Investigating novel data-sourcing and data-synthesis strategies to construct high-quality, diverse, and instruction-rich SFT datasets.</li>
+<li>
+<strong>Key Direction 2:</strong> Developing advanced SFT algorithms and optimization techniques to improve the efficiency and effectiveness of fine-tuning on specialized tasks.</li>
+<li>
+<strong>Potential Contribution:</strong> Establishing best practices for curating SFT data and designing fine-tuning protocols that lead to more capable and reliable LLMs.</li>
 </ul>
-<ol start="2">
-<li>Reinforcement Learning (RL) for LLMs
-Reinforcement Learning, particularly from human or AI-generated feedback, offers a powerful paradigm for aligning LLM behavior with complex human preferences and objectives. This research area explores methods beyond simple instruction-following, aiming to imbue models with more nuanced capabilities. Our work centers on creating robust RL pipelines and novel reward mechanisms to steer LLM development.</li>
-</ol>
+<div class="markdown-heading"><h2 class="heading-element">2. Reinforcement Learning (RL) for LLMs</h2><a id="user-content-2-reinforcement-learning-rl-for-llms" class="anchor" aria-label="Permalink: 2. Reinforcement Learning (RL) for LLMs" href="#2-reinforcement-learning-rl-for-llms"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Reinforcement Learning, particularly from human or AI-generated feedback, offers a powerful paradigm for aligning LLM behavior with complex human preferences and objectives. This research area explores methods beyond simple instruction-following, aiming to imbue models with more nuanced capabilities. Our work centers on creating robust RL pipelines and novel reward mechanisms to steer LLM development.</p>
 <ul>
-<li>Relevance: We explore cutting-edge RL techniques, including rejection sampling and unsupervised reinforcement learning with verifiable rewards, to build sophisticated data pipelines that continuously enhance LLM capabilities.</li>
-<li>Key Direction: Designing novel reward functions that directly target improvements in key metrics such as helpfulness, honesty, harmlessness, and reductions in hallucination.</li>
-<li>Potential Contribution: Pioneering new research directions in RL for LLMs that inspire further investigation and bridge the gap between theoretical advancements and practical, large-scale model improvements.</li>
+<li>
+<strong>Relevance:</strong> We explore cutting-edge RL techniques, including rejection sampling and unsupervised reinforcement learning with verifiable rewards, to build sophisticated data pipelines that continuously enhance LLM capabilities.</li>
+<li>
+<strong>Key Direction:</strong> Designing novel reward functions that directly target improvements in key metrics such as helpfulness, honesty, harmlessness, and reductions in hallucination.</li>
+<li>
+<strong>Potential Contribution:</strong> Pioneering new research directions in RL for LLMs that inspire further investigation and bridge the gap between theoretical advancements and practical, large-scale model improvements.</li>
 </ul>
-<ol start="3">
-<li>Agents for LLMs
-Autonomous agents built upon LLMs are a key step towards creating general-purpose problem-solving systems, but our emphasis is on self-evolving agents: agents that can iteratively improve their policies, tools, and internal knowledge through experience. This direction studies the mechanisms that make agent behavior not only autonomous at inference time, but continually improving over long horizons via self-generated feedback and data. The goal is to design agent architectures that translate self-evolution into measurable capability gains and strong real-world deployability.</li>
-</ol>
+<div class="markdown-heading"><h2 class="heading-element">3. Agents for LLMs</h2><a id="user-content-3-agents-for-llms" class="anchor" aria-label="Permalink: 3. Agents for LLMs" href="#3-agents-for-llms"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Autonomous agents built upon LLMs are a key step towards creating general-purpose problem-solving systems. Our emphasis is on <strong>self-evolving agents</strong>: agents that can iteratively improve their policies, tools, and internal knowledge through experience. This direction studies the mechanisms that make agent behavior not only autonomous at inference time, but continually improving over long horizons via self-generated feedback and data. The goal is to design agent architectures that translate self-evolution into measurable capability gains and strong real-world deployability.</p>
 <ul>
-<li>Relevance: Centering on self-evolving agents—agent systems that autonomously generate supervision signals, curate experience, and improve themselves over time rather than remaining static after deployment.</li>
-<li>Key Direction: Building closed-loop improvement frameworks, e.g., self-reflection and self-critique, automated curriculum generation, and learning from interaction traces (including tool-use trajectories) to drive continual adaptation.</li>
-<li>Potential Contribution: Delivering practical, deployable self-evolving agents that demonstrate sustained improvements in reasoning, planning, and tool use, with clear evaluation protocols that quantify long-horizon learning progress and reliability.
-In suggesting papers to your friend, remember that he enjoys papers on large language model (llm) compression, Multimodal Large Models, LLM Prompt Engineering.</li>
+<li>
+<strong>Relevance:</strong> Centering on self-evolving agents—agent systems that autonomously generate supervision signals, curate experience, and improve themselves over time rather than remaining static after deployment.</li>
+<li>
+<strong>Key Direction:</strong> Building closed-loop improvement frameworks, e.g., self-reflection and self-critique, automated curriculum generation, and learning from interaction traces (including tool-use trajectories) to drive continual adaptation.</li>
+<li>
+<strong>Potential Contribution:</strong> Delivering practical, deployable self-evolving agents that demonstrate sustained improvements in reasoning, planning, and tool use, with clear evaluation protocols that quantify long-horizon learning progress and reliability.</li>
 </ul>
+<div class="markdown-heading"><h2 class="heading-element">Additional General Interests</h2><a id="user-content-additional-general-interests" class="anchor" aria-label="Permalink: Additional General Interests" href="#additional-general-interests"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>In addition to the three core areas above, the reader also has strong interests in:</p>
+<ul>
+<li>Large Language Model (LLM) Compression and Efficiency</li>
+<li>Multimodal Large Models (MLLMs / VLMs)</li>
+<li>Advanced LLM Prompt Engineering Strategies</li>
+</ul>
+</details>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

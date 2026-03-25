@@ -14,45 +14,39 @@
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
 })();</script><div><div class="markdown-heading"><h1 class="heading-element">💡 今日研究速览 (Daily Summary)</h1><a id="user-content--今日研究速览-daily-summary" class="anchor" aria-label="Permalink: 💡 今日研究速览 (Daily Summary)" href="#-今日研究速览-daily-summary"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>#每日调研汇总</p>
-<p>** 日期：** 2023年10月26日</p>
+<p>** 日期：** 2024年4月16日</p>
+<p>今天的出版物揭示了在增强大型语言模型的推理能力和运营效率方面取得的重大进展，特别强调推理时算法、多模式集成和战略培训方法。</p>
+<p>#LLC和SFT的RL
+监督微调（SFT）和强化学习（RL）的战略结合出现了一个明显的趋势，将复杂的专家级推理灌输到模型中。研究人员没有将这些阶段视为单独的阶段，而是开发集成的蒸馏管道。例如，一篇论文演示了如何直接提取领域专家的复杂推理（例如，国际象棋大师）通过利用SFT进行行为克隆和RL进行奖励引导的细化，转化为LLM。这种方法超越了简单的模仿学习，旨在捕捉潜在的战略决策过程，这是创建更有能力、更可靠的推理代理的关键一步。</p>
+<p>#代理与推理
+类代理规划的研究正在将重点转向复杂的、预算感知的推断时搜索算法。关键突破是开发了专门针对LLM的不确定性和计算昂贵性质而设计的树搜索方法。今天的工作引入了智能地分配有限计算“预算”的算法（例如，对代币世代的限制）跨越不同的推理路径。通过采用顺序减半和基于Gumbel的探索等原则，这些方法允许模型动态修剪不太有希望的思想链，并将资源集中在最可行的解决方案上，从而在不改变基础模型权重的情况下显着提高推理性能。</p>
+<p>#多模式
+多模式推理的前沿正在超越静态图像字幕或问题回答，转向动态、交叉推理过程。最新的框架将视觉和语言形态视为思想链中的平等伙伴。创新在于生成“动态视觉思想”--本质上是迭代且精确的视觉查询或集中的图像分析--与文本推理步骤交织在一起。这创建了一个反馈循环，模型的语言推理告知图像中接下来要看什么，而新的视觉信息则指导后续推理。这代表了从被动的多模态理解到主动，高效和接地的多模态问题解决的转变。</p>
+<p>#压缩效率
+效率研究正在从模型压缩（例如，量化、修剪）以包括用于智能系统编排的 * 性能预测 *。一个关键的发展是创建模型，可以在完全执行之前预测LLM在给定任务上的预期回报或绩效。此功能直接适用于“模型路由”，其中轻量级预测器可以决定投资组合中哪个专门模型（或模型配置）最适合输入的查询。该范式通过动态分配资源、将计算效率与质量优化的目标结合起来，能够构建更具成本效益和更高性能的LLM系统。</p>
 <hr>
-<p>#** LLC的RL **
-今天的研究强调了将强化学习原则直接集成到推理和部署管道中的务实转变，超越了传统的训练时奖励建模。关键创新在于使用预测的预期回报作为模型路由等关键运营决策的动态实时信号。这种方法将为给定查询选择LLM作为强盗问题，在实时推理期间优化性能和成本效率。它代表了RL for-LLM技术的成熟，将它们从纯粹的训练优化器转变为可扩展的多模型服务架构的核心组件。</p>
-<p>#** 代理 *
-代理研究领域在架构和理论方面都在进步。从架构上来说，人们重新关注通过经典算法增强核心推理能力，这一点体现在蒙特卡罗树搜索和Gumbel AlphaZero原则在LLC内实现预算可扩展规划。从理论上讲，论文正在超越简单的循环执行，为复杂的、长期的代理操作开发正式框架。这包括提出分层记忆的统一理论（对于长期知识保留和检索至关重要），并研究“代理人工智能”的社会规模影响，其中智能是从多个潜在的自我进化的基于代理系统的相互作用中产生的。</p>
-<p>#** 多模式 **
-多模式推理的研究正在从静态图像上的简单问题回答发展到更复杂的交叉处理框架。趋势是将视觉和语言形态视为动态推理链中的平等伙伴。最新的工作引入了生成“精确视觉思想”的机制--在思想链过程中潜在的密集视觉标记或特定区域的按需特征。这通过允许模型动态决定何时和什么“可视化”，从而实现更高效、更准确的推理，减少不必要的计算并提高多模式逐步推理的保真度。</p>
-<p>#** 压缩和效率 **
-虽然不是今天列表中的主要类别，但 ** 会议时间效率 ** 这一强烈的跨领域主题是显而易见的。模型路由工作直接解决系统级别的成本效率问题。更深刻地说，树搜索和多模态推理论文都明确地解决了“不可扩展”或“有效”推理的挑战。他们寻求实现更高的性能，而不是通过简单地扩大模型参数或计算蛮力，而是通过采用更智能的自适应算法，分配有限的计算资源（例如，采样步骤、可视标记计算）。这反映了更广泛的行业迫切需要优化部署大型模型的成本-性能比。</p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">1. 预期回报预测，并应用于建模路由</h2><a id="user-content-1-预期回报预测并应用于建模路由" class="anchor" aria-label="Permalink: 1. 预期回报预测，并应用于建模路由" href="#1-预期回报预测并应用于建模路由"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>作者</strong>: Kenan Hasanaliyev, Silas Alberti, Jenny Hamer, Dheeraj Rajagopal, Kevin Robinson, Jasper Snoek, Victor Veitch, Alexander Nicholas D'Amour</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>摘要</strong>: arXiv：2603.20217v1宣布类型：新摘要：奖励模型是对LLM回复进行评分的标准工具。奖励模型的构建是为了对从单个模型中采样的固定提示的响应进行排名，例如从n个采样的响应中选择最好的。在本文中，我们研究在查看模型的反应之前，是否会提高响应水平奖励模型的分数来评分模型对提示的适合性。具体来说，我们表明，可以简单地预测LLM在重复抽样下从奖励模型中获得的预期奖励。此外，我们表明这些预期回报预测足够精确和有辨别力，足以支持模型路由协议的应用，该协议在推理时将提示路由到模型，以最大化回报，同时控制计算成本。我们使用由Llama3.1-Direct 8B/70 B、Gemma 2-IT 9 B/27 B和Gemma 1-IT 7 B模型组成的模型池，在开放-perfectblend数据集中展示了此路由过程的性能。我们简单的基于预期回报预测的路由（RP）优于路由提示到每个提示类别内具有最佳平均性能的模型的基线，并解释了隐式估计预期回报的更复杂路由协议的成功。我们的方法还有一个额外的优点，即随着新模型添加到池中，可扩展性很小。</p>
-<p><a href="https://arxiv.org/abs/2603.20217" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">2. 庞大的人工智能和下一次智能爆炸</h2><a id="user-content-2-庞大的人工智能和下一次智能爆炸" class="anchor" aria-label="Permalink: 2. 庞大的人工智能和下一次智能爆炸" href="#2-庞大的人工智能和下一次智能爆炸"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>作者</strong>: James Evans, Benjamin Bratton, Blaise Ag"uera y Arcas</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>摘要</strong>: arXiv：2603.20639v1宣布类型：新摘要：“人工智能奇异性”经常被误认为是一个单一的、神般的头脑。进化表明了一条不同的道路：智力从根本上来说是多元的、社会的和关系的。代理人工智能的最新进展表明，DeepSeek-R1等前沿推理模型并不能简单地通过“思考更长时间”来改进。相反，它们模拟内部的“思想社会”，即自发的认知辩论，争论、验证和和解以解决复杂的任务。此外，我们正在进入一个人类-人工智能人马的时代：集体机构超越个人控制的混合行动者。扩展这种情报需要从二元联盟（RL HF）转向机构联盟。通过以组织和市场为模型设计数字协议，我们可以建立一个制衡的社会基础设施。下一次智力爆炸不会是单一的硅大脑，而是一个复杂的组合社会，专业化并像城市一样蔓延。没有思想是一座岛屿。</p>
-<p><a href="https://arxiv.org/abs/2603.20639" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">3. 重温LLM的树搜索：Gumbel和顺序减半用于预算可扩展推理</h2><a id="user-content-3-重温llm的树搜索gumbel和顺序减半用于预算可扩展推理" class="anchor" aria-label="Permalink: 3. 重温LLM的树搜索：Gumbel和顺序减半用于预算可扩展推理" href="#3-重温llm的树搜索gumbel和顺序减半用于预算可扩展推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">1. 重温LLM的树搜索：Gumbel和顺序减半用于预算可扩展推理</h2><a id="user-content-1-重温llm的树搜索gumbel和顺序减半用于预算可扩展推理" class="anchor" aria-label="Permalink: 1. 重温LLM的树搜索：Gumbel和顺序减半用于预算可扩展推理" href="#1-重温llm的树搜索gumbel和顺序减半用于预算可扩展推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>作者</strong>: Leonid Ugadiarov, Yuri Kuratov, Aleksandr Panov, Alexey Skrynnik</p>
 <p><strong>机构</strong>: Unknown Institution</p>
 <p><strong>摘要</strong>: arXiv：2603.21162v1宣布类型：新摘要：神经树搜索是一种强大的决策算法，广泛用于游戏和基于模型的强化学习等复杂领域。最近的工作应用了AlphaZero风格的树搜索来增强大型语言模型（LLM）在推理过程中的推理能力，但我们发现这种方法存在扩展失败：在GSM 8 K和Game24上，准确性随着搜索预算的增加而下降。在本文中，我们介绍了ReSCALE，这是Gumbel AlphaZero MCTS的改编版本，用Gumbel采样和顺序减半取代Dirichlet噪音和PUCT选择，在不改变模型或其训练的情况下恢复单调缩放。在基线下降的预算下，ReSCALE在GSM 8 K上达到58.4%，在Game24上达到85.3%。消融证实顺序减半是改进的主要驱动力。</p>
 <p><a href="https://arxiv.org/abs/2603.21162" rel="nofollow">阅读原文</a></p>
 <hr>
-<div class="markdown-heading"><h2 class="heading-element">4. 让我们高效地用图像思考！具有动态精确视觉思维的交错模式思维链推理框架</h2><a id="user-content-4-让我们高效地用图像思考具有动态精确视觉思维的交错模式思维链推理框架" class="anchor" aria-label="Permalink: 4. 让我们高效地用图像思考！具有动态精确视觉思维的交错模式思维链推理框架" href="#4-让我们高效地用图像思考具有动态精确视觉思维的交错模式思维链推理框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">2. 让我们高效地用图像思考！具有动态精确视觉思维的交错模式思维链推理框架</h2><a id="user-content-2-让我们高效地用图像思考具有动态精确视觉思维的交错模式思维链推理框架" class="anchor" aria-label="Permalink: 2. 让我们高效地用图像思考！具有动态精确视觉思维的交错模式思维链推理框架" href="#2-让我们高效地用图像思考具有动态精确视觉思维的交错模式思维链推理框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>作者</strong>: Xu Liu, Yongheng Zhang, Qiguang Chen, Yao Li, Sheng Wang, Libo Qin</p>
 <p><strong>机构</strong>: Unknown Institution</p>
 <p><strong>摘要</strong>: arXiv：2603.21754v1宣布类型：新摘要：最近，交错模式思想链（ICoT）推理通过利用多模式输入和输出取得了显着的成功，引起了越来越多的关注。虽然实现了有希望的性能，但当前的ICoT方法仍然存在两个主要局限性：（1）静态视觉思维定位，以固定步骤静态插入视觉信息，导致推理效率低下和不灵活;（2）破碎的视觉思维表示，涉及不连续和语义不连贯的视觉标志。为了解决这些局限性，我们引入了具有动态和精确视觉思想的交织模式思想链推理（DaP-ICoT），它包含两个关键组件：（1）动态视觉思想集成根据推理需求自适应地引入视觉输入，减少冗余并提高效率。(2)精确的视觉思维引导确保视觉语义连贯和上下文一致的表示。多个基准测试和模型的实验表明DaP-ICoT实现了最先进的性能。此外，DaP-ICoT显着减少了插入图像的数量，导致代币消耗减少了72.6%，从而实现了更高效的ICoT推理。</p>
 <p><a href="https://arxiv.org/abs/2603.21754" rel="nofollow">阅读原文</a></p>
 <hr>
-<div class="markdown-heading"><h2 class="heading-element">5. 语言主体分层记忆理论的发展</h2><a id="user-content-5-语言主体分层记忆理论的发展" class="anchor" aria-label="Permalink: 5. 语言主体分层记忆理论的发展" href="#5-语言主体分层记忆理论的发展"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>作者</strong>: Yashar Talebirad, Ali Parsaee, Csongor Y. Szepesvari, Amirhossein Nadiri, Osmar Zaiane</p>
+<div class="markdown-heading"><h2 class="heading-element">3. 通过大师级蒸馏在语言模型中进行扎根国际象棋推理</h2><a id="user-content-3-通过大师级蒸馏在语言模型中进行扎根国际象棋推理" class="anchor" aria-label="Permalink: 3. 通过大师级蒸馏在语言模型中进行扎根国际象棋推理" href="#3-通过大师级蒸馏在语言模型中进行扎根国际象棋推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>作者</strong>: Zhenwei Tang, Qianfeng Wen, Seth Grief-Albert, Yahya Elgabra, Blair Yang, Honghua Dong, Ashton Anderson</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>摘要</strong>: arXiv：2603.21564v1宣布类型：新摘要：许多最近的长上下文和代理系统通过添加分层内存来解决上下文长度限制：它们从原始数据中提取原子单元，通过分组和压缩构建多层代表，并穿越此结构以检索代币预算下的内容。尽管反复进行实现，但没有共同的形式主义来比较设计选择。我们提出了三个运营商的统一理论。提取（$\Alpha$）将原始数据映射到原子信息单元;粗化（$C =（\pi，\rho）$）对单元进行分区并为每个组分配一个代表;在给定查询和预算的情况下，穿越（$\tau$）选择哪些单元要包含在上下文中。我们为代表函数$\rho$识别了自给自足谱，并展示了它如何约束可行的检索策略（粗化-穿越耦合）。最后，我们在跨越文档层次结构、对话内存和代理执行跟踪的十一个现有系统上实例化分解，展示其通用性。</p>
-<p><a href="https://arxiv.org/abs/2603.21564" rel="nofollow">阅读原文</a></p>
+<p><strong>摘要</strong>: arXiv：2603.20510v1宣布类型：新摘要：语言模型在训练数据稀缺但定制系统表现出色的专业领域通常缺乏基础推理能力。我们引入了一个通用框架，用于将专家系统推理提炼为自然语言思维链解释，使紧凑模型能够获得领域专业知识并生成忠实、有基础的解释的能力。我们不是只提取最终输出，而是捕捉完整的推理过程，将不透明的专家计算转化为透明的、逐步的解释。我们在国际象棋中展示了这种方法，国际象棋是一个规范推理领域，语言模型的表现仍然不佳。我们的4B参数模型C1从接近零的基线提升到48.1%的准确性，优于所有开源模型和大多数前沿专有系统。值得注意的是，C1超越了它的蒸馏老师，生成的代币比基线少两个数量级。与之前仅预测最佳棋步的神经国际象棋方法不同，C1生成揭示战略推理的可解释解决方案。我们的管道将监督微调和强化学习与主题平衡的数据采样相结合，以实现全面的战术覆盖。Master Distillation演示了如何将专家级别的知识注入到优化不足的领域的紧凑模型中，为LLM缺乏足够基础能力的情况下解锁RLVR提供了配方。</p>
+<p><a href="https://arxiv.org/abs/2603.20510" rel="nofollow">阅读原文</a></p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">4. 预期回报预测，并应用于建模路由</h2><a id="user-content-4-预期回报预测并应用于建模路由" class="anchor" aria-label="Permalink: 4. 预期回报预测，并应用于建模路由" href="#4-预期回报预测并应用于建模路由"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>作者</strong>: Kenan Hasanaliyev, Silas Alberti, Jenny Hamer, Dheeraj Rajagopal, Kevin Robinson, Jasper Snoek, Victor Veitch, Alexander Nicholas D'Amour</p>
+<p><strong>机构</strong>: Unknown Institution</p>
+<p><strong>摘要</strong>: arXiv：2603.20217v1宣布类型：新摘要：奖励模型是对LLM回复进行评分的标准工具。奖励模型的构建是为了对从单个模型中采样的固定提示的响应进行排名，例如从n个采样的响应中选择最好的。在本文中，我们研究在查看模型的反应之前，是否会提高响应水平奖励模型的分数来评分模型对提示的适合性。具体来说，我们表明，可以简单地预测LLM在重复抽样下从奖励模型中获得的预期奖励。此外，我们表明这些预期回报预测足够精确和有辨别力，足以支持模型路由协议的应用，该协议在推理时将提示路由到模型，以最大化回报，同时控制计算成本。我们使用由Llama3.1-Direct 8B/70 B、Gemma 2-IT 9 B/27 B和Gemma 1-IT 7 B模型组成的模型池，在开放-perfectblend数据集中展示了此路由过程的性能。我们简单的基于预期回报预测的路由（RP）优于路由提示到每个提示类别内具有最佳平均性能的模型的基线，并解释了隐式估计预期回报的更复杂路由协议的成功。我们的方法还有一个额外的优点，即随着新模型添加到池中，可扩展性很小。</p>
+<p><a href="https://arxiv.org/abs/2603.20217" rel="nofollow">阅读原文</a></p>
 <hr>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

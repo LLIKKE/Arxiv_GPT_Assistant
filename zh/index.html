@@ -13,40 +13,22 @@
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
 })();</script><div><div class="markdown-heading"><h1 class="heading-element">💡 今日研究速览 (Daily Summary)</h1><a id="user-content--今日研究速览-daily-summary" class="anchor" aria-label="Permalink: 💡 今日研究速览 (Daily Summary)" href="#-今日研究速览-daily-summary"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>#每日调研汇总</p>
-<p>** 日期：** 2024年4月16日</p>
-<p>今天的出版物揭示了在增强大型语言模型的推理能力和运营效率方面取得的重大进展，特别强调推理时算法、多模式集成和战略培训方法。</p>
-<p>#LLC和SFT的RL
-监督微调（SFT）和强化学习（RL）的战略结合出现了一个明显的趋势，将复杂的专家级推理灌输到模型中。研究人员没有将这些阶段视为单独的阶段，而是开发集成的蒸馏管道。例如，一篇论文演示了如何直接提取领域专家的复杂推理（例如，国际象棋大师）通过利用SFT进行行为克隆和RL进行奖励引导的细化，转化为LLM。这种方法超越了简单的模仿学习，旨在捕捉潜在的战略决策过程，这是创建更有能力、更可靠的推理代理的关键一步。</p>
-<p>#代理与推理
-类代理规划的研究正在将重点转向复杂的、预算感知的推断时搜索算法。关键突破是开发了专门针对LLM的不确定性和计算昂贵性质而设计的树搜索方法。今天的工作引入了智能地分配有限计算“预算”的算法（例如，对代币世代的限制）跨越不同的推理路径。通过采用顺序减半和基于Gumbel的探索等原则，这些方法允许模型动态修剪不太有希望的思想链，并将资源集中在最可行的解决方案上，从而在不改变基础模型权重的情况下显着提高推理性能。</p>
-<p>#多模式
-多模式推理的前沿正在超越静态图像字幕或问题回答，转向动态、交叉推理过程。最新的框架将视觉和语言形态视为思想链中的平等伙伴。创新在于生成“动态视觉思想”--本质上是迭代且精确的视觉查询或集中的图像分析--与文本推理步骤交织在一起。这创建了一个反馈循环，模型的语言推理告知图像中接下来要看什么，而新的视觉信息则指导后续推理。这代表了从被动的多模态理解到主动，高效和接地的多模态问题解决的转变。</p>
-<p>#压缩效率
-效率研究正在从模型压缩（例如，量化、修剪）以包括用于智能系统编排的 * 性能预测 *。一个关键的发展是创建模型，可以在完全执行之前预测LLM在给定任务上的预期回报或绩效。此功能直接适用于“模型路由”，其中轻量级预测器可以决定投资组合中哪个专门模型（或模型配置）最适合输入的查询。该范式通过动态分配资源、将计算效率与质量优化的目标结合起来，能够构建更具成本效益和更高性能的LLM系统。</p>
+<div class="markdown-heading"><h1 class="heading-element">每日调研汇总</h1><a id="user-content-每日调研汇总" class="anchor" aria-label="Permalink: 每日调研汇总" href="#每日调研汇总"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h1 class="heading-element">代理</h1><a id="user-content-代理" class="anchor" aria-label="Permalink: 代理" href="#代理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>今天的研究表明，代理评估已经显着成熟，超越了简单化、客观的基准。LH-Bench的引入为长期代理执行主观企业任务标志着迈向现实世界部署的关键一步。这反映了一种日益增长的共识，即评估代理需要能够捕捉复杂、开放式环境中细致入微的多步骤绩效的框架，在这种环境中，成功不仅是二元的，而且取决于上下文并与特定的组织目标保持一致。</p>
+<div class="markdown-heading"><h1 class="heading-element">LLM的RL</h1><a id="user-content-llm的rl" class="anchor" aria-label="Permalink: LLM的RL" href="#llm的rl"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>将强化学习应用于语言模型的进步越来越注重将结构化推理集成到特定领域的任务中。SIDReasoner框架通过将多任务训练与结果驱动的生成式推荐强化优化相结合来体现了这一趋势。这种方法凸显了从通用RL微调向混合系统的转变，其中LLM经过优化，以通过结构化语义表示进行推理，将其生成能力直接与可测量的下游结果和业务指标联系起来。</p>
 <hr>
-<div class="markdown-heading"><h2 class="heading-element">1. 重温LLM的树搜索：Gumbel和顺序减半用于预算可扩展推理</h2><a id="user-content-1-重温llm的树搜索gumbel和顺序减半用于预算可扩展推理" class="anchor" aria-label="Permalink: 1. 重温LLM的树搜索：Gumbel和顺序减半用于预算可扩展推理" href="#1-重温llm的树搜索gumbel和顺序减半用于预算可扩展推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>作者</strong>: Leonid Ugadiarov, Yuri Kuratov, Aleksandr Panov, Alexey Skrynnik</p>
+<div class="markdown-heading"><h2 class="heading-element">1. 超越二元正确性：长期代理对主观企业任务的规模评估</h2><a id="user-content-1-超越二元正确性长期代理对主观企业任务的规模评估" class="anchor" aria-label="Permalink: 1. 超越二元正确性：长期代理对主观企业任务的规模评估" href="#1-超越二元正确性长期代理对主观企业任务的规模评估"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>作者</strong>: Abhishek Chandwani, Ishan Gupta</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>摘要</strong>: arXiv：2603.21162v1宣布类型：新摘要：神经树搜索是一种强大的决策算法，广泛用于游戏和基于模型的强化学习等复杂领域。最近的工作应用了AlphaZero风格的树搜索来增强大型语言模型（LLM）在推理过程中的推理能力，但我们发现这种方法存在扩展失败：在GSM 8 K和Game24上，准确性随着搜索预算的增加而下降。在本文中，我们介绍了ReSCALE，这是Gumbel AlphaZero MCTS的改编版本，用Gumbel采样和顺序减半取代Dirichlet噪音和PUCT选择，在不改变模型或其训练的情况下恢复单调缩放。在基线下降的预算下，ReSCALE在GSM 8 K上达到58.4%，在Game24上达到85.3%。消融证实顺序减半是改进的主要驱动力。</p>
-<p><a href="https://arxiv.org/abs/2603.21162" rel="nofollow">阅读原文</a></p>
+<p><strong>摘要</strong>: arXiv：2603.22744v1宣布类型：新摘要：大型语言模型擅长数学和编程等客观可验证的任务，其中评估简化为单元测试或单个正确答案。相比之下，现实世界的企业工作通常是主观的且取决于上下文：成功取决于组织目标、用户意图以及在漫长的多工具工作流程中产生的中间产品的质量。   我们引入了LH-Bench，这是一种三支柱评估设计，超越了二元正确性，对主观企业任务的自主、长期执行进行评分。支柱是：（i）基于专家的主题，为LLM法官提供对主观工作进行评分所需的领域背景，（ii）精心策划的地面真相文物，实现逐步奖励信号（例如，内容任务的章节级注释），以及（iii）用于收敛验证的成对人类偏好评估。我们表明，领域编写的主题比LLM编写的主题提供了更可靠的评估信号（kappa = 0.60 vs 0.46），并且人类偏好判断证实了相同的顶级分离（p &lt; 0.05），这证明基于专家的评估可以在不牺牲可靠性的情况下进行扩展。我们发布公共数据集并在两种环境下报告结果：Figma-to-code（通过HCP针对Figma API执行33个真实的.fig任务）和编程内容（41门课程，包括为30+名日常用户提供服务的课程平台上的183个单独评估的章节）。</p>
+<p><a href="https://arxiv.org/abs/2603.22744" rel="nofollow">阅读原文</a></p>
 <hr>
-<div class="markdown-heading"><h2 class="heading-element">2. 让我们高效地用图像思考！具有动态精确视觉思维的交错模式思维链推理框架</h2><a id="user-content-2-让我们高效地用图像思考具有动态精确视觉思维的交错模式思维链推理框架" class="anchor" aria-label="Permalink: 2. 让我们高效地用图像思考！具有动态精确视觉思维的交错模式思维链推理框架" href="#2-让我们高效地用图像思考具有动态精确视觉思维的交错模式思维链推理框架"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>作者</strong>: Xu Liu, Yongheng Zhang, Qiguang Chen, Yao Li, Sheng Wang, Libo Qin</p>
+<div class="markdown-heading"><h2 class="heading-element">2. 基于语义ID的推理增强生成性推荐</h2><a id="user-content-2-基于语义id的推理增强生成性推荐" class="anchor" aria-label="Permalink: 2. 基于语义ID的推理增强生成性推荐" href="#2-基于语义id的推理增强生成性推荐"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>作者</strong>: Yingzhi He, Yan Sun, Junfei Tan, Yuxin Chen, Xiaoyu Kong, Chunxu Shen, Xiang Wang, An Zhang, Tat-Seng Chua</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>摘要</strong>: arXiv：2603.21754v1宣布类型：新摘要：最近，交错模式思想链（ICoT）推理通过利用多模式输入和输出取得了显着的成功，引起了越来越多的关注。虽然实现了有希望的性能，但当前的ICoT方法仍然存在两个主要局限性：（1）静态视觉思维定位，以固定步骤静态插入视觉信息，导致推理效率低下和不灵活;（2）破碎的视觉思维表示，涉及不连续和语义不连贯的视觉标志。为了解决这些局限性，我们引入了具有动态和精确视觉思想的交织模式思想链推理（DaP-ICoT），它包含两个关键组件：（1）动态视觉思想集成根据推理需求自适应地引入视觉输入，减少冗余并提高效率。(2)精确的视觉思维引导确保视觉语义连贯和上下文一致的表示。多个基准测试和模型的实验表明DaP-ICoT实现了最先进的性能。此外，DaP-ICoT显着减少了插入图像的数量，导致代币消耗减少了72.6%，从而实现了更高效的ICoT推理。</p>
-<p><a href="https://arxiv.org/abs/2603.21754" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">3. 通过大师级蒸馏在语言模型中进行扎根国际象棋推理</h2><a id="user-content-3-通过大师级蒸馏在语言模型中进行扎根国际象棋推理" class="anchor" aria-label="Permalink: 3. 通过大师级蒸馏在语言模型中进行扎根国际象棋推理" href="#3-通过大师级蒸馏在语言模型中进行扎根国际象棋推理"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>作者</strong>: Zhenwei Tang, Qianfeng Wen, Seth Grief-Albert, Yahya Elgabra, Blair Yang, Honghua Dong, Ashton Anderson</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>摘要</strong>: arXiv：2603.20510v1宣布类型：新摘要：语言模型在训练数据稀缺但定制系统表现出色的专业领域通常缺乏基础推理能力。我们引入了一个通用框架，用于将专家系统推理提炼为自然语言思维链解释，使紧凑模型能够获得领域专业知识并生成忠实、有基础的解释的能力。我们不是只提取最终输出，而是捕捉完整的推理过程，将不透明的专家计算转化为透明的、逐步的解释。我们在国际象棋中展示了这种方法，国际象棋是一个规范推理领域，语言模型的表现仍然不佳。我们的4B参数模型C1从接近零的基线提升到48.1%的准确性，优于所有开源模型和大多数前沿专有系统。值得注意的是，C1超越了它的蒸馏老师，生成的代币比基线少两个数量级。与之前仅预测最佳棋步的神经国际象棋方法不同，C1生成揭示战略推理的可解释解决方案。我们的管道将监督微调和强化学习与主题平衡的数据采样相结合，以实现全面的战术覆盖。Master Distillation演示了如何将专家级别的知识注入到优化不足的领域的紧凑模型中，为LLM缺乏足够基础能力的情况下解锁RLVR提供了配方。</p>
-<p><a href="https://arxiv.org/abs/2603.20510" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">4. 预期回报预测，并应用于建模路由</h2><a id="user-content-4-预期回报预测并应用于建模路由" class="anchor" aria-label="Permalink: 4. 预期回报预测，并应用于建模路由" href="#4-预期回报预测并应用于建模路由"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>作者</strong>: Kenan Hasanaliyev, Silas Alberti, Jenny Hamer, Dheeraj Rajagopal, Kevin Robinson, Jasper Snoek, Victor Veitch, Alexander Nicholas D'Amour</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>摘要</strong>: arXiv：2603.20217v1宣布类型：新摘要：奖励模型是对LLM回复进行评分的标准工具。奖励模型的构建是为了对从单个模型中采样的固定提示的响应进行排名，例如从n个采样的响应中选择最好的。在本文中，我们研究在查看模型的反应之前，是否会提高响应水平奖励模型的分数来评分模型对提示的适合性。具体来说，我们表明，可以简单地预测LLM在重复抽样下从奖励模型中获得的预期奖励。此外，我们表明这些预期回报预测足够精确和有辨别力，足以支持模型路由协议的应用，该协议在推理时将提示路由到模型，以最大化回报，同时控制计算成本。我们使用由Llama3.1-Direct 8B/70 B、Gemma 2-IT 9 B/27 B和Gemma 1-IT 7 B模型组成的模型池，在开放-perfectblend数据集中展示了此路由过程的性能。我们简单的基于预期回报预测的路由（RP）优于路由提示到每个提示类别内具有最佳平均性能的模型的基线，并解释了隐式估计预期回报的更复杂路由协议的成功。我们的方法还有一个额外的优点，即随着新模型添加到池中，可扩展性很小。</p>
-<p><a href="https://arxiv.org/abs/2603.20217" rel="nofollow">阅读原文</a></p>
+<p><strong>摘要</strong>: arXiv：2603.23183v1宣布类型：新摘要：生成式推荐的最新进展通过将顺序推荐制定为包括语言标记和项目标识符的统一标记空间上的自回归生成，利用了预训练的LLM，其中每个项目由离散标记的紧凑序列表示，即语义ID（DID）。这种基于DID的公式能够对大规模项目库进行高效解码，并为基于LLM的调度员提供了一个自然的界面，以利用丰富的世界知识。与此同时，LLM推理方面的突破激发了推理增强的推荐，但对DID的有效推理仍然缺乏充分的探索和挑战。项目代币对LLM来说并没有天生的意义;此外，面向描述的IDS推理很难评估，从而导致高质量的监督变得稀缺。   为了应对这些挑战，我们提出了SIDReasoner，这是一个两阶段框架，通过加强SID-语言对齐来解锁可转移的LLM推理，而不是依赖于大量特定于推理的推理痕迹，从而引发对SIDs的推理。具体来说，SIDReasoner首先通过对由更强大的教师模型合成的丰富的以SID-为中心的文集进行多任务训练来增强SID-语言的一致性，将项目标记基础在不同的语义和行为上下文中。在这种增强的对齐的基础上，SIDReasoner通过结果驱动的强化优化进一步改进了推荐推理，这将模型引导到有效的推理轨迹，而不需要明确的推理注释。对三个现实世界数据集的广泛实验证明了我们基于推理增强的基于DID的生成式推荐的有效性。除了准确性之外，结果还强调了大型推理模型用于生成式推荐的更广泛潜力，包括改进的可解释性和跨领域概括性。</p>
+<p><a href="https://arxiv.org/abs/2603.23183" rel="nofollow">阅读原文</a></p>
 <hr>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

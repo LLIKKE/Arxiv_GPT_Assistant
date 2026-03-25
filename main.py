@@ -1,3 +1,4 @@
+import re
 import json
 import configparser
 import os
@@ -49,6 +50,24 @@ def parse_authors(lines: List[str]) -> Tuple[List[str], List[str]]:
             author_ids.append(author_split[1].strip())
     return authors, author_ids
 
+def clean_markdown_formatting(text: str) -> str:
+    """
+    Cleans up common markdown formatting issues often introduced by LLMs or translation.
+    """
+    if not text:
+        return text
+    # Fix spaces inside bold tags: "** text **" -> "**text**"
+    text = re.sub(r'\*\*\s+([^\*]+?)\s+\*\*', r'**\1**', text)
+    # Fix left space: "** text**" -> "**text**"
+    text = re.sub(r'\*\*\s+([^\*]+?)\*\*', r'**\1**', text)
+    # Fix right space: "**text **" -> "**text**"
+    text = re.sub(r'\*\*([^\*]+?)\s+\*\*', r'**\1**', text)
+    # Fix combined heading and bold: "#** text **" -> "### text"
+    text = re.sub(r'#+\s*\*\*\s*(.+?)\s*\*\*', r'### \1', text)
+    # Fix missing space after heading: "#text" -> "# text"
+    text = re.sub(r'^(#{1,6})([^#\s])', r'\1 \2', text, flags=re.MULTILINE)
+    return text
+
 def generate_daily_summary(selected_papers: dict, client: OpenAI, config: configparser.ConfigParser) -> str:
     """
     Generate a daily summary using LLM based on the selected papers.
@@ -83,7 +102,7 @@ def generate_daily_summary(selected_papers: dict, client: OpenAI, config: config
             stream=False,
             temperature=0.7,
         )
-        return response.choices[0].message.content.strip()
+        return clean_markdown_formatting(response.choices[0].message.content.strip())
     except Exception as e:
         logging.error(f"Failed to generate daily summary: {e}")
         return "Failed to generate daily summary due to an API error."
@@ -103,7 +122,7 @@ def translate_to_chinese_via_deepseek(text: str, client: OpenAI, config: configp
             temperature=1.0,
             seed=0
         )
-        return response.choices[0].message.content.strip()
+        return clean_markdown_formatting(response.choices[0].message.content.strip())
     except Exception as e:
         logging.error(f"Translation failed: {e}")
         return text
@@ -173,14 +192,14 @@ def main():
         try:
             translated_summary = translator.translate(daily_summary_en)
             if translated_summary:
-                daily_summary_cn = translated_summary
+                daily_summary_cn = clean_markdown_formatting(translated_summary)
         except Exception as e:
             logging.error(f"Failed to translate daily summary: {e}")
 
         def translate_paper(paper_id, paper):
             try:
-                title_cn = translator.translate(paper.get('title', ''))
-                abstract_cn = translator.translate(paper.get('abstract', ''))
+                title_cn = clean_markdown_formatting(translator.translate(paper.get('title', '')))
+                abstract_cn = clean_markdown_formatting(translator.translate(paper.get('abstract', '')))
                 return paper_id, {
                     'title_cn': title_cn if title_cn else "[Translation Failed]",
                     'abstract_cn': abstract_cn if abstract_cn else "[Translation Failed]"

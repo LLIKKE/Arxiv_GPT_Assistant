@@ -67,7 +67,7 @@ Arxiv_GPT_Assistant/
 - `build_block_list`: 构建 Slack 所需的 Block-kit 格式。
 - `send_main_message` / `send_thread`: 发送主消息与 Thread 跟帖。
 
-### 7. `src/notify/email.py`
+### 7. `src/notify/send_email.py`
 **功能**：通过 SMTP (如 QQ 邮箱) 将生成的 HTML/Markdown 报告通过邮件发送给指定订阅者。
 **主要函数**：
 - `send_daily_email`: 邮件发送的完整逻辑封装，包含读取 HTML 报告、组合内容以及发送。

@@ -14,6 +14,9 @@ permissions:
   pages: write     # Grants write access to GitHub Pages
   id-token: write  # Grants write access to id-token for authentication
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 concurrency:
   group: "pages"  # Ensures that only one deployment is running at a time
   cancel-in-progress: false  # Ensures the current job will not be canceled if a new one is triggered

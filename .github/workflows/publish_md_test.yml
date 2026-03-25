@@ -12,6 +12,9 @@ permissions:
   pages: write
   id-token: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -183,4 +186,4 @@ jobs:
       # Step 5: Sent email
       - name: sent .html to email
         run: |
-          python src/notify/email.py
+          python src/notify/send_email.py

@@ -12,26 +12,19 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h1 class="heading-element">📚 Personalized Daily Arxiv Papers - March 26, 2026</h1><a id="user-content--personalized-daily-arxiv-papers---march-26-2026" class="anchor" aria-label="Permalink: 📚 Personalized Daily Arxiv Papers - March 26, 2026" href="#-personalized-daily-arxiv-papers---march-26-2026"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>Total relevant papers:</strong> 2</p>
+})();</script><div><div class="markdown-heading"><h1 class="heading-element">📚 Personalized Daily Arxiv Papers - March 27, 2026</h1><a id="user-content--personalized-daily-arxiv-papers---march-27-2026" class="anchor" aria-label="Permalink: 📚 Personalized Daily Arxiv Papers - March 27, 2026" href="#-personalized-daily-arxiv-papers---march-27-2026"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>Total relevant papers:</strong> 1</p>
 <div class="markdown-heading"><h2 class="heading-element">💡 Daily Research Summary</h2><a id="user-content--daily-research-summary" class="anchor" aria-label="Permalink: 💡 Daily Research Summary" href="#-daily-research-summary"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div>
 ### Daily Research Summary
 <div class="markdown-heading"><h4 class="heading-element">RL for LLMs</h4><a id="user-content-rl-for-llms" class="anchor" aria-label="Permalink: RL for LLMs" href="#rl-for-llms"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>A significant focus today is on refining the reward optimization process for large language models. The key advancement is the development of novel methods that directly address the persistent challenge of vanishing gradients on failure cases during policy training. By introducing techniques like privileged self-distillation, new frameworks aim to stabilize learning and improve the model's ability to learn from negative outcomes, moving beyond simple reward maximization to more nuanced policy optimization.</p>
-<div class="markdown-heading"><h4 class="heading-element">Agents &amp; Multimodal</h4><a id="user-content-agents--multimodal" class="anchor" aria-label="Permalink: Agents &amp; Multimodal" href="#agents--multimodal"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Research is converging on sophisticated agent architectures that leverage large language models as central orchestrators. The trend is toward creating robust, adaptable systems by integrating frozen, pre-trained vision-language-action models with dynamic, memory-augmented components. This approach enables in-context adaptation and strategic planning, allowing agents to reason over past experiences and adjust their behavior for improved robustness in complex, multimodal environments without retraining the core perceptual models.</p>
+<p>Today's research in RL for LLMs demonstrates a significant move towards hybridizing reinforcement learning with other training paradigms to overcome core optimization challenges. The key development is the introduction of methods like HDPO, which integrates policy optimization with privileged self-distillation. This trend addresses the persistent issue of vanishing gradients on failure cases by leveraging knowledge distillation from a "teacher" model that has access to privileged information (like ground-truth rewards or reasoning traces) to better guide the "student" policy's exploration. The breakthrough lies in creating a more stable and sample-efficient learning loop, directly improving policy coverage and mitigating the exploration bottlenecks that often plague pure RL fine-tuning of large language models. This represents a sophisticated evolution beyond standard PPO, aiming to make RLHF and its variants more robust and effective.</p>
 </div>
 <div class="markdown-heading"><h2 class="heading-element">📑 Table of Contents</h2><a id="user-content--table-of-contents" class="anchor" aria-label="Permalink: 📑 Table of Contents" href="#-table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ol>
 <li>
-<p><a href="#link1">HDPO: Hybrid Distillation Policy Optimization via Privileged Self-Distillation</a>
-<strong>Authors:</strong> Ken Ding</p>
-</li>
-<li>
-<p><a href="#link2">SOMA: Strategic Orchestration and Memory-Augmented System for Vision-Language-Action Model Robustness via In-Context Adaptation</a>
-<strong>Authors:</strong> Zhuoran Li, Zhiyang Li, Kaijun Zhou, Jinyu Gu</p>
-</li>
+<a href="#link1">HDPO: Hybrid Distillation Policy Optimization via Privileged Self-Distillation</a>
+<strong>Authors:</strong> Ken Ding</li>
 </ol>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">📝 Detailed Papers</h2><a id="user-content--detailed-papers" class="anchor" aria-label="Permalink: 📝 Detailed Papers" href="#-detailed-papers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
@@ -42,18 +35,8 @@
 <p><strong>👥 Authors:</strong> <em>Ken Ding</em></p>
 <p><strong>🏫 Affiliations:</strong> Unknown Institution</p>
 <div>
-<strong>💡 Highlight:</strong> Proposes HDPO, a novel RL method for LLMs that uses privileged self-distillation to address vanishing gradients on failure cases, directly targeting RL for LLMs and reward function design.</div>
+<strong>💡 Highlight:</strong> Introduces a hybrid RL and self-distillation method (HDPO) to address vanishing gradients on failure cases, directly advancing RL for LLMs by improving exploration and coverage.</div>
 <details><summary>View Abstract</summary><p>arXiv:2603.23871v1 Announce Type: new  Abstract: Large language models trained with reinforcement learning (RL) for mathematical reasoning face a fundamental challenge: on problems the model cannot solve at all - "cliff" prompts - the RL gradient vanishes entirely, preventing any learning signal from reaching these failure modes. We introduce Hybrid Distillation Policy Optimization (HDPO), which augments standard RL with privileged self-distillation targeting cliff prompts. On each training step, HDPO identifies prompts where all rollouts fail, generates privileged rollouts by providing the model with ground-truth information, filters for correct solutions, and distills the teacher's token-level distribution into the student. Because teacher and student share the same weights - differing only in their input - the realizability gap is provably bounded, unlike cross-model distillation. We prove that R=1 filtered privileged generation recovers the optimal KL-regularized RL policy in the hard-threshold limit. Experiments on OpenMathInstruct-2 with Qwen2.5-Math-1.5B-Instruct show that HDPO consistently improves coverage metrics (pass@4 by +0.8-1.1%, pass@8 by +0.4-1.7%) while maintaining greedy accuracy, with the distillation weight lambda providing direct control over the exploration-exploitation tradeoff.</p></details>
-</div>
-<div>
-<div class="markdown-heading"><h2 class="heading-element">2. <a href="https://arxiv.org/abs/2603.24060" rel="nofollow">SOMA: Strategic Orchestration and Memory-Augmented System for Vision-Language-Action Model Robustness via In-Context Adaptation</a> <a id="user-content-link2"></a>
-</h2><a id="user-content-2-soma-strategic-orchestration-and-memory-augmented-system-for-vision-language-action-model-robustness-via-in-context-adaptation-" class="anchor" aria-label="Permalink: 2. SOMA: Strategic Orchestration and Memory-Augmented System for Vision-Language-Action Model Robustness via In-Context Adaptation" href="#2-soma-strategic-orchestration-and-memory-augmented-system-for-vision-language-action-model-robustness-via-in-context-adaptation-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>ArXiv ID:</strong> 2603.24060 | </p>
-<p><strong>👥 Authors:</strong> <em>Zhuoran Li, Zhiyang Li, Kaijun Zhou, Jinyu Gu</em></p>
-<p><strong>🏫 Affiliations:</strong> Unknown Institution</p>
-<div>
-<strong>💡 Highlight:</strong> Proposes SOMA, a system that upgrades frozen VLA policies via an LLM orchestrator and memory-augmented in-context adaptation, aligning with interests in agents for LLMs and multimodal models.</div>
-<details><summary>View Abstract</summary><p>arXiv:2603.24060v1 Announce Type: new  Abstract: Despite the promise of Vision-Language-Action (VLA) models as generalist robotic controllers, their robustness against perceptual noise and environmental variations in out-of-distribution (OOD) tasks remains fundamentally limited by the absence of long-term memory, causal failure attribution, and dynamic intervention capability. To address this, we propose SOMA, a Strategic Orchestration and Memory-Augmented System that upgrades frozen VLA policies for robust in-context adaptation without parameter fine-tuning. Specifically, SOMA operates through an online pipeline of contrastive Dual-Memory Retrieval-Augmented Generation (RAG), an Attribution-Driven Large-Language-Model (LLM) Orchestrator, and extensible Model Context Protocol (MCP) interventions, while an offline Memory Consolidation module continuously distills the execution traces into reliable priors. Experimental evaluations across three backbone models (pi0, pi0.5, and SmolVLA) on LIBERO-PRO and our proposed LIBERO-SOMA benchmarks demonstrate that SOMA achieves an average absolute success rate gain of 56.6%. This includes a significant absolute improvement of 89.1% in long-horizon task chaining. Project page and source code are available at: <a href="https://github.com/LZY-1021/SOMA">https://github.com/LZY-1021/SOMA</a>.</p></details>
 </div>
 <hr>
 <details><summary>Click to view Paper Selection Criteria</summary>

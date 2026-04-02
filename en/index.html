@@ -12,15 +12,79 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h1 class="heading-element">📚 Personalized Daily Arxiv Papers - April 01, 2026</h1><a id="user-content--personalized-daily-arxiv-papers---april-01-2026" class="anchor" aria-label="Permalink: 📚 Personalized Daily Arxiv Papers - April 01, 2026" href="#-personalized-daily-arxiv-papers---april-01-2026"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>Total relevant papers:</strong> 0</p>
+})();</script><div><div class="markdown-heading"><h1 class="heading-element">📚 Personalized Daily Arxiv Papers - April 02, 2026</h1><a id="user-content--personalized-daily-arxiv-papers---april-02-2026" class="anchor" aria-label="Permalink: 📚 Personalized Daily Arxiv Papers - April 02, 2026" href="#-personalized-daily-arxiv-papers---april-02-2026"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>Total relevant papers:</strong> 4</p>
 <div class="markdown-heading"><h2 class="heading-element">💡 Daily Research Summary</h2><a id="user-content--daily-research-summary" class="anchor" aria-label="Permalink: 💡 Daily Research Summary" href="#-daily-research-summary"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div>
-No relevant papers found today.
+### Daily Research Summary
+<div class="markdown-heading"><h4 class="heading-element">RL for LLMs</h4><a id="user-content-rl-for-llms" class="anchor" aria-label="Permalink: RL for LLMs" href="#rl-for-llms"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Today's research in RL for LLM alignment demonstrates a sophisticated shift towards handling uncertainty and personalization. The key development is the move beyond monolithic reward models to frameworks that can decompose and model the inherent uncertainty in human preferences. The proposed uncertainty-aware variational reward factorization (VRF) represents a significant step, treating reward components as probabilistic bases. This allows for more nuanced personalization by capturing the variability in what different users or contexts consider valuable, directly addressing a core challenge in creating robust and adaptable aligned models.</p>
+<div class="markdown-heading"><h4 class="heading-element">Agents</h4><a id="user-content-agents" class="anchor" aria-label="Permalink: Agents" href="#agents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>The frontier of autonomous LLM agents is being pushed on two critical fronts: architectural design and operational integrity. Architecturally, we see innovation in enabling sustained, multi-turn reasoning through frameworks like asymmetric actor-critic, which decouples and specializes components for action generation and runtime critique. This facilitates self-evolution and more stable long-horizon tasks. Concurrently, there is a strong emphasis on building trustworthy, real-world systems, as evidenced by new frameworks for privacy-compliant agentic reasoning. These systems introduce formal mechanisms to handle conflicting evidence and adhere to compliance constraints, which are essential for moving agents from controlled benchmarks to practical, reliable deployment.</p>
+<div class="markdown-heading"><h4 class="heading-element">Multimodal</h4><a id="user-content-multimodal" class="anchor" aria-label="Permalink: Multimodal" href="#multimodal"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Safety alignment for Multimodal Large Models (MLLMs) is advancing beyond simple input filtering or post-hoc corrections. The emerging trend is towards deeply integrated, conditional generation strategies that bake safety considerations directly into the decoding process. The proposed conditional decoding approach (CASA) exemplifies this, aiming to create a more robust safety layer by allowing the model to dynamically adjust its output based on safety conditions. This represents a proactive shift from merely detecting unsafe content to structurally preventing its generation, a crucial development for the responsible deployment of increasingly powerful multimodal systems.</p>
 </div>
 <div class="markdown-heading"><h2 class="heading-element">📑 Table of Contents</h2><a id="user-content--table-of-contents" class="anchor" aria-label="Permalink: 📑 Table of Contents" href="#-table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<ol>
+<li>
+<p><a href="#link1">Uncertainty-Aware Variational Reward Factorization via Probabilistic Preference Bases for LLM Personalization</a>
+<strong>Authors:</strong> Gyuseok Lee, Wonbin Kweon, Zhenrui Yue, SeongKu Kang, Jiawei Han, Dong Wang</p>
+</li>
+<li>
+<p><a href="#link2">Asymmetric Actor-Critic for Multi-turn LLM Agents</a>
+<strong>Authors:</strong> Shuli Jiang, Zhaoyang Zhang, Yi Zhang, Shuo Yang, Wei Xia, Stefano Soatto</p>
+</li>
+<li>
+<p><a href="#link3">CARE: Privacy-Compliant Agentic Reasoning with Evidence Discordance</a>
+<strong>Authors:</strong> Haochen Liu, Weien Li, Rui Song, Zeyu Li, Chun Jason Xue, Xiao-Yang Liu, Sam Nallaperuma, Xue Liu, Ye Yuan</p>
+</li>
+<li>
+<p><a href="#link4">Robust Multimodal Safety via Conditional Decoding</a>
+<strong>Authors:</strong> Anurag Kumar, Raghuveer Peri, Jon Burnsky, Alexandru Nelus, Rohit Paturi, Srikanth Vishnubhotla, Yanjun Qi</p>
+</li>
+</ol>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">📝 Detailed Papers</h2><a id="user-content--detailed-papers" class="anchor" aria-label="Permalink: 📝 Detailed Papers" href="#-detailed-papers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div>
+<div class="markdown-heading"><h2 class="heading-element">1. <a href="https://arxiv.org/abs/2604.00997" rel="nofollow">Uncertainty-Aware Variational Reward Factorization via Probabilistic Preference Bases for LLM Personalization</a> <a id="user-content-link1"></a>
+</h2><a id="user-content-1-uncertainty-aware-variational-reward-factorization-via-probabilistic-preference-bases-for-llm-personalization-" class="anchor" aria-label="Permalink: 1. Uncertainty-Aware Variational Reward Factorization via Probabilistic Preference Bases for LLM Personalization" href="#1-uncertainty-aware-variational-reward-factorization-via-probabilistic-preference-bases-for-llm-personalization-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>ArXiv ID:</strong> 2604.00997 | </p>
+<p><strong>👥 Authors:</strong> <em>Gyuseok Lee, Wonbin Kweon, Zhenrui Yue, SeongKu Kang, Jiawei Han, Dong Wang</em></p>
+<p><strong>🏫 Affiliations:</strong> Unknown Institution</p>
+<div>
+<strong>💡 Highlight:</strong> Proposes an uncertainty-aware reward factorization framework (VRF) for LLM personalization, directly relevant to designing novel reward functions for RL-based LLM alignment.</div>
+<details><summary>View Abstract</summary><p>arXiv:2604.00997v1 Announce Type: new  Abstract: Reward factorization personalizes large language models (LLMs) by decomposing rewards into shared basis functions and user-specific weights. Yet, existing methods estimate user weights from scarce data in isolation and as deterministic points, leading to inaccurate and unreliable inference. We introduce Variational Reward Factorization (VRF), an uncertainty-aware framework that represents each user's preferences as a variational distribution in a shared preference space. VRF infers user distributions via a variational encoder, derives weights through Wasserstein distance matching with shared probabilistic bases, and downweights uncertain estimates through a variance-attenuated loss. On three benchmarks, VRF outperforms all baselines across seen and unseen users, few-shot scenarios, and varying uncertainty levels, with gains extending to downstream alignment.</p></details>
+</div>
+<div>
+<div class="markdown-heading"><h2 class="heading-element">2. <a href="https://arxiv.org/abs/2604.00304" rel="nofollow">Asymmetric Actor-Critic for Multi-turn LLM Agents</a> <a id="user-content-link2"></a>
+</h2><a id="user-content-2-asymmetric-actor-critic-for-multi-turn-llm-agents-" class="anchor" aria-label="Permalink: 2. Asymmetric Actor-Critic for Multi-turn LLM Agents" href="#2-asymmetric-actor-critic-for-multi-turn-llm-agents-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>ArXiv ID:</strong> 2604.00304 | </p>
+<p><strong>👥 Authors:</strong> <em>Shuli Jiang, Zhaoyang Zhang, Yi Zhang, Shuo Yang, Wei Xia, Stefano Soatto</em></p>
+<p><strong>🏫 Affiliations:</strong> Unknown Institution</p>
+<div>
+<strong>💡 Highlight:</strong> Proposes an asymmetric actor-critic framework for multi-turn LLM agents, directly relevant to building self-evolving agents with runtime supervision and critic fine-tuning.</div>
+<details><summary>View Abstract</summary><p>arXiv:2604.00304v1 Announce Type: new  Abstract: Large language models (LLMs) exhibit strong reasoning and conversational abilities, but ensuring reliable behavior in multi-turn interactions remains challenging. In many real-world applications, agents must succeed in one-shot settings where retries are impossible. Existing approaches either rely on reflection or post-hoc evaluation, which require additional attempts, or assume fully trainable models that cannot leverage proprietary LLMs. We propose an asymmetric actor-critic framework for reliable conversational agents. A powerful proprietary LLM acts as the actor, while a smaller open-source critic provides runtime supervision, monitoring the actor's actions and intervening within the same interaction trajectory. Unlike training-based actor-critic methods, our framework supervises a fixed actor operating in open-ended conversational environments. The design leverages a generation-verification asymmetry: while high-quality generation requires large models, effective oversight can often be achieved by smaller ones. We further introduce a data generation pipeline that produces supervision signals for critic fine-tuning without modifying the actor. Experiments on $\tau$-bench and UserBench show that our approach significantly improves reliability and task success over strong single-agent baselines. Moreover, lightweight open-source critics rival or surpass larger proprietary models in the critic role, and critic fine-tuning yields additional gains over several state-of-the-art methods.</p></details>
+</div>
+<div>
+<div class="markdown-heading"><h2 class="heading-element">3. <a href="https://arxiv.org/abs/2604.01113" rel="nofollow">CARE: Privacy-Compliant Agentic Reasoning with Evidence Discordance</a> <a id="user-content-link3"></a>
+</h2><a id="user-content-3-care-privacy-compliant-agentic-reasoning-with-evidence-discordance-" class="anchor" aria-label="Permalink: 3. CARE: Privacy-Compliant Agentic Reasoning with Evidence Discordance" href="#3-care-privacy-compliant-agentic-reasoning-with-evidence-discordance-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>ArXiv ID:</strong> 2604.01113 | </p>
+<p><strong>👥 Authors:</strong> <em>Haochen Liu, Weien Li, Rui Song, Zeyu Li, Chun Jason Xue, Xiao-Yang Liu, Sam Nallaperuma, Xue Liu, Ye Yuan</em></p>
+<p><strong>🏫 Affiliations:</strong> Unknown Institution</p>
+<div>
+<strong>💡 Highlight:</strong> Introduces CARE, a multi-stage privacy-compliant agentic reasoning framework for handling conflicting evidence, directly relevant to the design of autonomous LLM agents.</div>
+<details><summary>View Abstract</summary><p>arXiv:2604.01113v1 Announce Type: new  Abstract: Large language model (LLM) systems are increasingly used to support high-stakes decision-making, but they typically perform worse when the available evidence is internally inconsistent. Such a scenario exists in real-world healthcare settings, with patient-reported symptoms contradicting medical signs. To study this problem, we introduce MIMIC-DOS, a dataset for short-horizon organ dysfunction worsening prediction in the intensive care unit (ICU) setting. We derive this dataset from the widely recognized MIMIC-IV, a publicly available electronic health record dataset, and construct it exclusively from cases in which discordance between signs and symptoms exists. This setting poses a substantial challenge for existing LLM-based approaches, with single-pass LLMs and agentic pipelines often struggling to reconcile such conflicting signals. To address this problem, we propose CARE: a multi-stage privacy-compliant agentic reasoning framework in which a remote LLM provides guidance by generating structured categories and transitions without accessing sensitive patient data, while a local LLM uses these categories and transitions to support evidence acquisition and final decision-making. Empirically, CARE achieves stronger performance across all key metrics compared to multiple baseline settings, showing that CARE can more robustly handle conflicting clinical evidence while preserving privacy.</p></details>
+</div>
+<div>
+<div class="markdown-heading"><h2 class="heading-element">4. <a href="https://arxiv.org/abs/2604.00310" rel="nofollow">Robust Multimodal Safety via Conditional Decoding</a> <a id="user-content-link4"></a>
+</h2><a id="user-content-4-robust-multimodal-safety-via-conditional-decoding-" class="anchor" aria-label="Permalink: 4. Robust Multimodal Safety via Conditional Decoding" href="#4-robust-multimodal-safety-via-conditional-decoding-"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>ArXiv ID:</strong> 2604.00310 | </p>
+<p><strong>👥 Authors:</strong> <em>Anurag Kumar, Raghuveer Peri, Jon Burnsky, Alexandru Nelus, Rohit Paturi, Srikanth Vishnubhotla, Yanjun Qi</em></p>
+<p><strong>🏫 Affiliations:</strong> Unknown Institution</p>
+<div>
+<strong>💡 Highlight:</strong> Proposes a conditional decoding strategy (CASA) for robust multimodal safety, aligning with general interests in Multimodal Large Models (MLLMs) and safety alignment.</div>
+<details><summary>View Abstract</summary><p>arXiv:2604.00310v1 Announce Type: new  Abstract: Multimodal large-language models (MLLMs) often experience degraded safety alignment when harmful queries exploit cross-modal interactions. Models aligned on text alone show a higher rate of successful attacks when extended to two or more modalities. In this work, we propose a simple conditional decoding strategy, CASA (Classification Augmented with Safety Attention) that utilizes internal representations of MLLMs to predict a binary safety token before response generation. We introduce a novel safety attention module designed to enhance the model's ability to detect malicious queries. Our design ensures robust safety alignment without relying on any external classifier or auxiliary head, and without the need for modality-specific safety fine-tuning. On diverse benchmarks such as MM-SafetyBench, JailbreakV-28k, and adversarial audio tests, CASA lowers the average attack success rate by more than 97% across modalities and across attack types. Our empirical evaluations also show that CASA maintains strong utility in benign inputs, a result validated through both automated and human evaluations (via 13 trained annotators). Together, these results highlight CASA as a simple and generalizable framework to improve multimodal LLM safety.</p></details>
+</div>
 <hr>
 <details><summary>Click to view Paper Selection Criteria</summary>
 <div class="markdown-heading"><h1 class="heading-element">Research Interest Criteria</h1><a id="user-content-research-interest-criteria" class="anchor" aria-label="Permalink: Research Interest Criteria" href="#research-interest-criteria"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>

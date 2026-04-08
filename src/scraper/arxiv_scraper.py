@@ -53,8 +53,15 @@ def get_papers_from_arxiv_api(area: str, timestamp: Optional[datetime], last_id:
         sort_by=arxiv.SortCriterion.SubmittedDate,
     )
     
+    # 使用 Client 来配置延迟和重试策略
+    client = arxiv.Client(
+        page_size=100,
+        delay_seconds=3.0,
+        num_retries=5
+    )
+    
     api_papers = []
-    for result in search.results():
+    for result in client.results(search):
         new_id = result.get_short_id()
         if last_id and is_earlier(last_id, new_id):
             continue

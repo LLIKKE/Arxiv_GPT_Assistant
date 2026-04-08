@@ -207,12 +207,16 @@ def filter_by_gpt(
     all_cost = 0.0
     if config["SELECTION"].getboolean("run_openai", fallback=True):
         
-        paper_list, cost = filter_papers_by_title(
-            paper_list, config, openai_client, base_prompt, criterion
-        )
-        if config["OUTPUT"].getboolean("debug_messages", fallback=False):
-            logging.info(f"{len(paper_list)} papers after title filtering. Title filtering cost: ${cost}")
-        all_cost += cost
+        if config["FILTERING"].getboolean("filter_by_title", fallback=True):
+            paper_list, cost = filter_papers_by_title(
+                paper_list, config, openai_client, base_prompt, criterion
+            )
+            if config["OUTPUT"].getboolean("debug_messages", fallback=False):
+                logging.info(f"{len(paper_list)} papers after title filtering. Title filtering cost: ${cost}")
+            all_cost += cost
+        else:
+            if config["OUTPUT"].getboolean("debug_messages", fallback=False):
+                logging.info("Skipping title filtering as configured.")
 
         batch_size = int(config["SELECTION"].get("batch_size", 5))
         batch_of_papers = batched(paper_list, batch_size)

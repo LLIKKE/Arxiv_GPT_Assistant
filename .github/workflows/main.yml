@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read   # Grants read access to repository contents
+  contents: write   # Grants write access to repository contents to save history
   pages: write     # Grants write access to GitHub Pages
   id-token: write  # Grants write access to id-token for authentication
 
@@ -56,27 +56,36 @@ jobs:
         run: |
           python main.py  # Main program that processes the filtered papers and generates the output
 
-      # Step 6: Run push_to_slack to send notifications to Slack (optional, if necessary)
+      # Step 6: Commit history files
+      - name: Commit and push history
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add history/
+          git commit -m "Update daily papers history [skip ci]" || echo "No changes to commit"
+          git push
+
+      # Step 7: Run push_to_slack to send notifications to Slack (optional, if necessary)
       - name: Run push_to_slack to send notifications
         run: |
           python src/notify/slack.py  # Optionally send a Slack notification after deployment
 
-      # Step 7: List the files generated in the 'out' folder
+      # Step 8: List the files generated in the 'out' folder
       - name: List output files
         run: ls -alh ./out  # Verifies that the expected output files are generated in the 'out' folder
 
-      # Step 8: Upload the generated output as an artifact to GitHub Pages
+      # Step 9: Upload the generated output as an artifact to GitHub Pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './out'  # Specifies the directory containing the output files to be uploaded
 
-      # Step 9: Deploy to GitHub Pages
+      # Step 10: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4  # This action deploys the artifact to GitHub Pages
 
-      # Step 10: Verify Pages deployment and output the deployment URL
+      # Step 11: Verify Pages deployment and output the deployment URL
       - name: Verify Pages deployment
         run: |
           echo "Deployment URL: https://<your-username>.github.io/<repository-name>/"  # Prints the deployment URL

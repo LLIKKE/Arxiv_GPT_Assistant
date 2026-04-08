@@ -28,7 +28,9 @@ def send_daily_email():
     """
     Construct and send the daily email with Arxiv updates.
     """
-    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    # Use Beijing Time (UTC+8)
+    beijing_tz = datetime.timezone(datetime.timedelta(hours=8))
+    now = datetime.datetime.now(beijing_tz).strftime("%Y-%m-%d %H:%M")
 
     from_addr = os.environ.get("FROM_ADDR")
     password = os.environ.get("PASSWORD")  # App-specific password
@@ -41,8 +43,15 @@ def send_daily_email():
         return
 
     # Paths may need to be adjusted based on the execution environment
-    html_path_en = '/home/runner/work/Arxiv_GPT_Assistant/Arxiv_GPT_Assistant/dist/en/index.html'
-    html_path_zh = '/home/runner/work/Arxiv_GPT_Assistant/Arxiv_GPT_Assistant/dist/zh/index.html'
+    # Using relative paths for better portability
+    html_path_en = 'dist/en/index.html'
+    html_path_zh = 'dist/zh/index.html'
+    
+    # Check if files exist locally if relative paths fail
+    if not os.path.exists(html_path_en):
+        html_path_en = 'out/output.md' # Fallback to markdown if HTML is not generated
+    if not os.path.exists(html_path_zh):
+        html_path_zh = 'out/output_translated.md' # Fallback to translated markdown
     
     html_content_1 = read_html_file(html_path_en)
     html_content_2 = read_html_file(html_path_zh)

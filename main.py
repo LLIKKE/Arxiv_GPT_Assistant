@@ -58,6 +58,8 @@ def clean_markdown_formatting(text: str) -> str:
         return text
     # Fix spaces inside bold tags: "** text **" -> "**text**"
     text = re.sub(r'\*\*\s+([^\*]+?)\s+\*\*', r'**\1**', text)
+    # Remove any hallucinated old dates from summary
+    text = re.sub(r'2024[年-]?0?4[月-]?16日?', '', text)
     # Fix left space: "** text**" -> "**text**"
     text = re.sub(r'\*\*\s+([^\*]+?)\*\*', r'**\1**', text)
     # Fix right space: "**text **" -> "**text**"
@@ -75,6 +77,9 @@ def generate_daily_summary(selected_papers: dict, client: OpenAI, config: config
     if not selected_papers:
         return "No relevant papers found today."
         
+    beijing_tz = datetime.timezone(datetime.timedelta(hours=8))
+    today_str = datetime.datetime.now(beijing_tz).strftime("%Y-%m-%d")
+    
     papers_context = ""
     for idx, (paper_id, paper) in enumerate(selected_papers.items(), 1):
         title = paper.get('title', 'Unknown Title')
@@ -84,11 +89,14 @@ def generate_daily_summary(selected_papers: dict, client: OpenAI, config: config
     prompt = (
         "You are an expert AI researcher. I will provide you with a list of the most important AI papers published today, "
         "along with a brief highlight for each. \n\n"
+        f"CRITICAL: Today's date is {today_str}. Please use this date if you need to mention it, but do NOT include a date header.\n\n"
         "Your task is to write a highly professional 'Daily Research Summary'. \n"
-        "Please categorize your summary based on the main research directions (e.g., SFT, RL for LLMs, Agents, Multimodal, Compression). "
-        "For each direction that has relevant papers today, write ONE concise and insightful paragraph summarizing the general trend or key breakthroughs. "
+        "Please categorize your summary based on the main research directions (e.g., SFT, RL for LLMs, Agents, Multimodal, Compression). \n"
+        "For each direction that has relevant papers today, write ONE concise and insightful paragraph summarizing the general trend or key breakthroughs. \n"
         "Do NOT just list the papers again. Synthesize the information.\n\n"
-        "Output the summary in Markdown format. Use `###` for direction headers.\n\n"
+        "Output the summary in Markdown format. Use `###` for direction headers.\n"
+        "IMPORTANT: DO NOT include a title like '# Daily Summary' or '# 每日调研汇总' or any date header. Just start with the category headers.\n"
+        "DO NOT use any old dates like 2024-04-16. Use ONLY the date provided above if needed.\n\n"
         f"Here are the papers:\n{papers_context}"
     )
     
@@ -221,31 +229,196 @@ def main():
     else:
         logging.warning("Tencent Cloud SECRET_ID or SECRET_KEY missing. Skipping translation.")
 
+    import datetime
+    import shutil
+    
     # Output generation
     output_path = config["OUTPUT"].get("output_path", "out/")
+    history_path = "history/"
     os.makedirs(output_path, exist_ok=True)
+    os.makedirs(history_path, exist_ok=True)
+    
+    # Get Beijing Time (UTC+8) for the date string
+    beijing_tz = datetime.timezone(datetime.timedelta(hours=8))
+    today_str = datetime.datetime.now(beijing_tz).date().isoformat()
 
     if config["OUTPUT"].getboolean("dump_json", fallback=True):
+        # Create a single dict to hold everything for the date
+        daily_data = {
+            "summary_en": daily_summary_en,
+            "summary_cn": daily_summary_cn,
+            "papers": selected_papers
+        }
+        # Save to history
+        with open(os.path.join(history_path, f"{today_str}.json"), "w", encoding="utf-8") as outfile:
+            json.dump(daily_data, outfile, indent=4, ensure_ascii=False)
+        # Also save as latest output.json in out/ for backward compatibility
         with open(os.path.join(output_path, "output.json"), "w", encoding="utf-8") as outfile:
             json.dump(selected_papers, outfile, indent=4, ensure_ascii=False)
 
     if config["OUTPUT"].getboolean("dump_md", fallback=True):
         # Generate standard markdown
+        md_content = render_md_string(selected_papers, daily_summary_en)
+        with open(os.path.join(history_path, f"{today_str}.md"), "w", encoding="utf-8") as f:
+            f.write(md_content)
         with open(os.path.join(output_path, "output.md"), "w", encoding="utf-8") as f:
-            f.write(render_md_string(selected_papers, daily_summary_en))
+            f.write(md_content)
             
         # Generate translated markdown
-        with open(os.path.join(output_path, "output_translated.md"), "w", encoding="utf-8") as f:
-            # Add translated summary to the top
-            f.write(f"# 💡 今日研究速览 (Daily Summary)\n\n{daily_summary_cn}\n\n---\n\n")
+        translated_md_content = f"# 💡 今日研究速览 (Daily Summary)\n\n{daily_summary_cn}\n\n---\n\n"
+        for idx, (paper_id, paper) in enumerate(selected_papers.items(), 1):
+            translated_md_content += f"## {idx}. {paper.get('title_cn', 'Untitled')}\n\n"
+            translated_md_content += f"**作者**: {', '.join(paper.get('authors', []))}\n\n"
+            translated_md_content += f"**机构**: {paper.get('AFFILIATIONS', 'Unknown Institution')}\n\n"
+            translated_md_content += f"**摘要**: {paper.get('abstract_cn', 'No abstract')}\n\n"
+            translated_md_content += f"[阅读原文](https://arxiv.org/abs/{paper_id})\n\n---\n\n"
             
-            for idx, (paper_id, paper) in enumerate(selected_papers.items(), 1):
-                f.write(f"## {idx}. {paper.get('title_cn', 'Untitled')}\n\n")
-                f.write(f"**作者**: {', '.join(paper.get('authors', []))}\n\n")
-                f.write(f"**机构**: {paper.get('AFFILIATIONS', 'Unknown Institution')}\n\n")
-                f.write(f"**摘要**: {paper.get('abstract_cn', 'No abstract')}\n\n")
-                f.write(f"[阅读原文](https://arxiv.org/abs/{paper_id})\n\n---\n\n")
+        with open(os.path.join(history_path, f"{today_str}_translated.md"), "w", encoding="utf-8") as f:
+            f.write(translated_md_content)
+        with open(os.path.join(output_path, "output_translated.md"), "w", encoding="utf-8") as f:
+            f.write(translated_md_content)
+
+    # Copy all history JSON files to out/ so the webpage can fetch them
+    for filename in os.listdir(history_path):
+        if filename.endswith(".json"):
+            shutil.copy(os.path.join(history_path, filename), os.path.join(output_path, filename))
+
+    # Generate a list of available dates
+    available_dates = sorted([f.replace('.json', '') for f in os.listdir(history_path) if f.endswith('.json') and not f.startswith('output')], reverse=True)
+    with open(os.path.join(output_path, "dates.json"), "w", encoding="utf-8") as f:
+        json.dump(available_dates, f, indent=4)
+
+    # Generate index.html for the web homepage
+    index_html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Arxiv Papers</title>
+    <style>
+        body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; color: #333; }}
+        h1, h2, h3 {{ color: #2c3e50; }}
+        .controls {{ margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef; }}
+        select {{ padding: 8px; font-size: 16px; border-radius: 4px; border: 1px solid #ced4da; }}
+        .summary {{ background: #eef2f7; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 5px solid #2c3e50; }}
+        .paper {{ margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; }}
+        .paper-title {{ font-size: 1.2em; font-weight: bold; margin-bottom: 10px; }}
+        .paper-authors {{ color: #666; font-style: italic; margin-bottom: 10px; }}
+        .paper-abstract {{ margin-bottom: 15px; text-align: justify; white-space: pre-wrap; }}
+        .paper-link a {{ display: inline-block; padding: 5px 10px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; }}
+        .paper-link a:hover {{ background: #0056b3; }}
+        #loading {{ text-align: center; color: #666; font-style: italic; display: none; }}
+    </style>
+</head>
+<body>
+    <h1>📚 Daily Arxiv Paper Recommendations</h1>
+    
+    <div class="controls">
+        <label for="date-select"><strong>Select Date: </strong></label>
+        <select id="date-select" onchange="loadPapers()"></select>
+    </div>
+
+    <div id="loading">Loading papers...</div>
+    <div id="summary-container" class="summary" style="display:none;"></div>
+    <div id="papers-container"></div>
+
+    <script>
+        let dates = [];
+
+        async function init() {{
+            try {{
+                const response = await fetch('dates.json');
+                dates = await response.json();
                 
+                const select = document.getElementById('date-select');
+                if (dates.length === 0) {{
+                    select.innerHTML = '<option value="">No data available</option>';
+                    return;
+                }}
+                
+                dates.forEach(date => {{
+                    const option = document.createElement('option');
+                    option.value = date;
+                    option.textContent = date;
+                    select.appendChild(option);
+                }});
+                
+                // Load the most recent date by default
+                loadPapers();
+            }} catch (error) {{
+                console.error('Error loading dates:', error);
+                document.getElementById('papers-container').innerHTML = '<p>Error loading dates list. Please try again later.</p>';
+            }}
+        }}
+
+        async function loadPapers() {{
+            const select = document.getElementById('date-select');
+            const date = select.value;
+            if (!date) return;
+
+            const container = document.getElementById('papers-container');
+            const summaryContainer = document.getElementById('summary-container');
+            const loading = document.getElementById('loading');
+            
+            container.innerHTML = '';
+            summaryContainer.innerHTML = '';
+            summaryContainer.style.display = 'none';
+            loading.style.display = 'block';
+
+            try {{
+                const response = await fetch(`${{date}}.json`);
+                const data = await response.json();
+                
+                loading.style.display = 'none';
+                
+                // Handle both new format (with summary) and old format (just papers)
+                const papers = data.papers || data;
+                const summary = data.summary_cn || data.summary_en || "";
+
+                if (summary) {{
+                    summaryContainer.innerHTML = '<h3>💡 今日研究速览 (Daily Summary)</h3>' + summary.replace(/\n/g, '<br>');
+                    summaryContainer.style.display = 'block';
+                }}
+                
+                if (Object.keys(papers).length === 0) {{
+                    container.innerHTML = '<p>No papers found for this date.</p>';
+                    return;
+                }}
+
+                for (const [id, paper] of Object.entries(papers)) {{
+                    const paperDiv = document.createElement('div');
+                    paperDiv.className = 'paper';
+                    
+                    const title = paper.title_cn && paper.title_cn !== '[Translation Failed]' ? paper.title_cn : paper.title;
+                    const abstract = paper.abstract_cn && paper.abstract_cn !== '[Translation Failed]' ? paper.abstract_cn : paper.abstract;
+                    const authors = paper.authors ? paper.authors.join(', ') : 'Unknown Authors';
+                    const link = `https://arxiv.org/abs/${{id}}`;
+                    
+                    paperDiv.innerHTML = `
+                        <div class="paper-title">${{title}}</div>
+                        <div class="paper-authors">${{authors}}</div>
+                        <div class="paper-abstract">${{abstract}}</div>
+                        <div class="paper-link"><a href="${{link}}" target="_blank">Read Paper</a></div>
+                    `;
+                    
+                    container.appendChild(paperDiv);
+                }}
+            }} catch (error) {{
+                console.error('Error loading papers:', error);
+                loading.style.display = 'none';
+                container.innerHTML = '<p>Error loading papers for selected date. Please try again later.</p>';
+            }}
+        }}
+
+        // Initialize the page
+        init();
+    </script>
+</body>
+</html>"""
+    
+    with open(os.path.join(output_path, "index.html"), "w", encoding="utf-8") as f:
+        f.write(index_html_content)
+        
     logging.info("Pipeline completed successfully.")
 
 if __name__ == "__main__":

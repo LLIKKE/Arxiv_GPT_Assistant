@@ -1,6 +1,6 @@
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from typing import List, Dict
 
 from slack_sdk import WebClient
@@ -87,7 +87,7 @@ def build_block_list(title_strings: List[str], paper_strings: List[str]) -> tupl
             "type": "header",
             "text": {
                 "type": "plain_text",
-                "text": f"Paper alert bot update on {datetime.today().strftime('%m/%d/%Y')}",
+                "text": f"Paper alert bot update on {datetime.now(timezone(timedelta(hours=8))).strftime('%m/%d/%Y')}",
             },
         },
         {

@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from typing import Dict
 
 def render_paper(paper_entry: Dict, idx: int) -> str:
@@ -64,7 +64,7 @@ def render_md_string(papers_dict: Dict, daily_summary: str = "") -> str:
 
     # Header section with Date
     output_string = (
-        f"# 📚 Personalized Daily Arxiv Papers - {datetime.today().strftime('%B %d, %Y')}\n\n"
+        f"# 📚 Personalized Daily Arxiv Papers - {datetime.now(timezone(timedelta(hours=8))).strftime('%B %d, %Y')}\n\n"
         f"**Total relevant papers:** {len(papers_dict)}\n\n"
     )
 

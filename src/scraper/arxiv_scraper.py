@@ -152,6 +152,11 @@ def get_papers_from_arxiv_rss_api(area: str, config: Optional[dict]) -> List[Pap
     
     if len(paper_list) == 0:
         logging.info(f"Attempting to fetch papers from API for {area}...")
+        # Cap the timestamp to be recent
+        if timestamp and timestamp < datetime.utcnow() - timedelta(days=7):
+            logging.warning(f"Timestamp from RSS is too old ({timestamp}), using current time.")
+            timestamp = datetime.utcnow()
+        
         api_paper_list = get_papers_from_arxiv_api(area, timestamp, last_id, intervals)
         
         if len(api_paper_list) == 0:

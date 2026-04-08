@@ -4,6 +4,8 @@ import configparser
 import os
 import io
 import logging
+import datetime
+import shutil
 from typing import List, Tuple, Set
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -228,9 +230,6 @@ def main():
                 
     else:
         logging.warning("Tencent Cloud SECRET_ID or SECRET_KEY missing. Skipping translation.")
-
-    import datetime
-    import shutil
     
     # Output generation
     output_path = config["OUTPUT"].get("output_path", "out/")

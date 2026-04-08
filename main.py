@@ -277,8 +277,20 @@ def main():
         translated_md_content = f"# 💡 今日研究速览 (Daily Summary)\n\n{daily_summary_cn}\n\n---\n\n"
         for idx, (paper_id, paper) in enumerate(selected_papers.items(), 1):
             translated_md_content += f"## {idx}. {paper.get('title_cn', 'Untitled')}\n\n"
+            
+            # Add Scores if available
+            rel_score = paper.get("RELEVANCE_SCORE", "N/A")
+            nov_score = paper.get("NOVELTY_SCORE", "N/A")
+            translated_md_content += f"**得分**: 相关性 (Rel): {rel_score}/10, 创新性 (Nov): {nov_score}/10\n\n"
+            
             translated_md_content += f"**作者**: {', '.join(paper.get('authors', []))}\n\n"
             translated_md_content += f"**机构**: {paper.get('AFFILIATIONS', 'Unknown Institution')}\n\n"
+            
+            # Add Comment
+            comment = paper.get('COMMENT', '')
+            if comment:
+                translated_md_content += f"**💡 亮点 (Highlight)**: {comment}\n\n"
+                
             translated_md_content += f"**摘要**: {paper.get('abstract_cn', 'No abstract')}\n\n"
             translated_md_content += f"[阅读原文](https://arxiv.org/abs/{paper_id})\n\n---\n\n"
             

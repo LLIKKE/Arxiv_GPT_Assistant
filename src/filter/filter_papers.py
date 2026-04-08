@@ -242,10 +242,16 @@ def filter_by_gpt(
                         score = int(jdict.get("RELEVANCE_SCORE", 0))
                     except ValueError:
                         score = 0
+                        
+                    try:
+                        novelty = int(jdict.get("NOVELTY_SCORE", 0))
+                    except ValueError:
+                        novelty = 0
                     
                     threshold = config["FILTERING"].getint("relevance_score_threshold", fallback=6)
+                    novelty_threshold = config["FILTERING"].getint("novelty_score_threshold", fallback=5)
                     
-                    if is_relevant and score >= threshold:
+                    if is_relevant and score >= threshold and novelty >= novelty_threshold:
                         selected_papers[arxiv_id] = {
                             **dataclasses.asdict(all_papers[arxiv_id]),
                             **jdict,
@@ -257,12 +263,17 @@ def filter_by_gpt(
                     })
                 scored_batches.append(scored_in_batch)
             
-        # Keep top K papers by RELEVANCE_SCORE
+        # Keep top K papers by RELEVANCE_SCORE and NOVELTY_SCORE
         top_k = config["FILTERING"].getint("top_k_papers", fallback=60)
-        # Sort papers by score descending
+        # Sort papers by sum of relevance and novelty scores descending
+        def get_sort_key(item):
+            rel_score = int(item[1].get("RELEVANCE_SCORE", 0) if str(item[1].get("RELEVANCE_SCORE", 0)).isdigit() else 0)
+            nov_score = int(item[1].get("NOVELTY_SCORE", 0) if str(item[1].get("NOVELTY_SCORE", 0)).isdigit() else 0)
+            return (rel_score + nov_score, rel_score) # sum first, then relevance score as tiebreaker
+            
         sorted_papers = sorted(
             selected_papers.items(), 
-            key=lambda item: int(item[1].get("RELEVANCE_SCORE", 0) if str(item[1].get("RELEVANCE_SCORE", 0)).isdigit() else 0), 
+            key=get_sort_key, 
             reverse=True
         )
         

@@ -20,7 +20,12 @@ def render_paper(paper_entry: Dict, idx: int) -> str:
     
     paper_string += f'<p style="font-size: 14px; color: #586069; margin: 5px 0;">'
     paper_string += f'<strong>ArXiv ID:</strong> {arxiv_id} | '
-    if "RELEVANCE" in paper_entry and "NOVELTY" in paper_entry:
+    if "RELEVANCE_SCORE" in paper_entry or "NOVELTY_SCORE" in paper_entry:
+        rel_score = paper_entry.get("RELEVANCE_SCORE", "N/A")
+        nov_score = paper_entry.get("NOVELTY_SCORE", "N/A")
+        paper_string += f'<strong>Relevance Score:</strong> <span style="background-color: #e6f3ff; padding: 2px 6px; border-radius: 4px;">{rel_score}/10</span> | '
+        paper_string += f'<strong>Novelty Score:</strong> <span style="background-color: #e6f3ff; padding: 2px 6px; border-radius: 4px;">{nov_score}/10</span>'
+    elif "RELEVANCE" in paper_entry and "NOVELTY" in paper_entry:
         paper_string += f'<strong>Relevance:</strong> <span style="background-color: #e6f3ff; padding: 2px 6px; border-radius: 4px;">{paper_entry["RELEVANCE"]}</span> | '
         paper_string += f'<strong>Novelty:</strong> <span style="background-color: #e6f3ff; padding: 2px 6px; border-radius: 4px;">{paper_entry["NOVELTY"]}</span>'
     paper_string += f'</p>'
@@ -48,7 +53,10 @@ def render_title_and_author(paper_entry: Dict, idx: int) -> str:
     """
     title = paper_entry.get("title", "")
     authors = paper_entry.get("authors", [])
-    paper_string = f"{idx}. [{title}](#link{idx})\n"
+    rel_score = paper_entry.get("RELEVANCE_SCORE", "N/A")
+    nov_score = paper_entry.get("NOVELTY_SCORE", "N/A")
+    
+    paper_string = f"{idx}. [{title}](#link{idx}) *(Rel: {rel_score}/10, Nov: {nov_score}/10)*\n"
     paper_string += f'**Authors:** {", ".join(authors)}\n'
     return paper_string
 

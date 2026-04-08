@@ -13,9 +13,17 @@ Each line of your response must be a single, valid JSON object representing one 
   - 8: Fairly relevant (strong alignment with the topic).
   - 9: Highly relevant (very strong match, important paper for the topic).
   - 10: Extremely relevant (must-read, groundbreaking or perfectly matched).
+- "NOVELTY_SCORE": (integer) A score from 0 to 10 evaluating the novelty and originality of the paper's core contribution. The score MUST have good differentiation. Use the following guide:
+  - 0-4: Incremental work, straightforward application of existing methods, or very minor tweaks.
+  - 5: Slight novelty (minor variations of known architectures/methods).
+  - 6: Moderate novelty (some interesting new components or combinations).
+  - 7: Good novelty (clear new approach or significant improvement over baselines).
+  - 8: High novelty (very original idea, introduces a new paradigm or solves a hard problem).
+  - 9: Extremely high novelty (groundbreaking, opens up a completely new research direction).
+  - 10: Transformative (rare, paradigm-shifting paper).
 - "COMMENT": (string) A concise 1-sentence summary explaining WHY this paper is relevant and highlighting its core contribution. (If RELEVANCE is false, this can be an empty string).
 - "AFFILIATIONS": (string) Based on the abstract, title, or authors, guess or extract the primary institutions/affiliations of the authors (e.g., "Google DeepMind, Stanford University"). If you cannot determine it, output "Unknown Institution".
 
 Example of expected output format:
-{"ARXIVID": "2401.00001", "RELEVANCE": true, "RELEVANCE_SCORE": 9, "COMMENT": "Proposes a novel self-evolving agent framework that improves tool-use via reflection.", "AFFILIATIONS": "Stanford University"}
-{"ARXIVID": "2401.00002", "RELEVANCE": false, "RELEVANCE_SCORE": 1, "COMMENT": "", "AFFILIATIONS": "Unknown Institution"}
+{"ARXIVID": "2401.00001", "RELEVANCE": true, "RELEVANCE_SCORE": 9, "NOVELTY_SCORE": 8, "COMMENT": "Proposes a novel self-evolving agent framework that improves tool-use via reflection.", "AFFILIATIONS": "Stanford University"}
+{"ARXIVID": "2401.00002", "RELEVANCE": false, "RELEVANCE_SCORE": 1, "NOVELTY_SCORE": 3, "COMMENT": "", "AFFILIATIONS": "Unknown Institution"}

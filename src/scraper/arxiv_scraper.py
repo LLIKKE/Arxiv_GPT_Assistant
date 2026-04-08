@@ -73,7 +73,7 @@ def get_papers_from_arxiv_api(area: str, timestamp: Optional[datetime], last_id:
             
     return api_papers
 
-def get_papers_from_arxiv_rss(area: str, config: Optional[dict]) -> Tuple[List[Paper], Optional[datetime], Optional[str]]:
+def get_papers_from_arxiv_rss(area: str, config: Optional[configparser.ConfigParser]) -> Tuple[List[Paper], Optional[datetime], Optional[str]]:
     """
     Fetch papers from arXiv RSS feed for a specific category.
     """
@@ -88,7 +88,7 @@ def get_papers_from_arxiv_rss(area: str, config: Optional[dict]) -> Tuple[List[P
     logging.info(f"Feed entries count: {len(feed.entries)}")
 
     if feed.status == 304:
-        if config and config.get("OUTPUT", {}).getboolean("debug_messages", fallback=False):
+        if config and config.getboolean("OUTPUT", "debug_messages", fallback=False):
             logging.info(f"No new papers since {updated_string} for {area}")
         return [], None, None
 
@@ -142,7 +142,7 @@ def get_papers_from_arxiv_rss(area: str, config: Optional[dict]) -> Tuple[List[P
             
     return paper_list, timestamp, last_id
 
-def get_papers_from_arxiv_rss_api(area: str, config: Optional[dict]) -> List[Paper]:
+def get_papers_from_arxiv_rss_api(area: str, config: Optional[configparser.ConfigParser]) -> List[Paper]:
     """
     Comprehensive method to fetch papers combining RSS and API.
     """
@@ -168,7 +168,7 @@ def get_papers_from_arxiv_rss_api(area: str, config: Optional[dict]) -> List[Pap
 
     return paper_list
 
-def get_papers(config: dict) -> List[Paper]:
+def get_papers(config: configparser.ConfigParser) -> List[Paper]:
     """
     Fetch all papers for predefined categories.
     """

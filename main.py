@@ -13,9 +13,8 @@ from zhipuai import ZhipuAI
 from openai import OpenAI
 
 from src.scraper.arxiv_scraper import get_papers_from_arxiv_rss_api, Paper
-from src.filter.filter_papers import filter_by_gpt, filter_by_author
+from src.filter.filter_papers import filter_by_gpt
 from src.utils.formatters import render_md_string
-from src.notify.slack import push_to_slack
 from src.translate.tencent_translate import TencentCloudTranslator
 
 # Configure basic logging

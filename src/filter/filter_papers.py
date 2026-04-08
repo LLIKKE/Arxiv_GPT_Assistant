@@ -8,7 +8,6 @@ import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import retry
-from openai import OpenAI
 from tqdm import tqdm
 
 from src.scraper.arxiv_scraper import Paper
@@ -237,8 +236,16 @@ def filter_by_gpt(
                     if not arxiv_id or arxiv_id not in all_papers:
                         continue
                         
+                    # Also keep RELEVANCE boolean check just in case, but rely primarily on score
                     is_relevant = bool(jdict.get("RELEVANCE", False))
-                    if is_relevant:
+                    try:
+                        score = int(jdict.get("RELEVANCE_SCORE", 0))
+                    except ValueError:
+                        score = 0
+                    
+                    threshold = config["FILTERING"].getint("relevance_score_threshold", fallback=6)
+                    
+                    if is_relevant and score >= threshold:
                         selected_papers[arxiv_id] = {
                             **dataclasses.asdict(all_papers[arxiv_id]),
                             **jdict,
@@ -250,6 +257,20 @@ def filter_by_gpt(
                     })
                 scored_batches.append(scored_in_batch)
             
+        # Keep top K papers by RELEVANCE_SCORE
+        top_k = config["FILTERING"].getint("top_k_papers", fallback=60)
+        # Sort papers by score descending
+        sorted_papers = sorted(
+            selected_papers.items(), 
+            key=lambda item: int(item[1].get("RELEVANCE_SCORE", 0) if str(item[1].get("RELEVANCE_SCORE", 0)).isdigit() else 0), 
+            reverse=True
+        )
+        
+        # Clear and repopulate with only the top K
+        selected_papers.clear()
+        for k, v in sorted_papers[:top_k]:
+            selected_papers[k] = v
+
         if config["OUTPUT"].getboolean("dump_debug_file", fallback=False):
             debug_file = os.path.join(config["OUTPUT"].get("output_path", "out/"), "gpt_paper_batches.debug.json")
             with open(debug_file, "w") as outfile:

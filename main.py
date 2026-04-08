@@ -6,6 +6,8 @@ import io
 import logging
 import datetime
 import shutil
+import time
+import random
 from typing import List, Tuple, Set
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -206,19 +208,28 @@ def main():
             logging.error(f"Failed to translate daily summary: {e}")
 
         def translate_paper(paper_id, paper):
-            try:
-                title_cn = clean_markdown_formatting(translator.translate(paper.get('title', '')))
-                abstract_cn = clean_markdown_formatting(translator.translate(paper.get('abstract', '')))
-                return paper_id, {
-                    'title_cn': title_cn if title_cn else "[Translation Failed]",
-                    'abstract_cn': abstract_cn if abstract_cn else "[Translation Failed]"
-                }
-            except Exception as e:
-                logging.error(f"Failed to translate paper {paper_id}: {e}")
-                return paper_id, {
-                    'title_cn': "[Translation Failed]",
-                    'abstract_cn': "[Translation Failed]"
-                }
+            max_retries = 3
+            for attempt in range(max_retries):
+                try:
+                    # Add random sleep to avoid hitting rate limits
+                    time.sleep(random.uniform(0.5, 2.0))
+                    
+                    title_cn = clean_markdown_formatting(translator.translate(paper.get('title', '')))
+                    abstract_cn = clean_markdown_formatting(translator.translate(paper.get('abstract', '')))
+                    return paper_id, {
+                        'title_cn': title_cn if title_cn else "[Translation Failed]",
+                        'abstract_cn': abstract_cn if abstract_cn else "[Translation Failed]"
+                    }
+                except Exception as e:
+                    if attempt < max_retries - 1:
+                        logging.warning(f"Translation failed for {paper_id}, retrying in {2 ** attempt}s... Error: {e}")
+                        time.sleep(2 ** attempt)
+                    else:
+                        logging.error(f"Failed to translate paper {paper_id} after {max_retries} attempts: {e}")
+                        return paper_id, {
+                            'title_cn': "[Translation Failed]",
+                            'abstract_cn': "[Translation Failed]"
+                        }
 
         logging.info("Translating papers concurrently...")
         with ThreadPoolExecutor(max_workers=5) as executor:

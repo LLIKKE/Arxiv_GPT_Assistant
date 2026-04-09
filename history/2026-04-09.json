@@ -1,0 +1,485 @@
+{
+    "summary_en": "### Self-Improving & Continual Learning Agents\nA clear trend is the architectural formalization of agents as self-evolving systems. Research is moving beyond simple prompting or retrieval-augmented generation (RAG) towards agents with persistent, structured memory and internal feedback loops that enable autonomous self-correction and experience reuse. This is exemplified by frameworks that integrate dual-memory modules for continual adaptation and declarative protocols to externalize and optimize the LLM's role within a larger reasoning-action loop. The goal is to create agents that learn from interaction without catastrophic forgetting, where memory and self-improvement arise as emergent properties of a well-designed dynamical system.\n\n### Reinforcement Learning for LLM & Agent Policy Optimization\nThe application of reinforcement learning (RL) to shape LLM behavior, particularly for reasoning and agentic tasks, is undergoing significant methodological refinement. Today's work focuses on improving the stability and sample efficiency of RL training by addressing core failure modes like \"reasoning collapse\" and by developing more sophisticated reward structures. Innovations include hierarchical and stage-aware advantage estimation, tree-structured policy optimization for surgical updates to critical reasoning steps, and novel paradigms like Single State Multiple Actions to boost online training efficiency. There is also a concerted effort to better understand the limits of these methods, analyzing how factors like task difficulty and model scale impact the returns from RL fine-tuning.\n\n### Latent Reasoning & Efficiency in Foundation Models\nA major research thrust is the direct investigation and optimization of latent (unrolled) reasoning within transformer forward passes. Studies are probing the fundamental limits of models in discovering and executing multi-step plans internally, while also analyzing the phenomenon of superposition where multiple reasoning threads coexist. The practical goal is to bridge the gap between a model's internal \"detection\" of an answer and its explicit \"extraction,\" leading to techniques like early exit generation and test-time interventions to repair information flow. Concurrently, model merging and compression techniques are being applied to distill costly explicit reasoning traces into more efficient latent representations, aiming to preserve performance while drastically reducing inference-time token costs.\n\n### Multimodal Agentic Reasoning\nFor multimodal large language models (MLLMs), the central challenge is closing the \"reasoning-action gap\"—ensuring that high-level visual understanding translates into correct, sequential actions. The emerging solution is multimodal agentic policy optimization (MAPO), which uses RL to jointly optimize for semantic alignment (describing what is seen) and task success (performing the correct action based on that description). This couples the model's perceptual grounding with its decision-making policy. Similarly, RL is being used to train query alignment models that can distill noisy, multimodal user requests into precise textual queries for retrieval systems, enhancing the robustness of agentic tool use.\n\n### Diffusion Model Alignment & RL\nThe alignment of diffusion models via reinforcement learning is advancing with a focus on computational efficiency and inference-time control. Novel frameworks decouple the expensive process of candidate image exploration (using heavily quantized models) from high-precision policy optimization, enabling scalable rollout generation. Furthermore, new inference-time alignment methods are being developed, such as those using resampling mechanisms guided by a reward model, which allow for steering the generative process without retraining the base model. This represents a shift towards more flexible and efficient post-training control.\n\n### Reward Modeling & Benchmarking\nAs RL for LLMs matures, there is growing recognition that the quality of the reward signal is paramount. Research is advancing beyond general \"helpfulness\" to tackle nuanced, personalized human preferences, with new benchmarks designed to evaluate reward models on this complex alignment task. The demonstrated high correlation between these specialized reward model scores and downstream RL performance underscores their critical role. This work ensures that the optimization targets for RL fine-tuning are themselves robust and aligned with diverse human values.",
+    "summary_cn": "# 自我提升和持续学习代理\n一个明显的趋势是建筑形式化的代理作为自我发展的系统。研究正在超越简单的提示或检索增强生成（RAG），转向具有持久性，结构化记忆和内部反馈回路的代理，这些代理可以实现自主自我纠正和经验重用。这一点可以通过集成双内存模块的框架来实现，这些模块用于持续适应和声明性协议，以在更大的推理-动作循环中外部化和优化LLM的角色。我们的目标是创建能够从互动中学习而不会发生灾难性遗忘的代理人，其中记忆和自我完善作为设计良好的动力系统的涌现属性而出现。\n\n# LLM强化学习和代理策略优化\n应用强化学习（RL）塑造LLM行为，特别是对于推理和代理任务，正在经历重大的方法论改进。今天的工作重点是通过解决“推理崩溃”等核心失败模式和开发更复杂的奖励结构来提高RL训练的稳定性和样本效率。创新包括分层和阶段感知优势估计、用于关键推理步骤的外科手术更新的树结构政策优化，以及提高在线培训效率的单状态多动作等新颖范式。人们还共同努力更好地了解这些方法的局限性，分析任务难度和模型规模等因素如何影响RL微调的回报。\n\n# 基础模型中的潜在推理和效率\n一个主要的研究重点是对Transformer正向传递中潜在（展开）推理的直接调查和优化。研究正在探索模型在内部发现和执行多步计划方面的基本限制，同时还分析多个推理线程共存的叠加现象。实际目标是弥合模型对答案的内部“检测”与其显式“提取”之间的差距，从而产生早期退出生成和测试时干预等技术来修复信息流。与此同时，模型合并和压缩技术正在被应用于将昂贵的显式推理痕迹提炼成更有效的潜在表示，旨在保留性能，同时大幅降低推理时间令牌成本。\n\n# 多模式统计推理\n对于多模态大型语言模型（MLLM），核心挑战是缩小“推理-动作差距”-确保高级视觉理解转化为正确的顺序动作。新兴的解决方案是多模式代理策略优化（MAPO），它使用RL来联合优化语义对齐（描述所看到的内容）和任务成功（基于该描述执行正确的操作）。这将模型的感知基础与其决策策略结合起来。类似地，RL被用于训练查询对齐模型，该模型可以将嘈杂的多模态用户请求提取为检索系统的精确文本查询，从而增强代理工具使用的鲁棒性。\n\n# 扩散模型对齐和RL\n通过强化学习调整扩散模型的工作正在取得进展，重点关注计算效率和推断时间控制。新型框架将昂贵的候选图像探索过程（使用大量量化模型）与高精度策略优化脱钩，从而实现可扩展的部署生成。此外，正在开发新的推理时对齐方法，例如使用由奖励模型指导的重新分配机制的方法，该方法允许在不重新训练基本模型的情况下引导生成过程。这代表着训练后控制向更灵活、更有效的转变。\n\n# 奖励建模与基准\n随着LLM RL的成熟，人们越来越认识到奖励信号的质量至关重要。研究正在超越一般的“帮助性”，以解决细微差别、个性化的人类偏好，并设计了新的基准来评估这项复杂的对齐任务的奖励模型。这些专业奖励模型分数与下游RL性能之间已证明的高度相关性凸显了它们的关键作用。这项工作确保RL微调的优化目标本身是稳健的，并与不同的人类价值观保持一致。",
+    "papers": {
+        "2604.07108": {
+            "authors": [
+                "Radu Negulescu"
+            ],
+            "title": "Information as Structural Alignment: A Dynamical Theory of Continual Learning",
+            "abstract": "arXiv:2604.07108v1 Announce Type: new  Abstract: Catastrophic forgetting is not an engineering failure. It is a mathematical consequence of storing knowledge as global parameter superposition. Existing methods, such as regularization, replay, and frozen subnetworks, add external mechanisms to a shared-parameter substrate. None derives retention from the learning dynamics themselves.   This paper introduces the Informational Buildup Framework (IBF), an alternative substrate for continual learning, based on the premise that information is the achievement of structural alignment rather than stored content. In IBF, two equations govern the dynamics: a Law of Motion that drives configuration toward higher coherence, and Modification Dynamics that persistently deform the coherence landscape in response to localized discrepancies. Memory, agency, and self-correction arise from these dynamics rather than being added as separate modules.   We first demonstrate the full lifecycle in a transparent two-dimensional toy model, then validate across three domains: a controlled non-stationary world, chess evaluated independently by Stockfish, and Split-CIFAR-100 with a frozen ViT encoder. Across all three, IBF achieves replay-superior retention without storing raw data. We observe near-zero forgetting on CIFAR-100 (BT = -0.004), positive backward transfer in chess (+38.5 cp), and 43% less forgetting than replay in the controlled domain. In chess, the framework achieves a mean behavioral advantage of +88.9 +/- 2.8 cp under independent evaluation, exceeding MLP and replay baselines.",
+            "arxiv_id": "2604.07108",
+            "ARXIVID": "2604.07108",
+            "RELEVANCE_SCORE": 8,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 9,
+            "COMMENT": "Proposes a novel continual learning framework (IBF) where memory and self-correction arise from dynamics, achieving strong retention without replay, aligning with self-evolving agent principles.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "信息作为结构对齐：持续学习的动态理论",
+            "abstract_cn": "arXiv：2604.07108v1宣布类型：新摘要：灾难性遗忘并不是工程失败。这是将知识存储为全局参数叠加的数学结果。现有方法，例如规则化、重播和冻结子网络，向共享参数底层添加了外部机制。没有人能从学习动力本身中获得保留力。   本文介绍了信息构建框架（IBF），这是持续学习的替代基础，其前提是信息是结构对齐的实现，而不是存储内容。在IBF中，有两个方程支配动力学：推动配置走向更高一致性的运动定律，以及响应局部差异而持续变形一致性景观的修改动力学。记忆、代理和自我纠正源于这些动态，而不是作为单独的模块添加。   我们首先在透明的二维玩具模型中展示了整个生命周期，然后在三个领域进行验证：受控的非静止世界、由Stockfish独立评估的国际象棋以及具有冷冻ViT编码器的Split-CIFAR-100。在这三个方面，IBF在不存储原始数据的情况下实现了出色的重播保留。我们在CIFAR-100上观察到接近零的遗忘（BT = -0.004），在国际象棋中观察到正向后转移（+38.5 cp），在控制域中，遗忘比重播少43%。在国际象棋中，该框架在独立评估下实现了+88.9 +/- 2.8 cp的平均行为优势，超过了MLP和重播基线。"
+        },
+        "2604.06268": {
+            "authors": [
+                "Zihan Wang",
+                "Chi Gui",
+                "Xing Jin",
+                "Qineng Wang",
+                "Licheng Liu",
+                "Kangrui Wang",
+                "Shiqi Chen",
+                "Linjie Li",
+                "Zhengyuan Yang",
+                "Pingyue Zhang",
+                "Yiping Lu",
+                "Jiajun Wu",
+                "Li Fei-Fei",
+                "Lijuan Wang",
+                "Yejin Choi",
+                "Manling Li"
+            ],
+            "title": "RAGEN-2: Reasoning Collapse in Agentic RL",
+            "abstract": "arXiv:2604.06268v1 Announce Type: new  Abstract: RL training of multi-turn LLM agents is inherently unstable, and reasoning quality directly determines task performance. Entropy is widely used to track reasoning stability. However, entropy only measures diversity within the same input, and cannot tell whether reasoning actually responds to different inputs. In RAGEN-2, we find that even with stable entropy, models can rely on fixed templates that look diverse but are input-agnostic. We call this template collapse, a failure mode invisible to entropy and all existing metrics. To diagnose this failure, we decompose reasoning quality into within-input diversity (Entropy) and cross-input distinguishability (Mutual Information, MI), and introduce a family of mutual information proxies for online diagnosis. Across diverse tasks, mutual information correlates with final performance much more strongly than entropy, making it a more reliable proxy for reasoning quality. We further explain template collapse with a signal-to-noise ratio (SNR) mechanism. Low reward variance weakens task gradients, letting regularization terms dominate and erase cross-input reasoning differences. To address this, we propose SNR-Aware Filtering to select high-signal prompts per iteration using reward variance as a lightweight proxy. Across planning, math reasoning, web navigation, and code execution, the method consistently improves both input dependence and task performance.",
+            "arxiv_id": "2604.06268",
+            "ARXIVID": "2604.06268",
+            "RELEVANCE_SCORE": 8,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Identifies and addresses 'template collapse' in RL-trained LLM agents, proposing mutual information as a diagnostic and SNR-aware filtering to improve reasoning quality and training stability.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "RAgen-2：超级RL中的推理崩溃",
+            "abstract_cn": "arXiv：2604.06268v1宣布类型：新摘要：多回合LLM代理的RL训练本质上是不稳定的，推理质量直接决定任务性能。熵被广泛用于跟踪推理稳定性。然而，信息量仅测量同一输入内的多样性，而无法判断推理是否实际上响应不同的输入。在RAgen-2中，我们发现即使有稳定的熵，模型也可以依赖于固定模板，这些模板看起来多样化但与输入不可知有关。我们称这种模板崩溃，这是一种对信息量和所有现有指标来说不可见的失败模式。为了诊断这种故障，我们将推理质量分解为输入内多样性（Entropy）和交叉输入互换性（互信息，MI），并引入一系列互信息代理用于在线诊断。在不同的任务中，互信息与最终性能的相关性比信息量强得多，使其成为推理质量的更可靠的代理。我们进一步用信噪比（SNR）机制解释模板崩溃。低回报方差会削弱任务梯度，让正规化项占主导地位并消除交叉输入推理差异。为了解决这个问题，我们提出SNR-Aware过滤，使用奖励方差作为轻量级代理，在每次迭代中选择高信号提示。在规划、数学推理、网络导航和代码执行中，该方法持续改善了输入依赖性和任务性能。"
+        },
+        "2604.07269": {
+            "authors": [
+                "Bingxuan Li",
+                "Simo Du",
+                "Yue Guo"
+            ],
+            "title": "Joint Optimization of Reasoning and Dual-Memory for Self-Learning Diagnostic Agent",
+            "abstract": "arXiv:2604.07269v1 Announce Type: new  Abstract: Clinical expertise improves not only by acquiring medical knowledge, but by accumulating experience that yields reusable diagnostic patterns. Recent LLMs-based diagnostic agents have shown promising progress in clinical reasoning for decision support. However, most approaches treat cases independently, limiting experience reuse and continual adaptation. We propose SEA, a self-learning diagnostic agent with cognitively inspired dual-memory module. We design a reinforcement training framework tailored to our designed agent for joint optimization of reasoning and memory management. We evaluate SEA in two complementary settings. On standard evaluation with MedCaseReasoning dataset, SEA achieves 92.46% accuracy, outperforming the strongest baseline by +19.6%, demonstrating the benefit of jointly optimizing reasoning and memory. On the long-horizon with ER-Reason dataset, SEA attains the best final accuracy (0.7214) and the largest improvement (+0.35 Acc@100), while baseline methods show limited or unstable gains. Expert evaluation further indicates that rules consolidated from SEA show strong clinical correctness, usefulness and trust, suggesting that the induced rules in dual-memory module are reliable and practically meaningful. Overall, SEA improves both diagnostic reasoning ability and continual learning by effectively transforming experience into reusable knowledge.",
+            "arxiv_id": "2604.07269",
+            "ARXIVID": "2604.07269",
+            "RELEVANCE_SCORE": 8,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a self-learning diagnostic agent with a dual-memory module and a reinforcement training framework for joint optimization of reasoning and memory, enabling continual adaptation and experience reuse.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "自学习诊断代理的推理和双记忆联合优化",
+            "abstract_cn": "arXiv：2604.07269v1宣布类型：新摘要：临床专业知识不仅通过获取医学知识来提高，还通过积累产生可重复使用的诊断模式的经验来提高。最近基于LLM的诊断试剂在决策支持的临床推理方面显示出有希望的进展。然而，大多数方法都独立处理病例，限制了经验的重复使用和持续适应。我们提出SEA，一种具有认知启发双记忆模块的自学习诊断试剂。我们设计了一个针对我们设计的代理量身定制的强化训练框架，用于联合优化推理和内存管理。我们在两种补充的环境中评估SEA。在MedCaseReasoning数据集的标准评估中，SEA的准确率达到了92.46%，比最强基线高出+19.6%，证明了联合优化推理和记忆的好处。在ER-Reason数据集的长期范围内，SEA获得了最好的最终准确性（0.7214）和最大的改进（+0.35 Acc@100），而基线方法显示出有限或不稳定的收益。专家评估进一步表明，从SEA中合并的规则显示出较强的临床正确性、有用性和信任度，表明双记忆模块中的推导规则可靠且具有实际意义。总体而言，SEA通过有效地将经验转化为可重复使用的知识，提高了诊断推理能力和持续学习。"
+        },
+        "2604.07165": {
+            "authors": [
+                "Yu Li",
+                "Sizhe Tang",
+                "Tian Lan"
+            ],
+            "title": "Reason in Chains, Learn in Trees: Self-Rectification and Grafting for Multi-turn Agent Policy Optimization",
+            "abstract": "arXiv:2604.07165v1 Announce Type: new  Abstract: Reinforcement learning for Large Language Model agents is often hindered by sparse rewards in multi-step reasoning tasks. Existing approaches like Group Relative Policy Optimization treat sampled trajectories as independent chains, assigning uniform credit to all steps in each chain and ignoring the existence of critical steps that may disproportionally impact reasoning outcome. In this paper, we propose T-STAR(Tree-structured Self-Taught Agent Rectification), a framework that recovers the latent correlated reward structure across seemingly independent trajectories. Specifically, we consolidate trajectories into a unified Cognitive Tree by identifying and merging functionally similar steps/nodes. It enables an Introspective Valuation mechanism that back-propagates trajectory-level rewards through the tree to obtain a new notion of variance-reduced relative advantage at step-level. Using the Cognitive Tree, we also develop In-Context Thought Grafting to synthesize corrective reasoning by contrasting successful and failed branches at critical divergence points/steps. Our proposed Surgical Policy Optimization then capitalizes on the rich policy gradient information concentrated at these critical points/steps through a Bradley-Terry type of surgical loss. Extensive experiments across embodied, interactive, reasoning, and planning benchmarks demonstrate that T-STAR achieves consistent improvements over strong baselines, with gains most pronounced on tasks requiring extended reasoning chains.",
+            "arxiv_id": "2604.07165",
+            "ARXIVID": "2604.07165",
+            "RELEVANCE_SCORE": 8,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a tree-structured RL framework for LLM agents that recovers latent reward structure and performs surgical policy optimization on critical reasoning steps.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "链条中的理性，树木中的学习：多回合代理政策优化的自我纠正和嫁接",
+            "abstract_cn": "arXiv：2604.07165v1宣布类型：新摘要：大型语言模型代理的强化学习通常会受到多步推理任务中的稀疏奖励的阻碍。群相对政策优化等现有方法将采样轨迹视为独立链，为每个链中的所有步骤分配统一的信用度，并忽略可能影响推理结果的关键步骤的存在。在本文中，我们提出了T-STAR（树结构自学代理纠正），这是一个跨越看似独立的轨迹恢复潜在相关奖励结构的框架。具体来说，我们通过识别和合并功能相似的步骤/节点将轨迹整合到统一的认知树中。它实现了内省估值机制，通过树反向传播个体级奖励，以获得阶梯级方差降低相对优势的新概念。使用认知树，我们还开发了上下文思维移植，通过在关键分歧点/步骤对比成功和失败的分支来综合纠正推理。然后，我们提出的手术政策优化利用集中在这些关键点/步骤的丰富政策梯度信息，通过Bradley-Terry类型的手术损失。针对具体化、交互式、推理和规划基准的广泛实验表明，T-STAR在强基线上实现了一致的改进，在需要扩展推理链的任务上，其收益最为明显。"
+        },
+        "2604.06427": {
+            "authors": [
+                "Yi Xu",
+                "Philipp Jettkant",
+                "Laura Ruis"
+            ],
+            "title": "The Depth Ceiling: On the Limits of Large Language Models in Discovering Latent Planning",
+            "abstract": "arXiv:2604.06427v1 Announce Type: new  Abstract: The viability of chain-of-thought (CoT) monitoring hinges on models being unable to reason effectively in their latent representations. Yet little is known about the limits of such latent reasoning in LLMs. We test these limits by studying whether models can discover multi-step planning strategies without supervision on intermediate steps and execute them latently, within a single forward pass. Using graph path-finding tasks that precisely control the number of required latent planning steps, we uncover a striking limitation unresolved by massive scaling: tiny transformers trained from scratch discover strategies requiring up to three latent steps, fine-tuned GPT-4o and Qwen3-32B reach five, and GPT-5.4 attains seven under few-shot prompting. Although the maximum latent planning depth models can learn during training is five, the discovered strategy generalizes up to eight latent steps at test-time. This reveals a dissociation between the ability to discover a latent strategy under final-answer supervision alone and the ability to execute it once discovered. If similar limits hold more broadly, strategies requiring multiple coordinated latent planning steps may need to be explicitly taught or externalized, lending credence to CoT monitoring.",
+            "arxiv_id": "2604.06427",
+            "ARXIVID": "2604.06427",
+            "RELEVANCE_SCORE": 8,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Directly studies the limits of latent reasoning in LLMs, testing their ability to discover and execute multi-step planning strategies within a single forward pass.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "深度上限：大型语言模型在发现潜在规划方面的局限性",
+            "abstract_cn": "arXiv：2604.06427v1宣布类型：新摘要：思想链（CoT）监控的可行性取决于模型无法在其潜在表示中有效推理。然而，人们对LLM中这种潜在推理的局限性知之甚少。我们通过研究模型是否可以在没有中间步骤监督的情况下发现多步骤规划策略并在一次向前传递内潜伏执行它们来测试这些限制。使用精确控制所需潜在规划步骤数量的图寻路任务，我们发现了一个大规模扩展无法解决的惊人限制：从头开始训练的微型变形金刚发现需要多达三个潜在步骤的策略，微调的GPT-4o和Qwen 3 - 32 B达到五个，GPT-5.4在几次提示下达到七个。尽管训练期间可以学习的最大潜在规划深度模型是五个，但所发现的策略在测试时概括了多达八个潜在步骤。这揭示了仅在最终答案监督下发现潜在策略的能力与一旦发现就执行潜在策略的能力之间存在脱节。如果类似的限制更广泛地存在，那么需要多个协调的潜在规划步骤的策略可能需要明确教授或外部化，从而为CoT监控提供可信度。"
+        },
+        "2604.06374": {
+            "authors": [
+                "Michael Rizvi-Martel",
+                "Guillaume Rabusseau",
+                "Marius Mosbach"
+            ],
+            "title": "The Illusion of Superposition? A Principled Analysis of Latent Thinking in Language Models",
+            "abstract": "arXiv:2604.06374v1 Announce Type: new  Abstract: Latent reasoning via continuous chain-of-thoughts (Latent CoT) has emerged as a promising alternative to discrete CoT reasoning. Operating in continuous space increases expressivity and has been hypothesized to enable superposition: the ability to maintain multiple candidate solutions simultaneously within a single representation. Despite theoretical arguments, it remains unclear whether language models actually leverage superposition when reasoning using latent CoTs. We investigate this question across three regimes: a training-free regime that constructs latent thoughts as convex combinations of token embeddings, a fine-tuned regime where a base model is adapted to produce latent thoughts, and a from-scratch regime where a model is trained entirely with latent thoughts to solve a given task. Using Logit Lens and entity-level probing to analyze internal representations, we find that only models trained from scratch exhibit signs of using superposition. In the training-free and fine-tuned regimes, we find that the superposition either collapses or is not used at all, with models discovering shortcut solutions instead. We argue that this is due to two complementary phenomena: i) pretraining on natural language data biases models to commit to a token in the last layers ii) capacity has a huge effect on which solutions a model favors. Together, our results offer a unified explanation for when and why superposition arises in continuous chain-of-thought reasoning, and identify the conditions under which it collapses.",
+            "arxiv_id": "2604.06374",
+            "ARXIVID": "2604.06374",
+            "RELEVANCE_SCORE": 8,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Directly investigates latent reasoning (Latent CoT) and superposition in language models, analyzing when and why it arises, which is a core contribution to the latent CoT/reasoning topic.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "叠加幻觉？语言模型中潜在思维的原则性分析",
+            "abstract_cn": "arXiv：2604.06374v1宣布类型：新摘要：通过连续思想链的潜在推理（潜在CoT）已成为离散CoT推理的一种有希望的替代方案。在连续空间中操作可以提高表达力，并被假设可以实现叠加：在单个表示中同时维护多个候选解决方案的能力。尽管存在理论上的争论，但目前尚不清楚语言模型在使用潜在CoT进行推理时是否真的利用了叠加。我们在三个机制中研究这个问题：一个无训练机制，将潜在思想构建为代币嵌入的凸组合;一个微调机制，其中基础模型适合产生潜在思想;以及一个从头开始机制，其中模型完全用潜在思想训练以解决给定任务。使用Logit Lens和实体级探测来分析内部表示，我们发现只有从头开始训练的模型才会表现出使用叠加的迹象。在无需训练和微调的机制中，我们发现叠加要么崩溃，要么根本不被使用，而模型反而发现捷径解决方案。我们认为，这是由于两个互补现象造成的：i）对自然语言数据的预训练会使模型偏向于在最后一层中承诺代币ii）容量对模型青睐的解决方案产生巨大影响。总的来说，我们的结果为连续思想链推理中何时以及为何出现叠加提供了统一的解释，并确定了叠加崩溃的条件。"
+        },
+        "2604.06916": {
+            "authors": [
+                "Yitong Li",
+                "Junsong Chen",
+                "Shuchen Xue",
+                "Pengcuo Zeren",
+                "Siyuan Fu",
+                "Dinghao Yang",
+                "Yangyang Tang",
+                "Junjie Bai",
+                "Ping Luo",
+                "Song Han",
+                "Enze Xie"
+            ],
+            "title": "FP4 Explore, BF16 Train: Diffusion Reinforcement Learning via Efficient Rollout Scaling",
+            "abstract": "arXiv:2604.06916v1 Announce Type: new  Abstract: Reinforcement-Learning-based post-training has recently emerged as a promising paradigm for aligning text-to-image diffusion models with human preferences. In recent studies, increasing the rollout group size yields pronounced performance improvements, indicating substantial room for further alignment gains. However, scaling rollouts on large-scale foundational diffusion models (e.g., FLUX.1-12B) imposes a heavy computational burden. To alleviate this bottleneck, we explore the integration of FP4 quantization into Diffusion RL rollouts. Yet, we identify that naive quantized pipelines inherently introduce risks of performance degradation. To overcome this dilemma between efficiency and training integrity, we propose Sol-RL (Speed-of-light RL), a novel FP4-empowered Two-stage Reinforcement Learning framework. First, we utilize high-throughput NVFP4 rollouts to generate a massive candidate pool and extract a highly contrastive subset. Second, we regenerate these selected samples in BF16 precision and optimize the policy exclusively on them. By decoupling candidate exploration from policy optimization, Sol-RL integrates the algorithmic mechanisms of rollout scaling with the system-level throughput gains of NVFP4. This synergistic algorithm-hardware design effectively accelerates the rollout phase while reserving high-fidelity samples for optimization. We empirically demonstrate that our framework maintains the training integrity of BF16 precision pipeline while fully exploiting the throughput gains enabled by FP4 arithmetic. Extensive experiments across SANA, FLUX.1, and SD3.5-L substantiate that our approach delivers superior alignment performance across multiple metrics while accelerating training convergence by up to $4.64\\times$, unlocking the power of massive rollout scaling at a fraction of the cost.",
+            "arxiv_id": "2604.06916",
+            "ARXIVID": "2604.06916",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a novel two-stage RL framework (Sol-RL) for diffusion model alignment, decoupling FP4-quantized candidate exploration from BF16 policy optimization to enable efficient rollout scaling.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "FP 4探索、BF 16训练：通过高效推出缩放进行扩散强化学习",
+            "abstract_cn": "arXiv：2604.06916v1宣布类型：新摘要：基于强化学习的后训练最近已成为将文本到图像扩散模型与人类偏好保持一致的一种有前途的范式。在最近的研究中，增加推出组规模会带来显着的性能改进，这表明进一步对齐的巨大空间。然而，大规模基础扩散模型的扩展（例如，FLOX.1 - 12B）带来了沉重的计算负担。为了缓解这一瓶颈，我们探索将FP 4量化集成到扩散RL部署中。然而，我们发现天真的量化管道本质上会带来性能下降的风险。为了克服效率和训练完整性之间的困境，我们提出了Sol-RL（光速RL），这是一种新型的FP4授权的两阶段强化学习框架。首先，我们利用高吞吐量NVFP 4部署来生成庞大的候选池并提取高度对比的子集。其次，我们以BF 16精度重新生成这些选定的样本，并专门针对它们优化策略。通过将候选探索与政策优化脱钩，Sol-RL将部署扩展的算法机制与NVFP 4的系统级吞吐量收益集成在一起。这种协同算法-硬件设计有效地加速了推出阶段，同时保留了高保真样本用于优化。我们的经验表明，我们的框架保持了BF16精度流水线的训练完整性，同时充分利用了FP4算法实现的吞吐量增益。在SANA、FLUX.1和SD3.5-L上进行的大量实验证实，我们的方法在多个指标上提供了卓越的对齐性能，同时将训练收敛速度加快了4.64倍，以一小部分成本释放了大规模部署扩展的能力。"
+        },
+        "2604.07148": {
+            "authors": [
+                "Ning Yang",
+                "Chuangxin Cheng",
+                "Haijun Zhang"
+            ],
+            "title": "Multi-Turn Reasoning LLMs for Task Offloading in Mobile Edge Computing",
+            "abstract": "arXiv:2604.07148v1 Announce Type: new  Abstract: Emerging computation-intensive applications impose stringent latency requirements on resource-constrained mobile devices. Mobile Edge Computing (MEC) addresses this challenge through task offloading. However, designing effective policies remains difficult due to dynamic task arrivals, time-varying channels, and the spatio-temporal coupling of server queues. Conventional heuristics lack adaptability, while Deep Reinforcement Learning (DRL) suffers from limited generalization and architectural rigidity, requiring retraining when network topology changes. Although Large Language Models (LLMs) offer semantic reasoning capabilities, standard Supervised Fine-Tuning (SFT) yields myopic policies that greedily minimize immediate latency without accounting for long-term system evolution. To address these limitations, we propose COMLLM, a generative framework that enables foresighted decision-making in MEC systems. COMLLM integrates Group Relative Policy Optimization (GRPO) with a Look-Ahead Collaborative Simulation (LACS) mechanism, which performs multi-step Monte Carlo rollouts while jointly modeling server queue dynamics. By incorporating these rollouts into the reward design, the framework captures the long-term impact of current decisions on future system states. Experimental results demonstrate that COMLLM achieves near-optimal latency and improved load-balancing fairness. Notably, it exhibits zero-shot topological scalability, allowing a model trained on small-scale networks to generalize to larger, unseen topologies without retraining, outperforming SFT, DRL, and heuristic baselines.",
+            "arxiv_id": "2604.07148",
+            "ARXIVID": "2604.07148",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes COMLLM, a framework using Group Relative Policy Optimization (GRPO) and reward design with look-ahead rollouts for foresighted decision-making in MEC, directly applying RL for LLM policy improvement.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "用于移动边缘计算中任务卸载的多轮推理LLM",
+            "abstract_cn": "arXiv：2604.07148v1公告类型：新摘要：新兴的计算密集型应用对资源受限的移动设备提出了严格的延迟要求。移动边缘计算（MEC）通过任务卸载解决了这一挑战。然而，由于动态任务到达、时变通道以及服务器队列的时空耦合，设计有效的策略仍然很困难。传统的启发式方法缺乏适应性，而深度强化学习（DRL）的概括性和架构僵化性有限，当网络布局发生变化时需要重新训练。尽管大型语言模型（LLM）提供语义推理能力，但标准的监督微调（SFT）会产生短视的策略，这些策略贪婪地最小化即时延迟，而不考虑长期系统进化。为了解决这些限制，我们提出了COMLLM，这是一个生成式框架，可以在MEC系统中进行有预见性的决策。COMLLM将组相对策略优化（GRPO）与前瞻协作模拟（LACS）机制集成，该机制在联合建模服务器队列动态的同时执行多步蒙特卡洛部署。通过将这些推出纳入奖励设计中，该框架捕捉了当前决策对未来系统状态的长期影响。实验结果表明，COMLLM实现了接近最优的延迟和改进的负载平衡公平性。值得注意的是，它展现出零触发的拓扑可扩展性，允许在小规模网络上训练的模型在无需重新训练的情况下推广到更大的、不可见的拓扑，表现优于SFT、DRL和启发式基线。"
+        },
+        "2604.06613": {
+            "authors": [
+                "Hanyang Wang",
+                "Mingxuan Zhu"
+            ],
+            "title": "The Detection--Extraction Gap: Models Know the Answer Before They Can Say It",
+            "abstract": "arXiv:2604.06613v1 Announce Type: new  Abstract: Modern reasoning models continue generating long after the answer is already determined. Across five model configurations, two families, and three benchmarks, we find that \\textbf{52--88\\% of chain-of-thought tokens are produced after the answer is recoverable} from a partial prefix. This post-commitment generation reveals a structural phenomenon: the \\textbf{detection--extraction gap}. Free continuations from early prefixes recover the correct answer even at 10\\% of the trace, while forced extraction fails on 42\\% of these cases. The answer is recoverable from the model state, yet prompt-conditioned decoding fails to extract it. We formalize this mismatch via a total-variation bound between free and forced continuation distributions, yielding quantitative estimates of suffix-induced shift. Exploiting this asymmetry, we propose Black-box Adaptive Early Exit (\\BAEE{}), which uses free continuations for both detection and extraction, truncating \\textbf{70--78\\% of serial generation} while \\textbf{improving accuracy by 1--5\\,pp} across all models. For thinking-mode models, early exit prevents post-commitment overwriting, yielding gains of up to 5.8\\,pp; a cost-optimized variant achieves 68--73\\% reduction at a median of 9 API calls. Code is available at https://github.com/EdWangLoDaSc/know2say.",
+            "arxiv_id": "2604.06613",
+            "ARXIVID": "2604.06613",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Identifies a detection-extraction gap in reasoning models and proposes an early exit method to truncate post-commitment generation, directly addressing latent reasoning efficiency.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "检测--提取差距：模型在说出答案之前就知道答案",
+            "abstract_cn": "arXiv：2604.06613v1宣布类型：新摘要：现代推理模型在答案确定后很长一段时间仍在继续生成。在五种模型配置、两个系列和三个基准中，我们发现\\textBF{52--88\\%的思想链令牌是在答案可恢复后生成的}从部分前置。这种承诺后一代揭示了一种结构性现象：\\textBF{检测--提取差距}。即使在跟踪的10%处，早期前置的免费延续也可以恢复正确答案，而强制提取在这些情况中有42%失败。答案可以从模型状态恢复，但预算条件解码未能提取出来。我们通过自由和强迫延续分布之间的总变差界限来形式化这种不匹配，从而产生后缀引起的漂移的定量估计。利用这种不对称性，我们提出了黑匣子自适应早期退出（\\BAEE{}），它使用自由延续进行检测和提取，截断\\textBF{序列生成的70--78\\%}，同时\\textBF{提高准确性1--5\\，pp}在所有模型中。对于思维模式模型，提前退出可以防止承诺后中断，从而产生高达5.8%，pp的收益;成本优化的变体在9个API调用的中位数下实现了68- 73%的降低。代码可在https://github.com/EdWangLoDaSc/know2say上获取。"
+        },
+        "2604.07277": {
+            "authors": [
+                "Guo Gan",
+                "Yuxuan Ding",
+                "Cong Chen",
+                "Yuwei Ren",
+                "Yin Huang",
+                "Hong Zhou"
+            ],
+            "title": "Android Coach: Improve Online Agentic Training Efficiency with Single State Multiple Actions",
+            "abstract": "arXiv:2604.07277v1 Announce Type: new  Abstract: Online reinforcement learning (RL) serves as an effective method for enhancing the capabilities of Android agents. However, guiding agents to learn through online interaction is prohibitively expensive due to the high latency of emulators and the sample inefficiency of existing RL algorithms. We identify a fundamental limitation in current approaches: the Single State Single Action paradigm, which updates the policy with one-to-one state-action pairs from online one-way rollouts without fully exploring each costly emulator state. In this paper, we propose Android Coach, a novel framework that shifts the training paradigm to Single State Multiple Actions, allowing the agent to sample and utilize multiple actions for a single online state. We enable this without additional emulator overhead by learning a critic that estimates action values. To ensure the critic serves as a reliable coach, we integrate a process reward model and introduce a group-wise advantage estimator based on the averaged critic outputs. Extensive experiments demonstrate the effectiveness and efficiency of Android Coach: it achieves 7.5% and 8.3% success rate improvements on AndroidLab and AndroidWorld over UI-TARS-1.5-7B, and attains 1.4x higher training efficiency than Single State Single Action methods PPO and GRPO at matched success rates.",
+            "arxiv_id": "2604.07277",
+            "ARXIVID": "2604.07277",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a novel online RL framework (Android Coach) for improving agent training efficiency via a Single State Multiple Actions paradigm, directly aligning with RL for LLMs/Agents.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "Android Coach：通过单状态多动作提高在线统计训练效率",
+            "abstract_cn": "arXiv：2604.07277v1宣布类型：新摘要：在线强化学习（RL）是增强Android代理能力的有效方法。然而，由于模拟器的高延迟和现有RL算法的样本效率低下，引导代理通过在线交互进行学习的成本极其昂贵。我们发现了当前方法中的一个根本局限性：单状态单动作范式，该范式通过在线单向推出的一对一状态动作对更新策略，而无需充分探索每个昂贵的模拟器状态。在本文中，我们提出了Android Coach，这是一个新颖的框架，它将训练范式转变为单状态多个动作，允许代理为单个在线状态采样和利用多个动作。我们通过学习估计动作值的评论家来实现这一目标，而无需额外的模拟器负载。为了确保批评者成为可靠的教练，我们集成了流程奖励模型，并根据平均批评者输出引入了分组优势估计器。大量实验证明了Android Coach的有效性和效率：与UI-TARS-1.5- 7 B相比，它在AndroidLab和AndroidWorld上实现了7.5%和8.3%的成功率提高，并在匹配的成功率下实现了比单状态单动作方法PPO和GRPO高1.4倍的训练效率。"
+        },
+        "2604.06777": {
+            "authors": [
+                "Wenhao Yang",
+                "Yu Xia",
+                "Jinlong Huang",
+                "Shiyin Lu",
+                "Qing-Guo Chen",
+                "Zhao Xu",
+                "Weihua Luo",
+                "Kaifu Zhang",
+                "Yuchen Zhou",
+                "Xiaobo Xia",
+                "Yuanyu Wan",
+                "Lijun Zhang",
+                "Tat-Seng Chua"
+            ],
+            "title": "Walk the Talk: Bridging the Reasoning-Action Gap for Thinking with Images via Multimodal Agentic Policy Optimization",
+            "abstract": "arXiv:2604.06777v1 Announce Type: new  Abstract: Recent advancements in Multimodal Large Language Models (MLLMs) have incentivized models to ``think with images'' by actively invoking visual tools during multi-turn reasoning. The common Reinforcement Learning (RL) practice of relying on outcome-based rewards ignores the fact that textual plausibility often masks executive failure, meaning that models may exhibit intuitive textual reasoning while executing imprecise or irrelevant visual actions within their agentic reasoning trajectories. This reasoning-action discrepancy introduces noise that accumulates throughout the multi-turn reasoning process, severely degrading the model's multimodal reasoning capabilities and potentially leading to training collapse. In this paper, we introduce Multimodal Agentic Policy Optimization (MAPO), bridging the gap between textual reasoning and visual actions generated by models within their Multimodal Chain-of-Thought (MCoT). Specifically, MAPO mandates the model to generate explicit textual descriptions for the visual content obtained via tool usage. We then employ a novel advantage estimation that couples the semantic alignment between these descriptions and the actual observations with the task reward. Theoretical findings are provided to justify the rationale behind MAPO, which inherently reduces the variance of gradients, and extensive experiments demonstrate that our method achieves superior performance across multiple visual reasoning benchmarks.",
+            "arxiv_id": "2604.06777",
+            "ARXIVID": "2604.06777",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes MAPO, a novel RL method for MLLMs that couples semantic alignment of visual descriptions with task reward to bridge the reasoning-action gap in multi-turn agentic reasoning.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "言行一致：通过多模式统计政策优化弥合图像思维的推理与行动差距",
+            "abstract_cn": "arXiv：2604.06777v1公告类型：新摘要：多模态大型语言模型（MLLM）的最新进展激励模型通过在多轮推理期间积极调用视觉工具来“用图像思考”。依赖于基于结果的奖励的常见强化学习（RL）实践忽略了这样一个事实，即文本可解释性通常掩盖了执行失败，这意味着模型可能会表现出直观的文本推理，同时在其代理推理轨迹中执行不精确或不相关的视觉动作。这种推理-动作差异引入了在多轮推理过程中积累的噪音，严重降低了模型的多模式推理能力，并可能导致训练崩溃。在本文中，我们引入了多模式统计政策优化（MAPO），弥合文本推理和模型在其多模式思想链（MCoT）中生成的视觉动作之间的差距。具体来说，MAPO要求模型为通过工具使用获得的视觉内容生成显式文本描述。然后，我们采用一种新颖的优势估计，将这些描述和实际观察之间的语义一致与任务奖励相结合。我们提供了理论研究结果来证明MAPO背后的原理，MAPO本质上减少了梯度的方差，大量的实验表明我们的方法在多个视觉推理基准上实现了卓越的性能。"
+        },
+        "2604.07236": {
+            "authors": [
+                "Seongwoo Jeong",
+                "Seonil Son"
+            ],
+            "title": "How Much LLM Does a Self-Revising Agent Actually Need?",
+            "abstract": "arXiv:2604.07236v1 Announce Type: new  Abstract: Recent LLM-based agents often place world modeling, planning, and reflection inside a single language model loop. This can produce capable behavior, but it makes a basic scientific question difficult to answer: which part of the agent's competence actually comes from the LLM, and which part comes from explicit structure around it?   We study this question not by claiming a general answer, but by making it empirically tractable. We introduce a declared reflective runtime protocol that externalizes agent state, confidence signals, guarded actions, and hypothetical transitions into inspectable runtime structure. We instantiate this protocol in a declarative runtime and evaluate it on noisy Collaborative Battleship [4] using four progressively structured agents over 54 games (18 boards $\\times$ 3 seeds).   The resulting decomposition isolates four components: posterior belief tracking, explicit world-model planning, symbolic in-episode reflection, and sparse LLM-based revision. Across this decomposition, explicit world-model planning improves substantially over a greedy posterior-following baseline (+24.1pp win rate, +0.017 F1). Symbolic reflection operates as a real runtime mechanism -- with prediction tracking, confidence gating, and guarded revision actions -- even though its current revision presets are not yet net-positive in aggregate. Adding conditional LLM revision at about 4.3\\% of turns yields only a small and non-monotonic change: average F1 rises slightly (+0.005) while win rate drops (31$\\rightarrow$29 out of 54).   These results suggest a methodological contribution rather than a leaderboard claim: externalizing reflection turns otherwise latent agent behavior into inspectable runtime structure, allowing the marginal role of LLM intervention to be studied directly.",
+            "arxiv_id": "2604.07236",
+            "ARXIVID": "2604.07236",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Introduces a declarative runtime protocol to externalize and study the marginal role of LLM intervention in self-revising agents, directly addressing self-improving agent frameworks.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "自我修改代理实际需要多少LLM？",
+            "abstract_cn": "arXiv：2604.07236v1宣布类型：新摘要：最近基于LLM的代理通常将世界建模、规划和反射置于单一语言模型循环中。这可以产生有能力的行为，但这使得一个基本的科学问题难以回答：代理人的能力的哪一部分实际上来自LLM，哪一部分来自其周围的显式结构？   我们研究这个问题，不是通过要求一个普遍的答案，而是通过使它在经验上易于处理。我们引入了一个声明的反射运行时协议，具体化代理状态，信心信号，守卫行动，并假设转换到可检查的运行时结构。我们在声明式运行时中实例化该协议，并在嘈杂的协作战舰[4]上使用四个渐进结构的代理在54场比赛（18个板$\\times $3个种子）中对其进行评估。   由此产生的分解隔离了四个组成部分：后验信念跟踪，明确的世界模型规划，象征性的情节反射，稀疏LLM为基础的修订。在此分解中，显式世界模型规划比贪婪的后验基线（+24.1pp获胜率，+0.017 F1）有了显着的改善。符号反射作为一种真正的运行时机制运行--具有预测跟踪、置信度门控和受保护的修订操作--尽管其当前的修订收件箱总体上尚未达到净正值。在约4.3%的回合数处添加有条件的LLM修订只会产生较小且非单调的变化：F1平均水平略有上升（+0.005），而胜率下降（31 $\\rightarrow 29（满分54））。   这些结果表明了方法论的贡献，而不是排行榜的主张：外部化反射将潜在的代理行为转变为可检查的运行时结构，从而允许直接研究LLM干预的边缘作用。"
+        },
+        "2604.06465": {
+            "authors": [
+                "Mario Iacobelli",
+                "Adrian Robert Minut",
+                "Tommaso Mencattini",
+                "Donato Crisostomi",
+                "Andrea Santilli",
+                "Iacopo Masi",
+                "Emanuele Rodol\\`a"
+            ],
+            "title": "Multi-objective Evolutionary Merging Enables Efficient Reasoning Models",
+            "abstract": "arXiv:2604.06465v1 Announce Type: new  Abstract: Reasoning models have demonstrated remarkable capabilities in solving complex problems by leveraging long chains of thought. However, this more deliberate reasoning comes with substantial computational overhead at inference time. The Long-to-Short (L2S) reasoning problem seeks to maintain high accuracy using fewer tokens, but current training-free model merging approaches rely on scalarized, fixed-hyperparameter arithmetic methods that are highly brittle and force suboptimal compromises. To address this gap, we introduce Evo-L2S, a novel framework that formulates L2S reasoning as a multi-objective optimization challenge. By leveraging evolutionary model merging, Evo-L2S explicitly optimizes the trade-off between accuracy and output length to produce a robust Pareto front of merged models. To make this search computationally tractable for large language models, we propose an entropy-based subset sampling technique that drastically reduces the overhead of fitness estimation. Comprehensive experiments across 1.5B, 7B, and 14B parameter scales on six mathematical reasoning benchmarks demonstrate that Evo-L2S can reduce the length of generated reasoning traces by over 50% while preserving, or even improving, the problem-solving accuracy of the original reasoning models.",
+            "arxiv_id": "2604.06465",
+            "ARXIVID": "2604.06465",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Introduces a multi-objective evolutionary model merging framework to compress reasoning traces, directly targeting the latent CoT goal of reducing token cost while preserving accuracy.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "多目标进化合并实现高效推理模型",
+            "abstract_cn": "arXiv：2604.06465v1宣布类型：新摘要：推理模型在通过利用长思维链来解决复杂问题方面表现出了非凡的能力。然而，这种更深思熟虑的推理在推理时会带来大量的计算负担。长到短（L2 S）推理问题寻求使用更少的令牌来保持高准确性，但当前的免训练模型合并方法依赖于分层的固定超参数算术方法，这些方法高度脆弱，并迫使次优妥协。为了解决这一差距，我们引入了Evo-L2 S，这是一个新颖的框架，将L2 S推理制定为多目标优化挑战。通过利用进化模型合并，Evo-L2 S显式优化了准确性和输出长度之间的权衡，以产生合并模型的稳健帕累托前沿。为了使这种搜索对于大型语言模型在计算上易于处理，我们提出了一种基于信息量的子集采样技术，该技术可以大幅减少适应度估计的负担。在六个数学推理基准上进行的1.5B、7 B和14 B参数尺度的综合实验表明，Evo-L2 S可以将生成的推理轨迹的长度减少50%以上，同时保持甚至提高原始推理模型的问题解决精度。"
+        },
+        "2604.07343": {
+            "authors": [
+                "Qiyao Ma",
+                "Dechen Gao",
+                "Rui Cai",
+                "Boqi Zhao",
+                "Hanchu Zhou",
+                "Junshan Zhang",
+                "Zhe Zhao"
+            ],
+            "title": "Personalized RewardBench: Evaluating Reward Models with Human Aligned Personalization",
+            "abstract": "arXiv:2604.07343v1 Announce Type: new  Abstract: Pluralistic alignment has emerged as a critical frontier in the development of Large Language Models (LLMs), with reward models (RMs) serving as a central mechanism for capturing diverse human values. While benchmarks for general response quality are prevalent, evaluating how well reward models account for individual user preferences remains an open challenge. To bridge this gap, we introduce Personalized RewardBench, a novel benchmark designed to rigorously assess reward models' capacity to model personalized preferences. We construct chosen and rejected response pairs based on strict adherence to (or violation of) user-specific rubrics, ensuring that preference distinctions are uniquely tailored to the individual. In particular, human evaluations confirm that the primary discriminative factor between pairs is strictly personal preference, with both responses maintaining high general quality (e.g., correctness, relevance and helpfulness). Extensive testing reveals that existing state-of-the-art reward models struggle significantly with personalization, peaking at an accuracy of just 75.94%. Crucially, because an effective reward model benchmark should predict a reward model's performance on downstream tasks, we conduct experiments demonstrating that our benchmark exhibits a significantly higher correlation with downstream performance in both Best-of-N (BoN) sampling and Proximal Policy Optimization (PPO) compared to existing baselines. These findings establish Personalized RewardBench as a robust and accurate proxy for evaluating reward models' performance in downstream applications.",
+            "arxiv_id": "2604.07343",
+            "ARXIVID": "2604.07343",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Introduces a benchmark for evaluating reward models on personalized human preferences, with demonstrated high correlation to downstream RL performance (BoN, PPO).",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "个性化奖励平台：通过人性化个性化评估奖励模型",
+            "abstract_cn": "arXiv：2604.07343v1宣布类型：新摘要：多元对齐已成为大型语言模型（LLM）开发的一个关键前沿，奖励模型（RM）是捕捉多样化人类价值观的核心机制。虽然一般响应质量的基准很普遍，但评估奖励模型如何很好地考虑个人用户偏好仍然是一个悬而未决的挑战。为了弥合这一差距，我们引入了个性化奖励长凳，这是一个新颖的基准，旨在严格评估奖励模型对个性化偏好进行建模的能力。我们根据严格遵守（或违反）用户特定的主题来构建选择和拒绝的响应对，确保偏好区分是针对个人独特的。特别是，人类评估证实，配对之间的主要区别因素严格是个人偏好，两种反应都保持高的总体质量（例如，正确性、相关性和有用性）。广泛的测试表明，现有的最先进的奖励模型在个性化方面遇到了严重困难，准确率峰值仅为75.94%。至关重要的是，由于有效的奖励模型基准应该预测奖励模型在下游任务上的性能，因此我们进行了实验，证明与现有基线相比，我们的基准在N最佳（BoN）采样和近端策略优化（PPO）中与下游性能表现出显着更高的相关性。这些发现使个性化奖励平台成为评估奖励模型在下游应用程序中性能的强大而准确的代理。"
+        },
+        "2604.06695": {
+            "authors": [
+                "Xiaoyu Xu",
+                "Yulan Pan",
+                "Xiaosong Yuan",
+                "Zhihong Shen",
+                "Minghao Su",
+                "Yuanhao Su",
+                "Xiaofeng Zhang"
+            ],
+            "title": "Reasoning Fails Where Step Flow Breaks",
+            "abstract": "arXiv:2604.06695v1 Announce Type: new  Abstract: Large reasoning models (LRMs) that generate long chains of thought now perform well on multi-step math, science, and coding tasks. However, their behavior is still unstable and hard to interpret, and existing analysis tools struggle with such long, structured reasoning traces. We introduce Step-Saliency, which pools attention--gradient scores into step-to-step maps along the question--thinking--summary trajectory. Across several models, Step-Saliency reveals two recurring information-flow failures: Shallow Lock-in, where shallow layers over-focus on the current step and barely use earlier context, and Deep Decay, where deep layers gradually lose saliency on the thinking segment and the summary increasingly attends to itself and the last few steps. Motivated by these patterns, we propose StepFlow, a saliency-inspired test-time intervention that adjusts shallow saliency patterns measured by Step-Saliency via Odds-Equal Bridge and adds a small step-level residual in deep layers via Step Momentum Injection. StepFlow improves accuracy on math, science, and coding tasks across multiple LRMs without retraining, indicating that repairing information flow can recover part of their missing reasoning performance.",
+            "arxiv_id": "2604.06695",
+            "ARXIVID": "2604.06695",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Introduces StepFlow, a test-time intervention that repairs information flow failures in large reasoning models to improve accuracy on multi-step tasks.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "步骤流程中断时推理失败",
+            "abstract_cn": "arXiv：2604.06695v1宣布类型：新摘要：生成长思想链的大型推理模型（LRM）现在在多步骤数学、科学和编码任务中表现良好。然而，他们的行为仍然不稳定且难以解释，并且现有的分析工具难以应对如此长的结构化推理痕迹。我们引入了Step-Saliency，它将注意力梯度分数集中到沿着问题-思考-总结轨迹的分步地图中。在多个模型中，Step-Spentiency揭示了两种反复出现的信息流失败：浅锁定（Shallow Lock-in），其中浅层过度关注当前步骤，几乎不使用早期的上下文;和深度衰退（Deep Decay），其中深层逐渐失去对思维部分的显着性，摘要越来越注重自身和最后几个步骤。受这些模式的激励，我们提出了StepFlow，这是一种受显着性启发的测试时干预措施，通过奇等桥调整通过分步显着性测量的浅层显着性模式，并通过分步动量注入在深层添加小的分步水平剩余。StepFlow无需重新培训即可提高多个LRM之间数学、科学和编码任务的准确性，这表明修复信息流可以恢复部分缺失的推理性能。"
+        },
+        "2604.07201": {
+            "authors": [
+                "Mohamed Darwish Mounis",
+                "Mohamed Mahmoud",
+                "Shaimaa Sedek",
+                "Mahmoud Abdalla",
+                "Mahmoud SalahEldin Kasem",
+                "Abdelrahman Abdallah",
+                "Hyun-Soo Kang"
+            ],
+            "title": "BRIDGE: Multimodal-to-Text Retrieval via Reinforcement-Learned Query Alignment",
+            "abstract": "arXiv:2604.07201v1 Announce Type: new  Abstract: Multimodal retrieval systems struggle to resolve image-text queries against text-only corpora: the best vision-language encoder achieves only 27.6 nDCG@10 on MM-BRIGHT, underperforming strong text-only retrievers. We argue the bottleneck is not the retriever but the query -- raw multimodal queries entangle visual descriptions, conversational noise, and retrieval intent in ways that systematically degrade embedding similarity. We present \\textbf{BRIDGE}, a two-component system that resolves this mismatch without multimodal encoders. \\textbf{FORGE} (\\textbf{F}ocused Retrieval Query Generato\\textbf{r}) is a query alignment model trained via reinforcement learning, which distills noisy multimodal queries into compact, retrieval-optimized search strings. \\textbf{LENS} (\\textbf{L}anguage-\\textbf{E}nhanced \\textbf{N}eural \\textbf{S}earch) is a reasoning-enhanced dense retriever fine-tuned on reasoning-intensive retrieval data to handle the intent-rich queries FORGE produces. Evaluated on MM-BRIGHT (2,803 queries, 29 domains), BRIDGE achieves \\textbf{29.7} nDCG@10, surpassing all multimodal encoder baselines including Nomic-Vision (27.6). When FORGE is applied as a plug-and-play aligner on top of Nomic-Vision, the combined system reaches \\textbf{33.3} nDCG@10 -- exceeding the best text-only retriever (32.2) -- demonstrating that \\textit{query alignment} is the key bottleneck in multimodal-to-text retrieval. https://github.com/mm-bright/multimodal-reasoning-retrieval",
+            "arxiv_id": "2604.07201",
+            "ARXIVID": "2604.07201",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a query alignment model trained via reinforcement learning to distill noisy multimodal queries into retrieval-optimized search strings.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "BRIDGE：通过增强学习查询对齐的多模式到文本检索",
+            "abstract_cn": "arXiv:2604.07201v1 Announce Type: new  Abstract: Multimodal retrieval systems struggle to resolve image-text queries against text-only corpora: the best vision-language encoder achieves only 27.6 nDCG@10 on MM-BRIGHT, underperforming strong text-only retrievers. We argue the bottleneck is not the retriever but the query -- raw multimodal queries entangle visual descriptions, conversational noise, and retrieval intent in ways that systematically degrade embedding similarity. We present \\textbf{BRIDGE}, a two-component system that resolves this mismatch without multimodal encoders. \\textbf{FORGE} (\\textbf{F}ocused Retrieval Query Generato\\textbf{r}) is a query alignment model trained via reinforcement learning, which distills noisy multimodal queries into compact, retrieval-optimized search strings. \\textbf{LENS} (\\textbf{L}anguage-\\textbf{E}nhanced \\textbf{N}eural \\textbf{S}earch) is a reasoning-enhanced dense retriever fine-tuned on reasoning-intensive retrieval data to handle the intent-rich queries FORGE produces. Evaluated on MM-BRIGHT (2,803 queries, 29 domains), BRIDGE achieves \\textbf{29.7} nDCG@10, surpassing all multimodal encoder baselines including Nomic-Vision (27.6). When FORGE is applied as a plug-and-play aligner on top of Nomic-Vision, the combined system reaches \\textbf{33.3} nDCG@10 -- exceeding the best text-only retriever (32.2) -- demonstrating that \\textit{query alignment} is the key bottleneck in multimodal-to-text retrieval. https://github.com/mm-bright/multimodal-reasoning-retrieval"
+        },
+        "2604.06628": {
+            "authors": [
+                "Qihan Ren",
+                "Peng Wang",
+                "Ruikun Cai",
+                "Shuai Shao",
+                "Dadi Guo",
+                "Yuejin Xie",
+                "Yafu Li",
+                "Quanshi Zhang",
+                "Xia Hu",
+                "Jing Shao",
+                "Dongrui Liu"
+            ],
+            "title": "Rethinking Generalization in Reasoning SFT: A Conditional Analysis on Optimization, Data, and Model Capability",
+            "abstract": "arXiv:2604.06628v1 Announce Type: new  Abstract: A prevailing narrative in LLM post-training holds that supervised finetuning (SFT) memorizes while reinforcement learning (RL) generalizes. We revisit this claim for reasoning SFT with long chain-of-thought (CoT) supervision and find that cross-domain generalization is not absent but conditional, jointly shaped by optimization dynamics, training data, and base-model capability. Some reported failures are under-optimization artifacts: cross-domain performance first degrades before recovering and improving with extended training (a dip-and-recovery pattern), so shorttraining checkpoints can underestimate generalization. Data quality and structure both matter: low-quality solutions broadly hurt generalization,while verified long-CoT traces yield consistent cross-domain gains. Model capability is essential: stronger models internalize transferable procedural patterns (e.g., backtracking) even from a toy arithmetic game, while weaker ones imitate surface verbosity. This generalization is asymmetric, however: reasoning improves while safety degrades, reframing the question from whether reasoning SFT generalizes to under what conditions and at what cost.",
+            "arxiv_id": "2604.06628",
+            "ARXIVID": "2604.06628",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Revisits the generalization of reasoning SFT vs. RL, analyzing conditional factors like optimization, data, and model capability, directly relevant to RL for LLMs and latent reasoning.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "重新思考推理SFT中的概括：优化、数据和模型能力的条件分析",
+            "abstract_cn": "arXiv：2604.06628v1宣布类型：新摘要：LLM后培训中的一种流行说法认为，监督微调（SFT）是记忆的，而强化学习（RL）是概括的。我们重新审视了用长思想链（CoT）监督推理SFT的主张，发现跨域概括并非不存在，而是有条件的，由优化动态、训练数据和基本模型能力共同塑造。一些报告的失败是优化不足的产物：跨域性能首先下降，然后再通过扩展训练（一种浸入和恢复模式）进行恢复和改进，因此短期训练检查点可能会低估一般性。数据质量和结构都很重要：低质量的解决方案广泛损害了概括性，而经过验证的长CoT痕迹会产生一致的跨域收益。模型能力至关重要：更强大的模型将可转移的程序模式内化（例如，回溯）甚至是从玩具算术游戏中，而较弱的则模仿表面冗长。然而，这种概括是不对称的：推理得到改善，而安全性却下降，从推理SFT是否推广到在什么条件下以什么代价重新构建了问题。"
+        },
+        "2604.06491": {
+            "authors": [
+                "Maojiang Su",
+                "Po-Chung Hsieh",
+                "Weimin Wu",
+                "Mingcheng Lu",
+                "Jiunhau Chen",
+                "Jerry Yao-Chieh Hu",
+                "Han Liu"
+            ],
+            "title": "Discrete Flow Matching Policy Optimization",
+            "abstract": "arXiv:2604.06491v1 Announce Type: new  Abstract: We introduce Discrete flow Matching policy Optimization (DoMinO), a unified framework for Reinforcement Learning (RL) fine-tuning Discrete Flow Matching (DFM) models under a broad class of policy gradient methods. Our key idea is to view the DFM sampling procedure as a multi-step Markov Decision Process. This perspective provides a simple and transparent reformulation of fine-tuning reward maximization as a robust RL objective. Consequently, it not only preserves the original DFM samplers but also avoids biased auxiliary estimators and likelihood surrogates used by many prior RL fine-tuning methods. To prevent policy collapse, we also introduce new total-variation regularizers to keep the fine-tuned distribution close to the pretrained one. Theoretically, we establish an upper bound on the discretization error of DoMinO and tractable upper bounds for the regularizers. Experimentally, we evaluate DoMinO on regulatory DNA sequence design. DoMinO achieves stronger predicted enhancer activity and better sequence naturalness than the previous best reward-driven baselines. The regularization further improves alignment with the natural sequence distribution while preserving strong functional performance. These results establish DoMinO as an useful framework for controllable discrete sequence generation.",
+            "arxiv_id": "2604.06491",
+            "ARXIVID": "2604.06491",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a unified RL fine-tuning framework (DoMinO) for Discrete Flow Matching models, directly aligning with RL for LLMs via a policy gradient approach for reward maximization.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "离散流匹配政策优化",
+            "abstract_cn": "arXiv：2604.06491v1宣布类型：新摘要：我们引入了离散流匹配策略优化（DoMinO），这是一个在广泛的政策梯度方法下进行强化学习（RL）微调离散流匹配（DFM）模型的统一框架。我们的关键想法是将DFM采样过程视为多步马尔科夫决策过程。该观点提供了将微调回报最大化作为稳健的RL目标的简单而透明的重新表述。因此，它不仅保留了原始的DFM采样器，而且还避免了许多先前RL微调方法使用的有偏辅助估计器和似然代理。为了防止政策崩溃，我们还引入了新的总变异调节器，以保持微调后的分布接近预先训练的分布。从理论上讲，我们建立了DoMinO的离散化误差的上界和正规化器的易于处理的上界。通过实验，我们评估了DoMinO的调节DNA序列设计。与之前的最佳奖励驱动基线相比，DoMinO实现了更强的预测增强子活性和更好的序列自然性。正规化进一步改善了与自然序列分布的一致性，同时保留了强大的功能性能。这些结果使DoMinO成为可控离散序列生成的有用框架。"
+        },
+        "2604.06779": {
+            "authors": [
+                "Shivanshu Shekhar",
+                "Sagnik Mukherjee",
+                "Jia Yi Zhang",
+                "Tong Zhang"
+            ],
+            "title": "FVD: Inference-Time Alignment of Diffusion Models via Fleming-Viot Resampling",
+            "abstract": "arXiv:2604.06779v1 Announce Type: new  Abstract: We introduce Fleming-Viot Diffusion (FVD), an inference-time alignment method that resolves the diversity collapse commonly observed in Sequential Monte Carlo (SMC) based diffusion samplers. Existing SMC-based diffusion samplers often rely on multinomial resampling or closely related resampling schemes, which can still reduce diversity and lead to lineage collapse under strong selection pressure. Inspired by Fleming-Viot population dynamics, FVD replaces multinomial resampling with a specialized birth-death mechanism designed for diffusion alignment. To handle cases where rewards are only approximately available and naive rebirth would collapse deterministic trajectories, FVD integrates independent reward-based survival decisions with stochastic rebirth noise. This yields flexible population dynamics that preserve broader trajectory support while effectively exploring reward-tilted distributions, all without requiring value function approximation or costly rollouts. FVD is fully parallelizable and scales efficiently with inference compute. Empirically, it achieves substantial gains across settings: on DrawBench it outperforms prior methods by 7% in ImageReward, while on class-conditional tasks it improves FID by roughly 14-20% over strong baselines and is up to 66 times faster than value-based approaches.",
+            "arxiv_id": "2604.06779",
+            "ARXIVID": "2604.06779",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes FVD, an inference-time alignment method for diffusion models using a novel Fleming-Viot resampling mechanism, directly relevant to RL-based alignment and reward-guided sampling.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "FVD：通过Fleming-Viot重新分配扩散模型的推理时间对齐",
+            "abstract_cn": "arXiv：2604.06779v1宣布类型：新摘要：我们引入弗莱明-维奥特扩散（FVD），这是一种推理时间对齐方法，可以解决基于顺序蒙特卡罗（SMC）的扩散采样器中常见的多样性崩溃。现有的基于SMC的扩散采样器通常依赖于多项重采样或密切相关的重采样方案，这仍然会减少多样性并在强大的选择压力下导致谱系崩溃。受Fleming-Viot种群动力学的启发，FVD用专为扩散对齐而设计的专门生灭机制取代了多项再分配。为了处理奖励仅大致可用且天真重生会崩溃确定性轨迹的情况，FVD将独立的基于奖励的生存决策与随机重生噪音集成在一起。这产生了灵活的人口动态，可以保留更广泛的轨迹支持，同时有效地探索回报倾斜分布，而无需价值函数逼近或昂贵的推出。FVD是完全可并行的，并通过推理计算有效扩展。从经验上看，它在不同设置中取得了巨大的进步：在DrawBench上，它在Image Reward中的性能比以前的方法高出7%，而在类条件任务中，它在强基线上将DID提高了大约14-20%，并且比基于价值的方法快了66倍。"
+        },
+        "2604.06636": {
+            "authors": [
+                "Zhengyang Ai",
+                "Zikang Shan",
+                "Xiaodong Ai",
+                "Jingxian Tang",
+                "Hangkai Hu",
+                "Pinyan Lu"
+            ],
+            "title": "SHAPE: Stage-aware Hierarchical Advantage via Potential Estimation for LLM Reasoning",
+            "abstract": "arXiv:2604.06636v1 Announce Type: new  Abstract: Process supervision has emerged as a promising approach for enhancing LLM reasoning, yet existing methods fail to distinguish meaningful progress from mere verbosity, leading to limited reasoning capabilities and unresolved token inefficiency. To address this, we propose Stage-aware Hierarchical Advantage via Potential Estimation (SHAPE), a framework that formalizes reasoning as a trajectory through a state space of empirical solvability. SHAPE introduces a hierarchical credit assignment mechanism: at the segment level, it employs a stage-aware advantage function to prioritize efficient breakthroughs in low-potential states; at the token level, it utilizes entropy-driven redistribution to sharpen execution signals. Extensive experiments in math reasoning across three base models and five benchmarks demonstrate that SHAPE achieves an average accuracy gain of 3% with 30% reduced token consumption.",
+            "arxiv_id": "2604.06636",
+            "ARXIVID": "2604.06636",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes SHAPE, a hierarchical RL framework for LLM reasoning that uses stage-aware advantage and entropy-driven redistribution to improve efficiency and accuracy.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "SHADE：通过LLM推理潜力估计的阶段感知分层优势",
+            "abstract_cn": "arXiv：2604.06636v1宣布类型：新摘要：流程监督已成为增强LLM推理的一种有希望的方法，但现有方法无法区分有意义的进展与纯粹的冗长，导致推理能力有限和未解决的代币效率低下。为了解决这个问题，我们提出了通过潜力估计的阶段感知分层优势（SHADE），这是一个将推理形式化为通过经验可解性状态空间的轨迹的框架。SHADE引入了分层信用分配机制：在细分层面，它采用阶段感知优势功能，优先考虑低潜力状态的高效突破;在代币层面，它利用了信息量驱动的再分配来尖锐执行信号。跨三个基本模型和五个基准进行的数学推理的广泛实验表明，SHADE实现了3%的平均准确性提高，代币消耗减少了30%。"
+        },
+        "2604.06298": {
+            "authors": [
+                "Suraj Yadav",
+                "Siddharth Yadav",
+                "Parth Goyal"
+            ],
+            "title": "Limits of Difficulty Scaling: Hard Samples Yield Diminishing Returns in GRPO-Tuned SLMs",
+            "abstract": "arXiv:2604.06298v1 Announce Type: new  Abstract: Recent alignment work on Large Language Models (LLMs) suggests preference optimization can improve reasoning by shifting probability mass toward better solutions. We test this claim in a resource-constrained setting by applying GRPO with LoRA to SLMs (up to 3B) for math reasoning on GSM8K and MATH datasets with difficulty-stratified analyses. As problem difficulty increases, accuracy plateaus, revealing a capacity boundary: GRPO primarily reshapes output preferences without reliably improving hardest-tier solving. Consistent with this, training GRPO only on lower-difficulty problems matches full-dataset accuracy across difficulty tiers while using only ~45% training steps, indicating diminishing returns from harder samples in this regime. We also find a cross-dataset generalization effect: GSM8K-trained GRPO achieves higher accuracy on the numeric subset of MATH than MATH-trained GRPO, exceeding it by ~5% at 1.5B and by ~3% at 3B. We show that the best achievable gains depend strongly on the base model's prior reasoning competence and the dataset's difficulty profile.",
+            "arxiv_id": "2604.06298",
+            "ARXIVID": "2604.06298",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Directly studies GRPO (a preference optimization RL method) for aligning SLMs on math reasoning, analyzing its limits and scaling with difficulty.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "难度缩放的局限性：硬样本在GRPO调谐的SLC中产生的回报不断减少",
+            "abstract_cn": "arXiv：2604.06298v1宣布类型：新摘要：最近关于大型语言模型（LLM）的对齐工作表明，偏好优化可以通过将概率质量转向更好的解决方案来改善推理。我们在资源有限的环境中测试了这一说法，方法是将GRPO和LoRA应用于SLS（最高3B），在GSM 8 K和MAT数据集上进行数学推理，并进行困难分层分析。随着问题难度的增加，准确性趋于平稳，揭示了能力边界：GRPO主要重塑输出偏好，而不可靠地改进最难层的解决方案。与此一致，仅在较低难度的问题上训练GRPO可与跨难度层的全数据集准确性相匹配，同时仅使用约45%的训练步骤，这表明在该方案中，较硬样本的回报递减。我们还发现了一种跨数据集的概括效应：经过GSM 8 K训练的GRPO在MAT的数字子集上实现了比经过Mathh训练的GRPO更高的准确性，在1.5B时比它高出约5%，在3B时比它高出约3%。我们表明，最佳可实现的收益在很大程度上取决于基本模型的先验推理能力和数据集的难度概况。"
+        },
+        "2604.06784": {
+            "authors": [
+                "Zhiyu Cao",
+                "Peifeng Li",
+                "Qiaoming Zhu"
+            ],
+            "title": "Discourse Coherence and Response-Guided Context Rewriting for Multi-Party Dialogue Generation",
+            "abstract": "arXiv:2604.06784v1 Announce Type: new  Abstract: Previous research on multi-party dialogue generation has predominantly leveraged structural information inherent in dialogues to directly inform the generation process. However, the prevalence of colloquial expressions and incomplete utterances in dialogues often impedes comprehension and weakens the fidelity of dialogue structure representations, which is particularly pronounced in multi-party dialogues. In this work, we propose a novel framework DRCR (Discourse coherence and Response-guided Context Rewriting) to improve multi-party dialogue generation through dialogue context rewriting. Specifically, DRCR employs two complementary feedback signals, discourse coherence and response quality, to construct preference data for both context rewriting and response generation. Moreover, we propose a dynamic self-evolution learning method that allows the rewriter and responder to continuously enhance their capabilities through mutual interaction in an iterative training loop. Comprehensive experiments conducted on four multi-party dialogue datasets substantiate the effectiveness of DRCR.",
+            "arxiv_id": "2604.06784",
+            "ARXIVID": "2604.06784",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Proposes a dynamic self-evolution learning method where a rewriter and responder improve through mutual interaction in an iterative loop, aligning with self-improving agent frameworks.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "多党对话生成的话语连贯性和响应引导的语境重写",
+            "abstract_cn": "arXiv：2604.06784v1宣布类型：新摘要：之前关于多方对话生成的研究主要利用对话固有的结构信息来直接告知生成过程。然而，对话中口语化表达和不完整话语的盛行往往会阻碍理解并削弱对话结构表现的忠实性，这在多党对话中尤其明显。在这项工作中，我们提出了一个新颖的框架DRCR（话语连贯性和响应引导的上下文重写），通过对话上下文重写来改善多方对话的生成。具体来说，DRCR采用两种补充的反馈信号：话语连贯性和响应质量，来构建用于上下文重写和响应生成的偏好数据。此外，我们提出了一种动态自进化学习方法，允许重写者和响应者通过迭代训练循环中的相互交互来不断增强他们的能力。对四个多方对话数据集进行的全面实验证实了DRCR的有效性。"
+        },
+        "2604.06385": {
+            "authors": [
+                "Navan Preet Singh",
+                "Xiaokun Wang",
+                "Anurag Garikipati",
+                "Madalina Ciobanu",
+                "Qingqing Mao",
+                "Ritankar Das"
+            ],
+            "title": "Application-Driven Pedagogical Knowledge Optimization of Open-Source LLMs via Reinforcement Learning and Supervised Fine-Tuning",
+            "abstract": "arXiv:2604.06385v1 Announce Type: new  Abstract: We present an innovative multi-stage optimization strategy combining reinforcement learning (RL) and supervised fine-tuning (SFT) to enhance the pedagogical knowledge of large language models (LLMs), as illustrated by EduQwen 32B-RL1, EduQwen 32B-SFT, and an optional third-stage model EduQwen 32B-SFT-RL2: (1) RL optimization that implements progressive difficulty training, focuses on challenging examples, and employs extended reasoning rollouts; (2) a subsequent SFT phase that leverages the RL-trained model to synthesize high-quality training data with difficulty-weighted sampling; and (3) an optional second round of RL optimization. EduQwen 32B-RL1, EduQwen 32B-SFT, and EduQwen 32B-SFT-RL2 are an application-driven family of open-source pedagogical LLMs built on a dense Qwen3-32B backbone. These models remarkably achieve high enough accuracy on the Cross-Domain Pedagogical Knowledge (CDPK) Benchmark to establish new state-of-the-art (SOTA) results across the interactive Pedagogy Benchmark Leaderboard and surpass significantly larger proprietary systems such as the previous benchmark leader Gemini-3 Pro. These dense 32-billion-parameter models demonstrate that domain-specialized optimization can transform mid-sized open-source LLMs into true pedagogical domain experts that outperform much larger general-purpose systems, while preserving the transparency, customizability, and cost-efficiency required for responsible educational AI deployment.",
+            "arxiv_id": "2604.06385",
+            "ARXIVID": "2604.06385",
+            "RELEVANCE_SCORE": 7,
+            "RELEVANCE": true,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Proposes a multi-stage optimization strategy combining RL and SFT for LLMs, with RL optimization featuring progressive difficulty and extended reasoning rollouts, directly matching RL for LLMs criteria.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "基于强化学习和监督微调的开源LLM应用驱动教学知识优化",
+            "abstract_cn": "arXiv：2604.06385v1宣布类型：新摘要：我们提出了一种结合强化学习（RL）和监督式微调（SFT）的创新多阶段优化策略，以增强大型语言模型（LLM）的教学知识，如EduQwen 32 B-RL 1、EduQwen 32 B-SFT和可选的第三阶段模型EduQwen 32 B-SFT-RL 2所示：（1）RL优化，实现渐进难度训练，专注于具有挑战性的示例，并采用扩展推理展开;（2）随后的SFT阶段，利用RL训练的模型来合成具有难度加权采样的高质量训练数据;以及（3）可选的第二轮RL优化。EduQwen 32 B-RL 1、EduQwen 32 B-SFT和EduQwen 32 B-SFT-RL 2是一个应用程序驱动的开源教学LLM系列，构建在密集的Qwen 3 - 32 B主干网上。这些模型在跨领域教学知识（CDPK）基准上显着实现了足够高的准确性，可以在交互式教学基准排行榜上建立新的最先进（SOTA）结果，并超越了显着更大的专有系统，例如之前的基准领导者Gemini-3 Pro。这些密集的320亿参数模型表明，领域专业化优化可以将中型开源LLM转变为真正的教学领域专家，其表现优于大型通用系统，同时保留负责任的教育人工智能部署所需的透明度、可定制性和成本效率。"
+        }
+    }
+}

@@ -69,7 +69,7 @@ jobs:
         run: |
           current_date=$(TZ="Asia/Shanghai" date "+%Y-%m-%d %H:%M:%S")
           
-          cat << 'EOF' > dist/index.html
+          cat << EOF > dist/index.html
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -143,10 +143,7 @@ jobs:
           <body>
               <div class="container">
                   <h1>📚 ArXiv GPT Assistant</h1>
-                  <p class="date">Updated: <strong>EOF
-          echo "$current_date" >> dist/index.html
-          cat << 'EOF' >> dist/index.html
-                  </strong></p>
+                  <p class="date">Updated: <strong>${current_date}</strong></p>
                   <p style="margin-bottom: 25px; color: #4b5563;">Select your preferred language to read today's AI papers summary.</p>
                   <div class="links">
                       <a href="./en" class="button">🇺🇸 Read in English</a>

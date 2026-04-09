@@ -1,27 +1,31 @@
 # Research Interest Criteria
 
-Please evaluate the papers based on the following three core areas:
+Please evaluate papers using a strict filter. We only want a small set of strongly aligned papers, not a broad survey of adjacent work.
 
-## 1. Supervised Fine-Tuning (SFT) for LLMs
-Supervised Fine-Tuning (SFT) is a critical technique for adapting pre-trained Large Language Models (LLMs) to specific downstream tasks or domains. This process involves further training the model on a curated dataset of high-quality, labeled examples that reflect the target behavior. Our research focuses on optimizing the SFT process to enhance model performance, alignment, and efficiency.
-- **Key Direction 1:** Investigating novel data-sourcing and data-synthesis strategies to construct high-quality, diverse, and instruction-rich SFT datasets.
-- **Key Direction 2:** Developing advanced SFT algorithms and optimization techniques to improve the efficiency and effectiveness of fine-tuning on specialized tasks.
-- **Potential Contribution:** Establishing best practices for curating SFT data and designing fine-tuning protocols that lead to more capable and reliable LLMs.
+## Global Selection Principle
+- Mark a paper as relevant only if one of the three topics below is a central contribution of the paper, not a side application, benchmark, or discussion point.
+- Be conservative by default: if the connection is indirect, partial, or ambiguous, treat it as not relevant or score it low.
+- Prefer papers that introduce new methods, training frameworks, reward designs, agent improvement loops, or latent reasoning architectures.
+- Do not favor papers just because they mention "LLM", "agent", "reasoning", "RL", "alignment", or "CoT" in a generic way.
+- Exclude broad foundation model papers, generic post-training papers, generic tool-use agents, application/system papers, domain-specific deployments, and pure benchmark papers unless their core method strongly matches one of the topics below.
 
-## 2. Reinforcement Learning (RL) for LLMs
-Reinforcement Learning, particularly from human or AI-generated feedback, offers a powerful paradigm for aligning LLM behavior with complex human preferences and objectives. This research area explores methods beyond simple instruction-following, aiming to imbue models with more nuanced capabilities. Our work centers on creating robust RL pipelines and novel reward mechanisms to steer LLM development.
-- **Relevance:** We explore cutting-edge RL techniques, including rejection sampling and unsupervised reinforcement learning with verifiable rewards, to build sophisticated data pipelines that continuously enhance LLM capabilities.
-- **Key Direction:** Designing novel reward functions that directly target improvements in key metrics such as helpfulness, honesty, harmlessness, and reductions in hallucination.
-- **Potential Contribution:** Pioneering new research directions in RL for LLMs that inspire further investigation and bridge the gap between theoretical advancements and practical, large-scale model improvements.
+## 1. Reinforcement Learning (RL) for LLMs
+We care about RL methods that directly improve LLM behavior, alignment, or reasoning through explicit reward design, RL pipelines, verifier-driven optimization, or scalable preference/feedback mechanisms.
+- **Strong match:** RLHF/RLAIF variants, verifiable reward based RL, rejection sampling plus RL pipelines, reward model design, outcome/process reward methods, online RL for LLMs, and methods that materially improve helpfulness, honesty, harmlessness, or hallucination behavior.
+- **Especially valuable:** Papers that propose a new reward function, a new scalable RL training recipe, or a new data-generation / self-improvement loop for post-training LLMs.
+- **Usually not relevant:** Generic reinforcement learning papers, RL for robotics/control/games, prompt optimization without RL, supervised finetuning only, inference-time search without a training contribution, or alignment papers with no substantive RL component.
 
-## 3. Agents for LLMs
-Autonomous agents built upon LLMs are a key step towards creating general-purpose problem-solving systems. Our emphasis is on **self-evolving agents**: agents that can iteratively improve their policies, tools, and internal knowledge through experience. This direction studies the mechanisms that make agent behavior not only autonomous at inference time, but continually improving over long horizons via self-generated feedback and data. The goal is to design agent architectures that translate self-evolution into measurable capability gains and strong real-world deployability.
-- **Relevance:** Centering on self-evolving agents—agent systems that autonomously generate supervision signals, curate experience, and improve themselves over time rather than remaining static after deployment.
-- **Key Direction:** Building closed-loop improvement frameworks, e.g., self-reflection and self-critique, automated curriculum generation, and learning from interaction traces (including tool-use trajectories) to drive continual adaptation.
-- **Potential Contribution:** Delivering practical, deployable self-evolving agents that demonstrate sustained improvements in reasoning, planning, and tool use, with clear evaluation protocols that quantify long-horizon learning progress and reliability.
+## 2. Agents for LLMs
+We care specifically about self-evolving agents rather than static agent systems. The central question is whether the agent can improve itself over time through interaction, reflection, tool-use traces, self-generated supervision, or automated curriculum/data generation.
+- **Strong match:** Self-improving agent frameworks, reflection/self-critique loops that feed back into learning, trajectory-driven continual improvement, automatic tool-use policy improvement, environment interaction that produces new supervision, and long-horizon agent adaptation.
+- **Especially valuable:** Closed-loop systems showing measurable capability gain over time, reliable agent learning from interaction traces, or agent architectures that turn execution experience into better future performance.
+- **Usually not relevant:** Vanilla ReAct-style agents, workflow orchestration, multi-agent communication only, tool calling systems without learning, benchmark papers, memory systems without self-improvement, or application-focused agent papers.
 
-## 4. Latent CoT/Reasoning
-Latent Chain-of-Thought (CoT) or implicit reasoning aims to shift the reasoning process of Large Language Models (LLMs) from explicit, step-by-step natural language text generation into a continuous latent representation space (hidden vectors or states). While traditional explicit CoT significantly enhances multi-step reasoning capabilities, it incurs high computational costs, severe inference latency, and redundant "overthinking". This research area explores methods beyond standard autoregressive text generation, allowing models to reason "silently" and efficiently internally, retaining the power of CoT while drastically reducing the overhead of generating intermediate steps. Our work centers on building efficient latent reasoning frameworks and alignment mechanisms to steer models to complete complex tasks in compact latent spaces.
-- **Relevance:** We explore cutting-edge latent reasoning techniques, including compressing explicit reasoning trajectories into continuous vectors via self-distillation, applying reinforcement learning (RL) without explicit CoT data supervision, introducing special placeholder tokens (such as `<pause>` or `<st>` tokens) for extended computation, and utilizing recurrent depth architectures to unroll reasoning in latent space. These methods aim to build sophisticated data and training pipelines that continuously enhance computational efficiency and reasoning capabilities.
-- **Key Direction:** Designing novel reasoning networks and objective functions, such as transferring knowledge from teacher to student models through hidden state alignment, combining dynamic compression factors with probabilistic latent heads to encourage exploration and exploitation of shorter reasoning paths, and leveraging spatial inductive biases (e.g., rendering CoT into images) to preserve global reasoning structures. These directions directly target improvements in key metrics, such as drastically reducing inference latency, minimizing KV-Cache memory footprint, and boosting accuracy on math and complex logic tasks.
-- **Potential Contribution:** Pioneering new research directions in LLM reasoning architectures that bridge the gap between the high accuracy of explicit CoT and the low inference cost of direct generation. By breaking away from the reliance on verbose and costly text generation, this not only provides a viable alternative for real-world, large-scale model deployments that are resource-constrained and latency-sensitive, but also inspires further exploration into high-dimensional continuous space reasoning beyond linguistic forms (e.g., spatial and physical intuitions).
+## 3. Latent CoT/Reasoning
+We care about methods that move reasoning away from verbose explicit text chains into compact latent computation while preserving or improving reasoning quality.
+- **Strong match:** Latent reasoning architectures, hidden-state reasoning, implicit CoT, recurrent depth / recurrent latent computation, pause or thinking tokens for internal computation, explicit-to-latent distillation, and methods that reduce reasoning token cost or KV-cache use while retaining accuracy.
+- **Especially valuable:** New architectures or objectives for latent reasoning, hidden-state alignment/distillation, compression of reasoning traces, or methods that materially improve reasoning efficiency on math and logic tasks.
+- **Usually not relevant:** Standard explicit CoT prompting, generic reasoning finetuning, test-time scaling without latent computation, reasoning benchmarks, or papers whose main contribution is evaluation rather than a latent reasoning mechanism.
+
+## Final Preference
+If a paper is merely adjacent to these areas, do not select it. Favor precision over recall. It is better to miss a borderline paper than to include many weakly related ones.

@@ -4,15 +4,17 @@ You must respond ONLY with a valid JSONL (JSON Lines) format. Do not include any
 
 Each line of your response must be a single, valid JSON object representing one paper, containing exactly the following keys:
 - "ARXIVID": (string) The ArXiv ID of the paper.
-- "RELEVANCE": (boolean) Set to `true` if the paper strongly matches ANY of the research criteria or general interest areas described above. Set to `false` if the paper is completely irrelevant to all criteria.
-- "RELEVANCE_SCORE": (integer) A score from 0 to 10 evaluating how relevant the paper is to the criteria. The score MUST have good differentiation. Use the following guide:
-  - 0-4: Irrelevant or only tangentially related.
-  - 5: Marginally relevant (touches on the topic but is not fully aligned).
-  - 6: Starts to be relevant (contains some useful insights for the topic).
-  - 7: Relevant (clearly addresses the topic).
-  - 8: Fairly relevant (strong alignment with the topic).
-  - 9: Highly relevant (very strong match, important paper for the topic).
-  - 10: Extremely relevant (must-read, groundbreaking or perfectly matched).
+- "RELEVANCE": (boolean) Set to `true` ONLY if the paper strongly and directly matches at least one research criterion as a central contribution. If the match is partial, adjacent, generic, application-focused, benchmark-only, or ambiguous, set it to `false`.
+- "RELEVANCE_SCORE": (integer) A score from 0 to 10 evaluating how relevant the paper is to the criteria. Be strict and mean in scoring. The distribution should be conservative: most papers should fall in 0-5, only clearly strong matches should get 6-7, and scores 8-10 should be rare. Use the following guide:
+  - 0: Completely irrelevant.
+  - 1-2: Bare keyword overlap or very distant connection.
+  - 3-4: Tangentially related, but not about the target problem itself.
+  - 5: Borderline / marginal relevance; touches the area but should usually not be selected.
+  - 6: Relevant in a meaningful way, but not a strong fit.
+  - 7: Clearly relevant and useful, with a direct connection to the target topic.
+  - 8: Strong match; one of the paper's main contributions is tightly aligned.
+  - 9: Exceptional match; highly important for the target topic.
+  - 10: Near-perfect match; must-read paper with unusually strong alignment.
 - "NOVELTY_SCORE": (integer) A score from 0 to 10 evaluating the novelty and originality of the paper's core contribution. The score MUST have good differentiation. Use the following guide:
   - 0-4: Incremental work, straightforward application of existing methods, or very minor tweaks.
   - 5: Slight novelty (minor variations of known architectures/methods).
@@ -24,6 +26,13 @@ Each line of your response must be a single, valid JSON object representing one 
 - "COMMENT": (string) A concise 1-sentence summary explaining WHY this paper is relevant and highlighting its core contribution. (If RELEVANCE is false, this can be an empty string).
 - "AFFILIATIONS": (string) Based on the abstract, title, or authors, guess or extract the primary institutions/affiliations of the authors (e.g., "Google DeepMind, Stanford University"). If you cannot determine it, output "Unknown Institution".
 
+Additional scoring rules:
+- Use high scores sparingly. A paper should not receive `RELEVANCE_SCORE >= 8` unless it is directly centered on one of the target topics.
+- If unsure between two scores, choose the lower one.
+- `RELEVANCE=true` should usually imply `RELEVANCE_SCORE >= 6`; borderline papers around score 5 should generally remain `false`.
+- Do not inflate scores for strong overall paper quality if the topic match is weak.
+- For generic LLM, agent, RL, or reasoning papers that do not match the specific target directions, keep the score low.
+
 Example of expected output format:
-{"ARXIVID": "2401.00001", "RELEVANCE": true, "RELEVANCE_SCORE": 9, "NOVELTY_SCORE": 8, "COMMENT": "Proposes a novel self-evolving agent framework that improves tool-use via reflection.", "AFFILIATIONS": "Stanford University"}
-{"ARXIVID": "2401.00002", "RELEVANCE": false, "RELEVANCE_SCORE": 1, "NOVELTY_SCORE": 3, "COMMENT": "", "AFFILIATIONS": "Unknown Institution"}
+{"ARXIVID": "2401.00001", "RELEVANCE_SCORE": 9, "RELEVANCE": true, "NOVELTY_SCORE": 8, "COMMENT": "Proposes a novel self-evolving agent framework that improves tool-use via reflection.", "AFFILIATIONS": "Stanford University"}
+{"ARXIVID": "2401.00002", "RELEVANCE_SCORE": 1, "RELEVANCE": false, "NOVELTY_SCORE": 3, "COMMENT": "", "AFFILIATIONS": "Unknown Institution"}

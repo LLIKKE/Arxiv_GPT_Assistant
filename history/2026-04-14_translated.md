@@ -1,0 +1,435 @@
+# 💡 今日研究速览 (Daily Summary)
+
+# LLC和对齐的RL
+今天的研究表明，我们正在共同努力完善大型语言模型的强化学习的核心机制，超越单一的奖励信号。一个关键趋势是流程感知和代币级优化方法（例如StaRPO、DRTI和SKPO）的发展，这些方法将稳定性、分布稳健性和隐式优势估计直接注入推理轨迹。这还得到了用于长期任务的SPPO等算法创新和DYPO等框架的补充，这些框架理论上在SFT和RL上架起桥梁以管理偏差方差权衡。与此同时，基础工作是剖析对齐的驱动因素，从分析微调适配器的光谱几何结构到分解模型从偏好对中实际学到的知识，为更有针对性和更高效的训练提供重要见解。
+
+# 代理和自治系统
+主体研究的前沿是由能够持续、跨场景学习和自主自我改进的系统定义的。一个明确的范式是“创建-评估-细化”循环，SkillForge和AlphaLab等框架为例，其中代理不仅执行任务，还积累领域知识、发展其技能集并在持久记忆或剧本中优化策略。这种从情景学习到持续学习的转变得到了SEA-Eval等新基准的直接支持。此外，代理人正变得更加明智和足智多谋，E3-TLR等方法改善了工具使用的热身，并探索了RL训练的选择性求助（HiL-Bench）和免训练技能图构建（地理技能）的研究，强调了自主性的多样化途径。
+
+# 多模式和视觉语言
+强化学习正在积极应用于校准和完善多模式模型的推理过程。主要重点是提高视觉忠实度和推理确定性，正如VL-Calibration的脱钩奖励设计和VSYS对可验证奖励的使用所示。代理范式也渗透到视觉语言任务中，VICOR和ActGER等系统采用RL管道（例如，GRPO、UC-GRPO）积极管理迭代视觉搜索、证据获取和推理。这一趋势延伸到具体化和预测性环境，正在开发自动驾驶的VLA世界模型，利用想象力和反思的自我改进循环，指向更接地气、更可靠的多模式智能。
+
+# 推理效率和潜在架构
+使推理更高效的努力正在集中在压缩或优化潜在推理过程本身的方法上。STACK使用混合PPO+DPO策略引入了思想链的分步压缩，有效地提取推理路径。这与对固定重复上下文的代表性限制的架构探索一致（例如，EMA），试图划定有效的状态维护和学习内容选择之间的界限。这些工作的目标是构建在不牺牲性能的情况下“少思考”的模型，这是大规模部署有能力的推理系统的一个关键方向。
+
+# 基于模型的RL和生成式控制
+基于模型的强化学习出现了一项专门但重大的进步，新方法正在应对长期规划的挑战。激素引导扩散的引入代表了一种新颖的综合，使用长期优势估计来引导轨迹生成并对抗基于模型的推出中典型的近视。生成性流程的奖励驱动优化原则也反映在图像编辑等领域，区域约束的GRPO框架展示了超出语言的政策优化技术的多功能性。
+
+---
+
+## 1. 通过经验回放，为LLM提供高效的RL培训
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Charles Arnal, Vivien Cabannes, Taco Cohen, Julia Kempe, Remi Munos
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a novel replay buffer design for efficient RL training of LLMs, directly addressing a core RL pipeline optimization.
+
+**摘要**: arXiv：2604.08706v1宣布类型：新摘要：虽然体验回放（在培训期间存储卷单并多次重复使用它们的实践）是一般RL中的一项基础技术，但由于普遍认为新鲜的、符合政策的数据对于高性能至关重要，因此它在LLM后培训中基本上仍未被探索。在这项工作中，我们挑战了这一假设。我们对LLM后训练的重播缓冲区进行了系统性研究，将最佳设计形式化为持久性引起的方差、样本多样性和生成的高计算成本之间的权衡。我们表明，当发电成本很高时，严格的政策抽样是次优的。从经验上看，我们表明，设计良好的重播缓冲区可以大幅减少推理计算，而不会降低（在某些情况下甚至提高）最终模型性能，同时保留策略信息。
+
+[阅读原文](https://arxiv.org/abs/2604.08706)
+
+---
+
+## 2. 从推理到推理：大型语言模型强化学习中的学分分配
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Chenchen Zhang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Survey and taxonomy of credit assignment methods for RL in LLMs, directly addressing core challenges in reasoning and agentic RL pipelines.
+
+**摘要**: arXiv：2604.09459v1宣布类型：新摘要：大型语言模型（LLM）的强化学习（RL）越来越依赖于稀疏的结果级奖励，但确定长轨迹中的哪些动作导致了结果仍然很困难。这个信用分配（CA）问题体现在两种机制中：推理RL，其中信用必须在单个思想链生成内的代币和步骤之间分配（500--30 K+代币）;和agentic RL，其中多回合环境交互引入了随机转变、部分可观察性和100+回合（10万-1 M代币）的视野，使得剧集级信用变得越来越缺乏信息。   我们调查了2024年至2026年初发布的47种CA方法（41个核心，6个相邻使能因素），通过分配粒度（令牌、分段、步骤、回合、多代理）和方法论（蒙特卡洛、时间差异、基于模型、博弈论、信息论）将它们组织在二维分类中。除了调查本身之外，我们还提供了三个可重复使用的资源：（1）结构化、机器可读的论文清单，包含分类标签、基线系列和证据水平;（2）未来CA论文的报告清单，根据审查的文献进行验证，以识别系统性方法学差距;以及（3）具有任务系列、元数据要求和受控分歧任务的基准协议规范，并伴有方法选择决策树。   我们的综合表明，从推理到代理RL的转变使信用分配格局变得复杂并重塑了：推理CA正在围绕流程奖励模型和无批评群体比较成熟，而代理CA正在推动真正的新方法--事后诸葛亮反事实分析、特权不对称批评者和回合级MDP重新制定--这些方法在推理RL方面没有直接的先例。
+
+[阅读原文](https://arxiv.org/abs/2604.09459)
+
+---
+
+## 3. SkillForge：在云技术支持中锻造特定领域、自我进化的代理技能
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Xingyan Liu, Xiyue Luo, Linyu Li, Ganghong Huang, Jianfeng Liu, Honglin Qiao
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces a self-evolving agent framework (SkillForge) that closes an end-to-end creation-evaluation-refinement loop for domain-specific skills, enabling continuous self-optimization from execution failures.
+
+**摘要**: arXiv：2604.08618v1宣布类型：新摘要：在云技术支持等企业场景中部署LLM支持的代理需要高质量的特定领域技能。然而，现有的技能创造者缺乏领域基础，产生的技能与现实世界的任务要求不一致。此外，一旦部署，就没有系统性机制可以将执行失败追溯到技能缺陷并推动有针对性的改进，尽管积累了操作证据，但技能质量仍停滞不前。我们引入SkillForge，这是一个自我进化的框架，可以关闭端到端的创建-评估-细化循环。为了产生协调一致的初始技能，领域背景化技能创建者在知识库和历史支持票中进行技能合成。为了实现持续的自我优化，三阶段管道--故障分析器、技能诊断师和技能优化器--自动批量诊断执行失败，确定潜在的技能缺陷，并重写技能以消除它们。这个周期迭代运行，允许技能通过每一轮部署反馈进行自我改进。在涵盖1，883张门票和3，737项任务的五个现实世界云支持场景上进行评估，实验表明：（1）域上下文化技能创建者比通用技能创建者产生的初始技能要好得多，通过与专家撰写的历史门票参考响应的一致性来衡量;（2）自我进化循环从不同起点逐步提高技能质量（包括专家撰写、领域创建和通用技能）在连续几轮中，证明自动化进化可以超越手动策划的专家知识。
+
+[阅读原文](https://arxiv.org/abs/2604.08618)
+
+---
+
+## 4. WLHF中的分布式鲁棒代币优化
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Yeping Jin, Jiaming Hu, Ioannis Ch. Paschalidis
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Distributionally Robust Token Optimization (DRTO), a new RLHF variant combining token-level RL with DRO to improve LLM robustness and consistency on reasoning tasks.
+
+**摘要**: arXiv：2604.08577v1宣布类型：新摘要：大型语言模型（LLM）往往会正确响应与训练和微调的数据一致的提示。然而，措辞、格式或语言的微小变化可能会引发令人惊讶的大故障，尤其是在多步骤推理问题上。为了解决这个问题，我们提出了一种分布鲁棒代币优化（DRTI）方法，该方法将来自人类反馈的代币级强化学习（RL HF）与分布鲁棒优化（DRO）相结合。DRTO通过在损失迷你批次上构建f-偏差模糊性集来限制最坏情况下的代币奖励，从而产生理论上的鲁棒性。从经验上看，DPTO增强了数学推理基准分布变化下的一致性，比GSM 8 K提高了9.17%，比MathQA提高了2.49%。
+
+[阅读原文](https://arxiv.org/abs/2604.08577)
+
+---
+
+## 5. StaRPO：增强稳定性的强化策略优化
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Jinghan Zhang, Fengran Mo, Tharindu Cyril Weerasooriya, Ruimin Dai, Xiaoyan Han, Yanjie Fu, Dakuo Wang, Kunpeng Liu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a novel RL policy optimization framework (StaRPO) that explicitly incorporates reasoning stability metrics as process-aware rewards for LLMs.
+
+**摘要**: arXiv：2604.08905v1宣布类型：新摘要：强化学习（RL）对于提高复杂推理任务中大型语言模型的准确性有效。现有的RL策略优化框架依赖于最终答案的正确性作为反馈信号，很少捕捉推理过程的内部逻辑结构。因此，这些模型将生成流畅且语义相关的响应，但逻辑上不一致、结构上不稳定或冗余。为此，我们提出了StaLPO，这是一个稳定性增强的强化学习框架，它将推理稳定性明确纳入优化目标。我们的StaRPO将稳定性分解为两个可计算的轻量级指标：用于评估局部分步一致性的自相关函数（CTF）和用于评估推理轨迹的全局目标导向性的路径效率（PE）。这些稳定性奖励与任务奖励相结合，以提供补充和流程感知的反馈。我们通过展示它们与两个主干模型上逻辑错误的相关性来验证使用ADF和PE奖励的有效性。四个推理基准的实验表明，StaLPO始终优于比较基线，并且可以增强最终答案的准确性和逻辑稳定性。
+
+[阅读原文](https://arxiv.org/abs/2604.08905)
+
+---
+
+## 6. SEA-Eval：超越情景评估自我进化代理的基准
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Sihang Jiang, Lipeng Ma, Zhonghua Hong, Keyi Wang, Zhiyu Lu, Shisong Chen, Jinghao Zhang, Tianjun Pan, Weijia Zhou, Jiaqing Liang, Yanghua Xiao
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces a benchmark for evaluating Self-Evolving Agents (SEA), directly targeting the core concept of agents that accumulate experience and optimize strategies across tasks.
+
+**摘要**: arXiv：2604.08988v1宣布类型：新摘要：当前基于LLM的代理在情景任务执行方面表现出色，但仍然受到静态工具集和情景健忘症的限制，无法积累经验或优化跨任务边界的策略。虽然之前已经提出了自进化代理（SEA）范式，但本文基于数字体现和持续跨任务进化，对SEA提出了一个新的形式定义，并引入了SEA-Eval，这是第一个旨在评估两个维度的SEA特征的基准。任务内执行可靠性和长期进化性能。通过将任务组织成连续流并分析随着时间的推移的成功率和代币消耗，SEA-Eval以现有情景基准无法实现的方式量化进化收益和结构稳定性。经验评估揭示了当前最先进框架中的一个重大进化瓶颈，即相同的成功率掩盖了序列分析下代币消费高达31.2倍的差异和不同的进化轨迹。SEA-Eval为将代理从单纯的任务执行者提升为真正自我进化的数字实体提供了严格的科学基础。
+
+[阅读原文](https://arxiv.org/abs/2604.08988)
+
+---
+
+## 7. 桥接SFT和RL：鲁棒推理的动态策略优化
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Taojie Zhu, Dongyang Xu, Ding Zou, Sen Zhao, Qiaobo Hao, Zhiguo Yang, Yonghong He
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes DYPO, a unified RL+SFT framework with theoretical analysis to mitigate bias-variance trade-off for robust reasoning, directly matching RL for LLMs.
+
+**摘要**: arXiv：2604.08926v1公告类型：新摘要：大型语言模型（LLM）的后训练范式，主要是监督微调（SFT）和强化学习（RL），面临着一个根本的困境：SFT提供稳定性（低方差），但遭受高拟合偏差，而RL使探索（低偏差），但与高梯度方差作斗争。现有的统一优化策略通常采用朴素的损失加权，忽略了这些不同的梯度信号之间的统计冲突。本文中，我们对这种偏差方差权衡进行了严格的理论分析，并提出了\textBF{DYPO}（动态政策优化），这是一个旨在从结构上缓解这种冲突的统一框架。DYPO集成了三个核心组件：（1）\textit{Group Alliance Loss（SAL）}，利用内在群体动态来显着降低RL梯度方差;（2）\textit{Multi-Teacher Distillation}机制，通过不同的推理路径纠正SFT匹配偏差;和（3）\textit{动态利用-勘探门控}基于奖励反馈在稳定SFT和探索性RL之间自适应仲裁的机制。理论分析证实，DYPO线性降低拟合偏差和最小化总方差。大量的实验表明，DYPO的性能明显优于传统的顺序流水线，在复杂推理基准测试上平均提高了4.8%，在分布外任务上平均提高了13.3%.我们的代码可在https://github.com/Tocci-Zhu/DYPO上公开获取。
+
+[阅读原文](https://arxiv.org/abs/2604.08926)
+
+---
+
+## 8. 跳过相关政策优化以获得隐性优势
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Fengwei Teng, Jinyi Bai, Xinhao Yao, Demi Ruohan Wang, Jiahao Zhao, Zhijiang Guo
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Skip-Connected Policy Optimization (SKPO), a new RL pipeline for LLMs that addresses variance in dense reward estimation for reasoning tokens, directly improving mathematical reasoning.
+
+**摘要**: arXiv：2604.08690v1宣布类型：新摘要：事实证明，通过使用基于结果的奖励，团体相对政策优化（GRPO）在RLVR中是有效的。虽然细粒度密集奖励理论上可以提高性能，但我们发现，在实际抽样预算下，蒙特卡罗估计为早期推理令牌带来了高方差和符号不一致的优势，矛盾的是，表现不如纯结果GRPO。我们提出了Skip-Connected Optimization（SKPO），它将推理分解为上游和下游两个阶段：上游从下游的单流优化Monte Carlo采样中获得密集的奖励;下游保持组相关优化，其中跳过连接将上游段与原始问题连接起来，使模型能够利用有帮助的上游推理，同时保留通过直接问题访问绕过有缺陷的推理的自由。实验表明，在Qwen2.5-Math-7 B和Llama-3.2-3B上，在数学基准测试和域外任务（包括一般推理和代码生成）中，相对于最强基线分别提高了3.91%和6.17%。进一步的分析揭示了一个隐性优势：即使与最终正确性相匹配，SKPO也能生成具有更高中间步骤质量的轨迹。
+
+[阅读原文](https://arxiv.org/abs/2604.08690)
+
+---
+
+## 9. SPPO：用于长视野推理任务的序列级PPO
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Tianyi Wang, Yixia Li, Long Li, Yibiao Chen, Shaohan Huang, Yun Chen, Peng Li, Yang Liu, Guanhua Chen
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces SPPO, a new scalable RL algorithm for aligning LLMs on long-horizon reasoning tasks with verifiable rewards, directly matching RL for LLMs criteria.
+
+**摘要**: arXiv：2604.08865v1宣布类型：新摘要：近端策略优化（PPO）是将推理任务中的大型语言模型（LLM）与可验证的奖励相匹配的核心。然而，由于长期思想链（CoT）范围内的临时信用分配的不稳定性以及价值模型的令人望而却步的记忆成本，标准代币级PPO在这种环境下遇到了困难。虽然像GRPO这样的无批评替代方案可以缓解这些问题，但它们需要多个样本进行基线估计，从而产生了大量的计算负担，从而严重限制了训练吞吐量。本文中，我们介绍了序列级PPO（SPPO），这是一种可扩展的算法，可将PPO的样本效率与基于结果的更新的稳定性协调起来。SPPO将推理过程重新定义为序列级上下文Bandit问题，采用去耦合的纯量值函数来在无需多采样的情况下推导低方差优势信号。对数学基准的大量实验表明，SPPO显着优于标准的PPO，并与计算量大的基于组的方法的性能相匹配，为对齐推理LLM提供了一个资源高效的框架。
+
+[阅读原文](https://arxiv.org/abs/2604.08865)
+
+---
+
+## 10. AlphaLab：利用前沿LL进行跨优化领域的自主多智能体研究
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 8/10
+
+**作者**: Brendan R. Hogan, Xiwen Chen, James T. Wilson, Kashif Rasul, Adel Boyarsky, Thomas Kamei, Anderson Schneider, Yuriy Nevmyvaka
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes AlphaLab, an autonomous multi-agent research system that self-improves through a Strategist/Worker loop, accumulating domain knowledge in a persistent playbook for continual improvement.
+
+**摘要**: arXiv：2604.08590v1宣布类型：新摘要：我们展示了AlphaLab，这是一种自主研究工具，利用前沿LLM代理能力来自动化定量、计算密集型领域的整个实验周期。仅考虑到数据集和自然语言目标，AlphaLab在没有人为干预的情况下完成三个阶段：（1）适应该领域并探索数据、编写分析代码并生成研究报告;（2）构建并对抗性验证自己的评估框架;以及（3）它通过策略者/工人循环运行大规模图形处理器实验，在持久剧本中积累领域知识，该剧本充当在线提示优化的一种形式。所有特定于域的行为都被考虑到模型本身生成的适配器中，因此同一管道无需修改即可处理性质不同的任务。我们通过两个前沿LLM评估AlphaLab（GPT-5.2和Claude Opus 4.6）在三个领域：CUDA内核优化，它编写的运行速度比torch快4.4倍。compile（高达91 x）; LLM预训练，其中整个系统比使用相同模型的单次基线实现的验证损失低22%;以及流量预测，在研究和实施文献中已发布的模型族后，流量预测比标准基线高出23-25%。这两个模型在每个领域发现了质上不同的解决方案（两者都不一致地占主导地位），这表明多模型营销活动提供了互补的搜索覆盖范围。我们还在附录中报告了金融时间序列预测的结果，并在https://brendanhogan.github.io/alphalab-paper/上发布所有代码。
+
+[阅读原文](https://arxiv.org/abs/2604.08590)
+
+---
+
+## 11. EMA并不是你需要的全部：在反复出现的环境中绘制结构和内容之间的边界
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 8/10
+
+**作者**: Arth Singh
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Probes the representational limits of fixed-coefficient recurrent context (EMA) vs. learned selection, directly relevant to latent reasoning architectures and efficiency.
+
+**摘要**: arXiv：2604.08556v1宣布类型：新摘要：高效序列模型比简单的时间平均到底能获得什么？我们使用指数移动平均（EMA）轨迹（最简单的循环上下文（无门控，无基于内容的检索））作为受控探测器来绘制固定系数累积可以代表和不能代表之间的边界。EMA轨迹编码时间结构：具有多时间尺度轨迹的Hebbian架构在零标签的语法角色分配方面实现了96%的监督BiGRU，超过了结构相关角色的监督模型。EMA痕迹会破坏代币身份：仅使用EMA上下文的130 M参数语言模型达到C4困惑度260（8 x GPT-2），而预测因子消除（用完全softmax注意力替换线性预测因子）会产生相同的损失，将整个差距局部化到痕迹。轨迹应用有损、数据独立的压缩;由于数据处理不平等，没有下游预测器可以恢复被丢弃的信息。固定系数积累，无论是跨时间还是深度，都会遭受不可逆转的信息稀释，只有学习的、依赖输入的选择才能解决这一问题。
+
+[阅读原文](https://arxiv.org/abs/2604.08556)
+
+---
+
+## 12. GL校准：大型视觉语言模型推理的脱钩置信校准
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Wenyi Xiao, Xinchi Xu, Leilei Gan
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a reinforcement learning framework (VL-Calibration) for decoupled confidence calibration in LVLMs, directly aligning with RL for LLMs via a new reward design for visual and reasoning certainty.
+
+**摘要**: arXiv：2604.09529v1宣布类型：新摘要：大视觉语言模型（LVLM）实现了强大的多模式推理，但经常表现出高度确定的幻觉和错误响应，这阻碍了它们在高风险领域的使用。现有的言语化置信度校准方法主要是为纯文本的LLM开发的，通常使用二进制答案级别的正确性来优化单个整体置信度分数。这种设计与LVLM不匹配：错误的预测可能源于感知失败或给定正确感知的推理错误，而单一的置信度会混淆这些来源，而视觉不确定性通常由语言先验主导。为了解决这些问题，我们提出了VL-Calibration，这是一个强化学习框架，它明确地将信心与视觉和推理信心分开。为了在没有地面真相感知标签的情况下监督视觉信心，我们引入了一种内在视觉确定性估计，该估计结合了（i）在图像扰动下通过KL-分歧测量的视觉基础和（ii）通过令牌信息测量的内部确定性。我们进一步提出代币级优势重新加权，以基于视觉确定性重点优化代币，抑制无根据的幻觉，同时保留有效感知。对13个基准的实验表明，VL-Calibration有效地改善了校准，同时提高了视觉推理的准确性，并且它可以推广到跨模型规模和架构的非分布基准。
+
+[阅读原文](https://arxiv.org/abs/2604.09529)
+
+---
+
+## 13. 引导知识密集型推理的流程奖励代理
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Jiwoong Sohn, Tomasz Sternal, Kenneth Styppa, Torsten Hoefler, Michael Moor
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces Process Reward Agents (PRA), a test-time method for providing online, step-wise rewards to a frozen policy, aligning with RL for LLMs via process reward mechanisms.
+
+**摘要**: arXiv：2604.09482v1宣布类型：新摘要：知识密集型领域中的推理仍然具有挑战性，因为中间步骤通常无法本地验证：与数学或代码不同，评估步骤正确性可能需要综合跨大型外部知识源的线索。因此，微妙的错误可能会通过推理痕迹传播，可能永远不会被检测到。之前的工作提出了流程奖励模型（PRM），包括检索增强变体，但这些方法是事后操作的，对完成的轨迹进行评分，这阻止了它们集成到动态推理过程中。在这里，我们引入流程奖励代理（TRA），这是一种测试时方法，用于为冻结的保单提供基于领域的在线分步奖励。与先前的检索增强PRM相比，TRA使基于搜索的解码能够在每个生成步骤对候选轨迹进行排名和修剪。多个医学推理基准的实验表明，TRA的表现始终优于强基线，在MedQA上使用Qwen 3 - 4 B（4 B规模的新技术）实现了80.8%的准确性。重要的是，TRA推广到0.5B至8B参数范围内的未见冻结政策模型，在无需任何政策模型更新的情况下将其准确性提高了高达25.7%。更广泛地说，TRA提出了一种范式，其中冻结的推理器与特定领域的奖励模块脱钩，允许在复杂领域中部署新的主干，而无需再培训。
+
+[阅读原文](https://arxiv.org/abs/2604.09482)
+
+---
+
+## 14. ActGER：通过主动工具增强视觉推理的突出面部表情识别
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Shifeng Liu, Zhengye Zhang, Sirui Zhao, Xinglong Mao, Zhehan Kan, Zhixiang Wei, Shiwei Wu, Chaoyou Fu, Tong Xu, Enhong Chen
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes an agentic framework (ActFER) with a novel RL algorithm (UC-GRPO) for active visual evidence acquisition and reasoning, directly matching the self-improving agent and RL for LLMs criteria.
+
+**摘要**: arXiv：2604.08990v1宣布类型：新摘要：多模式大型语言模型（MLLM）的最新进展为面部表情识别（GER）创造了新的机会，使其超越纯粹的标签预测转向基于推理的情感理解。然而，现有的基于MLLM的GER方法仍然遵循被动范式：它们依赖于外部准备的面部输入，并对固定的视觉证据执行单程推理，而没有主动面部感知的能力。为了解决这一局限性，我们提出了ActGER，这是一个代理框架，将GER重新定义为主动视觉证据获取，然后进行多模式推理。具体来说，ActGER动态调用面部检测和对齐工具，有选择地放大到信息丰富的局部区域，并通过视觉思想链对面部动作单位（AU）和情绪进行推理。为了实现这种行为，我们进一步开发了实用校准的GRPO（UC-GRPO），这是一种针对代理GER量身定制的强化学习算法。UC-GRPO使用基于AU的多层可验证奖励来强化监督，使用查询条件对比效用估计来实现本地检查的样本感知动态信用分配，并使用情绪感知EMA校准来减少有噪音的效用估计，同时捕捉情绪方面的检查趋势。该算法使ActGER能够了解当地检查何时有益以及如何推理获得的证据。全面的实验表明，使用UC-GRPO训练的ActGER始终优于基于MLLM的被动GER基线，并大幅提高了AU预测准确性。
+
+[阅读原文](https://arxiv.org/abs/2604.08990)
+
+---
+
+## 15. LoRA适配器的光谱几何编码训练目标并预测有害的依从性
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Roi Paul
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Analyzes spectral geometry of LoRA adapters to identify fine-tuning objectives (including DPO) and predict downstream harmful compliance, directly relevant to RL for LLMs via reward/objective analysis.
+
+**摘要**: arXiv：2604.08844v1宣布类型：新摘要：我们研究LoRA权重增量的低等级谱摘要是否可以识别哪个微调目标应用于语言模型，以及该几何信号是否预测下游行为伤害。在\textttt {Llama-3.2- 3B-Direcct}上预先注册的实验中，我们制造了涵盖四个类别的38种LoRA适配器：健康SFT基线、反向无害偏好的DPO、反向帮助偏好的DPO和激活操纵衍生的适配器，并提取每层光谱特征（规范、稳定排名、奇异值信息、有效排名和与健康重心的奇异载体cos对齐）。在单一训练方法（DPO）中，逻辑回归分类器在二进制漂移检测，所有六个成对客观比较和近乎完美的顺序严重性排名（$\rho \geq 0.956$）上达到AUC~1.00。主成分分析扁平的重量三角洲显示，训练目标是PC 1（AUC~1.00的目标分离），正交于PC 2上的训练持续时间。查询投影权重检测发生的漂移;值投影权重识别哪个目标。跨方法泛化完全失败：DPO训练的分类器为每个转向适配器分配比每个DPO适配器更低的漂移分数（AUC~0.00）。在行为评估阶段，DPO反向无害适配器对HEx-PHI提示显示出更高的有害依从性（平均ASB 0.266 vs.\健康0.112，$\Delta = +0.154$），具有近乎完美的剂量反应（$\rho = 0.986$）。24个非转向适配器的几何与行为等级相关性为$\rho = 0.72$。这些结果确定，在受控制造制度内，LoRA重量空间几何形状具有客观身份、强度排序以及与有害合规性的粗略联系，并且跨方法监测需要按方法进行校准。
+
+[阅读原文](https://arxiv.org/abs/2604.08844)
+
+---
+
+## 16. 学习自动驾驶的视觉-语言-动作世界模型
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Guoqing Wang, Pin Tang, Xiangxuan Ren, Guodongfang Zhao, Bailan Feng, Chao Ma
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a VLA world model for autonomous driving that uses a self-improvement loop of predictive imagination and reflective reasoning, trained with RL.
+
+**摘要**: arXiv：2604.09059v1宣布类型：新摘要：视觉-语言-动作（VLA）模型最近通过在统一的多模式框架内集成感知、推理和控制，在端到端自动驾驶方面取得了显着进展。然而，他们往往缺乏对时间动态和全球世界一致性的明确建模，这限制了他们的远见和安全性。相比之下，世界模型可以模拟看似合理的未来场景，但通常很难推理或评估它们产生的想象未来。在这项工作中，我们提出了VLA-World，这是一个简单而有效的VLA世界模型，它将预测想象力与反思推理结合起来，以提高驾驶预见力。VLA-World首先使用源自动作的可行轨迹来指导下一帧图像的生成，捕获描述周围环境如何演变的丰富空间和时间线索。然后，该模型对这个自生成的未来想象框架进行推理，以完善预测的轨迹，实现更高的性能和更好的可解释性。为了支持该管道，我们策划了nuScenes-GR-20 K，这是一个从nuScenes派生的生成式推理数据集，并采用三阶段训练策略，包括预训练、监督微调和强化学习。大量实验表明，VLA-World在规划和未来一代基准方面始终超越最先进的VLA和世界模型基线。项目页面：https://vlaworld.github.io
+
+[阅读原文](https://arxiv.org/abs/2604.09059)
+
+---
+
+## 17. 分解Delta：模型实际上从偏好对中学到了什么？
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Chia-Hsuan Lee, Mingyang Zhou, Renkun Ni, Zelei Cheng, Sihui Dai, Supriyo Chakraborty, Shixiong Zhang, Sambit Sahu, William Campbell
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Directly studies what aspects of preference data (generator-level and sample-level delta) drive reasoning gains in LLM alignment, a core contribution to RL for LLMs.
+
+**摘要**: arXiv：2604.08723v1宣布类型：新摘要：DPO和KTO等偏好优化方法被广泛用于对齐语言模型，但人们对偏好数据的哪些属性驱动下游推理收益知之甚少。我们问：偏好对的哪些方面可以提高推理模型在一般推理任务上的性能？我们研究了偏好数据中质量增量的两个不同概念：生成器级增量，由生成选择和拒绝的推理痕迹的模型之间的能力差异引起，以及样本级增量，由个体偏好对内判断的质量差异的差异引起。为了研究生成器级增量，我们改变了生成器的规模和模型系列，为了研究样本级增量，我们使用LLM作为判断器来沿着多个推理质量维度对生成的轨迹的质量进行评级。我们发现，增加生成器级增量可以稳步提高域外推理任务的性能，并且通过样本级增量过滤数据可以实现更高的数据效率的训练。我们的结果提出了通过偏好优化提高推理性能的双重方法：在构建偏好对时最大化生成器级增量，并利用样本级增量来选择信息最丰富的训练示例。
+
+[阅读原文](https://arxiv.org/abs/2604.08723)
+
+---
+
+## 18. HiL-Bench（Human-in-Loop Benchmark）：代理知道何时寻求帮助吗？
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Mohamed Elfeki, Tu Trinh, Kelvin Luu, Guangze Luo, Nathan Hunt, Ernesto Montoya, Nandan Marwaha, Yannis He, Charles Wang, Fernando Crabedo, Alessa Castilo, Bing Liu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes RL training on a shaped reward (Ask-F1) to improve an agent's judgment for selective help-seeking, demonstrating a trainable self-improvement loop.
+
+**摘要**: arXiv：2604.09408v1宣布类型：新摘要：当给定完整的上下文时，前沿编码代理可以解决复杂的任务，但当规范不完整或模糊时，前沿编码代理就会崩溃。瓶颈不是原始能力，而是判断力：知道何时自主行动以及何时寻求帮助。当前的基准对这种失败模式视而不见。它们提供明确的详细指令，并仅奖励执行正确性，因此幸运猜测缺失需求的代理将获得与要求确定的代理相同的分数。   我们提出HiL-Bench（Human in-the-Loop基准）来衡量这种选择性升级技能。每个任务都包含经过人类验证的拦截器（缺失信息、模糊请求、相互矛盾的信息），这些拦截器只能通过渐进式探索而不是预先检查来出现。我们的核心指标Ask-F1是问题精确度和拦截器召回的调和平均值，捕捉了过度询问和无声猜测之间的紧张关系;其结构从架构上防止通过问题垃圾邮件进行游戏。   跨SWE和文本到SQL领域的评估揭示了一个巨大的普遍判断差距：在决定是否询问时，没有一个前沿模型恢复的全信息性能超过其一小部分。失败分析确定了三种关键的求助模式：过度自信的错误信念，没有差距检测;不确定性高但错误持续存在;广泛、不精确的升级而没有自我纠正。这些一致的模式证实，糟糕的求助是模型级缺陷，而不是特定于任务。对形状Ask-F1奖励的RL训练表明，判断是可训练的：32 B模型提高了求助质量和任务通过率，并且增益可以跨域转移。该模型不会学习特定于领域的算法，以确定何时提出问题;它会学习检测无法解决的不确定性并对其采取行动。
+
+[阅读原文](https://arxiv.org/abs/2604.09408)
+
+---
+
+## 19. 视觉语言的技能条件视觉地理定位
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Chenjie Yang, Yutian Jiang, Chenyu Wu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes GeoSkill, a training-free self-evolving agent framework that autonomously grows a Skill-Graph via reasoning rollouts and trajectory analysis.
+
+**摘要**: arXiv：2604.09025v1宣布类型：新摘要：视觉语言模型（VLM）在图像地理定位方面表现出了有前途的能力，但它们仍然缺乏结构化的地理推理和自主自我进化的能力。现有的方法主要依赖于内隐参数记忆，它经常利用过时的知识并产生幻觉推理。此外，当前的推理是一个“一次性”过程，缺乏基于推理结果的自我进化所需的反馈循环。为了解决这些问题，我们提出了GeSkill，这是一个基于不断发展的技能图谱的免训练框架。我们首先通过将人类专家轨迹细化为原子的自然语言技能来初始化图形。为了执行，地理技能使用推理模型来执行由当前技能图指导的直接推理。为了持续增长，自主进化机制利用更大的模型对来自网络规模数据和经过验证的现实世界推理的图像-坐标对进行多次推理展开。通过分析这些推出的成功和失败轨迹，该机制迭代地合成和修剪技能，有效地扩展技能图并在无需任何参数更新的情况下纠正地理偏差。实验表明，GeoSkill在GeoRC上的地理定位准确性和推理忠实性方面都取得了令人满意的性能，同时在各种外部数据集之间保持卓越的概括性。此外，我们的自主进化促进了新颖、可验证技能的出现，显着增强了系统对现实世界地理知识的认知，超越了孤立的案例研究。
+
+[阅读原文](https://arxiv.org/abs/2604.09025)
+
+---
+
+## 20. 多模式推理的视觉引导策略优化
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Zengbin Wang, Feng Xiong, Liang Lin, Xuecai Hu, Yong Wang, Yanlin Wang, Man Zhang, Xiangxiang Chu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Visually-Guided Policy Optimization (VGPO), a reinforcement learning method with verifiable rewards to improve visual faithfulness and reasoning in VLMs.
+
+**摘要**: arXiv：2604.09349v1宣布类型：新摘要：带可验证奖励的强化学习（WLVR）显着提高了视觉语言模型（VLMS）的推理能力。然而，VLM固有的文本主导性质常常导致视觉忠实度不足，其特征是对视觉标记的注意力激活稀疏。更重要的是，我们的实证分析表明，沿推理步骤的时间视觉遗忘加剧了这一不足。为了弥合这一差距，我们提出了视觉引导策略优化（VIPs），一种新的框架，以加强视觉重点在政策优化。具体来说，Vendor最初引入了视觉注意力补偿机制，该机制利用视觉相似性来定位和放大视觉线索，同时在后续步骤中逐步提高视觉期望以抵消视觉遗忘。基于这种机制，我们实现了一个双粒度的优势重新加权策略：内轨迹水平突出表现出相对较高的视觉激活的令牌，而轨迹间水平优先考虑表现出优越的视觉积累的轨迹。大量实验表明，VSYS在数学多模式推理和视觉相关任务中实现了更好的视觉激活和卓越的性能。
+
+[阅读原文](https://arxiv.org/abs/2604.09349)
+
+---
+
+## 21. 基于模型的强化学习的概率引导扩散
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Daniele Foffano, Arvid Eriksson, David Broman, Karl H. Johansson, Alexandre Proutiere
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces advantage-guided diffusion for model-based RL, a new method to steer trajectory generation using long-term advantage estimates to combat myopia.
+
+**摘要**: arXiv：2604.09035v1宣布类型：新摘要：具有自回归世界模型的基于模型的强化学习（MBRL）会遭受复合误差的影响，而扩散世界模型则通过联合生成轨迹片段来缓解这一问题。然而，现有的传播指南要么仅基于政策，放弃价值信息，要么基于奖励，当传播期限较短时，这种指南就会变得短视。我们引入了MBRL的概率引导扩散（AGD-MBRL），它使用代理人的优势估计来引导反向扩散过程，以便采样集中在预计在生成的窗口之外产生更高长期回报的轨迹上。我们开发了两个指南：（i）Sigmoid优势指南（SAG）和（ii）指数优势指南（EAG）。我们证明，通过SAG或EAG指导的扩散模型允许我们对轨迹进行重新加权抽样，在标准假设下，国家行动暗示政策改进的权重增加。此外，我们还表明，与无引导扩散模型相比，AGD-MBRL生成的轨迹遵循改进的政策（即具有更高的价值）。AGD通过引导状态组件同时保留行动生成政策条件，与PolyGRAD风格的架构无缝集成，并且不需要改变扩散训练目标。在MuJoCo控制任务（HalfCheetah、Hopper、Walker 2D和Reacher）中，AGD-MBRL比PolyGRAD（在线扩散器风格的奖励指南）和无模型基线（PPO/TRPO）提高了样本效率和最终回报，在某些情况下，其幅度为2倍。这些结果表明，在扩散模型MBRL中，注意力引导是治疗短视野近视的一种简单、有效的补救措施。
+
+[阅读原文](https://arxiv.org/abs/2604.09035)
+
+---
+
+## 22. 基于流的图像编辑的区域约束组相对策略优化
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10
+
+**作者**: Zhuohan Ouyang, Zhe Qian, Wenhuo Cui, Chaoqun Wang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a region-constrained GRPO (Group Relative Policy Optimization) post-training framework for flow-based image editing, directly aligning with RL methods for improving model behavior via reward-driven optimization.
+
+**摘要**: arXiv：2604.09386v1宣布类型：新摘要：指令引导的图像编辑需要平衡目标修改与非目标保留。最近，基于流的模型因其高保真度和高效的确定性ODE采样而成为描述引导图像编辑的强大且越来越被采用的支柱。在此基础上，探索了基于GRPO的奖励驱动的后培训，以直接优化特定编辑奖励，提高指导遵循和编辑一致性。然而，现有的方法经常受到有噪音的信用分配的影响：全球探索也会扰乱非目标区域，扩大组内奖励方差并产生有噪音的GRPO优势。为了解决这个问题，我们提出了RC-GRPO-Editor，这是一个区域约束的GRPO后训练框架，用于确定性ODE采样下的基于流的图像编辑。它抑制了背景引起的干扰差异，以实现更清晰的本地化信用分配，提高编辑区域指令的遵守性，同时保留非目标内容。具体来说，我们通过区域脱钩的初始噪音扰动来本地化探索，以减少背景引起的奖励方差并稳定GRPO优势，并引入注意力集中奖励，在整个推出过程中将交叉注意与预期的编辑区域对齐，减少非目标区域的意外变化。CompBench上的实验显示，在编辑区域指令遵守性和非目标保留方面取得了一致的改进。
+
+[阅读原文](https://arxiv.org/abs/2604.09386)
+
+---
+
+## 23. VICOR：通过迭代搜索和超视野推理的抽象视觉检索增强生成
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10
+
+**作者**: Yucheng Shen, Jiulong Wu, Jizhou Huang, Dawei Yin, Lingyong Yan, Min Cao
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes an agentic VRAG framework trained with a Group Relative Policy Optimization-based RL pipeline, directly aligning with RL for LLMs and self-improving agents.
+
+**摘要**: arXiv：2604.09508v1宣布类型：新摘要：视觉检索增强生成（VRAG）使视觉语言模型能够检索和推理视觉丰富的文档。为了处理需要多步推理的复杂查询，代理VRAG系统将推理与迭代检索交织在一起。然而，现有的VRAG代理面临两个关键瓶颈。(1)视觉证据稀缺性：关键证据分散在页面上，但被隔离处理，阻碍了跨页面推理;此外，细粒度的图像内证据通常需要精确的视觉动作，其滥用会降低检索质量;（2）长视野中的搜索漂移：检索页面中视觉标记的积累会稀释上下文并导致认知超载，导致代理人偏离其搜索目标。为了应对这些挑战，我们提出了VICOR（通过迭代搜索和超地平线推理的视觉检索增强生成），这是一个统一的单代理框架。VICOR具有一个结构化的证据空间，用于渐进式跨页面推理，并结合了一个视觉动作评估和纠正机制来管理视觉动作。此外，我们还引入了具有滑动窗口和意图注入的动态轨迹来减轻搜索漂移。它们锚定证据空间，同时丢弃早期的原始交互，防止上下文被视觉标记淹没。我们使用基于组相对策略优化的强化学习（GRPO-基于RL）管道来训练VIOR，该管道具有为动态上下文重建量身定制的状态掩蔽和信用分配。在ViDoSeek、SlideVQA和MMLongBench上的大量实验表明，VICOR在长视野视觉推理任务中以卓越的效率实现了最先进的性能。
+
+[阅读原文](https://arxiv.org/abs/2604.09508)
+
+---
+
+## 24. 少思考，多了解：通过知识指导进行状态感知推理压缩，以实现高效推理
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10
+
+**作者**: Yi Sui, Chaozhuo Li, Dawei Song
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes STACK, a method for step-wise CoT compression using a PPO+DPO training strategy, aligning with latent reasoning for efficiency.
+
+**摘要**: arXiv：2604.09150v1宣布类型：新摘要：大型推理模型（LRM）通过利用长思想链（CoT）在复杂任务上实现了出色的性能，但通常会考虑过度，导致推理步骤过多和推理延迟高。现有的CoT压缩方法难以平衡准确性和效率，并且缺乏对冗余和推理偏差的细粒度、分步适应。因此，我们提出了具有知识指导的状态感知推理压缩（STACK），这是一个通过显式建模特定阶段的冗余源并与检索增强指导集成来执行分步CoT压缩的框架。STACK构建在线长短对比样本，并在针对不确定或有偏见的推理状态的知识引导压缩和针对过长但有信心的状态的自我提示压缩之间动态切换，并辅之以基于答案收敛的早期停止机制来抑制冗余验证。我们通过结合近端策略优化（PPO）和直接偏好优化（DPO）进一步提出了一种奖励差异驱动的训练策略，使模型能够学习状态条件压缩策略。三个数学推理基准的实验表明，STACK实现了卓越的准确性与效率平衡，平均响应长度减少了59.9%，同时比现有方法提高了4.8个百分点。
+
+[阅读原文](https://arxiv.org/abs/2604.09150)
+
+---
+
+## 25. PerMix-WLVR：在可验证回报一致下保留女神异闻录的表现力
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10
+
+**作者**: Jihwan Oh, Soowon Oh, Murad Aghazada, Minchan Jeong, Sungnyun Kim, Se-Young Yun
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes PerMix-RLVR, a reinforcement learning with verifiable rewards method to improve persona robustness and fidelity in LLMs.
+
+**摘要**: arXiv：2604.08986v1宣布类型：新摘要：角色提示已被广泛采用来引导大型语言模型（LLM）行为并通过分配特定字符来提高其教学性能。然而，确定最佳角色是耗时的，而且其对输出质量的影响仍然知之甚少。之前的工作主要通过推理时策略在提示级别解决这个问题，从而产生了额外的计算。在这项工作中，我们通过在训练期间解决角色敏感性来避免推理时提示搜索，旨在训练模型，使其行为适应不同角色，同时保持任务性能。特别是，我们发现具有可验证奖励的强化学习（WLVR）系统性地降低了对角色提示的敏感性，但也揭示了基于结果的优化的固有权衡：虽然WLVR提高了具有可验证目标的任务的鲁棒性，但它也可能在需要时降低角色表现力，例如角色内角色扮演。为了解决这一局限性，我们提出了PerMix-WLVR，这是一种角色混合的WLVR策略，可以减轻角色稳健性与保真度的权衡，保留对有害角色变化的强大稳健性，同时在需要时实现忠实的角色采用。具体而言，PerMix-WLVR在MAT 500上比WLVR提高了+21.2%，同时在PersonaGym上也提高了+11.4%。
+
+[阅读原文](https://arxiv.org/abs/2604.08986)
+
+---
+
+## 26. E3-TLR：工具集成推理的增强体验开发
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10
+
+**作者**: Weiyang Guo, Zesheng Shi, Liye Zhao, Jiayuan Ma, Zeen Zhu, Junxian He, Min Zhang, Jing Li
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces E3-TIR, a warm-up paradigm for agent training that integrates diverse experience types to improve exploration and mitigate distribution shift in tool-integrated reasoning.
+
+**摘要**: arXiv：2604.09455v1宣布类型：新摘要：虽然大型语言模型（LLM）在工具集成推理（TLR）方面表现出了巨大的潜力，但现有的训练范式面临着巨大的局限性：Zero-RL由于缺乏事先指导而遭受探索效率低下和模式退化的问题，而SFT-then-RL则受到高数据成本的限制和低信息崩溃造成的能力平台。为了应对这些挑战，我们提出了E3-TLR（增强体验利用），这是代理培训早期阶段的热身范式。具体来说，我们将培训制定为三种体验类型的动态集成：专家前置、专家引导和自我探索。通过围绕专家“锚点”执行多样化的分支探索并采用混合政策优化机制，我们有效地缓解了分布转移并解决了共享前置引起的优化冲突。我们的方法动态调整模型的知识边界，有效地平衡了探索多样性与训练效率。实验结果表明，E3-TLR在工具使用任务方面比传统范式实现了6倍的性能改进，同时需要的合成数据少于10。此外，在投资回报率方面，这是一个综合性能、数据成本和培训效率的综合指标，与基线相比，我们实现了1.46倍的增长。代码可在https://github.com/yuki-younai/E3-TIR上获取。
+
+[阅读原文](https://arxiv.org/abs/2604.09455)
+
+---
+

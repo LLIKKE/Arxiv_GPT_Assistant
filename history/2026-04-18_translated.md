@@ -1,0 +1,403 @@
+# 💡 今日研究速览 (Daily Summary)
+
+# 针对LLM和代理的强化学习
+今天的研究表明，用于大型语言模型的强化学习（RL）技术已经显着成熟，超越了基础对齐，以解决训练稳定性、信用分配和奖励设计方面的细微差别挑战。一个明显的趋势是开发为LLM量身定制的新颖、可扩展的RL范式，例如将行为正规化RL框架为通过离散梯度流（值梯度流）解决的最佳传输问题，或集成细粒度流程监督，以在搜索等复杂任务中更好地分配信用（CW-GRPO）。与此同时，对失败模式（例如可验证奖励设置（WLVR）中的奖励黑客攻击）的批判性分析凸显了社区对稳健性的关注。这些进步正在应用于不同的领域--从布局优化（TOPCELL）和财务策略生成到视觉RAG（UniDoc-RL）和推荐系统（GenRec）--表明RL作为一个通用引擎的角色，用于专门化和优化特定、高风险应用程序的LLM行为。
+
+# 自我改进和进化的代理人
+代理设计的前沿越来越多地由框架定义，这些框架能够通过交互和反思实现持续、自主的改进。一个关键的突破是从静态代理转向代理的核心政策或技能集本质上是可进化的系统。通过交互（SAGER）自我进化的个性化用户策略技能和对操纵任务采用长期短期反射优化的具体代理就是例证。此外，通过多代理系统（TREX）实现整个LLM培训生命周期的自动化代表了向元优化的范式转变，代理自己计划探索并从迭代试验中提取见解。这些方法共同将该领域推向更具适应性、持久性和能力的自治系统，这些系统可以从经验中学习，而无需持续的人类干预。
+
+# 高效且潜在的推理
+一个主要的研究重点是使模型内的推理过程在计算上更加高效和结构上更加明确。创新包括新颖的架构，例如具有内部召回的环形转换器，允许测试时计算扩展，以及利用潜在激活模式来指导长上下文RL（LongAct）的稀疏更新的方法。还非常强调动态资源分配：新框架自适应地为视觉任务选择高效的推理格式，以减少令牌使用，而受约束的策略优化方法动态分配测试时计算。引入明确、有序的潜在思想序列作为手语翻译等任务的中间层进一步强调了使推理易于处理、可检查和高效的趋势，无论是通过建筑创新还是自适应推理时间策略。
+
+# 多模式和视觉推理
+多模式领域的研究正在快速集成先进的RL和推理技术，以解决复杂的、开放式的任务。统一的主题是使用结构化强化学习来协调视觉和文本模式上复杂的代理行为。例如，新框架采用分层动作空间和密集多奖励方案来进行视觉检索增强生成（UniDoc-RL），而其他框架则使用RL来训练模型，用于平衡性能与效率的自适应视觉推理。对视觉语言模型中物理推理的奖励设计的系统研究强调了定制激励结构的关键作用。除了代理之外，类似的RL原则也被应用于改进生成模型本身，例如通过视觉生成的奖励意识轨迹塑造和具有多个目标的扩散模型的分步对齐。
+
+# 模型效率和专业化
+加强大型型号实际部署的努力正在多个方面取得进展，特别是通过专业化的路由和有针对性的微调。一个值得注意的发展是反事实路由（CoR），这是一种用于专家混合模型的免训练推理方法，它动态重新分配计算以减轻幻觉，直接提高可靠性，无需重新训练。对于流匹配模型，LeapAlign等新的直接梯度微调方法能够将奖励有效传播到早期世代步骤。在图形用户界面自动化领域，轻量级代理框架利用多角色编排和RL进行协作探索，证明可以通过高效、专业的架构而不是单一模型来实现重要的功能。
+
+---
+
+## 1. RL是否扩大了LLM代理的能力边界？A Pass@（k，T）分析
+
+**得分**: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10
+
+**作者**: Zhiyuan Zhai, Wenjing Yan, Xiaodan Shao, Xin Wang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Directly addresses whether RL expands the capability boundary of LLM agents, introducing a new metric and showing RL enables compositional strategies, strongly matching the Agents for LLMs topic.
+
+**摘要**: arXiv：2604.14877v1公告类型：新摘要：强化学习是否真的扩展了LLM代理可以做的事情，或者只是让它们更可靠？对于静态推理，最近的工作回答了第二个问题：基础和RL pass@k曲线在大k处收敛。我们询问这是否适用于代理工具的使用，其中T轮交互启用重新采样无法恢复的合成策略。我们引入了PAS @（k，T），这是一种二维指标，可以联合改变采样预算k和交互深度T，将能力扩展与效率改进分开。我们的主要发现是，与静态推理结果相反，工具使用RL确实扩大了能力边界：RL代理的通过曲线拉到基本模型的上方，并且差距在k大时扩大而不是收敛。扩展专门用于组合、顺序信息收集;在更简单的任务中，RL的行为与之前的工作预测的相同。在匹配的训练数据下，有监督的微调会回归相同组成任务的边界，将自我导向的探索孤立起来作为因果因素。机制分析表明，RL将基本策略分布重新加权到子集，该子集的下游推理更常产生正确答案，改进集中在代理如何集成检索到的信息上。这些结果调和了LLM RL的乐观和悲观解读：对于不同的任务类型，两者都是正确的。
+
+[阅读原文](https://arxiv.org/abs/2604.14877)
+
+---
+
+## 2. 环路变形金刚的稳定性和推广性
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Asher Labovich
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a novel looped transformer architecture with internal recall for test-time compute scaling, directly addressing latent reasoning and recurrent latent computation.
+
+**摘要**: arXiv：2604.15259v1宣布类型：新摘要：循环转换器通过在更困难的问题上花费更多迭代来承诺测试时的计算扩展，但目前尚不清楚哪些架构选择可以让他们在测试时外推到更困难的问题，而不是记住特定于训练的解决方案。我们引入了一个基于定点的框架，用于沿着稳定性的三个轴（可达性、输入依赖性和几何）分析循环架构，并使用它来描述定点迭代何时产生有意义的预测。从理论上讲，我们证明了不含召回的循环网络具有可计数的不饱和点，并且无法在任何谱区下实现强的输入依赖性，而召回与外部正规化相结合可靠地产生了一个不饱和点同时可达、输入局部光滑、并由稳定的反向传播支持的制度。从经验上看，我们在国际象棋、数独和上训练单层循环转换器，并发现下游性能跟踪框架跨任务和架构配置的预测。我们还引入了内部回忆，这是一种新型的回忆放置变体，并表明一旦应用外部规范化，它就会与标准回忆放置竞争，并且在数独上，远优于标准回忆放置。
+
+[阅读原文](https://arxiv.org/abs/2604.15259)
+
+---
+
+## 3. SAGER：推荐代理的自我进化用户策略技能
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Zhen Tao, Riwei Lai, Chenyun Yu, Weixin Chen, Li Chen, Beibei Kong, Lei Cheng, Chengxiang Zhuo, Zang Li, Qingqiang Sun
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a self-evolving agent framework where each user has a personalized reasoning policy skill that improves through interaction, directly matching the self-improving agent criterion.
+
+**摘要**: arXiv：2604.14972v1宣布类型：新摘要：基于大型语言模型（LLM）的推荐代理通过进化每个用户的语义记忆来个性化他们所知道的内容，但他们的推理方式仍然是一个通用的、静态的系统提示，在所有用户中相同共享。这种不对称性是一个根本瓶颈：当推荐失败时，代理会更新其对用户偏好的记忆，但从不询问导致失败的决策逻辑，无论累积了多少错误，其推理过程在结构上都不会改变。为了解决这一瓶颈，我们提出了SAGER（个性化推荐的自进化代理），这是第一个推荐代理框架，其中每个用户都配备了专门的策略技能，这是一个结构化的自然语言文档，编码个性化决策原则，通过交互不断进化。SAGER引入了一种两种表示技能架构，它将丰富的进化基础与最小的推理时间注入分开，一种增量对比思维链引擎，通过将接受的项与未选择的项进行比较来诊断推理缺陷，同时保留积累的先验，以及技能增强的列表推理，创建细粒度的决策边界，其中进化的技能提供真正的区分价值。四个公共基准测试的实验表明，SAGER实现了最先进的性能，收益与记忆积累垂直，证实了个性化推理过程本身是推荐改进的一个质量上独特的来源。
+
+[阅读原文](https://arxiv.org/abs/2604.14972)
+
+---
+
+## 4. 通过价值梯度流的强化学习
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Haoran Xu, Kaiwen Hu, Somayeh Sojoudi, Amy Zhang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Value Gradient Flow (VGF), a scalable new paradigm for behavior-regularized RL for LLMs, framing it as an optimal transport problem solved via discrete gradient flow.
+
+**摘要**: arXiv：2604.14265v1宣布类型：新摘要：我们研究行为正规化强化学习（RL），其中针对参考分布（离线RL中的数据集或LLM RL微调中的基本模型）的正规化对于防止错误的分布外推导致的值过度优化至关重要。现有的方法要么依赖于重新参数化的政策梯度，这很难扩展到大型生成模型，要么依赖于拒绝抽样，这在试图超越行为支持时可能过于保守。在本文中，我们提出了价值梯度流（VGF），这是一种可扩展的行为正规化RL新范式。VGF将行为正规化RL视为一个最优传输问题，该问题将参考分布映射到价值引发的最优策略分布。我们通过离散梯度流来解决这个传输问题，其中值梯度引导从参考分布初始化的粒子。我们的分析表明，VGF通过控制交通预算隐性地实施了规范化。VGF消除了显式的政策参数化，同时保持表现力和灵活性，这可以通过调整运输预算来实现自适应的测试时间扩展。大量实验表明，VGF的性能显着优于现有方法，在离线RL基准测试（D4 RL、OGBench）和LLM RL任务上实现了最先进的结果。代码和运行可在https://ryanxhr.github.io/vgf上找到。
+
+[阅读原文](https://arxiv.org/abs/2604.14265)
+
+---
+
+## 5. LLM游戏验证者：WLVR可能导致奖励黑客
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Lukas Helff, Quentin Delfosse, David Steinmann, Ruben H\"arle, Hikaru Shindo, Patrick Schramowski, Wolfgang Stammer, Kristian Kersting, Felix Friedrich
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Directly studies a failure mode of RL with Verifiable Rewards (RLVR) for LLMs, analyzing reward hacking in reasoning tasks, which is central to RL for LLMs.
+
+**摘要**: arXiv：2604.15149v1宣布类型：新摘要：随着具有可验证奖励的强化学习（WLVR）已成为LLM中扩展推理能力的主要范式，一种新的失败模式出现了：LLM游戏验证器。我们在归纳推理任务中研究这种现象，其中模型必须归纳和输出逻辑规则。我们发现RLVR训练的模型系统性地放弃规则归纳。而不是学习可概括的模式（例如，“载有红色汽车的火车向东行驶”），它们会列举实例级标签，产生通过验证器的输出，而无需捕获任务所需的关系模式。我们表明，这种行为不是理解失败，而是奖励黑客的一种形式：仅检查扩展正确性的不完美验证器承认误报。为了检测这样的捷径，我们引入了同质微扰测试（IPL），该测试在扩展和同质验证下评估单个模型输出，其中后者在逻辑同质任务下强制执行不变性。虽然真正的规则归纳保持不变，但捷径策略却失败了。我们发现快捷行为特定于RLVR训练的推理模型（例如，GPT-5、Olmo 3）且在非WLVR模型中不存在（例如，GPT-4o、GPT-4.5、Ministral）。此外，捷径的流行率随着任务复杂性和推理时计算的增加而增加。在受控训练实验中，扩展验证直接引入捷径策略，而同质验证则消除了捷径策略。这些结果表明，WLVR不仅可以通过公开的操纵，还可以通过利用验证者未能执行的内容来激励奖励黑客行为。
+
+[阅读原文](https://arxiv.org/abs/2604.15149)
+
+---
+
+## 6. 通过贡献加权组相对策略优化增强基于LLM的搜索代理
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Junzhe Wang, Zhiheng Xi, yajie yang, Hao Luo, Shihan Dou, Tao Gui, Qi Zhang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces CW-GRPO, a novel RL method for LLM-based search agents that integrates process supervision for fine-grained credit assignment, directly matching RL for LLMs criteria.
+
+**摘要**: arXiv：2604.14267v1宣布类型：新摘要：搜索代理通过访问预训练期间不可用的最新和长尾信息，将大型语言模型（LLM）扩展到静态参数知识之外。虽然强化学习已被广泛采用来培训此类代理，但现有方法面临着关键局限性：过程监督通常受到不稳定的价值估计的影响，而结果监督由于稀疏的、学徒级奖励而难以获得信用分配。为了弥合这一差距，我们提出了贡献加权GRPO（CW-GRPO），这是一个将流程监督集成到集团相对政策优化中的框架。CW-GRPO没有直接优化流程奖励，而是聘请LLM法官来评估每轮搜索的检索效用和推理正确性，从而产生每轮贡献分数。这些分数用于沿着轨迹重新调整基于结果的优势，在不牺牲优化稳定性的情况下实现细粒度的信用分配。多个知识密集型基准测试的实验表明，CW-GRPO在Qwen 3 -8B上比标准GRPO高5.0%，在Qwen 3 -1.7B上比标准GRPO高6.3%，从而导致更有效的搜索行为。额外的分析表明，成功的轨迹在各个回合中表现出集中的贡献，为搜索代理任务提供了经验性的见解。
+
+[阅读原文](https://arxiv.org/abs/2604.14267)
+
+---
+
+## 7. 超越重要性抽样：拒绝门控政策优化
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 8/10
+
+**作者**: Ziwu Sun, Zhen Gao, Jiyong Zhang, Jiaheng Li
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a new policy optimization method (RGPO) with a rejection gate, directly applicable to RLHF-style preference alignment for LLMs, matching the RL for LLMs topic.
+
+**摘要**: arXiv：2604.14895v1宣布类型：新摘要：我们提出了一种关于政策优化的新观点：优化器应该选择哪些样本足够值得信赖以驱动策略更新，而不是通过重要性比重新加权所有样本。基于这一观点，我们引入了拒绝门控策略优化（RSYS），它用范围[0，1]内的平滑、可微的接受门Alpha_theta（s，a）= g（r_theta（s，a））取代重要性抽样比r_theta = pi_theta / pi_old。与之前在训练之前将拒绝采样作为数据级启发式应用的工作不同，Rynth将拒绝提升为优化原则：门直接参与梯度计算，并与策略一起隐式更新。RNTR提供了一个统一的框架：TRPO、PPO和REINFORCE的策略梯度都对应于有效梯度权重w（r）= g '（r）* r的特定选择。我们证明，RISK保证有限的，有界的梯度方差，即使当重要性采样率是重尾（其中IS方差发散）。我们进一步表明，Ruppers只会产生一个有界的，可控的偏见，并提供了一个近似的单调的政策改善保证类似于TRPO。RSYS在计算成本方面与PPO相匹配，不需要二阶优化，并且自然扩展到RLHF风格的偏好对齐。在线偏好微调Qwen 2.5 -1. 5 B-Direct on Anthropic HH-RL HF（n = 3种子），RSYS使用双比例门，将学习锚定在之前的政策和参考模型上，实现帕累托主导的结果：在线RL方法中奖励最高（+14.8% vs PPO-RL HF）和与参考模型的最低KL偏差（-16.0% vs PPO-RL HF，-53.1% vs GRPO）。
+
+[阅读原文](https://arxiv.org/abs/2604.14895)
+
+---
+
+## 8. 唤醒睡眠专家：缓解MoE幻觉的反事实途径
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Wentao Hu, Yanbo Zhai, Xiaohui Hu, Mingkuan Zhao, Shanhong yu, Xue Liu, Kaidong Yu, Shuangyong Song, Xuelong Li
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Counterfactual Routing (CoR), a training-free inference method for MoE models that dynamically reallocates computation to mitigate hallucinations, aligning with latent reasoning efficiency goals.
+
+**摘要**: arXiv：2604.14246v1宣布类型：新摘要：稀疏专家混合（MoE）模型已实现了显着的可扩展性，但它们仍然容易受到幻觉的影响，特别是在处理长尾知识时。我们发现这种脆弱性源于静态Top-$k $路由：路由器往往更喜欢高频模式，而不是罕见的事实关联。因此，拥有关键长尾知识的“专业专家”通常被赋予较低的门控分数，并且仍然“迟钝”--尽管特定代币被证明对其他输入的因果重要性，但它们的优先级不足。为了解决这个问题，我们提出了反事实路由（CoR），这是一个免训练推理框架，旨在唤醒这些休眠的专家。CoR将逐层扰动分析与反事实专家影响（CEI）指标集成，以动态地将计算资源从语法主导层转移到知识密集型层，同时保持恒定的总激活计数，通过虚拟消融有效地检索具有因果决定性的专家。TruthfulQA、FACTOR和TriviaQA的大量实验表明，CoR在不增加推理预算的情况下平均将事实准确性提高了3.1%，与静态缩放策略相比建立了更好的帕累托前沿。
+
+[阅读原文](https://arxiv.org/abs/2604.14246)
+
+---
+
+## 9. 学习自适应推理路径以实现高效的视觉推理
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Yixu Huang, Tinghui Zhu, Muhao Chen
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes an adaptive visual reasoning framework (AVR) that dynamically selects efficient reasoning formats, trained with a novel RL method (FS-GRPO) to reduce token usage.
+
+**摘要**: arXiv：2604.14568v1宣布类型：新摘要：视觉推理模型（VRM）最近通过将视觉感知与语言推理相结合，显示出强大的跨模式推理能力。然而，他们经常思考过度，为任何任务产生不必要的长推理链。我们将这个问题归因于视觉推理中的\textBF{推理路径冗余}：许多视觉问题不需要完整的推理过程。为了解决这个问题，我们提出了\textBF{AVR}，这是一个自适应视觉推理框架，它将视觉推理分解为三个认知功能：视觉感知、逻辑推理和答案应用。它进一步使模型能够在三种响应格式中动态选择：完整格式、仅感知格式和直接回答。AVR使用FS-GRPO进行训练，这是组相对策略优化的改编，鼓励模型选择最有效的推理格式，同时保持正确性。多个视觉语言基准测试的实验表明，AVR将标记使用量减少了50- 90%，同时保持总体准确性，尤其是在感知密集型任务中。这些结果表明，自适应视觉推理可以有效地减轻VRM中的过度思考。代码和数据可访问：https://github.com/RunRiotComeOn/AVR。
+
+[阅读原文](https://arxiv.org/abs/2604.14568)
+
+---
+
+## 10. UniDoc-RL：具有层次动作和密集奖励的粗到精视觉RAG
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Jun Wang, Shuo Tan, Zelong Sun, Tiancheng Gu, Yongle Zhao, Ziyong Feng, Kaicheng Yang, Cewu Lu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a unified RL framework for visual RAG agents with a hierarchical action space and dense multi-reward scheme, directly aligning with RL for LLMs and self-improving agents.
+
+**摘要**: arXiv：2604.14967v1宣布类型：新摘要：检索增强生成（RAG）利用外部视觉知识扩展了大型视觉语言模型（LVLM）。然而，现有的视觉RAG系统通常依赖于通用检索信号，而忽视了复杂推理所必需的细粒度视觉语义。为了解决这一局限性，我们提出了UniDoc-RL，这是一个统一的强化学习框架，其中LVLM代理联合执行检索、重新排序、主动视觉感知和推理。UniDoc-RL将视觉信息获取定义为具有分层动作空间的顺序决策问题。具体来说，它逐步细化视觉证据，从粗粒度的文档检索到细粒度的图像选择和活动区域裁剪，使模型能够抑制不相关的内容并关注信息密集的区域。为了进行有效的端到端培训，我们引入了密集的多重奖励计划，为每个动作提供任务感知的监督。UniDoc-RL基于集团相对政策优化（GRPO），将代理行为与多个目标相结合，而无需依赖单独的价值网络。为了支持这种训练范式，我们策划了一个包含高质量推理轨迹的全面数据集，并带有细粒度的动作注释。三个基准测试的实验表明，UniDoc-RL始终超越最先进的基线，比之前的基于RL的方法获得高达17.7%的收益。
+
+[阅读原文](https://arxiv.org/abs/2604.14967)
+
+---
+
+## 11. 奖励意识轨迹整形，以实现几步视觉生成
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Rui Li, Bingyu Li, Yuanzhi Liang, HuangHai Bin, Chi Zhang, XueLong Li
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a reward-aware trajectory shaping framework for few-step visual generation, aligning student distillation with preference-based rewards to surpass teacher performance.
+
+**摘要**: arXiv：2604.14910v1宣布类型：新摘要：以极少数的采样步骤实现高保真生成长期以来一直是生成式建模的核心目标。现有的方法主要依赖于基于蒸馏的框架来将原始的多步去噪过程压缩到几步生成器中。然而，这种方法本质上限制了学生模仿更强大的多步老师，将老师强加为学生表现的上限。我们认为，引入\textBF{偏好对齐意识}使学生能够优化奖励偏好的一代质量，有可能超越教师，而不是被限制在严格的教师模仿。为此，我们提出了\textBF{Reward-Aware Trajectory Shaping（RATS）}，这是一个用于偏好对齐的几步生成的轻量级框架。具体来说，教师和学生的潜在轨迹通过地平线匹配在关键去噪阶段对齐，同时引入\textBF{奖励感知门}来根据教师的相对奖励表现自适应地调节教师指导。当老师获得更高的奖励时，轨迹塑造就会加强，当学生匹配或超越老师时，轨迹塑造就会放松，从而实现持续的奖励驱动改进。通过无缝集成轨迹蒸馏、奖励感知门控和偏好对齐，RATS可以有效地从高位生成器传输偏好相关知识，而不会产生额外的测试时计算费用。实验结果表明，RATS大大提高了几步视觉生成的效率--质量权衡，显着缩小了几步学生和更强的多步生成器之间的差距。
+
+[阅读原文](https://arxiv.org/abs/2604.14910)
+
+---
+
+## 12. TOPCELL：通过LLM进行标准单元的布局优化
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Zhan Song, Yu-Tung Liu, Chen Chen, Guoheng Sun, Jiaqi Yin, Chia-tung Ho, Ang Li, Haoxing Ren, Cunxi Yu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Uses Group Relative Policy Optimization (GRPO), an RL method, to fine-tune an LLM for topology optimization, directly aligning with RL for LLMs.
+
+**摘要**: arXiv：2604.14237v1宣布类型：新摘要：晶体管布局优化是标准单元设计中的关键步骤，直接决定扩散共享效率和下游可路由性。然而，识别最佳布局仍然是一个持久的瓶颈，因为随着高级节点电路复杂性的增加，传统的详尽搜索方法在计算上变得棘手。本文介绍了TOPCELL，这是一个新颖且可扩展的框架，它使用大型语言模型（LLM）将多维布局探索重新定义为生成性任务。我们采用组相对政策优化（GRPO）来微调模型，使其布局优化策略与逻辑（电路）和空间（布局）约束保持一致。针对先进2纳米技术节点的工业流程中的实验结果表明，TOPCELL在发现可路由的物理感知的布局方面显着优于基础模型。当集成到用于7纳米库生成任务的最先进（SOTA）自动化流程中时，TOPCELL展现出强大的零激发概括，并与详尽求解器的布局质量相匹配，同时实现85.91倍的加速。
+
+[阅读原文](https://arxiv.org/abs/2604.14237)
+
+---
+
+## 13. GenRec：面向偏好的大规模推荐生成框架
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Yanyan Zou, Junbo Qi, Lunsong Huang, Yu Li, Kewei Xu, Jiabao Gao, Binglei Zhao, Xuanhua Yang, Sulong Xu, Shengjie Li
+
+**机构**: JD.com
+
+**💡 亮点 (Highlight)**: Proposes GRPO-SR, a reinforcement learning method for aligning generative recommendation outputs with user preferences, directly matching RL for LLMs criteria.
+
+**摘要**: arXiv：2604.14878v1公告类型：新摘要：生成检索（GR）提供了一个很有前途的范例，通过下一个令牌预测（NTP）的建议。然而，将其扩展到大规模工业系统引入了三个挑战：（i）在单个请求中，由于分页请求机制，相同的模型输入可能会产生不一致的输出;（ii）基于语义ID使用多令牌项表示对长用户行为序列进行编码的成本过高，以及（iii）将生成策略与细微差别的用户偏好信号对齐。我们介绍了GenRec，这是一个部署在JD App上的面向偏好的生成框架，可以在单个仅解码器的架构中解决上述挑战。对于训练目标，我们提出了逐页的NP任务，该任务监控整个交互页面，而不是单独监控每个交互项目，提供更密集的梯度信号并解决逐点训练的一对多模糊性。在预填充方面，非对称线性令牌合并器在提示中压缩多令牌语义ID，同时保留全分辨率解码，将输入长度减少约2倍，准确性损失可以忽略不计。为了进一步使输出与用户满意度保持一致，我们引入了GRPO-SR，这是一种强化学习方法，将组相对政策优化与NLL正规化结合起来以实现训练稳定性，并采用混合奖励将密集奖励模型与相关性门相结合的混合奖励来减轻奖励黑客攻击。在为生产流量提供服务的长达一个月的在线A/B测试中，GenRec的点击数比现有管道提高了9.5%，交易数提高了8.7%。
+
+[阅读原文](https://arxiv.org/abs/2604.14878)
+
+---
+
+## 14. 当缺失成为结构：金融KOL话语中的意向保留政策完成
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Yuncong Liu, Yuan Wan, Zhou Jiang, Yao Lu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes an intent-preserving policy completion framework using offline reinforcement learning to turn KOL discourse into executable trading strategies.
+
+**摘要**: arXiv：2604.14333v1宣布类型：新摘要：社交媒体上的关键意见领袖（KOL）话语被广泛用作投资指南，但在不注入对未指定执行决策的假设的情况下将其转化为可执行的交易策略仍然是一个悬而未决的问题。我们观察到，KOL陈述中的差距不是随机缺陷，而是结构化的分离：KOL表达方向性意图（购买或出售什么以及为什么），而执行决策（何时、购买多少、持续多长时间）系统性地未指定。基于这一观察，我们提出了一个意图保持策略完成框架，将KOL话语视为部分交易策略，并使用离线强化学习来完成围绕KOL表达意图的缺失执行决策。在YouTube和X（2022-2025）的多模态KOL话语上进行的实验表明，KICL在两个平台上都实现了最佳的回报率和夏普比率，同时保持零不支持条目和零方向反转，并且消融证实，完整的框架比KOL对齐的基线产生了18.9%的回报率提高。
+
+[阅读原文](https://arxiv.org/abs/2604.14333)
+
+---
+
+## 15. 通过约束策略优化为推理LLM实现自适应测试时计算分配
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Zhiyuan Zhai, Bingcong Li, Bingnan Xiao, Ming Li, Xin Wang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a constrained policy optimization method for adaptive test-time compute allocation, directly addressing a core problem in efficient reasoning for LLMs.
+
+**摘要**: arXiv：2604.14853v1宣布类型：新摘要：测试时计算缩放，即通过重复采样、搜索或扩展推理在推理期间花费额外计算的实践，已成为提高大型语言模型性能的有力杠杆。然而，在有限的推理预算下部署这些技术需要一个当前系统基本上忽视的决定：哪些输入值得更多计算，哪些可以便宜地回答？我们将其形式化为一个受约束的优化问题（在平均计算预算的情况下最大化预期准确性），并使用两阶段“求解然后学习”管道来解决它。在求解阶段，拉格朗日松弛将全局约束分解为每个实例的子问题，每个子问题都承认一个封闭形式的Oracle动作，该动作根据成本对准确性进行最佳定价。我们证明诱导成本在二元变量中是单调的，从而能够通过二分法搜索实现精确的预算目标。在学习阶段，训练轻量级分类器以根据廉价输入特征预测Oracle操作，从而摊销分配规则以供实时部署。我们确定，学习策略的任务级遗憾受到其模仿错误乘以每个实例最坏情况的差距的限制，从而从约束推理到监督分类的彻底简化。使用三个LLM（DeepSeek-V3、GPT-4 o-mini、Qwen 2.5 - 7 B）在MATH和GSM 8 K上进行的实验表明，我们的方法始终优于统一和启发式分配基线，在匹配的预算约束下实现了高达12.8%的相对准确性改进，同时以超过91%的模仿准确率密切跟踪拉格朗日预言上界。
+
+[阅读原文](https://arxiv.org/abs/2604.14853)
+
+---
+
+## 16. TreX：通过代理驱动的基于树的探索自动化LLM微调
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Zerun Ma, Guoqiang Wang, Xinchen Xie, Yicheng Chen, He Du, Bowen Li, Yanan Sun, Wenran Liu, Kai Chen, Yining Li
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a multi-agent system (TREX) that automates the entire LLM training lifecycle, featuring a self-improving agent framework that plans exploration paths and distills insights from iterative trials.
+
+**摘要**: arXiv：2604.14116v1宣布类型：新摘要：虽然大型语言模型（LLM）使人工智能研究代理能够执行孤立的科学任务，但自动化复杂的现实世界工作流程（例如LLM培训）仍然是一个重大挑战。在本文中，我们介绍了TRX，这是一个多代理系统，可自动化整个LLM培训生命周期。通过协调两个核心模块（研究者和执行者）之间的协作，该系统无缝地执行需求分析、开放领域文献和数据研究、培训策略的制定、数据食谱的准备以及模型培训和评估。多轮实验过程被建模为搜索树，使系统能够有效地规划探索路径、重复使用历史结果并从迭代试验中提取高级见解。为了评估自动化LLM培训的能力，我们构建了FT-Bench，这是一个基准，由源自现实世界场景的10项任务组成，范围从优化基本模型能力到增强特定领域任务的性能。实验结果表明，TreX代理能够一致地优化目标任务的模型性能。
+
+[阅读原文](https://arxiv.org/abs/2604.14116)
+
+---
+
+## 17. 具有多目标的分步降噪时间扩散对齐
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Qi Zhang, Dawei Wang, Shaofeng Zou
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a step-level RL formulation for aligning diffusion models with multiple objectives, directly relevant to RL for generative models with a novel multi-objective framework.
+
+**摘要**: arXiv：2604.14379v1宣布类型：新摘要：强化学习（RL）已成为将扩散模型与人类偏好相匹配的强大工具，通常通过在KL正规化约束下优化单个奖励函数。然而，在实践中，人类的偏好本质上是多元化的，一致的模型必须平衡多个下游目标，例如美学质量和文本图像一致性。现有的多目标方法要么依赖于昂贵的多目标RL微调，要么依赖于在去噪时融合单独对齐的模型，但它们通常需要访问奖励值（或其梯度）和/或在所得去噪目标中引入逼近误差。在本文中，我们重新审视了扩散模型的RL微调问题，并通过引入阶梯级RL公式来解决识别最佳策略的棘手问题。在此基础上，我们进一步提出了多目标分步去噪时间扩散对齐（MSDS DA），这是一个无重新训练的框架，用于将扩散模型与多个目标对齐，以封闭形式获得最佳反向去噪分布，平均值和方差直接用单目标基本模型表达。我们证明，这个去噪时间目标完全等效于阶跃RL微调，不会引入逼近误差。此外，我们提供了数值结果，表明我们的方法优于现有的降噪时间方法。
+
+[阅读原文](https://arxiv.org/abs/2604.14379)
+
+---
+
+## 18. 潜思思考：无光泽手语翻译的新范式
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Yiyang Jiang, Li Zhang, Xiao-Yong Wei, Li Qing
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces a reasoning-driven SLT framework using an ordered sequence of latent thoughts as an explicit middle layer, aligning with latent CoT/reasoning research.
+
+**摘要**: arXiv：2604.15301v1宣布类型：新摘要：许多收件箱系统悄悄地假设简短的签名块直接映射到口语单词。这个假设是行不通的，因为签名者经常利用上下文、空间和动作即时创造意义。我们重新审视收件箱并认为它主要是一项跨模式推理任务，而不仅仅是简单的视频到文本的转换。因此，我们引入了一个推理驱动的收件箱框架，该框架使用潜在思想的有序序列作为视频和生成的文本之间的显式中间层。随着时间的推移，这些潜在的想法逐渐提取和组织意义。最重要的是，我们使用先计划后地面的解码方法：模型首先决定它想说什么，然后回顾视频寻找证据。这种分离提高了连贯性和忠实性。我们还构建并发布了一个新的大规模无注释的收件箱数据集，具有更强的上下文依赖性和更现实的含义。多个基准测试的实验显示，与现有的无光泽方法相比，获得了一致的收益。代码和数据将在https://github.com/fletcherjiang/SignThought接受后发布。
+
+[阅读原文](https://arxiv.org/abs/2604.15301)
+
+---
+
+## 19. LeapAlign：通过构建两步轨迹在任何一代步骤中构建训练后流匹配模型
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Zhanhao Liang, Tao Yang, Jie Wu, Chengjian Feng, Liang Zheng
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes LeapAlign, a direct-gradient fine-tuning method for flow matching models that enables efficient reward propagation to early generation steps, aligning with RL for generative model improvement.
+
+**摘要**: arXiv：2604.15311v1宣布类型：新摘要：本文重点关注流量匹配模型与人类偏好的一致性。一种有希望的方法是通过流匹配的可微生成过程直接反向传播奖励梯度来进行微调。然而，通过长轨迹反向传播会导致过高的存储成本和梯度爆炸。因此，直接梯度方法很难更新早期生成步骤，而这些步骤对于确定最终图像的全局结构至关重要。为了解决这个问题，我们引入了LeapAlign，这是一种微调方法，可以降低计算成本，并实现从奖励到早期生成步骤的直接梯度传播。具体来说，我们通过设计两个连续的跳跃，将长轨迹缩短为仅两个步骤，每个跳跃跳过多个ODE采样步骤，并在一步中预测未来的潜在性。通过随机化跳跃的开始和结束时间步，LeapAlign可以在任何生成步骤中实现高效、稳定的模型更新。为了更好地使用这些缩短的轨迹，我们为那些与长世代路径更一致的轨迹分配了更高的训练权重。为了进一步增强梯度稳定性，我们减少了幅度较大的梯度项的权重，而不是像之前的作品那样完全删除它们。在微调Flux模型时，LeapAlign在各种指标上始终优于最先进的基于GRPO和直接梯度的方法，实现卓越的图像质量和图像与文本对齐。
+
+[阅读原文](https://arxiv.org/abs/2604.15311)
+
+---
+
+## 20. LongAct：利用内在激活模式进行长上下文强化学习
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Bowen Ping, Zijun Chen, Tingfeng Hui, Qize Yu, Chenxuan Li, Junchi Yan, Baobao Chang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes LongAct, a saliency-guided sparse update strategy for RL on LLMs that leverages intrinsic activation patterns to improve long-context reasoning.
+
+**摘要**: arXiv：2604.14922v1宣布类型：新摘要：强化学习（RL）已成为增强大型语言模型（LLM）推理能力的关键驱动力。虽然最近的进展集中在奖励工程或数据合成上，但很少有研究利用模型的内在表示特征来指导训练过程。在本文中，我们首先观察到处理长上下文时查询和关键载体中存在的高强度激活。从模型量化（它确定了此类高强度激活的关键性）中汲取灵感，以及长上下文推理本质上表现出稀疏结构的见解，我们假设这些权重是有效模型优化的关键驱动力。基于这一见解，我们提出了LongAct，这是一种从均匀更新转向突出性引导稀疏更新的策略。通过选择性地仅更新与这些重要激活相关的权重，LongAct在LongBench v2上实现了大约8%的改进，并增强了RULER基准的概括性。此外，我们的方法表现出显着的通用性，持续提高了GRPO和DAPO等各种RL算法的性能。广泛的消融研究表明，关注这些显着特征是释放长期背景潜力的关键。
+
+[阅读原文](https://arxiv.org/abs/2604.14922)
+
+---
+
+## 21. 通过长短期反思和优化实现机器人操纵的可进化预定代理
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10
+
+**作者**: Jianzong Wang, Botao Zhao, Yayun He, Junqing Peng, Xulong Zhang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a self-evolving embodied agent framework using VLMs and a long short-term reflective optimization mechanism for continuous improvement.
+
+**摘要**: arXiv：2604.13533v1宣布类型：新摘要：实现通用机器人需要赋予机器人根据环境和反馈进行适应和进化的能力。传统方法面临着局限性，例如大量的训练要求、跨任务概括困难以及缺乏可解释性。即时学习为无需进行广泛训练而只是反思过去的经验的自我进化机器人提供了新的机会。然而，从任务的成功和失败中提取有意义的见解仍然是一项挑战。为此，我们提出了可进化的嵌入式代理（EEAgent）框架，该框架利用大型视觉语言模型（VLM）来更好地解释环境和政策规划。为了增强对过去经验的反思，我们提出了一种长短期反思优化（LSTRO）机制，该机制根据过去的经验和新学到的教训动态细化提示，促进持续的自我进化，从而提高总体任务成功率。对六项VIMA-Bench任务的评估表明，我们的方法设置了新的最先进水平，在复杂场景中表现明显优于基线。
+
+[阅读原文](https://arxiv.org/abs/2604.13533)
+
+---
+
+## 22. 视觉语言模型中物理推理的奖励设计
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10
+
+**作者**: Derek Lilienthal, Manisha Mukherjee, Sameera Horawalavithana
+
+**机构**: IBM
+
+**💡 亮点 (Highlight)**: Systematically studies reward design for GRPO-based VLM training on physical reasoning, directly aligning with RL for LLMs/VLMs.
+
+**摘要**: arXiv：2604.13993v1宣布类型：新摘要：视觉输入的物理推理需要视觉感知、领域知识和多步骤符号推理的紧密集成。然而，即使是最先进的视觉语言模型（VLM）也远低于人类在物理基准上的表现。虽然监督微调（SFT）和组相对政策优化（GRPO）等训练后算法在语言模型中表现出了强大的推理收益，但奖励设计如何塑造VLM物理推理行为仍然知之甚少。我们针对基于GRPO的VLM物理推理训练提出了一项系统性的奖励消除研究。我们比较了语义丰富性不断增加的四个奖励信号：格式合规性、答案准确性、复合标题奖励（答案正确性、物理原理识别和单元一致性），以及从输入图像区域的模型注意力权重派生的新型内部奖励。我们使用IBM Granite Vision 3.3（2B）对PhyX进行评估，PhyX是一个包含3，000个问题的基准，涵盖六个物理领域和六种推理类型，采用多项选择和开放式格式。在这两种格式中，基于准确性奖励的GRPO在大多数领域上的表现优于SFT，尽管收益因奖励类型和领域而存在很大差异。奖励设计并不能统一提高绩效。相反，它会引发特定领域的推理行为。基于准确性的奖励提供了最强的整体收益。Rubric奖励可以提高结构化推理质量，而无需一致的准确性改进。基于注意力的奖励增强了空间推理，同时降低了符号领域的表现。我们的内部注意力权重奖励不需要空间注释，并将空间关系准确性从0.27提高到0.50，这表明监督模型在生成过程中所处的位置是基于视觉的物理推理的一个有希望的方向。
+
+[阅读原文](https://arxiv.org/abs/2604.13993)
+
+---
+
+## 23. 通过多角色规划迈向可扩展的轻量级图形用户界面代理
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10
+
+**作者**: Ziwei Wang, Junjie Zheng, Leyang Yang, Sheng Zhou, Xiaoxuan Tang, Zhouhua Fang, Zhiwei Liu, Dajun Chen, Yong Li, Jiajun Bu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a lightweight GUI agent framework (LAMO) that uses reinforcement learning for role-oriented cooperative exploration, aligning with self-improving agent criteria.
+
+**摘要**: arXiv：2604.13488v1宣布类型：新摘要：由多模式大型语言模型（MLLM）支持的自主图形用户界面（图形用户界面）代理可实现最终用户设备上的数字自动化。虽然扩展参数和数据都取得了巨大的收益，但先进方法在资源有限的设备上仍然面临着高昂的部署成本。当面对复杂的野外场景时，轻量级的图形用户界面代理会因端到端情景学习下容量有限和任务可扩展性较差而受到限制，阻碍了对多代理系统（MAS）的适应，而培训多个特定技能的专家仍然昂贵。我们能否在这种成本-可扩展性困境中达成有效的权衡，使轻量级MLLM能够参与现实的图形用户界面工作流程？为了应对这些挑战，我们提出了LAMO框架，该框架赋予轻量级MLLM特定于图形用户界面的知识和任务可扩展性，允许多角色编排扩展其图形用户界面自动化的能力边界。LAMO将面向角色的数据合成与两阶段训练方案相结合：（i）通过困惑加权交叉熵优化进行监督微调，以实现知识提炼和视觉感知增强，以及（ii）强化学习，以实现面向角色的合作探索。通过LAMO，我们开发了一个任务可扩展的原生图形用户界面代理LAMO-3B，支持整体执行和MAS风格的编排。当与高级规划者配对作为即插即用的政策执行者时，LAMO-3B可以持续从规划者的进步中受益，从而实现更高的性能上限。广泛的静态和在线评估验证了我们设计的有效性。
+
+[阅读原文](https://arxiv.org/abs/2604.13488)
+
+---
+
+## 24. 认知伴侣：一种轻量级并行监控架构，用于检测LLM代理的推理退化并从中恢复
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10
+
+**作者**: Rafflesia Khan, Nafiul Islam Khan
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a parallel monitoring architecture for LLM agents that uses hidden-state probes to detect reasoning degradation, aligning with latent reasoning methods for efficiency.
+
+**摘要**: arXiv：2604.13759v1宣布类型：新摘要：执行多步任务的大型语言模型（LLM）代理人会遭受推理降级、循环、漂移、停滞状态的困扰，在硬任务中的比例高达30%。当前的解决方案包括硬步骤限制（突然）或LLM作为判断监控（每步10-15%的费用）。本文介绍了Cognitive Companion，这是一种并行监控架构，有两种实现：基于LLM的Companion和新型的零开销基于Probe的Companion。我们报告了一项以Gemma 4 E4 B为中心的三批可行性研究，并对Qwen 2.5 1.5B和Llama 3.2 1B进行了额外的探索性小模型分析。在我们的实验中，基于LLM的Companion将容易循环的任务的重复性减少了52-62%，并产生了约11%的额外费用。基于探针的Companion在第28层的隐藏状态上进行训练，在零测量推断负担下显示出平均效应大小为+0.471;其最强的探针结果在小型代理标记数据集上实现了交叉验证AUROC 0.840。一个关键的经验发现是，同伴的好处似乎取决于任务类型：同伴对容易循环和开放的任务最有帮助，而对结构性更强的任务的影响是中性或负面的。我们的小模型实验还提出了一个可能的规模边界：即使采取干预措施，同伴也没有改善1B-1.5B模型上的测量质量代理。总体而言，该论文应被视为可行性研究而不是最终验证。结果提供了令人鼓舞的证据，表明子令牌监控可能是有用的，将任务类型敏感性识别为实际设计约束，并激励选择性伴侣激活作为未来工作的一个有希望的方向。
+
+[阅读原文](https://arxiv.org/abs/2604.13759)
+
+---
+

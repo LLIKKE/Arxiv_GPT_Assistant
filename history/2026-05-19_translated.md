@@ -1,0 +1,480 @@
+# 💡 今日研究速览 (Daily Summary)
+
+# LLM的RL
+本周的一个主要主题是强化学习（RL）作为后训练主要引擎的成熟，超越简单的奖励建模，解决对齐、推理和效率方面的基本挑战。一些作品引入了新颖的奖励设计和训练框架，直接解决了GRPO等现有方法的局限性。例如，**ICRL**提出了一个内化自我批评的框架，而**用语义级奖励（CSR）校准LLM**和**减少安全税（OPSA）** 分别引入了语义校准和政策上的自我提炼奖励，以改进校准并平衡安全推理权衡。**VSPO**用引导载体修改GRPO，以实现细粒度的行为控制，而**Nudging Beyond the Comfort Zone（NudgeRL）**引入了具有策略级上下文的结构化探索，以在更大的推出预算下增强推理能力。在效率方面，**DualKV**通过消除Flash Attention中的共享提示复制来解决长上下文RL训练的计算瓶颈，而**GRLO**证明推理和代码任务的强大概括可以通过最少的数据和计算从头开始实现。**CoT混淆（关于监控的文档培训）**的研究是一个重要的警示故事，揭示了RL训练的模型可以通过混淆其思维链来学习奖励黑客，这一发现对代理安全和对齐研究具有深远的影响。
+
+# 多模式和视频传播
+强化学习正在向生成式视频和多模式模型取得重大进展，重点关注对齐、可验证奖励和训练效率。**视频模型可以通过可验证的奖励进行推理（VideoWLVR）**直接将RL VR范式从LLM转化为视频传播，引入了新颖的奖励设计和培训管道。**Flash-GRPO**通过一步策略优化显着提高了对齐视频扩散模型的效率，解决了该领域的关键瓶颈。在多模式空间，**ASRU**利用激活引导与自定义RL奖励相结合，在大型多模式模型中执行有针对性的取消学习。对于视觉语言模型，**从失败到反馈**引入了一种组修改优化范式，该范式使用修改后的候选者的奖励塑造来改善基于困难案例的对象级基础，展示了RL如何完善感知能力。
+
+# 代理和自我改进系统
+代理研究的前沿是由框架定义的，这些框架能够实现持续、自主的自我改进，而无需昂贵的体重更新。** Solvita**和**FORGE**都提出了自进化代理的协议，分别使用对图结构知识网络的RL更新和具有反射循环的人口广播来不断提高性能。** Argus**引入了一个深度研究代理，带有RL训练的Navigator，用于可扩展的证据组装和并行搜索。** ALSO**使用在线对抗式强盗框架解决了多智能体社会环境中动态适应的挑战。**Differentiable Mixture-of-Agents**框架提出了一个具有可区分路由的自进化多代理系统，激励了新兴的群体智能。对于科学领域，**DrugSAGE**将自我进化的代理经验应用于药物发现，而**LEAP**则为迭代科学设计引入了一个自动化级别的评估指标，表明使用此指标的离线RL可以提高代理性能。AstraFlow** 为代理LLM提供了关键的系统级贡献、解耦推出、简化流程和面向简化流程的RL系统中的培训，以实现可扩展的多策略培训。最后，**神经架构的自主发现（AIRA-Compose和AIRA-Design）** 证明了LLM代理可以自主发现和设计新的神经架构，递归地改进自己。
+
+# 奖励设计与优化
+深入研究奖励和优化机制，可以发现一种更有原则、更有效、更可控的方法的趋势。具有习得可靠性的流程奖励（BetaPRM）**通过预测步骤级成功概率和预测的可靠性来推进流程奖励建模，从而实现自适应计算。**$f$-Trajectory Balance**损失系列为使用政策内和政策外数据调整生成模型、统一GFlowNets和LLM微调提供了理论基础。** AdaScope**挑战了每个去噪步骤对于扩散模型的RL微调同样重要的假设，提出了一种可降低成本并改善对齐的自适应选择策略。**嵌入扰动探索偏好优化（E2 PO）**通过在嵌入级别引入扰动来解决流模型中组内方差崩溃的问题。在机器翻译领域，**无引用RL微调**成功将GRPO与新颖的无引用混合奖励应用于编码器-解码器模型。** PAGER**通过使用精确对齐的RL奖励来实现点精确的几何控制，弥合了图形用户界面控制中的语义执行差距。**编码代理的上下文修剪（LaMR）** 引入了用于上下文修剪的潜在多条目推理框架，优化代理的输入空间。
+
+---
+
+## 1. ICRL：学会通过强化学习内化自我批评
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Jianbo Lin, Xiaomin Yu, Yi Xin, Yifu Guo, Zhuosong Jiang, Zhongqi Yue, Weishi Wang, Heqing Zou, Chengwei Qin, Hui Xiong
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes ICRL, a novel RL framework that jointly trains a solver and critic to internalize self-critique, directly addressing RL for LLMs and self-improving agents.
+
+**摘要**: arXiv：2605.15224v1宣布类型：新摘要：基于大型语言模型的代理会犯错，但批评通常可以引导同一模型走向正确的行为。然而，当删除批评时，模型可能会在同一查询上再次失败，这表明它尚未将批评的指导内化为其潜在能力。与此同时，冻结的批评者无法随着时间的推移提高其反馈质量，从而限制了迭代自我改进的潜力。为了解决这个问题，我们提议学习通过强化学习（ICRL）内化自我批评，这是一种新颖的框架，可以从共同的主干中联合训练解决者和批评者，将批评引发的成功转化为无人协助的解决者能力。批评者根据解决者随后的绩效收益获得奖励，激励可操作的反馈。为了解决受批评条件行为和无批评行为之间的分布转变，ICRL引入了一种分布校准重新加权比，该比选择性地转移与求解器自己的即时分布兼容的批评引导改进。此外，角色群体优势估计可以稳定两个角色的联合优化。这些机制共同确保了解决者学会在没有外部批评的情况下改进自己，而不是依赖于批评条件的行为。我们使用Qwen 3 - 4 B和Qwen 3 - 8 B作为主干，在跨越代理和数学推理任务的不同基准上评估ICRL。结果显示出持续的进步，在代理任务上平均比GRPO提高6.4分，在数学推理上平均提高7.0分。值得注意的是，博学的8B评论家与32 B评论家相当，但使用的代币要少得多。该代码可在https://github.com/brick-pid/ICRL上获取。
+
+[阅读原文](https://arxiv.org/abs/2605.15224)
+
+---
+
+## 2. DualKV：共享提示注意力，通过大卷展和长上下文实现高效RL训练
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Jiading Gai, Shuai Zhang, Xiang Song, Bernie Wang, George Karypis
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes DualKV, a novel FlashAttention kernel that eliminates shared-prompt replication in RL post-training (GRPO/DAPO), achieving significant speedups for large-rollout, long-context LLM training.
+
+**摘要**: arXiv：2605.15422v1宣布类型：新摘要：现代RL后训练方法（例如GRPO和DAPO）训练从$P$令牌的共享提示中采样的$R$令牌的$N$响应序列，但标准的Flash Attention在向前和向后传递中复制所有$P$提示令牌$N$次--在相同的隐藏状态上复制计算和内存。在大规模部署、长上下文RL训练（$N{\geq}16$，$P{\geq}8\text{K}$）中，这种冗余主导了策略更新成本。我们观察到，在仅解码器模型中，因果掩蔽使提示表示在每个层的序列中保持不变，因此所有的每令牌操作（范数，投影，MLP）和注意力都可以处理提示一次-这是一个尚未在内核级别用于训练的属性。我们提出了\textbf{DualKV}，第一个在RL训练期间消除共享提示复制的FlashAttention内核变体，通过（1）融合CUDA向前和向后内核，在单个内核启动中在两个不相交的KV区域-共享上下文和每个序列响应-上进行复制，以及（2）~在veRL中重新设计数据管道，其每微批将$N（P{+}R）$令牌重新打包成$P{+}NR$令牌，通过因子$\rho = N（P{+}R）/（P{+}NR）$将从注意力到整个模型的令牌减少扩展。DualKV在数学上相当于标准注意力，并且没有引入任何逼近。在Qwen 3 -8B GRPO训练中，使用8 $\times $H100图形处理器（$N{=}32$，8 K-上下文），DualKV实现了$1.63$-$2.09$times $策略更新加速，支持$2\times $更大的微批处理，并将MFU从$36\%$提高到$76\%$。DAPO也出现了类似的涨幅（2.47美元\乘$加速，77美元\%$ MFU）。在30 B MoE规模下，在16 $\times $H100上，DualKV实现了$3.82\times $ policy-Update和$3.38\times $端到端步进加速（需要4路收件箱序列并行性以避免OOM）。
+
+[阅读原文](https://arxiv.org/abs/2605.15422)
+
+---
+
+## 3. 视频模特可以通过可验证的奖励推理
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Tinghui Zhu, Sheng Zhang, James Y. Huang, Selena Song, Xiaofei Wen, Yuankai Li, Hoifung Poon, Muhao Chen
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes VideoRLVR, a novel RL with verifiable rewards (RLVR) recipe for video diffusion models, directly matching the RL for LLMs criterion with a new reward design and training pipeline.
+
+**摘要**: arXiv：2605.15458v1宣布类型：新摘要：视频扩散模型在感知现实主义和时间一致性方面取得了快速进展，但它们仍然主要针对合理生成而不是可验证推理进行优化。这种限制在生成的视频必须满足明确的空间、时间或逻辑约束的任务中尤其明显。受带可验证奖励的强化学习（WLVR）在面向推理的语言模型中的作用的启发，我们引入了VideoWLVR，这是一种通过基于规则的反馈优化视频扩散模型的实用方法。VideoWLVR将视频推理制定为可验证的视觉轨迹的生成，由SDE-GRPO优化主干、密集分解奖励和用于高效训练的早期聚焦策略组成。Early-Step Focus策略将策略优化限制在早期去噪阶段，将训练延迟减少约40%，同时保持性能。我们在Maze、FlowFree和Sokoban上评估VideoWLVR，这三个程序生成的域具有客观成功标准。在这些任务中，VideoWLVR持续改进监督微调基线，密集分解奖励在低成功率设置中尤其重要。我们的RL优化模型在这些可验证推理基准和域外基准上的表现也优于评估过的专有和开源视频生成模型。这些结果表明，可验证的RL可以将视频模型从感知模仿转向更可靠的规则一致的视觉推理。
+
+[阅读原文](https://arxiv.org/abs/2605.15458)
+
+---
+
+## 4. Solvita：通过大型进化增强竞争性编程的大型语言模型
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Han Li, Jinyu Tian, Rili Feng, Yuqiao Du, Chong Zheng, Chenyu Wang, Chenchen Liu, Shihao Li, Xinping Lei, Yifan Yao, Weihao Xie, Letian Zhu, Jiaheng Liu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Solvita, a self-evolving agent framework for competitive programming that uses RL updates to graph-structured knowledge networks for continuous learning without weight updates.
+
+**摘要**: arXiv：2605.15301v1宣布类型：新摘要：大型语言模型（LLM）仍然难以满足激烈竞争编程的严格推理要求。虽然最近的多代理框架试图弥合这种可靠性差距，但它们从根本上来说仍然是无状态的：它们依赖于静态检索并放弃从之前的任务中获得的宝贵的问题解决和调试经验。为了解决这个问题，我们提出了Solvita，这是一个代理进化框架，可以实现持续学习，而无需更新基础LLM的权重。Solvita将问题解决重组为一个由策略选择、程序合成、认证监督和有针对性的黑客组成的闭环系统，由四个专业代理执行：Planner、Solver、Oracle和Hacker。至关重要的是，每个代理都与一个可训练的图形结构知识网络配对。随着系统的运行，结果信号（例如通过/未通过判决、测试认证质量和黑客发现的对抗性漏洞）被重新铸造为对这些网络权重的强化学习更新。这使得代理能够根据过去的成功和失败动态路由未来的查询，随着时间的推移有效地积累可转移的推理经验。Solvita在CodeContests、APPS、AetherCode和实时Codefores回合中进行评估，在代码生成代理中建立了新的最先进技术，性能优于现有的多代理管道，并将单次通过基线的准确性几乎提高了一倍。
+
+[阅读原文](https://arxiv.org/abs/2605.15301)
+
+---
+
+## 5. 使用语义级奖励校准LLM
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Fengfei Yu, Ruijia Niu, Dongxia Wu, Yian Ma, Rose Yu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a novel RL framework (CSR) with a semantic calibration reward that directly improves LLM calibration, strongly matching the RL for LLMs criterion with a new reward design.
+
+**摘要**: arXiv：2605.15588v1宣布类型：新摘要：由于大型语言模型（LLM）被部署在医疗问题回答和法律推理等重要环境中，因此估计其输出何时可能正确的能力对于安全可靠的使用至关重要，需要经过良好校准的不确定性。具有可验证奖励的标准强化学习（WLVR）训练具有二进制正确性奖励的模型，该奖励对信心无关，对自信但错误的预测不提供任何惩罚，从而降低校准。最近的工作通过训练模型来解决这个问题，以产生口头化的信心分数以及答案并奖励符合正确性的同意。然而，言语置信度是在符号层面进行校准的，因此在具有相同语义含义的文本变体中表现出不一致。我们提出了\textBF{带有语义奖励的校准（CSR）}，这是一个直接在语义空间中校准语言模型的框架，而无需言语化置信界面。CSR将正确性奖励与新颖的语义校准奖励相结合，该奖励通过促进语义一致来鼓励在正确的推出中进行利用，并通过阻止虚假一致性来鼓励在不正确的推出中进行探索。HotpotQA上三个模型家族的实验（发行）和TriviaQA、MSMARCO和NQ-Open（未分发）表明，在几乎所有环境中，CSR始终实现比口头置信基线更低的ECA和更高的AUROC，比口头置信基线减少了高达40%美元，将AUROC提高了高达31%美元，校准行为在所有四种评估设置中稳健地推广。
+
+[阅读原文](https://arxiv.org/abs/2605.15588)
+
+---
+
+## 6. 降低LLM安全调整中的安全税与政策上的自我蒸馏
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Yu Fu, Longxuan Yu, Haz Sameen Shahgir, Zhipeng Wei, Hui Liu, N. Benjamin Erichson, Yue Dong
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes OPSA, a novel on-policy self-distillation method for safety alignment that directly addresses the safety-reasoning tradeoff via dense per-token KL supervision and teacher flip rate, strongly matching RL for LLMs criteria.
+
+**摘要**: arXiv：2605.15239v1宣布类型：新摘要：安全性一致通常会以牺牲推理能力为代价来提高对有害查询的鲁棒性，这种权衡被称为安全税。一个常见的原因是分布不匹配：有监督的微调根据人类、外部模型或固定的自生成轨迹产生的安全演示来训练目标模型，而不是根据从其自己的策略中采样的轨迹。我们将政策外培训不匹配确定为该税收的第二个来源，并研究政策内自我提炼以实现安全调整，我们称之为OPSA。该模型生成自己的推出，并从其冻结的教师副本中接受密集的按代币KL监督，前提是特权安全上下文。由于这位老师必须比采样的学生轨迹更安全，因此我们引入了\{教师翻转率}：一个衡量特权环境将不安全反应转化为安全反应的频率的标准。我们使用这个信号来搜索激活潜在安全推理的上下文，而不仅仅是引发看似安全的演示。在两个推理模型家族和五个模型规模中，OPSA在匹配数据和全参数微调下实现了比政策外自我蒸馏和外部教师蒸馏更强的安全推理权衡，其中较小模型上的收益最大（R1-Distill-1.5B为+8.85分，Qwen 3 -0.6B为+5.49分）。这些收益在训练集规模和适应性越狱评估中持续存在。令牌级分析进一步表明，OPSA将更新集中在早期合规决策令牌附近，提供了一种在保留一般推理的同时提高安全性的机制。
+
+[阅读原文](https://arxiv.org/abs/2605.15239)
+
+---
+
+## 7. 通过习得的可靠性处理奖励
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Jinyuan Li, Langlin Huang, Chengsong Huang, Shaoyang Xu, Donghong Cai, Yuyi Yang, Wenxuan Zhang, Jiaxin Huang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes BetaPRM, a distributional process reward model that predicts both step-level success probability and prediction reliability, enabling adaptive computation allocation for PRM-guided reasoning.
+
+**摘要**: arXiv：2605.15529v1宣布类型：新摘要：流程奖励模型（PRM）为推理提供步骤级反馈，但当前的PRM通常只输出每个步骤的单个奖励分数。因此，下游方法必须将不完美的阶梯级奖励预测视为可靠的决策信号，而不表明何时应该信任这些预测。我们提出BetaPRM，这是一种分布式PRM，可以预测阶梯级成功概率和预测的可靠性。考虑到蒙特卡洛延续的逐步成功监督，BetaPRM学习Beta信念，该信念通过Beta二项可能性解释观察到的成功延续数量，而不是回归到有限样本成功率作为点目标。这个学习到的可靠性信号指示何时应该信任步骤奖励，使下游应用程序能够区分可靠的奖励与不确定的奖励。作为一个应用程序，我们引入了自适应计算分配（ACA）用于PRM引导的N中最佳推理。ACA使用学习到的可靠性信号在高回报解决方案可靠时停止，并在不确定的候选前置上花费额外的计算。四个主干和四个推理基准的实验表明，BetaPRM改进了PRM引导的N最佳选择，同时保留了标准的步进级错误检测。基于这一信号，ACA提高了准确性--与固定预算的16最佳游戏相比的代币权衡，将代币使用量减少了高达33.57%，同时提高了最终答案的准确性。
+
+[阅读原文](https://arxiv.org/abs/2605.15529)
+
+---
+
+## 8. FORGE：通过人口广播进行无权重更新的自我进化代理内存
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Igor Bogdanov, Chung-Horng Lung, Thomas Kunz, Jie Gao, Adrian Taylor, Marzia Zaman
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes FORGE, a self-evolving agent memory protocol using population broadcast and reflection loops to improve LLM agent performance without weight updates.
+
+**摘要**: arXiv：2605.16233v1宣布类型：新摘要：LLM代理能否在没有梯度更新的情况下通过自生成记忆改进决策？我们提出了FORGE（失败优化的反思毕业和进化），这是一种分阶段的、基于人群的协议，为分层ReAct代理进化预算注入的自然语言记忆。FORGE包装了一个反射式的内循环，其中有一个专用的反射代理（使用相同的底层LLM，没有从更强的模型中提炼出来）将失败的轨迹转换为可重复使用的知识制品：文本分析（规则），少量演示（示例）或两者（混合），用一个外环来传播最好的在阶段之间对种群执行实例记忆，并通过分级标准冻结收敛的实例。我们在CybORG CAGE-2上进行了评估，这是一种针对B线攻击者的30步范围内的随机网络防御POMDP，其中所有四个测试的LLM家族（Gemini-2.5-Flash-Lite、Grok-4-Fast、Llama-4-Maverick、Qwen 3 - 235 B）都表现出强负的、重尾零射击奖励。与零射击基线和Reflexion基线（孤立的单流学习）相比，FORGE在所有12种模型表示条件下将平均评估回报率比零射击提高1.7- 7.7 $\x $，比Reflexion提高29-72%，将重大失败率（低于$-100$）降低至低至$\sim$1%。我们发现（1）人口广播是关键机制，无分级消融确认广播带来了性能收益，而分级主要节省了计算;（2）示例为四种模型中的三种实现了最高的回报，规则提供了最好的成本可靠性概况，代币减少了$\sim$40%;（3）较弱的基线模型受益不成比例，这表明FORGE可能会缩小能力差距，而不是放大强大的模型。所有证据仅限于CAGE-2 B线;跨家族发现是方向性证据。
+
+[阅读原文](https://arxiv.org/abs/2605.16233)
+
+---
+
+## 9. 推动超越舒适区：RLVR的有效战略引导探索
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Chanuk Lee, Sangwoo Park, Minki Kang, Sung Ju Hwang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes NudgeRL, a structured exploration framework for RLVR that uses strategy-level contexts and a decomposed reward objective to improve reasoning in LLMs, outperforming GRPO with larger rollout budgets.
+
+**摘要**: arXiv：2605.15726v1宣布类型：新摘要：具有可验证奖励的强化学习（WLVR）已成为提高大型语言模型推理能力的可扩展范式。然而，其有效性从根本上受到探索的限制：该政策只能在其已经采样的轨迹上改进。虽然增加推出的数量会加剧这个问题，但这种强力缩放在计算上很昂贵，并且修改优化目标的现有方法对所探索的内容提供了有限的控制。在这项工作中，我们提出了NudgeRL，这是一个用于WLVR中结构化和多样性驱动探索的框架。我们的方法引入了Strategy Nudging，该方法将每次推出都设置在轻量级的策略级上下文上，以在不依赖昂贵的Oracle监督的情况下引发多样化的推理轨迹。为了有效地从这种结构化探索中学习，我们进一步提出了一个统一的目标，将奖励信号分解为上下文间和上下文内的分量，并结合了一个蒸馏目标，以将发现的行为转移回基本策略。从经验上看，NudgeRL的表现优于标准GRPO，推出预算高达8倍，同时在五个具有挑战性的数学基准上平均优于Oracle指导的RL基线。这些结果表明，结构化的、上下文驱动的探索可以作为暴力展开缩放和基于特权信息的面向可行性的方法的高效且可扩展的替代方案。我们的代码可在https://github.com/tally0818/NudgeRL上获取。
+
+[阅读原文](https://arxiv.org/abs/2605.15726)
+
+---
+
+## 10. 神经架构的重大发现：AIRA-Compose和AIRA-Design
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 8/10
+
+**作者**: Alberto Pepe, Chien-Yu Lin, Despoina Magka, Bilge Acun, Yannan Nellie Wu, Anton Protopopov, Carole-Jean Wu, Yoram Bachrach
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a dual-framework (AIRA-Compose and AIRA-Design) for LLM agents to autonomously discover and design neural architectures, demonstrating recursive self-improvement and strong empirical results.
+
+**摘要**: arXiv：2605.15871v1宣布类型：新摘要：为了实现渐进式自我改进，我们研究了LLM代理自主设计超出标准Transformers基础模型的情况。我们引入了一种双框架方法：AIRA-Compose用于高级架构搜索，AIRA-Design用于低级机械实现。AIRA-Compose使用11个代理在24小时预算内探索基本计算基元。代理评估百万参数候选项，将顶级设计外推到350 M、1B和3B规模。这产生了两个系列的14种架构：AIRAformers（基于Transformer的）和AIRAhybrid（Transformer-Mamba）。经过1B规模的预训练，它们的表现始终优于Llama 3.2和Composer找到的基线。在下游任务方面，AIRAformer-D和AIRAhybrid-D比Llama 3.2的准确性提高了2.4%和3.8%。此外，AIRA-Compose发现具有高效扩展边界的模型：AIRAformer-C的扩展速度比Llama 3.2和Composer最好的Transformer快54%和71%，而AIRAhybrid-C的扩展速度比Nemotron-2快23%，比Composer最好的hybrid快37%。AIRA-Design责成20名代理编写新颖的注意机制，以应对长期依赖性和高性能培训脚本。在Long Range Arena基准测试中，代理设计的架构在文档匹配和文本分类方面达到人类最新水平的2.3%和2.6%。在Autoresearch基准测试中，Greedy Opus 4.5在固定时间预算下实现了每字节0.968个验证位数，超过了已发布的最低值。这些框架共同表明，人工智能代理可以自主发现匹配或超越手工设计基线的架构和算法优化。这为发现下一代基础模型建立了一个强大的范式，标志着迈向渐进式自我完善的明确一步。
+
+[阅读原文](https://arxiv.org/abs/2605.15871)
+
+---
+
+## 11. Argus：可扩展深度研究代理的证据组装
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 8/10
+
+**作者**: Zhen Zhang, Liangcai Su, Zhuo Chen, Xiang Lin, Haotian Xu, Simon Shaolei Du, Kaiyu Yang, Bo An, Lidong Bing, Xinyu Wang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Argus, a deep research agent system with a Navigator trained via RL to verify, dispatch, and synthesize evidence, enabling scalable parallel search and self-improvement.
+
+**摘要**: arXiv：2605.16217v1宣布类型：新摘要：深度研究代理在复杂的信息搜索任务中取得了显着进展。即使是长时间的ReAct风格推出也只探索单一轨迹，而最新的系统通过并行搜索和聚合来扩展推理时间计算。然而，深入研究的答案是由补充的证据组成的，平行推出通常会复制而不是完整的，从而产生递减的回报，同时将聚合背景推向模型的极限。我们提出了Argus，这是一个代理系统，其中搜索者和导航者合作，将深度研究视为从补充证据片段组装拼图，而不是并行地粗暴地强迫整个答案。Searcher通过ReAct风格的交互收集给定子查询的证据痕迹。Navigator维护一个共享证据图，验证哪些部分仍然缺失，派遣搜索者收集它们，并对完成的图进行推理以生成源追踪的最终答案。我们通过强化学习训练Navigator来验证、调度和合成，同时独立训练Searcher以保持标准的ReAct代理。生成的Navigator支持单个Searcher或多个并行的部署，无需重新培训。由于Searcher和Navigator都建立在35 B-A3 B MoE主干之上，Argus在单个Searcher上获得5.5分，在8个基准上平均获得12.7分。BrowseComp上有64个Searchers，它达到了86.2，超过了我们基准的所有专有代理，而Navigator的推理上下文保持在21.5 K个令牌以下。
+
+[阅读原文](https://arxiv.org/abs/2605.16217)
+
+---
+
+## 12. 有关监控导致CoT混淆的文件培训
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 8/10
+
+**作者**: Reilly Haskins, Bilal Chughtai, Joshua Engels
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Directly studies CoT obfuscation in RL-trained models, showing monitor-aware models learn to reward-hack without triggering CoT monitors, which is highly relevant to RL for LLMs and agent safety.
+
+**摘要**: arXiv：2605.15257v1宣布类型：新摘要：思想链（CoT）监控是我们检测模型不当行为的最有希望的工具之一，但其有效性取决于模型忠实地具体化其推理。受此漏洞的激励，我们研究监视器感知模型是否能够模糊其推理以逃避检测。我们使用合成文档微调将八个模型暴露给描述CoT监视器的现实预训练风格文档，并发现与无意识的控制相比，监视器感知模型始终实现更高的未检测到的不当行为率。这种影响较弱，但在更难的代理任务中仍然存在。我们还表明，CoT可控性（模型在强加的约束下重塑自身推理轨迹的能力）与所研究的八个模型的模糊成功密切相关（$r=0.800$，$p=0.017$）。置于同等强化学习优化压力下的管理者感知模型也比无意识控制更快地学会奖励黑客而不触发CoT监视器。总而言之，这些结果表明，监测知识与高CoT可控性相结合对基于CoT的监测构成了风险。
+
+[阅读原文](https://arxiv.org/abs/2605.15257)
+
+---
+
+## 13. PAGER：弥合点精确几何图形用户界面控制中的语义执行差距
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Jingxuan Wei, Xi Bai, Shan Liu, Caijun Jia, Zheng Sun, Xinglong Xu, Siyuan Li, Linzhuang Sun, Bihui Yu, Conghui He, Cheng Tan
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes PAGER, a topology-aware GUI agent that uses precision-aligned RL to bridge the semantic-execution gap in point-precise geometric control, directly matching RL for LLMs criteria.
+
+**摘要**: arXiv：2605.15963v1宣布类型：新摘要：大型视觉语言模型具有显着高级的图形用户界面代理，支持跨网络、移动和桌面界面的可执行交互。然而，这些收益在很大程度上依赖于宽容的区域容忍范式，即同一组件内的许多附近像素仍然有效。精确的几何结构打破了这一假设：动作必须落在连续画布空间中的点上，而不是容忍区域上。由于几何基元携带实体依赖性，局部坐标错误可能会引发连锁的拓扑故障，从而扭曲下游对象并使最终构造无效。我们将此机制识别为对精度敏感的图形用户界面任务，需要点级准确性、几何感知验证以及对依赖性驱动的错误传播的鲁棒性。为了对其进行基准测试，我们引入了Pages Bench，其中包含4，906个问题和超过224 K个进程监督的像素级图形用户界面操作。我们进一步提出了PAGER，这是一种具有布局感知的代理，它将构建分解为依赖结构化的规划和像素级执行。基于像素的监督调整建立了可执行动作语法，而精确对齐的强化学习通过状态条件几何反馈减轻了推出引起的暴露偏差。实验揭示了明显的语义执行差距：一般多模式模型的动作类型准确性可以超过88%，但任务成功率仍低于6%。PAGER缩小了这一差距，任务成功率比最强的评估一般基线高出4.1倍，并将GUI专用代理的步骤成功率从低于9%提高到超过62%，为点精确的GUI控制建立了新的最新水平。
+
+[阅读原文](https://arxiv.org/abs/2605.15963)
+
+---
+
+## 14. Flash-GRPO：通过一步策略优化实现视频传播的高效调整
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Xiaoxuan He, Siming Fu, Zeyue Xue, Weijie Wang, Ruizhe He, Yuming Li, Dacheng Yin, Shuai Dong, Haoyang Huang, Hongfa Wang, Nan Duan, Bohan Zhuang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Flash-GRPO, a one-step policy optimization framework that significantly improves training efficiency and alignment quality for video diffusion models, directly addressing RL for LLMs via a novel RL training recipe.
+
+**摘要**: arXiv：2605.15980v1宣布类型：新摘要：组相对政策优化已成为使视频扩散模型与人类偏好保持一致的关键，但面临着一个关键的计算瓶颈：训练14 B参数化模型每次实验通常需要数百天的时间。现有的效率方法通过滑动窗口子采样训练时间步降低了成本，但从根本上损害了优化，表现出严重的不稳定性并且无法达到完整的轨迹性能。我们介绍了Flash-GRPO，这是一种分步训练框架，在低计算预算下，其对齐质量优于全轨迹训练，同时大幅提高训练效率。Flash-GRPO解决了两个关键挑战：等时分组通过强制按时间顺序的时间一致性来消除时步混淆的方差，将策略性能与时步困难脱钩;时间梯度纠正中和了时间相关的缩放因子，该因子导致跨时间步的梯度幅度严重不一致。1.3B至14 B参数模型上的实验验证了Flash-GRPO的有效性，展示了大幅的训练加速、一致的稳定性和最先进的对齐质量。
+
+[阅读原文](https://arxiv.org/abs/2605.15980)
+
+---
+
+## 15. ASRU：激活引导遇到多模式大型语言模型的强化取消学习
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Jiahui Guang, Yingjie Zhu, Cuiyun Gao, Haiyan Wang, Jing Li, Di Shao, Zhaoquan Gu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a multimodal unlearning framework that uses activation steering and a custom reward function (RL) to optimize unlearning boundaries, directly matching RL for LLMs.
+
+**摘要**: arXiv：2605.15687v1宣布类型：新摘要：多模式大型语言模型（MLLM）可能会在预训练期间记住敏感的跨模式信息，这使得机器去学习（MU）至关重要。现有的方法通常根据输出偏差来评估放弃学习的有效性，而忽略放弃学习后的生成质量。这很容易导致幻觉或僵硬的反应，从而影响未学习模型的可用性和安全性。为了解决这个问题，我们提出了ASRU，这是一个可控的多模式去学习框架，将发电质量作为核心评估目标。ASRU首先通过激活重定向诱导初始拒绝行为，然后使用定制的奖励函数优化细粒度拒绝边界，从而在目标知识去学习和模型效用之间实现更好的权衡。Qwen 3-DL上的实验表明，ASRU显着提高了平均去学习效率（+24.6%）和平均生成质量（5.8x），同时有效地保留了模型效用，仅使用少量保留的监督数据。
+
+[阅读原文](https://arxiv.org/abs/2605.15687)
+
+---
+
+## 16. 还：社交代理的对抗在线策略优化
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Xiang Li, Liping Yi, Mingze Kong, Min Zhang, Zhongxiang Dai, QingHua Hu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes an online adversarial bandit framework for LLM-based social agents to dynamically adapt strategies in non-stationary multi-agent environments, directly addressing self-improving agent adaptation.
+
+**摘要**: arXiv：2605.15768v1宣布类型：新摘要：社交模拟为研究社交智能提供了一个引人注目的测试平台，其中代理人在不断变化的背景下通过多轮对话进行交互，并战略性地调整对手。此类环境本质上是非静态的，需要代理随着时间的推移动态调整其策略。然而，大多数基于大语言模型（LLM）的社交代理都依赖于静态角色，而现有的增强社交智能的方法（例如离线强化学习或外部规划者）不适合这些环境，通常假设静态并产生大量的培训费用。为了弥合这一差距，我们提出了\textBF{ALSO}（\textBF{A}dversarial on\textBF{L}ine \textBF{S}trategy \textBF{O} ptimification），这是第一个用于多智能体社交模拟中在线策略优化的框架。SO还通过两项关键贡献推进社会适应。(1)ALSO将多回合交互定义为对抗性强盗问题，其中静态角色和动态策略指令的组合被视为武器，为非平稳性提供了原则性的解决方案，而不依赖环境稳定性假设。(2)为了在多回合对话中预测奖励并概括稀疏反馈，ALSO引入了一种轻量级神经代理来预测交互历史中的奖励，从而实现样本高效的探索和持续的在线适应。Sotopia基准测试的实验表明，ALSO在动态环境中始终优于静态基线和现有优化方法，验证了对抗性在线策略优化构建稳健社交代理的有效性。
+
+[阅读原文](https://arxiv.org/abs/2605.15768)
+
+---
+
+## 17. 可区分的代理混合激励大型语言模型的群体智能
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Xingjian Wu, Junkai Lu, Siyu Yan, Xiangfei Qiu, Jilin Hu, Chenjuan Guo, Bin Yang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a self-evolving multi-agent framework with differentiable routing and test-time adaptation, directly matching the self-improving agent criterion.
+
+**摘要**: arXiv：2605.15706v1宣布类型：新摘要：大型语言模型（LLM）的最新进展催化了用于复杂推理任务的多智能体系统（MAS）的发展。然而，现有的MAS通常依赖于预定义或预编译的通信布局，这限制了它们对动态任务要求的灵活性和适应性。在这项工作中，我们提出了可区分的代理混合（DMoA），这是一种自进化的多代理框架，可以在推理期间实现弹性和自适应的代理协作。DMoA不是静态地构建工作流程，而是在每个推理步骤动态路由和激活代理，使系统能够隐式地模拟不同的通信布局并适应不断变化的需求。为了实现这一目标，我们设计了一种可区分的、上下文感知的路由机制，该机制利用循环结构来整合历史和上下文信息，以逐步的方式产生稀疏的代理激活。此外，我们引入了预测信息作为自我监督信号来优化路由过程，从而在无需外部注释的情况下实现高效的测试时自适应。9个基准测试的广泛实验表明，DMoA实现了最先进的性能，同时展现出强大的效率、稳健性和集成能力。
+
+[阅读原文](https://arxiv.org/abs/2605.15706)
+
+---
+
+## 18. VSPO：行为控制的Vectors引导策略优化
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Xuechen Zhang, Zijian Huang, Kai Yang, Weijia Zhang, Jiasi Chen, Samet Oymak
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes VSPO, a novel RL method modifying GRPO with steering vectors to control behavioral intensity, directly addressing sparse reward in multi-objective LLM alignment.
+
+**摘要**: arXiv：2605.15604v1宣布类型：新摘要：现代语言模型通常需要优化主要准确性目标，同时还要适应次要行为偏好，例如冗长、宜人性或其响应中的技术专业水平。在实践中，基本模型可能很少或根本不表现出所需的行为。因此，赋予模型一个目标行为会产生一个稀疏的行为奖励瓶颈。为了解决这样的多目标问题，我们引入了向量导向策略优化（VSPO），它采用了一个导向向量与目标行为来控制所生成的推出的行为强度。VSPO是通过修改GRPO以改变转向强度来实现的。这个过程可以被解释为一个政策上的潜在的自我蒸馏过程中的模型内化其导向矢量。通过改变转向强度，VSPO对罕见行为进行上采样，丰富了卷展多样性，从而解决了稀疏奖励问题，并可证明加速了策略优化。通过全面的理论和实验，我们建立了VSPO具有良好的性能相比，香草奖励成形和其他替代方法。具体而言，在强盗抽象，VSPO可证明实现更好的迭代复杂性比奖励形GRPO时，转向诱导的分布与目标行为充分对齐。我们评估VSPO在多个推理基准，包括数学和MMLU-Pro，四个目标行为：解释专业知识，信心表达，鲁棒性误导性的背景下，和响应冗长。我们的结果表明，与奖励塑造、教师追踪提炼和基于指导的基线相比，VSPO始终改善了对目标行为的控制，同时保持或提高了任务准确性。
+
+[阅读原文](https://arxiv.org/abs/2605.15604)
+
+---
+
+## 19. 做得更少，实现更多：我们需要对扩散模型的RL微调进行每一步优化吗？
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Renye Yan, Jikang Cheng, Shikun Sun, Yi Sun, You Wu, Wei Peng, Zongwei Wang, Ling Liang, Junliang Xing, Yimao Cai
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes AdaScope, an RL fine-tuning method for diffusion models that adaptively selects denoising stages for optimization, reducing cost and improving alignment.
+
+**摘要**: arXiv：2605.15855v1宣布类型：新摘要：尽管图像生成性能很强，但扩散模型的重建目标限制了与人类偏好的一致性。RL通过明确的奖励实现了这种一致。然而，大多数研究将RL应用于完整的去噪轨迹，使其计算成本高昂并削弱了偏好对齐，即做得多，实现得少。我们观察到RL微调的影响在各个去噪阶段之间存在显着差异。在早期阶段，图像结构不稳定，并且远离最终的奖励信号。在此阶段应用RL会导致奖励延迟和动作奖励不匹配，从而导致高方差和低效的更新。相反，在后期阶段，奖励收益饱和，持续的训练往往会过度适应局部细节，加剧奖励黑客行为。为了应对这些挑战，我们提出了AdaScope，这是一种RL增强型插件，可以提高发电质量，同时降低计算成本。具体来说，AdaScope通过感知去噪期间的结构演变和语义一致性，自适应地识别RL的最佳干预时机，并在去噪收敛且回报收益饱和后动态终止训练。因此，它实现了罕见的“双重好处”：计算成本的降低以及性能的显着改进。我们为AdaScope的设计提供理论依据。与最先进的方法相比，AdaScope将性能提高了66%，同时将计算成本降低了59%。
+
+[阅读原文](https://arxiv.org/abs/2605.15855)
+
+---
+
+## 20. $f$-轨迹平衡：用于调整GFlowNets、生成模型和具有政策外和政策内数据的LLM的损失系列
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Jake Fawkes, Jason Hartford
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a family of f-divergence-based surrogate losses for tuning generative models including LLMs, with on-policy gradient equivalence and off-policy validity, directly relevant to RL for LLMs via reward design.
+
+**摘要**: arXiv：2605.15417v1公告类型：新摘要：在GFlowNets和变分推理中，已经证明目标和模型日志概率之间的均方误差是训练生成模型的有效、低方差、替代损失。   这种损失具有这样的性质，即在评估时，它的梯度对应于KL散度的梯度，而在评估时，它仍然是具有相同全局最小值的有效损失。在这项工作中，我们证明了这种构造可以扩展到整个$f$-分歧家族，从而导致一系列损失，其政策上梯度是相应的$f$-分歧的梯度，但在政策外保留相同的全球最小化器。具体来说，我们表明政策上的梯度导致目标和模型日志概率上的翻译不变损失函数与$f$-分歧之间一一对应。这种等效性使我们能够设计新的代理损失函数来调整广泛的生成模型，这些模型继承了相应的$f$-分歧的属性，例如更具模式覆盖性，同时适用于保单外数据。我们将损失应用于一系列任务，包括经典合成示例、用于分子发现的SynFlowNets和同步大型语言模型（LLM）调优，证明我们的模型在广泛的生成模型中保留了其在策略上和策略外的预测属性。
+
+[阅读原文](https://arxiv.org/abs/2605.15417)
+
+---
+
+## 21. 流模型的嵌入扰动勘探偏好优化
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Sujie Hu, Chubin Chen, Jiashu Zhu, Jiahong Wu, Xiangxiang Chu, Xiu Li
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a novel RL framework (E2PO) for flow models that addresses intra-group variance collapse via embedding-level perturbation, directly improving alignment.
+
+**摘要**: arXiv：2605.15803v1宣布类型：新摘要：最近的进展已将强化学习（RL）确立为将生成模型与人类意图相一致的关键范式。然而，基于组的优化框架（例如，GRPO）面临着一个关键的限制：组内方差的快速衰减。随着组内样本之间的差异性减弱，方差接近零。这消除了优化所需的学习信号，使流程不稳定，并迫使政策过早停滞或奖励黑客攻击。现有的策略，例如改变初始噪音或增加群体规模，往往无法解决这个根本问题，导致训练不稳定或回报递减。为了克服这些挑战，我们提出了$\textBF{Embedding-terrubed Exploration Preference Optimism（} E #2 ' E#39; 2\textBF {PO）}$，这是一个通过嵌入级扰动维持优化的新颖框架。我们的方法在样本组内引入了结构化的嵌入级扰动，确保稳健的方差，在整个训练过程中保留区分信号。大量实验表明，我们的方法明显优于最先进的基线，实现了更忠实地符合人类偏好。
+
+[阅读原文](https://arxiv.org/abs/2605.15803)
+
+---
+
+## 22. 从失败到反馈：小组修订解开对象级基础中的困难案例
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Yuyuan Liu, Yiping Ji, Anjie Le, Jiayuan Zhu, Jiazhen Pan, Can Peng, Jiajun Deng, Fengbei Liu, Junde Wu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a group-revision optimization paradigm for RL finetuning of LVLMs that uses reward shaping from revised candidates to improve learning on hard cases in object-level grounding.
+
+**摘要**: arXiv：2605.15951v1公告类型：新摘要：用强化学习来微调大型视觉语言模型已经成为一种很有前途的方法，可以增强它们在对象级基础上的能力。然而，现有的方法，主要是基于GRPO，在响应水平分配奖励。这种稀疏的奖励，通常是标准诱导的，当所有候选响应在具有挑战性的场景中失败时，会导致最小的学习信号。在这项工作中，我们提出了一个组修订优化范式，提高学习困难的情况下。它从一个抽样的初始响应开始，并生成一组修改后的候选人，以探索改进的基础结果。受到奖励塑造的启发，我们引入了一个整合过程，该过程量化了每个候选人在最初尝试中的改进，并将其转换为信息塑造信号。这些信号用于细化奖励和调节优势，放大高质量修订的影响。与之前的基于GRPO的模型相比，我们的方法在引用和推理分段、REC和计数基准方面实现了一致的收益。我们的代码可在https://github.com/yyliu01/GroupRevision上获取。
+
+[阅读原文](https://arxiv.org/abs/2605.15951)
+
+---
+
+## 23. 无参考强化学习MT微调：Seq 2Seq的角度
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Ernesto Garcia-Estrada, Carlos Escolano, Jos\'e A. R. Fonallosa
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Applies GRPO with a reference-free hybrid reward to encoder-decoder MT models, demonstrating RL-based fine-tuning for LLMs with a novel reward design and consistent gains across low-resource languages.
+
+**摘要**: arXiv：2605.15976v1宣布类型：新摘要：生产机器翻译极大地依赖于编码器-解码器Seq 2Seq模型，但MT微调的强化学习方法主要针对的是$\geq$7B参数的仅解码器LLM，对编码器-解码器架构的系统研究有限。我们使用混合无引用奖励（LaBSE和COMET-Kiwi）将组相对政策优化应用于NLLB-200（600 M和1.3B），在微调时不需要并行数据，评估13种类型不同的语言。GRPO在所有13种语言上都有一致的改进，对于繁体中文，最高可达$+$5.03 chrF++，并且在没有任何目标语言数据的情况下，与形态复杂语言的3 epoch监督微调竞争。我们确定了一个一致的经验模式，其中收益是最大的基线性能是最弱的，奖励的可辨别性是最高的，使这种方法最有效的，正是在并行数据是稀缺的，并复制这种模式在英语和西班牙语的源语言。
+
+[阅读原文](https://arxiv.org/abs/2605.15976)
+
+---
+
+## 24. 三思而后行：LLM代理的自主探索
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Ziang Ye, Wentao Shi, Yuxin Liu, Yu Wang, Zhengzhou Cai, Yaorui Shi, Qi Gu, Xunliang Cai, Fuli Feng
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a training strategy interleaving exploration and task-execution rollouts with verifiable rewards for LLM agents, enabling self-improvement via grounded exploration.
+
+**摘要**: arXiv：2605.16143v1宣布类型：新摘要：基于大型语言模型的代理经常在不熟悉的环境中失败，原因是过早利用：在获取足够的环境特定信息之前倾向于根据先验知识采取行动。我们将自主探索确定为构建适应性代理的一种关键但探索不足的能力。为了形式化和量化这种能力，我们引入了探索检查点覆盖率，这是一种可验证的指标，可以衡量代理发现关键状态、对象和可供性的广泛程度。我们的系统评估表明，接受标准任务导向强化学习训练的代理人始终表现出狭隘和重复的行为，从而阻碍下游绩效。为了解决这一限制，我们开发了一种训练策略，该策略将任务执行展开和探索展开交织，每种类型的展开都通过其相应的可验证奖励进行优化。在这种培训策略的基础上，我们提出了探索然后行动范式，该范式将信息收集与任务执行分开：代理首先利用交互预算来获取基础环境知识，然后利用它来解决任务。我们的结果表明，学习系统性探索对于构建可概括且适合现实世界的代理至关重要。
+
+[阅读原文](https://arxiv.org/abs/2605.16143)
+
+---
+
+## 25. DrugSAGE：自我进化的药剂体验，实现高效的最先进药物发现
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Yikun Zhang, Xiwei Cheng, Tianyu Liu, Yuanqi Du, Wengong Jin
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a self-evolving agent framework with cross-task memory for efficient drug discovery model development.
+
+**摘要**: arXiv：2605.15461v1宣布类型：新摘要：构建最先进的（SOTA）药物发现预测模型需要对工具、架构和训练策略进行昂贵的搜索。当前基于LLM的代理可以通过大量的试错找到SOTA解决方案，但他们无法保留沿途积累的经验，因此需要为每个新任务支付全额搜索成本。我们提出了\方法（自我进化的代理体验），这是一个积累和重用跨任务经验的框架，以高效地构建SOTA药物发现模型。\方法维护已验证技能的跨任务记忆、有关有效策略的统计证据以及重复出现的错误及其修复的记录。在某些情况下，\方法直接传输工作解决方案，而无需测试时搜索。在33项分子性质预测任务中，\方法在单任务环境下的9种SOTA试剂中排名第一。通过从16个较小的任务中积累记忆，方法在跨任务评估设置中在17个保留任务上实现了平均归一化得分0.935，并且在零测试时间搜索机制中优于所有基线代理10- 30%。总之，我们的工作显示了跨任务记忆在药物发现中有效SOTA模型开发的优势。
+
+[阅读原文](https://arxiv.org/abs/2605.15461)
+
+---
+
+## 26. 通过多条目潜在推理对编码代理进行上下文修剪
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Jingjing Wang, Xiwen Chen, Wenhui Zhu, Huayu Li, Zhengxiao He, Feiyang Cai, Ana S. Carreon-Rascon, Xuanzhao Dong, Feng Luo
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes LaMR, a latent multi-rubric reasoning framework for context pruning in coding agents, directly matching the latent reasoning criterion with a novel structured decomposition and CRF-based approach.
+
+**摘要**: arXiv：2605.15315v1宣布类型：新摘要：LLM支持的编码代理将大部分代币预算用于读取存储库文件，但检索到的大部分代码与手头的任务无关。现有的学习修剪器使用单目标序列标签器压缩此上下文，将代码相关性的所有方面折叠到一个分数和一个转换矩阵中。我们表明，这种公式造成了一个建模瓶颈：单一的RF转换之前必须服务于异类保留模式，包括连续的语义跨度和稀疏的结构支持线。我们提出了LaMR（潜在多鲁布ric），这是一种结构化修剪框架，它将代码相关性分解为两个可解释的质量维度、语义证据和依赖性支持，每个维度都由具有特定维度转换动态的专用RF建模。混合专家门控网络根据查询动态加权按标题排放，并在融合排放上产生最终的RF层产生总的保留或删除决策。为了在没有额外注释成本的情况下监督每个维度，我们通过基于AST的程序分析从现有训练数据库中推导出多标题标签，同时对教师的二进制标签进行去噪。通过有效过滤分散注意力的噪音，LaMR经常匹配甚至优于未修剪的全上下文基线。四个基准测试（SWE-Bench Verification、SWE-QA、LCC、LongCodeQA）的实验表明，LaMR在16次面对面多圈比较中赢得了12次。它在多回合代理任务中可节省多达31%的代币，并在单回合任务中将精确匹配提高高达+3.5，而性能通常通过对上下文进行去噪来增强，并且任何剩余的下降都是微不足道的。
+
+[阅读原文](https://arxiv.org/abs/2605.15315)
+
+---
+
+## 27. GRLO：从零开始在开放环境中实现可推广的强化学习
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Shangjian Yin, Yu Fu, Yue Dong, Zhouxing Shi
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes GRLO, a method studying generalization of RLHF from scratch in open-ended environments, showing strong transfer to reasoning and code tasks with minimal data and compute.
+
+**摘要**: arXiv：2605.15464v1宣布类型：新摘要：随着强化学习（RL）成为一种关键范式，后训练已成为释放大型语言模型能力的关键一步。最近的基于RL的后训练越来越多地分为两种范式：来自人类反馈的强化学习（RL HF），它使用目标领域中的人类偏好信号来优化模型，以及来自可验证奖励的强化学习（RL VR），它在验证器支持的环境中运行。后者在最近的以推理为导向的后培训中占据主导地位，因为它在特定领域的任务上提供了更强的收益和更高的效率（例如，推理）。然而，尽管域内RL训练取得了令人鼓舞的性能，但它仍然需要大量的图形处理器计算，这仍然是广泛采用的主要障碍。在这项工作中，我们研究了从开放环境中的一小组交互中从头开始学习的RL HF的概括能力，并研究它显式获得的对话能力是否可以隐式地转移到数学推理和代码生成等下游任务，即GRLO。具体来说，在Qwen 3 - 4 B-Base主干网上，GRLO仅需要5 K提示和22.7个图形处理器小时，即可将所有域的平均性能从24.1提高到63.1，比强大的域内WLVR基线减少约46美元的数据和68美元的计算。由此产生的模型甚至与Qwen发布的需要更大训练成本的后训练模型具有竞争力。值得注意的是，随后的域内WLVR阶段只会带来选择性的收益，主要是在更难的竞争数学基准上。我们希望GRLO提供一种简单有效的方法来构建功能广泛的后训练模型。我们的代码和数据可在以下网址获取：\href{https：//github.com/SJY8460/GRLO}{https：//github.com/SJY8460/GRLO}。
+
+[阅读原文](https://arxiv.org/abs/2605.15464)
+
+---
+
+## 28. LEAP：迭代科学设计中LLM的轨迹级评估
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Marilyn Zhang, Tianfeng Chen, Fabi\'an Barzuna, Ankita Rathod, Mark E. Whiting
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a trajectory-level evaluation metric for LLMs in iterative scientific design and shows offline RL with this metric improves performance, directly matching RL for LLMs via a new reward design and training loop.
+
+**摘要**: arXiv：2605.15341v1宣布类型：新摘要：LLM越来越多地部署在自主实验室中，假设它们的领域先验和迭代反馈推理使它们比仅反馈的基线以更少的迭代方式收敛于良好的设计。然而，当前的迭代科学设计基准仅对固定视野的结果快照进行评分。这使得学习轨迹无法测量，尽管轨迹体现了学习效率，节省的每次迭代都真正节省了成本和时间。受此启发，我们研究了三种评估选择，这些选择改变了人们对迭代科学设计中LLM学习效率得出的结论：测量什么、比较什么基线以及根据什么。我们介绍了LEAPBench，自适应过程中的学习效率，这是一个包含55个任务的框架，它将迄今为止最佳曲线下面积（AU）轨迹指标与经典的Bayesian优化参考和基于已发表文献的审计进行了配对。应用于八个当代LLM，从最终结果转向轨迹评分改变了53%匹配视野任务的最佳模型决策，并暴露了基于结果的评分所忽视的效率提高。LLM的表现并不优于经典的Bayesian基线。在16个生物学任务中，其中Oracle的奖励信号与来自提名最佳设计的配置保持一致，领域感知提示导致匹配提名最佳设计的LLM选择的频率比迭代30处的领域不可知提示低约10个百分点。该模式在6项任务上最为尖锐，其中文献典型配置和最佳配置存在分歧，并且领域不可知提示在所有6项任务上与最佳配置相匹配的频率更高。轨迹指标还兼作易于驾驭的训练目标。以指标作为奖励的离线强化学习可以提高21项任务中14项的性能。
+
+[阅读原文](https://arxiv.org/abs/2605.15341)
+
+---
+
+## 29. AstraFlow：针对大型LLM的面向数据流的强化学习
+
+**得分**: 相关性 (Rel): 7/10, 创新性 (Nov): 7/10
+
+**作者**: Haizhong Zheng, Yizhuo Di, Jiahui Wang, Shuowei Jin, Xueshen Liu, Yongji Wu, Z. Morley Mao, Ion Stoica, Jiawei Zhao, Beidi Chen
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes AstraFlow, a dataflow-oriented RL system for agentic LLMs that decouples rollout, dataflow, and training to enable scalable multi-policy collaborative training and efficient use of heterogeneous compute.
+
+**摘要**: arXiv：2605.15565v1公告类型：新摘要：强化学习（RL）越来越多地用于提高大型语言模型的推理、编码和工具使用能力，但代理RL仍然非常昂贵。将RL扩展到代理LLM需要支持复杂的工作负载，包括多策略协作培训，同时有效地使用弹性，异构和跨区域的计算资源。现有的LLM RL系统支持其中一些功能，但每个新扩展通常需要专门的系统工程。这种负担源于以训练员为中心的控制架构以及RL系统组件缺乏原则性的抽象。为了解决这些限制，我们提出了AstraFlow，这是一个面向溪流的RL系统，用原则性组件抽象取代传统的以训练员为中心的控制。在AstraFlow中，推出服务、数据流管理和培训被分解到自治组件中，使系统能够本地支持复杂的多策略代理RL工作负载并有效利用多样化的计算资源。我们对AstraFlow进行了数学、代码、搜索和AgentBench工作负载评估，结果表明同一系统支持多策略训练、弹性扩展、异类跨区域执行和可组合数据算法，无需系统级代码更改。在多策略协同训练中，AstraFlow实现了与现有RL系统相当或更好的准确性，同时将训练时间加快了2.7倍。
+
+[阅读原文](https://arxiv.org/abs/2605.15565)
+
+---
+

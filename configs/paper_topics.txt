@@ -3,9 +3,9 @@
 Please evaluate papers using a strict filter. We only want a small set of strongly aligned papers, not a broad survey of adjacent work.
 
 ## Global Selection Principle
-- Mark a paper as relevant only if one of the two topics below is a central contribution of the paper, not a side application, benchmark, or discussion point.
+- Mark a paper as relevant only if one of the three topics below is a central contribution of the paper, not a side application, benchmark, or discussion point.
 - Be conservative by default: if the connection is indirect, partial, or ambiguous, treat it as not relevant or score it low.
-- Prefer papers that introduce new methods, training frameworks, reward designs, agent improvement loops, or latent reasoning architectures.
+- Prefer papers that introduce new methods, training frameworks, reward designs, scalable self-improvement loops, or latent reasoning architectures with clear technical substance.
 - Do not favor papers just because they mention "LLM", "agent", "reasoning", "RL", "alignment", or "CoT" in a generic way.
 - Exclude broad foundation model papers, generic post-training papers, generic tool-use agents, application/system papers, domain-specific deployments, and pure benchmark papers unless their core method strongly matches one of the topics below.
 
@@ -20,6 +20,12 @@ We care about methods that move reasoning away from verbose explicit text chains
 - **Strong match:** Latent reasoning architectures, hidden-state reasoning, implicit CoT, recurrent depth / recurrent latent computation, pause or thinking tokens for internal computation, explicit-to-latent distillation, and methods that reduce reasoning token cost or KV-cache use while retaining accuracy.
 - **Especially valuable:** New architectures or objectives for latent reasoning, hidden-state alignment/distillation, compression of reasoning traces, or methods that materially improve reasoning efficiency on math and logic tasks.
 - **Usually not relevant:** Standard explicit CoT prompting, generic reasoning finetuning, test-time scaling without latent computation, reasoning benchmarks, or papers whose main contribution is evaluation rather than a latent reasoning mechanism.
+
+## 3. On-Policy Distillation for LLMs
+We care about distillation methods that improve LLM capabilities by training on the model's own on-policy outputs, trajectories, preferences, corrections, or interaction data, especially when the student distribution is actively refreshed during training.
+- **Strong match:** On-policy distillation, self-distillation from sampled rollouts, online teacher-student distillation, policy-improvement distillation, iterative distillation from model-generated reasoning traces, distillation from verifier/reward-selected on-policy samples, and methods that close the gap between training data distribution and the model's current behavior.
+- **Especially valuable:** Papers that propose a new iterative distillation loop, sampling-and-selection strategy, online data refresh mechanism, teacher/student update schedule, or objective that measurably improves reasoning, instruction-following, alignment, tool use, or general LLM capability.
+- **Usually not relevant:** Standard offline knowledge distillation, static SFT on teacher-generated data, model compression only, data cleaning only, speculative decoding/distillation for speed only, or generic synthetic data generation without an on-policy or iterative policy-improvement component.
 
 ## Final Preference
 If a paper is merely adjacent to these areas, do not select it. Favor precision over recall. It is better to miss a borderline paper than to include many weakly related ones.

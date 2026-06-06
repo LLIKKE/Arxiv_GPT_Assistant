@@ -4,35 +4,38 @@ You must respond ONLY with a valid JSONL (JSON Lines) format. Do not include any
 
 Each line of your response must be a single, valid JSON object representing one paper, containing exactly the following keys:
 - "ARXIVID": (string) The ArXiv ID of the paper.
-- "RELEVANCE": (boolean) Set to `true` ONLY if the paper strongly and directly matches at least one research criterion as a central contribution. If the match is partial, adjacent, generic, application-focused, benchmark-only, or ambiguous, set it to `false`.
-- "RELEVANCE_SCORE": (integer) A score from 0 to 10 evaluating how relevant the paper is to the criteria. Be strict and mean in scoring. The distribution should be conservative: most papers should fall in 0-5, only clearly strong matches should get 6-7, and scores 8-10 should be rare. Use the following guide:
+- "RELEVANCE": (boolean) Set to `true` ONLY if the paper is worth putting on a short daily reading list for the stated research interests. A paper must have a direct central contribution to RL-for-LLMs, latent reasoning, or on-policy distillation for LLM capability improvement, not merely use LLMs, evaluate reasoning, mention RL/distillation, or apply existing methods. If the match is partial, adjacent, generic, application-focused, benchmark-only, or ambiguous, set it to `false`.
+- "RELEVANCE_SCORE": (integer) A score from 0 to 10 evaluating how central and valuable the paper is for the criteria. Be strict and force differentiation. Most papers should be 0-4. Plausibly related papers should be 5-6. Only papers that the reader should probably open and inspect should get 7. Only papers that are clearly worth reading today should get 8 or above. Use the following guide:
   - 0: Completely irrelevant.
   - 1-2: Bare keyword overlap or very distant connection.
   - 3-4: Tangentially related, but not about the target problem itself.
-  - 5: Borderline / marginal relevance; touches the area but should usually not be selected.
-  - 6: Relevant in a meaningful way, but not a strong fit.
-  - 7: Clearly relevant and useful, with a direct connection to the target topic.
-  - 8: Strong match; one of the paper's main contributions is tightly aligned.
-  - 9: Exceptional match; highly important for the target topic.
-  - 10: Near-perfect match; must-read paper with unusually strong alignment.
-- "NOVELTY_SCORE": (integer) A score from 0 to 10 evaluating the novelty and originality of the paper's core contribution. The score MUST have good differentiation. Use the following guide:
-  - 0-4: Incremental work, straightforward application of existing methods, or very minor tweaks.
-  - 5: Slight novelty (minor variations of known architectures/methods).
-  - 6: Moderate novelty (some interesting new components or combinations).
-  - 7: Good novelty (clear new approach or significant improvement over baselines).
-  - 8: High novelty (very original idea, introduces a new paradigm or solves a hard problem).
-  - 9: Extremely high novelty (groundbreaking, opens up a completely new research direction).
+  - 5: Borderline relevance; the topic is touched but the paper should usually not be selected.
+  - 6: Related in a meaningful way, but not a strong daily-read candidate.
+  - 7: Clearly relevant, but either narrow, incremental, or not central enough to be a top pick.
+  - 8: Strong match; a central contribution directly advances one target topic and is likely worth reading.
+  - 9: Very strong match; highly valuable for the target topic, with a clear methodological contribution.
+  - 10: Must-read paper with unusually strong alignment and likely high impact.
+- "NOVELTY_SCORE": (integer) A score from 0 to 10 evaluating the originality and technical value of the core contribution. The score MUST have strong differentiation. Do not reward routine benchmark additions, engineering systems, dataset releases, simple prompt recipes, or straightforward combinations of known methods. Use the following guide:
+  - 0-3: No meaningful novelty, pure application/evaluation, or routine engineering.
+  - 4: Minor variant of existing methods.
+  - 5: Some novelty, but mostly incremental.
+  - 6: Moderate novelty with at least one nontrivial technical idea.
+  - 7: Good novelty; a clear new method, objective, reward design, architecture, or training loop.
+  - 8: High novelty; technically strong and likely to influence follow-up work.
+  - 9: Extremely high novelty; opens a new direction or substantially changes how the target problem is approached.
   - 10: Transformative (rare, paradigm-shifting paper).
 - "COMMENT": (string) A concise 1-sentence summary explaining WHY this paper is relevant and highlighting its core contribution. (If RELEVANCE is false, this can be an empty string).
 - "AFFILIATIONS": (string) Based on the abstract, title, or authors, guess or extract the primary institutions/affiliations of the authors (e.g., "Google DeepMind, Stanford University"). If you cannot determine it, output "Unknown Institution".
 
 Additional scoring rules:
-- Use high scores sparingly. A paper should not receive `RELEVANCE_SCORE >= 8` unless it is directly centered on one of the target topics.
+- Use high scores sparingly. A paper should not receive `RELEVANCE_SCORE >= 8` unless it is directly centered on one of the target topics and contributes a concrete method, objective, reward, architecture, distillation loop, or training procedure.
 - If unsure between two scores, choose the lower one.
-- `RELEVANCE=true` should usually imply `RELEVANCE_SCORE >= 6`; borderline papers around score 5 should generally remain `false`.
+- `RELEVANCE=true` should usually imply `RELEVANCE_SCORE >= 8` and `NOVELTY_SCORE >= 7`. Papers below either bar should usually remain `false`.
 - Do not inflate scores for strong overall paper quality if the topic match is weak.
-- For generic LLM, agent, RL, or reasoning papers that do not match the specific target directions, keep the score low.
+- For generic LLM, agent, RL, distillation, or reasoning papers that do not match the specific target directions, keep the score low.
+- Prefer selecting fewer papers. If a paper would not be useful in a compact reading list of at most 30 papers, set `RELEVANCE=false` even if it is somewhat related.
+- Penalize survey papers, benchmark papers, leaderboard papers, dataset-only papers, application papers, and system/demo papers unless they introduce a genuinely new method for the target research questions.
 
 Example of expected output format:
-{"ARXIVID": "2401.00001", "RELEVANCE_SCORE": 9, "RELEVANCE": true, "NOVELTY_SCORE": 8, "COMMENT": "Proposes a novel self-evolving agent framework that improves tool-use via reflection.", "AFFILIATIONS": "Stanford University"}
+{"ARXIVID": "2401.00001", "RELEVANCE_SCORE": 9, "RELEVANCE": true, "NOVELTY_SCORE": 8, "COMMENT": "Introduces a verifier-selected on-policy distillation loop that directly improves LLM reasoning reliability.", "AFFILIATIONS": "Stanford University"}
 {"ARXIVID": "2401.00002", "RELEVANCE_SCORE": 1, "RELEVANCE": false, "NOVELTY_SCORE": 3, "COMMENT": "", "AFFILIATIONS": "Unknown Institution"}

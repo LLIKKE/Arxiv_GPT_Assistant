@@ -3,7 +3,7 @@
 Please evaluate papers using a strict filter. We only want a small set of strongly aligned papers, not a broad survey of adjacent work.
 
 ## Global Selection Principle
-- Mark a paper as relevant only if one of the three topics below is a central contribution of the paper, not a side application, benchmark, or discussion point.
+- Mark a paper as relevant only if one of the two topics below is a central contribution of the paper, not a side application, benchmark, or discussion point.
 - Be conservative by default: if the connection is indirect, partial, or ambiguous, treat it as not relevant or score it low.
 - Prefer papers that introduce new methods, training frameworks, reward designs, agent improvement loops, or latent reasoning architectures.
 - Do not favor papers just because they mention "LLM", "agent", "reasoning", "RL", "alignment", or "CoT" in a generic way.
@@ -15,13 +15,7 @@ We care about RL methods that directly improve LLM behavior, alignment, or reaso
 - **Especially valuable:** Papers that propose a new reward function, a new scalable RL training recipe, or a new data-generation / self-improvement loop for post-training LLMs.
 - **Usually not relevant:** Generic reinforcement learning papers, RL for robotics/control/games, prompt optimization without RL, supervised finetuning only, inference-time search without a training contribution, or alignment papers with no substantive RL component.
 
-## 2. Agents for LLMs
-We care specifically about self-evolving agents rather than static agent systems. The central question is whether the agent can improve itself over time through interaction, reflection, tool-use traces, self-generated supervision, or automated curriculum/data generation.
-- **Strong match:** Self-improving agent frameworks, reflection/self-critique loops that feed back into learning, trajectory-driven continual improvement, automatic tool-use policy improvement, environment interaction that produces new supervision, and long-horizon agent adaptation.
-- **Especially valuable:** Closed-loop systems showing measurable capability gain over time, reliable agent learning from interaction traces, or agent architectures that turn execution experience into better future performance.
-- **Usually not relevant:** Vanilla ReAct-style agents, workflow orchestration, multi-agent communication only, tool calling systems without learning, benchmark papers, memory systems without self-improvement, or application-focused agent papers.
-
-## 3. Latent CoT/Reasoning
+## 2. Latent CoT/Reasoning
 We care about methods that move reasoning away from verbose explicit text chains into compact latent computation while preserving or improving reasoning quality.
 - **Strong match:** Latent reasoning architectures, hidden-state reasoning, implicit CoT, recurrent depth / recurrent latent computation, pause or thinking tokens for internal computation, explicit-to-latent distillation, and methods that reduce reasoning token cost or KV-cache use while retaining accuracy.
 - **Especially valuable:** New architectures or objectives for latent reasoning, hidden-state alignment/distillation, compression of reasoning traces, or methods that materially improve reasoning efficiency on math and logic tasks.

@@ -29,8 +29,12 @@ def get_papers_from_arxiv(config: configparser.ConfigParser) -> Set[Paper]:
     area_list = config["FILTERING"]["arxiv_category"].split(",")
     paper_set = set()
     for area in area_list:
-        papers = get_papers_from_arxiv_rss_api(area.strip(), config)
-        paper_set.update(set(papers))
+        area = area.strip()
+        try:
+            papers = get_papers_from_arxiv_rss_api(area, config)
+            paper_set.update(set(papers))
+        except Exception as e:
+            logging.error(f"Failed to fetch papers for {area}; skipping category. Error: {e}")
         
     if config["OUTPUT"].getboolean("debug_messages", fallback=False):
         logging.info(f"Number of papers fetched: {len(paper_set)}")
@@ -112,6 +116,7 @@ def generate_daily_summary(selected_papers: dict, client: OpenAI, config: config
             ],
             stream=False,
             temperature=0.7,
+            extra_body={"thinking": {"type": "disabled"}},
         )
         return clean_markdown_formatting(response.choices[0].message.content.strip())
     except Exception as e:
@@ -131,7 +136,8 @@ def translate_to_chinese_via_deepseek(text: str, client: OpenAI, config: configp
             ],
             stream=False,
             temperature=1.0,
-            seed=0
+            seed=0,
+            extra_body={"thinking": {"type": "disabled"}},
         )
         return clean_markdown_formatting(response.choices[0].message.content.strip())
     except Exception as e:

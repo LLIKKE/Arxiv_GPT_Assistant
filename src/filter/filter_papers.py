@@ -77,7 +77,8 @@ def call_chatgpt(full_prompt: str, openai_client: Any, model: str) -> Any:
         model=model,
         messages=[{"role": "user", "content": full_prompt}],
         temperature=0,
-        seed=0
+        seed=0,
+        extra_body={"thinking": {"type": "disabled"}},
     )
 
 
@@ -228,7 +229,13 @@ def filter_by_gpt(
             futures = {executor.submit(process_full_batch, batch): batch for batch in batch_of_papers}
             for future in tqdm(as_completed(futures), total=len(futures), desc="Scoring papers"):
                 scored_in_batch = []
-                json_dicts, cost = future.result()
+                batch = futures[future]
+                try:
+                    json_dicts, cost = future.result()
+                except Exception as e:
+                    batch_ids = [paper.arxiv_id for paper in batch]
+                    logging.error(f"Skipping failed GPT scoring batch {batch_ids}: {e}")
+                    continue
                 all_cost += cost
                 
                 for jdict in json_dicts:

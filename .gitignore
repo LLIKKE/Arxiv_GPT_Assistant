@@ -1,7 +1,56 @@
-# dont commit the actual api keys or other personal info to the public github
-#configs/authors.txt
+# Secrets and local personal config
 configs/keys.ini
-#configs/paper_topics.txt
-# dont commit venv and ide stuff
-venv
-.idea
+configs/keys.*.ini
+.env
+.env.*
+!.env.example
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.python-version
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Build and packaging output
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Test, coverage, lint, and type-check caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Runtime output and generated debug artifacts
+out/*
+!out/.gitignore
+*.log
+temp_diff.txt
+
+# Jupyter / notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+
+# macOS and other OS metadata
+.DS_Store
+Thumbs.db

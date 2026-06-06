@@ -5,9 +5,10 @@ import json
 import logging
 import os
 import re
+import time
 from datetime import datetime, timedelta
 from html import unescape
-from typing import List, Optional, Tuple
+from typing import Any, List, Optional, Tuple
 
 import arxiv
 import feedparser
@@ -39,6 +40,42 @@ def is_earlier(ts1: str, ts2: str) -> bool:
     except ValueError:
         return False
 
+def category_matches(area: str, category: str) -> bool:
+    """
+    Match exact arXiv categories and broad archive names such as "eess".
+    """
+    return category == area or category.startswith(f"{area}.")
+
+def result_matches_area(area: str, categories: List[str]) -> bool:
+    """
+    Check if any category returned by arXiv belongs to the configured area.
+    """
+    return any(category_matches(area, category) for category in categories)
+
+def fetch_arxiv_results_with_backoff(client: arxiv.Client, search: arxiv.Search, area: str) -> List[Any]:
+    """
+    Fetch arXiv API results with extra backoff for transient API failures.
+    """
+    for attempt in range(3):
+        try:
+            return list(client.results(search))
+        except arxiv.HTTPError as err:
+            status_code = getattr(err, "status_code", None)
+            err_text = str(err)
+            is_transient = (
+                status_code in {429, 502, 503, 504}
+                or any(f"HTTP {code}" in err_text for code in (429, 502, 503, 504))
+            )
+            if not is_transient or attempt == 2:
+                logging.warning(f"arXiv API request failed for {area}: {err}")
+                return []
+
+            sleep_seconds = 30 * (attempt + 1)
+            logging.warning(f"arXiv API temporarily unavailable for {area}; retrying in {sleep_seconds}s...")
+            time.sleep(sleep_seconds)
+
+    return []
+
 def get_papers_from_arxiv_api(area: str, timestamp: Optional[datetime], last_id: Optional[str], intervals=7) -> List[Paper]:
     """
     Fetch papers from arXiv API for a specific category within a time interval.
@@ -61,22 +98,25 @@ def get_papers_from_arxiv_api(area: str, timestamp: Optional[datetime], last_id:
     )
     
     api_papers = []
-    for result in client.results(search):
-        new_id = result.get_short_id()
-        if last_id and is_earlier(last_id, new_id):
-            continue
+    for result in fetch_arxiv_results_with_backoff(client, search, area):
+        try:
+            new_id = result.get_short_id()
+            if last_id and is_earlier(last_id, new_id):
+                continue
+                
+            authors = [author.name for author in result.authors]
+            summary = unescape(re.sub(r"\n", " ", result.summary))
             
-        authors = [author.name for author in result.authors]
-        summary = unescape(re.sub(r"\n", " ", result.summary))
-        
-        if area in result.categories:
-            paper = Paper(
-                authors=authors,
-                title=result.title,
-                abstract=summary,
-                arxiv_id=new_id,
-            )
-            api_papers.append(paper)
+            if result_matches_area(area, result.categories):
+                paper = Paper(
+                    authors=authors,
+                    title=result.title,
+                    abstract=summary,
+                    arxiv_id=new_id,
+                )
+                api_papers.append(paper)
+        except Exception as e:
+            logging.warning(f"Skipping malformed arXiv API result for {area}: {e}")
             
     return api_papers
 
@@ -86,15 +126,19 @@ def get_papers_from_arxiv_rss(area: str, config: Optional[configparser.ConfigPar
     """
     updated = datetime.utcnow() - timedelta(days=1)
     updated_string = updated.strftime("%a, %d %b %Y %H:%M:%S GMT")
-    feed = feedparser.parse(
-        f"https://export.arxiv.org/rss/{area}",
-        modified=updated_string
-    )
+    try:
+        feed = feedparser.parse(
+            f"https://export.arxiv.org/rss/{area}",
+            modified=updated_string
+        )
+    except Exception as e:
+        logging.warning(f"Failed to parse arXiv RSS feed for {area}: {e}")
+        return [], None, None
     
-    logging.info(f"Feed Status: {feed.status}")
+    logging.info(f"Feed Status: {getattr(feed, 'status', 'unknown')}")
     logging.info(f"Feed entries count: {len(feed.entries)}")
 
-    if feed.status == 304:
+    if getattr(feed, "status", None) == 304:
         if config and config.getboolean("OUTPUT", "debug_messages", fallback=False):
             logging.info(f"No new papers since {updated_string} for {area}")
         return [], None, None
@@ -122,30 +166,34 @@ def get_papers_from_arxiv_rss(area: str, config: Optional[configparser.ConfigPar
     force_primary = config.get("FILTERING", "force_primary", fallback="false").strip().lower() == "true" if config else False
 
     for entry in entries:
-        if entry.get("arxiv_announce_type", "") != "new":
-            continue
+        try:
+            if entry.get("arxiv_announce_type", "") != "new":
+                continue
+                
+            paper_area = entry.tags[0].term if 'tags' in entry and len(entry.tags) > 0 else ""
             
-        paper_area = entry.tags[0].term if 'tags' in entry and len(entry.tags) > 0 else ""
-        
-        if area != paper_area and force_primary:
-            logging.info(f"Ignoring {entry.title} as it belongs to {paper_area} instead of {area}")
-            continue
+            if not category_matches(area, paper_area) and force_primary:
+                logging.info(f"Ignoring {entry.title} as it belongs to {paper_area} instead of {area}")
+                continue
+                
+            authors = [
+                unescape(re.sub(r"<[^<]+?>", "", author)).strip()
+                for author in entry.author.replace("\n", ", ").split(",")
+            ]
             
-        authors = [
-            unescape(re.sub(r"<[^<]+?>", "", author)).strip()
-            for author in entry.author.replace("\n", ", ").split(",")
-        ]
-        
-        summary = re.sub(r"<[^<]+?>", "", entry.summary)
-        summary = unescape(re.sub(r"\n", " ", summary))
-        title = re.sub(r"\(arXiv:[0-9]+\.[0-9]+v[0-9]+ \[.*\]\)$", "", entry.title).strip()
-        arxiv_id = entry.link.split("/")[-1]
-        
-        if area in paper_area:
-            new_paper = Paper(authors=authors, title=title, abstract=summary, arxiv_id=arxiv_id)
-            paper_list.append(new_paper)
-        else:
-            logging.debug(f"Skipping paper {title} as it does not belong to {area}")
+            summary = re.sub(r"<[^<]+?>", "", entry.summary)
+            summary = unescape(re.sub(r"\n", " ", summary))
+            title = re.sub(r"\(arXiv:[0-9]+\.[0-9]+v[0-9]+ \[.*\]\)$", "", entry.title).strip()
+            arxiv_id = entry.link.split("/")[-1]
+            
+            if category_matches(area, paper_area):
+                new_paper = Paper(authors=authors, title=title, abstract=summary, arxiv_id=arxiv_id)
+                paper_list.append(new_paper)
+            else:
+                logging.debug(f"Skipping paper {title} as it does not belong to {area}")
+        except Exception as e:
+            title = entry.get("title", "unknown title") if hasattr(entry, "get") else "unknown title"
+            logging.warning(f"Skipping malformed RSS entry for {area} ({title}): {e}")
             
     return paper_list, timestamp, last_id
 

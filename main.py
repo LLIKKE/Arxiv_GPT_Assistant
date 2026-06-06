@@ -7,7 +7,6 @@ import logging
 import datetime
 import shutil
 import time
-import random
 from typing import List, Tuple, Set
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -217,9 +216,6 @@ def main():
             max_retries = 3
             for attempt in range(max_retries):
                 try:
-                    # Add random sleep to avoid hitting rate limits
-                    time.sleep(random.uniform(0.5, 2.0))
-                    
                     title_cn = clean_markdown_formatting(translator.translate(paper.get('title', '')))
                     abstract_cn = clean_markdown_formatting(translator.translate(paper.get('abstract', '')))
                     return paper_id, {
@@ -238,7 +234,7 @@ def main():
                         }
 
         logging.info("Translating papers concurrently...")
-        with ThreadPoolExecutor(max_workers=5) as executor:
+        with ThreadPoolExecutor(max_workers=3) as executor:
             futures = {executor.submit(translate_paper, pid, p): pid for pid, p in selected_papers.items()}
             for future in as_completed(futures):
                 pid, translated_data = future.result()

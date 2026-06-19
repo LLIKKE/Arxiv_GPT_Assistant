@@ -1,0 +1,329 @@
+{
+    "summary_en": "### RL for LLMs\nA dominant theme emerges around novel reward and training designs for reinforcement learning in LLMs, moving beyond standard PPO/DPO. Several works introduce critic-free or process-supervised approaches: VIMPO derives a policy-implied value function to enable finer credit assignment without a learned critic, while Process-Verified Reinforcement Learning leverages Lean’s symbolic environment to provide dense, tactic-level verifiable rewards for theorem proving. The rise of GRPO-based methods is particularly notable, with MetaResearcher proposing a self-reflective meta-reward mechanism for deep research agents, and CARE integrating competence-aware reward shaping for adaptive reasoning in video-MLLMs. Uncertainty-Aware Reward Modeling tackles reward hacking via conformal prediction, and SAGE-OPD offers a verifier-free selective intervention framework for multi-turn distillation. These works collectively signal a shift toward more principled, scalable, and fine-grained reward signals that reduce reliance on large critic models and external verifiers.\n\n### Preference Optimization and Alignment\nThe field is advancing toward more efficient and informative preference data utilization. Which Pairs to Compare provides a theoretical framework for selecting the most informative comparison pairs in DPO, with practical sampling designs. Emergent Alignment introduces a self-review conscience step that enables alignment without an external judge, while Your Mouse and Eyes Secretly Leak Your Preference leverages implicit user feedback from mouse/eye tracking to train reward models, addressing the scalability bottleneck of human preferences. Beyond Entropy proposes using JS divergence on token logits to selectively update tokens, preventing training instabilities like entropy collapse. These contributions highlight a growing emphasis on data efficiency, implicit feedback sources, and training stability in preference-based post-training.\n\n### Latent Reasoning and Control\nA new frontier is emerging around latent representations for reasoning and behavioral control. What Makes Effective Supervision in Latent Chain-of-Thought identifies dual collapse and proposes a unified latent probe to measure information fidelity, directly advancing interpretability in latent reasoning. SoftSkill introduces behavioral compression into compact latent continuous context vectors, enabling frozen LLMs to adapt behavior through latent priors rather than explicit text—a paradigm shift for efficient model adaptation. ADaPT proposes a token-level dual-process framework that decouples efficiency and correctness rewards via a mode-selection token, allowing precise control over the reasoning efficiency-performance trade-off. These works suggest a move toward more structured, compressed, and controllable internal representations.\n\n### Multimodal and Test-Time Adaptation\nMultimodal LLM research is increasingly integrating reinforcement learning for adaptive behavior. CARE applies competence-aware reward shaping within GRPO to enable adaptive reasoning length in video-MLLMs. SPOT-E takes a test-time approach, using GRPO to optimize visual spotlights for frozen VLMs, improving grounding and evidence readout without retraining. These methods demonstrate how RL can be effectively applied to multimodal systems for dynamic, context-aware inference, bridging the gap between language-only and vision-language reasoning.\n\n### Agentic Learning and Long-Horizon Tasks\nTraining LLMs as agents that learn from their own experiences is gaining traction. Connect the Dots proposes a GRPO-style framework for long-lifecycle agents with cross-domain generalization via self-experience learning. MetaResearcher scales deep research agents through self-reflective RL in adversarial virtual environments, combining meta-reward design with scalable training. SAGE-OPD addresses compounding errors in multi-turn agent tasks through selective intervention and on-policy distillation. These works underscore the importance of designing reward structures and training loops that enable agents to improve autonomously over extended interactions.",
+    "summary_cn": "# LLM的RL\n一个主导主题围绕着LLM中强化学习的新颖奖励和训练设计，超越了标准的PPO/DPO。一些作品引入了无批评或流程监督的方法：VIMPO推导出一个政策隐含的价值函数，可以在没有经验丰富的批评者的情况下实现更好的信用分配，而流程验证的强化学习利用精益的符号环境为定理证明提供密集的、战术层面的可验证奖励。基于GRPO的方法的兴起尤其值得注意，MetaResearcher为深度研究代理提出了一种自我反思的元奖励机制，而CARE则集成了视频MLLM中的适应性推理的能力感知奖励塑造。不确定性感知奖励建模通过保形预测来解决奖励黑客攻击问题，SAGE-OPD提供了一个无验证器的选择性干预框架，用于多回合蒸馏。这些作品共同标志着奖励信号向更有原则、可扩展和细粒度的转变，从而减少对大型评论家模型和外部验证者的依赖。\n\n# 偏好优化和对齐\n该领域正在朝着更高效、更丰富的偏好数据利用方向发展。哪些对要比较提供了一个理论框架，用于在DPO中选择信息最丰富的比较对，并具有实用的抽样设计。紧急对齐引入了自我审查良心步骤，无需外部判断即可对齐，而您的鼠标和眼睛秘密泄露您的偏好利用鼠标/眼睛跟踪的隐式用户反馈来训练奖励模型，解决人类偏好的可扩展性瓶颈。Beyond Entropy提议在令牌日志上使用JS分歧来选择性地更新令牌，防止像信息崩溃这样的训练不稳定性。这些贡献凸显了基于偏好的后训练中对数据效率、隐性反馈源和训练稳定性的日益强调。\n\n# 潜在推理与控制\n围绕推理和行为控制的潜在表示，一个新的前沿正在出现。潜在思想链中的有效监督确定了双重崩溃，并提出了一种统一的潜在探索来衡量信息的忠实性，直接推进潜在推理的可解释性。SoftSkill将行为压缩引入紧凑的潜在连续上下文载体中，使冻结的LLM能够通过潜在先验而不是显式文本来适应行为--这是高效模型适应的范式转变。ADaPT提出了一个代币级双流程框架，通过模式选择代币将效率和正确性奖励分开，允许精确控制推理效率-性能权衡。这些作品表明向更加结构化、压缩和可控的内部表示转变。\n\n# 多模式和测试时适应\n多模式LLM研究越来越多地将强化学习整合到适应性行为中。CARE在GRPO中应用能力感知的奖励塑造，以在视频MLLM中实现自适应推理长度。SPOT-E采用测试时间方法，使用GRPO优化冷冻VLM的视觉聚光灯，在无需再培训的情况下改善接地和证据读取。这些方法展示了RL如何有效地应用于多模式系统，进行动态、上下文感知推理，弥合纯语言推理和视觉语言推理之间的差距。\n\n# 抽象学习和长期任务\n将LLM培训为从自身经验中学习的代理人正在获得牵引力。Connect the Dots为长生命周期代理提出了一个GRPO风格的框架，通过自我体验学习进行跨领域泛化。MetaResearcher通过对抗性虚拟环境中的自我反思RL扩展深度研究代理，将元奖励设计与可扩展训练相结合。SAGE-OPD通过选择性干预和政策上的蒸馏解决了多轮代理任务中的复合错误。这些工作强调了设计奖励结构和训练循环的重要性，使代理能够在扩展的交互中自主改进。",
+    "papers": {
+        "2606.20075": {
+            "authors": [
+                "Xinghao Chen",
+                "Chak Tou Leong",
+                "Wenjin Guo",
+                "Jian Wang",
+                "Wenjie Li",
+                "Xiaoyu Shen"
+            ],
+            "title": "What Makes Effective Supervision in Latent Chain-of-Thought: An Information-Theoretic Analysis",
+            "abstract": "arXiv:2606.20075v1 Announce Type: new  Abstract: Latent Chain-of-Thought (CoT) internalizes reasoning within continuous hidden states, offering a promising alternative to verbose discrete reasoning traces. However, robust latent reasoning remains difficult because outcome supervision provides weak learning signals and leaves latent trajectories prone to semantic drift. In this work, we analyze Latent CoT from an information-theoretic perspective and identify this failure as a dual collapse: gradient attenuation along the optimization path and representational drift in the latent space. We further decompose process supervision into two complementary dimensions: Trajectory Supervision, which injects dense stepwise reasoning signals, and Space Supervision, which preserves the semantic structure of the latent manifold. Our analysis shows that rigid geometric compression can collapse the reasoning space, whereas generative reconstruction provides a more flexible semantic anchor that better preserves information capacity. To measure these effects, we introduce the Unified Latent Probe (ULP), which quantifies the mutual information between latent trajectories and explicit reasoning steps. Experiments reveal a clear Information-Performance Binding: reasoning accuracy depends on the information fidelity preserved in the latent chain. These findings provide a principled framework for latent reasoning supervision and suggest shifting from geometric imitation toward mutual information maximization. Our code is available at \\href{https://github.com/EIT-NLP/Supervision-in-Latent-CoT}{this repository}.",
+            "arxiv_id": "2606.20075",
+            "ARXIVID": "2606.20075",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Provides an information-theoretic analysis of latent CoT supervision, identifying dual collapse and proposing a unified latent probe to measure information fidelity, directly advancing latent reasoning.",
+            "AFFILIATIONS": "EIT NLP",
+            "title_cn": "什么使潜在思想链有效监督：信息论分析",
+            "abstract_cn": "arXiv：2606.20075v1宣布类型：新摘要：潜在思想链（CoT）将推理内化在连续的隐藏状态中，为冗长的离散推理痕迹提供了一种有希望的替代方案。然而，鲁棒的潜在推理仍然很困难，因为结果监督提供了弱的学习信号，并使潜在轨迹容易发生语义漂移。在这项工作中，我们从信息论的角度分析了潜在CoT，并将这种失败识别为双重崩溃：沿着优化路径的梯度衰减和潜在空间中的代表性漂移。我们进一步将流程监督分解为两个互补的维度：轨迹监督（注入密集的逐步推理信号）和空间监督（保留潜在多管的语义结构）。我们的分析表明，严格的几何压缩可能会崩溃推理空间，而生成式重建提供了更灵活的语义锚，可以更好地保留信息容量。为了衡量这些影响，我们引入了统一潜在探测器（ULP），它量化潜在轨迹和显式推理步骤之间的互信息。实验揭示了明确的信息-性能绑定：推理准确性取决于潜在链中保留的信息保真度。这些发现为潜在推理监督提供了一个原则性框架，并建议从几何模仿转向互信息最大化。我们的代码可在\\href{https：//github.com/EIT-NLP/Supervision-in-Latent-CoT}{此存储库}获取。"
+        },
+        "2606.20008": {
+            "authors": [
+                "Zhewei Kang",
+                "Aosong Feng",
+                "Sergey Levine",
+                "Dawn Song",
+                "Xuandong Zhao"
+            ],
+            "title": "VIMPO: Value-Implicit Policy Optimization for LLMs",
+            "abstract": "arXiv:2606.20008v1 Announce Type: new  Abstract: Reinforcement learning with verifiable rewards has become a central tool for improving the reasoning ability of large language models, but current methods face a trade-off between simplicity and credit assignment. Group-relative methods such as GRPO avoid training a critic, but typically assign a trajectory-level advantage to every token. Actor-critic methods provide denser learning signals, but require a learned value function with its own training instability. We introduce VIMPO, a critic-free policy optimization method that derives a policy-implied value function from the optimality conditions of KL-regularized reinforcement learning. For autoregressive generation, the resulting value recurrence can be written in terms of policy-reference log-ratios and anchored by the terminal condition that no future reward remains at the end of a trajectory. This gives a simple value loss that incorporates outcome-level verifiable rewards without training a critic. The same derivation also yields a critic-free actor advantage, allowing VIMPO to separate reward incorporation through the value loss from policy improvement through a PPO-style actor update. On mathematical RLVR benchmarks, VIMPO improves over GRPO across MATH-500, AIME 2024, AIME 2025, and OlympiadBench, with especially larger gains on competition-style evaluations. Under noisy rewards, VIMPO retains a consistent advantage over GRPO, suggesting that policy-implied value optimization can provide finer credit assignment while preserving the practical simplicity of critic-free training.",
+            "arxiv_id": "2606.20008",
+            "ARXIVID": "2606.20008",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Introduces VIMPO, a critic-free RL method for LLMs that derives a policy-implied value function from KL-regularized RL optimality conditions, enabling finer credit assignment without a learned critic and showing strong gains on math reasoning benchmarks.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "VIMPO：LLM的价值隐性政策优化",
+            "abstract_cn": "arXiv：2606.20008v1宣布类型：新摘要：具有可验证奖励的强化学习已成为提高大型语言模型推理能力的核心工具，但当前的方法面临着简单性和信用分配之间的权衡。GRPO等群体相关方法避免培训批评者，但通常会为每个代币赋予专家级优势。演员-评论家方法提供了更密集的学习信号，但需要具有自身训练不稳定性的习得价值函数。我们引入了VIMPO，这是一种无批评策略优化方法，它从KL正规化强化学习的最优性条件中推导出策略隐含价值函数。对于自回归生成，由此产生的价值重现可以用政策参考对数比来写，并由最终条件锚定，即轨迹的末端没有未来回报。这就产生了简单的价值损失，其中包含了结果水平可验证的奖励，而无需培训批评者。同样的推导还产生了无批评的参与者优势，使VIMPO能够将价值损失的奖励合并与通过LPO式参与者更新的政策改进分开。在数学RLVR基准方面，VIMPO在MAT-500、AIME 2024、AIME 2025和OlympiadBench中优于GRPO，尤其是在竞赛式评估方面的收益更大。在喧闹的回报下，VIMPO保持着相对于GRPO的一致优势，这表明政策隐含价值优化可以提供更好的信用分配，同时保留无批评培训的实用简单性。"
+        },
+        "2606.19607": {
+            "authors": [
+                "Jiangze Han",
+                "Vineet Goyal",
+                "Will Ma"
+            ],
+            "title": "Which Pairs to Compare for LLM Post-Training?",
+            "abstract": "arXiv:2606.19607v1 Announce Type: new  Abstract: Preference-based post-training has become a central paradigm for aligning language models. A common data-collection strategy is to generate a small set of completions for each prompt and label the resulting comparison pairs. However, human preference labels are often much more expensive than generating additional completions, suggesting a different use of the same labeling budget: generate a larger pool of completions, but label only the most informative comparison pairs. This paper studies which pairs should be compared in preference-based post-training. We formulate comparison curation as a sampling-design problem and evaluate designs by the quality of the final policy under the preference-based post-training objective. We instantiate this framework for Direct Preference Optimization (DPO), analyzing how the choice of labeled pairs propagates through DPO training to downstream policy performance. Our main results provide matching upper and lower bounds on the post-training optimality gap of the DPO-trained policy. The bounds show that comparison selection affects downstream performance through a single design-dependent information matrix, which links label allocation to parameter estimation error and policy suboptimality. This yields an explicit optimization criterion for budgeted comparison curation and motivates practical sampling designs for selecting informative pairs from large generated completion pools. Experiments on synthetic settings and language-model post-training benchmarks show that the proposed designs consistently improve sample efficiency over common comparison-selection heuristics.",
+            "arxiv_id": "2606.19607",
+            "ARXIVID": "2606.19607",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes a principled framework for selecting the most informative comparison pairs in preference-based post-training, with theoretical bounds and practical sampling designs for DPO.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "哪些对比较LLM后培训？",
+            "abstract_cn": "arXiv：2606.19607v1宣布类型：新摘要：基于偏好的后训练已成为对齐语言模型的核心范式。一种常见的数据收集策略是为每个提示生成一小组完成，并标记产生的比较对。然而，人类偏好标签通常比生成额外的完成要昂贵得多，这建议对相同的标签预算进行不同的使用：生成更大的完成池，但仅标记信息最丰富的比较对。本文研究在基于偏好的后训练中应该比较哪些对。我们将比较策展制定为一个抽样设计问题，并在基于偏好的培训后目标下通过最终政策的质量来评估设计。我们实例化了这个直接偏好优化（DPO）框架，分析标记对的选择如何通过DPO训练传播到下游政策性能。我们的主要结果提供了DPO训练策略的训练后最优性差距的匹配上下限。边界表明，比较选择通过单个设计相关信息矩阵影响下游性能，该矩阵将标签分配与参数估计误差和策略次优联系起来。这为预算比较策展提供了明确的优化标准，并激励了实际的抽样设计，以从大型生成的完工池中选择信息对。对合成设置和语言模型训练后基准的实验表明，与常见的比较选择启发式方法相比，提出的设计始终提高了样本效率。"
+        },
+        "2606.19893": {
+            "authors": [
+                "Wei Yu",
+                "Suxing Liu",
+                "Minjie Yu",
+                "Jiahao Wang",
+                "Zhijian Zheng",
+                "Haocheng Deng",
+                "Bing Li"
+            ],
+            "title": "MetaResearcher: Scaling Deep Research via Self-Reflective Reinforcement Learning in Adversarial Virtual Environments",
+            "abstract": "arXiv:2606.19893v1 Announce Type: new  Abstract: Deep research agents have demonstrated remarkable capabilities in autonomous information gathering and synthesis, yet their training remains constrained by the static nature of simulated environments, the limits of fact-retrieval-only task designs, and the inefficiency of outcome-based reinforcement learning. In this work, we propose MetaResearcher, a novel framework that scales deep research agent training across four synergistic dimensions. First, we introduce an Evolving Virtual World that injects temporal dynamics and adversarial misinformation into the training environment, forcing agents to develop source credibility assessment and temporal conflict resolution skills. Second, we design Discovery-Oriented Tasks -- including hypothesis generation and contradiction resolution -- that transcend simple fact retrieval and push agents toward genuine research behaviors. Third, we propose a Self-Reflective Meta-Reward mechanism within the GRPO framework that jointly optimizes for answer correctness, search path efficiency, reflection depth, and tool call diversity, directly addressing the repetitive action loop problem observed in prior work. Fourth, we introduce a Heterogeneous Multi-Agent Swarm architecture comprising specialized Scout, Filter, and Synthesizer models that learn collaborative research strategies through coordinated reinforcement learning. Built upon the LiteResearcher infrastructure, MetaResearcher requires zero marginal API cost for training while targeting substantial improvements in both benchmark performance (GAIA, Xbench-DS) and epistemic robustness under adversarial conditions. We present the complete framework design, training methodology, and planned experimental validation.",
+            "arxiv_id": "2606.19893",
+            "ARXIVID": "2606.19893",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes a self-reflective meta-reward mechanism within GRPO for deep research agents, directly advancing RL-for-LLMs with a new reward design and scalable training loop.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "MetaResearcher：通过对抗性虚拟环境中的自我反思强化学习扩大深度研究",
+            "abstract_cn": "arXiv：2606.19893v1宣布类型：新摘要：深度研究代理在自主信息收集和合成方面表现出了非凡的能力，但它们的训练仍然受到模拟环境的静态性质、纯事实检索任务设计的局限性以及基于结果的强化学习的低效率的限制。在这项工作中，我们提出了MetaResearcher，这是一个新颖的框架，可以在四个协同维度上扩展深度研究代理培训。首先，我们引入了一个不断发展的虚拟世界，它将时间动态和对抗性错误信息注入到训练环境中，迫使代理开发源可信度评估和时间冲突解决技能。其次，我们设计了以发现为导向的任务--包括假设生成和矛盾解决--超越简单的事实检索，并推动代理人走向真正的研究行为。第三，我们在GRPO框架内提出了一种自反射元奖励机制，该机制联合优化答案正确性、搜索路径效率、反射深度和工具调用多样性，直接解决在之前的工作中观察到的重复动作循环问题。第四，我们引入了一个由专门的Scout、滤镜和合成器模型组成的异类多智能体群架构，这些模型通过协调的强化学习来学习协作研究策略。MetaResearcher建立在LiteResearcher基础设施之上，要求零边际API成本进行培训，同时目标是在对抗条件下大幅改进基准性能（GAIA、Xbench-DS）和认识稳健性。我们提出了完整的框架设计、训练方法和计划的实验验证。"
+        },
+        "2606.19771": {
+            "authors": [
+                "Xuanzhi Feng",
+                "Zhengyang Li",
+                "Zeyu Liu",
+                "Haoxi Li",
+                "Yuming Jiang",
+                "Bing Guo",
+                "Jingcai Guo",
+                "Jie Zhang",
+                "Song Guo"
+            ],
+            "title": "Beyond Entropy: Learning from Token-Level Distributional Deviations for LLM Reasoning",
+            "abstract": "arXiv:2606.19771v1 Announce Type: new  Abstract: Reinforcement Learning with Verifiable Rewards (RLVR) has significantly advanced Large Language Model (LLM) reasoning; however, it faces a fundamental optimization instability: uniform token updates precipitate entropy collapse, leading to premature convergence to suboptimal strategies, whereas excessive Shannon Entropy maximization can cause entropy explosion, driving blind exploration toward incoherent reasoning chains. To resolve this dichotomy, we introduce the Independent Combinatorial Tokens (ICT) framework, which shifts the optimization focus from scalar uncertainty to the distributional properties of token logits. By leveraging the Jensen-Shannon (JS) divergence between token logits distributions, ICT identifies tokens with distinctive distributional patterns as critical branching points for guiding effective exploration in LLM reasoning. Our theoretical analysis, grounded in both Shannon and second-order R\\'enyi entropy, proves that selectively updating on these tokens regulates policy concentration: it reduces the overall distribution uncertainty measured by Shannon entropy, while controlling probability concentration captured by second-order R\\'enyi entropy. This dual effect prevents over-concentrated token generation from weakening exploration and effectively stabilizes the training landscape. Empirical results demonstrate that updating only the top 10% of unique tokens on Qwen2.5 (0.5B/1.5B/7B) models yields an average pass@4 improvement of 4.58%, with a maximum gain of 14.9%, over GRPO, 20-Entropy, and STAPO baselines across seven benchmarks spanning math, commonsense, and Olympiad-level problems.",
+            "arxiv_id": "2606.19771",
+            "ARXIVID": "2606.19771",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes a novel RLVR training framework (ICT) that uses JS divergence on token logits to selectively update tokens, preventing entropy collapse/explosion and improving reasoning performance.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "超越熵：从代币级分布偏差中学习进行LLM推理",
+            "abstract_cn": "arXiv：2606.19771v1宣布类型：新摘要：带可验证奖励的强化学习（WLVR）显着推进了大型语言模型（LLM）推理;然而，它面临着根本性的优化不稳定性：统一的令牌更新会导致熵崩溃，导致过早收敛到次优策略，而过度的香农熵最大化可能会导致信息量爆炸，从而导致对不连贯推理链的盲目探索。为了解决这种二分法，我们引入了独立组合令牌（ICT）框架，该框架将优化重点从纯量不确定性转移到令牌逻辑的分布属性。通过利用代币日志分布之间的Jensen-Shannon（JS）差异，ICT将具有独特分布模式的代币识别为指导LLM推理中有效探索的关键分支点。我们的理论分析基于香农和二阶R\\' enyi信息，证明选择性地更新这些代币可以调节政策集中度：它减少了香农信息测量的总体分布不确定性，同时控制由二阶R\\' enyi信息获取的概率集中度。这种双重效果可以防止过度集中的代币生成削弱探索，并有效稳定训练格局。经验结果表明，仅更新Qwen 2.5（0.5B/1.5B/7 B）模型上前10%的唯一代币，在跨越数学、常识和奥林匹克级别问题的七个基准的GRPO、20-Entropy和STAPO基线上，平均通过@4提高4.58%，最大提高14.9%。"
+        },
+        "2606.20002": {
+            "authors": [
+                "Yanxi Chen",
+                "Weijie Shi",
+                "Yuexiang Xie",
+                "Boyi Hu",
+                "Yaliang Li",
+                "Bolin Ding",
+                "Jingren Zhou"
+            ],
+            "title": "Connect the Dots: Training LLMs for Long-Lifecycle Agents with Cross-Domain Generalization Via Reinforcement Learning",
+            "abstract": "arXiv:2606.20002v1 Announce Type: new  Abstract: This work presents a general framework for training large language models (LLMs) to \"Connect the Dots\" (CoD), a meta-capability required by long-lifecycle agents: as an LLM-based AI agent gets deployed in an environment, it solves a long sequence of tasks while continuously exploring the environment, learning from its own experiences, and iteratively self-updating its context about the environment, thereby achieving progressively better performance on future tasks conditioned on the updated context. Major components of the CoD framework include: (1) algorithm design and infrastructure for end-to-end reinforcement learning (RL) with long rollout sequences interleaving solve-task and update-context episodes; (2) tasks and environments for incentivizing and eliciting the targeted meta-capability in LLMs during training, as well as for faithfully measuring progress during evaluation. We present proof-of-concept implementations of the CoD framework, including a GRPO-style RL algorithm with fine-grained credit assignment, as well as tasks and environments tailored to the targeted meta-capability (rather than domain-specific LLM capabilities or standard task-by-task RL). Empirical results validate the efficacy of end-to-end RL training in the CoD setting, and demonstrate the potential for out-of-distribution generalization -- within the training domains, across different domains, and from CoD to Ralph-loop settings -- of the elicited meta-capability. Our investigation of CoD connects several lines of prior works, and opens up new opportunities for advancing LLMs and AI agents. To facilitate further research and applications, we release our implementations at \\url{https://github.com/agentscope-ai/Trinity-RFT/tree/research/cod/examples/research_cod}.",
+            "arxiv_id": "2606.20002",
+            "ARXIVID": "2606.20002",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes a novel RL framework (GRPO-style) for training LLMs as long-lifecycle agents that learn from their own experiences, directly matching the RL-for-LLMs criterion with a new training recipe and reward design.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "连接点：通过强化学习通过跨领域概括来训练长周期代理的LLM",
+            "abstract_cn": "arXiv：2606.20002v1宣布类型：新摘要：这项工作提供了一个通用框架，用于训练大型语言模型（LLM）以“连接点”（CoD），这是长生命周期代理所需的元能力：当基于LLM的人工智能代理在环境中部署时，它会解决一长串任务，同时不断探索环境、学习自己的经验并迭代地自我更新其有关环境的上下文，从而根据更新的上下文在未来任务上逐步实现更好的性能。CoD框架的主要组件包括：（1）用于端到端强化学习（RL）的算法设计和基础设施，具有交错求解任务和更新上下文事件的长推出序列;（2）用于激励和激发LLM中的目标元能力的任务和环境在培训期间，以及在评估期间忠实地测量进展。我们提供了CoD框架的概念验证实现，包括具有细粒度信用分配的GRPO风格RL算法，以及针对目标元能力（而不是特定领域的LLM能力或标准逐任务RL）量身定制的任务和环境。经验结果验证了CoD环境中端到端RL训练的有效性，并证明了所引发的元能力的非分布概括的潜力--在训练域内、跨不同域，以及从CoD到RSYS循环设置。我们对CoD的调查连接了先前的几条工作，并为推进LLM和AI代理开辟了新的机会。为了促进进一步的研究和应用，我们在\\url{https：//github.com/agentscope-ai/Trinity-RFFT/Tree/research/Cod/examples/research_cod}上发布了我们的实现。"
+        },
+        "2606.20068": {
+            "authors": [
+                "Minsu Kim",
+                "Se-Young Yun"
+            ],
+            "title": "Process-Verified Reinforcement Learning for Theorem Proving via Lean",
+            "abstract": "arXiv:2606.20068v1 Announce Type: new  Abstract: While reinforcement learning from verifiable rewards (RLVR) typically has relied on a single binary verification signal, symbolic proof assistants in formal reasoning offer rich, fine-grained structured feedback. This gap between structured processes and unstructured rewards highlights the importance of feedback that is both dense and sound. In this work, we demonstrate that the Lean proof assistant itself can serve as a symbolic process oracle, supplying both outcome-level and fine-grained tactic-level verified feedback during training. Proof attempts are parsed into tactic sequences, and Lean's elaboration marks both locally sound steps and the earliest failing step, yielding dense, verifier-grounded credit signals rooted in type theory. We incorporate these structured rewards into a GRPO-style reinforcement learning objective with first-error propagation and first-token credit methods that balances outcome- and process-level advantages. Experiments with STP-Lean and DeepSeek-Prover-V1.5 show that tactic-level supervision outperforms outcome-only baselines in most settings, delivering improvements on benchmarks such as MiniF2F and ProofNet. Beyond empirical gains, our study highlights a broader perspective: symbolic proof assistants are not only verifiers at evaluation time, but can also act as process-level reward oracles during training. This opens a path toward reinforcement learning frameworks that combine the scalability of language models with the reliability of symbolic verification for formal reasoning.",
+            "arxiv_id": "2606.20068",
+            "ARXIVID": "2606.20068",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Uses Lean proof assistant as a symbolic process oracle to provide dense, tactic-level verifiable rewards for GRPO-style RL, directly advancing RL-for-LLMs with a novel reward design.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "通过精益进行定理证明的流程验证强化学习",
+            "abstract_cn": "arXiv：2606.20068v1宣布类型：新摘要：虽然来自可验证奖励的强化学习（WLVR）通常依赖于单个二进制验证信号，但形式推理中的符号证明助手提供丰富、细粒度的结构化反馈。结构化流程和非结构化奖励之间的差距凸显了密集且健全的反馈的重要性。在这项工作中，我们证明了精益证明助手本身可以充当符号流程Oracle，在培训期间提供结果级和细粒度战术级验证反馈。证明尝试被解析成策略序列，Lean的阐述既标记了局部合理的步骤，也标记了最早失败的步骤，产生了植根于类型理论的密集、基于验证者的信用信号。我们将这些结构化奖励整合到GRPO式强化学习目标中，该目标具有第一错误传播和第一代币信用方法，平衡结果和流程级优势。STP-Lean和DeepSeek-Prover-V1.5的实验表明，在大多数情况下，战术级监督优于仅结果的基线，从而对MiniF 2F和ProofNet等基准进行了改进。除了经验收益之外，我们的研究还强调了更广泛的视角：符号证明助手不仅是评估时的验证者，而且还可以在培训期间充当过程级奖励先知。这为强化学习框架开辟了一条道路，该框架将语言模型的可扩展性与形式推理的符号验证的可靠性相结合。"
+        },
+        "2606.20333": {
+            "authors": [
+                "Xijia Tao",
+                "Yihua Teng",
+                "Xinyu Fu",
+                "Ziru Liu",
+                "Kecheng Chen",
+                "Yuzhi Zhao",
+                "Suiyun Zhang",
+                "Rui Liu",
+                "Lingpeng Kong"
+            ],
+            "title": "SoftSkill: Behavioral Compression for Contextual Adaptation",
+            "abstract": "arXiv:2606.20333v1 Announce Type: new  Abstract: Agent skills are commonly deployed as natural-language Markdown files that encode answer policies, evidence-use habits, and task procedures. These files are readable and portable, but they are consumed indirectly: for each task instance, a frozen language model must translate a long textual artifact into generation-time behavior. This paper asks whether a natural-language skill can instead initialize a compact continuous context object, refined by a trainable soft delta while the base model remains frozen. We propose SoftSkill, a frozen-backbone method that tunes such soft skills with next-token prediction and deploys them as latent behavioral priors at inference time. In our main single-round setting, a length-32 SoftSkill prefix on Qwen3.5-4B improves over no-skill prompting by 8.3 points on SearchQA, 42.1 points on LiveMath, and 1.3 points on DocVQA. Relative to SkillOpt, SoftSkill improves accuracy by 5.2 points on SearchQA and 12.5 points on LiveMath, while replacing hundreds to thousands of Markdown skill tokens with a few virtual tokens. We further study agentic execution as a harder boundary case, where sparse trajectory imitation provides useful signal but does not yet robustly compress long-horizon procedural behavior. More broadly, the results suggest that some task skills are better treated not as additional Markdown to be reinterpreted at inference time, but as compact latent controls over how a frozen model enters the task.",
+            "arxiv_id": "2606.20333",
+            "ARXIVID": "2606.20333",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes SoftSkill, a method that compresses natural-language task skills into compact latent continuous context vectors via a trainable soft delta, enabling frozen LLMs to adapt behavior through latent behavioral priors rather than explicit text, directly advancing latent reasoning/control.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "SoftSkill：用于上下文适应的行为压缩",
+            "abstract_cn": "arXiv：2606.20333v1宣布类型：新摘要：Agent技能通常被部署为自然语言Markdown文件，这些文件对答案策略、证据使用习惯和任务程序进行编码。这些文件是可读和可移植的，但是它们是间接使用的：对于每个任务实例，冻结的语言模型必须将长文本工件转换为生成时行为。本文探讨了自然语言技能是否可以初始化一个紧凑的连续上下文对象，在基础模型保持冻结的同时通过可训练的软增量进行细化。我们提出了SoftSkill，这是一种冻结的骨干方法，它通过下一个令牌预测来调整这种软技能，并在推理时将它们部署为潜在的行为先验。在我们的主要单轮设置中，Qwen 3.5 - 4 B上长度为32的SoftSkill前置在SearchQA上比无技能提示提高了8.3分，在LiveMath上提高了42.1分，在DocVQA上提高了1.3分。相对于SkillOpt，SoftSkill在SearchQA上的准确性提高了5.2个百分点，在LiveMath上提高了12.5个百分点，同时用一些虚拟代币取代了数百到数千个Markdown技能代币。我们进一步研究代理执行作为一种更难的边界情况，其中稀疏轨迹模仿提供了有用的信号，但尚未鲁棒地压缩长视野过程行为。更广泛地说，结果表明，一些任务技能最好不要被视为在推理时重新解释的额外Markdown，而是被视为对冻结模型如何进入任务的紧凑潜在控制。"
+        },
+        "2606.19919": {
+            "authors": [
+                "Tingyun Li",
+                "Zishang Jiang",
+                "Jinyi Han",
+                "Xinyi Wang",
+                "Sihang Jiang",
+                "Han Xia",
+                "Zhaoqian Dai",
+                "Shuguang Ma",
+                "Fei Yu",
+                "Jiaqing Liang",
+                "Yanghua Xiao"
+            ],
+            "title": "ADaPT: Token-Level Decoupling for Efficient Large Reasoning Models",
+            "abstract": "arXiv:2606.19919v1 Announce Type: new  Abstract: Large reasoning models rely on long chain-of-thought to achieve strong performance, but applying such reasoning uniformly incurs high computational cost. Existing efficiency-oriented methods attempt to shorten or mix reasoning strategies, yet often degrade reasoning capability. We identify the root cause as sequence-level coupling between efficiency incentives and correctness optimization, which implicitly penalizes long but correct reasoning trajectories. To address this issue, we propose Adaptive Dual-Process Thinking (ADaPT), a token-level dual-process framework that explicitly decouples efficiency and correctness signals during training. ADaPT introduces a mode-selection token to control fast and slow reasoning, applying efficiency-related rewards exclusively to this token to avoid penalizing correct long reasoning while encouraging efficiency when appropriate. Moreover, ADaPT enables precise and continuous control over the efficiency-performance trade-off at inference time: by adjusting the generation probability of the mode-selection token, a single trained model can smoothly move along the efficiency-performance Pareto frontier. Extensive experiments demonstrate that ADaPT significantly reduces inference cost while maintaining strong reasoning performance across multiple benchmarks.",
+            "arxiv_id": "2606.19919",
+            "ARXIVID": "2606.19919",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes a token-level dual-process framework (ADaPT) that decouples efficiency and correctness rewards via a mode-selection token, enabling precise control over the efficiency-performance trade-off in reasoning models.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "ADaPT：有效大型推理模型的令牌级脱钩",
+            "abstract_cn": "arXiv：2606.19919v1宣布类型：新摘要：大型推理模型依赖于长的思想链来实现强大的性能，但统一应用此类推理会导致很高的计算成本。现有的以效率为导向的方法试图缩短或混合推理策略，但往往会降低推理能力。我们将根本原因确定为效率激励和正确性优化之间的序列级耦合，这隐含地惩罚了漫长但正确的推理轨迹。为了解决这个问题，我们提出了自适应双过程思维（ADaPT），这是一种代币级双过程框架，它在训练期间显式地将效率和正确性信号分开。ADaPT引入了一个模式选择令牌来控制快速和缓慢的推理，将与效率相关的奖励专门应用于该令牌，以避免惩罚正确的长推理，同时在适当时鼓励效率。此外，ADaPT能够在推理时精确、连续地控制效率-性能权衡：通过调整模式选择令牌的生成概率，单个训练模型可以沿着效率-性能帕累托前沿平稳移动。大量实验表明，ADaPT显着降低了推理成本，同时在多个基准测试中保持强大的推理性能。"
+        },
+        "2606.19527": {
+            "authors": [
+                "Martin Kol\\'a\\v{r}"
+            ],
+            "title": "Emergent Alignment",
+            "abstract": "arXiv:2606.19527v1 Announce Type: new  Abstract: Can Large Language Models (LLMs) discern when their own outputs are misaligned with human ethics? And can they self-correct? We endow an LLM with a conscience step that reviews its own reasoning and outputs, and we extend the training loss with an alignment component using Direct Preference Optimization (DPO) to steer the model away from non-ethical outputs. The result is an online technique to align models in a wide range of applications: training, fine-tuning, adversarial prompting, and zero-shot learning. It does not require a weaker or stronger judge, relying instead on a frozen copy of itself. In previous work, the Emergent Misalignment scenario showed a range of emergent unethical behaviors from fine-tuning the model to hack code. Instead, we empirically show how to achieve Emergent Alignment: a single high-level introspective question steers training toward an ethical model under the same code hacking scenario.",
+            "arxiv_id": "2606.19527",
+            "ARXIVID": "2606.19527",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes an online alignment technique using a self-review conscience step and DPO, enabling emergent alignment without an external judge.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "紧急调整",
+            "abstract_cn": "arXiv：2606.19527v1宣布类型：新摘要：大型语言模型（LLM）能否辨别其自身的输出何时与人类伦理不一致？他们能自我纠正吗？我们赋予LLM一个良心步骤，可以审查其自己的推理和输出，并使用直接偏好优化（DPO）通过对齐组件扩展训练损失，以引导模型远离非道德输出。其结果是一种在线技术，可以在广泛的应用中对齐模型：训练、微调、对抗提示和零射击学习。它不需要更弱或更强的法官，而是依赖于其本身的冻结副本。在之前的工作中，Emergent失调场景显示了一系列紧急不道德行为，从微调模型到破解代码。相反，我们以经验性的方式展示了如何实现紧急一致：一个高级内省问题可以在相同的代码黑客场景下引导训练走向道德模型。"
+        },
+        "2606.19927": {
+            "authors": [
+                "Chengwen Liu",
+                "Hao Peng",
+                "Jisheng Dang",
+                "Hong Peng",
+                "Bin Hu",
+                "Tat-Seng Chua"
+            ],
+            "title": "CARE: Competence-Aware Reward Shaping for Adaptive Reasoning Length in Video-MLLMs",
+            "abstract": "arXiv:2606.19927v1 Announce Type: new  Abstract: In multimodal video reasoning, reinforcement learning-based methods typically rely on simplistic and inflexible reasoning-length control strategies that fail to adapt to the model's evolving competence. This mismatch may suppress necessary exploration at early stages, while encouraging redundant reasoning and inefficient decoding once the model becomes more competent. In this paper, we propose CARE, a competence-aware reward shaping framework for adaptive reasoning length optimization in multimodal reasoning. Specifically, CARE maintains a smoothed competence estimate via an exponential moving average of pass rates, and uses it to route training into progressive stages that shift the reward preference from exploration-oriented long-form reasoning to efficiency-oriented concise reasoning. To avoid conflating verbosity with intrinsic task complexity, CARE further normalizes reasoning effort with batch-level statistics, and introduces a posterior amplifier to strengthen reward signals for unexpectedly strong performance on historically difficult samples. The proposed mechanism is seamlessly integrated into the GRPO training pipeline and incurs no additional inference-time overhead. Extensive experiments on multiple video reasoning and general video understanding benchmarks demonstrate that CARE consistently improves reasoning accuracy, stabilizes reinforcement learning, and significantly enhances token efficiency. Moreover, CARE exhibits a characteristic inverted-U trajectory of reasoning length during training, and yields shorter yet more informative reasoning traces at convergence, indicating effective adaptive allocation of reasoning budget. We provide the source code for our proposed CARE framework and experiments at https://github.com/1Pansy/Video-CARE.",
+            "arxiv_id": "2606.19927",
+            "ARXIVID": "2606.19927",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a competence-aware reward shaping framework for adaptive reasoning length in multimodal LLMs, integrated into GRPO training, directly advancing RL for LLMs with a novel reward design.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "CARE：视频MLLM中自适应推理长度的能力感知奖励塑造",
+            "abstract_cn": "arXiv：2606.19927v1宣布类型：新摘要：在多模式视频推理中，基于强化学习的方法通常依赖于简单化且不灵活的推理长度控制策略，无法适应模型不断发展的能力。这种不匹配可能会在早期阶段抑制必要的探索，而一旦模型变得更有能力，就会鼓励重复推理和低效的解码。在本文中，我们提出了CARE，这是一个能力感知的奖励塑造框架，用于多模式推理中的自适应推理长度优化。具体来说，CARE通过通过率的指数移动平均值来维护平滑的能力估计，并使用它将训练引导到渐进阶段，将奖励偏好从面向探索的长篇推理转变为面向效率的简洁推理。为了避免将冗长性与内在任务复杂性混为一谈，CARE进一步将推理工作与批级别统计数据进行标准化，并引入后验放大器来加强奖励信号，以在历史上困难的样本上实现意外的强劲表现。所提出的机制无缝集成到GRPO训练管道中，并且不会产生额外的推断时间负担。针对多个视频推理和通用视频理解基准的大量实验表明，CARE能够持续提高推理准确性、稳定强化学习并显着提高代币效率。此外，CARE在训练期间表现出推理长度的典型倒U轨迹，并在收敛时产生更短但信息量更大的推理轨迹，表明推理预算的有效自适应分配。我们在https://github.com/1Pansy/Video-CARE上提供了我们提出的CARE框架和实验的源代码。"
+        },
+        "2606.20244": {
+            "authors": [
+                "Bo Yin",
+                "Xiaobin Hu",
+                "Chengming Xu",
+                "Ruolin Shen",
+                "Mo Yang",
+                "Jiangning Zhang",
+                "Peng-Tao Jiang",
+                "Cheng Tan",
+                "Shuicheng YAN"
+            ],
+            "title": "SPOT-E: Test-Time Entropy Shaping with Visual Spotlights for Frozen VLMs",
+            "abstract": "arXiv:2606.20244v1 Announce Type: new  Abstract: Vision-language models (VLMs) often underperform on evidence intensive tasks because decisive visual evidence are small, localized, and easy to overlook, leading to failures in evidence readout even when high-level reasoning is intact. Prior inference-time visual interventions can improve grounding without retraining, but they are largely open-loop and lack a mechanism to verify whether highlighted evidence is actually used. We study answer-span prediction entropy as a model-internal feedback signal and show that naive entropy minimization is ambiguous, since low entropy may arise from evidence-grounded confidence or shortcut collapse. To resolve this ambiguity, we introduce low-entropy anchors and an entropy-shaping objective that reduces answer uncertainty while preserving baseline high-confidence tokens. We instantiate this principle in SPOT-E, a plug-and-play test-time method that produces question-conditioned spotlights, optimized per instance via light-weight tuning based on Group Relative Policy Optimization (GRPO). Across all benchmarks and different VLM families, SPOT-E yields consistent gains and improved robustness under visual corruptions. Code is publicly available at: \\url{https://github.com/YinBo0927/SPOT-E}",
+            "arxiv_id": "2606.20244",
+            "ARXIVID": "2606.20244",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes SPOT-E, a test-time method using GRPO (RL for LLMs) to optimize visual spotlights for frozen VLMs, directly applying RL to improve VLM grounding and evidence readout.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "SPOT-E：使用视觉聚光灯对冷冻VLM进行测试时的熵整形",
+            "abstract_cn": "arXiv：2606.20244v1宣布类型：新摘要：视觉语言模型（VLM）在证据密集型任务中往往表现不佳，因为决定性的视觉证据很小、局部化且容易被忽视，即使高层推理完好无损，也会导致证据读取失败。先前的推断时间视觉干预可以在无需再培训的情况下改善基础，但它们在很大程度上是开放的，并且缺乏验证强调的证据是否实际上被使用的机制。我们将答案跨度预测信息作为模型内部反馈信号进行研究，并表明天真的信息量最小化是模糊的，因为低信息量可能源于基于证据的信心或捷径崩溃。为了解决这种模糊性，我们引入了低熵锚点和一个熵塑造目标，以减少答案的不确定性，同时保留基线高置信度令牌。我们在SPOT-E中实例化了这一原则，这是一种即插即用的测试时方法，可以生成受问题影响的聚光灯，并通过基于组相对政策优化（GRPO）的轻量级调整对每个实例进行优化。在所有基准测试和不同的VLM系列中，SPOT-E在视觉破坏下产生了一致的收益和更好的鲁棒性。代码可在以下网址公开获取：\\url{https：//github.com/YinBo0927/SPOT-E}"
+        },
+        "2606.19818": {
+            "authors": [
+                "Licheng Pan",
+                "Haocheng Yang",
+                "Haoxuan Li",
+                "Yichen Sun",
+                "Yunsheng Lu",
+                "Shijian Wang",
+                "Lei Shen",
+                "Yuan Lu",
+                "Zhixuan Chu",
+                "Hao Wang"
+            ],
+            "title": "Uncertainty-Aware Reward Modeling for Stable RLHF",
+            "abstract": "arXiv:2606.19818v1 Announce Type: new  Abstract: Reinforcement learning from human feedback (RLHF) aligns large language models by training reward models on preference data and optimizing policies to maximize predicted rewards. However, this pipeline faces two fundamental challenges: (1) reward models cannot signal when their predictions are unreliable, since they usually act as deterministic point estimators; and (2) modern group-based policy optimization can amplify unreliable reward signals, as exemplified by GRPO's uniform treatment of rewards during advantage computation. As policies explore increasingly diverse responses, these two limitations create a critical vulnerability: unreliable reward estimates may be granted disproportionate influence, triggering severe reward hacking. We propose Uncertainty-Aware Reward Modeling (UARM), which equips reward models with calibrated uncertainty via quantile-based conformal prediction and reweights GRPO advantages through heteroscedastic variance decomposition. Experiments across HelpSteer, UltraFeedback, and PKU-SafeRLHF demonstrate that UARM significantly improves reward model calibration, reduces reward hacking, and enhances downstream alignment quality compared to standard GRPO and uncertainty-agnostic baselines.",
+            "arxiv_id": "2606.19818",
+            "ARXIVID": "2606.19818",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a novel uncertainty-aware reward model using conformal prediction and heteroscedastic variance decomposition to stabilize RLHF and reduce reward hacking.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "稳定RL HF的不确定性意识奖励建模",
+            "abstract_cn": "arXiv：2606.19818v1宣布类型：新摘要：来自人类反馈的强化学习（RL HF）通过根据偏好数据训练奖励模型并优化策略以最大化预测奖励来调整大型语言模型。然而，该管道面临着两个基本挑战：（1）奖励模型无法在其预测不可靠时发出信号，因为它们通常充当确定性点估计器;（2）现代基于群体的政策优化可以放大不可靠的奖励信号，正如GRPO在优势计算期间对奖励的统一处理所证明的那样。随着政策探索日益多样化的应对措施，这两个限制造成了一个严重的漏洞：不可靠的奖励估计可能会受到不成比例的影响，从而引发严重的奖励黑客攻击。我们提出了不确定性感知奖励建模（UARM），它通过基于分位的保形预测为奖励模型配备校准的不确定性，并通过异方差方差分解重新加权GRPO优势。HelpSteer、UltraFeedback和PKU-SafeRL HF的实验表明，与标准GRPO和不确定性不可知基线相比，UARM显着改善了奖励模型校准、减少了奖励黑客攻击并增强了下游对齐质量。"
+        },
+        "2606.19659": {
+            "authors": [
+                "Yuhang Zhou",
+                "Lizhu Zhang",
+                "Yifan Wu",
+                "Mingyi Wang",
+                "Bo Peng",
+                "Jiayi Liu",
+                "Xiangjun Fan",
+                "Zhuokai Zhao"
+            ],
+            "title": "SAGE-OPD: Selective Agent-Guided Intervention for Multi-Turn On-Policy Distillation",
+            "abstract": "arXiv:2606.19659v1 Announce Type: new  Abstract: On-policy distillation (OPD) improves student models by training them on trajectories induced by their own policy, making it a promising approach for mitigating exposure bias in agent training. However, most OPD studies focus on single-turn settings, while realistic LLM agents interact with environments over multiple turns. In this regime, early errors can alter future observations and compound across the trajectory, and standard dense token-level OPD becomes brittle, as it may over-penalize semantically valid alternatives, reinforce local degeneracies such as repeated actions, and propagate unreliable teacher supervision on off-distribution histories. We propose SAGE-OPD, a verifier-free selective intervention framework specifically designed for multi-turn OPD. Instead of applying teacher supervision uniformly across all turns, SAGE-OPD first observes environment feedback and uses teacher judgment to decide whether each student response should be skipped or intervened on. To further address compounding errors, SAGE-OPD weights token-level distillation by teacher confidence, reducing the influence of uncertain teacher distributions on corrupted or ambiguous histories. Finally, SAGE-OPD applies loss normalization to preserve the overall loss scale of standard OPD while retaining selective turn-level weighting. Experiments on agent tasks show that SAGE-OPD consistently improves over baselines, achieving up to a 13.3% relative improvement in ALFWorld unseen success rate over standard OPD. Ablation studies further demonstrate that turn-level intervention, teacher confidence weighting, and loss normalization provide complementary benefits. Our results suggest that effective multi-turn OPD should remain on-policy, but teacher supervision should be selectively allocated to turns where intervention is necessary and reliable.",
+            "arxiv_id": "2606.19659",
+            "ARXIVID": "2606.19659",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes SAGE-OPD, a verifier-free selective intervention framework for multi-turn on-policy distillation that addresses compounding errors and improves agent task performance.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "SAGE-OPD：选择性代理引导干预，进行多轮政策蒸馏",
+            "abstract_cn": "arXiv：2606.19659v1宣布类型：新摘要：政策蒸馏（OPD）通过在自己的政策引发的轨迹上训练学生模型来改进他们，使其成为减轻特工培训中暴露偏见的有希望的方法。然而，大多数OPD研究都集中在单轮环境上，而现实的LLM代理人则在多轮环境中与环境互动。在这种情况下，早期错误可能会改变未来的观察并在整个轨迹中复合，标准密集代币级OPD变得脆弱，因为它可能会过度惩罚语义有效的替代方案，强化局部退化（例如重复动作），并传播不可靠的教师对非分布历史的监督。我们提出SAGE-OPD，这是一个专门为多回合OPD设计的无验证器选择性干预框架。SAGE-OPD没有在所有回合中统一应用教师监督，而是首先观察环境反馈，并利用教师判断来决定是否应该跳过或干预每个学生的反应。为了进一步解决复合错误，SAGE-OPD通过教师信心来加权代币级蒸馏，减少了不确定的教师分布对损坏或模糊历史的影响。最后，SAGE-OPD应用损失标准化以保留标准OPD的总体损失规模，同时保留选择性回合级加权。针对代理任务的实验表明，SAGE-OPD在基线上持续改进，ALFWorld未见成功率比标准OPD实现了高达13.3%的相对改进。消融研究进一步表明，回合级干预、教师信心加权和损失正常化提供了补充好处。我们的结果表明，有效的多轮OPD应保持在政策上，但教师监督应选择性地分配给干预必要且可靠的轮。"
+        },
+        "2606.20482": {
+            "authors": [
+                "Haw-Shiuan Chang",
+                "Jeffrey Gomez",
+                "Mehul Patwari",
+                "Aryan Sajith",
+                "Hamed Zamani"
+            ],
+            "title": "Your Mouse and Eyes Secretly Leak Your Preference: LLM Alignment using Implicit Feedback from Users",
+            "abstract": "arXiv:2606.20482v1 Announce Type: new  Abstract: To align a Large Language Model (LLM), most existing methods collect explicit human feedback and train a reward model to predict the human preference based on the response text. These existing methods have two key limitations. First, the users rarely provide explicit feedback for LLM responses, which makes the high-quality preference annotation expensive to collect. Second, the methods do not leverage implicit human feedback, which has proven vital to the economic moats of Internet giants. To quantify the value of implicit feedback, we build a new dataset called IFLLM, which collects 1336 multi-turn questions from the 59 Mechanical Turk workers, their mouse trajectories, and eye gazing points to the LLMs' responses from their webcams. IFLLM shows that the users have very diverse types of gazing behavior and mouse trajectories. Our reward model based on the implicit user feedback boosts the accuracy of the text-based reward model from 55% to 64% and nearly triples the relative response quality improvements after applying the DPO to eight LLMs, demonstrating the value of implicit feedback in the wild. Our data collection website, dataset, and codes can be found at https://github.com/themehulpatwari/llm-implicit-feedback/.",
+            "arxiv_id": "2606.20482",
+            "ARXIVID": "2606.20482",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a reward model trained on implicit user feedback (mouse/eye tracking) to improve LLM alignment via DPO, directly addressing scalable preference feedback for RL.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "您的鼠标和眼睛秘密泄露您的偏好：使用用户隐式反馈进行LLM对齐",
+            "abstract_cn": "arXiv：2606.20482v1宣布类型：新摘要：为了调整大型语言模型（LLM），大多数现有方法都会收集显式的人类反馈并训练奖励模型以根据响应文本预测人类偏好。这些现有方法有两个关键局限性。首先，用户很少为LLM响应提供明确的反馈，这使得高质量的偏好注释的收集成本很高。其次，这些方法没有利用隐含的人类反馈，而事实证明，这对互联网巨头的经济护城河至关重要。为了量化隐性反馈的价值，我们构建了一个名为IFLLM的新数据集，该数据集收集了来自59名土耳其机械工人的1336个多回合问题、他们的鼠标轨迹以及LLM网络摄像头响应的目光凝视点。IFLLM表明，用户的凝视行为和鼠标轨迹类型非常多样化。我们基于隐式用户反馈的奖励模型将基于文本的奖励模型的准确性从55%提高到64%，并且在将DPO应用于八个LLM后，相对响应质量改进几乎增加了两倍，证明了隐式反馈在野外的价值。我们的数据收集网站、数据集和代码可在https://github.com/themehulpatwari/llm-implicit-feedback/上找到。"
+        }
+    }
+}

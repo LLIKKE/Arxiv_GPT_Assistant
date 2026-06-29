@@ -1,0 +1,278 @@
+# 💡 今日研究速览 (Daily Summary)
+
+# SFT和数据效率
+“通过课程II学习推理”中的理论分析提供了一个严格的框架，证明课程分解可以显着减少监督式微调（SFT）所需的代币监督，并降低具有可验证奖励的强化学习（WLVR）的参考模型覆盖要求。这项工作为为什么结构化培训课程可以用少得多的数据实现组合概括提供了原则性的理由，直接为实际的SFT管道设计提供了依据。
+
+# LLM和推理的RL
+这是当今的主导主题，围绕着新颖的奖励设计，信用分配和培训稳定性有着显着的收敛。几篇论文推进了流程奖励建模：“The Weakest Link Tells It All”引入了一种可学习的信用分配机制，具有多实例学习（MIL）池，使结果监督流程奖励比传统的密集奖励模型更具样本效率。“追溯优势校正”（RAC）论文通过将截断残差重新注入到优势估计中来提供封闭形式的无偏校正，解决了RLHF中延迟奖励的实际挑战，这在理论上是有根据的，并直接适用于长期推理任务。“Tandem Reinforcement Learning with Verifiable Rewards”提出了一种新的联合生成范式，其中高级和初级模型在推出时进行合作，在不牺牲推理性能的情况下提高人类/较弱代理的兼容性-这是对标准RLVR的巧妙扭曲。“Supersede”环境引入了针对代理中的临时事实货币的可验证奖励，证明GRPO微调可以有效地缩小内存更新差距，这是基于RL的代理训练的具体新基准。“EchoSonar-R”和“MER-R1”都将GRPO与特定任务的复合奖励分别应用于医学和多模式领域，展示了这些RL推理方法可移植到专业垂直领域。“内化未来”提出了一个三阶段范式（WM-MT、FE-SFT、FC-RL），通过新型奖励/RL管道内化世界模型规划，有效地教代理在推理过程中使用潜在的预见。“文本信念状态”论文介绍了fGRPO，这是一种树结构RL方法，它在基于文本的世界模型中强制执行严格的潜在状态调解，同时推进RL for-LLM和潜在推理。最后，“NormGuard”识别并减轻基于流的生成器的RL后训练中的规范膨胀，提供了提高感知质量的奖励保留铰链惩罚--RL微调稳定性的实用正规化见解。
+
+# 按政策蒸馏和调整
+一个明显的子趋势是政策上蒸馏与RL的集成。“Qwen-Image-2.0-RL”技术报告将RL HF和政策上的提炼应用于扩散模型，使用直接反映RL for-LLM范式的复合奖励系统和基于GRPO的培训。“ATOD”引入了一种退火的回合感知策略蒸馏算法，专门用于多回合LLM代理，将混合蒸馏与回合级别重新加权相结合，以提高代理性能。“低宜人性人格调节”采用以数据为中心的方法来进行安全对齐，通过重写训练数据以低宜人性为条件，在不修改RL目标的情况下实现安全微调-这是基于奖励的对齐的补充方法。“PEBS”提供了一个封闭形式的每评分者的统计贝叶斯收缩估计器，用于校准RLHF奖励模型，在没有重新训练的情况下将保持的RMSE降低了8-10%，这是一个实用的统计修复噪声人类反馈。
+
+# Agent架构与潜在推理
+有几篇论文将代理推理的前沿推向了标准RL之外。“上下文就绪Transformer”引入了一种新的循环架构，该架构具有一个修正网络，可以预上下文化令牌，从而实现高效的顺序推理和合成任务的强劲性能--这是对潜在推理架构的直接贡献。“内化未来”和“文本信仰状态”都强调内部世界模型，前者使用三阶段训练管道，后者使用树结构RL进行严格调解，共同指向一种新的范式，即代理人在采取行动之前学习对未来状态进行内部推理。“Supersede”为临时事实货币提供了具体的RL环境和训练循环，这是代理内存更新能力的实用基准。
+
+# 多模式和视频生成
+多模式领域有两个值得注意的RL应用。“TempAct”提出了一个规划者-执行者RL框架，具有分层群组探索和对时间上合理的自回归视频生成的奖励，直接将RL for-LLM扩展到视频领域。“MER-R1”将具有慢-快置信度校准的双目标RL框架应用于多模式情感推理，表明RL可以优化细致入微的感知任务。“EchoSonar-R”为超声心动图带来了具有特定任务奖励的GRPO，展示了RL在医学图像分析和报告生成中的实用性。
+
+# 压缩和效率
+虽然不是今天的主要类别，但“NormGuard”通过识别和纠正基于流的模型中的范数膨胀来提高效率，这对于在RL微调期间保持模型质量而无需额外的计算开销具有意义。“PEBS”还为奖励模型提供了一种高效的闭合形式校准方法，无需重新训练，直接提高了RLHF管道中的信噪比。
+
+---
+
+## 1. Qwen-Image-2.0-RL技术报告
+
+**得分**: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10
+
+**作者**: Yixian Xu, Kaiyuan Gao, Yuxiang Chen, Yilei Chen, Zecheng Tang, Zihao Liu, Zikai Zhou, Deqing Li, Hao Meng, Kuan Cao, Jiahao Li, Jie Zhang, Liang Peng, Lihan Jiang, Ningyuan Tang, Shengming Yin, Tianhe Wu, Xiaoyue Chen, Yan Shu, Yanran Zhang, Yi Wang, Yu Wu, Yujia Wu, Zekai Zhang, Zhendong Wang, Xiao Xu, Kun Yan, Chenfei Wu
+
+**机构**: Alibaba Group (Qwen Team)
+
+**💡 亮点 (Highlight)**: Applies RLHF and on-policy distillation to improve a diffusion model, with a novel composite reward system and GRPO-based RL training, directly matching RL-for-LLMs and on-policy distillation criteria.
+
+**摘要**: arXiv：2606.27608v1宣布类型：新摘要：我们介绍了Qwen-Image-2.0-RL，这是一个训练后管道，应用来自人类反馈的强化学习（RL HF）和按策略蒸馏（OPD）来提高Qwen-Image-2.0扩散模型的视觉质量和描述跟随能力。为了提供可靠的奖励信号，我们通过用逐点评分范式和思想链推理微调视觉语言模型，构建特定于任务的复合奖励模型。对于文本到图像的生成，奖励模型涵盖对齐、美观和纵向保真度维度。对于图像编辑任务，奖励系统解决了描述跟踪准确性和面部身份保护问题。在这个奖励系统的基础上，我们开发了一个可扩展的基于GRPO的RL训练框架，其中结合了混合无分类器指导（CGM）策略来保存预训练的知识，通过组内奖励范围过滤和按类别奖励权重校准来提示策展。为了合并T2 I和编辑的任务专业化RL政策，我们提议将政策上的提炼作为最终培训阶段，通过幼儿园级速度匹配将多名教师整合到单个学生模型中。广泛的评估显示，Qwen-Image-2.0-RL在Qwen-Image-Bench上的总分为57.84（比基本模型+2.61），Elo在文本到图像领域的评分为1193（+78），在图像编辑领域的评分为1349（+93），展示了在美学质量、及时遵守和编辑准确性方面的一致进步。
+
+[阅读原文](https://arxiv.org/abs/2606.27608)
+
+---
+
+## 2. ATOD：针对多回合自治代理的Anneed回合感知按策略蒸馏
+
+**得分**: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10
+
+**作者**: Qitai Tan, Zefang Zong, Yang Li, Peng Chen
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces ATOD, a hybrid on-policy distillation and RL algorithm with an annealed schedule and turn-level reweighting, directly advancing on-policy distillation for LLM agents.
+
+**摘要**: arXiv：2606.27814v1宣布类型：新摘要：训练小型语言模型代理执行长期交互任务需要快速模仿和奖励驱动的改进。按政策蒸馏（OPD）提供密集的教师指导，通常在早期阶段快速提高，但一旦学生接近教师，其收益就会饱和，从而限制了最终的表现上限。强化学习（RL）直接优化环境奖励，并鼓励探索性改进，以达到更高的奖励定义上限，但稀疏和延迟的反馈使早期学习的效率远低于OPD。在本文中，我们提出了ATOD（Annealed Turn-aware On-policy Distillation），这是一种明确利用这种互补性的混合在线蒸馏算法。(1)ATOD使用经过调整的OPD-RL时间表：OPD主导早期培训，以接近教师水平的行为，而RL逐渐加强以推动基于奖励的探索。(2)ATOD引入了转弯级别分歧-不确定性重新加权（T-DUR），可以温和地放大高效用转弯并改善长轨迹中的密集监督。ALFWorld、WebShop和Search-QA上的实验表明，ATOD始终优于竞争对手的培训后基线：在三种学生规模中，ATOD的平均成功率比OPD提高了3.03个百分点，比GRPO提高了23.62个百分点，同时比相应的教师模型提高了2.16个百分点。
+
+[阅读原文](https://arxiv.org/abs/2606.27814)
+
+---
+
+## 3. Supersede：诊断和培训LLM代理人的记忆更新差距
+
+**得分**: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10
+
+**作者**: Vedant Patel
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces a novel RL environment (Supersede) with a verifiable reward targeting temporal fact-currency in LLM agents, and demonstrates that GRPO fine-tuning on this environment can train down the memory-update gap, directly advancing RL-for-LLMs with a new reward design and training loop.
+
+**摘要**: arXiv：2606.27472v1宣布类型：新摘要：大型语言模型（LLM）代理在长时间的多会话交互中运行，其中事实发生变化：用户移动、价格更新、计划修改。正确行事需要使用事实的当前值并丢弃已被取代的值。我们在真实的对话数据中隔离了这种能力，并表明它是一个明显的、未解决的失败。在LongMemEval的知识更新子集上，即使在前沿模型（gtt-5.4）上，用有界、自我维护的记忆替换代理的完整上下文也会使准确性从92%下降到77%，这一差距在统计学上具有显着性（配对McNemar p<0.005），并且在整个模型范围内持续存在，而全上下文准确性饱和接近92%。因此，瓶颈是内存维护，而不是理解，并且无法通过更强大的模型来解决。然后，我们询问这是否只是内存不足，发现事实并非如此：随着对话增长24倍，准确性进一步下降（从68%下降到28%），并且赋予代理按比例更多的内存不会产生可检测到的恢复（28%到28%，n=25）。故障与对话的长度有关，而不是压缩比。我们发布了Supersede，这是一个开放的承诺学习环境（在验证者/ prime-rl堆栈上），它将此测量结果转化为训练信号：代理因根据当前值进行回答而受到奖励，因过时的值而受到惩罚。最后，我们关闭循环并表明差距是可训练的：GRPO在此环境上微调小型开放模型（Qwen 2.5 -3B），使其在真实、不可见的对话中保持的超越准确性几乎翻了一番（9.0%至16.7%，一次运行），沿着单调检查点曲线，表明学到的策略（而不是工具）带来了收益。据我们所知，这是第一个奖励以时间事实货币为目标的可训练环境，也是第一个可以训练而不仅仅是测量的超越差距的证据。
+
+[阅读原文](https://arxiv.org/abs/2606.27472)
+
+---
+
+## 4. 上下文就绪Transformer
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Mahesh Godavarti
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces a new recurrent architecture for latent reasoning via a correction network that pre-contextualizes tokens, enabling efficient sequential inference and strong performance on composition tasks.
+
+**摘要**: arXiv：2606.27538v1宣布类型：新摘要：我们引入了上下文就绪Transformer，这是一种新的循环神经网络架构，从D层Transformer块构建，它在每个令牌进入块之前对其进行预上下文化。在从左到右生成期间，纠正网络将前一位置的块输出（过去上下文的缓存摘要）与当前令牌嵌入相结合，因此令牌将输入已经上下文化的块，而不是作为原始嵌入。在顺序推理时，纠正链使该架构成为循环神经网络。对于训练，我们在整个序列中将纠正过程展开K次，在每个步骤中并行处理所有位置。预训练的Transformer也可以通过添加零初始化校正FFN和微调转换为上下文就绪模型。我们在宽度，深度，块大小和两个数据集上进行评估，并与标准变压器，变体和消融进行所有比较。D=5型号优于12层Transformer，同时在A100上发电速度快1.7倍。当K=10时，单层模型（D=1）以2.6倍的推理加速比击败6层Transformer，顺序推理将并行K=10匹配到0.01 PPL内。该架构从广泛的表示和长上下文中受益最多。在指针追逐任务中，用BPTT训练的D=1可以解决所有10个构图级别，而标准变形金刚则表现出阶梯般的深度依赖性。
+
+[阅读原文](https://arxiv.org/abs/2606.27538)
+
+---
+
+## 5. TempAct：通过Planner-Executor RL提高自回归视频生成中的时间合理性
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Jing Wang, Xiangxin Zhou, Jiajun Liang, Kaiqi Liu, Wanyun Pang, Zhenyu Xie, Tianyu Pang, Xiaodan Liang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a planner-executor RL framework with hierarchical group exploration and rewards for temporally plausible autoregressive video generation, directly relevant to RL for LLMs.
+
+**摘要**: arXiv：2606.28016v1宣布类型：新摘要：自回归（AR）视频扩散模型通过将视频与缓存的视觉上下文逐块合成来实现低延迟流媒体生成，但这种逐块的公式使得遵循的时间指令变得模糊。单个全局提示并不指定每个块中应该实现哪个子事件，而天真地切换到分步提示通常会导致反应延迟、混合步骤语义和跨提示转换的错误传播。这些失败很难单独通过监督微调或蒸馏来解决：SFT存在暴露偏差，而基于展开的蒸馏仍然优化低级别去噪或教师分布匹配，而不是直接强制执行动作排序和预算转换正确性。我们通过TempAct来解决这些挑战，TempAct是一个规划者-执行者强化学习框架，可以联合优化时间分解和分步条件执行，以生成时间上合理的AR视频。TempAct使用LLM规划器来探索可由视频模型执行的范围感知步骤提示，并训练AR扩散执行者在其自己生成的历史记录下遵循这些提示。它的关键机制是分层组探索：候选计划形成规划组，每个计划从共享的视觉上下文中引入一个由多个延续组成的执行组，从而能够为长期时间结果进行计划级信用分配，并为预算转换行为进行执行者级信用分配。我们进一步设计分层奖励，将规划者的计划质量和全视频时间反馈与执行者的本地过渡级别分步跟踪奖励、审美规范化和KL约束相结合。Sel-Forcing和LongLive的实验表明，TempAct提高了时间一致性，同时保留了整体视觉质量。
+
+[阅读原文](https://arxiv.org/abs/2606.28016)
+
+---
+
+## 6. 通过课程II学习推理：成分概括
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Nived Rajaraman, Audrey Huang, Miroslav Dudik, Robert Schapire, Dylan Foster, Akshay Krishnamurthy
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Provides theoretical analysis showing that curriculum decomposition dramatically reduces token supervision requirements for SFT and reference model coverage requirements for RLVR, directly advancing RL-for-LLMs and on-policy distillation.
+
+**摘要**: arXiv：2606.27721v1公告类型：新摘要：组合泛化，通过将解决方案组合到更简单的子问题来解决复杂问题的能力，是自然智能和人工智能的基本能力，也是思维链推理的关键机制。然而，组合泛化的理论基础仍然知之甚少：什么时候以及为什么将问题分解成部分会比直接解决它更有效地学习？我们通过学习模拟半自动机（预测顺序计算$T$步骤的结果）的典型问题来研究这个问题，半自动机是一个捕获状态跟踪、常规语言识别和模块算术的模型。我们表明，建立在本系列第一部分的基础上的基于自序的方法，将较长的序列逐步分解为较短的子问题，学习解决它们并组成解决方案，比直接方法获得了显着更好的统计复杂性。(i)对于受监督微调（SFT）启发的设置，学习者接收有关计算中间状态的交互式反馈，课程仅需2美元的监督令牌即可进行学习。序列长度$T$中的子方程，克服了直接模拟所需的$\Omega（T）$代币障碍。(ii)对于受带可验证奖励的强化学习（WLVR）启发的环境，学习者使用结果验证器改进预训练的参考模型，我们表明课程将对参考模型的要求从全序列长度$T$的覆盖范围降低到更短的块长度$B \ll T$（指数级较弱的条件）的覆盖范围。
+
+[阅读原文](https://arxiv.org/abs/2606.27721)
+
+---
+
+## 7. 最弱的环节说明一切：通过可学习信用分配的结果监督流程奖励建模
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Tianyu Jia, Yue Fang, Hongxin Ding, Rihong Qiu, Zhibang Yang, Zhijing Wu, Xu Chu, Junfeng Zhao, Yasha Wang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a novel outcome-supervised process reward model (LCA) using learnable credit assignment and MIL pooling, directly advancing RL for LLM reasoning.
+
+**摘要**: arXiv：2606.27739v1宣布类型：新摘要：流程奖励模型（PRM）通过提供细粒度的反馈来增强大型语言模型（LLM）的推理能力，但训练PRM通常需要昂贵的逐步注释。结果监督的PRM通过仅从最终答案正确性中学习来提供可扩展的替代方案，但这引入了一个基本的 * 信用分配 * 挑战，即将结果归因于负责任的推理步骤。现有的方法依赖于统一或因果分配，这两者都无法将信用锚定在步骤正确性中，从而阻碍流程错误识别。   在这项工作中，我们通过 **L**earnable**C**redit**A**sign（** LCC *）提出了结果监督流程奖励建模，这是一个结果监督的PRM框架，它根据 * 最弱链接分配原则联合学习信用分配和奖励建模：推理链与其最弱的链接一样强大 *。为了解决信用分配和奖励建模之间的相互依赖性，我们将结果监督的PRM形式化为多实例学习（MIL）问题，并引入软最大加权总和（SWS）池化，这是一种针对推理状态之间的强依赖性和冗余度身定制的MIL池化技术。我们在温和的假设下证明了算法的Bayes一致性。大量实验表明，**LCC** 在多个任务和主干方面始终优于最先进的结果监督PRM。代码可在https://anonymous.4open.science/r/LCA上获取。
+
+[阅读原文](https://arxiv.org/abs/2606.27739)
+
+---
+
+## 8. 内化未来：世界模型规划的统一统计培训范式
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Xuan Zhang, Zhijian Zhou, Lingfeng Qiao, Yulei Qin, Ke Li, Xing Sun, Xiaoyu Tan, Chao Qu, Yuan Qi
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a three-stage training paradigm (WM-AMT, FE-SFT, FC-RL) to internalize world model planning in LLM agents, directly contributing to RL for LLMs with a novel reward/RL pipeline and latent reasoning via internalized foresight.
+
+**摘要**: arXiv：2606.27483v1宣布类型：新摘要：大型语言模型（LLM）代理在顺序决策方面表现出了强大的能力，但它们在长期任务中仍然具有根本性的反应能力。与人类在承诺之前采用“假设”推理来评估潜在计划不同，标准代理人缺乏内部世界模型来模拟未来结果。因此，我们建议通过训练单个自回归模型来内化未来感知规划，以口头化预期状态展开和计划条件成功估计--Q值的文本模拟。至关重要的是，我们发现了一个格式-能力差距：在训练后期间简单地对前瞻轨迹进行微调会导致肤浅的前瞻模仿，而没有真正的预测基础。为了弥合这一差距，我们引入了一个三阶段训练范式：（i）世界模型统计中期训练（WM-APT），将潜在的预测能力注入到政策中;（ii）激励SFT（FE-SFT），以构建这种注入的能力;（iii）前瞻性条件强化学习（FC-RL），以完善生成的模拟的校准和实用性。通过搜索和数学推理任务的评估，我们的方法始终优于其他训练基线。我们的结果表明，LLM代理中有效的内部世界建模需要能力优先的培训管道来实现接地和校准的前瞻性。
+
+[阅读原文](https://arxiv.org/abs/2606.27483)
+
+---
+
+## 9. 具有可验证奖励的串联强化学习
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Difan Jiao, Raghav Singhal, Robert West, Ashton Anderson
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Tandem Reinforcement Learning (TRL), a novel RLVR variant where a senior and junior model co-generate rollouts to improve human/weaker-agent compatibility while maintaining reasoning performance.
+
+**摘要**: arXiv：2606.28166v1宣布类型：新摘要：带可验证奖励的强化学习（WLVR）显着提高了大型语言模型的推理能力，在竞赛数学等领域达到了专家甚至超人的表现。然而，较弱的代理人和人类是否能够真正利用这种能力远不确定，因为WLVR记录了将推理转向特殊模式，例如可读性差和语言混合。Tandem训练是最近引入的一种范式，旨在解决这一兼容性问题：训练有素的、更强的老年人与一个冰冻的、更弱的初级人共同产生每次部署，两人作为一个团队得到奖励，因此高级人被迫以初级人可以遵循的方式推理。然而，到目前为止，这种范式仅在概念验证环境中得到了证明，但它是否可以扩展到现代WLVR管道的长链思想仍有待商榷。在这项工作中，我们提出了串联强化学习（TRL），它将串联训练范式引入到WLVR中。在TRL中，高年级学生和冷冻的低年级学生随机地共同生成推理，由此产生的一代得到奖励，标准的GRPO损失应用于高年级学生。培训Qwen 3 - 4 B-讲师竞赛数学，我们发现TRL在单独推理能力方面与vanilla GRPO相匹配，而同一推出结构中共同出现了三个属性：与初级人员的切换鲁棒性更强，减少初级人员的分布漂移，以及对初级人员来说更清晰的思想链。我们的结果证明了WLVR是一条有前途的路线，在多模型通信和人类兼容性方面具有实际回报。
+
+[阅读原文](https://arxiv.org/abs/2606.28166)
+
+---
+
+## 10. 世界模型的文本信念状态：严格调解下的可识别表示学习
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Xiang Gao, Kaiwen Dong, Yuguang Yao, Padmaja Jonnalagedda, Kamalika Das
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces fGRPO, a tree-structured RL method to enforce strict latent state mediation in text-based world models, directly advancing RL for LLMs and latent reasoning.
+
+**摘要**: arXiv：2606.27681v1宣布类型：新摘要：部分观察环境中的世界模型依赖于总结交互历史的潜在表示，但在许多现代基于LLM的架构中，由于历史绕过，预测性能无法反映表示质量，导致潜在状态无法识别。严格的潜在状态调解（要求预测仅取决于潜在状态和动作）是解决这个问题的经典原则，但在基于文本的环境中执行它是一个开放的挑战：文本潜在状态是离散的且不可微的，排除了变分训练，并且表达性LLM解码器很容易忽视瓶颈。我们展示了如何在文本域中进行严格的调解。我们正式化了为什么有必要，表明严格的调解使表示质量可以通过经验测试，而历史泄露的架构则打破了这种联系。然后，我们引入文本潜在状态（离散的、可解释的和可变长度）和因子分解的GRPO（fGRPO），这是一种树结构强化学习方法，在训练期间强制执行严格的调解。TextWorld和ScienceWorld上的实验表明，一步预测准确性得到了保留，表示质量提高了57%，推出性能提高了98%，并随着任务复杂性和视野而提高。
+
+[阅读原文](https://arxiv.org/abs/2606.27681)
+
+---
+
+## 11. EchoSonar-R：一种用于超声心动图中疾病分类和报告生成的多视图推理模型
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Darya Taratynova, Ahmed Aly, Numan Saeed, Mohammad Yaqub
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Applies GRPO with task-specific rewards for multi-view reasoning in echocardiography, directly contributing an RL-for-LLMs method with a new reward design.
+
+**摘要**: arXiv：2606.28164v1宣布类型：新摘要：超声心动图是使用最广泛的无创心脏成像方式，为心血管诊断提供重要信息。解读超声心动图需要综合多个心脏视图的补充证据，以识别异常并生成结构化的临床报告。虽然最近的工作重点是提高分类性能，但大多数模型缺乏明确的诊断推理和空间基础解剖学证据，限制了临床医生的信任。我们介绍了EchoSonar-R，这是一种支持多视图推理的视觉语言模型，可联合执行多标签疾病分类和根据超声心动图研究生成报告。EchoSonar-R将时空视频编码器与结构感知心脏检测器相结合，可提供空间接地解剖线索，以提高交叉视图推理期间的可解释性和临床医生信任度。EchoSonar-R分为两个阶段进行训练：对推理注释的目标进行监督微调（SFT），然后是具有特定任务奖励的组相对政策优化（GRPO），在统一的业务学习框架内联合调整分类和报告生成。在私人多视图数据集和两个公共基准中，EchoSonar-R在私人集上将宏观平衡准确性提高了17.1%，在最强基线上提高了6.1%，实现了0.800的绿色临床忠实度评分，并产生了基于多视图视觉证据的可解释推理痕迹。
+
+[阅读原文](https://arxiv.org/abs/2606.28164)
+
+---
+
+## 12. MER-R1：通过慢速-快速思维协同进行多模式情感推理
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Zhiyuan Han, Beier Zhu, Wenwen Tong, Chengwei Qin, Xinyi Wang, Jiayu Zhang, Jiangnan Chen, Hewei Guo, Dongchuan Ran, Lewei Lu, Xun Yang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes MER-R1, an RL framework with dual-objective disentanglement and slow-fast confidence calibration to optimize multimodal emotion reasoning, directly advancing RL for LLMs.
+
+**摘要**: arXiv：2606.27652v1宣布类型：新摘要：我们发现，显式推理不一定能转化为更好的多模式情感识别（MER）准确性，尽管它使预测更容易解释。具体来说，对于基于推理的MLLM来说，通过触发直接答案来进行快速思维通常优于深思熟虑推理后的缓慢思维。我们的实证分析表明，快速思维提高召回更广泛和更自信的预测，而缓慢的思维有利于通过保守的不正确的类别过滤精度。基于这些见解，我们提出了MER-R1，这是一个强化学习框架，可以将慢-快互补转化为显式优化。双目标分解将查全率和查准率分为两个优化信号，使它们能够联合优化，而不是相互权衡。慢-快信心校准进一步将最终的慢思维答案与快思维直觉联系起来，加强正确的情绪，同时抑制不正确的情绪。通过这种方式，MER-R1将快速思维的以回忆为导向的直觉与缓慢思维的以精确为导向的选择性统一起来。我们进一步提供了这种协同作用的理论依据，表明它减轻了方差引起的干扰在优化过程中。在MER-UniBench和MME-Emotion上的大量实验表明，MER-R1实现了最先进的性能，并使推理真正有利于情感识别。
+
+[阅读原文](https://arxiv.org/abs/2606.27652)
+
+---
+
+## 13. 回溯优势校正：延迟感知RLHF的闭合形式V迹线偏差校正
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Arnav Raj
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Retroactive Advantage Correction (RAC), a novel method to handle delayed rewards in RLHF by reinjecting clipped residuals into the advantage, with theoretical unbiasedness guarantees.
+
+**摘要**: arXiv：2606.27580v1宣布类型：新摘要：生产中来自人类反馈的强化学习（RL HF）并不总是有同步的奖励信号。代码执行验证器、缓慢判断集合和排队的人类审查可以在产生它们的推出后返回几个梯度步骤，打破了标准PPO的同步奖励假设。我们通过回溯优势纠正（RAC）来解决这一差距：每个待处理的缓慢完成都会被排队，通过非负内核老化，并作为修剪后的剩余重新注入到下一个优化步骤的优势中。我们证明，在无偏剪切重要性比下，当有效延迟核重新注入其所有质量时，累积RAC修正完全是无偏的，否则在未重新注入的部分中携带线性偏差;在无延迟身份核，它减少到V-踪迹。在表格式马尔科夫决策过程（MDP）概念验证中，RAC在两个慢通道配置下将封闭形式的策略偏差减少了高达47.9倍，击败了以较低的时钟成本等待慢的策略。RAC通过两行奖励经理补丁与PPO和GRPO集成。
+
+[阅读原文](https://arxiv.org/abs/2606.27580)
+
+---
+
+## 14. NormGuard：流匹配强化学习中的奖励性规范约束
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Tianlin Pan, Lianyu Pang, Cheng Da, Huan Yang, Changqian Yu, Kun Gai, Wenhan Luo
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Identifies norm inflation in RL post-training for flow-based generators and proposes a training-time hinge penalty that preserves reward while improving perceptual quality, directly contributing a new reward-preserving regularization method for RL fine-tuning.
+
+**摘要**: arXiv：2606.27771v1宣布类型：新摘要：强化学习（RL）训练后改善了基于流的生成器的奖励一致性，但通常会以奖励代理无法捕捉到的方式降低感知质量。我们确定了这种漂移的一个简单结构特征：在三种训练后方法（NFT、AWM、DPO）中，RL微调将每步速度规范$\|v_\theta\|$相对于参考膨胀了$5\%$至$15\%$。在无分类器指导（CGM）中研究了一种形式的规范膨胀，其中在推理时将速度重新缩放回参考规范可以减轻产生的伪影。然而，这种推断时纠正并没有干净地转移到RL：在推断时重新缩放$v_\theta$以匹配$\|v_{\text{ref}}\|$既不会提高奖励，也不会修复质量下降，因为膨胀被共同适应到模型权重中。此外，伴随敏感性分析表明，速度幅度重新缩放在批次级别上不携带连贯的一阶回报信号，这表明抑制规范通货膨胀不太可能消除一致的回报成分。由于推理时重新规范化失败，而规范抑制不会带来回报成本，因此训练时干预是适当的策略。总而言之，这些发现激发了\MethodName，这是一种铰链惩罚，只有当$\|v_\theta\|$超过$\|v_{\text{ref}}\|$时才会激活，并且与任何速度局部基本损失相加。在两个基本模型、三种后训练方法和两个奖励代理中，\Methodlist持续提高了MLLM判断的图像质量和法医真实感，同时保留了奖励，收益在几步推理下放大，并且无法通过提前停止来解释。
+
+[阅读原文](https://arxiv.org/abs/2606.27771)
+
+---
+
+## 15. 用于安全LLM微调的低易失性Persona调节
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Austin MY Cheung, Yi Yang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces a persona-driven data rewriting pipeline for safe LLM fine-tuning that conditions on low agreeableness, directly addressing alignment and safety via data design without changing the RL objective.
+
+**摘要**: arXiv：2606.27709v1宣布类型：新摘要：最近的工作表明，微调大型语言模型（LLM）以实现社交热情会降低事实的可靠性并增加谄媚性。我们研究了一种相关但独特的失败模式：温暖微调也会削弱对抗安全性，使模型更容易受到越狱和有害输出产生的影响。我们研究这是否反映了同理心适应的固有结果还是数据构建的产物。为了解决这个问题，我们引入了一个角色驱动的重写管道，该管道可以条件用户打开低宜人性，并将其与温暖、降级的助理响应相匹配。在对四个模型进行的三项实验中，我们的方法相对于通用温暖微调基线降低了越狱易感性和有害输出率，同时保留了对话的温暖度。具象探测提供了暗示性证据，证明这种条件反射减少了潜在空间中温暖和顺从方向之间的几何对齐。这些结果表明，仅通过数据设计即可实现更安全的同理心微调，无需安全标签、伤害检测器或改变训练目标。
+
+[阅读原文](https://arxiv.org/abs/2606.27709)
+
+---
+
+## 16. PEBS：RL HF奖励模型校准的按评级器经验-Bayes收缩率
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Arnav Raj
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes PEBS, a closed-form per-rater empirical-Bayes shrinkage estimator for calibrating RLHF reward models, reducing held-out RMSE by 8-10% without retraining.
+
+**摘要**: arXiv：2606.27578v1宣布类型：新摘要：来自人类反馈的强化学习（RL HF）的奖励模型汇集了数千个注释者的偏好，并适合一个全局仿射校准器，将具有系统性不同的评级标度偏差和斜坡的评级者折叠成一个不匹配任何单个注释者的单一平均评级者匹配。PEBS是一个按评分者统计-Bayes收缩估计器：它将按评分者仿射校准器与每个注释者评分的固定切片相匹配，并将Morris-James-Stein统计-Bayes收缩应用于人口平均值，以封闭形式且无需重新训练奖励模型。在PRism上，PEBS将用户内持有的RMES在汇总人口斜坡基线的基础上降低了8.58%。该程序在PluriHarms伤害评级（Qwen-2.5基础，家庭内）上重复，在相同的种群斜坡基线上RSSE降低+9.66%。PEBS是一种封闭式事后估计器，用于在WLHF奖励建模中特定于注释者的仿射校准;它保持奖励基础模型不变，并仅估计在新评级的推断时使用的评级者级别地图。
+
+[阅读原文](https://arxiv.org/abs/2606.27578)
+
+---
+

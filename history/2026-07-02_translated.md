@@ -1,0 +1,440 @@
+# 💡 今日研究速览 (Daily Summary)
+
+### RL for LLMs
+
+A significant wave of research is solidifying Reinforcement Learning as the dominant paradigm for post-training LLMs, moving beyond simple supervised fine-tuning. Several works provide deep theoretical and practical foundations for this shift. **Predictable GRPO**offers a closed-form model of GRPO training dynamics, enabling precise predictions of reward trajectories and stability thresholds, a crucial step towards making RL training more predictable and controllable. Concurrently,**On the Convergence of Self-Improving Online LLM Alignment**(SAIL-RevKL) tackles convergence guarantees by proposing a regularized objective that satisfies the Polyak-Łojasiewicz condition. The theme of improving credit assignment is also strong:**TRIAGE**introduces role-typed process rewards to correct blind spots in outcome-only GRPO for agentic tasks, while**ECHO**proposes selective turn-memory for traceable on-policy credit assignment in long-horizon agentic scenarios. Practical innovations include**Gradient Smoothing**, a novel depth-wise gradient augmentation method shown to improve optimization and generalization in RL post-training for reasoning, and**Addressing Over-Refusal in LLMs with Competing Rewards**(SEAR), which uses adversarial RL with competing process rewards to explore harmful reasoning and mitigate over-refusal. Finally, frameworks like**GR2**and**MetaFlow**demonstrate the power of combining reasoning distillation or search with RL and verifiable rewards for industrial recommendation and workflow generation, respectively.
+
+### On-Policy Distillation & Alignment
+
+A clear theoretical and practical consensus is emerging around the superiority of on-policy distillation over standard behavior cloning (SFT), especially when dealing with imperfect or noisy supervision.**Behavior Cloning is Not All You Need**provides a rigorous theoretical foundation, proving the optimality of on-policy distillation (OPD) with noisy expert feedback and proposing a variant with polynomial horizon dependence. This principle is applied across diverse domains:**GR2**employs OPD as a scalable alternative to SFT for industrial recommendation, and**Fora**introduces a function-space protection method for capability-preserving fine-tuning that uses an on-policy distillation-like approach. The alignment literature also reflects this trend, with**Introspective Coupling**showing that fixed counterfactual explanation training (a form of self-supervision) can yield faithful introspection that tracks behavioral changes, offering a novel, scalable post-training signal.**Reinforcement Learning with Metacognitive Feedback**(RLMF) proposes a new RL training paradigm to elicit faithful uncertainty expression, further expanding the toolbox beyond standard RLHF.
+
+### Multimodal Reasoning & Alignment
+
+Multimodal research is deeply integrating RL and preference optimization to tackle core challenges like hallucination and robust reasoning.**Consistency as Inductive Bias**(ConsistRoll) introduces a novel RLVR method that injects cross-view consistency via group-sampling in GRPO, directly improving multimodal reasoning without extra generation overhead. For hallucination mitigation, two distinct RL-based approaches stand out:**Clearer Sight, Fewer Lies**(OPPO) proposes a preference optimization objective that directly aligns generation with visual evidence strength using ordered evidence margins, while**Vision-driven Preference Synthesis**constructs policy-aligned and visually grounded preference pairs for RLHF-style alignment. In the robotics domain,**Z-1**demonstrates that applying GRPO to flow-based Vision-Language-Action models yields substantial improvements over SFT. For agentic tasks,**ReGRPO**introduces reflection-augmented policy optimization for tool-using VLM agents, and**Personalizing MLLMs**uses a reinforced multimodal reference game with verifiable contrastive rewards to train discriminative concept descriptions.
+
+### Reasoning & Latent Computation
+
+The frontier of efficient reasoning is being pushed by methods that operate in latent space to reduce computational overhead without sacrificing performance.**Bridging the Gap Between Latent and Explicit Reasoning**achieves a major milestone by being the first latent-CoT method to match the performance of explicit chain-of-thought at the 3B scale, using looped Transformers with parallel supervision on latent tokens to cut latency significantly. This is complemented by architectural innovations like**Which Tokens Matter?**, which introduces a principled token-selection method (RSI) for RLVR that reconciles conflicting prior findings and improves reasoning accuracy.**Evo-PI**proposes a co-evolutionary framework where language-based principles are iteratively refined to supervise LLM reasoning, acting as a dynamic RL-like reward signal. Furthermore,**Geometry-Preserving Orthonormal Initialization for Low-Rank Adaptation in RLVR**provides a theoretically grounded initialization for LoRA that improves stability and performance in RL-based reasoning training.
+
+### Agentic RL & Tool Use
+
+Agentic RL is rapidly maturing, with a focus on solving credit assignment over long horizons and enabling effective tool use.**TRIAGE**and**ECHO**both address the fundamental problem of sparse rewards in agentic tasks, with TRIAGE using semantic role-conditioned process rewards and ECHO using selective turn-memory for traceable credit assignment.**ReGRPO**introduces reflection tokens and structured failure data to improve tool-using VLM agents.**Xiaomi-GUI-0**presents a practical, real-device closed-loop training pipeline for GUI agents using step-level and agentic RL. For multilingual settings,**Think in English, Answer in Korean**proposes RL with verifiable rewards and language-consistency rewards to efficiently adapt tool-use agents. Finally,**Learning to Select, Not Relearn** introduces a hard-routed mixture of reasoning LoRAs, where the router is trained via on-policy distillation of reasoning traces, demonstrating a sophisticated interplay between modular architecture and RL-based training.
+
+---
+
+## 1. 行为克隆并不是您需要的全部：政策上蒸馏对噪音专家反馈的最佳性
+
+**得分**: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10
+
+**作者**: Ved Sriraman, Peihan Liu, Daniel Hsu, Adam Block
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Provides a theoretical foundation for why on-policy distillation outperforms SFT with noisy expert feedback, proposing a novel OPD variant with polynomial horizon dependence.
+
+**摘要**: arXiv：2606.30923v1宣布类型：新摘要：模仿学习是顺序决策系统中学习的自然框架，并已成为我们理解语言模型训练的主要范式。一个核心难题是，虽然理论上离线IL可以是无水平且最佳的，但在实践中，政策上蒸馏等在线方法往往优于离线方法，例如监督微调。我们提出了一个有噪的专家模型来解释这种差距，其中学习者只能访问专家政策的有噪版本，但希望与干净的专家获得的奖励竞争，其动机是这样一个事实：在许多应用中，例如训练语言模型来执行长链的思想，专家通常是不完美的。在这种情况下，我们展示了线下和在线IL之间的明显分离。从噪音轨迹中进行离线学习从根本上来说是困难的：为了与干净的专家竞争，样本复杂性必须呈指数级增长，这与不存在显式视界依赖的干净专家环境形成鲜明对比。相比之下，我们证明，通过OPD的一种新型变体与有噪音的专家进行在线交互总体上实现了对视界的多项依赖。我们进一步表明，在专家噪音分布的自然条件下（我们表明这对于任何无水平样本复杂性来说都是必要的），人们可以获得这样的保证，尽管我们提出的算法在其对政策类别大小的依赖方面牺牲了统计效率。我们的分析得出了一个替代损失函数，该函数通常在经验上被认为用于LM训练。我们进一步提供了算法和下限，并将我们的结果扩展到当干净的专家是确定性的时未知腐败的更现实的环境，从而为为什么OPD在训练来自不完美教师的语言模型时优于SFT提供了理论基础。
+
+[阅读原文](https://arxiv.org/abs/2606.30923)
+
+---
+
+## 2. 用循环变形金刚弥合潜在推理和显式推理之间的差距
+
+**得分**: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10
+
+**作者**: Ying Fan, Anej Svete, Kangwook Lee
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: First latent-CoT method to bridge the performance gap to explicit CoT at 3B scale using looped Transformers with parallel supervision on latent tokens, cutting latency significantly.
+
+**摘要**: arXiv：2606.31779v1宣布类型：新摘要：语言模型通常通过显式思维链（CoT）进行推理，逐令牌生成中间步骤。潜在CoT提供了一种替代方案：它在模型的隐藏状态中执行多步推理，用连续表示替换解码的令牌以提高效率。然而，现有的潜在CoT方法在超过1B参数时的表现不如显式CoT，并且差距随着规模的扩大而扩大。循环或回归深度的变形金刚可以重复使用它们的权重来增加计算深度，而无需添加参数，非常适合潜在推理。因此，我们询问环形变形金刚是否可以弥合这一差距。我们用一个简单的配方来肯定地回答：一个循环填充的Transformer，它并行处理K个潜在块进行R次迭代，每个潜在位置的黄金CoT步令牌上存在交叉熵损失，类似于显式CoT监督。我们将其实例化为LOTUS（具有潜伏并行监督的循环变形金刚）。据我们所知，LOTUS是第一个弥合与3B规模显式CoT差距的潜在CoT方法，同时将从紧凑的数学表达到自然语言的思想阶段延迟减少2.5x-6.9x。通过基本LM头投影LOTUS的循环后潜伏可以恢复黄金推理步骤，甚至浮出水面替代有效的中间步骤，证明其潜伏空间是可解释的且与CoT对齐的。消融证实，循环主干和对黄金CoT代币的平行监督都至关重要。
+
+[阅读原文](https://arxiv.org/abs/2606.31779)
+
+---
+
+## 3. GR2技术报告
+
+**得分**: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10
+
+**作者**: Yufei Li (Yongkang), Zaiwei Zhang (Yongkang), Mingfu Liang (Yongkang), Kavosh Asadi (Yongkang), Jay Xu (Yongkang), Jimmy Kim (Yongkang), Chongyang Bai (Yongkang), Jieyi Zhang (Yongkang), Hongye Xie (Yongkang), Prachi Agrawal (Yongkang), Dian Yu (Yongkang), Tianyi Chen (Yongkang), Jean-Pascal Billaud (Yongkang), Garret Buell (Yongkang), YK (Yongkang), Zhu (Yang), Sachin Patil (Yang), Brooke Bian (Yang), Zhou Fang (Yang), Kevin Huang (Yang), Shiva Sudanagunta (Yang), Yuzhen Huang (Yang), Emma Lu (Yang), Chris O'Brien (Yang), Yang Song (Yang), Lihong Li (Yang), Jacob Tao (Yang), Zhicheng Zhu (Yang), Chao Li (Yang), Gaoxiang Liu (Yang), Neil Wu (Yang), Zhongyin Hu (Yang), Li Han (Yang), Loki Chen (Yang), Ming Lei (Yang), Greg Rehm (Yang), Siyuan Song (Yang), Tianwei Zhang (Yang), Li Li (Yang), Ketan Singh (Yang), Yavuz Yetim (Yang), Ilyas Atishev (Yang), Satendra Gera (Yang), Ashkan Sadeghi (Yang), Rachel Yan (Yang), Nikko Mizutani (Yang), Shuaiwen Wang (Yang), Song Yang (Yang), Zhijing Li (Yang), Jiang Liu (Yang), Mengying Sun (Yang), Fei Tian (Yang), Xiaohan Wei (Yang), Chonglin Sun (Yang), Parish Aggarwal (Yang), Kaushik Rangadurai (Yang), Zhi Hua (Yang), Frank Shyu (Yang), Ruchit Sharma (Yang), Liyuan Li (Yang), Shike Mei (Yang), Wenlin Chen (Yang), Santanu Kolay (Yang), Ben Schulte (Yang), Deepak Chandra (Yang), Adam (Yang), Song, Sandeep Pandey, Xi Liu, Hamed Firooz, Luke Simon
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces GR2, an end-to-end re-ranking framework combining reasoning distillation, RL with verifiable rewards, and on-policy distillation (OPD) as a scalable alternative to SFT for industrial recommendation.
+
+**摘要**: arXiv：2606.31984v1宣布类型：新摘要：工业推荐系统通过多阶段漏斗（检索、早期排名和重新排名）为数十亿用户提供服务，其中最后的重新排名步骤不成比例地影响了用户参与度和下游性能，特别是对于旋转木马和网格显示格式。尽管人们对大型语言模型（LLM）的推荐热情越来越高，但有三个差距阻碍了行业采用：（1）大多数工作都针对检索和排名，导致重新排名（最接近最终用户体验的阶段）基本上未充分探索;（2）LLM通常以零触发方式部署或通过监督微调，未充分利用强化学习（RL）对可验证奖励解锁的推理能力;（3）部署的目录对数十亿个具有非语义标识符的项目进行索引，这些标识符位于任何基本LLM词汇之外。我们提出了GR 2（生成性推理重新排名），这是一个端到端框架，它结合了（i）对由具有>=99%唯一性的标记化器产生的语义ID的中间训练，（ii）通过有针对性的提示和拒绝抽样从更强大的教师中提取推理痕迹，以及（iii）具有专为重新排名而构建的可验证奖励的RL。为了使GR 2资源可行，我们进一步（iv）引入了一个可摊销训练成本的上下文压缩器、按政策蒸馏（OPD）作为SFT的可扩展替代方案（我们发现SFT在工业规模上崩溃了）以及低延迟服务的推理蒸馏。GR 2在工业规模流量上提供的R@1、R@3和N@3的传统基线分别为+18.7%、R@3和N@3。我们进一步发现，奖励设计对于重新排名至关重要：LLM经常通过保留即将到来的订单或利用职位偏见来破解奖励，激励有条件可验证的奖励作为重要的工业组成部分。
+
+[阅读原文](https://arxiv.org/abs/2606.31984)
+
+---
+
+## 4. 内省耦合：自我解释训练跟踪行为变化，尽管有固定的监督
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Zifan Carl Guo, Laura Ruis, Jacob Andreas, Belinda Z. Li
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces introspective coupling where fixed counterfactual explanation training yields faithful introspection that tracks behavioral changes, offering a scalable post-training signal for LLM alignment.
+
+**摘要**: arXiv：2606.32038v1宣布类型：新摘要：训练语言模型（LM）来生成对其预测的解释何时会产生忠实的内省，而不是肤浅的模仿？我们研究了经过训练的LM，这些LM旨在解释其输入的哪些特征影响了他们的行为，使用模型对修改输入的反事实行为作为监督。令人惊讶的是，我们发现，接受固定反事实解释训练的LM通常会产生更忠于自己当前行为而不是训练目标的解释。当训练解释在训练过程中与当前行为保持足够相关时，即使行为本身发生了变化，LM解释和行为之间的这种“内省”耦合就会发生。我们还表明，内省耦合会跟踪行为转变：当解释培训与其他培训后目标同时提供时，解释会跟踪这些转变，而不需要更新的监督。这种现象出现在多种任务中，包括阿谀奉承和拒绝，并且对于噪音很强。总体而言，我们的结果表明，即使是反事实解释的固定数据集也可以为内省提供可扩展和可推广的训练后信号。
+
+[阅读原文](https://arxiv.org/abs/2606.32038)
+
+---
+
+## 5. 梯度平滑：耦合分层更新以改进优化
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Haoming Meng, Anton Sugolov, Vardan Papyan
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces Gradient Smoothing, a novel depth-wise gradient augmentation method that improves optimization and generalization in RL post-training of LLMs for reasoning, directly relevant to RL for LLMs.
+
+**摘要**: arXiv：2606.30813v1公告类型：新摘要：具有重复架构块（例如变形器）的深度神经网络通常会在训练期间出现的跨层表现出结构化关系。受这一观察的启发，我们引入了\{深度梯度增强}，这是一种通用优化范式，其中应用于每层的更新是通过沿着深度维度转换块优化器更新的集合来获得的。在此框架内，我们研究了\ð {Gradient Smooth}，一系列深度平滑方法，并使用简单的局部\ð {窗口平滑}操作符实例化它。所得方法直接对任意基优化器产生的逐块更新进行操作（例如，Singapore、Adam、Muon），计算负担最小，并且与现有的优化管道兼容。我们在一系列不同的架构和训练方案中评估梯度平滑，包括语言模型预训练、LLM的RL后训练以进行推理、扩散建模以及使用Vision Transformers进行图像分类。在这些设置中，梯度平滑可持续地提高优化和概括性能，而无需修改模型架构或训练目标。我们进一步表明，它促进了深度上更结构化的表示进化，这与其作为结构化深度预处理方法的解释一致。总而言之，这些结果将深度梯度增强确立为在优化中利用跨深度结构的有前途的框架，并将梯度平滑证明为一种简单且广泛适用的实例。
+
+[阅读原文](https://arxiv.org/abs/2606.30813)
+
+---
+
+## 6. 一致性作为归纳偏差：学习跨视图不变性以实现鲁棒多模式推理
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Xin Zou, Haolin Deng, Yibo Yan, Shuliang Liu, Kening Zheng, Zhiwei Jin, Chen Chen, Haonan Lu, Xuming Hu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes ConsistRoll, a novel RLVR method that injects cross-view consistency as an inductive bias via group-sampling in GRPO, directly improving multimodal reasoning without extra generation overhead.
+
+**摘要**: arXiv：2606.29812v1宣布类型：新摘要：归纳偏见通过编码任务结构将学习引导到可推广的解决方案。在这项工作中，我们发现了MLLM中一个关键的缺失偏差：交叉视图一致性，\textit{i.e.}，同一实例的语义不变视图应该得到相同的答案。具有可验证奖励的标准强化学习（WLVR）目标不会施加此约束，而是为每个视觉输入分配逐点奖励。即使使用数据增强（DA），转换后的视图通常会独立奖励，一旦视图内奖励饱和，就几乎不会提供信号。我们提出了\textBF{ConstRoll}，这是一种简单但有效的方法，通过重复使用GRPO的组采样机制，将跨视图一致性注入到WLVR训练中。具体来说，ConstRoll将原始且语义不变的转换视图放置在同一世代组中，并仅在配对完成正确且一致时分配联合奖励。通过这种方式，ConstRoll将一致性转化为在线信用分配信号\textBF{没有额外的生成费用和注释}。从理论上讲，我们表明交叉视角一致性是一种有效的归纳偏差，并且ConstRoll引入了DA中缺失的交叉视角修正项，惩罚了观点依赖并缓解了优势崩溃。跨越数学、通用、幻觉领域的全面基准证实了ConstRoll在多模式推理方面实现了稳健的改进。
+
+[阅读原文](https://arxiv.org/abs/2606.29812)
+
+---
+
+## 7. 可预测的GRPO：训练动态的封闭模型
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Rajat Ghosh, Datta Nimmaturi, Aryan Singhal, Vaishnavi Bhargava, Henry Wong, Johnu George, Debojyoti Dutta
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Develops a first-principles reduced-order model of GRPO training dynamics, providing closed-form predictions for reward trajectories, group-size invariance, and stability thresholds, with direct implications for RL-based LLM reasoning training.
+
+**摘要**: arXiv：2606.30789v1宣布类型：新摘要：群体相对策略优化（GRPO）已成为提高大型语言模型推理能力的标准工具，但其训练动态仍然是经验性描述的：奖励轨迹与低参数函数形式相匹配，这些函数形式的常数不具有机械意义，超参数选择仍然是一个试错的问题。  我们开发了这些动态的第一性原理降阶模型。减少有三个后果。首先，它将经验单指数饱和定律纳入其过衰减极限，将匹配的平台、时间尺度和尺寸指数重新铸造为基础势的不固定点、逆硬度和弯曲标度指数，并通过保留的惯性项添加单指数无法代表的慢启动阶段。其次，它产生的预测与独立可测量的量而不是适合的量相关：确定性轨迹的组规模不变性，具有1美元/G美元的平稳波动、刷新间隔中的尖锐稳定性阈值以及过度衰减到振荡的转变。第三，它提供了将失败模式与奖励曲线分开的诊断方法--奖励黑客攻击、优势简并、政策集中和动态不稳定性。在三个模型和两个组规模中，封闭形式的轨迹使训练奖励与$R#2\geq 0.91$相匹配，并且预测的组规模不变性在奖励曲线和分配外转移到八个数学基准上都成立。稳定性和振荡预测是在受控精确归约设置中进行的，其中平均场假设完全成立：软最大强盗归约再现了预测的过度衰减到振荡的转变，并将刷新间隔稳定性阈值定位在独立测量的硬度处，深度网络演示留给未来的工作。
+
+[阅读原文](https://arxiv.org/abs/2606.30789)
+
+---
+
+## 8. Fora：从权空间到功能空间保护的能力保持微调
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Rui Zhou, Tianci Xie
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes FORA, a function-space protection method for capability-preserving fine-tuning that uses activation-subspace projection, which is a novel on-policy distillation-like approach to preserve existing capabilities during fine-tuning.
+
+**摘要**: arXiv：2606.31092v1宣布类型：新摘要：全面微调使大型语言模型适应新任务，但可能会削弱它们已经拥有的能力。现有的补救措施通过参数距离、重要性罚分、输出匹配或权重的主导奇异方向等代理进行保护，但没有直接询问保留的能力依赖于哪些激活方向。我们认为，与权重矩阵的奇异几何相比，一种能力更忠实地由其引发的激活子空间来描述，并开发功能空间保护，实例化为FORA（函数空间垂直剩余自适应）。根据无标签校准输入，FORA按层估计输入-激活协方差的主要方向$Q$，并形成右投影仪$P_Q = I - QQ ' T$。与来自权重DDD的左投影仪$P_U$配对，更新为$\Delta W = P_U M P_Q + U_2 D_{\delta} V_2 ' T $：一个高容量分支，在结构上禁止读取与能力相关的功能方向，加上一个窄的光谱通道，用于受控可塑性。该结构通过$M \to（\Alpha/r）BA$扩展到参数高效的自适应。在Qwen 3 -1.7B上的三种设置中，包括在保存翻译时学习的COGS和GMS 8 K以及在保存数学时学习的翻译，FORA始终比权重空间投影和标准正规化提高了保存，在数学保存设置中只进行了一个小的新任务权衡。隔离投影源的受控消融表明，优势不是来自投影本身，而是来自投影到能力衍生而不是重量衍生的方向上。代码可在https://github.com/zrui239/FORA上获取。
+
+[阅读原文](https://arxiv.org/abs/2606.31092)
+
+---
+
+## 9. Triage：用于统计强化学习的角色类型学分分配
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Yuanda Xu, Zhengze Zhou, Hejian Sang, Xiaomin Li, Jiaxin Zhang, Xinchen Du, Zhipeng Wang, Alborz Geramifard
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes TRIAGE, a role-typed credit assignment framework for agentic RL that corrects blind spots in outcome-only GRPO by adding semantic role-conditioned process rewards, improving success rates on agentic tasks.
+
+**摘要**: arXiv：2606.32017v1宣布类型：新摘要：主动强化学习需要为面向环境的操作分配信用，例如搜索、点击、编辑、导航命令和对象交互。标准GRPO使用最终验证器结果作为所有动作令牌的统一优势。这个结果信号是有用的，但在结构上是不完整的：它惩罚了失败的推出中的有益探索，并在成功的推出中加强了冗余或倒退的行动。我们提出了TRIAGE，一个角色类型的信用分配框架，增加了一个语义角色轴的结果信用。结构化法官将每个部分归类为决定性进展、有用探索、无进展基础设施或回归，固定的角色条件规则将这些标签映射到有界的部分级流程奖励。这将验证者结果保持为优化方向的来源，同时纠正了仅结果信用的两个主要盲点。我们进一步表明，角色条件信用是仅可由角色标签表达的最佳分段级纠正--每个分段优势剩余到角色变量上的投影--因此，只要判断可靠，固定的角色常数就会减少优势估计误差，我们将其与较低方差的策略梯度联系起来。在ALFWorld、Search-QA和WebShop中，TRIAGE比GRPO提高了两种政策模型的成功率，并且优于纯量判断衍生的流程奖励和结果监督的共享主干价值基线。消融表明，收益来自角色类型，而不仅仅是增加密集的回报：对成功轨迹内回归的可靠检测是主要贡献者，而探索积分则提供了一致的次要收益;在完成ALFWorld和WebShop推出后，TRIAGE还相对于GRPO额外减少了10.4美元和14.8美元。
+
+[阅读原文](https://arxiv.org/abs/2606.32017)
+
+---
+
+## 10. 具有元认知反馈的强化学习在LLM中提供忠实的不确定性表达
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Gabrielle Kaili-May Liu, Avi Caciularu, Gal Yona, Idan Szpektor, Arman Cohan
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes RL with metacognitive feedback (RLMF) to improve LLM uncertainty calibration and self-judgment, a novel RL training paradigm for alignment.
+
+**摘要**: arXiv：2606.32032v1宣布类型：新摘要：元认知是智力的重要组成部分，描述了监控和调节自己认知过程的能力。然而，法学硕士在关键元认知能力方面表现出系统性缺陷：他们高度自信地产生幻觉，无法认识到知识边界，并歪曲其内部的不确定性--破坏了可信度和可靠性。由于监控任务绩效并相应地调整行为是元认知的核心，我们认为能够准确判断自己绩效的模型更有能力改进它。我们通过两种新颖的机制来实现这一想法：带元认知反馈的强化学习（WLMF）是一种基于模型对性能的自我判断质量在偏好优化期间细化完成排名的范式，以及元认知数据选择，它使用类似的自我判断来识别高价值的训练示例，优于天真的主动学习。我们将这些创新应用于忠实校准（FC）问题，这一任务本身从根本上来说就是元认知：目标是与内在的不确定性保持一致，即使对于前沿LLM来说也很困难。我们采用两阶段、脱钩的方法，首先使用这些方法来校准模型自我报告的置信度分数的可信度，然后通过有针对性的输出编辑映射到自然的、可适应上下文的语言不确定性。大量实验表明，RL MF在不同任务上实现了可推广的、最先进的FC，同时保持准确性。此外，RL MF比标准RL高出63%，同时增强了模型评估和表达自身能力限制的能力。这将RLMF定位为一个有前途的范例，以提高LLM元认知，提高能力和对齐，并建议元认知性能作为一个有效的RL信号，以克服现有的内在反馈方法的限制。
+
+[阅读原文](https://arxiv.org/abs/2606.32032)
+
+---
+
+## 11. 解决LLM中的过度拒绝与竞争奖励
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Taeyoun Kim, Aviral Kumar
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes SEAR, an adversarial RL framework with competing process rewards that uses harmful reasoning as exploration to mitigate over-refusal in LLMs.
+
+**摘要**: arXiv：2606.31748v1宣布类型：新摘要：语言模型的安全培训通常会导致过度拒绝：以增加对无害提示的拒绝为代价，提高了对有害提示的安全性。尽管这种权衡可以通过在回答之前使用强化学习（RL）训练模型进行推理来减轻，但它并不能消除推理通常可能是预定响应的“橡皮图章”的根本问题。在本文中，我们通过重新思考如何训练模型来推理安全性，来解决安全拒绝权衡。我们的关键见解是，不安全的推理本身可以作为有用的探索信号。我们不是先发制人地阻止有害想法，而是鼓励模型充分探索不安全的推理，但产生安全的反应。有害探索通过解决模糊性来提高模型区分有害和无害提示的能力，使其保持安全性，同时仅在适当的情况下遵守规定。我们将其视为一个对抗性优化问题，其中推理玩家探索产生不安全响应的策略，而答案玩家确保最终输出是安全的。我们训练了一个具有密集奖励的单一模型，在一个思想链中，跨不同的细分市场扮演两个角色。为了实现这一目标，我们发现，过程奖励是至关重要的竞争目标的稳定优化。我们得到的模型SEAR故意进行有害的推理作为探索，同时可靠地翻转回一个安全的答案。我们证明，这种行为有助于减轻过度拒绝并抵御直接操纵推理有害的攻击。
+
+[阅读原文](https://arxiv.org/abs/2606.31748)
+
+---
+
+## 12. Evo-PI：通过不断发展的原则指导监督来协调医学推理
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Xianda Zheng, Huan Gao, Meng-Fen Chiang, Michael Witbrock, Kaiqi Zhao, Shangyang Li
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a co-evolutionary RL-like framework where language-based principles are iteratively refined to supervise LLM reasoning, directly aligning with RL-for-LLMs via dynamic reward/guidance signals.
+
+**摘要**: arXiv：2606.31800v1宣布类型：新摘要：尽管最近取得了进展，但大型多模式语言模型（MLLM）的推理能力仍然从根本上受到静态监督的限制，其中固定提示、规则或奖励模型在整个训练过程中提供非适应性指导。此类静态信号通常足以强制执行输出格式，但无法塑造底层推理过程，导致复杂决策任务中的脆弱概括和性能饱和。我们提出Evo-PI，这是一个以原则为中心的学习框架，它将推理原则视为显式的、基于语言的监督信号，可以生成、评估和迭代进化。Evo-PI不依赖固定奖励，而是实现了一个协同进化循环，其中原则指导模型推理，而模型行为反过来完善监督它们的原则。这种动态对齐机制允许监督逐渐适应模型的推理缺陷。我们在医学视觉问答中实例化Evo-PI，作为一个需要结构化视觉文本推理的高风险测试台。在八个基准测试和多个模型主干中，Evo-PI持续提高推理准确性，实现了高达24.6%的收益。我们的结果表明，不断发展的原则引导监督为在MLLM中训练专家一致推理提供了一种可扩展的通用范式。代码可在https://github.com/zhengxianda/Evo_PI上获取。
+
+[阅读原文](https://arxiv.org/abs/2606.31800)
+
+---
+
+## 13. 通过加强多模式参考游戏个性化MLLM
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Deepayan Das, Davide Talon, Yiming Wang, Massimiliano Mancini, Elisa Ricci
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces a reinforced multimodal reference game with a verifiable contrastive reward to train MLLMs to generate discriminative concept descriptions, directly advancing RL-for-LLMs with a novel reward design and training framework.
+
+**摘要**: arXiv：2606.28845v1宣布类型：新摘要：个性化多模式大型语言模型（MLLM）旨在从视觉数据中识别用户的独特概念并提供个性化响应。尽管之前的工作已经表明概念描述和推理对这项任务的好处，但MLLM描述通常包括状态和上下文等信息，这些信息没有帮助，事实上可能会阻碍目标概念在其他视觉上相似的项目中的独特识别。相反，对个人概念的有效描述应该是准确的、有区别的，并且没有分散注意力的细节。为了实现这样的描述，我们引入了强化参考游戏（RRG），这是一个学习框架，通过新颖的强化多模式参考游戏来促进区分性描述。MLLM在对比游戏环境中扮演说话者和倾听者的角色，其目标是有效地传达有关目标概念的区分信息。我们的方法针对硬积极（对同一概念的不同看法）和硬消极（视觉上相似但不同的概念）制定了可验证的对比奖励。从经验上看，RRG在三个个性化基准上实现了多项任务的最新水平。RRG可推广到不可见的领域，并优于基于概念描述和个性化特定RL框架的现有方法。我们将在项目页面中发布代码和模型。
+
+[阅读原文](https://arxiv.org/abs/2606.28845)
+
+---
+
+## 14. 论自我改进在线LLM对齐的融合
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Xudong Wu, Pangpang Liu, Vaneet Aggarwal, Jiayu Chen
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes SAIL-RevKL, a regularized objective for self-improving LLM alignment that satisfies the PL condition and provides convergence guarantees, directly advancing RL for LLMs.
+
+**摘要**: arXiv：2606.31524v1宣布类型：新摘要：自我改进对齐（SAIL）算法通过将问题的两层公式简化为高效的单层方法来解决分布转移问题。从经验上看，SAIL在这项任务上表现出色。然而，缺乏对其收敛性质的正式分析。我们确定了一个关键的理论挑战：由于其黑森函数的不利性质，标准SAIL目标函数并不能保证是强凹的。为了解决这一局限性，我们提出了一个正规化目标SAIL-RevKL，它结合了反向Kullback-Leibler（KL）分歧罚分来改善优化环境。我们的核心理论贡献是证明这个正规化目标在有界参数空间内满足Polyak-Lojasiewicz（PL）条件。我们建立了全球收敛保证，实现了近线性的样本复杂性。我们通过实证评估进一步验证了SAIL-RevKL的有效性和稳定性，证明它在MuJoCo基准和LLM对齐任务上都优于vanilla SAIL。
+
+[阅读原文](https://arxiv.org/abs/2606.31524)
+
+---
+
+## 15. 校准评估者：概率校准是否会减轻LLM代理反馈循环中的偏好耦合？
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Zewen Liu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes probability calibration of the evaluator as a mitigation for preference coupling in LLM agent feedback loops, directly addressing RL-for-LLMs via a new reward design technique.
+
+**摘要**: arXiv：2606.31371v1宣布类型：新摘要：当大型语言模型（LLM）代理通过评估者反馈调整其行为时，系统性评估者偏见会传播到代理的学习策略分布中--这种现象称为评估者偏好耦合。之前的工作已经记录了这种耦合，并建立了一个诊断框架（EPC）来测量它，但尚未研究校准技术是否可以减轻这种影响。我们提出了第一项将评估者校准作为缓解措施的研究：将概率校准应用于评估者的成对判断，以减少虚假偏好传播。在一项对照受试者内实验（N=5）中，使用DeepSeek-V4-Pro作为执行者，GLM 5.2作为评估者，比较标准二进制TTRL（赢/输）与置信度校准的TTRL（概率加权更新），我们发现校准将耦合系数gamma降低了20-49%，Jensen-Shannon偏差降低了45- 67%。动态LR控制证实这种影响不是由于更新不对称性的减少造成的。我们发布了经过校准的TTRL协议，并推荐其作为LLM作为判断部署管道的轻量级缓解措施。
+
+[阅读原文](https://arxiv.org/abs/2606.31371)
+
+---
+
+## 16. 从搜索到综合：将LLM训练为零射击工作流生成器
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Gan Luo, Zihan Qin, Bin Dong, Wotao Yin
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes MetaFlow, a two-stage training pipeline combining SFT and RL with verifiable rewards to generate reusable task-level workflows, directly advancing RL-for-LLMs with a novel reward-driven meta-learning approach.
+
+**摘要**: arXiv：2606.30704v1宣布类型：新摘要：大型语言模型（LLM）在广泛的任务中表现出色，但其特定于实例的解决方案通常缺乏可靠部署所需的结构一致性。在任务级别编码重复出现的算法模式的工作流提供了一个有原则的框架，提供跨实例变化的稳健性、可解释的调试跟踪以及跨问题实例的可重用性。然而，手动设计此类工作流程需要大量的专业知识和努力，从而限制了其更广泛的应用。虽然自动工作流生成可以解决这一瓶颈，但现有方法要么在不学习任务级模式的情况下生成特定于实例的解决方案，要么无法概括超出其训练配置。我们提出了MetaFlow，它将工作流生成视为一个元学习问题：给定一个任务和一个操作员集，模型会学习制定解决方案策略。MetaFlow训练分为两个阶段：对合成工作流程数据进行监督微调，然后是具有可验证奖励的强化学习（WLVR），该学习使用任务中问题实例之间的执行反馈来提高端到端的成功。由此产生的模型为训练任务产生有效的工作流程，并对未经训练的任务和新型操作员集表现出很强的概括性。在问答、代码生成和数学推理方面的基准测试中，MetaFlow在单推理的领域内任务上实现了与最先进基线相当的性能，同时在领域外任务和操作符集上展示了出色的零镜头概括能力。
+
+[阅读原文](https://arxiv.org/abs/2606.30704)
+
+---
+
+## 17. 视觉驱动的偏好合成用于缓解VLM中的幻觉
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Yunhun Nam, Jongheon Jeong
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a vision-driven preference synthesis framework for RLHF-style alignment that constructs policy-aligned and visually grounded preference pairs to mitigate hallucinations in VLMs.
+
+**摘要**: arXiv：2606.28401v1宣布类型：新摘要：视觉语言模型（VLM）在视觉理解方面表现出了出色的表现，但它们仍然会产生幻觉，生成不基于图像的内容。偏好对齐是提高视觉忠实度的一种有希望的方法，但它的成功在很大程度上取决于偏好对的构建方式。现有的方法表现出两个关键局限性;（a）基于干预的方法通常会导致与政策分布的显着偏差，（b）基于抽样的方法在施工期间通常没有充分利用视觉信息。在本文中，我们提出了ViPSy（视觉驱动的偏好合成），这是一个用于构建既符合政策又基于视觉的偏好数据的框架。我们的框架由两个阶段组成;在第一阶段，ViPSy从跨语义对齐的图像变体的循环对象级内容中推导出视觉线索，因此偏好构建可以依赖于视觉信息而不是语言先验。在第二阶段，ViPSy根据此提示对政策本身的推出进行条件，允许候选人接受基于视觉的内容的指导，同时密切关注政策的响应分布。由此产生的候选项保持接近政策的响应分布，同时更好地利用图像中的视觉信息。实验表明，所得VLM与ViPSy构建的偏好对进行偏好对齐，在幻觉缓解方面实现了新的最新水平。与之前的最先进方法相比，它将AMBER和Target HalBench的幻觉率分别降低了35.7%和24.5%。所得模型进一步改进了一般视觉基础基准，例如，MMStar、MMVP和CV-Bench，同时也在语义分割和ImageNet线性探测方面取得了进展，凸显了我们的框架在增强模型视觉能力方面的有效性。
+
+[阅读原文](https://arxiv.org/abs/2606.28401)
+
+---
+
+## 18. Z-1：视觉-语言-动作模型的高效强化学习
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Lang Cao, Renhong Chen, Luyi Li, Peng Wang, Mofan Peng, Yitong Li
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Z-1, an RL post-training framework using GRPO for flow-based VLA models, demonstrating substantial improvement over SFT on robotic tasks.
+
+**摘要**: arXiv：2606.31846v1宣布类型：新摘要：视觉-语言-动作（VLA）模型通过连接语言指令、视觉观察和连续控制，为机器人操纵提供了一个有前途的框架。然而，大多数现有政策仍然受到来自固定演示的行为克隆或监督微调（SFT）的限制，这提供了有限的从政策自身失败中改进的机会。本文中，我们介绍了Z-1，这是一个用于基于流的VLA模型的强化学习（RL）训练后框架。Z-1构建在$\pi_{0.5}$之上，仅使用公开发布的RoboCasa演示进行SFT，然后在24美元的标准RoboCasa任务中应用任务级组相对政策优化（GRPO）策略。为了提高在线优化的效率和稳定性，Z-1结合了共享前缀展开构造、树形结构轨迹分支、完成感知奖励校准以及VLM和Action Expert的选择性联合训练。在所有24美元的RoboCasa任务中，Z-1的平均成功率为80.6美元，比SFT初始化提高了13.2美元，并且优于已发布的sota模型。这些结果表明，系统的GRPO后培训可以大大提高基于流量的VLA政策，而无需额外的私人演示。
+
+[阅读原文](https://arxiv.org/abs/2606.31846)
+
+---
+
+## 19. 视线更清晰，谎言更少：多模式幻觉缓解的定向拾取偏好优化
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Xin Zou, Haolin Deng, Yibo Yan, Shuliang Liu, Zhiwei Jin, Chen Chen, Haonan Lu, Xuming Hu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes OPPO, a novel RL-based preference optimization objective that directly aligns MLLM generation with visual evidence strength, addressing hallucination via ordered evidence margins.
+
+**摘要**: arXiv：2606.29805v2宣布类型：新摘要：多模态大型语言模型（MLLM）容易产生幻觉，因为它们的生成偏好没有充分校准到视觉证据，导致它们依赖于语言先验，而不是忠实的基础。在这项工作中，我们从经验观察开始：当查询相关的视觉证据被明确加强使用模型自己的注意力，生成变得更加准确，这表明许多失败并不仅仅是由于缺少感知，而是由于对模型已经注意到的证据的信任不足。基于这一发现，我们提出了定向拾取偏好优化（OPPO），这是一种证据感知的对齐目标，它可以学习视觉证据强度的偏好，而不仅仅是响应质量。具体地说，OPPO在更强、锚定、更弱的证据观点下对比了同样的忠实反应，将天真的视觉偏好转化为有序的视觉证据对齐。我们进一步将此目标与细粒度的跨度级和标记级正则化相结合，以稳定训练。此外，我们提供了一个理论分析表明，有序的证据边缘诱导一个积极的下限局部视觉灵敏度。对幻觉和通用基准的广泛评估表明，OPPO始终优于基线方法。
+
+[阅读原文](https://arxiv.org/abs/2606.29805)
+
+---
+
+## 20. 小米GUI-0技术报告
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Wanxia Cao, Chengzhen Duan, Pei Fu, Pengzhi Gao, Niu Lian, Fazhan Liu, Hui Liu, Heng Qu, Qinzhuo Wu, Zhehao Yu, Tongbo Chen, Shiqi Cui, Anan Du, Shukai Jia, Yuanfa Li, Yike Liu, Wenchao Lu, Haoyuan Sun, Jiatong Sun, Cheng Tan, Yajie Wang, Changqiao Wu, Tao Xiong, Jiahui Yang, Yuxuan Yuan, Ruoceng Zhang, Shaojie Zhang, Jian Zhu, Jian Luan, Cong Zou
+
+**机构**: Xiaomi
+
+**💡 亮点 (Highlight)**: Proposes a real-device closed-loop training pipeline for GUI agents with step-level and agentic RL, directly advancing RL-for-LLMs with a new reward and training recipe.
+
+**摘要**: arXiv：2606.31410v1宣布类型：新摘要：图形用户界面（图形用户界面）代理建立在视觉语言模型的基础上，通过点击、滑动、文本输入和导航等界面操作在实际应用程序中完成端到端的用户任务。然而，现有的图形用户界面代理主要是根据离线轨迹、模拟环境和标准化基准进行训练和评估的。这些在界面布局，交互逻辑和异常状态分布方面与真实应用有很大差异，并且无法忠实地表征真实世界使用中的执行稳定性，其中帐户状态，权限对话框，支付认证和风险控制不断重塑状态分布，并在基准分数和真实可用性之间打开持久的差距。为了缩小这一差距，我们提出了Xiaomi-GUI-0，一个真正的移动环境中的本地多模式GUI代理，在一个真实的设备闭环内进行训练和评估。其核心是一个以真实设备为主导的混合基础设施，其中物理设备是主要的执行环境，沙箱提供辅助支持，因此数据收集，训练，推出和评估共享接近真实部署的执行分布。我们构建了涵盖高频头部任务的多源训练数据，长尾意图的高泛化数据以及反射和记忆的能力增强数据，并引入了一个错误驱动的数据飞轮，将故障轨迹转化为正确的操作，反射解释和恢复演示。该模型通过监督微调、分步强化学习和代理强化学习的渐进三阶段管道进行训练。经过公共基准测试和内部RealMobile的评估，Xiaomi-GUI-0在RealMobile上的成功率为72.0%，在AndroidWorld上的成功率为78.9%，同时大幅提高了现实世界任务中的执行稳定性和异常状态识别。
+
+[阅读原文](https://arxiv.org/abs/2606.31410)
+
+---
+
+## 21. 学习选择，而不是重新学习：推理LoRA的艰难路由混合
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Seyed Alireza Molavi, Zhan Su, Yan Hu, Peyman Sheikholharam Mashhadi, Stefan Byttner, Prayag Tiwari
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes hard-routed MoR-LoRA with RL-from-verifiable-feedback training for reasoning experts and on-policy distillation of reasoning traces for router training, directly advancing RL-for-LLMs and on-policy distillation.
+
+**摘要**: arXiv：2606.31413v1宣布类型：新摘要：将独立训练的LoRA适配器组合到单个大型语言模型中对于多域适应非常有用，尤其是当原始训练数据无法共享时。一种常见的方法是在LoRA专家上使用MoE风格的路由，但对于冻结的预训练适配器，软加权组合可以改变每个LoRA模块最初训练的单位规模添加剂更新。我们提出了\textBF{Hard-Routed MoR-LoRA}，这是一个两阶段框架，用于通过单位规模硬选择来组成冻结推理LoRA专家。首先，使用来自可验证反馈的强化学习来独立训练特定领域的LoRA适配器，以获得推理专家。然后，所有专家都被冻结，从中提取推理痕迹，只训练轻量级共享路由器和少量注意力LoRA进行集成。路由器使用硬顶1路由为每个令牌准确选择一名专家，而直通式估计器则支持基于梯度的训练。跨五个基准、多个模型规模和其他模型系列的实验表明，硬路由MoR-LoRA保留了专家行为，同时需要的可训练参数比软路由混合基线少得多。我们的分析进一步表明，规范化软混合通常将大部分路由质量集中在单个专家身上，这表明硬单位规模路由为冻结LoRA专家组合提供了简单有效的抽象。
+
+[阅读原文](https://arxiv.org/abs/2606.31413)
+
+---
+
+## 22. RL VR中用于低等级自适应的保留几何正交插值
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Ruijia Zhang, Jiacheng Zhu, Hanqing Zhu, Laixi Shi
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes geometry-preserving orthonormal initialization for LoRA in RLVR, with theoretical analysis showing improved stability and performance over standard LoRA variants.
+
+**摘要**: arXiv：2606.31813v1宣布类型：新摘要：低等级自适应（LoRA）及其变体能够在监督微调（SFT）范式下对大型语言模型进行参数高效的微调。然而，人们对它们在具有可验证奖励的强化学习（WLVR）下的功效和行为知之甚少。特别是，两种结构初始化的LoRA变体PiDSA和MiLoRA在SFT下优于标准LoRA，但在WLVR下可能表现不稳定。这些观察结果表明，如何初始化WLVR中的低阶矩阵仍不清楚。在这项工作中，我们在RLVR中对LoRA进行了理论分析，表明正交初始化实现了LoRA结果与完全微调之间的最小差距。在此基础上，我们提出了RLVR中低秩自适应的几何保持正交初始化，从而产生了两个新的变体，RLPO和RLMO。在数学推理基准测试上的实验表明，与PiSSA和MiLoRA相比，本文提出的正交初始化方法稳定了RLVR训练，性能优于标准LoRA.最后，我们对LoRA初始化的统一分析也解释了为什么PiSSA和MiLoRA在RLVR中表现不佳，这可能是独立的兴趣。代码和检查点可在https://github.com/Richard-ZZZ/geometry-preserving-orthonormal-init-rlvr上公开获取。
+
+[阅读原文](https://arxiv.org/abs/2606.31813)
+
+---
+
+## 23. ReGRPO：工具使用代理的反射增强策略优化
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Binjie Zhang, Mike Zheng Shou
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes ReGRPO, a reflection-augmented RL framework using group-relative policy optimization with structured failure data and reflection tokens to improve tool-using VLM agents.
+
+**摘要**: arXiv：2606.31392v1宣布类型：新摘要：工具增强的视觉语言模型（VLM）可以通过调用外部工具来解决多模式、多步骤任务，但它们在实践中仍然很脆弱。现有作品有两个共同的差距。监督微调（SFT）主要是建立在成功的轨迹，并提供工具故障后恢复的信号很少，而稀疏的强制性级别的RL奖励提供有限的指导，哪一步失败，以及如何修复它。我们介绍ReGRPO（反射增强组相对策略优化），一个框架，学习反射引导的工具使用代理的校正。ReGRPO从一个结构化的反射数据引擎开始：我们执行近乎失败的操作来收集接地故障观察，然后构建思想反射三元组（ErrorType，Evidence，FixPlan），并与热启动SFT的纠正操作配对。然后，我们优化反射令牌和纠正措施联合使用组相对优势在本地轨迹，并包括一个反射成本项，以减少不必要的反射。在GTA和GAIA上的实验表明，在相同的主干和工具套件下，ReGRPO始终优于强大的开源基线，并在比较的开源控制器中取得了最好的结果。代码和RoT数据可在https://github.com/showlab/ReGRPO上获得。
+
+[阅读原文](https://arxiv.org/abs/2606.31392)
+
+---
+
+## 24. 用英语思考，用韩语回答：多语言工具使用代理的有效适应
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Utsav Garg, Sungjin Hong, Jason Jung, Justin Lee, Shaan Desai, Joon Hee Kim, Anirudh Shrinivason, Edmond Wen, Susie Park
+
+**机构**: Cohere, LG CNS
+
+**💡 亮点 (Highlight)**: Proposes RL with verifiable rewards and language-consistency rewards for multilingual tool-use LLM agents, directly matching RL-for-LLMs criteria.
+
+**摘要**: arXiv：2606.31648v1公告类型：新摘要：我们目前的LuckyStar 111B，111B参数的混合推理模型，通过合作的Cohere和LG CNS的韩英企业代理实际的内存和服务的限制。该模型从Cohere的完全后训练的Command A模型进行训练，而不是新的预训练运行，并使用前导条件来在简洁的非推理行为和更长的面向工具的推理之间切换。我们研究了四种有效扩展工具使用代理的选择：多语言监督微调，强化学习，多步工具使用任务的可验证奖励，面向韩语用户的响应的语言一致性奖励，以及单GPU服务的4位量化。调整后的模型提高了数学推理，函数调用和代理的自然语言到SQL（NL2SQL）的性能，同时保持一般的韩语和英语的解释以下的质量。这些结果提供了一个实用的配方和故障模式分析，以适应后训练的多语言模型，以验证在内存受限的部署下的代理工作流。
+
+[阅读原文](https://arxiv.org/abs/2606.31648)
+
+---
+
+## 25. 哪些代币重要？具有相对惊喜指数的WLVR自适应代币选择
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Outongyi Lv, Yanzhao Zheng, Yuanwei Zhang, Zhenghao Huang, Xingjun Wang, Baohua Dong, Hangcheng Zhu, Yingda Chen
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces a principled token-selection method (RSI) for RLVR that reconciles conflicting prior findings and improves reasoning accuracy.
+
+**摘要**: arXiv：2606.31575v1宣布类型：新摘要：强化学习（RL）已成为推动大型语言模型（LLM）超越基于模仿的训练，迈向更强大的推理能力的强大工具。在现有的方法中，具有可验证奖励的RL（RL VR）已成为推进LLM推理的关键范式。尽管它在经验上取得了成功，但最近的研究提供了不同的见解。一种调查主张在训练过程中优先考虑高熵令牌位置，而另一种观点则警告不要让低概率令牌主导梯度更新。值得注意的是，尽管高熵令牌通常与低概率相关，但这两种范式都能在经验上产生实质性的性能增益。在这项工作中，我们认为，孤立地评估抽样令牌概率或熵不足以捕捉策略优化动态。为了解决这种紧张关系，我们引入了相对惊喜指数（RTI），这是一种有原则的信息理论指标，它自然地将代币的熵与所选代币的概率结合起来。我们表明，在温和的条件下，RTI与选择logit扰动下的logit梯度规范的一阶变化和预测熵之间的局部比率有关。在RTI的基础上，我们提出了RTI选择（RSI-S），这是一种自适应的令牌过滤方法，可以将令牌保留在稳定的RTI间隔内。RSI-S成功地调和了之前相互矛盾的范式，并过滤掉冗余的低附加性代币和不稳定的高附加性尾部代币。实证评估表明，RSI-S在AIME和AMC基准上的不同模型尺度（Qwen2.5-1.5B，3B和7 B）上实现了更高的avg@32准确度：RSI-S将avg@32准确度提高了GRPO 2- 3个百分点。总体而言，RSI为RLVR的改善提供了一个有希望的前景。
+
+[阅读原文](https://arxiv.org/abs/2606.31575)
+
+---
+
+## 26. ECHO：在代理RL中，修剪行动，追踪学习，使用选择性转向记忆
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Zijun Xie, Binbin Zheng, Enlei Gong, Jihua Liu, Yuyang You, Lingfeng Liu, Jiayao Tang, Guanqun Zhao, Aoqi Hu, Zeyu Chen
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes ECHO, a selective turn-memory framework for agentic RL that addresses history collapse and enables traceable on-policy credit assignment, showing strong gains over GRPO and SUPO on long-horizon tasks.
+
+**摘要**: arXiv：2606.31650v1宣布类型：新摘要：长视野语言代理必须重复与工具交互、积累证据并在有限的上下文窗口下做出决策。现有的上下文管理方法通过截断遥远的历史、将过去的转折折叠成摘要或选择紧凑的存储状态来使此类推出成为可能。然而，这些突破引入了两个相互关联的限制。首先，随着圈数的增加，历史观察被逐渐删除或折叠为压缩状态，使政策更难重复使用细粒度证据。其次，一旦原始回合不再是源可编址的，基于结果的RL就会失去将政策更新与支持成功最终答案的证据保持一致的明确路径。为此，我们提出了ECHO，这是一种选择性回合记忆框架，通过源索引重建共同解决历史崩溃和可追溯学习。具体来说，ECHO将每个完成的环境转换压缩为紧凑的存储器记录，通过从这些记录中进行选择来重建有界的策略上下文，并重用所选择的源索引来将积极的结果信用路由到支持成功答案的证据和选择动作。在BrowseComp-Plus上，ECHO达到了43.4%的保持精度，优于GRPO（28.9%）和滚动总结基线SUPO（36.1%），同时使用比SUPO更少的转弯和更低的轨迹体积（图1）。此外，经过训练的策略还提高了密集和MoE主干上的多目标QA、代码生成和深度信息寻求基准的零次概括。
+
+[阅读原文](https://arxiv.org/abs/2606.31650)
+
+---
+

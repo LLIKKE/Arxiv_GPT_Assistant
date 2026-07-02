@@ -1,0 +1,326 @@
+# 💡 今日研究速览 (Daily Summary)
+
+# LLM的RL
+本周的一项主要工作从根本上推进了语言模型训练后的强化学习。其中的核心是一个统一的理论结果，证明GRPO、Dr. GRPO和DAPO都由一个单一的组标准差身份支配，这揭示了核心更新大小只是答案不一致--这是一个清晰的见解，揭开了这些流行算法的机制。有几篇论文挑战了全参数RL更新的现状：一篇表明RL收益集中在单个Transformer层中，而另一篇论文则介绍了用于非同步RL HF（GRPO）的稳定学习率缩放定律，以稳定使用陈旧的部署的训练。针对特定训练方案的新方法也出现了，包括SIIM-RL（一种用于扩散LLM的无痕迹RL目标，可避免轨迹切片）和DASH（一种分段级信用分配方法，可通过识别富有成效的自我反思来减少推理模型中的过度思考。此外，Active-GRPO提出了模仿和自我改进之间的动态切换，GR 2技术报告提供了有关将RL与可验证的奖励和按政策提炼相结合的工业规模见解。主题很明确：该领域正在从单一的RL食谱转向更有原则、更高效、更有理论依据的训练框架。
+
+# SFT和偏好优化
+监督微调（SFT）和RL之间的界限正在被积极模糊。一篇关键论文介绍了一种对抗性生成器-触发器框架，该框架通过从人类演示中学习到的信号来增强可验证的奖励，有效地为LLM培训搭建了RL和SFT的桥梁。这项工作解决了基于奖励的优化和模仿学习之间的根本矛盾。另外，信心适应性思维（CAT）框架提出了一种偏好优化方法，该方法利用模型内在的自我确定性来动态调节推理长度，直接以推理模型的效率为目标。这些贡献表明，我们如何将人类数据、可验证的奖励和模型内部信号进行训练变得越来越复杂。
+
+# 潜在推理架构
+推理架构的创新正在加速，重点关注分离和专业化计算路径。状态预测分离假设提出了一种新颖的Transformer变体，具有用于状态跟踪和预测的不同计算流，直接推进了潜在推理理论。DiscoLoop引入了一种循环架构，该架构混合了离散嵌入和连续隐藏状态通道，以实现多跳推理，以更少的训练步骤实现近乎完美的准确性。作为对这些功能的补充，消息传递语言模型（MPLM）提供了一个并行推理框架，其中LLM线程通过轻量级发送/接收基元进行通信，从而减少了上下文长度并实现抢占。多模式领域还取得了不对称互变分学习（AMML）的进展，该学习通过双KL目标解决了MLLM连续潜在推理中的训练-推理不匹配问题。这些作品共同指向更加模块化、高效且理论基础的推理架构。
+
+# 多模式推理
+多模式推理不断成熟，重点关注脱钩和流程级监督。感知到理性引入了一个明确分离感知和推理阶段的框架，使用角色感知RL（GRPO）策略，该策略交替更新每个组件以进行细粒度视觉推理。GeoSearcher在遥感视觉基础中应用了过程监督RL（PF-GRPO），并为渐进推理提供了过程感知奖励，展示了阶梯级奖励在复杂视觉任务中的力量。通过AMML进行的多模式连续推理工作还弥合了潜在推理和多模式输入之间的差距。趋势是更加结构化、阶段意识的培训，尊重感知和推理的独特挑战。
+
+# 测试时间扩展和样本效率
+测试时间计算方面的一项实际突破来自QuasiMoTTo，它引入了准蒙特卡罗采样作为i. i. d的直接替代品在测试时缩放和政策梯度RL中进行抽样。该方法通过减少冗余来显着提高样本效率，这对于推断时计算扩展和训练来说都是一个关键进步。这项工作直接解决了大规模采样的计算成本，这是许多RL和推理应用程序的瓶颈。
+
+# 域特定应用程序
+RL for LLM正被应用于越来越专业的领域，并具有定制的奖励设计。Graph-Native Reinforcement Learning引入了基于GRPO的微调，通过概念重组生成可追溯的科学假设，展示了科学发现的新奖励和训练方法。GR 2技术报告将具有可验证奖励的RL应用于工业规模的推荐重新排名，提供了关于奖励设计和SFT失败的关键见解。通过渐进式代码转换的高效多语言推理转移使用RL与语言一致性课程将英语推理转移到目标语言。这些应用程序展示了与特定领域奖励结构相结合时基于RL的训练的多功能性。
+
+---
+
+## 1. 状态预测分离假说
+
+**得分**: 相关性 (Rel): 9/10, 创新性 (Nov): 9/10
+
+**作者**: Giovanni Monea, Nathan Godey, Kiant\'e Brantley, Yoav Artzi
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a novel Transformer variant with separate computation streams for state and prediction, directly advancing latent reasoning architectures.
+
+**摘要**: arXiv：2607.01218v1公告类型：新摘要：变形金刚使用相同的前向计算流来预测下一个令牌并存储用于未来令牌预测的有用状态。我们制定了\{状态预测分离假设}：解开这两个角色会产生更好的语言建模性能。我们设计了一个Transformer变体，它使用两个计算流来分离这两个函数，并在各种尺度上进行预训练实验。我们的实验表明，状态预测分离始终提供更好的数据和计算效率，改善验证损失，并在下游任务上平均超过标准Transformer 2- 3个百分点。我们还进行了广泛的实证分析，排除了潜在的混淆因素，并证明了我们的设计所需要的梯度的根本差异。
+
+[阅读原文](https://arxiv.org/abs/2607.01218)
+
+---
+
+## 2. 以正确的方式正确：具有可验证奖励和人性化演示的LM培训
+
+**得分**: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10
+
+**作者**: Mehul Damani, Isha Puri, Idan Shenfeld, Jacob Andreas
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces an adversarial generator-discriminator framework that augments verifiable rewards with a learned signal from human demonstrations, bridging RL and SFT for LLM training.
+
+**摘要**: arXiv：2607.01181v1宣布类型：新摘要：具有可验证奖励的RL（WLVR）已成为一种强大的范式，用于在具有明确定义的成功指标的任务（例如代码生成和数学推理）上训练LM。然而，当前的WLVR方法只优化可以客观评分的内容，通常忽视类人输出的主观、不可验证的方面，例如风格和结构。这种限制导致了有据可查的失败模式，如多样性崩溃，不自然的反应和奖励黑客。我们提出了一个对抗性生成器框架，该框架通过从人类演示中学习到的信号来增强可验证的奖励。使用RL训练生成器模型，以最大化任务准确性和从机器学习中获得的对抗性奖励。与生成器策略一起训练的机器人学习区分人类编写的输出和模型生成的输出。收件箱充当人类产出分布的学习代理，提供有关难以形式化为纯量奖励的生成方面的反馈。在不同的领域，包括错误修复和开放式生成，我们的方法不断改进不可验证的属性，同时保留了WLVR的准确性。在错误修复方面，与WLVR基线相比，我们的方法生成的解决方案编辑距离明显更短，同时与最终性能相匹配。在故事生成中，我们的方法显着提高了获胜率，同时生成多样化且更人性化的故事。在简单的奖励黑客基准中，我们的方法几乎消除了模型的不当行为，同时保持了高基准分数。总而言之，这些结果表明我们的方法连接了RL和SFT，为联合优化任务的可验证和不可验证属性提供了可扩展的路径。
+
+[阅读原文](https://arxiv.org/abs/2607.01181)
+
+---
+
+## 3. GRPO、Dr. GRPO和DAPO是一个数字的三个操作：群体标准差身份
+
+**得分**: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10
+
+**作者**: Yong Yi Bay, Kathleen A. Yearick
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proves a group-standard-deviation identity unifying GRPO, Dr. GRPO, and DAPO, revealing that the training update size is exactly the answer disagreement, a fundamental insight for RL-based reasoning training.
+
+**摘要**: arXiv：2607.00152v1公告类型：新摘要：三种最流行的训练语言模型推理的方法看起来像三种不同的技巧。他们不是。这三者都调整了一个数字：标准差，反映了提示的抽样答案的不一致程度。当训练这样的模型时，它会多次回答每个问题，并由自动检查器标记每个答案的正确或错误。这些分数的标准差衡量了分歧：当答案在正确与错误之间平分秋色时，标准差最大，当答案都同意时，标准差为零。组相对政策优化（GRPO）除以该数字，GRPO Done Right（Dr. GRPO）放弃该除数，而去耦合剪辑和动态采样政策优化（DAPO）则丢弃其为零的组。每种都作为自己的修复方案呈现，但本文证明它们是一个表盘的三种设置。该表盘并不是装饰性的：对于正确或错误的奖励，分歧恰恰在于训练更新的大小、群体标准差身份。分裂的一群教得最多，而一致的一群什么也不教，陷入沉默。同样的结果表明哪些问题值得最重视以及每个问题需要尝试多少次。本文证实了大型真实难度数据集（Big-Math）和受控训练运行中的直觉。看似无害的规范化步骤的是决定学习发生在哪里以及强度的表盘。
+
+[阅读原文](https://arxiv.org/abs/2607.00152)
+
+---
+
+## 4. 校准概率预测的可验证奖励
+
+**得分**: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10
+
+**作者**: Sadanand Singh, Allam Reddy, Manan Chopra
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces a novel verifiable, label-free reward for RL training of calibrated probabilistic forecasters, with a gradient masking technique to preserve reasoning, directly advancing RL-for-LLMs.
+
+**摘要**: arXiv：2607.00164v1宣布类型：新摘要：具有可验证奖励的强化学习原则上可以训练经过校准的概率预测者，因为适当的评分规则（例如Brier分数）是单独根据结果计算的，并且通过真实概率在期望中最小化。在实践中，它会降低校准，而现有的补救措施解决了认识不确定性，即模型的置信度伴随着可验证的正确或错误的答案。我们研究任意预测，预测本身就是输出，标签是一个随机结果，以NFL比赛中获胜的概率为测试台，以投注市场为参考。奖励已实现的每场比赛结果是失败的，因为单一结果是一个吵闹的目标，政策梯度会腐蚀思想链。我们引入了一种可验证的、无标签的奖励，一种根据过去的结果估计的状态条件经验获胜率，它消除了标签噪音，并通过直接预测或梯度掩蔽将梯度排除在推理之外，这样它就不会被破坏。仅用这个奖励进行训练，没有人类标签或监督微调，7 B模型通过直接预测达到投注市场的校准，并且比零射击前沿模型校准得更好。该前沿模型和表格估计器达到了与该模型相同的Brier分数，将市场的微小剩余优势识别为超出其共享输入的实时游戏内信息。掩盖梯度，而不是放弃思想链，而是保留了预测所依据的推理，而普通的思想链训练会破坏这种推理。
+
+[阅读原文](https://arxiv.org/abs/2607.00164)
+
+---
+
+## 5. 一层够了吗？训练单个Transformer层可以匹配全参数RL训练
+
+**得分**: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10
+
+**作者**: Zijian Zhang, Rizhen Hu, Athanasios Glentis, Dawei Li, Chung-Yiu Yau, Hongzhou Lin, Mingyi Hong
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Reveals that RL gains in LLM post-training are concentrated in a single transformer layer, challenging full-parameter updates and introducing layer contribution analysis across models and tasks.
+
+**摘要**: arXiv：2607.01232v1宣布类型：新摘要：强化学习（RL）已成为后训练大型语言模型（LLM）的核心组件，但人们对RL自适应如何分布在Transformer层中知之甚少。现有方法通常会均匀更新所有模型参数，隐含地假设每层对RL后训练期间获得的收益的贡献类似。在这项工作中，我们通过对RL训练的系统分层研究来挑战这一假设。令人惊讶的是，我们发现训练单个Transformer层可以恢复全参数RL训练所获得的大部分增益，在某些情况下甚至超过它。为了量化这一现象，我们引入了数量层贡献，它测量了通过隔离训练一个层恢复的全部RL改进的分数。在跨越两个模型家族（Qwen 3、Qwen 2.5）、三种RL算法（GRPO、Gioven、Dr. GRPO）和多个任务领域（包括数学推理、代码生成和代理决策）的七个模型中，我们观察到了一种非常稳定的模式：RL收益高度集中在一个小子集中，在许多情况下甚至是一个单一的Transformer层。更引人注目的是，相同的结构模式一致出现：高贡献层集中在Transformer堆栈的中间，而靠近输入和输出端的层的贡献则少得多。由此产生的层排名在数据集、任务、模型族和RL算法之间保持强相关性。
+
+[阅读原文](https://arxiv.org/abs/2607.01232)
+
+---
+
+## 6. QuasiMoTTo：准蒙特卡洛测试时间缩放
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Michael Y. Li, Anthony Zhan, Kanishk Gandhi, Noah D. Goodman, Emily B. Fox
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces quasi-Monte Carlo sampling as a drop-in replacement for i.i.d. sampling in LLM test-time scaling and policy-gradient RL, improving sample efficiency by reducing redundancy.
+
+**摘要**: arXiv：2607.01179v1宣布类型：新摘要：通过为每个问题生成许多并行尝试来扩展推理计算，是提高语言模型能力的一种昂贵但可靠的手段。默认情况下，这些尝试是独立生成的，从而在冗余解决方案上浪费了推理计算。这种浪费似乎不可避免。毕竟，独立性使得并行采样在规模上变得微不足道。然而，这种权衡并不是根本的：有一个丰富的采样器设计空间，可以完全并行地生成相关但精确的样本。我们探索这个设计空间，作为提高扩展推理计算和强化学习（RL）样本效率的途径。具体来说，我们引入了QuasiMoTTo，它使用相关样本作为i. i. d的直接替代品样品为了生成这些样本，QuasiMoTTo使用自回归采样的重新参数化作为逆EDF采样，并使用准蒙特卡洛（QMC）绘制底层一致性;由于QMC比i. i. d更均匀地分布，产生的样本覆盖了输出空间，冗余度少得多。尽管批次是相关的，但每个样本都根据语言模型进行边缘分布，因此我们可以使用批次进行策略梯度训练。我们的实证分析重点是了解QuasiMoTTo如何有效地将计算转化为性能。为了评估相关样本（其依赖性打破了标准Pass@k估计量），我们首先开发了一个无偏自举估计量。在四个推理基准中，QuasiMoTTo匹配i.i.d.通过@k准确性，样本减少25-47%。引人注目的是，QuasiMoTTo经常饱和传递@k的上限，这对任何边缘保留采样器都适用。我们还将QuasiMoTTo应用于与i. i. d相匹配的政策梯度RL（GRPO）。培训步骤减少50%，提高绩效。这些收益来自更高的覆盖率，这会产生更强的每批学习信号。
+
+[阅读原文](https://arxiv.org/abs/2607.01179)
+
+---
+
+## 7. 基于非对称互变分学习的多模态连续推理
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Shijie Li, Yilin Gao, Siyuan Yang, Tieyuan Chen, Chaofan Gan, Zhihao He, Zicheng Zhao, Yuyu Guo, Weiyao Lin, Hang Yu
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Asymmetric Mutual Variational Learning (AMVL) to resolve train-inference mismatch in continuous latent reasoning for MLLMs, introducing a dual-KL objective that directly advances latent reasoning architectures.
+
+**摘要**: arXiv：2607.00461v1公告类型：新摘要：多模态大型语言模型（MLLM）通常受到语言空间瓶颈的限制，迫使复杂的视觉推理成为离散的标记，这可能会失去感知的细微差别。一个有前途的替代方案是连续潜在推理，其目标是发现隐含的推理路径，桥梁的多模态查询和最终答案。然而，这引入了严重的训练-推理不匹配：以地面真相答案为条件的训练时后验可以利用依赖于答案的捷径。然后，标准变分训练迫使推理时间之前模仿后验，该后验可以访问测试时不可用的信息，从而导致性能较差。为了解决这个问题，我们提出了不对称互变分学习（AMML），这是一个通过双向校准目标解决这种不匹配的框架。正向KL分歧训练目标不可知者之前匹配后向，而新型反向KL分歧同时调节后向，防止其塌陷到推理不相容的区域并减轻这种“答案泄漏”。我们提供了理论分析，将这种泄漏形式化为先前污染，并证明我们的双KL目标可以减少它。我们在潜伏集成的MLLM中实例化AMML，并表明它始终优于强离散和潜伏推理基线，将复杂BLINK基准的平均得分提高+10.83，并在单个推理任务上实现高达+32.00的收益，分析证实潜空稳定性得到改善。
+
+[阅读原文](https://arxiv.org/abs/2607.00461)
+
+---
+
+## 8. 同步RL HF的停滞学习率缩放定律
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Jingwei Song, Haofeng Xu, Jie Xiao, Chengke Bao, Jingwei Shi, Pengbin Feng, Weixun Wang, Yuhang Han, Chuan Wu, Linfeng Zhang, Bill Shi
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Derives staleness-learning rate scaling laws for asynchronous RLHF (GRPO), providing theoretical stability conditions for stale rollouts in RL for LLMs.
+
+**摘要**: arXiv：2607.01083v1宣布类型：新摘要：高吞吐量WLHF系统通常将推出生成与策略优化脱钩，导致在学习器更新期间使用陈旧的推出。在这项工作中，我们研究了这种陈旧性在非同步GRPO中的影响。我们在GRPO替代目标中明确了行为策略，并区分学习者使用的替代梯度映射和依赖分布的人口目标的真实总求导。在局部有界性、分布光滑性和行为政策光滑性的假设下，我们表明陈旧的推出引入了O（S * eta）阶的每步代理梯度偏差，其中S表示最大推出滞后，eta表示学习率。我们进一步推导出一个有条件的时间缩放定律：当周期内漂移保持低于批级别剪辑半径时，崩溃主要由累积学习器漂移T * eta决定;当滞后-展开约束处于活动状态时，稳定性反而明确取决于S * eta。这产生了双约束稳定性条件eta << min{R_batch /（S * G_upd），R_crit /（T * G_upd）}，解释了为什么最大稳定学习率可能看起来弱依赖于水平限制机制中的陈旧性。
+
+[阅读原文](https://arxiv.org/abs/2607.01083)
+
+---
+
+## 9. 图形原生强化学习通过概念分解实现可追溯的科学假设生成
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Subhadeep Pal, Shashwat Sourav, Tirthankar Ghosal, Markus J. Buehler
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces GRPO-based RL fine-tuning for LLMs to generate traceable scientific hypotheses, directly matching RL-for-LLMs with a novel reward and training recipe.
+
+**摘要**: arXiv：2607.00924v1宣布类型：新摘要：加速材料发现需要人工智能系统能够通过多步、基于领域的推理生成科学有效的假设。标准的大型语言模型通常会对开放式材料设计问题产生流畅但难以追踪的响应，因此很难确定最终答案是否得到连贯的中间推理的支持。我们开发了Graph-PRRefLexOR，这是一系列图形原生推理模型，通过组相对政策优化（GRPO）进行微调，将推理组织到显式阶段，以进行机制探索、图构建、模式提取和假设合成。该设计将神经语言生成与符号关系结构联系起来，使因果关系能够被构建、检查和重复使用。在材料科学和力学文献中的100个开放式问题上，Graph-PRefLexOR比相应的基本模型实现了40-65%的改进，在推理可追溯性方面获得了最大的收益。嵌入分析显示出更广泛的语义探索和大约2-3倍的语义多样性。语义回溯和分层隐藏状态分析进一步表明结构化推理和最终答案之间更强的一致性。最后，测试时图形扩展表明，额外的计算主要增加了有界语义空间内的长期概念重组，而不是简单地扩大语义覆盖范围。这些结果确立了图形原生强化学习作为可解释人工智能系统的途径，用于材料设计和其他科学应用中的科学假设生成。
+
+[阅读原文](https://arxiv.org/abs/2607.00924)
+
+---
+
+## 10. DiscoLoop：用于多跳推理的循环离散嵌入和连续隐藏状态
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Hengyu Fu, Tianyu Guo, Zixuan Wang, Hanlin Zhu, Jason D. Lee, Jiantao Jiao, Stuart Russell, Song Mei
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes DiscoLoop, a novel looping architecture with mixed discrete embedding and continuous hidden-state channels for latent multi-hop reasoning, achieving near-perfect accuracy with fewer training steps.
+
+**摘要**: arXiv：2607.00341v1宣布类型：新摘要：当允许将中间步骤具体化为思想链（CoT）时，大型语言模型在许多推理任务上都能实现出色的性能。然而，许多问题需要模型在生成答案之前在单次向前传递内内化多步骤推理。我们通过两跳推理来研究这一挑战，这是一项代表性任务，其中模型必须在单次向前传递内组成多个参数知识。标准的非重复变形金刚存在深度本地存储问题：在第二跳检索时，早期层中学到的事实不可用。我们发现环变形金刚通过重复使用相同的内存来缓解这个问题，但仍然不完美地概括。我们表明剩余的瓶颈是代表性的。在两跳推理任务中，第一个循环通常使正确的桥实体几乎完全可解码，但相应的隐藏状态仍然与桥令牌嵌入不一致。令人惊讶的是，一个简单的无训练的重新排列干预几乎关闭了泛化的差距。基于这一见解，我们提出了DiscoLoop，循环架构，其复发进行离散嵌入通道和连续的隐藏状态通道。DiscoLoop在符号和合成语言多跳推理任务中以更少的训练步骤实现了近乎完美的准确性。当应用于现实世界的预训练时，DiscoLoop比环路转换器基线获得了更低的训练损失和更强的基准性能，这表明混合通道设计已转移到实际的语言建模。
+
+[阅读原文](https://arxiv.org/abs/2607.00341)
+
+---
+
+## 11. 消息传递实现高效推理
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Xuecheng Liu, Daman Arora, Gokul Swamy, Andrea Zanette
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces Message Passing Language Models (MPLMs), a novel latent reasoning framework where LLM threads communicate via lightweight send/receive primitives for efficient parallel reasoning, reducing context and enabling preemption.
+
+**摘要**: arXiv：2607.01077v1宣布类型：新摘要：虽然推理时扩展提高了大型语言模型（LLM）的推理能力，但生成长思想链（CoTS）的需求是一个计算瓶颈。因此，与CoT等顺序扩展方法相反，最近的并行扩展技术使用fork and join（FJ）基元来在多个LLM线程之间分配工作。然而，在fork-join范式中，线程通常是暂时的，并且不会相互逐点通信，这限制了可扩展性。为了解决这个问题，我们引入了消息传递语言模型（MPLM），这是一个LLM推理框架，其中线程通过轻量级发送和接收基元直接通信。MPLM通过两种关键机制实现高效扩展：（1）通过避免冗余上下文共享来降低通信成本，以及（2）抢占，允许线程根据来自对等点的部分信息提前终止。   我们在3类任务中展示了MPLM的前景。首先，在数独谜题中，我们表明MPLM需要比连续CoT和并行FJ渐进地更小的上下文。然后，我们微调单个模型以解决25 x 25难题，这些难题对于标准CoT和FJ方法以及没有工具的前沿推理模型来说仍然具有挑战性。第二，在3-SAT谜题中，抢占的能力允许终止没有希望的分支，从而提高了效率。最后，我们表明，适当地提示大型预训练模型遵循MPLM协议，相对于流行的fork-join方法，在长上下文问题回答上取得了有竞争力的结果。
+
+[阅读原文](https://arxiv.org/abs/2607.01077)
+
+---
+
+## 12. SIM-RL：用于不带轨迹切片的扩散LLM的风险风险随机掩蔽RL
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10
+
+**作者**: Ruikang Zhao, Zhenting Wang, Han Gao, Ligong Han
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes SLIM-RL, a new RL method for diffusion LLMs that avoids trajectory slicing via risk-bounded random masking and a trace-free objective, achieving strong math and code improvements.
+
+**摘要**: arXiv：2607.00208v1公告类型：新摘要：扩散大型语言模型（DLLM）的强化学习在很大程度上已经转向了语义感知方法。目前最先进的TraceRL认为，随机掩蔽与模型的推理轨迹不匹配，它在训练过程中通过将每个卷展分割成多达K/s的随机对齐训练样本来重建该轨迹，这一成本随着块大小K而增长。我们表明，无需重建轨迹即可缓解这种不匹配。我们的方法SlIM-RL通过tau预算解码器限制了每个部署步骤的提交风险，从而降低了训练数据中的总提交风险。在优化过程中，SIIM-RL训练这些风险控制的部署，具有无痕迹随机掩蔽目标，该目标适应方差减少工具，结合了序列级重要性抽样、在我们引入的均值保持、单调递减的每个块掩蔽计划下的掩蔽水平的确定性象限。在SDAR-4 B上，在块大小为16的训练样本上，SIIM-RL仅与TraceRL的最佳Math 500的0.46倍准确性相匹配，在匹配的动态采样下，在PATH 500上比TraceRL提高了6.32%，在GSM 8 K上提高了11.05%。在块大小为4时，4 B SLIM-RL在数学上超过了较大的LLaDA-8B和Dream-7 B dLLM，在MATH 500上超过了LLaDA-8B 10.76%，同时保持在自回归Qwen2.5- 7 B以下。在代码方面，它在MBPP上比TraceRL提高了4.20%，在HumanEval上提高了3.65%。tau预算解码器在LLaDA、Dream和SDAR之间传输免训练。源代码可访问https://github.com/laolaorkkkkk/SLIM-RL。
+
+[阅读原文](https://arxiv.org/abs/2607.00208)
+
+---
+
+## 13. Active-GRPO：分子优化的自适应模仿和自我改进推理
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Xuefeng Liu, Mingxuan Cao, Qinan Huang, Thomas Brettin, Rick Stevens, Le Cong
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Active-GRPO, a novel on-policy RL method for LLM reasoning that dynamically switches between imitation and self-improvement with a continuously upgraded reference, directly advancing RL-for-LLMs and on-policy distillation.
+
+**摘要**: arXiv：2607.00531v1宣布类型：新摘要：科学推理是大型语言模型日益重要的能力，但提高训练此类推理的稳健性和效率仍然是一个关键的开放挑战。我们在基于描述的分子优化中研究这个问题，其中仅回答的监督微调（SFT）崩溃了多步推理，而具有可验证奖励的强化学习（WLVR）则受到稀疏反馈的影响。参考引导的政策优化通过将策略更新锚定到厕所提供的参考来缓解这两种情况，但其有效性与参考质量密切相关：弱或不一致的参考会带来性能上限。为了克服这个上限，我们提出了主动推理，这是一种范式，其中政策根据每个实例积极决定何时模仿参考以及何时强化自己的发现，同时不断升级它所模仿的内容。我们将这个范式实例化为主动组相对政策优化（Active-GRPO），通过两种耦合机制实现：主动模仿-强化和主动引用。前者在参考仍然优于政策本身的候选者时执行模仿学习，一旦政策产生了超越参考的分子，则通过强化学习转向自我改进。后者通过用迄今为止发现的最好的政策生成候选人替换参考文献本身，不断升级参考文献，逐步提高模仿目标，并确保参考文献指导在整个培训过程中保持信息性而不是限制性。在TOMG-Bench MOLOPT中，在匹配的三种子评估下，Activ-GRPO将平均SRxSim从GRPO的0.0959和RePO的0.1665提高到0.1773，LogP、MR和QED方面取得了统计学显着的增长。
+
+[阅读原文](https://arxiv.org/abs/2607.00531)
+
+---
+
+## 14. GR2技术报告
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Yufei Li (Yongkang), Zaiwei Zhang (Yongkang), Mingfu Liang (Yongkang), Kavosh Asadi (Yongkang), Jay Xu (Yongkang), Jimmy Kim (Yongkang), Chongyang Bai (Yongkang), Jieyi Zhang (Yongkang), Hongye Xie (Yongkang), Prachi Agrawal (Yongkang), Dian Yu (Yongkang), Tianyi Chen (Yongkang), Jean-Pascal Billaud (Yongkang), Garret Buell (Yongkang), YK (Yongkang), Zhu (Yang), Sachin Patil (Yang), Brooke Bian (Yang), Zhou Fang (Yang), Kevin Huang (Yang), Shiva Sudanagunta (Yang), Yuzhen Huang (Yang), Emma Lu (Yang), Chris O'Brien (Yang), Yang Song (Yang), Lihong Li (Yang), Jacob Tao (Yang), Zhicheng Zhu (Yang), Chao Li (Yang), Gaoxiang Liu (Yang), Neil Wu (Yang), Zhongyin Hu (Yang), Li Han (Yang), Loki Chen (Yang), Ming Lei (Yang), Greg Rehm (Yang), Siyuan Song (Yang), Tianwei Zhang (Yang), Li Li (Yang), Ketan Singh (Yang), Yavuz Yetim (Yang), Ilyas Atishev (Yang), Satendra Gera (Yang), Ashkan Sadeghi (Yang), Rachel Yan (Yang), Nikko Mizutani (Yang), Shuaiwen Wang (Yang), Song Yang (Yang), Zhijing Li (Yang), Jiang Liu (Yang), Mengying Sun (Yang), Fei Tian (Yang), Xiaohan Wei (Yang), Chonglin Sun (Yang), Parish Aggarwal (Yang), Kaushik Rangadurai (Yang), Zhi Hua (Yang), Frank Shyu (Yang), Ruchit Sharma (Yang), Liyuan Li (Yang), Shike Mei (Yang), Wenlin Chen (Yang), Santanu Kolay (Yang), Ben Schulte (Yang), Deepak Chandra (Yang), Adam (Yang), Song, Sandeep Pandey, Xi Liu, Hamed Firooz, Luke Simon
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Introduces GR2, an industrial re-ranking framework combining RL with verifiable rewards and on-policy distillation (OPD) to improve LLM-based recommendation, with key insights on reward design and the failure of SFT at scale.
+
+**摘要**: arXiv：2606.31984v1宣布类型：新摘要：工业推荐系统通过多阶段漏斗（检索、早期排名和重新排名）为数十亿用户提供服务，其中最后的重新排名步骤不成比例地影响了用户参与度和下游性能，特别是对于旋转木马和网格显示格式。尽管人们对大型语言模型（LLM）的推荐热情越来越高，但有三个差距阻碍了行业采用：（1）大多数工作都针对检索和排名，导致重新排名（最接近最终用户体验的阶段）基本上未充分探索;（2）LLM通常以零触发方式部署或通过监督微调，未充分利用强化学习（RL）对可验证奖励解锁的推理能力;（3）部署的目录对数十亿个具有非语义标识符的项目进行索引，这些标识符位于任何基本LLM词汇之外。我们提出了GR 2（生成性推理重新排名），这是一个端到端框架，它结合了（i）对由具有>=99%唯一性的标记化器产生的语义ID的中间训练，（ii）通过有针对性的提示和拒绝抽样从更强大的教师中提取推理痕迹，以及（iii）具有专为重新排名而构建的可验证奖励的RL。为了使GR 2资源可行，我们进一步（iv）引入了一个可摊销训练成本的上下文压缩器、按政策蒸馏（OPD）作为SFT的可扩展替代方案（我们发现SFT在工业规模上崩溃了）以及低延迟服务的推理蒸馏。GR 2在工业规模流量上提供的R@1、R@3和N@3的传统基线分别为+18.7%、R@3和N@3。我们进一步发现，奖励设计对于重新排名至关重要：LLM经常通过保留即将到来的订单或利用职位偏见来破解奖励，激励有条件可验证的奖励作为重要的工业组成部分。
+
+[阅读原文](https://arxiv.org/abs/2606.31984)
+
+---
+
+## 15. 知道何时停止：减少过度思考的部门级学分分配
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Chia-Hsuan Lee, Sihui Dai, Mingyang Zhou, Isha Slavin, Shi-Xiong Zhang, Sambit Sahu, William Campbell
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes DASH, a segment-level credit assignment method for RL training of reasoning LLMs that reduces overthinking by identifying productive vs. unproductive self-reflection without step-level annotations.
+
+**摘要**: arXiv：2607.00482v1宣布类型：新摘要：推理语言模型经常过度思考：生成扩展的行为链，例如对冲、方法放弃和自我矛盾，这些行为会消耗代币而不改进答案。我们表明，这些行为不仅仅是长度的结果;即使控制反应长度，不正确的痕迹也比正确的痕迹表现出更高的非生产性自我反思率。解决这个问题需要确定自我反思在哪里有帮助而不是有伤害，但是获得这些步骤级注释的成本很高。我们观察到，中间答案的承诺推理痕迹内可以提供一个廉价的代理：通过比较每个最终答案候选人在跟踪地面真相，我们可以确定后续的反射是否是生产性的，没有任何额外的监督。基于这一见解，我们提出了DASH（漂移感知优势整形），它根据每个推理段是否朝向或远离正确性来分配段级信用。在竞赛级数学基准测试中，DASH在过度思考普遍的情况下达到了最高的准确率（AIME 25：50.8% vs. 45.4% GRPO），同时减少了过度思考行为，并实现了比基线更有成效的自我纠正。
+
+[阅读原文](https://arxiv.org/abs/2607.00482)
+
+---
+
+## 16. 通过渐进代码转换实现高效的多语言推理转移
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Zhijun Wang, Junxiao Liu, Hao Zhou, Hao-Ran Wei, Baosong Yang, Shujian Huang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes PCS, a progressive code-switching framework with RL and a language consistency curriculum to transfer English reasoning to target languages, directly contributing to RL for LLMs.
+
+**摘要**: arXiv：2607.00485v1宣布类型：新摘要：大型推理模型（LRM）在英语中实现了强大的推理能力，但当需要用其他语言推理时，它们的性能显着下降。一个自然的解决方案是将模型的英语推理能力转移到目标语言。然而，现有的转移方法通常依赖于来自更强大的LRM的提炼目标语言推理痕迹或来自外部法官模型的在线监督，这成本高昂且难以扩展。在本文中，我们提出了PCS（渐进式代码转换），这是一种更有效的传输框架，只需要轻量级翻译，而无需任何更强大的模型进行提炼或判断。PCS首先通过将英语推理步骤的子集翻译成目标语言来构建代码切换推理轨迹，并使用它们通过监督微调来初始化模型的代码切换能力。然后，它将强化学习与分步语言一致性课程相结合，逐步提高目标语言比例，直到模型完全用目标语言推理。这种渐进的设计提供了平滑的传输路径，避免了直接执行目标语言推理时常见的不稳定性和性能下降。对多个基准测试和五种类型不同语言的实验表明，PCS大大缩小了目标语言和英语推理之间的性能差距，在保持有竞争力的准确性的同时产生更多语言一致的推理。
+
+[阅读原文](https://arxiv.org/abs/2607.00485)
+
+---
+
+## 17. CAT：用于大型推理模型高效推理的信任适应性思维
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Qizhi Jiang, Shuo Wang, Pei Ke, Yuhang Song, Ke Qin
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes Confidence-Adaptive Thinking (CAT), a preference optimization framework that uses the model's intrinsic self-certainty to modulate reasoning length, directly addressing latent reasoning efficiency.
+
+**摘要**: arXiv：2607.00862v1宣布类型：新摘要：大型推理模型（LRM）通过利用长思想链（CoT）轨迹在复杂任务上取得了显着的成功，但它们经常在简单查询上表现出过度思考，导致显着的令牌负担和推理效率降低。然而，现有的压缩方法主要应用均匀的长度缩减或依赖于粗粒度的难度估计，通常导致困难问题的性能下降。为了解决这一局限性，我们提出了信心自适应思维（CAT），这是一个框架，将模型的内在自我确定性信号作为信心融入到偏好优化过程中，该过程根据问题的难度自主调节推理长度。实验结果表明，在不同基础模型的多个基准测试中，CAT在推理准确性方面始终优于最先进的基线。我们的工作使LRM能够有效地压缩自信的响应，同时考虑不确定的响应，为在实际工业场景中平衡准确性和延迟提供潜在的强大解决方案。
+
+[阅读原文](https://arxiv.org/abs/2607.00862)
+
+---
+
+## 18. GeoSearcher：基于过程监督的遥感视觉基础的锚引导渐进推理
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Dianyu Wang, Yidan Zhang, Peirong Zhang, Xuyang Li, Xiaoxuan Liu, Lei Wang
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a process-supervised RL method (PF-GRPO) with a process-aware reward for progressive reasoning in visual grounding, directly contributing to RL for LLMs.
+
+**摘要**: arXiv：2607.01050v1宣布类型：新摘要：最近的多模式大型语言模型（MLLM）在视觉基础上表现出了强大的跨模式理解和坐标生成能力。然而，将这些能力转移到遥感视觉接地（RVAR）仍然具有挑战性。高分辨率遥感图像通常覆盖大规模场景，其中目标通常极小，并且周围有许多视觉相似的干扰物。同时，查询通常包含多个线索，例如参考对象、空间关系和目标属性。现有的基于MLLM的方法通常将RVG公式化为一步坐标生成，这可能会导致小对象定位和复杂查询的不稳定预测。为了应对这些挑战，我们提出了GeoSearcher，它将Rsvg重新定义为锚点引导的渐进推理过程，并通过两个耦合阶段实现它：锚点中心推理监督微调（ACR-SFT）和过程忠实组相对政策优化（PF-GRPO）。在ACR-SFT中，以锚点为中心的推理数据用于教导模型将关键的视觉线索表示为锚点，并逐步集成它们周围的位置、关系和属性线索。在PF-GRPO中，过程感知奖励（VAR）和推理信息样本搜索器（RISS）通过联合评估关键推理步骤和目标定位来进一步优化这种推理行为，同时重点训练更有利于改进渐进推理的样本。通过这一设计，GeSearcher将大规模视觉搜索转换为更受约束的本地推理过程。对DIOR-Rsvg、OPT-Rsvg和VRS-Bench的大量实验表明，GeoSearcher优于现有的最先进方法。该项目将在https://github.com/wangdianyu954-xixi/GeoSearcher上发布。
+
+[阅读原文](https://arxiv.org/abs/2607.01050)
+
+---
+
+## 19. 感知到理性：将感知和推理脱钩以实现细粒度视觉推理
+
+**得分**: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10
+
+**作者**: Hongxing Li, Xiufeng Huang, Dingming Li, Wenjing Jiang, Zixuan Wang, Haolei Xu, Hanrong Zhang, Haiwen Hong, Longtao Huang, Hui Xue, Weiming Lu, Jun Xiao, Yueting Zhuang, Yongliang Shen
+
+**机构**: Unknown Institution
+
+**💡 亮点 (Highlight)**: Proposes a decoupled perception-reasoning framework with a role-aware RL (GRPO) training strategy that alternates between perception and reasoning updates, directly improving fine-grained visual reasoning.
+
+**摘要**: arXiv：2607.01191v1宣布类型：新摘要：细粒度的视觉推理对于视觉语言模型仍然具有挑战性，特别是当小但关键的视觉线索被隐藏在高分辨率图像中时。现有的方法依赖于重复裁剪或测试时的视觉搜索来引入局部证据，但它们通常不会明确区分感知和推理。在本文中，我们提出了感知到推理（P2 R），一个统一的框架，制定细粒度的视觉推理作为一个两阶段的过程：该模型首先将问题相关的证据定位为感知器，然后根据注释图像和裁剪区域回答问题作为推理。为了更好地将训练与这种解耦的公式化相结合，我们进一步引入了感知-推理交替GRPO（PRA-GRPO），这是一种角色感知的强化学习策略，仅使用最终答案监督在以感知为中心的更新和以推理为中心的更新之间交替。P2 R构建在Qwen 3-VL-Direct-2B/4 B/8B的基础上，持续提高了跨型号规模的性能。特别是，P2 R-4 B在V-Star上达到了93.2%，在HR-Bench-4K上达到了81.9%，在HR-Bench-8 K上达到了80.5%，大大优于其相应的主干网。进一步的实验表明，P2 R的好处超出了高分辨率基准，扩展到更广泛的多模式推理任务。这些结果表明，显式地将感知与推理脱钩为细粒度视觉推理提供了有效的框架。
+
+[阅读原文](https://arxiv.org/abs/2607.01191)
+
+---
+

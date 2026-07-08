@@ -1,0 +1,223 @@
+{
+    "summary_en": "### RL for LLMs and Agents\nThe dominant theme in today’s papers is the maturation of reinforcement learning (RL) as a core training paradigm for large language models (LLMs) and agents, moving beyond simple reward hacking towards principled, structured, and verifiable optimization. A critical finding from the analysis of self-play reward hacking (Paper 1) warns that reference-free judges can reward plausibility over correctness, a failure mode that the community must address through de-anchoring techniques. To counter this, several works propose grounding rewards in objective signals: from mixed-mode advantage estimation to mitigate hallucination in reasoning models (Paper 7), to verifiable economic outcomes for LLM negotiation (Paper 9), and visual-action outcome alignment for physical reasoning (Paper 10). For agentic systems, the field is converging on offline and on-policy frameworks that treat the *control* of a frozen agent’s harness as a distinct MDP (Paper 2), using information gain to budget tree-structured rollout exploration (Paper 3), and employing turn-level distillation for long-horizon tasks (Paper 11). The integration of cross-episode memory (Paper 4) and failure-driven dynamic data curation (Paper 6) further refines the agentic post-training loop, while a systematic study of reward function composition (Paper 8) confirms that reward design is the primary determinant of optimization success in process model generation.\n\n### Multimodal and Structured Reasoning\nA significant trend is the application of RL fine-tuning to enhance structured, multimodal reasoning in large models. The proposed Scene Graph Thinking framework (Paper 5) directly addresses a key gap by introducing graph-based rewards that reinforce visually grounded, structured reasoning in MLLMs, aligning perfectly with the RL-for-LLMs criteria. Complementing this, the VAORA approach (Paper 10) bridges physical reasoning and task generalization by designing rewards that align visual outcomes with action sequences, effectively grounding a vision-language model’s reasoning in the physical world. Together, these works signal a move away from purely text-based RL rewards toward richer, multi-modal reward structures that can guide models toward more interpretable and causally sound reasoning.",
+    "summary_cn": "### RL for LLMs and Agents\nThe dominant theme in today’s papers is the maturation of reinforcement learning (RL) as a core training paradigm for large language models (LLMs) and agents, moving beyond simple reward hacking towards principled, structured, and verifiable optimization. A critical finding from the analysis of self-play reward hacking (Paper 1) warns that reference-free judges can reward plausibility over correctness, a failure mode that the community must address through de-anchoring techniques. To counter this, several works propose grounding rewards in objective signals: from mixed-mode advantage estimation to mitigate hallucination in reasoning models (Paper 7), to verifiable economic outcomes for LLM negotiation (Paper 9), and visual-action outcome alignment for physical reasoning (Paper 10). For agentic systems, the field is converging on offline and on-policy frameworks that treat the *control* of a frozen agent’s harness as a distinct MDP (Paper 2), using information gain to budget tree-structured rollout exploration (Paper 3), and employing turn-level distillation for long-horizon tasks (Paper 11). The integration of cross-episode memory (Paper 4) and failure-driven dynamic data curation (Paper 6) further refines the agentic post-training loop, while a systematic study of reward function composition (Paper 8) confirms that reward design is the primary determinant of optimization success in process model generation.\n\n### Multimodal and Structured Reasoning\nA significant trend is the application of RL fine-tuning to enhance structured, multimodal reasoning in large models. The proposed Scene Graph Thinking framework (Paper 5) directly addresses a key gap by introducing graph-based rewards that reinforce visually grounded, structured reasoning in MLLMs, aligning perfectly with the RL-for-LLMs criteria. Complementing this, the VAORA approach (Paper 10) bridges physical reasoning and task generalization by designing rewards that align visual outcomes with action sequences, effectively grounding a vision-language model’s reasoning in the physical world. Together, these works signal a move away from purely text-based RL rewards toward richer, multi-modal reward structures that can guide models toward more interpretable and causally sound reasoning.",
+    "papers": {
+        "2607.05904": {
+            "authors": [
+                "Chenyu Zhou"
+            ],
+            "title": "More Convincing, Not More Correct: Self-Play Reward Hacking of Reference-Free LLM Judges",
+            "abstract": "arXiv:2607.05904v1 Announce Type: new  Abstract: Training a language model against its own reference-free judgments (the premise of self-rewarding, self-play, and LLM-as-a-judge pipelines) assumes a model's verdict on a shown answer tracks correctness. We show it fails structurally: conditioned on a candidate, a judge scores plausibility, not correctness, leaving false-positive basins a policy learns to exploit. We measure this with a hidden-anchor audit: a held-out, cross-source exact-match check the judge never sees. On GSM8K with Qwen3 policies, self-play drives the judge's pass rate from 0.72 to 0.94 while true accuracy stays at 0.20 (three seeds). This reward hacking is not white-box gaming: the errors transfer across judge families (Qwen, Llama, Gemma) and scales, a strict three-judge ensemble still accepts 55% of them, and no plausibility-scoring defense closes the basin. The decisive variable is whether the judge commits an answer of its own before using the candidate: committing first drops the false-positive rate from 0.719 to 0.012, blind solving lifts discrimination to 0.96, and used as the training reward the de-anchored channel keeps false positives at zero, preventing the basin rather than only detecting it. A falsifiable bound (the gap is at most 1 - accuracy) predicts which regimes are exposed. The full arc replicates without training under best-of-N selection in code and competition math, and with a Gemma policy.",
+            "arxiv_id": "2607.05904",
+            "ARXIVID": "2607.05904",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Identifies a fundamental failure mode in self-play RL for LLMs where judges reward plausibility over correctness, and proposes a de-anchoring method to prevent reward hacking.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.05458": {
+            "authors": [
+                "Haiwen Yi",
+                "Xinyuan Song"
+            ],
+            "title": "Learning to Control LLM Agent Harnesses with Offline Reinforcement Learning",
+            "abstract": "arXiv:2607.05458v1 Announce Type: new  Abstract: Large language model (LLM) agents are usually improved by changing prompts, models, or hand-written workflows, while the execution harness around the model is treated as fixed infrastructure. We argue that this harness is itself a learnable control layer. We formalize harness operation as a finite-horizon Harness MDP, where a lightweight controller selects structural execution actions while the LLM executor remains frozen. The controller is trained from offline rollouts using advantage-weighted regression with only terminal task-rubric rewards. We also separate final task quality from a post-hoc Harness Maturity Score, which measures whether the harness follows reliable execution patterns rather than only whether the final answer is correct. This separation gives a finite-buffer view of harness learning: final-quality gains require high-return support in the offline buffer, while process behavior can shift whenever it aligns with advantage-weighted actions. Across six controlled domains and two public-benchmark adapters, the learned controller consistently improves verification behavior and selectively improves final task quality, with the largest gains on adapted tau-bench retail, adapted AgentBench DB-Bench, and coding with a calibrated structural verifier. Ablations against behavior cloning and Forced CHECK show that the gains are not explained by imitation or by simply adding checks. These results identify harness control as a learnable layer for frozen LLM agents, while showing that offline support limits when better process control becomes better final answers.",
+            "arxiv_id": "2607.05458",
+            "ARXIVID": "2607.05458",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes a novel offline RL framework (Harness MDP) for learning to control the execution harness of frozen LLM agents, using advantage-weighted regression with terminal rewards.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.06223": {
+            "authors": [
+                "Yijun Zhang",
+                "Fan Xu",
+                "Jiaxin Ding",
+                "Yule Xie",
+                "Shiqing Gao",
+                "Xin Ding",
+                "Haoxiang Zhang",
+                "Luoyi Fu",
+                "Xinbing Wang"
+            ],
+            "title": "Information Gain-based Rollout Policy Optimization: An Adaptive Tree-Structured Rollout Approach for Multi-Turn LLM Agents",
+            "abstract": "arXiv:2607.06223v1 Announce Type: new  Abstract: Reinforcement learning has become a promising paradigm for improving large language model (LLM) agents on long-horizon search tasks, where the agent must make a sequence of intermediate decisions before receiving a final outcome. However, existing methods still face a key limitation: the rollout budget is often allocated without explicitly assessing the utility of intermediate states. As a result, substantial computation may be spent on low-value states, even though different branches can vary drastically in their informativeness. In this paper, we propose Information Gain-based Rollout Policy Optimization (IGRPO), a policy optimization framework that treats intermediate-state informativeness as the organizing principle of rollout collection. Specifically, IGRPO performs budget-aware tree-structured rollouts by allocating expansion budget according to node-level informativeness, so that more informative branches are expanded more frequently while unpromising branches are progressively suppressed. We further demonstrate that the information gain-based rollout induces an explicit limiting teacher distribution over trajectories, which naturally yields a clear policy optimization target, thereby unifying adaptive tree-structured exploration with principled policy learning under a single framework. Experiments on seven challenging search-augmented QA benchmarks demonstrate that IGRPO consistently outperforms strong baselines under the same rollout budget constraints, validating the effectiveness of leveraging the induced teacher distribution to guide policy optimization for long-horizon search agents.",
+            "arxiv_id": "2607.06223",
+            "ARXIVID": "2607.06223",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes IGRPO, a policy optimization framework that uses information gain to allocate rollout budget in tree-structured exploration for multi-turn LLM agents, unifying adaptive exploration with principled policy learning.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.05541": {
+            "authors": [
+                "Muhammad Zain Amin",
+                "Kibele Sebnem Yildirim"
+            ],
+            "title": "Self-Review Reinforcement Learning (SRRL) with Cross-Episode Memory and Policy Distillation",
+            "abstract": "arXiv:2607.05541v1 Announce Type: new  Abstract: Reinforcement Learning is commonly used to train large language models using environmental feedback. In applied settings, the environment usually provides sparse or delayed feedback. This makes it difficult for the model to pinpoint which actions in its reasoning led to success or failure. So, learning effectively from these signals is hard because the model must determine how each failure should inform meaningful behavioral corrections in subsequent iterations. We introduce a training framework, Self-Review Reinforcement Learning, that embeds an explicit self-review step into each RL episode. When a first-pass response fails, the model generates a self-review to identify what went wrong, which conditions an improved second attempt. Unlike inference-time reflection approaches, such as Reflexion, the framework optimizes self-review with policy gradients and internalizes improvements into the base policy via selective distillation, ensuring they persist across future episodes. A cross-episode memory keeps successful self-reviews for reuse when encountering similar tasks in future episodes during training. We evaluate SRRL against a standard RLVR baseline using the GRPO optimizer across two language models, Qwen 3-4B and OLMo-3- 7B, on GSM8K benchmark. SRRL consistently outperforms the RLVR in final reward performance and achieves greater learning efficiency by successfully transforming feedback into behavioral improvement.",
+            "arxiv_id": "2607.05541",
+            "ARXIVID": "2607.05541",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes SRRL, an on-policy RL framework with self-review steps and cross-episode memory distillation that directly improves LLM reasoning via policy gradients.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.05716": {
+            "authors": [
+                "Zhiwei Yang",
+                "Yuanchen Wu",
+                "Nan Zhang",
+                "Yucong Meng",
+                "Ke Yan",
+                "Shouhong Ding"
+            ],
+            "title": "Scene Graph Thinking: Reinforcing Structured Visual Reasoning for Multimodal Large Language Models",
+            "abstract": "arXiv:2607.05716v1 Announce Type: new  Abstract: Multimodal Large Language Models (MLLMs) have demonstrated strong perception and reasoning capabilities. However, most existing models focus on isolated objects and neglect structured relationships for efficient target navigation, limiting their performance on visually intensive tasks. To address this challenge, we introduce Scene Graph Thinking (SaGe), a novel paradigm that enables fine-grained and structured visual reasoning through explicit scene-graph representations. Specifically, we first introduce an automated data engine that converts flat image-text corpora into structured scene graphs, where hierarchical entities constitute the nodes and diverse visual relations define the edges. Building upon this, we construct 120K high-quality training data by sampling reasoning traces from scene graphs. Then, two-stage graph-aligned post-training paradigms are introduced, where supervised fine-tuning internalizes MLLMs with structured reasoning, and subsequent reinforcement fine-tuning proposes node-as-proxy graph rewards to consolidate efficient graph exploration. With curated data and graph-aligned training, our approach achieves significant improvements across eight multimodal benchmarks, demonstrating strong effectiveness on fine-grained perception and reasoning tasks. Code is available at https://github.com/zwyang6/SaGe.",
+            "arxiv_id": "2607.05716",
+            "ARXIVID": "2607.05716",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a novel RL fine-tuning method with graph-based rewards for structured visual reasoning in MLLMs, directly matching RL-for-LLMs criteria.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.06140": {
+            "authors": [
+                "Dingzirui Wang",
+                "Xuanliang Zhang",
+                "Keyan Xu",
+                "Qingfu Zhu",
+                "Wanxiang Che"
+            ],
+            "title": "CurateEvo: Data-Curation Evolving for Agentic Post-Training",
+            "abstract": "arXiv:2607.06140v1 Announce Type: new  Abstract: Large language model (LLM) agents require post-training methods that can improve long-horizon decision making from environment feedback. However, existing agentic post-training pipelines often treat data curation as a fixed preprocessing step, focusing mainly on data augmentation while neglecting filtering, refinement, and adaptation to downstream failures. We propose CurateEvo, a failure-driven dynamic evolution framework for agentic post-training data curation. CurateEvo represents the curation strategy as executable code and iteratively rewrites it using failed trajectories from a held-out development set. At each epoch, the evolved strategy transforms a fixed raw corpus into supervised fine-tuning data, reinforcement learning data, and an inference-time memory bank. The evolution process first improves effectiveness by diagnosing recurring failure modes and augmenting, filtering, or refining data accordingly, and then improves efficiency by pruning redundant or low-utility training turns under a cost-aware objective. Experiments on ACEBench-Agent, BFCL-V4, and {\\tau}^2-Bench under both labeled and wild-data settings show that CurateEvo consistently outperforms prior curation methods, improving average scores by 3.2 and 2.7 points, respectively. Further analyses demonstrate that CurateEvo is compatible with different post-training recipes and substantially reduces curation overhead.",
+            "arxiv_id": "2607.06140",
+            "ARXIVID": "2607.06140",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a failure-driven dynamic data curation framework for agentic post-training that iteratively evolves curation strategies using on-policy trajectory feedback.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.05861": {
+            "authors": [
+                "Kaishen Wang",
+                "Tong Zheng",
+                "Xuehao Cui",
+                "Ruibo Chen",
+                "Tianyi Xiong",
+                "Heng Huang"
+            ],
+            "title": "Mitigating Factual Hallucination in Large Reasoning Models via Mixed-Mode Advantage Regularization",
+            "abstract": "arXiv:2607.05861v1 Announce Type: new  Abstract: Large reasoning models (LRMs) improve language model capabilities by generating explicit thinking traces before final answers. In factuality-oriented question answering (QA), such thinking often improves overall performance by helping the model recover relevant knowledge and refine its answers. However, we find that this benefit is not uniform at the instance level: explicit thinking can also overturn correct non-thinking answers and lead to factual drift. We refer to this failure mode as \\emph{thinking-induced hallucination}. To explain this phenomenon, we formulate explicit thinking in factuality QA as a thinking residual over the model's direct-answer tendency, which can either recover missing knowledge or introduce unsupported associations. Based on this formulation, we propose MARGO, \\underline{\\textit{M}}ixed-Mode \\underline{\\textit{A}}dvantage \\underline{\\textit{R}}egularization for \\underline{\\textit{G}}rounded \\underline{\\textit{O}}ptimization, a reinforcement learning framework that uses non-thinking rollouts as same-model references in advantage estimation. By constructing mixed-mode rollout groups with both thinking and non-thinking trajectories, MARGO evaluates whether explicit thinking adds factual value beyond direct answering, thereby suppressing hallucination-prone thinking while preserving beneficial thinking behaviors. Experiments across multiple factuality-oriented QA benchmarks demonstrate that MARGO improves factual reliability over strong baselines, while evaluations on mathematical benchmarks show that it preserves general reasoning ability.",
+            "arxiv_id": "2607.05861",
+            "ARXIVID": "2607.05861",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes MARGO, a reinforcement learning framework that uses mixed-mode (thinking and non-thinking) rollouts for advantage estimation to mitigate thinking-induced hallucination in factuality QA.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.06175": {
+            "authors": [
+                "Alexander Rombach",
+                "Chantale Lauer",
+                "Nijat Mehdiyev"
+            ],
+            "title": "Improving LLM-Generated Process Model Quality Through Reinforcement Learning: The Role of Reward Function Design",
+            "abstract": "arXiv:2607.06175v1 Announce Type: new  Abstract: Large language models (LLMs) can generate BPMN process models from natural-language descriptions, yet supervised fine-tuning (SFT) limits their output quality to the patterns present in the training data. Reinforcement learning (RL) can optimize beyond this ceiling using external quality measures, but how the reward function should be designed when quality is multi-dimensional remains unexplored. We present a systematic investigation of reward function design for RL-based process model generation, training two LLM families (Llama~3.1 8B, Qwen~2.5 14B) under 48 configurations using Group Sequence Policy Optimization with rewards derived from an automated evaluation framework comprising 38 metrics across syntactic, pragmatic, and semantic quality. Three findings emerge. First, RL significantly improves pragmatic and syntactic quality while preserving semantic fidelity, reducing output variability by more than sixfold. Second, equal reward weighting consistently outperforms targeted weighting: emphasizing a specific dimension fails to improve it and can collapse the model into a low-quality mode. Third, design choices interact with model architecture in non-trivial ways: the invalidity penalty is essential for one model but irrelevant for the other, and SFT initialization is indispensable for one architecture but counterproductive for another. These results demonstrate that reward composition is a primary determinant of optimization outcomes, with effects as large as the decision to apply RL itself. The findings generalize to any structured generation task where quality is assessed along multiple automated dimensions. We release our implementation and experimental code at https://github.com/chlauer99/RL_for_process_modeling.",
+            "arxiv_id": "2607.06175",
+            "ARXIVID": "2607.06175",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Systematically investigates reward function design for RL-based process model generation with LLMs, showing that reward composition is a primary determinant of optimization outcomes.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.05863": {
+            "authors": [
+                "Shuze Daniel Liu",
+                "Claire Chen",
+                "Jiabao Sean Xiao",
+                "Xin Chen",
+                "David Simchi-Levi"
+            ],
+            "title": "Strategic Bargaining in Multi-Buyer Markets: Reinforcement Learning from Verifiable Rewards for LLM Negotiations",
+            "abstract": "arXiv:2607.05863v1 Announce Type: new  Abstract: Negotiation is a fundamental strategic interaction in management science, characterized by agents attempting to reach agreements while protecting private information, such as reservation costs and hidden valuations. A prevalent yet complex scenario involves a single seller negotiating concurrently with multiple buyers, each possessing heterogeneous, private budgets. In such settings, constrained by a limited number of communication turns, the seller must balance exploring the broader market to discover the highest valuation with concentrating sufficient turns on a single target buyer to secure the best possible outcome. Our analysis reveals a significant gap in standard Large Language Models (LLMs): while these models are linguistically proficient, they fail to act as effective economic decision-makers. Specifically, they exhibit a failure to explore the buyer pool, often fixating on the current highest bid rather than strategically investigating the market to discover latent high valuations.   In this paper, we propose a specialized training recipe using Reinforcement Learning from Verifiable Rewards (RLVR). By anchoring the reward function to objective economic outcomes, the strategic balance between market discovery and surplus extraction emerges natively through the learning process. Our results demonstrate that the trained seller undergoes a multi-stage strategic evolution, learning to leverage price anchoring and strategic probing to identify more profitable counterparties. The agent extracts a substantially higher surplus than frontier models by both improving its persuasive bargaining skills and consistently closing deals with high-value buyers. Finally, we show that our seller strategies generalize robustly to unseen buyer negotiation styles and budget distributions.",
+            "arxiv_id": "2607.05863",
+            "ARXIVID": "2607.05863",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a novel RLVR training recipe for LLM negotiation, where the reward is anchored to objective economic outcomes, enabling strategic market exploration and surplus extraction.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.06522": {
+            "authors": [
+                "Han-Jun Ko",
+                "Jr-Jen Chen",
+                "Haobo Yuan",
+                "Hsin-Ying Lee",
+                "Tiancheng Shen",
+                "Ming-Hsuan Yang",
+                "Yu-Chiang Frank Wang"
+            ],
+            "title": "Bridging Physical Reasoning and Task Generalization via Visual Action Outcome Reasoning Alignment",
+            "abstract": "arXiv:2607.06522v1 Announce Type: new  Abstract: Vision-language models (VLMs) struggle to generalize in interactive physical reasoning, particularly under unseen tasks and environments. Two key failure modes are prominent: hallucinated chain-of-thought (CoT) reasoning that contradicts physical reality, and misalignment between the model's reasoning and actions. We present VAORA (Visual Action Outcome Reasoning Alignment), a novel reward design that directly addresses both issues. VAORA introduces two complementary rewards: Visual Alignment Reward, which anchors VLM reasoning to the visual context independent of the agent action itself, and Visual-Action Alignment Reward, which grounds reasoning in the visual outcome induced by the model's action. Together, these rewards suppress hallucinated CoT and reduce the gap between reasoning and behavior. To improve training stability, we further employ smooth, dense rewards by estimating success probabilities using a pre-trained in-domain expert agent. Experiments on PHYRE and Virtual Tool support our performances across novel-task and unseen-environment settings, confirming that grounded and generalizable physical intelligence can be induced through VAORA.",
+            "arxiv_id": "2607.06522",
+            "ARXIVID": "2607.06522",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a novel reward design (VAORA) with visual and visual-action alignment rewards to ground VLM reasoning and actions, directly improving RL for LLMs in physical reasoning tasks.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.05804": {
+            "authors": [
+                "Yuhang Zhou",
+                "Kai Zheng",
+                "Haoling Li",
+                "Dengyun Peng",
+                "Can Xu",
+                "Jingjing Chen"
+            ],
+            "title": "TurnOPD: Making On-Policy Distillation Turn-Aware for Efficient Long-Horizon Agent Training",
+            "abstract": "arXiv:2607.05804v1 Announce Type: new  Abstract: On-policy distillation (OPD) trains a student policy by matching a stronger teacher on the student's own trajectories, offering a promising framework for language agent training. However, its application to long-horizon agentic tasks remains insufficiently explored. We identify two key inefficiencies in vanilla agent OPD: (1) full-horizon rollouts often waste wall-clock resources on tail turns that provide weak and noisy KL supervision, and (2) trajectory-level KL objectives concentrate most of the loss on shallow tokens, leaving deeper decision turns under-trained once initial behaviors are aligned. To address these challenges, we propose TurnOPD, a turn-level budgeting strategy for efficient on-policy distillation of long-horizon agents. TurnOPD consists of two budget controllers: adaptive rollout-depth budgeting, which uses probe-based turn statistics to determine rollout length, and progressive turn-normalized loss budgeting, which gradually shifts KL weighting from token-level to turn-balanced supervision. Experiments on ALFWorld, WebShop, and Multi-Hop Search with task-specialized teacher models show that TurnOPD achieves superior validation accuracy under equal wall-clock training budgets and advances the accuracy--time frontier beyond vanilla OPD.",
+            "arxiv_id": "2607.05804",
+            "ARXIVID": "2607.05804",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes TurnOPD, a turn-level budgeting strategy for on-policy distillation that improves efficiency in long-horizon agent training via adaptive rollout-depth and progressive loss normalization.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        }
+    }
+}

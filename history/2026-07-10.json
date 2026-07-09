@@ -1,0 +1,307 @@
+{
+    "summary_en": "### RL for LLMs\nThe field of reinforcement learning for LLMs is experiencing a surge of innovation, moving beyond standard GRPO and PPO variants to address fundamental challenges in training dynamics and reward design. A clear trend is the exploration of competitive and game-theoretic frameworks, as seen in the Agon framework, which introduces a zero-sum game between two models for implicit grading of reasoning traces. Simultaneously, researchers are tackling the exploration-stability dilemma with novel optimization objectives like Unbounded Positive Asymmetric Optimization (UP), which restructures gradients to encourage positive advantage exploration without destabilizing training. Another critical direction is the refinement of reward signals for complex tasks, where frameworks like RLVP propose decoupling path penalties from outcome rewards to improve constraint satisfaction in agentic deployments, while selective timestep weighting and advantage-based replay are being used to enhance sample efficiency in diffusion-based RLHF. These works collectively indicate a maturation of RL for LLMs, shifting from simple reward maximization to nuanced, multi-objective, and structurally aware training paradigms.\n\n### Reasoning and Self-Improvement\nResearch on LLM reasoning is increasingly focused on the mechanisms of skill composition and the stability of self-improvement loops. A key insight comes from trace-level analysis showing that RL post-training composes primitive skills into reusable higher-order strategies through a phased mechanism, distinguishing it from rejection fine-tuning. To combat the drift inherent in on-policy distillation, geometric self-distillation (GeoSD) leverages Hellinger loss and Fisher-Rao proximal penalties, achieving significant gains in out-of-distribution reasoning. Self-improvement is further enhanced by modular memory architectures like MILES, which use learnable selection heads to manage instruction memory, and by adaptive trace prefix control (AdaPrefix-GRPO) that dynamically adjusts problem difficulty to maximize gradient signals on hard reasoning problems. These works demonstrate a collective push toward more principled and controllable methods for improving reasoning, moving away from brute-force scaling toward structurally guided learning.\n\n### Agents and Tool-Use\nAgentic reinforcement learning for LLMs is seeing rapid advancement, particularly in addressing the challenges of multi-task learning and asynchronous training. A notable development is Entropy Pacing Policy Optimization (EPPO), which introduces task-wise dynamic clipping to resolve exploration-exploitation pace mismatches in multi-task settings. Similarly, Single-rollout Asynchronous Optimization (SAO) tackles stability and off-policy issues in asynchronous agentic RL, outperforming GRPO on coding and reasoning benchmarks. For tool-use and retrieval-augmented generation, the MMAgent-R² framework exemplifies the integration of verifier-driven RL (via GRPO) with composite reward functions to jointly optimize retrieval and reasoning. On the distillation front, researchers are addressing the \"over-calling\" problem in multi-teacher on-policy distillation for tool-use LLMs through per-token divergence calibration (Soft Clamp). These contributions highlight a growing sophistication in training LLMs as capable agents, with a strong emphasis on stability, efficiency, and real-world constraint satisfaction.\n\n### Alignment and Data Selection\nA theoretical bridge is being built between data selection and alignment, with the formalization of online data selection during SFT as an implicit alignment mechanism. This work introduces diagnostic tools (ADA, AAS) that connect data selection to RL-style reward shaping, offering a new lens for understanding LLM behavior. In contrast, empirical investigations into English dialect adaptation (DiaLLM) reveal a surprising robustness-generation gap, where explicit reward optimization does not align with human preference, underscoring the need for richer reward designs in RL-based alignment. This body of work suggests that the community is moving toward a more nuanced understanding of alignment, recognizing that both data curation and reward design must be carefully calibrated to achieve desired outcomes.\n\n### Domain-Specific Applications\nThe application of RL-for-LLMs is expanding into specialized domains, demonstrating the versatility of these techniques. A notable example is the use of a physics-guided, fine-tuned LLM framework with GRPO and multi-stage gated rewards to generate physically consistent power distribution system feeders, directly aligning LLM outputs with domain-specific constraints. This work exemplifies how general RL training recipes can be adapted to enforce hard physical constraints, opening avenues for LLM deployment in engineering and scientific fields where output validity is paramount.\n\n### Analysis and Interpretability\nComplementing the methodological advances, there is a growing focus on understanding the internal dynamics of LLM training. An analysis of latent reasoning faithfulness across training trajectories reveals that the causal contribution of latent reasoning steps decays over time and is dependent on training stage and answer format. This finding challenges the assumption that latent reasoning remains faithful throughout training, emphasizing the need for careful monitoring and the use of final checkpoints alone may be insufficient for robust evaluation.",
+    "summary_cn": "### RL for LLMs\nThe field of reinforcement learning for LLMs is experiencing a surge of innovation, moving beyond standard GRPO and PPO variants to address fundamental challenges in training dynamics and reward design. A clear trend is the exploration of competitive and game-theoretic frameworks, as seen in the Agon framework, which introduces a zero-sum game between two models for implicit grading of reasoning traces. Simultaneously, researchers are tackling the exploration-stability dilemma with novel optimization objectives like Unbounded Positive Asymmetric Optimization (UP), which restructures gradients to encourage positive advantage exploration without destabilizing training. Another critical direction is the refinement of reward signals for complex tasks, where frameworks like RLVP propose decoupling path penalties from outcome rewards to improve constraint satisfaction in agentic deployments, while selective timestep weighting and advantage-based replay are being used to enhance sample efficiency in diffusion-based RLHF. These works collectively indicate a maturation of RL for LLMs, shifting from simple reward maximization to nuanced, multi-objective, and structurally aware training paradigms.\n\n### Reasoning and Self-Improvement\nResearch on LLM reasoning is increasingly focused on the mechanisms of skill composition and the stability of self-improvement loops. A key insight comes from trace-level analysis showing that RL post-training composes primitive skills into reusable higher-order strategies through a phased mechanism, distinguishing it from rejection fine-tuning. To combat the drift inherent in on-policy distillation, geometric self-distillation (GeoSD) leverages Hellinger loss and Fisher-Rao proximal penalties, achieving significant gains in out-of-distribution reasoning. Self-improvement is further enhanced by modular memory architectures like MILES, which use learnable selection heads to manage instruction memory, and by adaptive trace prefix control (AdaPrefix-GRPO) that dynamically adjusts problem difficulty to maximize gradient signals on hard reasoning problems. These works demonstrate a collective push toward more principled and controllable methods for improving reasoning, moving away from brute-force scaling toward structurally guided learning.\n\n### Agents and Tool-Use\nAgentic reinforcement learning for LLMs is seeing rapid advancement, particularly in addressing the challenges of multi-task learning and asynchronous training. A notable development is Entropy Pacing Policy Optimization (EPPO), which introduces task-wise dynamic clipping to resolve exploration-exploitation pace mismatches in multi-task settings. Similarly, Single-rollout Asynchronous Optimization (SAO) tackles stability and off-policy issues in asynchronous agentic RL, outperforming GRPO on coding and reasoning benchmarks. For tool-use and retrieval-augmented generation, the MMAgent-R² framework exemplifies the integration of verifier-driven RL (via GRPO) with composite reward functions to jointly optimize retrieval and reasoning. On the distillation front, researchers are addressing the \"over-calling\" problem in multi-teacher on-policy distillation for tool-use LLMs through per-token divergence calibration (Soft Clamp). These contributions highlight a growing sophistication in training LLMs as capable agents, with a strong emphasis on stability, efficiency, and real-world constraint satisfaction.\n\n### Alignment and Data Selection\nA theoretical bridge is being built between data selection and alignment, with the formalization of online data selection during SFT as an implicit alignment mechanism. This work introduces diagnostic tools (ADA, AAS) that connect data selection to RL-style reward shaping, offering a new lens for understanding LLM behavior. In contrast, empirical investigations into English dialect adaptation (DiaLLM) reveal a surprising robustness-generation gap, where explicit reward optimization does not align with human preference, underscoring the need for richer reward designs in RL-based alignment. This body of work suggests that the community is moving toward a more nuanced understanding of alignment, recognizing that both data curation and reward design must be carefully calibrated to achieve desired outcomes.\n\n### Domain-Specific Applications\nThe application of RL-for-LLMs is expanding into specialized domains, demonstrating the versatility of these techniques. A notable example is the use of a physics-guided, fine-tuned LLM framework with GRPO and multi-stage gated rewards to generate physically consistent power distribution system feeders, directly aligning LLM outputs with domain-specific constraints. This work exemplifies how general RL training recipes can be adapted to enforce hard physical constraints, opening avenues for LLM deployment in engineering and scientific fields where output validity is paramount.\n\n### Analysis and Interpretability\nComplementing the methodological advances, there is a growing focus on understanding the internal dynamics of LLM training. An analysis of latent reasoning faithfulness across training trajectories reveals that the causal contribution of latent reasoning steps decays over time and is dependent on training stage and answer format. This finding challenges the assumption that latent reasoning remains faithful throughout training, emphasizing the need for careful monitoring and the use of final checkpoints alone may be insufficient for robust evaluation.",
+    "papers": {
+        "2607.07690": {
+            "authors": [
+                "Vladislav Beliaev"
+            ],
+            "title": "Agon: Competitive Cross-Model RL with Implicit Rival Grading of Reasoning",
+            "abstract": "arXiv:2607.07690v1 Announce Type: new  Abstract: Reinforcement learning from verifiable rewards (e.g. GRPO) is the engine behind today's reasoning models, yet it grades only the final answer. On hard problems this trains models to write more rather than to think better, since the trace itself is never graded and no label for good thinking exists. We introduce Agon, which makes two competing models each other's graders. Both attempt the same problem; in alternating roles, one drafts a solution and the other reads it while solving, and each is rewarded for out-solving the other. To win, a model must out-reason a rival that has seen its work, so reasoning is judged implicitly during training, with no process labels and no reward model. Because both models are optimized, each faces a progressively stronger rival, which single-model RL cannot provide. The two need only be comparably strong and behaviorally different. At inference the pair deploys as it trains, a two-stage cascade in which one model drafts and the other answers after reading the draft. On the hard split of DeepMath with Qwen3, this doubles GRPO's pass@1, roughly eight times the gain of an untrained Mixture-of-Agents pass over the same base. The ordering replicates on competitive-programming code and across model families (Qwen3.5, Gemma 4). For now the models talk in text; the next step is to let them reason together in latent space.",
+            "arxiv_id": "2607.07690",
+            "ARXIVID": "2607.07690",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 9,
+            "COMMENT": "Introduces Agon, a competitive cross-model RL framework where two models implicitly grade each other's reasoning traces via a zero-sum game, directly advancing RL for LLMs with a novel reward mechanism.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.06855": {
+            "authors": [
+                "Josip Juki\\'c",
+                "Ivan Titov"
+            ],
+            "title": "Geometric Self-Distillation for Reasoning Generalization",
+            "abstract": "arXiv:2607.06855v1 Announce Type: new  Abstract: On-policy distillation is a practical post-training recipe for large language models, supplying dense teacher supervision on the student's own trajectories. In privileged-context self-distillation, teacher and student are the same model conditioned on the same prefix, but the teacher also sees a hint or the full solution trace. This makes supervision abundant but harder to trust: the teacher can be confident about continuations its privileged view makes obvious but the student cannot yet justify. The distillation pull is strongest where teacher and student disagree most, and over many updates it accumulates into drift that degrades out-of-distribution (OOD) reasoning. We introduce GeoSD, a geometric self-distillation objective that treats this drift as movement in the student's predictive behavior and counters it in two complementary ways. A Hellinger loss scales each teacher preference by the overlap the student already shares with it, attenuating the pull on tokens the student cannot yet support. Since these pulls still compound over training, a proximal term penalizes how far the student's predictions drift from a recent checkpoint, measured as a Fisher-Rao distance. Both are distances in the same geometry of next-token distributions, and a natural-gradient update takes its steps in that geometry rather than in parameter space. Across mathematical reasoning benchmarks and three model families, GeoSD preserves the in-distribution gains of self-distillation while improving average OOD accuracy by 5.7-8.6 points over the base model, with gains holding across model scales from 1.7B to 32B. Analyzing why standard matching fails out of distribution, we find it wins agreement with the teacher by draining mass from alternatives at high-entropy states, resulting in confident agreement on wrong answers, whereas GeoSD keeps those alternatives in reach.",
+            "arxiv_id": "2607.06855",
+            "ARXIVID": "2607.06855",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes GeoSD, a geometric self-distillation objective with Hellinger loss and Fisher-Rao proximal penalty that counters drift in on-policy distillation, improving OOD reasoning by 5.7-8.6 points across model scales.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.07646": {
+            "authors": [
+                "Azwar Abdulsalam",
+                "Nishil Patel",
+                "Andrew Saxe"
+            ],
+            "title": "RL Post-Training Builds Compositional Reasoning Strategies",
+            "abstract": "arXiv:2607.07646v1 Announce Type: new  Abstract: Does RL post-training merely amplify primitive skills already latent in a base model, or can it compose primitive skills into new higher-level strategies? We study this question in a fully observable rewrite-grammar environment where the pretraining distribution is known and every generated rewrite can be audited. A Transformer is pretrained on primitive symbol-rewrite chains and post-trained on a Trace-based reasoning task with only a binary final-answer reward. RL solves held-out problems that remain rarely solved by the pretrained model even under much larger sampling budgets, while rejection fine-tuning improves early but plateaus. Trace analysis shows that RL reorganizes primitive competence through a phased compositional mechanism: it first strengthens primitive reductions, then discovers valid composed procedures. These include sequential compositions, which collapse ordered chains of primitive contractions, and parallel compositions, which combine independent primitive contractions in a single step. The composed procedures are not isolated samples; they are reused and consolidated into a stable repertoire. Comparing RL with rejection fine-tuning shows that the key difference is not exploration volume but selectivity: RFT produces many shortcut-like rewrites, much of them invalid, whereas RL concentrates exploration into valid reusable structure. Pretraining ablations show that the emergence of compositional strategies is gated not by primitive exposure alone, but by whether pretraining organizes primitive competence into reduction procedures that RL can later compress. The base model provides weak procedural ingredients; RL builds them into reliable higher-level strategies.",
+            "arxiv_id": "2607.07646",
+            "ARXIVID": "2607.07646",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Shows that RL post-training composes primitive skills into reusable higher-level reasoning strategies via a phased compositional mechanism, with trace-level analysis distinguishing RL from rejection fine-tuning.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.06987": {
+            "authors": [
+                "Chongyu Fan",
+                "Pengfei Liu",
+                "Jingjia Huang",
+                "Sijia Liu",
+                "Yi Lin"
+            ],
+            "title": "UP: Unbounded Positive Asymmetric Optimization for Breaking the Exploration-Stability Dilemma",
+            "abstract": "arXiv:2607.06987v1 Announce Type: new  Abstract: Reinforcement learning (RL) has become the standard paradigm for enhancing the complex reasoning capabilities of large language models (LLMs). To achieve sample efficiency, modern RL frameworks rely on importance sampling (IS). However, these algorithms suffer from an exploration-stability dilemma. Pure IS often leads to catastrophic training instability, while standard clipping mechanisms used to mitigate this instability strictly constrain the policy update budget. By formalizing the concept of Probability Capacity (Cap), we reveal that conservative clipping structurally stifles exploration by prematurely truncating the update budget for correct but low-confidence reasoning paths. To break free from these constraints, we propose Unbounded Positive Asymmetric Optimization (UP), a universal and plug-and-play objective. UP theoretically restructures the optimization process by anchoring the policy to its current state via the stop-gradient operator. This asymmetric design unleashes unclipped, stable gradients for positive advantages to maximize exploration, while maintaining standard clipping safeguards for negative advantages to prevent training instability. Furthermore, our formulation readily extends across different optimization granularities, including token-level (GRPO, DAPO) and sequence-level (GSPO) frameworks. Extensive experiments demonstrate that UP enhances exploration capacity and achieves superior reasoning accuracy across diverse RL algorithms (DAPO, GSPO, and GRPO), model architectures (Dense, MoE, and vision-language), and training modalities (language and multimodal), validating UP as a truly universal plug-and-play enhancement for RL-based training.",
+            "arxiv_id": "2607.06987",
+            "ARXIVID": "2607.06987",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes UP, a novel unbounded positive asymmetric optimization objective for RL-based LLM training that resolves the exploration-stability dilemma by restructuring gradients for positive advantages.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.07435": {
+            "authors": [
+                "Bojie Li",
+                "Noah Shi"
+            ],
+            "title": "RLVP: Penalize the Path, Reward the Outcome",
+            "abstract": "arXiv:2607.07435v1 Announce Type: new  Abstract: Agents acting on our behalf in the real world (e.g. placing phone calls) must learn online from costly, often irreversible interactions rather than cheap simulator steps. Two things follow. First, deployability depends on the path, not only the outcome. An agent must respect outcome-neutral constraints such as not repeatedly calling an unresponsive user, respecting business hours, or completing required authentication constraints that outcome-based rewards cannot express, since violating them frequently improves apparent success. Second, because each interaction is expensive, the agent must learn efficiently from very few examples.   Reinforcement learning from verifiable rewards (RLVR) is blind to both challenges: it optimizes solely on the outcome and wastes expensive rollouts on all-fail groups where group-relative advantage collapses to zero. Attempts to densify supervision by rewarding progress target the hard-to-verify direction. In contrast, real agentic environments can cheaply detect bad moves. Since group-relative advantage is equivalent to within-group variance, a dense signal helps only when it supplies variance the outcome lacks. A verifiable penalty on the path meets this condition reliably, while a progress potential helps only where partial progress is reachable. The resulting recipe \"penalize the path, reward the outcome\" achieves high task success with near-zero violations, where outcome-only training violates constraints on nearly every episode. We provide four design rules for effective penalties, including avoidance of the inaction trap that arises when a penalty is used in isolation.",
+            "arxiv_id": "2607.07435",
+            "ARXIVID": "2607.07435",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes a novel RL training recipe for LLM agents that penalizes path violations while rewarding outcomes, addressing constraint satisfaction and sample efficiency in real-world deployments.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.07023": {
+            "authors": [
+                "Aoxiong Zeng",
+                "Yuxin Yang",
+                "Xiangquan Yang"
+            ],
+            "title": "Online Data Selection Is Implicit Alignment",
+            "abstract": "arXiv:2607.07023v1 Announce Type: new  Abstract: Supervised fine-tuning (SFT) is often treated as a capability-adaptation step, while alignment is attributed to later preference optimization or reinforcement learning. This separation is incomplete: when examples are scored and kept online during fine-tuning, the choice of which data to train on already changes the model's behavioral preferences. We study online data selection as an implicit alignment mechanism. Given the same base model, optimizer, and selected-token budget, we compare random, loss-based, quality-based, and diversity-based online selectors and measure the behavioral drift they induce without any preference optimization. The proposed evaluation tracks helpfulness, refusal rate, verbosity, truthfulness, sycophancy, calibration, and jailbreak robustness, together with diagnostics for which behavioral modes are over-represented in the selected data. We formalize online selection as a reweighted SFT objective whose weights define an implicit preference over response styles and safety postures, so that an online scorer plays the role usually assigned to a reward model. This view predicts that high-scoring data can systematically favor longer, more assertive, more compliant, or more refusal-prone behaviors depending on how the online score is defined. Empirically, selectors that are statistically indistinguishable in task accuracy diverge sharply in refusal rate, verbosity, and sycophancy, and we show that the direction of the shift is predictable from the attribute mixture of the selected data. We introduce Alignment Drift Auditing (ADA), a controlled protocol for quantifying selection-induced behavioral movement, and Alignment-Aware Selection (AAS), a diagnostic online selector that retains data efficiency while constraining drift along safety and style axes.",
+            "arxiv_id": "2607.07023",
+            "ARXIVID": "2607.07023",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Formalizes online data selection during SFT as an implicit alignment mechanism, introducing a new perspective and diagnostic tools (ADA, AAS) that directly connect data selection to RL-style reward shaping for LLM behavior.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.07674": {
+            "authors": [
+                "Vladislav Beliaev"
+            ],
+            "title": "Max Out GRPO Signal: Adaptive Trace Prefix Control for Hard Reasoning Problems",
+            "abstract": "arXiv:2607.07674v1 Announce Type: new  Abstract: Group Relative Policy Optimization (GRPO) stalls on a model's hardest problems: when no rollout in a group succeeds, the group-relative advantages vanish and the problem contributes no gradient, wasting the frontier examples we most want to learn from. Prepending a correct prefix of a reference solution raises the success rate, making prefix length a continuous knob on difficulty. Concurrent methods set the knob once; AdaPrefix-GRPO turns it into a feedback controller: throughout training it adjusts how much of the solution each problem gets, holding its success rate near 50%, where GRPO's gradient signal is largest, then withdraws the assistance entirely, so the deployed model solves problems unaided. On hard math, at matched training FLOPs, it more than doubles GRPO's accuracy on held-out problems from the training distribution for a 0.6B model (2.1x), with 1.6x on Qwen3-1.7B and 1.7x on AIME, while roughly halving trace length. The method is implemented in data preparation plus a loss mask on prefix tokens; the trainer is otherwise stock. The smaller the model, the larger the gain.",
+            "arxiv_id": "2607.07674",
+            "ARXIVID": "2607.07674",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes AdaPrefix-GRPO, an adaptive trace prefix control method that maximizes GRPO's gradient signal on hard reasoning problems by dynamically adjusting problem difficulty, significantly improving accuracy.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.06974": {
+            "authors": [
+                "Ruilin Tong",
+                "Dong Gong"
+            ],
+            "title": "MILES: Modular Instruction Memory with Learnable Selection for Self-Improving LLM Reasoning",
+            "abstract": "arXiv:2607.06974v1 Announce Type: new  Abstract: Large language models (LLMs) increasingly improve their reasoning at test time via additional computation, yet most existing works treat each problem in isolation. When problems arrive sequentially, accumulating reusable experience across them can further improve performance. Existing memory-based methods either store whole-solution templates that generalize poorly to novel problems or use heuristic step-level selection that is not optimized for final-answer correctness. Learning selection policies requires large-scale training data and fixed action spaces, making such approaches unsuitable for test-time settings where memory expands incrementally and only limited supervision is available. We propose MILES (Modular Instruction Memory with LEarnable Selection for self-improving LLM reasoning), a framework that dynamically expands step-wise memory and applies correctness-optimized memory composition under realistic test-time constraints. MILES maintains modular memory units consisting of asymmetric pairs of sub-goal embeddings and sub-instructions, each associated with a learnable selection head. This memory structure enables a coarse-to-fine retrieval mechanism: The coarse level enables memory expansion and collects supervision for training selection heads from confident samples, while the fine stage applies learned selection heads to rerank coarse-level candidates and guide reasoning for uncertain samples. MILES consistently matches or outperforms prior methods while achieving superior accuracy-efficiency tradeoffs. Extensive experiments demonstrate its effectiveness, robustness, and transferability.",
+            "arxiv_id": "2607.06974",
+            "ARXIVID": "2607.06974",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a modular memory framework with learnable selection heads for self-improving LLM reasoning, directly addressing on-policy distillation and self-improvement loops.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.07669": {
+            "authors": [
+                "Jordan Painter",
+                "Dipankar Srirag",
+                "Adarsh Kappiyath",
+                "Diptesh Kanojia",
+                "Aditya Joshi",
+                "Lu Yin"
+            ],
+            "title": "DiaLLM: An Investigation into the Robustness-Generation Gap in English Dialect Adaptation",
+            "abstract": "arXiv:2607.07669v1 Announce Type: new  Abstract: Large language models increasingly \\emph{understand} dialectal English, yet still \\emph{produce} only standard, US-leaning English, leaving dialectal generation, the harder half of the problem, largely unaddressed. We introduce \\textbf{DiaLLM}, which continually pretrains three open-weight language model families on the International Corpus of English and applies implicit and explicit post-training paradigms, each combined with three model alignment strategies, giving the first controlled comparison of these components across Australian, Indian, and Northern British English. Our results reveal that dialectal robustness and generation are \\emph{dissociated}: benchmarks are shaped by continual pretraining and SFT, while alignment visibly reshapes generation in ways benchmarks do not capture. Explicit variety-targeted adaptation produces output reliably recognised as dialectal and preferred over broad alignment, yet the method that most aggressively optimises the dialectal reward is not preferred by human evaluators. Independent linguistic analysis corroborates this reward-quality gap, most clearly on two of the three families. No single alignment method dominates, and closing the gap will require richer reward designs and continued investment in dialectal resources. We release all code, checkpoints, and preference datasets.",
+            "arxiv_id": "2607.07669",
+            "ARXIVID": "2607.07669",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Investigates the gap between dialectal robustness and generation in LLMs, revealing that explicit reward optimization does not align with human preference, motivating richer reward designs for RL-based alignment.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.07178": {
+            "authors": [
+                "Zetian Hu",
+                "Shunyu Liu",
+                "Junjie Zhang",
+                "Yongcheng Jing",
+                "Ting-En Lin",
+                "Yongbin Li",
+                "Dacheng Tao"
+            ],
+            "title": "Entropy Pacing Policy Optimization for Multi-Task Agentic Reinforcement Learning",
+            "abstract": "arXiv:2607.07178v1 Announce Type: new  Abstract: Recent breakthroughs of Reinforcement Learning (RL) have highlighted its potential for complex agentic Large Language Model (LLM) tasks. However, existing efforts largely focus on single-task settings, whereas real-world deployment necessitates a generalist agent capable of solving multiple tasks simultaneously. In this work, we identify a critical yet underexplored phenomenon in multi-task agentic RL: different tasks can exhibit exploration-exploitation pace mismatch. Specifically, easier tasks may converge early to low-entropy policies that hinder learning on harder tasks, while harder tasks can, in turn, push easier tasks back toward high-entropy exploration. This back-and-forth interaction creates inter-task entropy crossovers and frequent entropy spikes. Inspired by this observation, we introduce Entropy Pacing Policy Optimization (EPPO) for multi-task agentic LLMs, which coordinates entropy across tasks to stabilize multi-task optimization. At the core of EPPO is a task-wise dynamic clipping mechanism that replaces the fixed clipping threshold in Group Relative Policy Optimization (GRPO) with a task entropy-aware adaptive bound, tightening updates for over-confident tasks while relaxing them for under-explored ones. Experiments on the multi-task agentic benchmarks demonstrate that the proposed EPPO yields results superior to its counterparts.",
+            "arxiv_id": "2607.07178",
+            "ARXIVID": "2607.07178",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes Entropy Pacing Policy Optimization (EPPO), a multi-task RL method for LLMs that uses task-wise dynamic clipping to address exploration-exploitation pace mismatch, directly advancing RL-for-LLMs.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.07508": {
+            "authors": [
+                "Zhenyu Hou",
+                "Yujiang Li",
+                "Jie Tang",
+                "Yuxiao Dong"
+            ],
+            "title": "Single-Rollout Asynchronous Optimization for Agentic Reinforcement Learning",
+            "abstract": "arXiv:2607.07508v1 Announce Type: new  Abstract: Reinforcement learning (RL) is becoming increasingly important for post-training large language models (LLMs). Previous RL pipelines for LLMs were mostly synchronous and batch-interleaved, which is inefficient for long-horizon agentic tasks. Recently, asynchronous RL has emerged as a more efficient alternative by updating the model as rollouts arrive. However, existing asynchronous RL systems often emphasize throughput, while leaving training stability and task effectiveness largely underexplored. For example, a key challenge is that group-wise sampling in the widely-used GRPO framework does not naturally fit asynchronous agentic training. In this paper, we present Single-rollout Asynchronous Optimization (SAO) to address the stability and off-policy challenges in asynchronous RL. To reduce off-policy effects and improve generalization, we replace group-wise sampling with single-rollout sampling, that is, using one rollout per prompt. We further improve this single-rollout strategy with practical value-model training designs. To improve optimization stability, we introduce a strict double-side token-level clipping strategy. SAO is able to train stably for one thousand steps and consistently outperform GRPO and its variants on agentic coding and reasoning benchmarks, such as SWE-Bench Verified, BeyondAIME, and IMOAnswerBench. We also demonstrate that single-rollout RL is particularly effective in a simulated online learning setting, where the model must adapt to changing evolving environments. To this end, SAO is successfully deployed in the agentic RL pipeline for training the open GLM-5.2 model (750B-A40B).",
+            "arxiv_id": "2607.07508",
+            "ARXIVID": "2607.07508",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes Single-rollout Asynchronous Optimization (SAO), a new RL training recipe for LLMs that addresses stability and off-policy challenges in asynchronous agentic RL, outperforming GRPO on coding and reasoning benchmarks.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.07383": {
+            "authors": [
+                "Tao Zhang",
+                "Ziqi Zhang",
+                "Zongyang Ma",
+                "Yuxin Yang",
+                "Bing Li",
+                "Chunfeng Yuan",
+                "Kang Rong",
+                "Fengyun Rao",
+                "Jing Lyu",
+                "Weiming Hu"
+            ],
+            "title": "MMAgent-R$^2$: Learning to Rerank and Reject for Agentic mRAG",
+            "abstract": "arXiv:2607.07383v1 Announce Type: new  Abstract: Knowledge-based Visual Question Answering (KB-VQA) requires models to retrieve visual entities matching the query image from large-scale encyclopedic knowledge bases and answer related questions. Existing multimodal Retrieval Augmented Generation (mRAG) methods rely on global visual features to match candidate entities, yet when the knowledge base contains numerous visually similar entities, the retriever struggles to distinguish them, populating the candidate set with visually similar but factually mismatched distractors. Since subsequent processing steps such as noise filtering are also confined to this fixed candidate set, errors from failed retrieval inevitably propagate to the final answer. To address these challenges, we propose MMAgent-R$^2$, an agentic mRAG framework that integrates visual reranking and active rejection as its internal verification mechanism. Visual reranking directly compares query and candidate images, capturing discriminative details beyond textual descriptions to precisely identify the target entity among similar candidates; active rejection discards unreliable results and retrieves additional candidates when no confident match is found, moving beyond the fixed candidate pool. We design a composite reward function with step-level verification rewards and achieve joint optimization of external retrieval, internal verification, and answer generation via GRPO training. Experiments on InfoSeek, E-VQA, and MMhops demonstrate that \\ours{} achieves state-of-the-art performance, with particularly notable advantages in challenging retrieval scenarios and complex multi-image multi-hop reasoning tasks.",
+            "arxiv_id": "2607.07383",
+            "ARXIVID": "2607.07383",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a novel agentic mRAG framework with a composite reward function and joint optimization via GRPO (RL for LLMs), directly improving retrieval and reasoning through verifier-driven RL.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.07237": {
+            "authors": [
+                "Zhenghao Zhou",
+                "Yiyan Li",
+                "Tao Xu",
+                "Yike Guo",
+                "Zheng Yan",
+                "Mo-Yuen Chow"
+            ],
+            "title": "A Physics-guided Fine-tuned LLM-based Framework for Customized Power Distribution System Feeder Generation",
+            "abstract": "arXiv:2607.07237v1 Announce Type: new  Abstract: Power distribution system feeder models (e.g., IEEE 33-bus system, IEEE 13-bus system, etc.) are cornerstones for conducting power distribution system studies. As real-world feeder models are hard to acquire due to energy security concerns, generating high-quality synthetic feeders becomes an important alternative to satisfy the fast-growing and diversified needs of power system researchers and engineers. In this paper, we propose an LLM-based synthetic feeder generation framework that can achieve end-to-end generation from natural language specifications to physically consistent feeder models. First, Supervised Fine-Tuning (SFT) is performed on a dataset created following physical laws to empower the LLM with syntactic understanding of complex feeder structures. Second, Group Relative Policy Optimization (GRPO) with a specially-designed multi-stage gated reward function is introduced to better align the generation results with user intent and physical constraints. Third, a dual-agent architecture is deployed to refine and evaluate the generated feeders. Specifically, a refinement agent calibrates the feeder model parameters referring to the industrial feeder design standards, while a judge agent provides quality assessments. Case studies demonstrate that the proposed framework generates customizable feeders with valid formats, physical consistency and high engineering applicability.",
+            "arxiv_id": "2607.07237",
+            "ARXIVID": "2607.07237",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a novel RL-for-LLMs pipeline (GRPO with multi-stage gated reward) for generating physically consistent power system feeders, directly aligning LLM outputs with domain constraints.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.07050": {
+            "authors": [
+                "Jiabin Shen",
+                "Guang Chen",
+                "Chengjun Mao"
+            ],
+            "title": "Behavior Leverage Imbalance in Multi-Teacher On-Policy Distillation",
+            "abstract": "arXiv:2607.07050v1 Announce Type: new  Abstract: Agentic language models must learn when to call tools, when to consume tool responses, and when to answer directly. This makes multi-teacher on-policy distillation a natural training strategy: one teacher can specialize in tool calls, another in direct responses, and the student can learn from both on   its own generated distribution. We show that this strategy can induce a behavior shift that is invisible from aggregate losses alone. In a two-teacher tool-use setting, vanilla generalized knowledge distillation improves tool-call recall but also moves the model toward over-calling, where it calls tools   on examples that should be answered directly. Aggregate explanations are insufficient: tool-call samples do not receive more token exposure, and full-sequence per-token divergence is not larger for the tool-call teacher. We instead analyze behavior leverage imbalance: local token-level signals at mode-   entry and structural positions, such as  and function names, can have disproportionate control over the global generation mode. We propose Soft Clamp, a per-token divergence calibration method that dynamically compresses extreme token-level Jensen-Shannon divergence while preserving nonzero   gradients. On APIGen-MT, Soft Clamp reduces over-calling from 13.7% to 9.0% relative to vanilla GKD while matching its decision accuracy. In a BFCL multi-turn diagnostic, it also lowers tool-call loops and repeated calls among GKD variants. These results suggest that multi-teacher OPD should monitor   where teacher signals act, not only how large they are in aggregate.",
+            "arxiv_id": "2607.07050",
+            "ARXIVID": "2607.07050",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes Soft Clamp, a per-token divergence calibration method to mitigate over-calling in multi-teacher on-policy distillation for tool-use LLMs.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.06648": {
+            "authors": [
+                "Hengyu Jin",
+                "Shu Yang",
+                "Di Wang"
+            ],
+            "title": "Final Checkpoints Are Not Enough: Analyzing Latent Reasoning Faithfulness Along Training Trajectories",
+            "abstract": "arXiv:2607.06648v1 Announce Type: new  Abstract: Latent reasoning methods perform multi-step inference entirely in the model's continuous hidden states, promising more compact and efficient reasoning. However, these opaque hidden states raise a question of faithfulness: whether these latent reasoning steps causally drive the final answer. Prior work investigates this question at converged checkpoints and reports several unfaithful behaviors, such as latent reasoning steps that can be replaced without changing the answer, but leaves how these behaviors form during training unexamined. We instead track how faithfulness evolves across saved checkpoints for different latent reasoning paradigms, applying a verifiable counterfactual edit on the input and a noise-ablation activation patch on the latent reasoning steps. We find that (i) at the output level, latent reasoning methods can look similarly unfaithful at convergence under counterfactual edits while following qualitatively divergent trajectories; (ii) at the activation level, the causal contribution of latent reasoning steps to the final answer decays across training for both paradigms, with the examples that flip on the output side in (i) also being the examples on which this contribution decays; and (iii) the activation-level trajectory diverges by answer format, decaying on binary choice and rising on open-ended decoding. These findings highlight that latent reasoning faithfulness depends on training stage and answer format.",
+            "arxiv_id": "2607.06648",
+            "ARXIVID": "2607.06648",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Analyzes faithfulness of latent reasoning across training trajectories, revealing that causal contribution of latent steps decays and depends on training stage and answer format.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.07693": {
+            "authors": [
+                "Eric Zhu",
+                "Abhinav Shrivastava",
+                "Soumik Mukhopadhyay"
+            ],
+            "title": "Selective Timestep Weighting and Advantage-Based Replay for Sample-Efficient Diffusion RLHF",
+            "abstract": "arXiv:2607.07693v1 Announce Type: new  Abstract: Reinforcement learning from human feedback (RLHF) has emerged as a powerful paradigm for aligning generative models with human preferences. However, applying RLHF to diffusion models remains highly feedback inefficient, as existing approaches typically require large amounts of human or reward model evaluations. This limitation reduces the practicality of diffusion RLHF in realworld settings where feedback is the primary bottleneck. In this paper, we propose two complementary strategies that substantially improve the feedback efficiency of diffusion RLHF while preserving generalization to unseen prompts. Our key observation is that reward information in diffusion trajectories is unevenly distributed: not all denoising timesteps or trajectories contribute equally to learning from a reward signal. By emphasizing informative timesteps and trajectories during optimization, we obtain more effective gradient updates. First, we introduce a per-timestep weighting scheme that reweights denoising steps during policy optimization. We theoretically connect this weighting to the optimal convergence properties of proximal policy optimization (PPO) and approximate the resulting weighting trend empirically. Second, we introduce a replay mechanism that prioritizes informative trajectories, enabling the model to reuse past samples instead of repeatedly querying new rewards. Together, these strategies significantly improve the feedback efficiency of diffusion RLHF. Under identical hyperparameter settings, our approach achieves up to a 6$\\times$ improvement in sample efficiency compared to widely used diffusion RLHF baselines.",
+            "arxiv_id": "2607.07693",
+            "ARXIVID": "2607.07693",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes selective timestep weighting and advantage-based replay to improve feedback efficiency in diffusion RLHF, a direct RL-for-LLMs contribution.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        }
+    }
+}

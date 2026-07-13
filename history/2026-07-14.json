@@ -1,0 +1,135 @@
+{
+    "summary_en": "### SFT & Distillation\nThe field is seeing a significant shift towards **on-policy distillation**as a core technique for both efficiency and capability transfer. The introduction of Multi-Teacher On-Policy Distillation (MOPD) with a routed reverse-KL objective represents a principled advance, moving beyond static, offline knowledge transfer. This is reinforced by the MOSAIC framework, which applies dual-teacher on-policy distillation to the architectural search space for vision-language models. Together, these works signal a maturation of distillation methods, where the focus is now on dynamic, student-aware training regimes that maximize the utility of multiple high-capacity teachers.\n\n### RL for LLMs & Reasoning\nReinforcement Learning continues to be the dominant paradigm for imbuing models with advanced reasoning, with three distinct innovations emerging today. First, the concept of**token-level and latent reasoning**is being refined for efficiency, as seen in HALO's hybrid adaptive latent refinement and the Hybrid Median-length Policy Optimization (HMPO) objective, which aims to make reasoning chains more token-efficient. Second, the critical problem of**reward hacking**is being systematically investigated in multimodal contexts, with the NRFR metric providing a new tool for robustness analysis. Third,**process reward modeling**is evolving beyond simple step-level scoring; KV-PRM introduces a highly efficient method that reuses KV-cache from the generation process, enabling practical multi-agent test-time scaling. This trio of advances—efficiency, robustness, and scalable reward modeling—points to a more mature and practical application of RL to LLMs.\n\n### Agents & Multimodal\nA key trend is the integration of**RL with hindsight and relabeling** to dramatically improve sample efficiency in interactive, agentic settings. Learning from Hindsight (LfH) directly addresses the sparse reward problem in Vision-Language-Action (VLA) models by leveraging failed rollouts, turning them into valuable training data. This technique, combined with the advances in efficient reward modeling (KV-PRM) and adaptive reasoning (HALO), suggests a future where agents can learn and adapt with far fewer environment interactions, a crucial step towards real-world deployment.",
+    "summary_cn": "### SFT & Distillation\nThe field is seeing a significant shift towards **on-policy distillation**as a core technique for both efficiency and capability transfer. The introduction of Multi-Teacher On-Policy Distillation (MOPD) with a routed reverse-KL objective represents a principled advance, moving beyond static, offline knowledge transfer. This is reinforced by the MOSAIC framework, which applies dual-teacher on-policy distillation to the architectural search space for vision-language models. Together, these works signal a maturation of distillation methods, where the focus is now on dynamic, student-aware training regimes that maximize the utility of multiple high-capacity teachers.\n\n### RL for LLMs & Reasoning\nReinforcement Learning continues to be the dominant paradigm for imbuing models with advanced reasoning, with three distinct innovations emerging today. First, the concept of**token-level and latent reasoning**is being refined for efficiency, as seen in HALO's hybrid adaptive latent refinement and the Hybrid Median-length Policy Optimization (HMPO) objective, which aims to make reasoning chains more token-efficient. Second, the critical problem of**reward hacking**is being systematically investigated in multimodal contexts, with the NRFR metric providing a new tool for robustness analysis. Third,**process reward modeling**is evolving beyond simple step-level scoring; KV-PRM introduces a highly efficient method that reuses KV-cache from the generation process, enabling practical multi-agent test-time scaling. This trio of advances—efficiency, robustness, and scalable reward modeling—points to a more mature and practical application of RL to LLMs.\n\n### Agents & Multimodal\nA key trend is the integration of**RL with hindsight and relabeling** to dramatically improve sample efficiency in interactive, agentic settings. Learning from Hindsight (LfH) directly addresses the sparse reward problem in Vision-Language-Action (VLA) models by leveraging failed rollouts, turning them into valuable training data. This technique, combined with the advances in efficient reward modeling (KV-PRM) and adaptive reasoning (HALO), suggests a future where agents can learn and adapt with far fewer environment interactions, a crucial step towards real-world deployment.",
+    "papers": {
+        "2607.09375": {
+            "authors": [
+                "Foundation Model Team"
+            ],
+            "title": "Mach-Mind-4-Flash Technical Report",
+            "abstract": "arXiv:2607.09375v1 Announce Type: new  Abstract: We present Mach-Mind-4-Flash, a 35B-parameter Mixture-of-Experts (MoE) agentic model with 3B activated parameters. Through post-training optimization alone without scaling pre-training compute, the model achieves performance on par with or surpassing that of 100B-parameter-class models. By introducing scalable agentic interaction environments for large-scale reinforcement learning, the model attains significant performance gains on real-world application tasks. Our pipeline comprises three stages: (1) a unified RL/OPD training infrastructure with dynamic multi-teacher scheduling and operator-level acceleration, delivering 17\\% end-to-end training speedup; (2) multiple domain-specific RL experts trained in parallel across Reasoning, General, and Agent tracks, then fused into a single generalist via Multi-Teacher On-Policy Distillation (MOPD) -- a routed reverse-KL objective that eliminates the see-saw degradation of mixed-reward RL; (3) Hybrid Median-length Policy Optimization (HMPO), a single-stage token-efficiency method that compresses reasoning chains by 19--46\\% with $\\le$0.7 percentage-point accuracy loss. Mach-Mind-4-Flash scores 92.70 on AIME'26, 82.82 on IFBench, 80.74 on Behavioral-SafetyBench, 75.80 on BFCL-v4, 72.31 on BrowseComp-zh, and 84.20 on ClawBench -- leading or matching models with 10--30$\\times$ its activated size at a fraction of the inference cost.",
+            "arxiv_id": "2607.09375",
+            "ARXIVID": "2607.09375",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Introduces Multi-Teacher On-Policy Distillation (MOPD) with a routed reverse-KL objective and Hybrid Median-length Policy Optimization (HMPO) for token-efficient reasoning, directly advancing on-policy distillation and RL for LLMs.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.09029": {
+            "authors": [
+                "Yuncheng Yang",
+                "Feiyang Ye",
+                "Shixian Luo",
+                "Yinna Zhu",
+                "Lianlei Shan",
+                "Wangcai Zhao",
+                "Kuo Zhang",
+                "Yan Chen",
+                "Yong Wu",
+                "Yan Xie"
+            ],
+            "title": "MOSAIC: Adaptive Inter-layer Composition for Efficient Heterogeneous Vision-Language Models",
+            "abstract": "arXiv:2607.09029v1 Announce Type: new  Abstract: Vision-Language Models (VLMs) have achieved success using homogeneous Transformers to process multimedia data. Recent studies show that heterogeneous structures interleaving efficient mechanisms, like linear attention, improve both performance and inference latency over homogeneous designs. However, these efforts rely on handcrafted static mixing patterns, which are sub-optimal and difficult to adapt to specific hardware. To bridge this gap, we propose Multi-Objective Search for Adaptive Inter-layer Composition (MOSAIC), a hardware-aware search method that automatically transforms homogeneous models into optimized heterogeneous architectures. MOSAIC integrates diverse efficiency mechanisms--including linear, sparse, and low-rank operators--into a unified search space. By formulating the selection as a multi-objective Mixed Integer Programming (MIP) problem, our method identifies optimal configurations that maximize downstream performance under strict hardware latency constraints. To mitigate performance degradation from structural transitions, we introduce a two-stage parameter recovery process: global off-policy distillation to stabilize internal representations, followed by a dual-teacher on-policy distillation leveraging a 235B oracle for knowledge expansion and the original 4B teacher for distributional stability. We validate MOSAIC through MOSAIC-4B, derived from Qwen3-VL-4B-Instruct. Results demonstrate that MOSAIC-4B matches the baseline's performance across multiple benchmarks while requiring less than 2% of the original training cost. Furthermore, it substantially improves inference efficiency, achieving 1.76x prefilling and 2.54x decoding speedups.",
+            "arxiv_id": "2607.09029",
+            "ARXIVID": "2607.09029",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes a dual-teacher on-policy distillation method for efficient VLM architecture search, directly matching the on-policy distillation criterion.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.09492": {
+            "authors": [
+                "Jiayu Yao",
+                "Yiwei Wang",
+                "Anmeng Zhang",
+                "Zhe Sun",
+                "Songsong Wang",
+                "Lingrui Mei",
+                "Yuyao Ge",
+                "Shenghua Liu"
+            ],
+            "title": "Multimodal Reward Hacking in Reinforcement Learning",
+            "abstract": "arXiv:2607.09492v1 Announce Type: new  Abstract: Reinforcement learning (RL) is increasingly used to align multimodal large language models (MLLMs), but higher rewards do not always imply better task performance. This risk is amplified when visual evidence is evaluated by text-only or weakly grounded rewards. We study reward hacking in MLLM RL across safety VQA, chart VQA, and stress-test settings, varying reward design, data ambiguity, model scale (2B-32B), and RL algorithm (GRPO, RLOO, DAPO). We introduce Newly Rewarded Failure Rate (NRFR), which measures failures among samples whose proxy reward improves over the SFT baseline. Outcome-only rewards cause severe hacking, reaching 48.1% Reward Hacking Rate (RHR), while NRFR exceeding RHR shows that RL creates new failures rather than merely inheriting them. Scaling reduces but does not eliminate hacking: even the 32B model retains a 54.9% worse rate under outcome-only rewards, whereas answer-aware rewards improve the oracle trend at every scale. Robustness is also algorithm- and scale-dependent: GRPO is consistently most resistant, RLOO remains vulnerable, and DAPO improves substantially from 2B to 8B. Visual-evidence rewards help only with reliable verification: keyword-based checks increase hacking, while VLM-as-judge semantic verification reduces it. Overall, multimodal reward hacking is a systematic result of optimizing imperfect rewards, and robust alignment requires rewards and verifiers that remain reliable under optimization pressure.",
+            "arxiv_id": "2607.09492",
+            "ARXIVID": "2607.09492",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Systematically studies reward hacking in multimodal LLM RL, introducing a new metric (NRFR) and analyzing how reward design, scaling, and algorithms affect robustness.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.09153": {
+            "authors": [
+                "Peng Kuang",
+                "Haibo Jin",
+                "Xiaoyu Han",
+                "Yanli Wang",
+                "Xiaopeng Yuan",
+                "Ye Yu",
+                "Kaidi Xu",
+                "Haohan Wang"
+            ],
+            "title": "KV-PRM: Efficient Process Reward Modeling via KV-Cache Transfer for Multi-Agent Test-Time Scaling",
+            "abstract": "arXiv:2607.09153v1 Announce Type: new  Abstract: Process Reward Models (PRMs) have been proven to be highly effective in guiding test-time scaling (TTS) methods, which significantly boost the capabilities of LLM-based multi-agent systems. However, existing PRMs are text-based: they re-encode the entire trajectory text from scratch. In long multi-agent rollouts, the scoring cost, growing quadratically with respect to sequence length L, creates a severe computational bottleneck, severely limiting PRMs' application in long-context scenarios. To resolve this, we introduce KV-PRM, a highly efficient process reward model that eliminates the heavy text re-encoding by directly reading the KV cache produced naturally during the LLM's generation phase. By processing a single \"verify token\" against the pre-existing KV cache, KV-PRM reduces the scoring cost from O(L^2) to O(L). We formally prove that the KV cache contains strictly greater information capacity than text, and is more efficient for downstream reward modeling. Empirically, across the MATH, GSM8K, and AIME benchmarks, KV-PRM matches or strictly outperforms text-PRMs under various TTS methods such as Beam Search, MCTS, and Weighted Voting, with up to a 5,000x reduction in scoring FLOPs, a 37x reduction in latency, and a 34x reduction in per-sequence memory footprint compared to text-based PRMs.",
+            "arxiv_id": "2607.09153",
+            "ARXIVID": "2607.09153",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Introduces KV-PRM, a novel process reward model that leverages KV-cache transfer for efficient scoring in multi-agent test-time scaling, directly advancing RL-for-LLMs with a new reward modeling method.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.08775": {
+            "authors": [
+                "Micah Zhang"
+            ],
+            "title": "HALO: Hybrid Adaptive Latent Reasoning for Language Models",
+            "abstract": "arXiv:2607.08775v1 Announce Type: new  Abstract: We study how to improve a frozen pretrained language model with a small amount of adaptive extra computation. A simple approach is to add additional refinement steps on top of the backbone hidden states, but fixed extra refinement can be wasteful: a one-step refinement head may be too weak, while forcing a second full-sequence refinement step everywhere can increase compute without improving transfer. We introduce HALO, a hybrid adaptive latent-refinement method that combines a coarse refinement stage with selective second-stage latent refinement on a subset of tokens chosen by token scoring and monotonic token halting. On the main public benchmark comparison built from MMLU-Pro and GPQA-Diamond, HALO achieves the best overall average among the paper-facing methods, outperforming the frozen backbone, fixed-1, and fixed-2. Internal analysis further shows that HALO reaches nearly the same token-accuracy level as fixed-2 while using fewer average applied refine steps than fixed-1 and far fewer than fixed-2. These results suggest that the key advantage is not simply more refinement, but a better allocation of refinement: HALO achieves the strongest paper-facing result while also using less measured controller compute than either fixed baseline.",
+            "arxiv_id": "2607.08775",
+            "ARXIVID": "2607.08775",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes HALO, a hybrid adaptive latent refinement method that selectively applies second-stage latent reasoning to tokens, improving efficiency and accuracy over fixed refinement baselines.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.09042": {
+            "authors": [
+                "Iris Xu",
+                "Sunshine Jiang",
+                "John Marangola",
+                "Nitish Dashora",
+                "Richard Li",
+                "Thomas Liu",
+                "Zexue He",
+                "Yuheng Zhi",
+                "Alex Pentland",
+                "Pulkit Agrawal",
+                "Zhang-Wei Hong"
+            ],
+            "title": "Learning More from Less: Reinforcement Learning from Hindsight",
+            "abstract": "arXiv:2607.09042v1 Announce Type: new  Abstract: Reinforcement learning (RL) is increasingly used to post-train vision-language-action (VLA) models, but every update consumes robot rollouts that are slow and costly to collect, making sample efficiency a central concern. Manipulation tasks typically provide only sparse rewards, so a weak policy fails almost every rollout early in training and has little to learn from, even when those failures execute coherent behavior. Such a failure, however, is a success at a different task. We present Learning from Hindsight (LfH), which brings hindsight relabeling to RL post-training of VLAs by scoring failed rollouts against the tasks they actually achieved. A single vision-language model relabels both the instruction and the reward, proposing a hindsight instruction for a group of failed rollouts and scoring how well each satisfies it, and the policy trains on the relabeled and original rollouts jointly. Because VLAs generalize across language, relabeling in language lets the policy learn more from the same trajectories. On out-of-distribution LIBERO-PRO tasks, where standard RL improves only slowly, LfH achieves $5\\times$ improvement in sample efficiency, and outperforms a dense progress-reward baseline. The gains hold across VLA backbones and on a physical Franka robot.",
+            "arxiv_id": "2607.09042",
+            "ARXIVID": "2607.09042",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes Learning from Hindsight (LfH), a novel RL method for VLA models that uses hindsight relabeling of instructions and rewards from failed rollouts to improve sample efficiency, directly contributing to RL for LLMs.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        }
+    }
+}

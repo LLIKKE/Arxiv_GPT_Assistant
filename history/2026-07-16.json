@@ -1,0 +1,222 @@
+{
+    "summary_en": "### RL for LLMs and Reasoning\nThe day's research reveals a powerful convergence around scaling reinforcement learning (RL) with verifiable rewards for reasoning, while simultaneously dissecting its failure modes. **Ring-Zero**demonstrates that zero RL can be stably scaled to a trillion parameters, unlocking emergent reasoning behaviors, while**UniVR**extends this paradigm to visual reasoning with a novel VR-GRPO algorithm using global and step-level rewards. However, a critical counterpoint emerges from the**controlled null analysis of GRPO**for web agents, which shows that RL with verifiable rewards only provides benefits when there is sufficient headroom from sampling; it fails when the learning rate is gated, revealing a mechanism tied to effective rank collapse. This tension between scaling success and fragility is further addressed by**Who Grades the Grader?**, which proposes a co-evolutionary loop where evaluation metrics themselves are dynamically refined alongside agent skills, offering a path toward more robust, self-improving systems. Finally,**CARE-PPO**bridges the gap between RL and uncertainty estimation by integrating loss prediction into actor-critic fine-tuning for quantitative tasks.\n\n### Alignment and Incentive Compatibility\nA novel, training-free approach to alignment is introduced in**Resist and Update**, which uses a causal contract and activation-level counterfactual report-coordinate clamps to enforce internal incentive compatibility within LLMs. This method directly addresses the RL alignment problem by intervening on the model's internal representations rather than relying on external reward models, representing a significant departure from standard RLHF and offering a more principled, causal mechanism for controlling model behavior.\n\n### Multimodal Reasoning and Vision-Language Models\nThe field of visual reasoning is advancing on two distinct fronts.**UniVR**introduces a dedicated RL paradigm for visual reasoning, while a critical analysis in**Visual Access Boundaries**uses causal intervention to reveal that chain-of-thought (CoT) reasoning in VLMs is largely a language-side computation over hidden states, not a process that requires continued image access. This finding challenges assumptions about how VLMs reason and has direct implications for designing more efficient multimodal architectures.\n\n### Latent Reasoning and Efficiency\nA dedicated thread of research focuses on optimizing latent reasoning, particularly for recommendation systems.**RecRec**proposes a framework that decouples reasoning from prediction by using a recursive reasoner in a separate latent space, directly advancing the architecture of latent reasoning models. Complementing this,**Where Reasoning Matters**introduces an information-gain budget allocation framework to determine the optimal number of latent reasoning steps, directly addressing the efficiency bottleneck of these models. Together, they provide both a novel architecture and a principled method for its efficient deployment.\n\n### Applied RL for Domain-Specific Tasks\nThe practical application of RL with verifiable rewards is demonstrated in**Verifier-Based Reinforcement Fine-Tuning**, which uses dense rewards from dynamic programming to fine-tune a reasoning model for thermal energy storage control. This work provides a clear, end-to-end pipeline for applying RLVR to real-world control problems, showcasing how verifier-driven optimization can be adapted beyond standard reasoning benchmarks.",
+    "summary_cn": "### RL for LLMs and Reasoning\nThe day's research reveals a powerful convergence around scaling reinforcement learning (RL) with verifiable rewards for reasoning, while simultaneously dissecting its failure modes. **Ring-Zero**demonstrates that zero RL can be stably scaled to a trillion parameters, unlocking emergent reasoning behaviors, while**UniVR**extends this paradigm to visual reasoning with a novel VR-GRPO algorithm using global and step-level rewards. However, a critical counterpoint emerges from the**controlled null analysis of GRPO**for web agents, which shows that RL with verifiable rewards only provides benefits when there is sufficient headroom from sampling; it fails when the learning rate is gated, revealing a mechanism tied to effective rank collapse. This tension between scaling success and fragility is further addressed by**Who Grades the Grader?**, which proposes a co-evolutionary loop where evaluation metrics themselves are dynamically refined alongside agent skills, offering a path toward more robust, self-improving systems. Finally,**CARE-PPO**bridges the gap between RL and uncertainty estimation by integrating loss prediction into actor-critic fine-tuning for quantitative tasks.\n\n### Alignment and Incentive Compatibility\nA novel, training-free approach to alignment is introduced in**Resist and Update**, which uses a causal contract and activation-level counterfactual report-coordinate clamps to enforce internal incentive compatibility within LLMs. This method directly addresses the RL alignment problem by intervening on the model's internal representations rather than relying on external reward models, representing a significant departure from standard RLHF and offering a more principled, causal mechanism for controlling model behavior.\n\n### Multimodal Reasoning and Vision-Language Models\nThe field of visual reasoning is advancing on two distinct fronts.**UniVR**introduces a dedicated RL paradigm for visual reasoning, while a critical analysis in**Visual Access Boundaries**uses causal intervention to reveal that chain-of-thought (CoT) reasoning in VLMs is largely a language-side computation over hidden states, not a process that requires continued image access. This finding challenges assumptions about how VLMs reason and has direct implications for designing more efficient multimodal architectures.\n\n### Latent Reasoning and Efficiency\nA dedicated thread of research focuses on optimizing latent reasoning, particularly for recommendation systems.**RecRec**proposes a framework that decouples reasoning from prediction by using a recursive reasoner in a separate latent space, directly advancing the architecture of latent reasoning models. Complementing this,**Where Reasoning Matters**introduces an information-gain budget allocation framework to determine the optimal number of latent reasoning steps, directly addressing the efficiency bottleneck of these models. Together, they provide both a novel architecture and a principled method for its efficient deployment.\n\n### Applied RL for Domain-Specific Tasks\nThe practical application of RL with verifiable rewards is demonstrated in**Verifier-Based Reinforcement Fine-Tuning**, which uses dense rewards from dynamic programming to fine-tune a reasoning model for thermal energy storage control. This work provides a clear, end-to-end pipeline for applying RLVR to real-world control problems, showcasing how verifier-driven optimization can be adapted beyond standard reasoning benchmarks.",
+    "papers": {
+        "2607.12395": {
+            "authors": [
+                "Xinyu Tang",
+                "Gangqiang Cao",
+                "Yurou Liu",
+                "Yuliang Zhan",
+                "Xiaochong Lan",
+                "Yifan Li",
+                "Yuchen Yan",
+                "Han Peng",
+                "Zican Dong",
+                "Zhenduo Zhang",
+                "Tianshu Wang",
+                "Xinyu Kong",
+                "Zujie Wen",
+                "Wayne Xin Zhao",
+                "Zhiqiang Zhang",
+                "Jun Zhou"
+            ],
+            "title": "Ring-Zero: Scaling Zero RL to a Trillion Parameters for Emergent Reasoning",
+            "abstract": "arXiv:2607.12395v1 Announce Type: new  Abstract: Reinforcement learning with verifiable rewards without human-annotated data, often referred to as zero RL, has emerged as a powerful paradigm for eliciting chain-of-thought reasoning. However, due to computational constraints, existing studies are largely restricted to small models, leaving the training dynamics and emergent capabilities at a large scale unexplored. To meaningfully explore this frontier, we aim to elicit high-quality reasoning behaviors from the model. However, we find that naive scaling often suffers from poor readability, token redundancy, and a lack of adaptive reasoning depth. To address these challenges, we present a stable and efficient training pipeline, incorporating algorithmic and system optimizations such as clipped importance sampling, training-inference ratio correction, and mixed-precision control. Our experiments offer three key findings that validate the \"bitter lesson\" of scaling: (1) scaling to 1T parameters significantly enhances sample efficiency and performance ceilings; (2) the training process progresses sequentially through an initial discovery phase followed by a sharpening phase; and (3) the model spontaneously develops advanced cognitive behaviors, including anthropomorphism, structured formatting, self-verification, parallel reasoning, and context anxiety, rendering hand-crafted heuristics redundant. Evaluated on seven mathematical benchmarks, Ring-2.5-1T-Zero achieves competitive performance. Additionally, to assess CoT quality beyond final-answer correctness, we propose a structured evaluation framework across three dimensions: comprehensibility, reproducibility, and efficiency, where our model demonstrates clear advantages in producing structured and concise reasoning traces. By sharing our observed emergent phenomena, we hope to provide the community with deeper insights into scaling behaviors, particularly at the 1-trillion scale.",
+            "arxiv_id": "2607.12395",
+            "ARXIVID": "2607.12395",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Scales zero RL with verifiable rewards to 1T parameters, demonstrating emergent reasoning behaviors and proposing a stable training pipeline with clipped importance sampling and mixed-precision control.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.12790": {
+            "authors": [
+                "Xing Zhang",
+                "Guanghui Wang",
+                "Yanwei Cui",
+                "Ziyuan Li",
+                "Wei Qiu",
+                "Bing Zhu",
+                "Peiyang He"
+            ],
+            "title": "Who Grades the Grader? Co-Evolving Evaluation Metrics and Skills for Self-Improving LLM Agents",
+            "abstract": "arXiv:2607.12790v1 Announce Type: new  Abstract: Self-evolving agent systems improve by creating, revising, and retiring their own skills, but every such loop rests on a hidden assumption: a reliable evaluation metric already exists. In many real applications it does not. We make three claims. First, metrics can be \\emph{evolved}: our metric loop searches compositions of small drawback detectors under a full evolutionary lifecycle, trained to agree with a ten-item anchored reference set, regularized by consensus over unlabeled outputs, and audited against a held-out anchor it never reads, yielding a transparent, inspectable metric rather than an opaque judge. Second, since no metric exists to beat, the yardstick is recovering what an accurate metric would have enabled, and \\emph{Double Ratchet}, our co-evolution of the metric with a lifecycle-managed skill loop, does so: across code generation (MBPP+), enterprise text-to-SQL (Spider~2.0-Snow), and reference-free report generation, it retains 88--110\\% of the held-out lift achieved by the same skill loop driven by ground truth or the best available rubric. Third, safety comes from anchor discipline plus outer audits: removing anchor guards collapses the metric into a vacuous detector while removing the lifecycle does not; and when evolved skills gamed the report rubric, an independent judge caught it, one detector repaired it, and a task-aware judge then preferred the evolved outputs over the pre-evolution baseline in 77\\% of decided pairs. We argue this failure-expecting architecture is the right default wherever no reliable automatic verifier exists.",
+            "arxiv_id": "2607.12790",
+            "ARXIVID": "2607.12790",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes a co-evolutionary framework for metrics and skills in self-improving LLM agents, introducing a novel on-policy distillation-like loop where the metric itself is evolved and audited, directly relevant to on-policy distillation and self-improvement.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.12985": {
+            "authors": [
+                "Sen Yang",
+                "Yuen-Hei Yeung"
+            ],
+            "title": "Resist and Update: Counterfactual Report Coordinates for Incentive-Compatible LLMs",
+            "abstract": "arXiv:2607.12985v1 Announce Type: new  Abstract: Aligned language models routinely misreport under non-evidential incentive pressure: they agree with a confident user or overstate certainty even when their internal belief is unchanged. We cast this as a failure of internal incentive-compatibility (IC) and present a method for learning and certifying counterfactual report mediators that hold a model's reports to a causal contract: invariant to forbidden influences (pressure, prestige, restyling) and responsive to licensed ones (genuine evidence). These two demands, resist and update, pull in opposite directions. We study them on a Bayesian-witness benchmark with known posteriors, in which the same user disagreement is licensed evidence or forbidden pressure purely by stated source reliability. We (i) causally identify, by interchange interventions rather than probe accuracy, low-rank report coordinates for answer, confidence, and caveat that are near-orthogonal and independently controllable, and (ii) introduce a training-free counterfactual report-coordinate (CRC) clamp that references the model's own report under a counterfactually incentive-neutralized context. On the witness benchmark the two-pass clamp attains resist and update of 1.00 jointly (Wilson 95% CI [0.99,1.00]), a causal certificate under a constructible reference, not a deployed solution. Global decoding and steering show a single-parameter tradeoff; output-level fine-tuning matches both objectives only when both are enumerated; resist-only training loses evidence-responsiveness. The deployable single-pass compilation is lossy (0.73/0.97). The mechanism and clamp reproduce across three model families and transfer to a natural sycophancy benchmark (SycophancyEval). Our contribution is the interface and certification method: activation-level counterfactual incentive-invariance as a structural primitive for internal IC.",
+            "arxiv_id": "2607.12985",
+            "ARXIVID": "2607.12985",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Introduces a novel causal contract and activation-level counterfactual report-coordinate clamp for internal incentive-compatibility in LLMs, directly addressing RL alignment via a training-free method.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.12800": {
+            "authors": [
+                "Zhongwei Ren",
+                "Yunchao Wei",
+                "Yao Zhao",
+                "Weibo Gong",
+                "Xiao Liu",
+                "Anran Wang",
+                "Xiangtai Li",
+                "Xiaojie Jin"
+            ],
+            "title": "UniVR: Thinking in Visual Space for Unified Visual Reasoning",
+            "abstract": "arXiv:2607.12800v1 Announce Type: new  Abstract: Learning broad world knowledge directly from raw visual data is a fundamental capability of intelligence. We introduce UniVR, the first investigation into simultaneously learning complex reasoning, fine-grained physical dynamics, and long-term planning from pure visual demonstrations. At its core, UniVR features VR-GRPO, a reinforcement learning paradigm with complementary global and step-level rewards. This approach enforces logical coherence and physical consistency throughout the reasoning process without requiring task-specific heuristics or image-text pairs. To train and evaluate UniVR, we construct VR-X, a large-scale benchmark curated from 16 diverse sources spanning long-horizon manipulation, spatial puzzles, and physical reasoning. It is the first comprehensive suite to assess these heterogeneous capabilities under a purely visual protocol. Remarkably, UniVR achieves up to a 25% improvement on VR-X, and its superior visual reasoning also boosts performance on various multimodal understanding benchmarks. These findings underscore the vast potential of reasoning within visual spaces, with all code, data, and models are open-sourced for further research.",
+            "arxiv_id": "2607.12800",
+            "ARXIVID": "2607.12800",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Introduces VR-GRPO, a novel RL paradigm with global and step-level rewards for visual reasoning, directly improving LLM reasoning via RL.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.12640": {
+            "authors": [
+                "Chengguang Gan",
+                "Zhixi Cai",
+                "Yunhao Liang",
+                "Hanjun Wei",
+                "Shiwen Ni",
+                "Qinghao Zhang"
+            ],
+            "title": "A Learning-Rate-Gated Failure of GRPO in a Small Language and Vision-Language Model Web Agent: A Controlled Null and Its Mechanism",
+            "abstract": "arXiv:2607.12640v1 Announce Type: new  Abstract: Reinforcement learning with verifiable rewards, and Group Relative Policy Optimization (GRPO) in particular, is now run routinely on a supervised checkpoint in the hope of producing a stronger agent. We ask whether it adds skill to a small language and vision-language model web agent at the 4B to 8B scale, or whether it mostly reshapes behavior the supervised model already has. Across a control grid of 18 runs that varies learning rate, KL weight, seed, initialization, and clipping, no configuration credibly improves the success rate of a strong supervised baseline on tasks the agent has largely mastered. On the text track, moderate to high learning rates make it credibly worse. The null holds under paired testing, 25 evaluation seeds, 6 training seeds, changes to the recipe, both text and Set-of-Marks screenshot observations, and scaling the backbone to 8B; the credible harm is a text-track finding and is only nominal under Set-of-Marks. To show that the null reflects the setting and not a broken pipeline, we run the identical harness, reward, and recipe on tasks whose reward is reachable by sampling, and there the success rate rises by 22 points with a paired interval that excludes zero. GRPO therefore helps only when there is headroom to climb, meaning the sampled policy already succeeds more often than the greedy one. We then explain the failure. A middle learning rate degrades the agent and a high one collapses it, and the two regimes form a double dissociation: grafting localizes the degrade regime to the attention and MLP blocks, while the collapse regime cannot be traced to any single group, and the embedding change that dominates the weight movement is causally inert. At 4B, effective rank in the late layers tracks capability in both directions; at 8B the two come apart. This coupling is specific to the smaller model, so we report it as scale-dependent.",
+            "arxiv_id": "2607.12640",
+            "ARXIVID": "2607.12640",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Provides a controlled null analysis of GRPO for LLM web agents, revealing that RL with verifiable rewards only helps when there is headroom from sampling, and dissects the failure mechanism via learning-rate gating and effective rank analysis.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.12815": {
+            "authors": [
+                "Hiroto Osaka",
+                "Shohei Taniguchi",
+                "Gouki Minegishi",
+                "Kai Yamashita",
+                "Masahiro Suzuki",
+                "Yutaka Matsuo"
+            ],
+            "title": "Visual Access Boundaries in Vision-Language Model Reasoning",
+            "abstract": "arXiv:2607.12815v1 Announce Type: new  Abstract: Chain-of-Thought (CoT) prompting is widely used as a test-time scaling strategy for Vision-Language Models (VLMs), but it remains unclear what is extended when VLMs generate longer reasoning traces. We ask whether CoT requires continued access to image tokens, or whether it mainly operates over visual information already made available earlier in the forward pass. We introduce Visual Access Sweep, a causal intervention that masks attention from generated-token queries to image-token keys along layer depth and generation time, and define the Visual Access Boundary (VAB) as the minimal access region that preserves task accuracy. Across six model configurations from Qwen2.5-VL and InternVL3, both no-CoT direct answering and CoT prompting exhibit finite VABs. In Qwen2.5-VL-32B and InternVL3 at 14B and 38B scales, when CoT is evaluated against the no-CoT full-access target, its VAB layer differs from the no-CoT boundary by at most two layers, despite substantially longer generations. This suggests that CoT does not primarily improve performance by prolonging direct image-token access throughout the reasoning trace, but by extending language-side computation over image-derived hidden-state information. We further show that CoT gains are constrained by perceptual readout. CoT helps when the queried visual attribute can be reliably read out by the model, but not when that readout is unreliable. A symbolic-attribute oracle shows that CoT can improve counting once ground-truth attributes are supplied as text, while a single-object probe-vs-decode check shows that hard attributes can be linearly recoverable from hidden states yet difficult for the model itself to output. Together, these analyses place the bottleneck at readout rather than counting.",
+            "arxiv_id": "2607.12815",
+            "ARXIVID": "2607.12815",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Introduces a causal intervention method to analyze whether CoT in VLMs relies on continued image access, revealing that CoT extends language-side computation over hidden states rather than direct visual access.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.12945": {
+            "authors": [
+                "Wenhao Deng",
+                "Junchen Fu",
+                "Hanwen Du",
+                "Alexandros Karatzoglou",
+                "Ioannis Arapakis",
+                "Hangjun Guo",
+                "Kaiwen Zheng",
+                "Yongxin Ni",
+                "Joemon M. Jose"
+            ],
+            "title": "RecRec: Latent Interests Recursive Reasoning for Sequential Recommendation",
+            "abstract": "arXiv:2607.12945v1 Announce Type: new  Abstract: Sequential recommender systems rely on a single forward pass to encode user interaction histories and predict the next item. Increasing inference-time computation through latent reasoning, with the model proceeding step by step before the final prediction, has been recently explored in sequential recommendation with promising results. However, how to structure the reasoning process for sequential recommendation remains an open question. Existing approaches couple reasoning and prediction in a single $d$-dimensional state, limiting reasoning depth and often relying on multi-stage pipelines with reinforcement learning (RL). We propose RecRec (Recursive Reasoning for Recommendation), an RL-free framework that decouples reasoning from prediction, overcoming the fixed $d$-dimensional state bottleneck of prior methods. RecRec consists of a Context Compressor and a Recursive Reasoner, trained in two simple supervised stages. The Context Compressor distills the backbone's hidden states into a small set of latent interests, with an Interest Diversity Regularizer encouraging each interest to capture a distinct aspect of user behavior. The Recursive Reasoner then refines these interests by reasoning in a separate intermediate latent space. Deep supervision lets the reasoning depth be freely adjusted at inference without retraining. On four real-world datasets, RecRec outperforms state-of-the-art reasoning-enhanced methods, and on three of four datasets, gains extend past the training-time depth. Our findings point to a decoupled, multi-vector recipe that unleashes latent reasoning from the single-state bottleneck of prior methods, suggesting reasoning-state structure as a design axis to explore further in sequential recommendation.",
+            "arxiv_id": "2607.12945",
+            "ARXIVID": "2607.12945",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes RecRec, a latent reasoning framework for sequential recommendation that decouples reasoning from prediction using a recursive reasoner in a separate latent space, directly advancing latent reasoning architectures.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.12856": {
+            "authors": [
+                "Takumi Shioda",
+                "Kohei Terashima",
+                "Tatsuo Nagai"
+            ],
+            "title": "Verifier-Based Reinforcement Fine-Tuning of Reasoning Models for Thermal Energy Storage Control",
+            "abstract": "arXiv:2607.12856v1 Announce Type: new  Abstract: Buildings are expected to shift cooling loads in response to grid conditions. Thermal energy storage (TES) enables this shift, but scheduling it well requires planning hours ahead under storage constraints. Model predictive control (MPC) and reinforcement learning are difficult to scale across buildings. This study instead adapts an open-weight reasoning model through reinforcement learning with verifiable rewards (RLVR). We convert exact offline dynamic-programming (DP) action values into dense rewards for every candidate action. Using only 30 training prompts, reinforcement fine-tuning (RFT) trains the model as an upper-level scheduler that outputs hourly heat-pump setpoints from text-based states and forecasts. Evaluation uses a deliberately simple office-building TES benchmark where exact DP is tractable and the optimum is known. RFT reduces the open-weight model's emissions from 70.5 to 61.2 kg-CO2, close to the DP optimum of 60.8 kg-CO2. GPT-5 nearly matches DP and MPC without task-specific training, while GPT-4o, a non-reasoning LLM, produces higher emissions than the no-storage baseline, so inference-time reasoning appears important. Trace analysis shows that RFT mainly stabilizes observable planning patterns (candidate comparison, look-ahead, and feasibility checking) rather than creating a new strategy. Robustness and generalization tests clarify what transfers: the reinforced planning patterns persist under forecast errors and an unseen TES condition and carry over to a battery task, but its different structure limits the gains. DP-based verifiable rewards offer a practical way to adapt open-weight reasoning models to building storage scheduling. These results motivate higher-fidelity tests of whole-building control and scalable verifiers for city-scale energy management.",
+            "arxiv_id": "2607.12856",
+            "ARXIVID": "2607.12856",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Applies RL with verifiable rewards (RLVR) using dense rewards from DP action values to fine-tune a reasoning model for a control task, demonstrating a clear RL-for-LLMs pipeline with verifier-driven optimization.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.12687": {
+            "authors": [
+                "Mehak Dhaliwal",
+                "Rasta Tadayon",
+                "Andong Hua",
+                "Haewon Jeong",
+                "Yao Qin"
+            ],
+            "title": "From Critic to Confidence: PPO for Language-Based Quantitative Prediction with Confidence Estimation",
+            "abstract": "arXiv:2607.12687v1 Announce Type: new  Abstract: LLMs can perform language-based quantitative prediction from unstructured inputs, but remain susceptible to hallucinations and overconfident errors, making it critical to know not only what a model predicts, but when its predictions can be trusted. We introduce CARE-PPO, a reinforcement learning framework that establishes a connection between loss prediction for uncertainty estimation and actor-critic PPO fine-tuning, enabling joint learning of accurate numerical estimates and reliable confidence signals in language-based quantitative prediction. CARE-PPO uses a Confidence-Aligned Reward for Estimation, defined as a function of prediction error, to provide dense error-aware feedback to the actor while inducing the critic to learn a value function aligned with prediction quality. During inference, we repurpose the critic as a confidence estimator. Across two real-world tasks in healthcare and finance and two Qwen-3 model scales (4B and 8B), CARE-PPO achieves strong quantitative prediction performance, while producing significantly better-aligned confidence estimates through the critic than logit-based and verbalized baselines. These gains persist under realistic out-of-distribution settings across domains, spanning linguistic and domain shifts. Finally, CARE-PPO reduces task-specific overfitting on general instruction-following prompts, consistent with the broader generalization advantages of RL fine-tuning over supervised approaches.",
+            "arxiv_id": "2607.12687",
+            "ARXIVID": "2607.12687",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes CARE-PPO, a novel RL framework that connects loss prediction for uncertainty estimation with actor-critic PPO fine-tuning, enabling joint learning of accurate numerical estimates and reliable confidence signals in language-based quantitative prediction.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.12425": {
+            "authors": [
+                "Shangxin Yang",
+                "Min Gao",
+                "Zongwei Wang",
+                "Junliang Yu"
+            ],
+            "title": "Where Reasoning Matters: Rethinking Latent Reasoning in Semantic ID-based Generative Recommendation",
+            "abstract": "arXiv:2607.12425v1 Announce Type: new  Abstract: Semantic ID-based generative recommendation predicts an item by generating a short sequence of semantic ID tokens, where each token is produced autoregressively. Latent reasoning has recently been introduced to improve this process through additional hidden-state computation before each token decision. This raises a practical question: when one item is represented by a sequence of semantic ID tokens, should each token receive the same fixed number of latent refinement steps, or should these steps be allocated more effectively across positions? We study this question through position-wise information-gain (IG), which measures how much each semantic ID position reduces the uncertainty of the target item. We observe that earlier semantic ID positions usually provide higher information-gain, while later positions contribute less additional information. We further analyze that applying more refinement to high-IG positions tends to bring larger expected benefits. Based on this observation, we propose IBA, an Information-Gain Budget Allocation framework for semantic ID-based generative recommendation. IBA treats latent refinement steps as a limited computational resource and learns how to allocate them across semantic ID positions, assigning more refinement to informative positions and less to positions with smaller contribution. Experiments on multiple public datasets show that IBA consistently improves strong generative recommendation baselines and achieves a better accuracy--computation trade-off than fixed or poorly matched step allocations.",
+            "arxiv_id": "2607.12425",
+            "ARXIVID": "2607.12425",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes an information-gain budget allocation framework for latent reasoning steps in semantic ID-based generative recommendation, directly addressing latent reasoning efficiency.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        }
+    }
+}

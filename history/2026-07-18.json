@@ -1,0 +1,293 @@
+{
+    "summary_en": "### RL for LLMs and Agents\nA significant cluster of papers today focuses on advancing reinforcement learning (RL) for large language models (LLMs) and agents, moving beyond standard policy gradient methods. Several works address the critical challenge of credit assignment and reward shaping. **Contrastive Policy Optimization (CPO)**introduces a token-level contrastive disagreement signal for correctness-aware advantage estimation in RLVR, theoretically and empirically outperforming entropy-based methods. Complementing this,**Branching Policy Optimization (BPO)**tackles high variance in agentic RL by leveraging deterministic sandbox snapshots to construct a shared-prefix rollout tree, improving success rates on complex agent benchmarks. On the reward design front, a**Pairwise Validator**is proposed as a drop-in replacement for scalar rewards in self-evolving agent loops, offering a more robust training signal. Finally,**Step-Level Preference Learning**applies DPO to generative agents for social simulations, improving long-horizon decision quality by learning from step-by-step human preferences.\n\n### On-Policy Distillation and Generalization\nOn-policy distillation emerges as a powerful theme for transferring capabilities and ensuring generalization. The**Progressive RLVR**framework establishes the first non-vacuous generalization bounds for RL fine-tuning by integrating on-policy distillation with TinyLoRA and quantization. A novel**On-Policy Delta Distillation**method efficiently transfers reasoning capabilities by using the delta between teacher and base model outputs. The**SEED**framework directly addresses the supervision gap in outcome-based RL for agents by converting completed on-policy trajectories into hindsight skills, which are then distilled back into the policy, creating a self-evolving loop.\n\n### Latent Reasoning Architectures\nA new wave of architectures is exploring more efficient and persistent internal reasoning. The**T2MLR (Transformer with Temporal Middle-Layer Recurrence)**fuses cached middle-layer representations across tokens, enabling persistent intermediate computation with minimal overhead and strong gains on math reasoning. Similarly, a**training-free per-token halting rule**for depth-recurrent transformers exploits fixed-point convergence, allowing variable-depth internal computation without explicit chain-of-thought, directly advancing the field of latent reasoning.\n\n### Diffusion Models and Multimodal Reasoning\nReinforcement learning is being systematically applied to new domains. A**Continuous-Time RL framework**is proposed for fine-tuning discrete diffusion models, enabling reward-driven optimization with intermediate rewards, which provides a unified perspective on policy optimization for masked diffusion LLMs. This is complemented by**Mask-Aware Policy Gradients**, which introduces a novel two-stage action MDP for these models. In the multimodal space,**SD-MAR**combines synthetic data generation with a new RL method (GRPO-lite with BDA) for multi-image analytical reasoning in VLMs, specifically strengthening later reasoning steps via a novel reward allocation scheme.\n\n### Understanding and Improving Reasoning Distillation\nCritical insights into the data generation process for reasoning are provided.**Answer-Conditioned Chains of Thought**are shown to degrade verifiable-reasoning distillation, with a clear mechanism explaining why answer-blind data generation is superior. Furthermore, applying GRPO to multimodal document QA**without intermediate reasoning tokens** reveals surprising phenomena like reasoning suppression and grounding divergence, highlighting the need for careful reward design and training recipes in this setting.",
+    "summary_cn": "### RL for LLMs and Agents\nA significant cluster of papers today focuses on advancing reinforcement learning (RL) for large language models (LLMs) and agents, moving beyond standard policy gradient methods. Several works address the critical challenge of credit assignment and reward shaping. **Contrastive Policy Optimization (CPO)**introduces a token-level contrastive disagreement signal for correctness-aware advantage estimation in RLVR, theoretically and empirically outperforming entropy-based methods. Complementing this,**Branching Policy Optimization (BPO)**tackles high variance in agentic RL by leveraging deterministic sandbox snapshots to construct a shared-prefix rollout tree, improving success rates on complex agent benchmarks. On the reward design front, a**Pairwise Validator**is proposed as a drop-in replacement for scalar rewards in self-evolving agent loops, offering a more robust training signal. Finally,**Step-Level Preference Learning**applies DPO to generative agents for social simulations, improving long-horizon decision quality by learning from step-by-step human preferences.\n\n### On-Policy Distillation and Generalization\nOn-policy distillation emerges as a powerful theme for transferring capabilities and ensuring generalization. The**Progressive RLVR**framework establishes the first non-vacuous generalization bounds for RL fine-tuning by integrating on-policy distillation with TinyLoRA and quantization. A novel**On-Policy Delta Distillation**method efficiently transfers reasoning capabilities by using the delta between teacher and base model outputs. The**SEED**framework directly addresses the supervision gap in outcome-based RL for agents by converting completed on-policy trajectories into hindsight skills, which are then distilled back into the policy, creating a self-evolving loop.\n\n### Latent Reasoning Architectures\nA new wave of architectures is exploring more efficient and persistent internal reasoning. The**T2MLR (Transformer with Temporal Middle-Layer Recurrence)**fuses cached middle-layer representations across tokens, enabling persistent intermediate computation with minimal overhead and strong gains on math reasoning. Similarly, a**training-free per-token halting rule**for depth-recurrent transformers exploits fixed-point convergence, allowing variable-depth internal computation without explicit chain-of-thought, directly advancing the field of latent reasoning.\n\n### Diffusion Models and Multimodal Reasoning\nReinforcement learning is being systematically applied to new domains. A**Continuous-Time RL framework**is proposed for fine-tuning discrete diffusion models, enabling reward-driven optimization with intermediate rewards, which provides a unified perspective on policy optimization for masked diffusion LLMs. This is complemented by**Mask-Aware Policy Gradients**, which introduces a novel two-stage action MDP for these models. In the multimodal space,**SD-MAR**combines synthetic data generation with a new RL method (GRPO-lite with BDA) for multi-image analytical reasoning in VLMs, specifically strengthening later reasoning steps via a novel reward allocation scheme.\n\n### Understanding and Improving Reasoning Distillation\nCritical insights into the data generation process for reasoning are provided.**Answer-Conditioned Chains of Thought**are shown to degrade verifiable-reasoning distillation, with a clear mechanism explaining why answer-blind data generation is superior. Furthermore, applying GRPO to multimodal document QA**without intermediate reasoning tokens** reveals surprising phenomena like reasoning suppression and grounding divergence, highlighting the need for careful reward design and training recipes in this setting.",
+    "papers": {
+        "2607.14614": {
+            "authors": [
+                "Weiwen Xu",
+                "Jia Liu",
+                "Hou Pong Chan",
+                "Long Li",
+                "Deng Cai",
+                "Min Chen",
+                "Hao Zhang"
+            ],
+            "title": "Beyond Entropy: Correctness-Aware Advantage Shaping via Contrastive Policy Optimization",
+            "abstract": "arXiv:2607.14614v1 Announce Type: new  Abstract: Reinforcement learning with verifiable rewards (RLVR) commonly uses entropy for advantage shaping. However, entropy cannot distinguish useful uncertainty from detrimental confusion, limiting its effectiveness as a correctness signal. We propose Contrastive Policy Optimization (CPO), which uses token-level contrastive disagreement between reference-guided and vanilla generation distributions for correctness-aware advantage shaping. Both theoretical and empirical results show that this disagreement reliably indicates token-level correctness. We further show that On-policy Distillation is a special case of CPO, where the posterior distribution is instantiated by an external teacher model. CPO also resolves the zero-advantage problem. Experiments on in-domain and out-of-domain benchmarks demonstrate that CPO substantially outperforms entropy-based RLVR methods while maintaining strong generalization. Further analysis shows that correct and incorrect responses naturally support exploration and exploitation respectively, and balancing both leads to the best performance.",
+            "arxiv_id": "2607.14614",
+            "ARXIVID": "2607.14614",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes Contrastive Policy Optimization (CPO) using token-level contrastive disagreement for correctness-aware advantage shaping in RLVR, with theoretical and empirical results showing strong improvements over entropy-based methods.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.14506": {
+            "authors": [
+                "Yuxuan Zhu",
+                "Rohan Alur",
+                "Daniel Kang"
+            ],
+            "title": "Non-vacuous Generalization Bounds for Reinforcement Learning with Verifiable Rewards",
+            "abstract": "arXiv:2607.14506v1 Announce Type: new  Abstract: While reinforcement learning with verifiable rewards (RLVR) is widely used to improve the reasoning capabilities of large language models (LLMs), the generalizability of the resulting models remains poorly understood. In this work, we establish the first non-vacuous generalization bounds for parameter-efficient RLVR fine-tuning at the billion-parameter scale. Our approach adapts PAC-Bayes compression bounds to this setting, and addresses the inherent stochasticity of token generation by applying the Gumbel-max reparameterization trick. To operationalize these bounds, we propose the Progressive RLVR framework, which integrates RLVR with on-policy distillation, TinyLoRA, and model quantization. Progressive RLVR empirically retains 84-97% performance of standard LoRA fine-tuning while producing models that are 14,796x more compressible. We show that this framework yields non-vacuous generalization bounds in four domains: mathematical problem-solving, programming, general-knowledge reasoning, and Text-to-SQL. Our bounds exceed the accuracy of the base model by 9-51% and lie within 6-11% of the accuracy of the fine-tuned models.",
+            "arxiv_id": "2607.14506",
+            "ARXIVID": "2607.14506",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Establishes first non-vacuous generalization bounds for RLVR fine-tuning of LLMs via a Progressive RLVR framework integrating on-policy distillation, TinyLoRA, and quantization, directly advancing RL-for-LLMs and on-policy distillation.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.14777": {
+            "authors": [
+                "Jinyang Wu",
+                "Shuo Yang",
+                "Zhengxi Lu",
+                "Fan Zhang",
+                "Yuhao Shen",
+                "Lang Feng",
+                "Haoran Luo",
+                "Zheng Lian",
+                "Shuai Zhang",
+                "Zhengqi Wen",
+                "Jianhua Tao"
+            ],
+            "title": "SEED: Self-Evolving On-Policy Distillation for Agentic Reinforcement Learning",
+            "abstract": "arXiv:2607.14777v1 Announce Type: new  Abstract: Large language models are increasingly trained as interactive agents for long-horizon tasks involving multi-turn interaction, tool use, and environment feedback. Outcome-based reinforcement learning (RL) provides a practical optimization paradigm, but its sparse trajectory-level rewards offer limited guidance on intermediate decisions, leaving a supervision gap between episode-level outcomes and token-level policy learning. We propose SEED (SElf-Evolving On-Policy Distillation), a self-evolving framework that converts completed on-policy trajectories into training-time hindsight skills and distills their behavioral effect back into the policy model. SEED first fine-tunes the policy to analyze completed trajectories and generate natural-language skills that capture reusable workflows, decisive observations, or failure-avoidance rules. During RL, the current policy both collects trajectories and serves as the analyzer that extracts hindsight skills from them. Policy updates therefore improve subsequent decision making and skill analysis together, allowing hindsight supervision to evolve with the policy. SEED then re-scores the sampled actions under ordinary and skill-augmented contexts, converting the skill-induced probability shift into a dense token-level on-policy distillation signal. This signal is jointly optimized with outcome-based RL, keeping the auxiliary supervision aligned with the current trajectory distribution. Extensive experiments on text-based and vision-based agentic tasks show that SEED consistently improves performance and sample efficiency, exhibiting robust generalization to unseen scenarios. Our code is available at https://github.com/jinyangwu/SEED.",
+            "arxiv_id": "2607.14777",
+            "ARXIVID": "2607.14777",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes SEED, a self-evolving on-policy distillation framework that converts completed on-policy trajectories into hindsight skills and distills them back into the policy, directly addressing the supervision gap in outcome-based RL for LLM agents.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.15161": {
+            "authors": [
+                "Byeongho Heo",
+                "Jaehui Hwang",
+                "Sangdoo Yun",
+                "Dongyoon Han"
+            ],
+            "title": "On-Policy Delta Distillation",
+            "abstract": "arXiv:2607.15161v1 Announce Type: new  Abstract: On-policy distillation is an alternative post-training method in reinforcement learning that alleviates the constraints imposed by reward models by providing token-level supervision from a teacher model. Although on-policy distillation has been studied and applied across various settings, its fundamental design remains underexplored. In this paper, we introduce a new distillation reward, termed the delta signal, instead of directly imitating the teacher's output distribution. The delta signal is defined as the difference between the teacher model and its base model prior to instruction tuning for reasoning capability. It therefore captures the changes induced by reasoning tuning and provides a more direct signal for transferring reasoning capabilities. Using extensive empirical evidence, we show that the delta signal substantially improves on-policy distillation and refer to the new distillation method as On-Policy Delta Distillation (OPD$^2$). Experiments across mathematics, science, and code-reasoning benchmarks demonstrate that OPD$^2$ consistently outperforms conventional on-policy distillation, enabling reasoning LLMs to achieve strong performance with only a short post-training period. Code will be available at https://github.com/naver-ai/opd2",
+            "arxiv_id": "2607.15161",
+            "ARXIVID": "2607.15161",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes a novel on-policy distillation method using a delta signal (difference between teacher and base model) to transfer reasoning capabilities, showing strong empirical gains.",
+            "AFFILIATIONS": "NAVER AI",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.15178": {
+            "authors": [
+                "Ziyang Cai",
+                "Xingyu Zhu",
+                "Yihe Dong",
+                "Yinghui He",
+                "Sanjeev Arora"
+            ],
+            "title": "T^2MLR: Transformer with Temporal Middle-Layer Recurrence",
+            "abstract": "arXiv:2607.15178v1 Announce Type: new  Abstract: Transformer reasoning is limited by autoregressive decoding, which repeat edly compresses rich hidden computation through token space and makes it difficult for intermediate reasoning states to persist across time. We in troduce Transformers with Temporal Middle-Layer Recurrence (T2MLR), a transformers-based latent reasoning architecture that fuses a cached middle layer representation from the previous token directly into an earlier layer of the current token position, enabling abstract intermediate computation to persist across decoding steps with little inference overhead. Across natural-language pretraining and multi-hop reasoning finetuning, T2MLR consistently outperforms data- and parameter-matched Transformer base lines. Moreover, applying recurrence to only a localized middle-layer block (as little as 20% of the network) often outperforms full-layer recurrence. Im portantly, T2MLR does not require pretraining from scratch: retrofitting the recurrent pathway into an existing pretrained 1.7B Transformer and briefly finetuning substantially improves math reasoning, lowering the barrier to practical adoption. These results suggest that effective latent reasoning in Transformers does not require looping over all layers as in previous works, but can instead emerge more strongly from targeted middle-layer recurrence.",
+            "arxiv_id": "2607.15178",
+            "ARXIVID": "2607.15178",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Introduces a novel latent reasoning architecture (T2MLR) that fuses cached middle-layer representations across tokens, enabling persistent intermediate computation with minimal overhead and strong math reasoning gains.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.14171": {
+            "authors": [
+                "Bowei He",
+                "Yankai Chen",
+                "Xiaokun Zhang",
+                "Xue Liu"
+            ],
+            "title": "Branching Policy Optimization: Sandbox-Native Language Agent Reinforcement Learning",
+            "abstract": "arXiv:2607.14171v1 Announce Type: new  Abstract: Reinforcement learning has emerged as the dominant paradigm for training large language model (LLM) agents that interact with executable sandboxes. State-of-the-art algorithms such as PPO, RLOO, and GRPO inherit their rollout topology from RLHF: for each prompt, N independent trajectories are sampled from the initial state, and an advantage is computed by subtracting a group baseline. This design ignores a defining property of agent sandboxes. They are deterministic, snapshottable, and resumable from any intermediate state. We argue that this property enables a fundamentally different rollout topology: rather than N independent trees of depth T, one can construct a single tree of N leaves whose siblings share prefixes, and therefore share variance. We instantiate this idea as Branching Policy Optimization (BPO), a sandbox-native RL algorithm that (i) adaptively snapshots the sandbox at high-entropy decision points along a backbone trajectory, (ii) forks K alternative actions per branch point and rolls out each to termination, and (iii) computes per-step advantages from sibling returns rather than from independent prompts. We prove this estimator is unbiased and has strictly lower variance than the trajectory-level baseline, with the reduction equal to the prefix-explained portion of return variance. On WebShop, ALFWorld, and SWE-bench Verified with Qwen2.5-7B and Llama-3.1-8B backbones, BPO improves success by 3.6--6.1 absolute points over GRPO and RLOO at matched compute, halves gradient-norm variance, and matches the best baseline using 38% fewer policy updates.",
+            "arxiv_id": "2607.14171",
+            "ARXIVID": "2607.14171",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes Branching Policy Optimization (BPO), a novel RL algorithm for LLM agents that leverages deterministic sandbox snapshots to construct a shared-prefix rollout tree, achieving lower variance and improved success rates on agent benchmarks.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.14522": {
+            "authors": [
+                "Zikun Zhang",
+                "Jiayuan Sheng",
+                "David D. Yao",
+                "Wenpin Tang"
+            ],
+            "title": "A Continuous-Time Reinforcement Learning Framework for Fine-Tuning Discrete Diffusion Models",
+            "abstract": "arXiv:2607.14522v1 Announce Type: new  Abstract: We formulate reinforcement learning (RL) in continuous time with discrete state spaces and possibly arbitrary action spaces via a stochastic control approach, where the state dynamics are modeled as a controlled continuous-time Markov chain (CTMC). We consider policy optimization problems and derive the corresponding policy gradient methods, leading to continuous-time variants of proximal policy optimization (PPO) and group relative policy optimization (GRPO). As a primary application, we develop a complete continuous-time RL framework for fine-tuning score-based discrete diffusion models. The proposed framework enables reward-driven optimization without requiring differentiability on the reward signals. In contrast to the existing GRPO-based approaches that only rely on terminal rewards, our formulation allows intermediate reward or advantage signals to be incorporated throughout the denoising trajectory. Importantly, when specialized to masked diffusion models (MDMs), our framework encompasses a rich class of policy parameterizations over the vocabulary simplex with analytically tractable probability ratios, providing a unified perspective on exploration and policy optimization in MDMs. For masked diffusion large language models (dLLMs), we further propose trajectory subsampling techniques to efficiently estimate computationally prohibitive trajectory likelihoods, reducing the computational cost of computing per-position probability ratios. We showcase the effectiveness of our methods on both low-dimensional entropy-regularized optimization problems and RL post-training of dLLMs on mathematical reasoning and coding tasks.",
+            "arxiv_id": "2607.14522",
+            "ARXIVID": "2607.14522",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes a continuous-time RL framework for fine-tuning discrete diffusion models, enabling reward-driven optimization with intermediate rewards and a unified perspective on policy optimization in masked diffusion LLMs.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.15200": {
+            "authors": [
+                "Haran Raajesh",
+                "Kulin Shah",
+                "Adam Klivans",
+                "Philipp Kr\\\"ahenb\\\"uhl"
+            ],
+            "title": "Mask-Aware Policy Gradients for Diffusion Language Models",
+            "abstract": "arXiv:2607.15200v1 Announce Type: new  Abstract: Reinforcement learning has proven effective for improving reasoning in large language models, but extending it to Masked Diffusion Language Models (MDLMs) remains challenging due to the intractability of the log-likelihood estimation. Existing approaches approximate this log-likelihood by modeling only the token predictions, ignoring the order in which positions are unmasked during generation. We observe that MDLM generation involves two decisions at each step: what tokens to place at each masked position and which positions to remask. We formalize this as a two-stage action MDP, showing that the policy gradient naturally decomposes into a token term and a masking term. Combining optimization of both terms leads to state-of-the-art outcomes on mathematical reasoning and coding benchmarks, with scores of 87.1% on GSM8K and 53.4% on MBPP.",
+            "arxiv_id": "2607.15200",
+            "ARXIVID": "2607.15200",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Proposes a novel two-stage action MDP and policy gradient for masked diffusion language models, directly advancing RL for LLMs with a new training recipe.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.14427": {
+            "authors": [
+                "Joe Logan"
+            ],
+            "title": "Per-Token Fixed-Point Convergence in Depth-Recurrent Transformers",
+            "abstract": "arXiv:2607.14427v1 Announce Type: new  Abstract: A depth-recurrent transformer applies a weight-tied core a variable number of times, and prior work has shown that training with a randomized recursion count yields one checkpoint usable across a range of inference depths. We ask what such a model actually computes per token, and measure it directly. On a 135M-class model trained on FineWeb-Edu, the recurrent state converges to a per-token fixed point: mean successive-output KL divergence falls from 3.9e-1 at the second loop to 8.5e-6 by the sixteenth, and per-token state change decays in step. Crucially, this convergence is not uniform across tokens. The median token converges by loop six, while approximately 10 percent of tokens continue to update at the training-mean depth of eight, and mean convergence depth is ordered by token type (whitespace shallowest, content words deepest). This per-token variation is the central object of the paper. We show it is directly readable and that reading it outperforms learning to predict it: a training-free rule that halts each token once its output stabilizes attains uniform depth-8 quality at 4.94 average loops (a 38 percent reduction in average depth) and matches uniform depth across the average-depth range, whereas a linear router trained on convergence labels harvested from the same model requires nearly full depth and yields no reduction. The elasticity that makes this possible reproduces here as background (validation loss decreases monotonically from 3.80 at one loop to 3.20 at eight and remains stable to 32 loops). We report average depth as a FLOP proxy with a three-point wall-clock bracket rather than a realized speedup, make no FLOP-matched parity claim, and note that the allocation results are established at a single scale and seed. The complete study runs on a single RTX 4090 in approximately 100 GPU-hours.",
+            "arxiv_id": "2607.14427",
+            "ARXIVID": "2607.14427",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Introduces a training-free per-token halting rule for depth-recurrent transformers that exploits fixed-point convergence, directly advancing latent reasoning by enabling variable-depth internal computation without explicit CoT.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.14552": {
+            "authors": [
+                "Jungseob Lee",
+                "Seungyoon Lee",
+                "Suhyune Son",
+                "Dongyub Jude Lee",
+                "Sungbin Han",
+                "Sugyeong Eo",
+                "Heuiseok Lim"
+            ],
+            "title": "Answer-Conditioned Chains of Thought Degrade Verifiable-Reasoning Distillation in Large Language Models",
+            "abstract": "arXiv:2607.14552v1 Announce Type: new  Abstract: A standard recipe for distilling the reasoning ability of large language models (LLMs) is to sample chains of thought from the model, keep those that reach the correct final answer, and fine-tune on the survivors. When sampling fails, a common fix shows the generator the gold answer and asks it to write a chain that reaches that answer. We show that this second step degrades the training data in a way that correctness filtering cannot catch. We run a controlled experiment that fixes the generator, the problem set, and the correctness filter, and varies only whether the chain is generated under answer-conditioning, the gold answer shown with a request to reach it. Training a strong instruction-tuned reasoning model on its own answer-conditioned chains sharply lowers its verifiable-reasoning accuracy. The loss grows with difficulty, reaching as much as about 27 points on the hardest competition problems. The mechanism is legible in the chains themselves, which rationalize backward from the shown answer instead of deriving it, with the early final-answer statement as the measurable symptom. The harm is a property of the data rather than the generator, read off unlabeled generations before any fine-tuning, ordering the penalty across eight thinking models from four families, and transferring across teacher families. A prompt ablation localizes it to the rationalize-toward instruction rather than the answer's bare visibility. The practical takeaway is to generate answer-blind, because no correctness filter can see this damage in the data.",
+            "arxiv_id": "2607.14552",
+            "ARXIVID": "2607.14552",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Shows that answer-conditioned chain-of-thought generation degrades verifiable-reasoning distillation, with a clear mechanism and practical takeaway for generating answer-blind data.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.14682": {
+            "authors": [
+                "Harikrishnan P M",
+                "Goutham Vignesh",
+                "Ganesh Parab",
+                "Saisubramaniam Gopalakrishnan",
+                "Vishal Vaddina",
+                "Varun V",
+                "Rohit Agrawal"
+            ],
+            "title": "Stop Thinking, Start Looking: Efficient Post-Training for Multimodal Document Question Answering via Reasoning-Free Alignment",
+            "abstract": "arXiv:2607.14682v1 Announce Type: new  Abstract: Efficient multimodal document question answering with explicit visual grounding, locating the precise document region that supports each answer remains an open challenge. Current approaches bifurcate into Supervised Fine-Tuning (SFT), which requires large annotated datasets and reaches optimization plateaus, and reasoning-centric Reinforcement Learning (RL), which depends on verbose intermediate traces that inflate inference token cost without clear benefit. We introduce Perception-RFT, a training framework that applies Group Relative Policy Optimization (GRPO) to multimodal document QA, bypassing intermediate reasoning tokens to directly align visual features with structured grounding outputs. To rigorously evaluate the necessity of reasoning, we construct a reasoning variant under identical reward settings. We find that reasoning-enabled models suppress their reasoning traces during training, converging to direct perception-based policies at the 4B parameter scale, reducing per-query inference token length by more than 60%, while reasoning-enabled RL underperforms perception-only training. Through a fine-grained analysis of Qwen3-VL-4B optimization dynamics, we confirm that SFT saturation and cold-start RL instability established in text-domain post-training extend to multimodal, and identify a previously uncharacterized Grounding Divergence: a selective trade-off between semantic robustness and geometric precision on two out of distribution (OOD) benchmarks (4,828 samples) under joint RL optimization. We further show that an early SFT$\\rightarrow$RL transition achieves comparable precision with 65% less training data.",
+            "arxiv_id": "2607.14682",
+            "ARXIVID": "2607.14682",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Applies GRPO to multimodal document QA without intermediate reasoning tokens, revealing reasoning suppression and grounding divergence, which is a strong match for RL-for-LLMs with a novel reward design and training recipe.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.14408": {
+            "authors": [
+                "Minghao Liu",
+                "Yu Wang",
+                "Jiayun Wang",
+                "Wei Wei"
+            ],
+            "title": "Reward-Free Evolving Agents via Pairwise Validator",
+            "abstract": "arXiv:2607.14408v1 Announce Type: new  Abstract: A self-evolving agentic loop repeatedly proposes a tweaked version of an agent (its prompt template or program) and accepts or rejects the change based on a per-iteration quality signal. Designing that signal is often the costly part of the project: a reliable scalar reward requires domain expertise and labeled examples that are themselves as expensive to assemble as the agent's underlying task. We propose replacing the scalar at the accept/reject gate with a pairwise validator: a frozen LLM that, given the parent and child candidate, returns a binary verdict on which is better. Pairwise judgment is generally easier and more stable than absolute scoring, due to its contrastive nature, which mitigates the need for strict scale calibration. The validator also requires no training of its own. We integrate the validator into three published self-evolving engines (GEPA, ADRS, ShinkaEvolve) and report two flavors: Adaptive Focus, which retains the engine's existing val-set parent selection, and Soft Elo, which lets the validator's verdicts drive parent selection so that val-set rewards drop as well. Across multiple agents and two artifact substrates (prompt and code), our method matches or exceeds the full-reward baseline on the majority of settings we evaluate, and the pattern survives a cross-family validator swap. The pairwise gate is thus a drop-in replacement for per-step reward design at competitive task accuracy without the labeling cost.",
+            "arxiv_id": "2607.14408",
+            "ARXIVID": "2607.14408",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a pairwise validator as a drop-in replacement for scalar reward in self-evolving agent loops, directly relevant to RL for LLMs via reward design.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.14485": {
+            "authors": [
+                "Wenchang Gao",
+                "Pingyue Sheng",
+                "Lanlan Qiu",
+                "Yunfei Ma",
+                "Jian Zhao",
+                "Baicheng Chen",
+                "Kangda Wang",
+                "Yuyang Tian",
+                "Shunqiang Mao",
+                "Tianxing He"
+            ],
+            "title": "Step-Level Preference Learning for Generative Agents in Social Simulations",
+            "abstract": "arXiv:2607.14485v1 Announce Type: new  Abstract: Large language model (LLM)-based generative agents simulate human behavior through long-horizon decision-making processes that comprise intermediate steps such as planning, memory retrieval, reflection, and action selection. However, fine-grained human annotations of these intermediate steps remain scarce, and existing agents are not grounded in human preferences over such intermediate decisions. To address this gap, we introduce \\method, an interactive simulation interface that enables us to collect step-level human preference supervision over agent decision trajectories, leading to a dataset of 57K fine-grained annotations. We conduct step-level preference learning on open-weight language models using supervised finetuning and direct preference optimization on this data, consistently improving simulation fidelity, coordination, and interaction quality, and inducing more socially effective agent behavior. Our results show that step-level human supervision is an effective training signal for improving both local decision quality and long-horizon agent behavior.",
+            "arxiv_id": "2607.14485",
+            "ARXIVID": "2607.14485",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Introduces step-level human preference learning via DPO for LLM-based generative agents, directly improving long-horizon decision quality with a new training signal.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2607.14333": {
+            "authors": [
+                "Shiyu Yuan",
+                "Sourav Sanjukta Bhabesh",
+                "Zhe Wang",
+                "Dmitriy Bespalov",
+                "Wesley Rose",
+                "Huzefa Rangwala"
+            ],
+            "title": "SD-MAR: Multi-image Analytical Reasoning via Synthetic Data and Reinforcement Learning",
+            "abstract": "arXiv:2607.14333v1 Announce Type: new  Abstract: Vision Language Models (VLMs) demonstrate strong perceptual abilities but remain limited in tasks requiring analytical reasoning across multiple visual states, such as multi-image comparison, change detection, and multi-step visual inference. These capabilities are critical for real-world multimodal applications where reasoning must be grounded in systematic differences between visual contexts. However, existing benchmarks rarely require both explicit visual comparison and analytical reasoning, leaving this capability underexplored. To address this gap, we introduce SD-MAR (Synthetic Data for Multi-image Analytical Reasoning), a framework for training and evaluating VLMs on multi-image analytical reasoning. SD-MAR constructs paired visual scenarios through controlled perturbations and generates reasoning tasks spanning semantic change attribution and quantitative comparison. We further train VLMs using GRPO-lite with Backward Discounted Allocation (BDA), a reinforcement learning approach that removes KL regularization to encourage stronger policy optimization while allocating greater credit to the later reasoning steps where analytical conclusions are formed. Experiments on Qwen2.5-VL-7B and InternVL3-8B show that GRPO-lite fine-tuning on SD-MAR improves in-domain accuracy by up to 36.95%, with Qwen2.5-VL-7B outperforming GPT-4.1 on the SD-MAR benchmark. Importantly, out-of-domain generalization is preserved or improved: performance remains within 1% on MME, MMMU-Pro, and MathVista, while improving by up to 4% on MMBench. LLM-as-judge evaluation further demonstrates consistent improvements in logical coherence and explanation quality across both models.",
+            "arxiv_id": "2607.14333",
+            "ARXIVID": "2607.14333",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a new RL method (GRPO-lite with BDA) for multi-image analytical reasoning in VLMs, combining synthetic data generation with a reward allocation scheme that strengthens later reasoning steps.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        }
+    }
+}

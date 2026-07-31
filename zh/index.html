@@ -14,178 +14,230 @@
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
 })();</script><div><div class="markdown-heading"><h1 class="heading-element">💡 今日研究速览 (Daily Summary)</h1><a id="user-content--今日研究速览-daily-summary" class="anchor" aria-label="Permalink: 💡 今日研究速览 (Daily Summary)" href="#-今日研究速览-daily-summary"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="markdown-heading"><h3 class="heading-element">RL for LLMs</h3><a id="user-content-rl-for-llms" class="anchor" aria-label="Permalink: RL for LLMs" href="#rl-for-llms"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>The RL for LLMs field is undergoing a significant maturation, moving beyond basic PPO and GRPO implementations to address systemic bottlenecks in training efficiency, credit assignment, and reward design. A clear trend is the push for <strong>token-level and granular credit assignment</strong>, exemplified by CoRT's counterfactual replay for rubric-conditioned GRPO and ODYSSE's episode-wise GRPO (ESPO) for personalized agentic reasoning. This granularity is complemented by efforts to<strong>optimize compute budgets</strong>and<strong>reduce wasted rollouts</strong>, as seen in SARA's sequential adaptive rollout allocation for RLVR. Simultaneously, researchers are tackling fundamental RL stability and generalization issues: ReCo addresses distributional concentration in GRPO, while a game-theoretic framework for KL-regularized fine-tuning provides a principled approach to setting regularization coefficients. The integration of<strong>meta-learning</strong>for reward shaping and<strong>self-evolving rubrics</strong>(SERPO) for open-ended generation further demonstrates a shift toward more adaptive and autonomous RL pipelines. Notably, the field is also confronting practical deployment challenges with HiFloat4 enabling end-to-end FP4 quantization for RL post-training, bridging the gap between research and production.</p>
-<div class="markdown-heading"><h3 class="heading-element">On-Policy Distillation and Knowledge Transfer</h3><a id="user-content-on-policy-distillation-and-knowledge-transfer" class="anchor" aria-label="Permalink: On-Policy Distillation and Knowledge Transfer" href="#on-policy-distillation-and-knowledge-transfer"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>On-policy distillation is emerging as a dominant paradigm for both aligning LLMs and injecting specialized knowledge, moving beyond simple imitation to more sophisticated, value-aware, and contrastive methods. The core innovation is the<strong>use of on-policy, student-generated data</strong>to bridge the distribution gap between teacher and student, as directly studied in the shared SFT lessons work. W2S-OPD advances this by distilling from multiple weak models using contrast-based proxy teachers and on-policy reverse KL, while RoCo-ACE introduces rollout-conditioned distillation that reweights learning to reference-supported tokens. The Veritas++ framework extends this to AIGI detection with a value-aware mechanism that prioritizes high-value on-policy signals. A parallel thread involves<strong>distilling reasoning and temporal capabilities</strong>, with the time-truncation harness enabling efficient distillation of temporal search and reasoning for future prediction. These works collectively illustrate a move from static, off-policy distillation to dynamic, adaptive, and performance-aware knowledge transfer that is tightly coupled with the student's own learning trajectory.</p>
-<div class="markdown-heading"><h3 class="heading-element">Reasoning, Agents, and Structured Generation</h3><a id="user-content-reasoning-agents-and-structured-generation" class="anchor" aria-label="Permalink: Reasoning, Agents, and Structured Generation" href="#reasoning-agents-and-structured-generation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>The intersection of reasoning, reinforcement learning, and agentic systems is producing novel architectures and training paradigms focused on<strong>efficiency, personalization, and skill composition</strong>. Penelope introduces localized latent recurrence, confining recurrent computation to a narrow decoder interval to reduce inference latency on structured reasoning tasks, a key advancement for practical deployment. For agents, SkillRise proposes a unified framework for cross-task skill evolution using decoupled credit assignment and an evolving skill document, directly tackling the challenge of generalizable agentic behavior. ODYSSE's personalized agentic reasoning and the interactive reward agent (IRA) for GUI tasks highlight a growing emphasis on<strong>environment-aware and user-specific</strong> agent training. The DHRCL framework for code LLMs demonstrates the power of dense hierarchical rewards and curriculum learning to guide complex behavior, while the DMAPO method shows that high-quality, data-centric preference optimization (using multi-evaluator agreement) can achieve better alignment with less data. Finally, the work on robust PPO for small-scale language model agents identifies critical failure modes and proposes practical fixes, underscoring that scaling laws are not the only path to progress.</p>
+<p>The dominant theme in RL for LLMs today is the move beyond binary, outcome-only rewards toward denser, more structured, and more adaptive reward signals. This is evident in RLPF's staged reward design for code generation, which combines execution progress with relative efficiency, and in RefineSVG's closed-loop visual feedback mechanism that enables self-correction through a Diff-Map residual signal. The field is also actively tackling the efficiency and stability of RL training itself: Kalman-filter-based dynamic prompt selection (Kalman Meets Curriculum) and latent-guided prompt sampling (LEEPS) both address the critical bottleneck of rollout efficiency and policy drift in RLVR, while LSPO introduces a sampling-time LoRA scaffold to recover gradients on zero-reward prompts, a clever solution to the sparse-reward cliff problem. The emerging consensus from probing studies (Probing the Origins of Reasoning Performance) is that RL fine-tuning produces fundamentally better, more linearly separable representations than SFT, providing mechanistic justification for the RL-centric post-training paradigm. Notably, a rigorous efficiency analysis (Sample More, Reflect Less) challenges the value of costly self-refinement loops, suggesting that at equal token budgets, simple repeated sampling is often superior—a finding that has direct implications for how we allocate compute in RL pipelines. Finally, the application space is expanding rapidly, from cybersecurity triage and HPC task optimization to machine unlearning and visual edit reasoning, with new reward formulations (exponential, PageRank-inspired, confidence-modulated) being tailored to each domain's unique constraints.</p>
+<div class="markdown-heading"><h3 class="heading-element">On-Policy Distillation</h3><a id="user-content-on-policy-distillation" class="anchor" aria-label="Permalink: On-Policy Distillation" href="#on-policy-distillation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>On-policy distillation has clearly crystallized as the central paradigm for transferring reasoning capabilities, with today's papers focusing on two critical frontiers: the source of supervision and the stability of training. The "expand-then-compress" philosophy (Beyond the Best Teacher) and cross-teacher approaches (Lightning OPD 2.0) are pushing beyond single-teacher distillation, with the latter introducing style-bias residualization to mitigate the risk of copying superficial stylistic patterns rather than genuine reasoning. The theoretical unification of policy optimization and distillation is also advancing: β-OPSD provides a principled KL-regularized bridge between the two objectives, while Flux-OPD offers a formal decomposition of the reverse KL objective to stabilize targets and downweight conflicting gradients. Multimodal distillation is maturing as well, with OPLD transferring reasoning into latent representations and VAD tackling the source-mixing problem through counterfactual target reconstruction for fine-grained visual reasoning. On the safety front, a routing-based approach models distribution divergence directly, enabling template-robust realignment that preserves capabilities while improving safety—a crucial consideration as distillation becomes a primary alignment tool. Together, these works indicate that on-policy distillation is evolving from a simple imitation heuristic into a theoretically grounded, multi-source, and modality-aware training framework.</p>
+<div class="markdown-heading"><h3 class="heading-element">Latent Reasoning &amp; Architecture</h3><a id="user-content-latent-reasoning--architecture" class="anchor" aria-label="Permalink: Latent Reasoning &amp; Architecture" href="#latent-reasoning--architecture"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Latent reasoning is moving from a conceptual idea to a practical architectural principle, with a clear focus on efficiency and hierarchical structure. The depth division of labor revealed in Understanding Is Done Early suggests that LLMs compress information into intermediate layers, enabling a novel memory architecture that caches these states and recomputes only upper layers—a significant step toward unbounded-context memory with self-distillation. The SCSE architecture for looped transformers (Looped Transformers with Source-Centered State Evolution) tackles the tension between input conditioning and shared recurrence, providing a principled mechanism for latent reasoning in iterative computation. Hierarchical Latent Reasoning for Recommendation introduces layer-aware process rewards, demonstrating that latent reasoning objectives can be tailored to specific downstream tasks. The convergence of these approaches—latent distillation (OPLD), latent-guided sampling (LEEPS), and hierarchical latent objectives—suggests that the community is converging on latent space as the primary medium for both reasoning and efficient training.</p>
+<div class="markdown-heading"><h3 class="heading-element">Agents &amp; Tool Use</h3><a id="user-content-agents--tool-use" class="anchor" aria-label="Permalink: Agents &amp; Tool Use" href="#agents--tool-use"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Agentic RL is grappling with the fundamental challenge of sparse and delayed rewards in multi-turn interactions. The transition-aware policy optimization (TAPO) framework addresses this by adding action-conditioned next-observation prediction as a dense auxiliary supervision signal, while Harness-G redesigns the policy-environment interface itself with a graph-structured action space and structured credit assignment for search agents. The visual domain is seeing sophisticated reward engineering: Beacon introduces a Necessity-Aware Adaptive Reward to teach agents when to use tools, and FaithEyes employs a multi-agent self-judging framework with a helpful-tool-ratio reward scaling to improve tool-use faithfulness. A key insight from CRPO is the identification of exposure bias in multi-turn agentic RL, where contrastive self-distillation helps stabilize the policy against distribution shift. These works collectively suggest that the next major leap in agentic capabilities will come not from larger models, but from better interfaces between policy, environment, and reward—making the agent's learning signal denser and more informative.</p>
+<div class="markdown-heading"><h3 class="heading-element">Multimodal &amp; Specialized Applications</h3><a id="user-content-multimodal--specialized-applications" class="anchor" aria-label="Permalink: Multimodal &amp; Specialized Applications" href="#multimodal--specialized-applications"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>The multimodal frontier is characterized by task-specific RL formulations that leverage domain structure. The GRPO-based recipe for minimalist RAG (B1ade) demonstrates that emergent attribution can arise without explicit reward engineering, suggesting that simple RL objectives can unlock complex behaviors in small models. RefineSVG's image-to-SVG generation represents a novel intersection of RL and structured output generation, using visual feedback as a natural reward signal. The application of RL to AI-edit reasoning in images (Can VLMs Reason about AI Edits?) shows the versatility of accuracy-based rewards in teaching VLMs to evaluate visual manipulations. The cybersecurity domain (Cybersecurity Detection Classification) combines verifiable rewards with a novel confidence calibrator, addressing the critical need for calibrated uncertainty in high-stakes applications. HARGO's heterogeneity-aware approach to HPC tasks introduces confidence-modulated advantage weighting, a generalizable technique for handling diverse task distributions in RL post-training. Across these applications, a common thread emerges: the most effective RL formulations are those that deeply exploit the specific structure of the target domain, whether that be execution traces, visual feedback, or hierarchical task decompositions.</p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">1. [Translation Failed]</h2><a id="user-content-1-translation-failed" class="anchor" aria-label="Permalink: 1. [Translation Failed]" href="#1-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10</p>
-<p><strong>作者</strong>: Fangxu Yu, Zinan Lin, Xiaodong Liu, Weijia Xu, Michael Xu, Tianyi Zhou, Jianfeng Gao</p>
+<p><strong>作者</strong>: Songshuo Lu, Zhi Chen, Yaohua Tang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Introduces Weak-to-Strong On-Policy Distillation (W2S-OPD), a novel framework that distills from multiple weak models to improve a strong student via contrast-based proxy teachers and on-policy reverse KL, directly advancing on-policy distillation for LLMs.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Proposes an expand-then-compress framework with multi-teacher on-policy distillation (TU-OPD) and RGRPO, directly improving LLM reasoning via a novel teacher-union distillation loop.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.26246" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.27770" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">2. [Translation Failed]</h2><a id="user-content-2-translation-failed" class="anchor" aria-label="Permalink: 2. [Translation Failed]" href="#2-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10</p>
-<p><strong>作者</strong>: Zibin Meng, Zhenyu Zhao, Chunqiang Run</p>
+<p><strong>作者</strong>: Xingjian Wu, Junlin Liu, Xingchen Liu, Xuhang Zhu, Jianing Wang, Linsen Guo, Xiaoyu Li, Xuezhi Cao, Xunliang Cai</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes an online, entropy-proxy-driven knowledge-point selector for verifiable-reward RL, directly improving reasoning-oriented RL for LLMs.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces CRPO, a contrastive reformulation of on-policy self-distillation that addresses exposure bias in multi-turn agentic RL, directly targeting both RL-for-LLMs and on-policy distillation.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.24833" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.28026" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">3. [Translation Failed]</h2><a id="user-content-3-translation-failed" class="anchor" aria-label="Permalink: 3. [Translation Failed]" href="#3-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10</p>
-<p><strong>作者</strong>: Jianze Wang, Kunwang Zheng, Ying Liu, Yu Cao, Qilong Zhang, Jinlong Chen, Hua Yang, Qianglong Chen</p>
+<p><strong>作者</strong>: Jiawei Xu, Minghui Liu, Juzheng Zhang, Tom Goldstein, Furong Huang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Introduces a self-evolving rubric policy optimization (SERPO) for test-time RL in open-ended generation, co-evolving response archives, rubrics, and policy parameters without external rewards.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces beta-OPSD, a principled generalization of on-policy self-distillation that bridges policy optimization and distillation via a controllable KL regularization parameter, improving reasoning performance.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.26873" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.28582" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">4. [Translation Failed]</h2><a id="user-content-4-translation-failed" class="anchor" aria-label="Permalink: 4. [Translation Failed]" href="#4-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
-<p><strong>作者</strong>: Bo-Wen Zhang, Junwei He, Wen Wang, Song-Lin Lv, Wentao Ma, Rongyi Lin, Shuhan Zhong, Lan-Zhe Guo</p>
+<p><strong>得分</strong>: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Shoutai Zhu, Tianyang Xu, Bin Sun, Mingyuan Xu, Yu Liu, Qinzhen Guo</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes CoRT, a token-level credit weighting method for rubric-conditioned GRPO that uses counterfactual replay to redistribute advantages across tokens without an auxiliary scorer, directly improving RL for LLMs.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Proposes on-policy latent distillation that transfers multimodal CoT reasoning capability into latent representations, directly advancing both latent reasoning and on-policy distillation.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.25659" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.28154" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">5. [Translation Failed]</h2><a id="user-content-5-translation-failed" class="anchor" aria-label="Permalink: 5. [Translation Failed]" href="#5-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
-<p><strong>作者</strong>: Keegan Harris, Brian W. Lee, Ian Waudby-Smith, Philip Amortila, Nika Haghtalab, Michael I. Jordan</p>
+<p><strong>得分</strong>: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Yecheng Wu, Song Han, Han Cai</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes a game-theoretic framework for KL-regularized RL fine-tuning that provides a principled method for setting the regularization coefficient, directly advancing RL for LLMs.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Directly addresses cross-teacher on-policy distillation with a novel style-bias residualization method, showing clear gains on reasoning benchmarks.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.26358" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.28449" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">6. [Translation Failed]</h2><a id="user-content-6-translation-failed" class="anchor" aria-label="Permalink: 6. [Translation Failed]" href="#6-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
-<p><strong>作者</strong>: Pixel Nomand, Elena Voss, Marcus Hale, Sofia Reyes</p>
+<p><strong>得分</strong>: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Kangning Zhang, Yixing Li, Shuai Shao, Qingyao Li, Zhengxi Lu, Zhiyuan Yao, Jianghao Lin, Wenxiang Jiao, Yuan Lu, Weiwen Liu, Weinan Zhang, Yong Yu</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes a sequential adaptive rollout allocation method (SARA) for compute-efficient RLVR, directly improving RL training for LLMs by reducing wasted rollouts.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a counterfactual target-reconstruction method for multimodal on-policy distillation, directly addressing the source-mixing problem in teacher corrections and improving fine-grained visual reasoning.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.26253" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.28590" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">7. [Translation Failed]</h2><a id="user-content-7-translation-failed" class="anchor" aria-label="Permalink: 7. [Translation Failed]" href="#7-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
-<p><strong>作者</strong>: Hei Yi Mak, Shadan Golestan, Hoang Le, Mehran Taghian Jazi, Yunke Peng, Yaoyuan Wang, Yao Wang, Junsong Wang, Tianchi Hu, Fengchen He, Guipeng Hu, Tanzila Rahman, Anandharaju Durai Raju</p>
+<p><strong>得分</strong>: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Huihao Jing, Haozhe Cui, Wenbin Hu, Shaojin Chen, Haochen Shi, Changxuan Fan, Yuxuan Liu, Hanyu Yang, Sirui Zhang, Ziyi Chen, Haoran Li, Yangqiu Song</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes HiFloat4 format and Rollout-ResQ to enable end-to-end FP4 RL post-training for LLMs, addressing quantization-induced rollout-training mismatch.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a staged reward design for code generation that combines execution progress and relative efficiency, directly advancing RL for LLMs with a novel reward function.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.26515" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.27271" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">8. [Translation Failed]</h2><a id="user-content-8-translation-failed" class="anchor" aria-label="Permalink: 8. [Translation Failed]" href="#8-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
-<p><strong>作者</strong>: Yutong Chen, Shouqian Shi, Xinran Liu, Haochen Wang, Jiaying Wang, Tianxing Xu, Yuanxi Wang, Zirui Ding</p>
+<p><strong>得分</strong>: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Yuran Wang, Zekun Wang, Bohan Zeng, Ruixu Zhang, Wenxuan Liu, Liu Yang, Yifan Dai, Yang Shi, Bozhou Li, Chengzhuo Tong, Daili Hua, Yuanxing Zhang, Wentao Zhang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Introduces Penelope, a latent reasoning framework that localizes recurrent computation to a narrow decoder interval, reducing inference latency while maintaining accuracy on structured reasoning tasks.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Proposes Flux-OPD, a novel on-policy distillation paradigm that uses evolving contexts as in-training supervision with a theoretical decomposition of the reverse KL objective to stabilize targets and downweight conflicts, directly advancing on-policy distillation for LLMs.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.25915" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.28022" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">9. [Translation Failed]</h2><a id="user-content-9-translation-failed" class="anchor" aria-label="Permalink: 9. [Translation Failed]" href="#9-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Md Rezwanul Haque, Md. Milon Islam, Fakhri Karray</p>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Yongjian Guo, Wanlun Ma, Lingyu Shen, Xi Xiao, Sheng Wen</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Identifies and fixes specific failure modes in PPO for small LLMs, proposing a capacity-headroom hypothesis and a robust training pipeline with practical techniques.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Proposes a routing-based on-policy distillation framework that models distribution divergence for robust LLM safety realignment, directly addressing template robustness and capability preservation.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.25091" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.27081" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">10. [Translation Failed]</h2><a id="user-content-10-translation-failed" class="anchor" aria-label="Permalink: 10. [Translation Failed]" href="#10-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Shuhang Wang, Ziming Li, Hui Cheng</p>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Shaobo Liu, Feiqiao Mao, Shuaishuai Zhou, Yan Zhan, Weiqi Tan, Zhiqiong Lu, Zhengping Liang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes DHRCL, a novel RL framework for code LLMs with dense hierarchical rewards and curriculum learning, directly improving LLM behavior via explicit reward design.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a closed-loop visual feedback RL framework for image-to-SVG generation, using a Diff-Map residual signal and agentic RL to enable self-correction, directly advancing RL-for-LLMs with a novel reward design.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.26457" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.27699" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">11. [Translation Failed]</h2><a id="user-content-11-translation-failed" class="anchor" aria-label="Permalink: 11. [Translation Failed]" href="#11-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Zhengtao Yao, Runhao Li, Xupeng Chen, Jiayi Cheng, Chenqian Le, Michael Yue, Siheng Wang, Haoyan Xu, Yuqi Li, Chenhao Wei, Zhengdao Li, Rongchao Zhang, Guang Yang, Yidong Wang, Junhao Dong</p>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Ken Ding</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes DMAPO, a data-centric method using multi-evaluator agreement on on-policy responses to create a small, high-quality preference dataset for KTO training, directly improving alignment.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a sampling-time LoRA scaffold that recovers RL gradients on zero-reward cliff prompts, directly improving RLVR for LLM reasoning.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.25136" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.27787" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">12. [Translation Failed]</h2><a id="user-content-12-translation-failed" class="anchor" aria-label="Permalink: 12. [Translation Failed]" href="#12-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Hao Tan, Jun Lan, Zichang Tan, Ajian Liu, Zijian Yu, Chuanbiao Song, Huijia Zhu, Weiqiang Wang, Jun Wan, Zhen Lei</p>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Haodong Zhu, Yangyang Ren, Yanjing Li, Sheng Xu, Haiguang Liu, Linlin Yang, Baochang Zhang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes Value-aware On-Policy Distillation (VaOPD) for AIGI detection, a new adaptive distillation mechanism that prioritizes high-value on-policy signals from a privileged self-teacher.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a Kalman-filter-based dynamic prompt selection method for RL finetuning that adapts to policy drift and improves rollout efficiency, directly advancing RL-for-LLMs.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.27113" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.27610" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">13. [Translation Failed]</h2><a id="user-content-13-translation-failed" class="anchor" aria-label="Permalink: 13. [Translation Failed]" href="#13-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Wanxu Cai, Zhengyu Chen, Huaisheng Zhu, Wei Wang, Jingang Wang, Qiang Xu</p>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Hanzuo Liu, Xuan Qi, Chunyu Liu, Haotian Zhong, Yulong Wang, Rayying, Key, Alex Lamb, Mingyu Gao</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes a time-truncation harness for on-policy distillation of temporal search and reasoning data into LLMs, directly improving future prediction capabilities.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a latent-reasoning-inspired memory architecture that caches intermediate-layer states and recomputes upper layers, achieving efficient long-context memory with self-distillation.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.25554" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.28263" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">14. [Translation Failed]</h2><a id="user-content-14-translation-failed" class="anchor" aria-label="Permalink: 14. [Translation Failed]" href="#14-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Hao Jiang, Peiru Du, Pengfei Yao, Mengting Li, Siyuan Lou, Kuo Cai, Sheng Yu, Qiang Luo, Jian Liang, Ruiming Tang, Fei Pan, Peng Jiang, Wenwu Ou</p>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Qixun Wang, Yang Shi, Letian Cheng, Zhuoran Zhang, Yan He, Yuqi Tang, Qi Zhang, Xinlei Yu, Ruizhe Chen, Tianrun Xu, Yuanxing Zhang, Pengfei Wan, Haotian Wang, Xianghua Ying</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes a latent reasoning framework for recommendation models that compresses explicit CoT into learnable latent tokens, directly addressing latent reasoning efficiency.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a novel RL framework with Necessity-Aware Adaptive Reward and Hint-Guided Capability Expansion to improve adaptive tool use in agentic visual reasoning, directly advancing RL for LLMs.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.26621" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.28595" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">15. [Translation Failed]</h2><a id="user-content-15-translation-failed" class="anchor" aria-label="Permalink: 15. [Translation Failed]" href="#15-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Anton de la Fuente, Arthur Conmy</p>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Yanning Hou, Haoyuan Chen, Sihang Zhou, Xiaoshu Chen, Xirui Liu, Duanyang Yuan, Lingyuan Meng, Quan Liu, Jian Huang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Directly studies on-policy SFT data mixing to preserve capabilities during alignment, a core on-policy distillation contribution.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Redesigns the policy-environment interface for RL search agents with a graph-structured action space and structured credit assignment, directly improving RL training for LLM agents.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.26173" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.27652" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">16. [Translation Failed]</h2><a id="user-content-16-translation-failed" class="anchor" aria-label="Permalink: 16. [Translation Failed]" href="#16-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Yunpeng Chu</p>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Bum Jun Kim, Kohei Hayashi, Shunsuke Kamiya, Masanori Koyama, Yusuke Iwasawa, Yutaka Matsuo</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes a meta-learned reward shaping framework for RLHF that improves alignment and training stability with theoretical guarantees.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a novel latent reasoning architecture (SCSE) for looped transformers that reconciles input conditioning with reference-preserving shared recurrence, directly advancing latent CoT/reasoning.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.26094" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.27656" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">17. [Translation Failed]</h2><a id="user-content-17-translation-failed" class="anchor" aria-label="Permalink: 17. [Translation Failed]" href="#17-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Junoh Park, Junseo Hwang, Wonguk Cho, Taesup Kim</p>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Iliya Mirzaei</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes ReCo, a reweighting method for GRPO that addresses distributional concentration in RL for LLMs, improving reasoning coverage.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Provides a rigorous controlled comparison showing that self-refine/reflexion methods underperform repeated sampling at equal token cost, directly informing RL-for-LLMs and on-policy distillation design.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.26862" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.28576" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">18. [Translation Failed]</h2><a id="user-content-18-translation-failed" class="anchor" aria-label="Permalink: 18. [Translation Failed]" href="#18-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Yan Hong, Wei Li, Kedong Xiu, Jun Lan, Shuheng Zhou, Zhongcai Lyu, Huijia Zhu, Weiqiang Wang, Jianfu Zhang</p>
+<p><strong>作者</strong>: Shuang Liang, Haoyang Zhou, Yifan Gong, Guowei Wang, Xiting Wang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes RoCo-ACE, a rollout-conditioned online distillation objective for knowledge injection that reweights distillation to reference-supported tokens and adds sparse correction, directly advancing on-policy distillation for LLMs.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a latent-guided prompt sampling method for RLVR that balances exploration and exploitation, directly improving RL training efficiency for LLM reasoning.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.24771" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.28077" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">19. [Translation Failed]</h2><a id="user-content-19-translation-failed" class="anchor" aria-label="Permalink: 19. [Translation Failed]" href="#19-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Chenrui Shi, Yuwei Wu, Yang Liu, Ruining Feng, Zirui Shang, Zhi Gao, Lifeng Fan, Che Sun</p>
+<p><strong>作者</strong>: Peiyu Hu, Siying Gu, Weihai Lu, Zhuodong Liu, Yuntian Tang, Jiahao Liang, Yiying Xie, Jiang Rong, Zhaokai Luo, Zhiyong Wang, Jia Wang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes a novel interactive reward agent (IRA) for GUI task evaluation that verifies environment state, and demonstrates its use as a reward signal for RL training of GUI agents, directly matching RL-for-LLMs criteria.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a hierarchical latent reasoning framework with layer-aware process rewards for LLM-based recommendation, directly advancing latent reasoning with a new training objective.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.25904" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.27760" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">20. [Translation Failed]</h2><a id="user-content-20-translation-failed" class="anchor" aria-label="Permalink: 20. [Translation Failed]" href="#20-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Jiaqi Zhang, Tong Chen, Junliang Yu, Quoc Viet Hung Nguyen, Hongzhi Yin</p>
+<p><strong>作者</strong>: Haoqing Wang, Xingrun Xing, Wei Xia, Ziheng Li, Yehui Tang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Introduces Episode-wise GRPO (ESPO), a novel RL fine-tuning framework for personalized agentic reasoning with episode-level rewards and advantage estimation, directly advancing RL-for-LLMs.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a multi-agent self-judging framework with a helpful-tool-ratio reward scaling to improve tool-use faithfulness in VLMs via SFT+RL.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.25369" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.28225" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">21. [Translation Failed]</h2><a id="user-content-21-translation-failed" class="anchor" aria-label="Permalink: 21. [Translation Failed]" href="#21-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Zhiyuan Yao, Yuxin Chen, Zhengxi Lu, Zishan Xu, Yueqing Sun, Yifu Guo, Yuquan Lu, Zhengzhou Cai, Kangning Zhang, Zhuowen Han, Zi-Han Wang, Ziang Ye, Qi Gu, Xunliang Cai, Weiwen Liu, Yongliang Shen</p>
+<p><strong>作者</strong>: Cong Li, Peixi Peng, Yisen Zhao, Xinyu Hu, Shudong Liu, Zhan Su, Zhuojian Li</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes SkillRise, a unified RL framework for cross-task skill evolution in LLM agents via decoupled credit assignment and an evolving skill document, directly matching RL-for-LLMs and on-policy distillation criteria.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Proposes a transition-aware policy optimization framework that adds action-conditioned next-observation prediction supervision to RL for LLM agents, directly improving policy learning with dense environmental feedback.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2607.26784" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2607.27973" rel="nofollow">阅读原文</a></p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">22. [Translation Failed]</h2><a id="user-content-22-translation-failed" class="anchor" aria-label="Permalink: 22. [Translation Failed]" href="#22-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
+<p><strong>作者</strong>: Antyabha Rahman, Akshaj Gurugubelli, Omar Ankit, Kevin Zhu, Aishwarya Balwani</p>
+<p><strong>机构</strong>: Unknown Institution</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Provides mechanistic evidence that RL fine-tuning creates more linearly separable and hierarchical representations than SFT, directly informing RL-for-LLM training design.</p>
+<p><strong>摘要</strong>: [Translation Failed]</p>
+<p><a href="https://arxiv.org/abs/2607.26119" rel="nofollow">阅读原文</a></p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">23. [Translation Failed]</h2><a id="user-content-23-translation-failed" class="anchor" aria-label="Permalink: 23. [Translation Failed]" href="#23-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
+<p><strong>作者</strong>: Efstratios Zaradoukas, Davide Gabrielli, Bardh Prenkaj, Gjergji Kasneci</p>
+<p><strong>机构</strong>: Unknown Institution</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Proposes new reward functions (exponential and PageRank-inspired) for RLVR-based machine unlearning, directly advancing reward design for RL-based LLM post-training.</p>
+<p><strong>摘要</strong>: [Translation Failed]</p>
+<p><a href="https://arxiv.org/abs/2607.27968" rel="nofollow">阅读原文</a></p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">24. [Translation Failed]</h2><a id="user-content-24-translation-failed" class="anchor" aria-label="Permalink: 24. [Translation Failed]" href="#24-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
+<p><strong>作者</strong>: Shreyas Subramanian, Mecit Gungor, Vikram Elango</p>
+<p><strong>机构</strong>: Unknown Institution</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a GRPO-based RL training recipe for a small language model that shows emergent attribution without explicit reward engineering, directly advancing RL-for-LLMs with a novel reward design.</p>
+<p><strong>摘要</strong>: [Translation Failed]</p>
+<p><a href="https://arxiv.org/abs/2607.27506" rel="nofollow">阅读原文</a></p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">25. [Translation Failed]</h2><a id="user-content-25-translation-failed" class="anchor" aria-label="Permalink: 25. [Translation Failed]" href="#25-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
+<p><strong>作者</strong>: Darsha Udayanga, Pin-Yu Chen, Payel Das, Qiang Ji</p>
+<p><strong>机构</strong>: Unknown Institution</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Applies GRPO-based RL to train VLMs to reason about AI edits, using simple accuracy and format rewards, directly advancing RL-for-LLMs with a novel application.</p>
+<p><strong>摘要</strong>: [Translation Failed]</p>
+<p><a href="https://arxiv.org/abs/2607.28464" rel="nofollow">阅读原文</a></p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">26. [Translation Failed]</h2><a id="user-content-26-translation-failed" class="anchor" aria-label="Permalink: 26. [Translation Failed]" href="#26-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
+<p><strong>作者</strong>: Amol Khanna, Manu Nandan, Cristian Viorel Popa, Joan Pujol-Roig, Diana Bolocan, Laura Vasilie, Alexandru Apostu, Chase Helwig, Mihaela Gaman, Michael Brautbar, Edward Raff, Chase Midler, Sven Krasser</p>
+<p><strong>机构</strong>: Unknown Institution</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Directly combines RL with verifiable rewards and self-training for a reasoning-enabled triage classifier, with a novel calibrator for confidence estimation, strongly matching RL-for-LLMs and on-policy distillation criteria.</p>
+<p><strong>摘要</strong>: [Translation Failed]</p>
+<p><a href="https://arxiv.org/abs/2607.28460" rel="nofollow">阅读原文</a></p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">27. [Translation Failed]</h2><a id="user-content-27-translation-failed" class="anchor" aria-label="Permalink: 27. [Translation Failed]" href="#27-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
+<p><strong>作者</strong>: Tiangang Li, Xiangbo Tian</p>
+<p><strong>机构</strong>: Unknown Institution</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Proposes a new reward-guided RL post-training method (HARGO) with confidence-modulated advantage weighting for heterogeneous tasks, directly advancing RL for LLMs.</p>
+<p><strong>摘要</strong>: [Translation Failed]</p>
+<p><a href="https://arxiv.org/abs/2607.28301" rel="nofollow">阅读原文</a></p>
 <hr>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

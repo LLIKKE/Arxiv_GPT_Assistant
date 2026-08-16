@@ -1,31 +1,35 @@
-# Research Interest Criteria
+# Research Interest: Action-Conditioned Generative Video World Models
 
-Please evaluate papers using a strict filter. We only want a small set of strongly aligned papers, not a broad survey of adjacent work.
+Select only papers whose central contribution is a learned visual world model that generates future video frames from visual history and agent/environment actions:
 
-## Global Selection Principle
-- Mark a paper as relevant only if one of the three topics below is a central contribution of the paper, not a side application, benchmark, or discussion point.
-- Be conservative by default: if the connection is indirect, partial, or ambiguous, treat it as not relevant or score it low.
-- Prefer papers that introduce new methods, training frameworks, reward designs, scalable self-improvement loops, or latent reasoning architectures with clear technical substance.
-- Do not favor papers just because they mention "LLM", "agent", "reasoning", "RL", "alignment", or "CoT" in a generic way.
-- Exclude broad foundation model papers, generic post-training papers, generic tool-use agents, application/system papers, domain-specific deployments, and pure benchmark papers unless their core method strongly matches one of the topics below.
+`p(x_{t+1:t+H} | x_{<=t}, a_{t:t+H})`
 
-## 1. Reinforcement Learning (RL) for LLMs
-We care about RL methods that directly improve LLM behavior, alignment, or reasoning through explicit reward design, RL pipelines, verifier-driven optimization, or scalable preference/feedback mechanisms.
-- **Strong match:** RLHF/RLAIF variants, verifiable reward based RL, rejection sampling plus RL pipelines, reward model design, outcome/process reward methods, online RL for LLMs, and methods that materially improve helpfulness, honesty, harmlessness, or hallucination behavior.
-- **Especially valuable:** Papers that propose a new reward function, a new scalable RL training recipe, or a new data-generation / self-improvement loop for post-training LLMs.
-- **Usually not relevant:** Generic reinforcement learning papers, RL for robotics/control/games, prompt optimization without RL, supervised finetuning only, inference-time search without a training contribution, or alignment papers with no substantive RL component.
+The output must be viewable future frames/video (possibly decoded from video tokens or latents), and the action must causally control the generated evolution at inference time.
 
-## 2. Latent CoT/Reasoning
-We care about methods that move reasoning away from verbose explicit text chains into compact latent computation while preserving or improving reasoning quality.
-- **Strong match:** Latent reasoning architectures, hidden-state reasoning, implicit CoT, recurrent depth / recurrent latent computation, pause or thinking tokens for internal computation, explicit-to-latent distillation, and methods that reduce reasoning token cost or KV-cache use while retaining accuracy.
-- **Especially valuable:** New architectures or objectives for latent reasoning, hidden-state alignment/distillation, compression of reasoning traces, or methods that materially improve reasoning efficiency on math and logic tasks.
-- **Usually not relevant:** Standard explicit CoT prompting, generic reasoning finetuning, test-time scaling without latent computation, reasoning benchmarks, or papers whose main contribution is evaluation rather than a latent reasoning mechanism.
+## Required for Selection
 
-## 3. On-Policy Distillation for LLMs
-We care about distillation methods that improve LLM capabilities by training on the model's own on-policy outputs, trajectories, preferences, corrections, or interaction data, especially when the student distribution is actively refreshed during training.
-- **Strong match:** On-policy distillation, self-distillation from sampled rollouts, online teacher-student distillation, policy-improvement distillation, iterative distillation from model-generated reasoning traces, distillation from verifier/reward-selected on-policy samples, and methods that close the gap between training data distribution and the model's current behavior.
-- **Especially valuable:** Papers that propose a new iterative distillation loop, sampling-and-selection strategy, online data refresh mechanism, teacher/student update schedule, or objective that measurably improves reasoning, instruction-following, alignment, tool use, or general LLM capability.
-- **Usually not relevant:** Standard offline knowledge distillation, static SFT on teacher-generated data, model compression only, data cleaning only, speculative decoding/distillation for speed only, or generic synthetic data generation without an on-policy or iterative policy-improvement component.
+A paper must satisfy all of the following:
 
-## Final Preference
-If a paper is merely adjacent to these areas, do not select it. Favor precision over recall. It is better to miss a borderline paper than to include many weakly related ones.
+1. It introduces or materially improves a generative visual dynamics/world model.
+2. It conditions future-frame or future-video generation on explicit actions (e.g., keyboard/controller inputs, robot controls, ego-vehicle controls, or language-specified environment actions), or on learned latent actions designed for frame-by-frame interaction.
+3. It supports sequential action-conditioned rollout, interactive simulation, or closed-loop prediction—not merely one-shot prompt-to-video generation.
+4. Its main technical contribution addresses action controllability, dynamics/physics fidelity, temporal or long-horizon consistency, autoregressive stability, generalization, or real-time generation.
+
+Relevant domains include games, robotics, autonomous driving, and open-domain interactive environments. Diffusion, autoregressive, and token/latent-based approaches are all eligible if they ultimately generate visual observations.
+
+## Strict Exclusions
+
+Do not select:
+
+- Generic text-to-video or image-to-video generation without step-wise action control.
+- Passive video prediction conditioned only on past frames, text, initial conditions, or camera/object trajectories that are not agent/environment actions.
+- Video editing, camera control, animation, human-motion generation, or “action-conditioned” generation where action only means an action class such as running or dancing.
+- Action recognition, action forecasting, inverse dynamics, or models that predict actions from video rather than video from actions.
+- Conventional latent world models that predict only hidden states, rewards, values, or policies and do not generate viewable future observations.
+- Generic model-based RL, planning, control, robot-policy/VLA, or autonomous-driving papers where video generation is not the core contribution.
+- 3D/4D reconstruction, novel-view synthesis, neural rendering, or physics simulators without a learned action-conditioned video generator.
+- Surveys, benchmarks, datasets, evaluations, and system/demo papers without a substantial new modeling or training method.
+
+## Scoring Rule
+
+Be precision-first. A paper should receive `RELEVANCE=true` and `RELEVANCE_SCORE >= 8` only when action-conditioned visual future generation is the paper's primary task and all required conditions are clear from the title or abstract. Give adjacent or ambiguous papers at most 6 and set `RELEVANCE=false`. Prefer missing borderline work over collecting loosely related world-model or video-generation papers.

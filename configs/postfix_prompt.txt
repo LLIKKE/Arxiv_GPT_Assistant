@@ -1,41 +1,97 @@
-# Output Instructions
+# Output Format
 
-You must respond ONLY with a valid JSONL (JSON Lines) format. Do not include any introductory or concluding text, explanations, or markdown formatting (e.g., do not wrap in ```jsonl). 
+Respond ONLY with valid JSONL (one JSON object per paper, one object per line). Do not add prose, headings, markdown fences, or a surrounding JSON array.
 
-Each line of your response must be a single, valid JSON object representing one paper, containing exactly the following keys:
-- "ARXIVID": (string) The ArXiv ID of the paper.
-- "RELEVANCE": (boolean) Set to `true` ONLY if the paper is worth putting on a short daily reading list for the stated research interests. A paper must have a direct central contribution to RL-for-LLMs, latent reasoning, or on-policy distillation for LLM capability improvement, not merely use LLMs, evaluate reasoning, mention RL/distillation, or apply existing methods. If the match is partial, adjacent, generic, application-focused, benchmark-only, or ambiguous, set it to `false`.
-- "RELEVANCE_SCORE": (integer) A score from 0 to 10 evaluating how central and valuable the paper is for the criteria. Be strict and force differentiation. Most papers should be 0-4. Plausibly related papers should be 5-6. Only papers that the reader should probably open and inspect should get 7. Only papers that are clearly worth reading today should get 8 or above. Use the following guide:
-  - 0: Completely irrelevant.
-  - 1-2: Bare keyword overlap or very distant connection.
-  - 3-4: Tangentially related, but not about the target problem itself.
-  - 5: Borderline relevance; the topic is touched but the paper should usually not be selected.
-  - 6: Related in a meaningful way, but not a strong daily-read candidate.
-  - 7: Clearly relevant, but either narrow, incremental, or not central enough to be a top pick.
-  - 8: Strong match; a central contribution directly advances one target topic and is likely worth reading.
-  - 9: Very strong match; highly valuable for the target topic, with a clear methodological contribution.
-  - 10: Must-read paper with unusually strong alignment and likely high impact.
-- "NOVELTY_SCORE": (integer) A score from 0 to 10 evaluating the originality and technical value of the core contribution. The score MUST have strong differentiation. Do not reward routine benchmark additions, engineering systems, dataset releases, simple prompt recipes, or straightforward combinations of known methods. Use the following guide:
-  - 0-3: No meaningful novelty, pure application/evaluation, or routine engineering.
-  - 4: Minor variant of existing methods.
-  - 5: Some novelty, but mostly incremental.
-  - 6: Moderate novelty with at least one nontrivial technical idea.
-  - 7: Good novelty; a clear new method, objective, reward design, architecture, or training loop.
-  - 8: High novelty; technically strong and likely to influence follow-up work.
-  - 9: Extremely high novelty; opens a new direction or substantially changes how the target problem is approached.
-  - 10: Transformative (rare, paradigm-shifting paper).
-- "COMMENT": (string) A concise 1-sentence summary explaining WHY this paper is relevant and highlighting its core contribution. (If RELEVANCE is false, this can be an empty string).
-- "AFFILIATIONS": (string) Based on the abstract, title, or authors, guess or extract the primary institutions/affiliations of the authors (e.g., "Google DeepMind, Stanford University"). If you cannot determine it, output "Unknown Institution".
+Each object must contain exactly these keys:
 
-Additional scoring rules:
-- Use high scores sparingly. A paper should not receive `RELEVANCE_SCORE >= 8` unless it is directly centered on one of the target topics and contributes a concrete method, objective, reward, architecture, distillation loop, or training procedure.
-- If unsure between two scores, choose the lower one.
-- `RELEVANCE=true` should usually imply `RELEVANCE_SCORE >= 8` and `NOVELTY_SCORE >= 7`. Papers below either bar should usually remain `false`.
-- Do not inflate scores for strong overall paper quality if the topic match is weak.
-- For generic LLM, agent, RL, distillation, or reasoning papers that do not match the specific target directions, keep the score low.
-- Prefer selecting fewer papers. If a paper would not be useful in a compact reading list of at most 30 papers, set `RELEVANCE=false` even if it is somewhat related.
-- Penalize survey papers, benchmark papers, leaderboard papers, dataset-only papers, application papers, and system/demo papers unless they introduce a genuinely new method for the target research questions.
+- "ARXIVID": string
+- "RELEVANCE": boolean
+- "RELEVANCE_SCORE": integer from 0 to 10
+- "NOVELTY_SCORE": integer from 0 to 10
+- "COMMENT": string
+- "AFFILIATIONS": string
 
-Example of expected output format:
-{"ARXIVID": "2401.00001", "RELEVANCE_SCORE": 9, "RELEVANCE": true, "NOVELTY_SCORE": 8, "COMMENT": "Introduces a verifier-selected on-policy distillation loop that directly improves LLM reasoning reliability.", "AFFILIATIONS": "Stanford University"}
-{"ARXIVID": "2401.00002", "RELEVANCE_SCORE": 1, "RELEVANCE": false, "NOVELTY_SCORE": 3, "COMMENT": "", "AFFILIATIONS": "Unknown Institution"}
+Use the paper's title and abstract only. Do not infer capabilities, experiments, or novelty that are not stated. Institution prestige, author reputation, model size, dataset size, and claims such as “first” or “state of the art” are not by themselves reasons for a high score.
+
+# Decision Procedure
+
+Evaluate each paper independently; do not select it merely because it is the best paper in the current batch. Start with `RELEVANCE=false` and change it to `true` only after the paper clears every selection gate below. It is valid—and preferred—to select no papers from a batch.
+
+## 1. Core selection gates
+
+For `RELEVANCE=true`, the title or abstract must clearly establish ALL of these facts:
+
+1. The main contribution is a learned generative visual dynamics/world model.
+2. The model generates viewable future frames or video, even if generation occurs through decoded tokens or latents.
+3. Future visual observations are explicitly conditioned on agent/environment actions, or on learned latent actions intended for interactive control.
+4. The method supports sequential action-conditioned rollout, interactive simulation, or closed-loop prediction.
+5. The paper contributes a substantive new modeling or training method, rather than only a dataset, benchmark, evaluation, application, scaling exercise, or demo.
+
+If any fact is missing or ambiguous, keep `RELEVANCE=false`. Do not treat text prompts, action-class labels, camera paths, robot-policy outputs, or generic trajectory conditioning as agent/environment action control unless the abstract explicitly makes that connection.
+
+## 2. Relevance score: topic fit only
+
+Score how directly the paper addresses the target task. Do not include general paper quality or novelty in this score.
+
+- 0: Unrelated.
+- 1: Accidental word overlap only.
+- 2: Mentions video, actions, or world models in an unrelated task.
+- 3: Broadly adjacent, such as generic video generation, robotics, model-based RL, or visual prediction.
+- 4: A visual generator/world model is central, but explicit action-conditioned future generation is absent.
+- 5: Meaningful partial match, but one of visual generation, action conditioning, or interactive rollout is missing.
+- 6: Close to the target, but a core gate is ambiguous, secondary, or only weakly demonstrated.
+- 7: Exact target task with a concrete contribution, but narrow, incremental, application-led, or insufficiently compelling for the short daily list.
+- 8: Strong direct match; all five gates are explicit and the target task is the paper's primary contribution.
+- 9: Exceptional fit; in addition to satisfying score 8, the method substantially advances a central limitation such as action fidelity, long-horizon stability, generalization, or real-time closed-loop generation.
+- 10: Near-perfect, field-defining fit with unusually broad importance. This should be almost never used from an abstract alone.
+
+Relevance hard caps:
+
+- No explicit agent/environment action input: at most 4.
+- Does not generate viewable future observations: at most 4.
+- No sequential, interactive, or closed-loop rollout: at most 6.
+- Video generation/world modeling is only an auxiliary component or downstream application: at most 6.
+- Survey, benchmark, dataset, evaluation, or demo without a new core model: at most 5.
+
+## 3. Novelty score: technical originality only
+
+Judge novelty independently from topic fit. A perfect topic match can still have low novelty. Begin from 3, then move upward only for concrete technical evidence stated in the abstract.
+
+- 0-2: No original technical method; survey, replication, analysis, evaluation, or dataset/benchmark-only work.
+- 3: Routine engineering or application of an existing method.
+- 4: Straightforward domain transfer, scaling, fine-tuning, or recombination of standard components.
+- 5: A meaningful but incremental modification with limited technical depth.
+- 6: One clearly described, nontrivial technical idea, but the advance is localized or evidence is limited.
+- 7: A genuinely new central mechanism, objective, architecture, or training strategy with credible evidence that it solves a target-specific problem.
+- 8: High originality supported by strong evidence: multiple substantive innovations or one clear conceptual leap with convincing comparisons/ablations.
+- 9: Direction-setting contribution that introduces a new formulation or capability and demonstrates broad, decisive gains. Extremely rare.
+- 10: Transformative, paradigm-changing contribution. Do not assign 10 based only on promotional abstract claims.
+
+Novelty hard caps:
+
+- Main contribution is more/larger data, a larger model, faster engineering, open sourcing, or a new benchmark: at most 4.
+- Fine-tunes or adapts an existing video generator to a new domain/action interface without a clearly new method: at most 5.
+- Describes only a combination of known components, without explaining a new mechanism or objective: at most 5.
+- Claims a new module/loss but gives no clear reason or evidence that it changes the target capability: at most 6.
+- Abstract is too vague to identify the technical innovation: at most 6.
+- “First,” “SOTA,” visual quality, parameter count, data scale, and institution prestige add zero novelty points by themselves.
+
+## 4. Final selection rule
+
+Set `RELEVANCE=true` if and only if:
+
+- every core selection gate is explicitly satisfied,
+- `RELEVANCE_SCORE >= 8`, and
+- `NOVELTY_SCORE >= 7`.
+
+Otherwise set `RELEVANCE=false`. When uncertain between two scores, always use the lower score. Most candidate papers should score below the selection thresholds; scores of 9 should be rare, and scores of 10 should be virtually absent.
+
+For a selected paper, `COMMENT` must be one concise sentence naming both the action-conditioned visual-generation contribution and the concrete technical innovation. For a rejected paper, set `COMMENT` to an empty string.
+
+For `AFFILIATIONS`, extract or cautiously infer the main institutions from the supplied metadata; if unavailable, use "Unknown Institution". Affiliations must not affect either score.
+
+# Output Examples
+
+{"ARXIVID":"2401.00001","RELEVANCE":true,"RELEVANCE_SCORE":8,"NOVELTY_SCORE":7,"COMMENT":"Introduces a new action-injection and causal rollout mechanism for stable, interactive future-frame generation.","AFFILIATIONS":"Example University"}
+{"ARXIVID":"2401.00002","RELEVANCE":false,"RELEVANCE_SCORE":7,"NOVELTY_SCORE":5,"COMMENT":"","AFFILIATIONS":"Example Lab"}
+{"ARXIVID":"2401.00003","RELEVANCE":false,"RELEVANCE_SCORE":4,"NOVELTY_SCORE":6,"COMMENT":"","AFFILIATIONS":"Unknown Institution"}

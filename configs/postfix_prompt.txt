@@ -11,87 +11,85 @@ Each object must contain exactly these keys:
 - "COMMENT": string
 - "AFFILIATIONS": string
 
-Use the paper's title and abstract only. Do not infer capabilities, experiments, or novelty that are not stated. Institution prestige, author reputation, model size, dataset size, and claims such as “first” or “state of the art” are not by themselves reasons for a high score.
+Use only the supplied title, abstract, and metadata. Do not infer capabilities, experiments, or novelty that are not stated. Institution prestige, author reputation, model size, dataset size, and promotional claims are not reasons for a high score.
 
 # Decision Procedure
 
-Evaluate each paper independently; do not select it merely because it is the best paper in the current batch. Start with `RELEVANCE=false` and change it to `true` only after the paper clears every selection gate below. It is valid—and preferred—to select no papers from a batch.
+Evaluate each paper independently against the research criteria above. The World Models track and Better Video Generation track are alternative routes to selection: a paper only needs to strongly satisfy one. In particular, do not require action conditioning, interactive rollout, or viewable frame prediction from a world-model paper, and do not require a video-generation paper to call itself a world model.
 
 ## 1. Core selection gates
 
-For `RELEVANCE=true`, the title or abstract must clearly establish ALL of these facts:
+For `RELEVANCE=true`, the title or abstract must clearly establish ALL of the following:
 
-1. The main contribution is a learned generative visual dynamics/world model.
-2. The model generates viewable future frames or video, even if generation occurs through decoded tokens or latents.
-3. Future visual observations are explicitly conditioned on agent/environment actions, or on learned latent actions intended for interactive control.
-4. The method supports sequential action-conditioned rollout, interactive simulation, or closed-loop prediction.
-5. The paper contributes a substantive new modeling or training method, rather than only a dataset, benchmark, evaluation, application, scaling exercise, or demo.
+1. The paper strongly fits at least one of the two research tracks.
+2. World modeling, learned dynamics, or video generation is a central contribution rather than incidental terminology or a minor downstream component.
+3. It contributes a substantive new modeling/training/inference method, or a genuinely important empirical or conceptual insight with clear implications for world models or video generation.
+4. The abstract provides enough concrete information to identify that contribution.
 
-If any fact is missing or ambiguous, keep `RELEVANCE=false`. Do not treat text prompts, action-class labels, camera paths, robot-policy outputs, or generic trajectory conditioning as agent/environment action control unless the abstract explicitly makes that connection.
+Reject work that falls under the exclusions in the research criteria. A dataset, benchmark, evaluation, system, or scaling paper can pass only when it also provides a substantial reusable method or unusually important insight—not merely new data, metrics, size, or engineering.
 
 ## 2. Relevance score: topic fit only
 
-Score how directly the paper addresses the target task. Do not include general paper quality or novelty in this score.
+Score how directly and substantially the paper addresses either target track. Do not include general quality or novelty in this score.
 
 - 0: Unrelated.
-- 1: Accidental word overlap only.
-- 2: Mentions video, actions, or world models in an unrelated task.
-- 3: Broadly adjacent, such as generic video generation, robotics, model-based RL, or visual prediction.
-- 4: A visual generator/world model is central, but explicit action-conditioned future generation is absent.
-- 5: Meaningful partial match, but one of visual generation, action conditioning, or interactive rollout is missing.
-- 6: Close to the target, but a core gate is ambiguous, secondary, or only weakly demonstrated.
-- 7: Exact target task with a concrete contribution, but narrow, incremental, application-led, or insufficiently compelling for the short daily list.
-- 8: Strong direct match; all five gates are explicit and the target task is the paper's primary contribution.
-- 9: Exceptional fit; in addition to satisfying score 8, the method substantially advances a central limitation such as action fidelity, long-horizon stability, generalization, or real-time closed-loop generation.
-- 10: Near-perfect, field-defining fit with unusually broad importance. This should be almost never used from an abstract alone.
+- 1-2: Accidental terminology overlap.
+- 3: Broadly adjacent work in vision, robotics, RL, or generative modeling.
+- 4: Uses video/world models only as an auxiliary component, or addresses a weakly related task.
+- 5: Some transferable relevance, but the main task is outside both tracks.
+- 6: Meaningfully related but indirect, narrow, application-specific, or mostly incremental.
+- 7: Strongly related and worth noticing, but the central contribution or evidence is not quite sufficient for the curated list.
+- 8: Clear, substantial contribution to one target track.
+- 9: Exceptional fit that advances a central limitation with broad implications.
+- 10: Near-perfect, field-shaping fit; extremely rare from an abstract alone.
 
-Relevance hard caps:
+Relevance guidance:
 
-- No explicit agent/environment action input: at most 4.
-- Does not generate viewable future observations: at most 4.
-- No sequential, interactive, or closed-loop rollout: at most 6.
-- Video generation/world modeling is only an auxiliary component or downstream application: at most 6.
-- Survey, benchmark, dataset, evaluation, or demo without a new core model: at most 5.
+- Action-conditioned visual world models and interactive environment generators usually merit 8+ when they introduce a concrete method.
+- Learned world/dynamics models without visual output may merit 8+ if they contribute a clear, broadly useful insight about dynamics, representations, causality, memory, uncertainty, or planning.
+- Text-to-video, image-to-video, and video prediction may merit 8+ when the method directly improves quality, motion, consistency, physics, control, long-horizon generation, efficiency, or training.
+- Narrow editing, avatar, animation, human-motion, or domain-transfer papers are normally capped at 7 unless the abstract states a broadly reusable video-generation innovation.
+- Pure datasets, benchmarks, surveys, evaluations, demos, and off-the-shelf applications are normally capped at 6.
+- Generic image-generation or non-generative video-understanding work is capped at 5.
 
-## 3. Novelty score: technical originality only
+## 3. Novelty score: technical or conceptual originality
 
-Judge novelty independently from topic fit. A perfect topic match can still have low novelty. Begin from 3, then move upward only for concrete technical evidence stated in the abstract.
+Judge novelty independently from topic fit. Begin from 3 and move upward only for concrete evidence in the abstract.
 
-- 0-2: No original technical method; survey, replication, analysis, evaluation, or dataset/benchmark-only work.
+- 0-2: No original method or insight; survey, replication, analysis, or benchmark-only work.
 - 3: Routine engineering or application of an existing method.
-- 4: Straightforward domain transfer, scaling, fine-tuning, or recombination of standard components.
-- 5: A meaningful but incremental modification with limited technical depth.
-- 6: One clearly described, nontrivial technical idea, but the advance is localized or evidence is limited.
-- 7: A genuinely new central mechanism, objective, architecture, or training strategy with credible evidence that it solves a target-specific problem.
-- 8: High originality supported by strong evidence: multiple substantive innovations or one clear conceptual leap with convincing comparisons/ablations.
-- 9: Direction-setting contribution that introduces a new formulation or capability and demonstrates broad, decisive gains. Extremely rare.
-- 10: Transformative, paradigm-changing contribution. Do not assign 10 based only on promotional abstract claims.
+- 4: Straightforward domain transfer, scaling, fine-tuning, or recombination.
+- 5: Meaningful but incremental modification.
+- 6: One clearly described, nontrivial technical or conceptual idea.
+- 7: A genuinely new central mechanism, objective, representation, training strategy, or well-supported insight.
+- 8: High originality with multiple substantive innovations or a convincing conceptual leap.
+- 9: Direction-setting new formulation or capability with broad, decisive evidence; extremely rare.
+- 10: Transformative, paradigm-changing contribution; virtually never assign from promotional claims alone.
 
 Novelty hard caps:
 
-- Main contribution is more/larger data, a larger model, faster engineering, open sourcing, or a new benchmark: at most 4.
-- Fine-tunes or adapts an existing video generator to a new domain/action interface without a clearly new method: at most 5.
-- Describes only a combination of known components, without explaining a new mechanism or objective: at most 5.
-- Claims a new module/loss but gives no clear reason or evidence that it changes the target capability: at most 6.
-- Abstract is too vague to identify the technical innovation: at most 6.
-- “First,” “SOTA,” visual quality, parameter count, data scale, and institution prestige add zero novelty points by themselves.
+- More/larger data, a larger model, faster engineering, open sourcing, or a new benchmark by itself: at most 4.
+- Fine-tuning an existing generator for a new domain or control interface without a clearly new method: at most 5.
+- Combining known components without explaining a new mechanism or insight: at most 5.
+- A vaguely described new module/loss with little supporting evidence: at most 6.
+- "First," "SOTA," visual quality, parameter count, data scale, and institution prestige add no novelty by themselves.
 
 ## 4. Final selection rule
 
 Set `RELEVANCE=true` if and only if:
 
-- every core selection gate is explicitly satisfied,
+- all four core gates are explicitly satisfied,
 - `RELEVANCE_SCORE >= 8`, and
 - `NOVELTY_SCORE >= 7`.
 
-Otherwise set `RELEVANCE=false`. When uncertain between two scores, always use the lower score. Most candidate papers should score below the selection thresholds; scores of 9 should be rare, and scores of 10 should be virtually absent.
+Otherwise set `RELEVANCE=false`. When uncertain between two scores, use the lower score. Scores of 9 should be rare and scores of 10 exceptional.
 
-For a selected paper, `COMMENT` must be one concise sentence naming both the action-conditioned visual-generation contribution and the concrete technical innovation. For a rejected paper, set `COMMENT` to an empty string.
+For a selected paper, `COMMENT` must be one concise sentence naming the relevant world-model insight or video-generation improvement and its concrete innovation. For a rejected paper, set `COMMENT` to an empty string.
 
-For `AFFILIATIONS`, extract or cautiously infer the main institutions from the supplied metadata; if unavailable, use "Unknown Institution". Affiliations must not affect either score.
+For `AFFILIATIONS`, extract or cautiously infer the main institutions from supplied metadata; if unavailable, use "Unknown Institution". Affiliations must not affect either score.
 
 # Output Examples
 
-{"ARXIVID":"2401.00001","RELEVANCE":true,"RELEVANCE_SCORE":8,"NOVELTY_SCORE":7,"COMMENT":"Introduces a new action-injection and causal rollout mechanism for stable, interactive future-frame generation.","AFFILIATIONS":"Example University"}
-{"ARXIVID":"2401.00002","RELEVANCE":false,"RELEVANCE_SCORE":7,"NOVELTY_SCORE":5,"COMMENT":"","AFFILIATIONS":"Example Lab"}
-{"ARXIVID":"2401.00003","RELEVANCE":false,"RELEVANCE_SCORE":4,"NOVELTY_SCORE":6,"COMMENT":"","AFFILIATIONS":"Unknown Institution"}
+{"ARXIVID":"2401.00001","RELEVANCE":true,"RELEVANCE_SCORE":8,"NOVELTY_SCORE":7,"COMMENT":"Introduces a causal dynamics representation that improves long-horizon world-model rollouts under changing environments.","AFFILIATIONS":"Example University"}
+{"ARXIVID":"2401.00002","RELEVANCE":true,"RELEVANCE_SCORE":8,"NOVELTY_SCORE":7,"COMMENT":"Improves long-video motion and identity consistency through a new hierarchical temporal attention and training objective.","AFFILIATIONS":"Example Lab"}
+{"ARXIVID":"2401.00003","RELEVANCE":false,"RELEVANCE_SCORE":6,"NOVELTY_SCORE":5,"COMMENT":"","AFFILIATIONS":"Unknown Institution"}

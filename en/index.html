@@ -12,7 +12,7 @@
   }
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
-})();</script><div><div class="markdown-heading"><h1 class="heading-element">📚 Personalized Daily Arxiv Papers - August 22, 2026</h1><a id="user-content--personalized-daily-arxiv-papers---august-22-2026" class="anchor" aria-label="Permalink: 📚 Personalized Daily Arxiv Papers - August 22, 2026" href="#-personalized-daily-arxiv-papers---august-22-2026"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+})();</script><div><div class="markdown-heading"><h1 class="heading-element">📚 Personalized Daily Arxiv Papers - August 25, 2026</h1><a id="user-content--personalized-daily-arxiv-papers---august-25-2026" class="anchor" aria-label="Permalink: 📚 Personalized Daily Arxiv Papers - August 25, 2026" href="#-personalized-daily-arxiv-papers---august-25-2026"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>Total relevant papers:</strong> 0</p>
 <div class="markdown-heading"><h2 class="heading-element">💡 Daily Research Summary</h2><a id="user-content--daily-research-summary" class="anchor" aria-label="Permalink: 💡 Daily Research Summary" href="#-daily-research-summary"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div>
@@ -23,32 +23,53 @@ No relevant papers found today.
 <div class="markdown-heading"><h2 class="heading-element">📝 Detailed Papers</h2><a id="user-content--detailed-papers" class="anchor" aria-label="Permalink: 📝 Detailed Papers" href="#-detailed-papers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <hr>
 <details><summary>Click to view Paper Selection Criteria</summary>
-<div class="markdown-heading"><h1 class="heading-element">Research Interest: Action-Conditioned Generative Video World Models</h1><a id="user-content-research-interest-action-conditioned-generative-video-world-models" class="anchor" aria-label="Permalink: Research Interest: Action-Conditioned Generative Video World Models" href="#research-interest-action-conditioned-generative-video-world-models"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Select only papers whose central contribution is a learned visual world model that generates future video frames from visual history and agent/environment actions:</p>
-<p><code>p(x_{t+1:t+H} | x_{&lt;=t}, a_{t:t+H})</code></p>
-<p>The output must be viewable future frames/video (possibly decoded from video tokens or latents), and the action must causally control the generated evolution at inference time.</p>
-<div class="markdown-heading"><h2 class="heading-element">Required for Selection</h2><a id="user-content-required-for-selection" class="anchor" aria-label="Permalink: Required for Selection" href="#required-for-selection"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>A paper must satisfy all of the following:</p>
-<ol>
-<li>It introduces or materially improves a generative visual dynamics/world model.</li>
-<li>It conditions future-frame or future-video generation on explicit actions (e.g., keyboard/controller inputs, robot controls, ego-vehicle controls, or language-specified environment actions), or on learned latent actions designed for frame-by-frame interaction.</li>
-<li>It supports sequential action-conditioned rollout, interactive simulation, or closed-loop prediction—not merely one-shot prompt-to-video generation.</li>
-<li>Its main technical contribution addresses action controllability, dynamics/physics fidelity, temporal or long-horizon consistency, autoregressive stability, generalization, or real-time generation.</li>
-</ol>
-<p>Relevant domains include games, robotics, autonomous driving, and open-domain interactive environments. Diffusion, autoregressive, and token/latent-based approaches are all eligible if they ultimately generate visual observations.</p>
-<div class="markdown-heading"><h2 class="heading-element">Strict Exclusions</h2><a id="user-content-strict-exclusions" class="anchor" aria-label="Permalink: Strict Exclusions" href="#strict-exclusions"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Do not select:</p>
+<div class="markdown-heading"><h1 class="heading-element">Research Interest: World Models and Better Video Generation</h1><a id="user-content-research-interest-world-models-and-better-video-generation" class="anchor" aria-label="Permalink: Research Interest: World Models and Better Video Generation" href="#research-interest-world-models-and-better-video-generation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Curate papers that provide useful insight into learned world models OR introduce methods that can materially improve video generation. A paper does not need to be action-conditioned, interactive, or explicitly branded as a "world model" if its contribution clearly advances one of the two tracks below.</p>
+<div class="markdown-heading"><h2 class="heading-element">Track A: World Models and Visual Dynamics</h2><a id="user-content-track-a-world-models-and-visual-dynamics" class="anchor" aria-label="Permalink: Track A: World Models and Visual Dynamics" href="#track-a-world-models-and-visual-dynamics"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Select substantive work on learned models of how environments evolve, especially when it contributes insight or techniques for:</p>
 <ul>
-<li>Generic text-to-video or image-to-video generation without step-wise action control.</li>
-<li>Passive video prediction conditioned only on past frames, text, initial conditions, or camera/object trajectories that are not agent/environment actions.</li>
-<li>Video editing, camera control, animation, human-motion generation, or “action-conditioned” generation where action only means an action class such as running or dancing.</li>
-<li>Action recognition, action forecasting, inverse dynamics, or models that predict actions from video rather than video from actions.</li>
-<li>Conventional latent world models that predict only hidden states, rewards, values, or policies and do not generate viewable future observations.</li>
-<li>Generic model-based RL, planning, control, robot-policy/VLA, or autonomous-driving papers where video generation is not the core contribution.</li>
-<li>3D/4D reconstruction, novel-view synthesis, neural rendering, or physics simulators without a learned action-conditioned video generator.</li>
-<li>Surveys, benchmarks, datasets, evaluations, and system/demo papers without a substantial new modeling or training method.</li>
+<li>visual/video world models, future prediction, or generative environment simulation;</li>
+<li>action-conditioned, controllable, interactive, or closed-loop rollout;</li>
+<li>physical, causal, spatial, temporal, or object-centric representations of dynamics;</li>
+<li>long-horizon prediction, memory, state abstraction, uncertainty, generalization, planning, or embodied/robotic understanding;</li>
+<li>learning world models from video, multimodal observations, latent actions, or weak supervision.</li>
 </ul>
-<div class="markdown-heading"><h2 class="heading-element">Scoring Rule</h2><a id="user-content-scoring-rule" class="anchor" aria-label="Permalink: Scoring Rule" href="#scoring-rule"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Be precision-first. A paper should receive <code>RELEVANCE=true</code> and <code>RELEVANCE_SCORE &gt;= 8</code> only when action-conditioned visual future generation is the paper's primary task and all required conditions are clear from the title or abstract. Give adjacent or ambiguous papers at most 6 and set <code>RELEVANCE=false</code>. Prefer missing borderline work over collecting loosely related world-model or video-generation papers.</p>
+<p>Viewable future frames are strongly preferred but are not mandatory when the paper offers a clear, broadly useful world-model insight. A latent-state world model is eligible when modeling dynamics is the central technical contribution, rather than merely a standard component inside an RL or policy pipeline.</p>
+<div class="markdown-heading"><h2 class="heading-element">Track B: Methods That Improve Video Generation</h2><a id="user-content-track-b-methods-that-improve-video-generation" class="anchor" aria-label="Permalink: Track B: Methods That Improve Video Generation" href="#track-b-methods-that-improve-video-generation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Select papers whose main technical contribution plausibly improves generated video in at least one important dimension:</p>
+<ul>
+<li>visual quality, motion quality, temporal consistency, identity/object persistence, or long-video coherence;</li>
+<li>physical plausibility, causal consistency, compositional generalization, or dynamic scene understanding;</li>
+<li>controllability through text, images, trajectories, cameras, actions, layouts, depth, or other meaningful conditions;</li>
+<li>architectures, objectives, representations, tokenizers, diffusion/flow/autoregressive formulations, training strategies, inference methods, or data-curation methods designed for video generation;</li>
+<li>generation efficiency, memory efficiency, real-time capability, or scaling methods with a concrete video-specific idea;</li>
+<li>unified video understanding and generation when the generative capability is a substantial part of the contribution.</li>
+</ul>
+<p>Text-to-video, image-to-video, video prediction, and action-conditioned generation are all eligible. Prefer methods with insights transferable beyond a single narrow application or visual style.</p>
+<div class="markdown-heading"><h2 class="heading-element">Exclusions</h2><a id="user-content-exclusions" class="anchor" aria-label="Permalink: Exclusions" href="#exclusions"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Do not select papers that are primarily:</p>
+<ul>
+<li>video editing, restoration, compression, retrieval, captioning, recognition, tracking, segmentation, or understanding without a substantive generative/dynamics contribution;</li>
+<li>human-motion, talking-head, avatar, or animation systems whose contribution is narrowly application-specific and offers no broadly useful video-generation insight;</li>
+<li>3D/4D reconstruction, novel-view synthesis, or neural rendering without a meaningful temporal generative-model contribution;</li>
+<li>robot policies, VLA models, model-based RL, or autonomous-driving systems that only use an off-the-shelf world/video model as an auxiliary component;</li>
+<li>datasets, benchmarks, surveys, evaluations, demos, or scaling reports without a substantive new method or a genuinely important empirical/conceptual insight;</li>
+<li>generic image generation methods with no explicit video, temporal, dynamics, or world-model relevance.</li>
+</ul>
+<div class="markdown-heading"><h2 class="heading-element">Scoring Guidance</h2><a id="user-content-scoring-guidance" class="anchor" aria-label="Permalink: Scoring Guidance" href="#scoring-guidance"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Treat the two tracks as alternatives, not requirements that must both be satisfied.</p>
+<ul>
+<li>
+<code>8</code>: clear and substantial contribution to either world modeling/visual dynamics or video-generation quality, consistency, control, efficiency, or training.</li>
+<li>
+<code>9</code>: unusually strong contribution that addresses a central limitation and has broad implications for world models or video generation.</li>
+<li>
+<code>10</code>: rare, potentially field-shaping work.</li>
+<li>
+<code>6-7</code>: meaningfully adjacent or useful, but indirect, narrow, incremental, or insufficiently supported by the abstract.</li>
+<li>
+<code>0-5</code>: weak overlap, auxiliary use, or largely outside the interests above.</li>
+</ul>
+<p>Set <code>RELEVANCE=true</code> for papers scoring at least 8 that contain a concrete technical contribution or a genuinely important world-model insight. Do not require explicit action conditioning, interactive rollout, or visible frame prediction. When evidence is ambiguous, prefer a score of 7 over rejecting potentially relevant work at the title-filtering stage; the abstract-level review should make the final decision.</p>
 </details>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

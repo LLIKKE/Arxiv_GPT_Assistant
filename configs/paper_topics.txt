@@ -27,9 +27,9 @@ Select papers whose main technical contribution plausibly improves generated vid
 
 Text-to-video, image-to-video, video prediction, and action-conditioned generation are all eligible. Prefer methods with insights transferable beyond a single narrow application or visual style.
 
-## Exclusions
+## Low-priority cases
 
-Do not select papers that are primarily:
+The following cases are usually lower priority, but do not reject them automatically. Include them when they have a meaningful connection to learned dynamics or video generation; assign a low relevance score only when that connection is absent:
 
 - video editing, restoration, compression, retrieval, captioning, recognition, tracking, segmentation, or understanding without a substantive generative/dynamics contribution;
 - human-motion, talking-head, avatar, or animation systems whose contribution is narrowly application-specific and offers no broadly useful video-generation insight;
@@ -48,4 +48,4 @@ Treat the two tracks as alternatives, not requirements that must both be satisfi
 - `6-7`: meaningfully adjacent or useful, but indirect, narrow, incremental, or insufficiently supported by the abstract.
 - `0-5`: weak overlap, auxiliary use, or largely outside the interests above.
 
-Set `RELEVANCE=true` for papers scoring at least 8 that contain a concrete technical contribution or a genuinely important world-model insight. Do not require explicit action conditioning, interactive rollout, or visible frame prediction. When evidence is ambiguous, prefer a score of 7 over rejecting potentially relevant work at the title-filtering stage; the abstract-level review should make the final decision.
+Set `RELEVANCE=true` for papers scoring at least 5 that have a clear or plausible connection to either track. Relevance is the only hard selection requirement. Do not require explicit action conditioning, interactive rollout, visible frame prediction, a novel method, or a field-defining contribution. When evidence is incomplete but the title or abstract suggests a connection, include the paper with a cautious score of 5. Only reject papers that are clearly unrelated. Use `NOVELTY_SCORE` only to help order the included papers, not to reject them.

@@ -243,8 +243,6 @@ def filter_by_gpt(
                     if not arxiv_id or arxiv_id not in all_papers:
                         continue
                         
-                    # Also keep RELEVANCE boolean check just in case, but rely primarily on score
-                    is_relevant = bool(jdict.get("RELEVANCE", False))
                     try:
                         score = int(jdict.get("RELEVANCE_SCORE", 0))
                     except ValueError:
@@ -255,10 +253,13 @@ def filter_by_gpt(
                     except ValueError:
                         novelty = 0
                     
-                    threshold = config["FILTERING"].getint("relevance_score_threshold", fallback=6)
-                    novelty_threshold = config["FILTERING"].getint("novelty_score_threshold", fallback=5)
+                    threshold = config["FILTERING"].getint("relevance_score_threshold", fallback=5)
+                    novelty_threshold = config["FILTERING"].getint("novelty_score_threshold", fallback=0)
                     
-                    if is_relevant and score >= threshold and novelty >= novelty_threshold:
+                    # Scores are the primary decision signal. Models may return
+                    # RELEVANCE=false conservatively even when their numeric
+                    # scores meet the configured thresholds.
+                    if score >= threshold and novelty >= novelty_threshold:
                         selected_papers[arxiv_id] = {
                             **dataclasses.asdict(all_papers[arxiv_id]),
                             **jdict,
@@ -283,6 +284,48 @@ def filter_by_gpt(
             key=get_sort_key, 
             reverse=True
         )
+
+        # High-recall safeguard: a conservative model can mark every paper as
+        # false even when several are plausible matches. Keep a small set of
+        # sufficiently scored candidates in that case so a temporary scoring
+        # shift does not produce an empty daily feed. This never overrides a
+        # non-empty normal selection.
+        if not sorted_papers and scored_batches:
+            fallback_min_relevance = config["FILTERING"].getint(
+                "fallback_min_relevance_score", fallback=5
+            )
+            fallback_min_novelty = config["FILTERING"].getint(
+                "fallback_min_novelty_score", fallback=0
+            )
+            fallback_count = config["FILTERING"].getint(
+                "fallback_paper_count", fallback=5
+            )
+            fallback_candidates = []
+            seen_ids = set()
+            for batch in scored_batches:
+                for paper in batch:
+                    paper_id = paper.get("arxiv_id") or paper.get("ARXIVID")
+                    if not paper_id or paper_id in seen_ids:
+                        continue
+                    seen_ids.add(paper_id)
+                    try:
+                        relevance = int(paper.get("RELEVANCE_SCORE", 0))
+                        novelty = int(paper.get("NOVELTY_SCORE", 0))
+                    except (TypeError, ValueError):
+                        continue
+                    if relevance >= fallback_min_relevance and novelty >= fallback_min_novelty:
+                        fallback_candidates.append((paper_id, paper))
+
+            fallback_candidates.sort(key=get_sort_key, reverse=True)
+            sorted_papers = [
+                (paper_id, {**paper, "SELECTION_FALLBACK": True})
+                for paper_id, paper in fallback_candidates[:fallback_count]
+            ]
+            if sorted_papers:
+                logging.warning(
+                    "Normal filtering returned no papers; keeping %d plausible fallback candidates.",
+                    len(sorted_papers),
+                )
         
         # Clear and repopulate with only the top K
         selected_papers.clear()

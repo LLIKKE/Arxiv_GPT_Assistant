@@ -15,16 +15,17 @@ Use only the supplied title, abstract, and metadata. Do not infer capabilities, 
 
 # Decision Procedure
 
-Evaluate each paper independently against the research criteria above. The World Models track and Better Video Generation track are alternative routes to selection: a paper only needs to strongly satisfy one. In particular, do not require action conditioning, interactive rollout, or viewable frame prediction from a world-model paper, and do not require a video-generation paper to call itself a world model.
+This is a broad high-recall daily discovery feed, not an exclusive best-paper award list. When in doubt, keep a plausibly relevant paper and use a conservative score. Relevance is the only hard selection requirement; novelty and contribution strength are descriptive signals for ranking, not rejection gates.
+
+Evaluate each paper independently against the research criteria above. The World Models track and Better Video Generation track are alternative routes to selection: a paper only needs to plausibly satisfy one. In particular, do not require action conditioning, interactive rollout, or viewable frame prediction from a world-model paper, and do not require a video-generation paper to call itself a world model.
 
 ## 1. Core selection gates
 
-For `RELEVANCE=true`, the title or abstract must clearly establish ALL of the following:
+For `RELEVANCE=true`, the title or abstract should indicate the following as far as the supplied evidence allows:
 
-1. The paper strongly fits at least one of the two research tracks.
-2. World modeling, learned dynamics, or video generation is a central contribution rather than incidental terminology or a minor downstream component.
-3. It contributes a substantive new modeling/training/inference method, or a genuinely important empirical or conceptual insight with clear implications for world models or video generation.
-4. The abstract provides enough concrete information to identify that contribution.
+1. The paper plausibly fits at least one of the two research tracks.
+2. World modeling, learned dynamics, or video generation has a meaningful connection to the work; it need not be the sole or central contribution.
+3. The abstract provides enough information for a cautious relevance judgment; missing novelty or technical detail is not by itself a reason to reject a plausibly relevant paper.
 
 Reject work that falls under the exclusions in the research criteria. A dataset, benchmark, evaluation, system, or scaling paper can pass only when it also provides a substantial reusable method or unusually important insight—not merely new data, metrics, size, or engineering.
 
@@ -37,7 +38,7 @@ Score how directly and substantially the paper addresses either target track. Do
 - 3: Broadly adjacent work in vision, robotics, RL, or generative modeling.
 - 4: Uses video/world models only as an auxiliary component, or addresses a weakly related task.
 - 5: Some transferable relevance, but the main task is outside both tracks.
-- 6: Meaningfully related but indirect, narrow, application-specific, or mostly incremental.
+- 6: Plausibly and usefully related, including indirect, narrow, application-specific, or incremental work.
 - 7: Strongly related and worth noticing, but the central contribution or evidence is not quite sufficient for the curated list.
 - 8: Clear, substantial contribution to one target track.
 - 9: Exceptional fit that advances a central limitation with broad implications.
@@ -76,13 +77,12 @@ Novelty hard caps:
 
 ## 4. Final selection rule
 
-Set `RELEVANCE=true` if and only if:
+Set `RELEVANCE=true` when:
 
-- all four core gates are explicitly satisfied,
-- `RELEVANCE_SCORE >= 8`, and
-- `NOVELTY_SCORE >= 7`.
+- the paper is not clearly unrelated,
+- `RELEVANCE_SCORE >= 5`.
 
-Otherwise set `RELEVANCE=false`. When uncertain between two scores, use the lower score. Scores of 9 should be rare and scores of 10 exceptional.
+Otherwise set `RELEVANCE=false`. When uncertain between two scores, use 5 for a plausibly related paper rather than rejecting it. Novelty scores may be low for included papers. Scores of 9 should be uncommon and scores of 10 exceptional.
 
 For a selected paper, `COMMENT` must be one concise sentence naming the relevant world-model insight or video-generation improvement and its concrete innovation. For a rejected paper, set `COMMENT` to an empty string.
 

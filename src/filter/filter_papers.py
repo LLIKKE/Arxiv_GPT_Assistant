@@ -134,10 +134,10 @@ def filter_papers_by_title(
     Uses LLM to filter out obviously irrelevant papers based purely on their titles.
     """
     filter_postfix = (
-        'Identify any papers that are absolutely and completely irrelevant to the criteria, '
+        'This is only a cheap title pre-filter. Identify papers that are clearly and completely unrelated to the criteria, '
         'formatted as a list of arxiv ids like ["ID1", "ID2", "ID3"..]. '
-        'Be extremely cautious, and if you are unsure at all, do not add a paper in this list. '
-        'You will check it in detail later.\n Directly respond with the list, do not add ANY extra text before or after the list.'
+        'Be extremely conservative: if a title is ambiguous, broad, lacks detail, or has any plausible connection to video, temporal modeling, dynamics, simulation, world models, or generative modeling, KEEP it. Do not apply novelty, central-contribution, application, or abstract-level exclusion rules here. You will check retained papers in detail later. '
+        'Directly respond with the list, do not add ANY extra text before or after the list.'
     )
     batches_of_papers = batched(papers, 1)
     final_list = []

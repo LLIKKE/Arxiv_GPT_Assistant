@@ -1,0 +1,324 @@
+{
+    "summary_en": "### World Models & Latent Dynamics\n\nToday's contributions converge on a maturing understanding of what makes latent world models *work*—and where they silently fail. The most striking result is ARC-Bench, which demonstrates that latent-distance action ranking in frozen JEPA world models is structurally broken, with closed-loop replanning merely masking the defect; this is a cautionary finding that should prompt the community to audit action-selection mechanisms rather than benchmark end-task success alone. Complementing this diagnostic turn, several papers push toward causally grounded and counterfactually identifiable world models: InfluenceField introduces an intervention-aware latent influence field with identifiable causal structure for multimodal rollouts, Counterfactual Latent World Models use a contrastive objective to separate perceptually aliased interventions, and Compiling VGDL into Causal Models shows that symbolic environment descriptions can be lifted into dynamic structural causal models for faithful counterfactual reasoning. A parallel thread emphasizes *action-conditioned* and *multi-view* modeling: Earth System World Model brings transition-action pretraining and masked response learning to terrestrial ecosystem what-if simulation, while DUET-DINO jointly predicts side- and wrist-camera representations for full 7-DoF latent planning and analyzes which visual encoders best capture action-induced dynamics. Domain-specific instantiations—radiological world models for evidence generation and compact visuotactile models for force-constrained lifting—suggest the paradigm is generalizing beyond navigation and manipulation into medicine and contact-rich control. The through-line is a shift from \"can we predict the future?\" to \"is our latent state causally and interventionally faithful?\"\n\n### Embodied Agents & Robotic Manipulation\n\nThe embodied thread today is defined by benchmarks and representation choices that stress-test long-horizon, contact-rich, and deformable manipulation. FolDeX contributes a real-robot benchmark with 2000+ hours of data for long-horizon deformable object manipulation, filling a conspicuous gap in world-action model training and evaluation. On the control side, the UAV visual servoing work shows that compact target-centric cues plus curriculum RL can stabilize long-horizon vision-guided servoing, reinforcing a recurring theme that representation compactness matters more than raw perceptual richness for embodied policies. The visuotactile lifting paper adds trajectory-level uncertainty calibration and imagination-based actor-critic learning, pointing toward force-constrained control where contact prediction—not just geometry—drives success. Field Converter's geometry-initialized temporal residual refinement for soccer pose estimation is only weakly related but illustrates the same temporal-dynamics toolkit applied to real-world tracking. Collectively, these papers suggest the field is moving past single-task demos toward standardized, physically demanding evaluation regimes.\n\n### Generative Modeling & Video Synthesis\n\nGenerative work today splits between physical plausibility and controllability. PhysMAS introduces a physics-grounded multi-agent framework for compositional 4D Gaussian scene synthesis, binding part-wise materials and running MPM simulation to improve the physical realism of generated dynamics—an important step toward generators whose outputs obey contact and material constraints. Geodesic-informed diffusion injects topology-preserving deformation dynamics into generation, offering a geometry-aware formulation that could transfer to structure-preserving video and world-model synthesis. On the controllability front, AgenticGen decomposes advertising video generation into strategy selection and draft generation, using online business feedback with DPO/GRPO to close the loop between generation and reward—an early example of agentic, reward-guided video pipelines. The \"Beyond Coherence\" benchmark sharpens the critique: professional editing techniques like J-cuts, L-cuts, and transition timing remain poorly controlled in multi-shot audio-video generation, and the proposed agentic baseline exposes these gaps. The emerging picture is that raw visual fidelity is no longer the bottleneck; physical grounding, causal structure, and fine-grained editorial control are.",
+    "summary_cn": "### World Models & Latent Dynamics\n\nToday's contributions converge on a maturing understanding of what makes latent world models *work*—and where they silently fail. The most striking result is ARC-Bench, which demonstrates that latent-distance action ranking in frozen JEPA world models is structurally broken, with closed-loop replanning merely masking the defect; this is a cautionary finding that should prompt the community to audit action-selection mechanisms rather than benchmark end-task success alone. Complementing this diagnostic turn, several papers push toward causally grounded and counterfactually identifiable world models: InfluenceField introduces an intervention-aware latent influence field with identifiable causal structure for multimodal rollouts, Counterfactual Latent World Models use a contrastive objective to separate perceptually aliased interventions, and Compiling VGDL into Causal Models shows that symbolic environment descriptions can be lifted into dynamic structural causal models for faithful counterfactual reasoning. A parallel thread emphasizes *action-conditioned* and *multi-view* modeling: Earth System World Model brings transition-action pretraining and masked response learning to terrestrial ecosystem what-if simulation, while DUET-DINO jointly predicts side- and wrist-camera representations for full 7-DoF latent planning and analyzes which visual encoders best capture action-induced dynamics. Domain-specific instantiations—radiological world models for evidence generation and compact visuotactile models for force-constrained lifting—suggest the paradigm is generalizing beyond navigation and manipulation into medicine and contact-rich control. The through-line is a shift from \"can we predict the future?\" to \"is our latent state causally and interventionally faithful?\"\n\n### Embodied Agents & Robotic Manipulation\n\nThe embodied thread today is defined by benchmarks and representation choices that stress-test long-horizon, contact-rich, and deformable manipulation. FolDeX contributes a real-robot benchmark with 2000+ hours of data for long-horizon deformable object manipulation, filling a conspicuous gap in world-action model training and evaluation. On the control side, the UAV visual servoing work shows that compact target-centric cues plus curriculum RL can stabilize long-horizon vision-guided servoing, reinforcing a recurring theme that representation compactness matters more than raw perceptual richness for embodied policies. The visuotactile lifting paper adds trajectory-level uncertainty calibration and imagination-based actor-critic learning, pointing toward force-constrained control where contact prediction—not just geometry—drives success. Field Converter's geometry-initialized temporal residual refinement for soccer pose estimation is only weakly related but illustrates the same temporal-dynamics toolkit applied to real-world tracking. Collectively, these papers suggest the field is moving past single-task demos toward standardized, physically demanding evaluation regimes.\n\n### Generative Modeling & Video Synthesis\n\nGenerative work today splits between physical plausibility and controllability. PhysMAS introduces a physics-grounded multi-agent framework for compositional 4D Gaussian scene synthesis, binding part-wise materials and running MPM simulation to improve the physical realism of generated dynamics—an important step toward generators whose outputs obey contact and material constraints. Geodesic-informed diffusion injects topology-preserving deformation dynamics into generation, offering a geometry-aware formulation that could transfer to structure-preserving video and world-model synthesis. On the controllability front, AgenticGen decomposes advertising video generation into strategy selection and draft generation, using online business feedback with DPO/GRPO to close the loop between generation and reward—an early example of agentic, reward-guided video pipelines. The \"Beyond Coherence\" benchmark sharpens the critique: professional editing techniques like J-cuts, L-cuts, and transition timing remain poorly controlled in multi-shot audio-video generation, and the proposed agentic baseline exposes these gaps. The emerging picture is that raw visual fidelity is no longer the bottleneck; physical grounding, causal structure, and fine-grained editorial control are.",
+    "papers": {
+        "2609.08855": {
+            "authors": [
+                "Zhihao Wang",
+                "Ruichen Wang",
+                "Ruohan Li",
+                "Lei Ma",
+                "George Hurtt",
+                "Xiaowei Jia",
+                "Gengchen Mai",
+                "Shaowen Wang",
+                "Yiqun Xie"
+            ],
+            "title": "Earth System World Model for What-If Simulations: A Case Study for Terrestrial Ecosystems",
+            "abstract": "arXiv:2609.08855v1 Announce Type: new  Abstract: Machine learning emulators have become essential for accelerating expensive Earth-system simulations, but most existing approaches remain passive forecasters: they reproduce simulator trajectories under prescribed forcings without an explicit interaction mechanism for user-specified interventions. This limits their use in interactive scientific workflows and Earth-system digital twins, where users often need to explore how a system would respond if selected state components were changed. We propose an action-conditioned world-modeling framework for Earth-system emulation that reformulates simulator trajectories as supervision for controllable state-transition learning. The key idea is transition-action pretraining: naturally observed state changes are treated as label-free action supervision, allowing the model to learn both prescribed dynamics and action-conditioned responses without manually annotated interventions. We further introduce masked response learning to infer unobserved variables under partial state edits and learn coupled system dependencies. We test this framework on ecosystem dynamics across six global regions and multiple stand ages. Experiments show that the model preserves competitive long-horizon emulation accuracy while enabling controllable structural interventions and coherent responses in coupled ecosystem-cycle variables. These results suggest a practical route from passive Earth-system emulators toward interactive, intervention-aware scientific surrogates.",
+            "arxiv_id": "2609.08855",
+            "ARXIVID": "2609.08855",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes an action-conditioned Earth-system world model with transition-action pretraining and masked response learning, enabling controllable what-if interventions and long-horizon dynamics emulation.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.05461": {
+            "authors": [
+                "Zhengshu Zhang",
+                "Zhiyuan Li"
+            ],
+            "title": "ARC-Bench: Closed-Loop Replanning Masks Broken Action Ranking in Frozen JEPA World Models",
+            "abstract": "arXiv:2609.05461v1 Announce Type: new  Abstract: Reward-free latent world models plan by scoring candidate actions with distances in a frozen latent space: an action is preferred if its predicted future embedding lands closer to the goal embedding. This silently assumes that latent closeness is action-rankable, i.e., that ordering candidates by latent distance agrees with ordering them by true cost. We audit this assumption directly. We introduce ARC-Bench, a no-leak, fixed-candidate protocol that measures whether frozen JEPA-style objectives rank candidate actions correctly, and apply it to official released JEPA-WM checkpoints across navigation and manipulation-style control. The assumption fails, severely and structurally: on the official manipulation audits the top-scored candidate is almost always suboptimal, and the same inversion appears in the maze domains. A controlled visual-backbone extension shows that the defect persists when DINOv2 is replaced by video-pretrained V-JEPA 1 and V-JEPA 2 encoders at ViT-L/ViT-G scale. Provenance, undertraining, matched-budget backbone controls, and metric-circularity controls rule out trivial explanations. We then explain why this defect has stayed invisible: closed-loop replanning masks it. When we reduce the planner's replanning frequency, success collapses in both a navigation and a manipulation domain, and the episodes rescued by frequent replanning are enriched for severe first-plan ranking failures in the PointMaze first-plan diagnostic. Closed-loop success rates therefore systematically overstate the rankability of frozen latent representations. ARC-Bench supplies the measurement, and the masking mechanism the explanation, for methods that adapt, amortize, or replan around latent-space planners without directly auditing released JEPA-WM action rankability.",
+            "arxiv_id": "2609.05461",
+            "ARXIVID": "2609.05461",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Audits frozen JEPA latent world models and shows latent-distance action ranking is structurally broken, with closed-loop replanning masking the defect—an important insight for latent world-model planning.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.05834": {
+            "authors": [
+                "Todd Y. Zhou",
+                "Daniel Zhang"
+            ],
+            "title": "Learning Counterfactual World Models for Embodied Reasoning under Partial Observability",
+            "abstract": "arXiv:2609.05834v1 Announce Type: new  Abstract: World models promise a general route to embodied intelligence: learn predictive dynamics once, then reason, plan, and act with them. Increasingly, the representations beneath such models are pretrained on large-scale video, interaction, and multimodal corpora, which raises a question prediction quality alone cannot answer: when is a learned representation actually actionable? We identify a failure mode we call counterfactual collapse: a model predicts visually plausible futures while failing to distinguish interventions with different behavioral consequences. This arises whenever a representation is optimized for perceptual similarity rather than intervention structure, which is precisely the objective under which most large-scale pretrained encoders are learned. We introduce Counterfactual Latent World Models (CLWM), which combine a recurrent belief-state encoder, action-conditioned latent dynamics, and a contrastive counterfactual objective that separates futures induced by distinct interventions even when their observations look alike. Across occluded manipulation, aliased navigation, and long-horizon manipulation, CLWM improves planning success over the strongest baseline (65.1% $\\to$ 74.6% on Occluded Push and 67.3% $\\to$ 78.9% on Aliased Maze) and reduces exploitative planning failures (18.4% $\\to$ 9.7% on Deferred Kitchen), with ablations attributing the gains to hard counterfactual negatives, especially perceptual-alias negatives. Finally, our counterfactual separability metric, which tracks planning success across the five baseline model classes ($r \\ge 0.94$), is representation-agnostic: given intervention-outcome labels, it can audit any encoder, pretrained or trained from scratch, before a planner trusts it. We do not yet measure it on large-scale pretrained encoders. Here we establish the metric and its relationship to planning success for world models trained from scratch.",
+            "arxiv_id": "2609.05834",
+            "ARXIVID": "2609.05834",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Introduces Counterfactual Latent World Models with a contrastive counterfactual objective that separates perceptually aliased interventions, plus a representation-agnostic counterfactual separability metric tied to planning success.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.10506": {
+            "authors": [
+                "Nisarga Nilavadi",
+                "Ralf R\\\"omer",
+                "Moritz Reuss",
+                "Michael Krawez",
+                "Tobias J\\\"ulg",
+                "Angela P. Schoellig",
+                "Rudolf Lioutikov",
+                "Wolfram Burgard"
+            ],
+            "title": "DUET-DINO: Simultaneous Cross-View World Modeling for Latent Planning in Robot Manipulation",
+            "abstract": "arXiv:2609.10506v1 Announce Type: new  Abstract: Action-conditioned latent world models predict future visual representations, enabling zero-shot goal-conditioned robot planning and control. However, their predictions for fine-grained spatial and rotational actions are unreliable for full 7-DoF end-effector control. To address this gap, we introduce DUET-DINO, a simultaneous cross-view latent world model that jointly learns action-conditioned predictions from static side- and wrist-camera observations through cross-view conditioning. By exploiting complementary global scene and gripper-centric information, DUET-DINO enables latent planning over the full 7-DoF action space. Across spatially diverse reach, orientation-intensive angled-reach, and multi-goal grasp-and-lift tasks, DUET-DINO consistently outperforms single-view and independent dual-view baselines, achieving 92% success on reach, 72.5% on angled-reach, and 60.0% on lift tasks. DUET-DINO is trained from scratch on DROID and RoboArena datasets and generalizes robustly under visual distribution shifts. We further show that while V-JEPA 2 wrist-view predictions underestimate visual dynamics induced by fine-grained actions, DINOv3 predictions better capture action-conditioned scene changes, leading to stronger downstream planning. The code and model checkpoints will be open-sourced. Project page: https://utn-air.github.io/DUET-DINO",
+            "arxiv_id": "2609.10506",
+            "ARXIVID": "2609.10506",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Cross-view action-conditioned latent world model that jointly predicts side- and wrist-camera representations to enable full 7-DoF latent planning, with analysis of which visual encoders best capture action-induced dynamics.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.07174": {
+            "authors": [
+                "Jiang Qin",
+                "Chunji Lv",
+                "Yangguang Wei",
+                "Yang Gao",
+                "Ming Liu",
+                "Lizhong Ding",
+                "Ye Yuan",
+                "Yinjie Lei",
+                "Changsheng Li"
+            ],
+            "title": "PhysMAS: Physics-Grounded Multi-Agent Synthesis of Compositional 4D Gaussians",
+            "abstract": "arXiv:2609.07174v1 Announce Type: new  Abstract: Efficient, fully automatic, and physically plausible 4D Gaussian synthesis is an important goal for dynamic scene generation. Recent physics-based methods couple 3D Gaussians with the Material Point Method (MPM) to generate physically driven motion, but extending this paradigm to heterogeneous multi-part objects and interacting multi-object scenes remains challenging. Object-level physical assignment collapses distinct parts into a single material state, while one-shot predictions from large language models, vision-language models, or agents neither reliably bind different materials to identified parts nor verify that the resulting MPM configuration is executable. Score Distillation Sampling (SDS)-based parameter optimization, meanwhile, requires repeated per-scene score evaluations and gradient backpropagation, incurring lengthy optimization and potentially yielding suboptimal or unstable solutions. We therefore present PhysMAS, a physics-grounded multi-agent framework. From a motion prompt and four scene views, an Object-Part Scene Agent establishes persistent identities and calls a Material Reasoning Agent for part-wise profiles. It invokes solver-aware skills to bind these identities and profiles to per-particle MPM fields and execute all objects in a shared domain; the framework then screens candidate forward-simulation results. This supports heterogeneous multi-part and interacting multi-object scenes without per-scene diffusion-score backpropagation. Extensive experiments demonstrate that, compared with recent physics-based 4D Gaussian baselines that rely on SDS, PhysMAS achieves better semantic alignment and perceived physical plausibility while requiring less runtime.",
+            "arxiv_id": "2609.07174",
+            "ARXIVID": "2609.07174",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 7,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Physics-grounded multi-agent framework for compositional 4D Gaussian dynamic scene synthesis with part-wise material binding and MPM simulation, improving physical plausibility of generated dynamics.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.07874": {
+            "authors": [
+                "Zihao Yang",
+                "Zijia Wang",
+                "Zhiqiu Huang"
+            ],
+            "title": "InfluenceField: A Differentiable Field with Interventionally Identifiable Causal Structure for Multimodal World Modeling",
+            "abstract": "arXiv:2609.07874v1 Announce Type: new  Abstract: Multimodal large language models often capture visual-linguistic correlations but struggle to predict how local visual interventions propagate and affect downstream answers. We introduce InfluenceField, an intervention-aware latent field inserted between the visual encoder and language decoder. It lifts patch features into a continuous spatial representation, propagates directed influence over multiple steps, and predicts local intervention effects through a shared transition operator. Training jointly optimizes language modeling, cross-environment invariance, counterfactual rollout supervision, and structural regularization. For a nonlinear finite-basis population model, we show that target-aligned interventional supervision, together with a one-step separation condition on the transition, restricts admissible representations to within-location reparameterizations, so that the directed dependency graph of the full transition is recovered exactly. A linear specialization gives an exact partial-coverage characterization and a finite-loss stability bound, and the field analysis derives the spatial profile of coefficient interventions together with a shared-channel calibration result. On CausalVQA, InfluenceField improves overall accuracy over its backbone by 13.1 percentage points, with the largest gains on the planning and hypothetical categories. Capacity-matched baselines and structural controls attribute the gains in robustness and factual-counterfactual consistency to the causal objectives rather than to added capacity.",
+            "arxiv_id": "2609.07874",
+            "ARXIVID": "2609.07874",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 7,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Introduces an intervention-aware latent influence field with identifiable causal structure for multimodal world modeling, enabling counterfactual rollout and improved propagation prediction of local visual interventions.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.08153": {
+            "authors": [
+                "Nian Wu",
+                "Nivetha Jayakumar",
+                "Jiarui Xing",
+                "Miaomiao Zhang"
+            ],
+            "title": "Geodesic-informed Generative Diffusion Model For Topology-preserved Image Video Generation",
+            "abstract": "arXiv:2609.08153v1 Announce Type: new  Abstract: Generative diffusion models have emerged as a class of powerful techniques for various imaging applications, including but not limited to synthesis, reconstruction, and segmentation. Despite their success, current generative models pose two key limitations. First, they primarily rely on image intensity and texture information, with limited attention to underlying object geometry. As a result, they do not guarantee geometric or topological consistency during the generation process, which is a crucial requirement for high-stakes domains such as computational anatomy, biology, and robotics, where preserving object structure is critical. Second, existing models fail to explicitly learn or represent shape changes in the generative process. Such deformation dynamics remain occluded within network parameters; hence leaving the transformation process uninterpretable and physically uninformed. To address these challenges, we introduce IGG (Image Generation informed by Geodesic dynamics), a novel framework that integrates topology-preserving geodesic principles into the diffusion-based generative process. In contrast to conventional methods that operate in image intensity space, IGG learns and synthesizes diverse samples within geodesic deformation spaces, where geometric object changes are learned as smooth and invertible smooth mappings from a given template/source image. Our code is publicly available at https://github.com/nellie689/IGG.",
+            "arxiv_id": "2609.08153",
+            "ARXIVID": "2609.08153",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Integrates topology-preserving geodesic deformation dynamics into diffusion generation, offering a geometry-aware generative formulation that could inform structure-preserving video/world-model generation.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.05459": {
+            "authors": [
+                "Mohit Jiwatode",
+                "Bodo Rosenhahn",
+                "Alexander Dockhorn"
+            ],
+            "title": "Compiling VGDL into Causal Models",
+            "abstract": "arXiv:2609.05459v1 Announce Type: new  Abstract: Reinforcement learning and large language models often struggle to accurately capture the causal mechanics of game environments. Standard reinforcement learning agents tend to rely on spurious correlations, while large language models are prone to hallucinating game rules. Although causal reinforcement learning improves interpretability, there is currently no formal methodology to map complex game mechanics directly into causal models. To address this, we propose a deterministic framework that compiles games specified in the Video Game Description Language into Dynamic Structural Causal Models. Rather than inferring causal structures from gameplay traces or noisy large language models' outputs, our methodology directly translates game components, including sprite dynamics, interaction rules, and termination conditions, into explicit structural equations. Each game tick represents a causal transition from state variables at time $t$ to $t+1$. By establishing this grounded mapping, the approach guarantees absolute causal fidelity to the ground-truth game mechanics. The resulting models offer transparent causal pathways that support counterfactual reasoning, causal reinforcement learning agent training, and procedural content validation. This framework provides a principled bridge between symbolic game descriptions and causally grounded game AI.",
+            "arxiv_id": "2609.05459",
+            "ARXIVID": "2609.05459",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Compiles VGDL game descriptions into dynamic structural causal models, giving causally faithful environment dynamics for counterfactual reasoning and model-based agents.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.07719": {
+            "authors": [
+                "Suyang Xi",
+                "Songtao Hu",
+                "Shansong Wang",
+                "Mojtaba Safari",
+                "Luke del Balzo",
+                "Ehsan Ul Karim",
+                "Mingzhe Hu",
+                "Kuo Zhang",
+                "Tonghe Wang",
+                "Ralph R. Weichselbaum",
+                "Xiaofeng Yang"
+            ],
+            "title": "A radiographic world model for clinical reasoning and evidence generation",
+            "abstract": "arXiv:2609.07719v1 Announce Type: new  Abstract: Medical imaging artificial intelligence (AI) is commonly developed as separate mappings from radiographs to diagnostic outputs or from clinical descriptions to generated images, although both arise from the same underlying radiographic state. A world-model formulation instead seeks to learn an internal representation of this state that can support both clinical readout and conditional simulation of radiographic observations. Here we introduce MedDream, a radiographic world model that learns a shared continuous latent state from paired chest radiograph-text observations for diagnostic reasoning and report-conditioned evidence generation. MedDream was pretrained on 2.65 million leakage-controlled chest radiograph-text pairs curated from 4.40 million candidates. Across eight clinical datasets and two independent reader cohorts, MedDream outperformed leading diagnostic and generative comparators. For diagnostic reasoning, MedDream showed strong generalization across disease recognition, label-scarce adaptation, severity assessment, and localization, while MedDream-supported review increased mean resident concordance with independent radiologist consensus from 56.3% to 63.0%. For evidence generation, MedDream produced radiographs that preserved clinically relevant pathology and improved downstream performance on held-out real data, with synthetic augmentation increasing external VinDr-CXR macro-AUROC from 76.4% to 81.4%. More importantly, conditioning generation on prespecified subgroup performance gaps enabled targeted evidence construction, increasing weighted F1 by 3.1 percentage points in Asian patients, whereas matched-volume unguided augmentation decreased it by 2.3 points. These findings establish radiographic world models as a path toward medical AI that learns clinically meaningful internal states for interpreting, simulating, and constructing evidence for clinical use.",
+            "arxiv_id": "2609.07719",
+            "ARXIVID": "2609.07719",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Learns a shared latent radiographic state supporting both diagnostic readout and report-conditioned image generation, a domain-specific world-model formulation with targeted evidence construction.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.09187": {
+            "authors": [
+                "Xingyuan Bu",
+                "Chengru Song",
+                "Hao Zhou",
+                "Tao Zhou",
+                "Dong Li",
+                "Wei Li",
+                "Shilong Li",
+                "Hao Shi",
+                "Yongxin Guo",
+                "Donghao Zhou",
+                "Qiangpeng Yang",
+                "Shilei Wen"
+            ],
+            "title": "AgenticGen: Reward-Guided Agentic Video Generation for Advertising",
+            "abstract": "arXiv:2609.09187v1 Announce Type: new  Abstract: Advertising video generation is not only a video synthesis task, but also a product-conditioned reasoning problem whose success is measured by online business metrics. Recent video foundation models can generate realistic clips from multimodal conditions, yet they do not optimize how a product should be transformed into an effective advertisement or how future generation should be improved from online business feedback. To close this loop, we propose AgenticGen, a reward-guided agentic framework that decomposes advertising video generation into two trainable reasoning stages, strategy selection and draft generation, thereby exposing optimization targets that online business feedback can supervise. AgenticGen learns a performance-based reward from accumulated online feedback and a complementary rubric-based reward aligned with human quality standards, then uses them to supervise policy optimization. DPO first moves the agentic policies toward online preferences, and GRPO further refines both stages with process and outcome rewards. Offline experiments validate the reward models and successive policy optimization. Online A/B experiments in the TikTok advertising system show that AgenticGen after DPO and GRPO improves CTR by 2.72%, CVR by 2.63%, and Advv by 9.61% over the SFT baseline.",
+            "arxiv_id": "2609.09187",
+            "ARXIVID": "2609.09187",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Reward-guided agentic framework that decomposes advertising video generation into strategy selection and draft generation, using online business feedback and DPO/GRPO to improve generated video content.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.08275": {
+            "authors": [
+                "Tianyi Zeng",
+                "Junchao Liao",
+                "Yujie Wei",
+                "Ziying Zhang",
+                "Litao Li",
+                "Tianyi Wang",
+                "Zhichao Wei",
+                "Shuyao Xu",
+                "Wenwen Qiang",
+                "Siyu Zhu",
+                "Zhenghao Zhang",
+                "Long Qin"
+            ],
+            "title": "Beyond Coherence: Benchmarking Professional Editing-Technique Execution in Multi-Shot Audio-Video Generation",
+            "abstract": "arXiv:2609.08275v1 Announce Type: new  Abstract: Recent multi-shot audio-video generators can produce increasingly coherent and cinematic outputs, but coherence does not imply the ability to execute editing techniques. Professional editing depends on shot structure, transition grammar, audio-video cut relations, and montage, yet existing benchmarks largely rely on proxies such as content quality, synchronization, or physical plausibility, systematically missing whether such editing instructions are actually executed. We introduce CutCraft, the first benchmark for editing-technique execution in multi-shot audio-video generation. CutCraft extends structured multi-shot prompts with explicit editing specifications and is paired with a hierarchical hybrid evaluation framework that combines shot-structure alignment, expert-model metrics, tool-grounded multimodal judgment, and rubric-based question answering. Beyond evaluation, we design an agentic editing baseline that decomposes generation into planning, shot-level synthesis, and post-hoc composition, explicitly realizing editing semantics such as J-cuts, L-cuts, and transition timing. Across 13 state-of-the-art closed- and open-source models, CutCraft reveals a consistent gap between coherence and editing-technique execution: current systems often produce plausible multi-shot videos yet fail to execute editorial instructions reliably. We find unstable shot structures, weak control of transition execution, and sharp degradation on higher-order montage, while aesthetic quality is only weakly correlated with editing-technique compliance. The benchmark and metrics, and the editing agent baseline are available at https://github.com/AlibabaResearch/cut-craft-bench.",
+            "arxiv_id": "2609.08275",
+            "ARXIVID": "2609.08275",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Benchmark and agentic baseline for editing-technique execution (J-cuts, L-cuts, transition timing) in multi-shot audio-video generation, exposing controllability gaps relevant to controllable video generation.",
+            "AFFILIATIONS": "Alibaba Research",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.09597": {
+            "authors": [
+                "Qinzhen Ma (Rice University)",
+                "Sida Peng (Zhejiang University)"
+            ],
+            "title": "Compact Visuotactile World Models for Lifting: Prediction, Reward Alignment, and Force Constraints",
+            "abstract": "arXiv:2609.09597v1 Announce Type: new  Abstract: Accurate contact prediction is useful for robotic manipulation only if it supports effective decisions. We investigate this connection using a compact, randomly initialized visuotactile world model, trajectory-level uncertainty calibration, and behavior-initialized actor-critic learning in imagination. On 160 MuJoCo Lift episodes, adding touch reduces endpoint-force prediction error from 1.058 to 0.228 N and interval-peak error from 2.724 to 0.523 N across three training seeds. However, tactile persistence achieves lower errors of 0.095 and 0.498 N, respectively. Two exploratory control rounds comprise 680 executions on 40 independent test initial conditions. A matched reward revision on fresh test environments increases in-distribution 10 cm lifting success from 20.0% to 93.3%, while success within an 8 N per-finger budget reaches only 33.3%, compared with 70.0% for force feedback. Calibration margins reduce force violations at the cost of task completion. In a separate study of public GelSight recordings, a force regressor achieves 0.04234 N error, but frame-level calibration covers only 15.80% of complete trajectories; trajectory-level calibration raises this to 87.36% at nominal 90% coverage. Together, these findings distinguish improvements in sensing and task reward from improvements in force-constrained control. The evidence is limited to public sensing records and simulator execution, without a demonstrated transfer between them.",
+            "arxiv_id": "2609.09597",
+            "ARXIVID": "2609.09597",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Compact visuotactile world model for robotic lifting with trajectory-level uncertainty calibration and imagination-based actor-critic learning, offering insights on contact prediction and force-constrained control.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.10498": {
+            "authors": [
+                "Simon Khan",
+                "Laurent Gajny",
+                "Jennyfer Lecompte",
+                "S\\'ebastien Laporte"
+            ],
+            "title": "Field Converter: Geometry-Initialized Temporal Residual Refinement for World-Grounded Player Pose Estimation from Soccer Broadcasts",
+            "abstract": "arXiv:2609.10498v1 Announce Type: new  Abstract: Recovering 3D human pose from monocular sports broadcasts remains challenging when players must be localized in a shared metric world coordinate system rather than only reconstructed relative to their own body. We introduce Field Converter, a geometry-initialized temporal residual framework for world-grounded 3D player pose estimation from calibrated soccer broadcasts. Our method first uses camera and pitch geometry to initialize the player root through ray-ground intersection, then predicts a temporal residual correction from pose, image, camera, and geometric cues. On match-disjoint evaluation sequences, residual refinement reduces root error from 49cm with geometry alone to 14cm with a frame-wise MLP and 10cm with a TCN, while a Transformer achieves a comparable 11cm. The resulting world-space MPJPE reaches 13.2cm, and ablations show that residual prediction clearly outperforms direct global-root regression while temporal context matters more than the specific temporal backbone. Failure analysis further identifies airborne motion as the main limitation of the ground-based geometric initialization.",
+            "arxiv_id": "2609.10498",
+            "ARXIVID": "2609.10498",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Uses geometry-initialized temporal residual refinement for world-grounded 3D player pose estimation, a weakly related temporal-dynamics method with no generative or world-model contribution.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.09234": {
+            "authors": [
+                "Saurbh Singh Jamwal",
+                "Nived Chebrolu"
+            ],
+            "title": "Learning to Fly: Stable Vision-Guided UAV Servoing with Compact Target-Centric Cues and Reinforcement Learning",
+            "abstract": "arXiv:2609.09234v1 Announce Type: new  Abstract: Vision-guided reinforcement learning for Unmanned Aerial Vehicles (UAVs) remains challenging due to unstable policy optimisation, aggressive exploration, and the cost of high-dimensional visual perception. In this work, we investigate long-horizon UAV visual servoing using compact target-centric cues combined with low-dimensional sensor measurements. Rather than learning directly from RGB images, lightweight target segmentation provides image-space offsets and relative depth, which are combined with quadrotor velocity and projected-gravity measurements into a compact 12D policy observation. We compare Direct PPO with three matched-budget curriculum strategies: a Visual curriculum that progressively expands target placement difficulty, a Dynamics curriculum that gradually relaxes action constraints and smoothing, and a Joint curriculum that combines both progressions. All strategies reach comparable nominal performance, with complementary advantages across tracking metrics. Observation ablations show that proprioceptive measurements are critical for stable flight and image-space cues for target alignment, while explicit depth is not necessary for strong performance in the evaluated setting. Against tuned classical visual-servo controllers, learned policies show greater robustness to strong control and visual perturbations, while the Visual curriculum exhibits the smallest degradation under unseen target motion. Overall, the results demonstrate that compact target-centric representations can support robust long-horizon aerial visual servoing and that visual curriculum training can improve robustness to dynamic distribution shifts despite limited gains in nominal performance.",
+            "arxiv_id": "2609.09234",
+            "ARXIVID": "2609.09234",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 4,
+            "COMMENT": "Studies compact target-centric visual representations and curriculum training for long-horizon UAV visual servoing, weakly relevant to learned dynamics and embodied control but without a world model or video-generation contribution.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.10243": {
+            "authors": [
+                "Chenhuan Liu",
+                "Yi Xu",
+                "Feng Wu",
+                "Hanyang Wang",
+                "Wenxiao Kuai",
+                "Weihao Ding",
+                "Shan Wang",
+                "Yang Liu",
+                "Shuyong Gao",
+                "Wenqiang Zhang"
+            ],
+            "title": "FolDeX: A Physical-World Benchmark for Long-Horizon Robotic Manipulation of Deformable Objects",
+            "abstract": "arXiv:2609.10243v1 Announce Type: new  Abstract: Embodied AI, including vision-language-action and world-action models, must operate reliably in the physical world. Yet methods that perform well in simulation can degrade substantially on real robots, especially in long-horizon deformable-object manipulation, where policies must track changing states and execute reliable multi-stage bimanual interactions. Existing real-robot benchmarks mainly focus on short-horizon rigid-object tasks and offer limited coverage of long-horizon deformable manipulation. We introduce FolDeX, a physical-world benchmark built entirely from real-robot data, with garment folding as its primary task. Since real-robot data collection is costly, FolDeX studies how heterogeneous physical experience can be reused efficiently. The benchmark is organized around four research axes: leveraging human intervention and recovery data collected during deployment; transferring data across tasks, including across garment categories and from rigid to deformable-object manipulation; reusing data across scenes with changes in lighting, background, and layout; and transferring data across robotic embodiments. FolDeX provides 2,000+ hours of real-robot data spanning 20+ tasks and 10+ embodiments. We also establish a fair real-robot evaluation platform for externally submitted policies, with standardized tasks, held-out physical objects, controlled initializations, and a unified execution protocol. The platform is publicly accessible at https://ai.midea.com/#/fold-challenge. We hope FolDeX will serve as a unified testbed for heterogeneous real-robot data reuse and reliable long-horizon deformable manipulation.",
+            "arxiv_id": "2609.10243",
+            "ARXIVID": "2609.10243",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 4,
+            "COMMENT": "Real-robot long-horizon deformable manipulation benchmark with 2000+ hours of data that could inform world-action model training and evaluation, though it offers no new dynamics or generative method.",
+            "AFFILIATIONS": "Midea Group (ai.midea.com)",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        }
+    }
+}

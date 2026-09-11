@@ -1,0 +1,252 @@
+{
+    "summary_en": "### World Models and Predictive Dynamics\n\nToday's submissions reveal a clear consolidation around world models as the central abstraction for embodied intelligence, with two distinct thrusts: making them *constructive* and making them *diagnostic*. On the constructive side, Valerant demonstrates that a pretrained action-conditioned world model can be repurposed at inference time into a navigable map generator by coupling predictive rollouts with SLAM-based reconstruction—no training required—while Recursive Code World Models push the idea further by representing 3D scenes as executable recursive programs, bridging neural rollouts with symbolic compositionality. UniMPA extends this line with a unified memory-prediction-action architecture whose visual-action memory banks ground predicted transitions in executable evidence, directly attacking the hallucination problem that plagues long-horizon prediction. Equally notable is the emergence of world models as *readable instruments* rather than mere generators: FARM shows that failure signals are linearly decodable from the frozen predictive states of a robotic world model, enabling causal execution monitoring with zero backbone updates, and the counterfactual fork-ledger protocol formalizes when an individual world-model update is actually worth making during continual adaptation—a question the field has largely answered by intuition until now. HuRo's robotization of human video into aligned observation-action trajectories supplies exactly the kind of weak-supervision dynamics data these models need, while ReactHuman's physics-grounded benchmark supplies the evaluation pressure. The through-line is unmistakable: the frontier has shifted from *can we predict the future* to *can we trust, inspect, and selectively update what we predict*.\n\n### Controllable and Efficient Video Generation\n\nVideo generation research today is preoccupied with the twin failure modes of controllability and diversity collapse. On controllability, Harnessing Intrinsic Subject-Aware Attention mines attention maps already latent in DiTs to enforce multi-subject identity consistency, combining guided attention with RL preference pairs to suppress semantic drift—an elegant argument that the control signal need not be injected externally but merely *surfaced* from existing representations. On diversity, Uncertainty DMD diagnoses a structured collapse in few-step autoregressive distillation, where DMD-style objectives systematically narrow the output distribution, and restores motion and variation through timestep perturbation and stochastic cache writing without touching the architecture. Complementing both, From Evaluation to Enhancement closes the loop between diagnosis and repair by benchmarking \"think-with-video\" physical and logical reasoning and deploying a VLM-based prompt rewriter to improve it. Read together, these papers signal a maturation of the field: rather than scaling compute, the leverage now lies in understanding *where* generative video loses fidelity—identity, motion, or physical plausibility—and applying surgical, often training-light interventions at exactly those points.\n\n### Reasoning, Policy Learning, and Embodied Evaluation\n\nA smaller but coherent cluster addresses decision-making under structured constraints and physical grounding. LTLDiff brings finite linear temporal logic into multi-agent manipulation, using LTLf specifications to guide both data generation and diffusion policy learning—temporal-logic conditioning is a promising route to verifiable, compositional control, though its contribution remains on the policy side rather than in learned dynamics. CARLAverse offers a distributed, multimodal human-in-the-loop driving simulator whose modularity is valuable for interactive environment research, even if it contributes infrastructure rather than learned-dynamics insight. ReactHuman's physics-grounded benchmark for reactive decision-making in embodied MLLMs is the most pointed of the three, probing whether multimodal models possess intuitive physical dynamics under safety-critical conditions—precisely the capability that world-model-based agents will be expected to exhibit. The collective message is that evaluation and constraint specification are catching up to generation: as policies grow more capable, the binding constraints are shifting from *what can be learned* to *what can be verified, specified, and safely acted upon*.",
+    "summary_cn": "### World Models and Predictive Dynamics\n\nToday's submissions reveal a clear consolidation around world models as the central abstraction for embodied intelligence, with two distinct thrusts: making them *constructive* and making them *diagnostic*. On the constructive side, Valerant demonstrates that a pretrained action-conditioned world model can be repurposed at inference time into a navigable map generator by coupling predictive rollouts with SLAM-based reconstruction—no training required—while Recursive Code World Models push the idea further by representing 3D scenes as executable recursive programs, bridging neural rollouts with symbolic compositionality. UniMPA extends this line with a unified memory-prediction-action architecture whose visual-action memory banks ground predicted transitions in executable evidence, directly attacking the hallucination problem that plagues long-horizon prediction. Equally notable is the emergence of world models as *readable instruments* rather than mere generators: FARM shows that failure signals are linearly decodable from the frozen predictive states of a robotic world model, enabling causal execution monitoring with zero backbone updates, and the counterfactual fork-ledger protocol formalizes when an individual world-model update is actually worth making during continual adaptation—a question the field has largely answered by intuition until now. HuRo's robotization of human video into aligned observation-action trajectories supplies exactly the kind of weak-supervision dynamics data these models need, while ReactHuman's physics-grounded benchmark supplies the evaluation pressure. The through-line is unmistakable: the frontier has shifted from *can we predict the future* to *can we trust, inspect, and selectively update what we predict*.\n\n### Controllable and Efficient Video Generation\n\nVideo generation research today is preoccupied with the twin failure modes of controllability and diversity collapse. On controllability, Harnessing Intrinsic Subject-Aware Attention mines attention maps already latent in DiTs to enforce multi-subject identity consistency, combining guided attention with RL preference pairs to suppress semantic drift—an elegant argument that the control signal need not be injected externally but merely *surfaced* from existing representations. On diversity, Uncertainty DMD diagnoses a structured collapse in few-step autoregressive distillation, where DMD-style objectives systematically narrow the output distribution, and restores motion and variation through timestep perturbation and stochastic cache writing without touching the architecture. Complementing both, From Evaluation to Enhancement closes the loop between diagnosis and repair by benchmarking \"think-with-video\" physical and logical reasoning and deploying a VLM-based prompt rewriter to improve it. Read together, these papers signal a maturation of the field: rather than scaling compute, the leverage now lies in understanding *where* generative video loses fidelity—identity, motion, or physical plausibility—and applying surgical, often training-light interventions at exactly those points.\n\n### Reasoning, Policy Learning, and Embodied Evaluation\n\nA smaller but coherent cluster addresses decision-making under structured constraints and physical grounding. LTLDiff brings finite linear temporal logic into multi-agent manipulation, using LTLf specifications to guide both data generation and diffusion policy learning—temporal-logic conditioning is a promising route to verifiable, compositional control, though its contribution remains on the policy side rather than in learned dynamics. CARLAverse offers a distributed, multimodal human-in-the-loop driving simulator whose modularity is valuable for interactive environment research, even if it contributes infrastructure rather than learned-dynamics insight. ReactHuman's physics-grounded benchmark for reactive decision-making in embodied MLLMs is the most pointed of the three, probing whether multimodal models possess intuitive physical dynamics under safety-critical conditions—precisely the capability that world-model-based agents will be expected to exhibit. The collective message is that evaluation and constraint specification are catching up to generation: as policies grow more capable, the binding constraints are shifting from *what can be learned* to *what can be verified, specified, and safely acted upon*.",
+    "papers": {
+        "2609.09418": {
+            "authors": [
+                "Yiran Qiao",
+                "Feng Wang",
+                "Jing Ma"
+            ],
+            "title": "Valerant: An Automatic Navigable Game Map Generator via Action-Conditioned World Model Exploration",
+            "abstract": "arXiv:2609.09418v1 Announce Type: new  Abstract: World Action Models (WAMs) couple predictive world modeling with action generation, allowing anticipated future states to guide agent behavior. Although WAMs are rapidly advancing embodied AI, general-purpose counterparts remain largely unexplored in games. Existing game-oriented approaches often combine action-conditioned world models with external policies and reward functions to realize WAM-like decision-making, yet they operate mainly in 2D visual observation space and do not instantiate persistent 3D geometry. Extending this paradigm to 3D games introduces a distinct challenge. In autonomous driving and robotics, the physical environment exists independently of the model, providing a persistent 3D world in which selected actions can be executed. Games have no such external substrate; the virtual world itself must be instantiated. Most playable games require a persistent and navigable space, while 3D games additionally require explicit geometry that supports movement and interaction. Action-conditioned video rollouts provide visual observations but not this spatial representation. We present \\textsc{Valerant}, a training-free framework that transforms a pretrained action-conditioned world model into a WAM for exploring and constructing 3D game maps. By coupling predictive visual rollouts with SLAM-based spatial reconstruction and exploration-driven action selection, \\textsc{Valerant} progressively transforms a single image into a persistent 3D game map. This framework extends WAM-based interaction beyond 2D visual simulation and offers a new approach to reducing manual effort in 3D game-map creation.",
+            "arxiv_id": "2609.09418",
+            "ARXIVID": "2609.09418",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Training-free framework that turns a pretrained action-conditioned world model into a WAM by coupling predictive visual rollouts with SLAM-based spatial reconstruction to build persistent 3D game maps.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.11507": {
+            "authors": [
+                "Niange Yu",
+                "Ye Tian",
+                "Biaolong Chen",
+                "Miao Lu",
+                "Aixi Zhang",
+                "Hao Jiang",
+                "Yunhai Tong",
+                "Pipei Huang"
+            ],
+            "title": "Harnessing Intrinsic Subject-Aware Attention for Controllable Multi-Subject Video Generation",
+            "abstract": "arXiv:2609.11507v1 Announce Type: new  Abstract: Multi-subject video generation faces two key challenges: uncontrollable fidelity strength and potential semantic drift. We address these by analyzing the internal mechanisms of Diffusion Transformers (DiTs). We found that certain attention blocks naturally form an Intrinsic Spatial Grounding Map (ISGM) that precisely locates reference subjects. Building on this insight, we propose Dual-phase Intrinsic Attention Leveraging (DIAL), a framework that uses these internal signals for both training and inference. In low-noise stages, we use ISGM to guide the attention mechanism, allowing precise control over fidelity strength during inference without retraining. In high-noise stages, we use these same maps to automatically build preference pairs at no additional cost for Reinforcement Learning (RL). This RL procedure effectively anchors the model's attention to reference subjects and mitigates semantic drift. Extensive experiments show that DIAL significantly outperforms baseline models on the OpenS2V-Eval benchmark, consistently improving identity consistency and enabling controllable fidelity strength.",
+            "arxiv_id": "2609.11507",
+            "ARXIVID": "2609.11507",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Exploits intrinsic subject-aware attention maps in DiTs for controllable multi-subject video generation, improving identity consistency and reducing semantic drift via guided attention and RL preference pairs.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.11265": {
+            "authors": [
+                "Zixuan Duan",
+                "Xunzhi Xiang",
+                "Yabo Chen",
+                "Xin Zhang",
+                "Changhan Liu",
+                "Haibin Huang",
+                "Chi Zhang",
+                "Qi Fan",
+                "Xuelong Li"
+            ],
+            "title": "Uncertainty DMD: Restoring Diversity in Few-Step Autoregressive Video Distillation",
+            "abstract": "arXiv:2609.11265v1 Announce Type: new  Abstract: Few-step distillation improves the efficiency of autoregressive (AR) video generation, but often causes diversity collapse: under the same prompt, different noise samples tend to produce highly similar videos with weakened motion dynamics. We analyze this degradation in Distribution Matching Distillation (DMD)-distilled AR video generators and find that, in the autoregressive setting, it takes the form of a structured uncertainty collapse: the mode-seeking bias of DMD maps different noise samples to nearly identical first chunks, and the deterministic AR cache then propagates this collapsed state to all subsequent chunks, turning a local loss of stochasticity at the rollout root into a global suppression of temporal variation. Based on this analysis, we propose Uncertainty DMD, a simple uncertainty-injection framework that restores stochasticity at two key stages of AR generation: a timestep perturbation for the first chunk to increase first-chunk diversity, and a stochastic cache-writing mechanism for later chunks to preserve uncertainty in autoregressive conditioning. The method requires no architectural changes and introduces only lightweight perturbation operations. The same perturbation mechanisms are used during both training and inference. Experiments show that Uncertainty DMD consistently improves diversity and motion dynamics while maintaining comparable per-sample visual quality.",
+            "arxiv_id": "2609.11265",
+            "ARXIVID": "2609.11265",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Diagnoses structured uncertainty collapse in DMD-distilled autoregressive video generators and restores diversity/motion via timestep perturbation and stochastic cache writing without architectural changes.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.11875": {
+            "authors": [
+                "Wei Li",
+                "Rui Shao",
+                "Jie He",
+                "Lingsen Zhang",
+                "Ziwei Liu",
+                "Liqiang Nie"
+            ],
+            "title": "UniMPA: A Unified Memory-Prediction-Action Model via Action-Grounded Transition Modeling",
+            "abstract": "arXiv:2609.11875v1 Announce Type: new  Abstract: Recent advances in Vision-Language-Action (VLA) models have improved robotic manipulation, yet observation-to-action learning remains limited by a fundamental transition realizability gap, manifested in three tightly coupled problems: (i) Transition ambiguity. Visually similar current observations may correspond to different manipulation phases and imply different subsequent transitions. (ii) Prediction--execution mismatch. A visually plausible predicted future observation does not necessarily correspond to a physically realizable transition. (iii) Experience--realization mismatch. A historically executable action pattern may not necessarily realize the intended transition in the current scene and therefore requires context-aware adaptation. Accordingly, we propose UniMPA, a Unified Memory-Prediction-Action model that addresses these problems through a shared action-grounded transition interface. (i) UniMPA introduces Persistent-Selective Future Prediction to resolve transition ambiguity by modeling the intended future state evolution. A persistent latent stream continuously tracks task-level progress, while a transition-critical pixel stream selectively resolves fine-grained interaction changes through memory-grounded prediction. (ii) To assess the physical executability of the anticipated transition, the predicted transition queries a temporal Visual-Action Memory Bank. The bank retrieves historically realized visual-action experience, grounding future prediction in executable evidence. (iii) To adapt executable experience to the current scene, an Action-Visual Memory Bank retrieves visually grounded action prototypes from historical action evolution. Prototype-Biased Flow then shifts the flow source toward a historically supported action manifold for context-aware refinement.",
+            "arxiv_id": "2609.11875",
+            "ARXIVID": "2609.11875",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Unified memory-prediction-action model with action-grounded transition modeling, persistent-selective future prediction, and visual-action memory banks to ground predicted transitions in executable evidence.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.11499": {
+            "authors": [
+                "Zhiqi Li",
+                "Yuxuan Liao",
+                "Bo Zhu"
+            ],
+            "title": "Recursive Code World Models: Building Complex Worlds through Recursive Scene Programs",
+            "abstract": "arXiv:2609.11499v1 Announce Type: new  Abstract: Code world models represent worlds as executable programs, but this representation alone does not determine how to construct a complex world. We introduce Recursive Code World Models (RCWM), a framework for reconstructing complex 3D worlds in code from a single reference image. RCWM couples a Recursive Scene Program (RSP) representation with a construction solver that recursively calls itself. An RSP represents the executable world as compositional scene code, while each solver call follows the same complete process: establish the whole, recursively reconstruct unresolved parts, and revisit the whole to refine their composition. This global-local-global recursion gives fine-scale structures their own perception-and-editing loops while preserving scene-wide geometry and relationships. Reference-aligned views propagate a shared camera projection across levels, while parent revisitation addresses boundaries, spatial relations, and shared errors that emerge after local refinement. A vision-language coding agent directly compares reference images with scene renders to guide refinement, recursive descent, and return. Across complex scenes, RCWM outperforms prior code-based image-to-scene reconstruction methods. Ablation studies further support the benefits of recursive construction and suggest that deeper calls can improve finer-scale reconstruction. RCWM provides a recursive construction principle for building complex executable worlds from visual evidence.",
+            "arxiv_id": "2609.11499",
+            "ARXIVID": "2609.11499",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 7,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes Recursive Code World Models that reconstruct complex 3D worlds as executable recursive scene programs from a single image, advancing code-based world-model construction and compositional scene representation.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.11445": {
+            "authors": [
+                "Haoran Pei",
+                "Mingrui Luo",
+                "Senbao Wang",
+                "Haoran Lv",
+                "Jie Guo",
+                "Sheng Zhong",
+                "Ruixi Ci"
+            ],
+            "title": "FARM: Reading Failure Signals from the Internal Predictive States of a Frozen Robotic World Model",
+            "abstract": "arXiv:2609.11445v1 Announce Type: new  Abstract: Reliable robot deployment requires online failure monitoring, yet existing monitors mainly derive risk from proxy signals or train dedicated monitoring components. We ask whether the internal predictive states of a frozen pretrained robotic world model already contain directly decodable failure information. Failure-Aware Readout from World Models (FARM) trains only a 33,985-parameter supervised readout over frozen VLA-JEPA predictive states, producing step-wise failure scores and causal trajectory risk. Five-fold out-of-fold evaluation across seven source tasks reaches 85.68/88.59 pooled AUROC/AUPRC, and FARM gives the best Seen performance among 15 matched baselines on the 10-task benchmark. Across four real-robot populations on PIPER X, SO-101, and Franka, fixed-readout transfer and readout-only adaptation test deployment shifts without updating the predictive backbone. FARM also discriminates failures from partial causal histories and adds 0.2256 ms mean CUDA latency once the frozen state is available. These results support frozen predictive world-model states as reusable features for causal, transferable, and low-overhead execution monitoring.",
+            "arxiv_id": "2609.11445",
+            "ARXIVID": "2609.11445",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 7,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Shows that frozen pretrained robotic world-model predictive states contain decodable failure information, enabling lightweight causal execution monitoring without updating the dynamics backbone.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.11242": {
+            "authors": [
+                "Meng Luo",
+                "Yicheng Liu",
+                "Jiahao Wang",
+                "Yuanxing Zhang",
+                "Xin Tao",
+                "Pengfei Wan",
+                "Kun Gai",
+                "Hao Fei"
+            ],
+            "title": "From Evaluation to Enhancement: Benchmarking and Improving Think-with-Video Reasoning for Video Generative Models",
+            "abstract": "arXiv:2609.11242v1 Announce Type: new  Abstract: Video generation has advanced to produce visually compelling and temporally coherent results. Yet, whether these models can genuinely think with video--executing symbolic rules, respecting physical laws, and pursuing intentional goals--remains an open question. Existing benchmarks only partially address this, often conflating visual quality with cognitive correctness. We introduce VWG-Bench (Video World Generalist Benchmark), a comprehensive benchmark spanning 9 reasoning dimensions and 38 fine-grained tasks. To enable precise diagnosis, we design a three-level VLM-as-Judge protocol that independently assesses video-level fluency, task-level rule adherence, and sample-level goal realization. Evaluations of leading models reveal a striking gap: while models achieve strong rendering scores, they consistently fail on logic-heavy and rule-constrained tasks. To address this, we propose Vid-PRE (Video Prompt Reasoner and Enhancer), a model-agnostic prompt rewriter that offloads the cognitive burden of reasoning to a dedicated VLM. Trained via reinforcement learning with purely text-based rewards, Vid-PRE produces concise, constraint-aware prompts without the instability of video-level reward signals. Experiments show that Vid-PRE yields substantial reasoning improvements across multiple generators without architectural modifications. Together, VWG-Bench and Vid-PRE offer a rigorous diagnostic lens and a scalable path toward true think-with-video capabilities. All data and code are publicly available at https://huggingface.co/datasets/KlingTeam/VWG-Bench.",
+            "arxiv_id": "2609.11242",
+            "ARXIVID": "2609.11242",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 7,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Benchmarks and improves 'think-with-video' reasoning in video generators via a VLM-based prompt rewriter, offering a diagnostic lens on physical/logical correctness of generated video.",
+            "AFFILIATIONS": "KlingTeam (Kuaishou)",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.10954": {
+            "authors": [
+                "Anqi Peter Li",
+                "Kaden Kim"
+            ],
+            "title": "Measuring the Value of World-Model Updates: A Counterfactual Utility Protocol for Continual Adaptation",
+            "abstract": "arXiv:2609.10954v1 Announce Type: new  Abstract: Continual world models must decide whether new data justify changing the model. Fixed replay schedules and prediction-error triggers specify when to update, but neither reveals the value of an individual update: one deployment run cannot show how the same model would have performed at that moment had it held its parameters. We introduce the fork ledger, which branches a deployment stream at pre-registered decision points into matched update and hold continuations under common random numbers. It evaluates both continuations on the same episodes and records $\\Delta R = R_{\\mathrm{update}} - R_{\\mathrm{hold}}$. Always applying one fixed update mechanism lowers return on all three simulated control tasks: CartPole ($-144.0$; checkpoint-bootstrap $95\\%$ CI $[-185.4,-116.1]$, against a converged return near $650$), Walker ($-82.8$; $[-101.1,-61.7]$) and Cheetah ($-18.6$; $[-29.0,-6.6]$). Divergence is an outcome of applying the update, so the estimand counts every attempted fork; restricted to the $693$ of $720$ that did not collapse, CartPole and Walker are unchanged in sign ($-113.4$ and $-82.1$) and Cheetah becomes unresolved ($-3.9$; $[-17.5,+13.0]$). The task is the unit of inference: each contributes $240$ attempted forks over five pretrained checkpoints crossed with two drift directions. The ledger makes counterfactual utility observable for a fixed mechanism, allowing triggers to be judged by the updates they select rather than by surprise detection alone.",
+            "arxiv_id": "2609.10954",
+            "ARXIVID": "2609.10954",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Introduces a counterfactual fork-ledger protocol that measures the utility of individual world-model updates during continual adaptation, offering a broadly useful insight for deciding when to update learned dynamics models.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.11478": {
+            "authors": [
+                "Patrick Rebling",
+                "Philipp Nenninger",
+                "Reiner Kriesten"
+            ],
+            "title": "CARLAverse: A Highly Modular, Distributed, and Multimodal Framework for Human-in-the-Loop Simulation",
+            "abstract": "arXiv:2609.11478v1 Announce Type: new  Abstract: The development of autonomous driving demands comprehensive testing in mixed-traffic scenarios involving vulnerable road users (VRUs), where purely artificial agents often fail to capture authentic human social negotiations. While human-in-the-loop (HITL) simulators enable safe investigation of these interactions, existing multi-agent platforms struggle with the network latency and synchronization constraints required for high-fidelity haptic feedback. To resolve this, we present CARLAverse, an open-source, multimodal simulation ecosystem. Extending modular hardware abstraction, CARLAverse integrates driving (DrivoCARLA), cycling (CycloCARLA), and pedestrian (WalkoCARLA) simulators into a shared virtual environment. Its core methodological contribution is a distributed physics architecture: latency-critical ego dynamics and high-frequency force feedback are computed locally on client nodes, while a central CARLA server orchestrates non-player character (NPC) physics and global traffic. By decoupling haptic control loops from network bottlenecks, CARLAverse enables scalable, cross-institutional HITL experiments without compromising physical immersion. Code and documentation: https://git.ieem-ka.de/simulator-environments/carlaverse",
+            "arxiv_id": "2609.11478",
+            "ARXIVID": "2609.11478",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Distributed human-in-the-loop driving simulation framework with modular multimodal clients; relevant to interactive environment simulation but offers limited learned-dynamics or video-generation insight.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.11043": {
+            "authors": [
+                "Chuhan Meng",
+                "Haiyan Yin"
+            ],
+            "title": "LTLDiff: Finite Linear Temporal Logic-Guided Data Generation and Diffusion Policies for Multi-agent Robotic Manipulation",
+            "abstract": "arXiv:2609.11043v1 Announce Type: new  Abstract: Multi-agent robotic manipulation tasks require coordination among agents to satisfy task-level temporal, logical, and safety constraints. Recently, diffusion policies have been used to perform the task. However, they still suffer from desynchronization, incorrect action ordering, and coordination failures in tasks that require simultaneous or sequential multi-agent interaction. Therefore, LTLDiff is proposed as a framework that combines Finite Linear Temporal Logic (LTLf) specification learning for both the generation of demonstrations and learning via diffusion policies. Each task has a specific LTLf formula that is learned from a set of natural language instructions using a large-scale language model. To enable a fixed-dimensional vector embedding of the learned specification from the language model, LTLf uses an abstract syntax tree representation scheme. This embedding of logic serves as a condition for (i) logic-guided data collection and (ii) diffusion-based policy training, encouraging trajectories that are consistent with the desired ordering and coordination requirements. Experiments on multi-agent LTLDiff manipulation tasks demonstrate improved task success rates compared to the baseline. Together, these contributions demonstrate the effectiveness of LTLDiff for coordinated multi-agent manipulation.",
+            "arxiv_id": "2609.11043",
+            "ARXIVID": "2609.11043",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "LTLf-guided data generation and diffusion policies for multi-agent manipulation; temporal-logic conditioning is adjacent to controllable dynamics but the contribution is primarily policy learning rather than world modeling or video generation.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.10706": {
+            "authors": [
+                "Jinho Jeong",
+                "Se June Joo",
+                "Jaehyun Kang",
+                "Dongyun Kim",
+                "Yena Kim",
+                "Hanjung Kim",
+                "Seon Joo Kim"
+            ],
+            "title": "HuRo: Robotizing Human Videos for Scalable VLA Pretraining",
+            "abstract": "arXiv:2609.10706v1 Announce Type: new  Abstract: Human video datasets have emerged as a compelling alternative to expensive real-robot data, offering rich diversity at scale. To bridge the human-to-robot embodiment gap, existing approaches either robotize videos in task-matched settings or address observation and action alignment separately at scale. In this work, we systematically examine whether robotized human videos can provide effective and scalable supervision for pretraining vision-language-action (VLA) policies. To this end, we develop a robotization pipeline that converts heterogeneous human videos into robot-aligned observations and action trajectories while inferring missing intermediate signals across annotation levels. Using this pipeline, we construct the HuRo dataset, comprising about 630K robotized episodes and 142M processed frames from five human-video sources. Across four real-world manipulation tasks, increasing robotized pretraining scale improves overall completion from 51.5% to 80.3% and OOD completion under spatial and visual shifts from 34.9% to 72.2%. Ablations further show that visual robotization improves OOD robustness and that end-to-end pretraining with retargeted actions outperforms visual-only transfer. Code and data are released on our website: https://3587jjh.github.io/HuRo.",
+            "arxiv_id": "2609.10706",
+            "ARXIVID": "2609.10706",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 4,
+            "COMMENT": "Robotizes human videos into robot-aligned observations and action trajectories for VLA pretraining, offering weak-supervision dynamics data relevant to world-model learning from video.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.10895": {
+            "authors": [
+                "Yizhan Li",
+                "Jianxin You",
+                "Mengyang Xiong",
+                "Yinhuan Chen",
+                "Zicheng Zhao",
+                "Dekun Wu",
+                "Dongqing Zhang",
+                "Bang Liu"
+            ],
+            "title": "ReactHuman: A Physics-Grounded Benchmark for Human-Like Reactive Decision-Making in Embodied Multimodal LLMs",
+            "abstract": "arXiv:2609.10895v1 Announce Type: new  Abstract: Reacting to sudden physical hazards (catching a slipping plate, dodging a falling knife) is both a meaningful test of embodied intelligence and a hard requirement for deploying multimodal large language models (MLLMs) as the decision coreof household robots. Existing evaluations, however, probe intuitive physics passively through question answering over videos, or target deliberate, long-horizon tasks such as navigation and rearrangement; none measure whether a model can turn physical understanding into immediate, safety-critical action. We introduce ReactHuman, the first physics-grounded benchmark for human-like reactive decision-making, in which the evaluated MLLM acts as the brain of a simulated humanoid facing sudden household hazards; it spans 17 event families and over 1,000 bit-for-bit reproducible scenes with exact, annotation-free ground truth derived from 240 Hz rigid-body simulation, including adversarial objects whose appearance contradicts their physics (a foam anvil, a steel apple). We further design a five-metric suite that scores each reaction along three axes: reasonable, safe, and physically grounded. We physically execute every committed plan so that decisions have observable consequences. With this harness we evaluate seven representative MLLMs. Results show that reactive safety is far from solved: models mishandle roughly one hazard in three, act from fixed dispositions rather than the observed scene, trust appearance over motion, and miss interception points at meter scale even when the chosen action is correct; none of these failures shrink with model scale. ReactHuman thus offers both a fine-grained diagnosis and a scalable training signal toward physically grounded, safety-aware embodied agents. The benchmark can be found here: https://huggingface.co/datasets/Alan123/reacthuman-benchmark-scaled",
+            "arxiv_id": "2609.10895",
+            "ARXIVID": "2609.10895",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 4,
+            "COMMENT": "Physics-grounded benchmark for reactive decision-making in embodied MLLMs that probes intuitive physical dynamics and safety-critical action, indirectly relevant to world-model evaluation.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        }
+    }
+}

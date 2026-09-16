@@ -1,0 +1,447 @@
+{
+    "summary_en": "### World Models & Learned Dynamics\n\nA clear theme across today's submissions is the maturation of *world-action models* (WAMs) from single-domain curiosity into a general-purpose substrate for embodied control. The strongest work pushes toward physics-grounded, interactive, and long-horizon fidelity: **PhysStream**enables mid-generation manipulation of rigid-body dynamics through structured scene memory and sparse velocity-increment control, while**WholeBodyWAM** generalizes pre-trained world-action priors to humanoid loco-manipulation by jointly predicting visual dynamics, actions, and whole-body control intents. A parallel thread concerns *where action representations come from*: **GeoLAM**learns geometry-grounded latent actions from unlabeled human video via a 4D geometry teacher, and**ProxiDex**couples forward and inverse proximity dynamics to stabilize dexterous manipulation. Perhaps the most conceptually important contribution is**World Model Science**, which reframes long-horizon LLM agent reliability through the lens of self-organized criticality and metastable belief dynamics—diagnosing error avalanches and stress accumulation at the trajectory level rather than treating them as isolated failures. Complementing this,**Stable by Construction** introduces variational latent Markov operators that stabilize long-horizon autoregressive PDE rollouts, an insight that transfers directly to any learned dynamics model suffering from compounding error. Together, these papers suggest the field is converging on a shared agenda: grounding latent dynamics in geometry and physics, controlling them interactively, and rigorously characterizing their failure modes over long horizons.\n\n### Robotics, VLA & Embodied Manipulation\n\nToday's embodied-intelligence papers show a pronounced shift toward *spatially-grounded, demonstration-driven* policies that unify perception, language, and action. **sensVLA**exemplifies this with a VLA architecture for autonomous wheel loaders that routes BEV lidar features to a flow-matching action expert—an unusually concrete industrial instantiation. On the manipulation side,**UniDex-ViTac**and**Weave**both leverage human video or human-object interaction data, driving simulation and contact-aware retargeting respectively to learn dexterous and whole-body loco-manipulation policies.**Seeing What Matters**takes a notably different route, using a generative video model as a navigation planner augmented with BEV visual cues and an inverse-dynamics model to ground predicted video flow into embodiment-specific actions—a clean bridge between the video-generation and robotics communities.**EgoPathBench**and**MEgoVista**provide the evaluation and supervision infrastructure this ecosystem needs: the former probes zero-shot egocentric waypoint decision-making in VLMs, the latter reconstructs metric 4D hand and head motion from egocentric video with motion-capture-validated accuracy. Finally,**FluxVLA Engine** addresses a growing pain point by standardizing interfaces across VLA, world-action models, and embodied policy training—infrastructure that, while not a methodological advance, may materially accelerate reproducibility in the subfield.\n\n### Video Generation, Editing & Neural Codecs\n\nWork on controllable and temporally coherent video continues to diversify along two axes: *interactive control* and *robust streaming*. **MDN-Control**offers a training-free multi-subject editing framework that combines mask localization, depth-aware occlusion control, and noise latent prompting to reduce attribute leakage—an increasingly important capability as generative video moves toward practical editing workflows. On the representation side,**DecoGS**adaptively decouples static and dynamic 3D Gaussians for free-viewpoint video streaming, improving temporal coherence and reducing flicker; the decoupling principle here is likely transferable to temporally consistent dynamic scene generation more broadly.**Semantic-Aware Neural Video Codec**partitions latent representations by importance for error-resilient low-latency transmission, a representation-prioritization idea with clear relevance to robust generation pipelines under bandwidth or channel constraints.**OmniHarness**sits at the periphery of this cluster, applying symbolic policy learning to generalizable visual generation; its compositional policy reuse is suggestive for controllable generative pipelines, though the connection to video dynamics is currently weak.\n\n### Scientific & Domain-Specific Dynamics\n\nA smaller but distinctive set of papers applies learned-dynamics machinery to scientific and industrial domains.**High-Fidelity Digital Twin Data Models**combines randomized dynamic mode decomposition with deep learning to build reduced-complexity surrogates that reproduce complex fluid dynamics—a transferable latent-dynamics approach for learned environment evolution.**Schema-Adaptive Action-Conditioned JEPA**studies cross-machine CNC dynamics transfer under partial sensor overlap, offering rare insight into industrial world-model transfer and, importantly, how to evaluate it. In the medical domain,**MUMINS**performs metadata-conditioned uncertainty-aware next-state synthesis to forecast anatomical evolution in a single diffusion pass with an uncertainty map—narrow in scope but methodologically aligned with the broader learned-dynamics agenda.**Driver Behavior Estimation** rounds out this cluster with a physics-constrained, decision-conditioned autoregressive transformer for predicting human longitudinal driving trajectories, a plausible if specialized contribution to behavior modeling. Collectively, these papers illustrate that the world-model toolkit is diffusing well beyond robotics and video into fluid dynamics, manufacturing, medicine, and transportation—domains where long-horizon stability and uncertainty quantification matter as much as raw predictive accuracy.",
+    "summary_cn": "### World Models & Learned Dynamics\n\nA clear theme across today's submissions is the maturation of *world-action models* (WAMs) from single-domain curiosity into a general-purpose substrate for embodied control. The strongest work pushes toward physics-grounded, interactive, and long-horizon fidelity: **PhysStream**enables mid-generation manipulation of rigid-body dynamics through structured scene memory and sparse velocity-increment control, while**WholeBodyWAM** generalizes pre-trained world-action priors to humanoid loco-manipulation by jointly predicting visual dynamics, actions, and whole-body control intents. A parallel thread concerns *where action representations come from*: **GeoLAM**learns geometry-grounded latent actions from unlabeled human video via a 4D geometry teacher, and**ProxiDex**couples forward and inverse proximity dynamics to stabilize dexterous manipulation. Perhaps the most conceptually important contribution is**World Model Science**, which reframes long-horizon LLM agent reliability through the lens of self-organized criticality and metastable belief dynamics—diagnosing error avalanches and stress accumulation at the trajectory level rather than treating them as isolated failures. Complementing this,**Stable by Construction** introduces variational latent Markov operators that stabilize long-horizon autoregressive PDE rollouts, an insight that transfers directly to any learned dynamics model suffering from compounding error. Together, these papers suggest the field is converging on a shared agenda: grounding latent dynamics in geometry and physics, controlling them interactively, and rigorously characterizing their failure modes over long horizons.\n\n### Robotics, VLA & Embodied Manipulation\n\nToday's embodied-intelligence papers show a pronounced shift toward *spatially-grounded, demonstration-driven* policies that unify perception, language, and action. **sensVLA**exemplifies this with a VLA architecture for autonomous wheel loaders that routes BEV lidar features to a flow-matching action expert—an unusually concrete industrial instantiation. On the manipulation side,**UniDex-ViTac**and**Weave**both leverage human video or human-object interaction data, driving simulation and contact-aware retargeting respectively to learn dexterous and whole-body loco-manipulation policies.**Seeing What Matters**takes a notably different route, using a generative video model as a navigation planner augmented with BEV visual cues and an inverse-dynamics model to ground predicted video flow into embodiment-specific actions—a clean bridge between the video-generation and robotics communities.**EgoPathBench**and**MEgoVista**provide the evaluation and supervision infrastructure this ecosystem needs: the former probes zero-shot egocentric waypoint decision-making in VLMs, the latter reconstructs metric 4D hand and head motion from egocentric video with motion-capture-validated accuracy. Finally,**FluxVLA Engine** addresses a growing pain point by standardizing interfaces across VLA, world-action models, and embodied policy training—infrastructure that, while not a methodological advance, may materially accelerate reproducibility in the subfield.\n\n### Video Generation, Editing & Neural Codecs\n\nWork on controllable and temporally coherent video continues to diversify along two axes: *interactive control* and *robust streaming*. **MDN-Control**offers a training-free multi-subject editing framework that combines mask localization, depth-aware occlusion control, and noise latent prompting to reduce attribute leakage—an increasingly important capability as generative video moves toward practical editing workflows. On the representation side,**DecoGS**adaptively decouples static and dynamic 3D Gaussians for free-viewpoint video streaming, improving temporal coherence and reducing flicker; the decoupling principle here is likely transferable to temporally consistent dynamic scene generation more broadly.**Semantic-Aware Neural Video Codec**partitions latent representations by importance for error-resilient low-latency transmission, a representation-prioritization idea with clear relevance to robust generation pipelines under bandwidth or channel constraints.**OmniHarness**sits at the periphery of this cluster, applying symbolic policy learning to generalizable visual generation; its compositional policy reuse is suggestive for controllable generative pipelines, though the connection to video dynamics is currently weak.\n\n### Scientific & Domain-Specific Dynamics\n\nA smaller but distinctive set of papers applies learned-dynamics machinery to scientific and industrial domains.**High-Fidelity Digital Twin Data Models**combines randomized dynamic mode decomposition with deep learning to build reduced-complexity surrogates that reproduce complex fluid dynamics—a transferable latent-dynamics approach for learned environment evolution.**Schema-Adaptive Action-Conditioned JEPA**studies cross-machine CNC dynamics transfer under partial sensor overlap, offering rare insight into industrial world-model transfer and, importantly, how to evaluate it. In the medical domain,**MUMINS**performs metadata-conditioned uncertainty-aware next-state synthesis to forecast anatomical evolution in a single diffusion pass with an uncertainty map—narrow in scope but methodologically aligned with the broader learned-dynamics agenda.**Driver Behavior Estimation** rounds out this cluster with a physics-constrained, decision-conditioned autoregressive transformer for predicting human longitudinal driving trajectories, a plausible if specialized contribution to behavior modeling. Collectively, these papers illustrate that the world-model toolkit is diffusing well beyond robotics and video into fluid dynamics, manufacturing, medicine, and transportation—domains where long-horizon stability and uncertainty quantification matter as much as raw predictive accuracy.",
+    "papers": {
+        "2609.17521": {
+            "authors": [
+                "Chuhao Chen",
+                "Peter Wonka",
+                "Chaoyang Wang",
+                "Chen Wang",
+                "Qiao Feng",
+                "Sergey Tulyakov",
+                "Lingjie Liu"
+            ],
+            "title": "PhysStream: Streaming Physics-Grounded Video Generation with Structured Scene Memory and Fine-Grained Motion Control",
+            "abstract": "arXiv:2609.17521v1 Announce Type: new  Abstract: Interactive control for video generation is moving from coarse prompts toward fine-grained, physically meaningful manipulation of dynamic scenes. Yet existing controllable methods either require the full control schedule before generation starts, or use pixel-space signals that dictate object positions rather than physical dynamics. To address these limitations, we propose PhysStream, an autoregressive model for physics-grounded image-to-video synthesis that incorporates structured scene memory---positional maps and object tracking maps derived online from previously generated frames---and supports fine-grained motion control via sparse velocity-increment signals that encode physical quantities, letting the model learn the underlying dynamics. We train our model in two stages: a bidirectional model is first finetuned with motion-control conditioning, then a causal autoregressive model is trained with additional structured scene memory, further improving physical consistency. PhysStream enables interactive, mid-generation control over multi-object tabletop rigid-body scenes---a capability not supported by prior methods---reducing motion distribution distance (FVMD) by 33% and trajectory error by 12% over the strongest baselines on synthetic benchmarks, and is preferred by human evaluators in over 85% of in-the-wild comparisons. Please check our website for more details: https://czzzzh.github.io/PhysStream",
+            "arxiv_id": "2609.17521",
+            "ARXIVID": "2609.17521",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Autoregressive physics-grounded image-to-video model with structured scene memory and sparse velocity-increment control enabling interactive mid-generation manipulation of rigid-body dynamics.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.17099": {
+            "authors": [
+                "Yifan Xie",
+                "Hekun Tian",
+                "Jinkun Liu",
+                "YuAn Wang",
+                "Qiao Sun",
+                "Wenbo Ding"
+            ],
+            "title": "GeoLAM: Learning Geometry-Grounded Latent Actions from Unlabeled Human Videos",
+            "abstract": "arXiv:2609.17099v1 Announce Type: new  Abstract: Human videos provide rich manipulation experience, but extracting action representations that preserve useful motion remains challenging. Visual reconstruction alone can entangle manipulation-related motion with appearance changes and camera movement. We present GeoLAM, a framework for learning geometry-grounded latent actions from action-free human videos. GeoLAM combines future-frame reconstruction through a frozen geometric feature hierarchy with motion supervision from a training-only 4D geometry teacher. The geometric representation provides a structural prior, while the teacher's predictions yield spatially pooled targets capturing 3D displacement, residual image-plane motion, and surface-orientation changes. Visibility and confidence weighting reduces the contribution of unreliable estimates, encouraging continuous latent actions to retain geometric motion without explicit hand-pose or hand-trajectory annotations. After video pretraining without action labels, the learned representation provides transition targets for a world-action model trained on action-labeled robot demonstrations. The model jointly denoises latent actions and executable action chunks, with future-video prediction used only as an auxiliary training task. Deployment therefore requires neither the geometry teacher nor future-video generation. Evaluations on a latent-action benchmark and robotic manipulation tasks demonstrate the strong performance of GeoLAM.",
+            "arxiv_id": "2609.17099",
+            "ARXIVID": "2609.17099",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Learns geometry-grounded latent actions from unlabeled human videos via a 4D geometry teacher and future-frame reconstruction, yielding transferable action representations for world-action models and robotic manipulation.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16644": {
+            "authors": [
+                "Zhuo Li",
+                "Yiming Yao",
+                "Jim Tan",
+                "Mengjie Jing",
+                "Zhipeng Dong",
+                "Fei Chen"
+            ],
+            "title": "WholeBodyWAM: Generalizing Pre-trained World-Action Priors to Humanoid Loco-Manipulation via WBC-Grounded Coordination",
+            "abstract": "arXiv:2609.16644v1 Announce Type: new  Abstract: World Action Models (WAMs) offer a promising approach to general-purpose robot manipulation by jointly modeling visual dynamics and actions. However, most WAM studies focus on tabletop or arm-centric manipulation, while humanoid loco-manipulation remains less explored. To address this gap, we introduce WholeBodyWAM, which jointly predicts future visual dynamics, manipulation actions, and whole-body control intents for generalizable humanoid loco-manipulation. It preserves pre-trained world-action priors while grounding heterogeneous whole-body controller (WBC) semantics and coordinating whole-body behavior. Extensive experiments show that WholeBodyWAM achieves an overall simulation task success rate of 91.9%, with a 0.23 improvement in real-world out-of-distribution task progress and a 70% reduction in success-rate variance across WBCs relative to the respective baselines. These results suggest a path toward scalable humanoid whole-body intelligence by extending pre-trained world-action priors through structured WBC grounding and coordination, rather than relearning whole-body behavior from scratch. Project page: https://wholebodywam.github.io/.",
+            "arxiv_id": "2609.16644",
+            "ARXIVID": "2609.16644",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Extends pre-trained world-action models to humanoid whole-body loco-manipulation by jointly predicting visual dynamics, actions, and whole-body control intents with structured WBC grounding.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16737": {
+            "authors": [
+                "Hojin Lee",
+                "Sizhe Lester Li",
+                "Maximilian Hilger",
+                "Susie Lu",
+                "Achim J. Lilienthal",
+                "Vincent Sitzmann",
+                "Daniel A. Duecker"
+            ],
+            "title": "Seeing What Matters: Visual Cue Guided Video Planning for Generalizable Robot Navigation",
+            "abstract": "arXiv:2609.16737v1 Announce Type: new  Abstract: Generative video models can serve as a promising backbone for robot navigation by predicting future observations as video plans. Recent approaches often condition video planning on short-horizon guidance and recover geometric waypoints through scene reconstruction, leaving longer-horizon planning and precise video-to-action translation less explored. We present CueNav, a video model-based navigation framework combining visual cue guided video planning with an embodiment-specific Inverse-Dynamics Model (IDM). As visual cues, we use a Bird's-Eye View (BEV) map to convey global task context and retain part of the robot body in the egocentric observation to expose embodiment context. These cues guide the video planner, while the IDM translates dense flow fields extracted from the video plan into robot actions. With the visual cue encoding global task context, CueNav achieves nearly 2x higher success in maze navigation than planning without the cue. The body-aware view with the IDM enables precise navigation with 70% success in a narrow passage where comparison methods largely fail to complete the task. We further demonstrate zero-shot semantic-conditioned navigation and deployment of the same video planner across different robot platforms. Our results show that visual cue-guided video planning with embodiment-specific action grounding paves the way toward a generalizable navigation framework for longer-horizon planning and embodiment-aware control. Additional results and code are available on our project website: https://cuenav.github.io.",
+            "arxiv_id": "2609.16737",
+            "ARXIVID": "2609.16737",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Uses a generative video model as a navigation planner, adding BEV visual cues for global task context and an inverse-dynamics model to ground predicted video flow into embodiment-specific robot actions.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16621": {
+            "authors": [
+                "Junyi Liao",
+                "Johann Guilleminot",
+                "Vahid Tarokh"
+            ],
+            "title": "Stable by Construction: Variational Latent Markov Operators for Long-Horizon PDE Prediction",
+            "abstract": "arXiv:2609.16621v1 Announce Type: new  Abstract: Neural PDE solvers provide efficient surrogates for time-dependent physical systems, but autoregressive prediction over long horizons remains challenging because local errors can induce distribution shift and accumulate under recursive deployment. We develop a variational approach to this problem by introducing latent Markov dynamics in which physical states are represented by latent distributions and evolved through probabilistic transitions. The framework is formulated directly on function spaces and specialized to functional Gaussian models, where structured latent perturbations induce a spectral geometry and variational transition alignment regularizes the learned dynamics. We further analyze how these mechanisms affect autoregressive error propagation, providing a theoretical connection between variational training and long-horizon prediction. We instantiate the framework as the Variational Autoencoding Markov Operator (VAMO), which combines spatially resolved latent fields, structured Gaussian perturbations, and a neural-operator transition. Empirically, we demonstrate the effectiveness of VAMO on several fluid-dynamics benchmarks with prediction horizons extending substantially beyond those represented during training, where it consistently reduces error accumulation and improves rollout stability over several deterministic and noise-injection baselines. Overall, these results highlight variational modeling as a complementary approach to robust long-horizon neural PDE dynamics.",
+            "arxiv_id": "2609.16621",
+            "ARXIVID": "2609.16621",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Introduces variational latent Markov operators with structured Gaussian perturbations and neural-operator transitions to stabilize long-horizon autoregressive PDE rollouts, a broadly useful insight for learned dynamics and error accumulation.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.17419": {
+            "authors": [
+                "Xinyuan Song",
+                "Zekun Cai"
+            ],
+            "title": "World Model Science: Self-Organized Criticality, Weak Chaos, and Metastable Belief Dynamics in Long-Horizon LLM Agents",
+            "abstract": "arXiv:2609.17419v1 Announce Type: new  Abstract: Long-horizon LLM agents must maintain task state across extended sequences of observations, actions, tool calls, and intermediate beliefs. We study these trajectories through three dynamical views: self-organized criticality, weak chaos, and metastable belief dynamics. Our framework aligns agent-implied states with benchmark-grounded states and measures stress accumulation, error avalanches, temporal dependence, local--global mismatch, bounded divergence, belief-basin transitions, and finite-size scaling under explicit null models. Across 22 experiments spanning controlled puzzles, tool use, embodied tasks, multi-hop retrieval, general-assistant reasoning, and Game of Life, we find that locally valid actions can persist after global state fidelity fails, stress can trigger abrupt collapse, error sequences exhibit long memory, dependency depth changes the propagation regime, and larger horizons support larger avalanches. At the same time, divergence remains bounded, belief states show metastable rather than fully chaotic behavior, and stronger claims of universal power laws, critical points, or shared intervention optima are not supported. These results suggest a science of agent world models based on trajectory-level dynamical diagnostics rather than terminal reward alone.",
+            "arxiv_id": "2609.17419",
+            "ARXIVID": "2609.17419",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 7,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Trajectory-level dynamical diagnostics of LLM agent belief states provide conceptual insight into long-horizon world-model fidelity, stress accumulation, and error avalanches.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16586": {
+            "authors": [
+                "Yushan Bai",
+                "Boyu Zheng",
+                "Zhiyang Mao",
+                "Hongzheng Sun",
+                "Yuchuang Tong",
+                "En Li",
+                "Zhengtao Zhang"
+            ],
+            "title": "ProxiDex: Learning Dynamics-Guided Proximity Policy for Dexterous Manipulation",
+            "abstract": "arXiv:2609.16586v1 Announce Type: new  Abstract: Multi-finger dexterous manipulation relies on stable hand-object interactions, yet these interactions are partially observable in practice. Visual observations are often occluded by the hand, tactile sensors introduce hardware-specific modalities and calibration burdens, and existing policies rarely model how these cues evolve under actions, making them brittle under contact uncertainty. To address these, we present ProxiDex, a dynamics-guided proximity policy framework that treats hand-object proximity as an interaction state for dexterous manipulation. ProxiDex reconstructs interaction point clouds and converts geometric distances into proximity cues, forming a hardware-agnostic contact representation that provides immersive feedback during VR teleoperation. Built on this representation, ProxiDex learns action-conditioned proximity dynamics with a coupled forward-inverse design: future observation latents are predicted from actions, while proximity variations are decoded from latent changes. Leveraging these dynamics, ProxiDex adaptively reweights proximity tokens across manipulation phases and uses dynamics-consistency supervision to guide policy inference, stabilizing action generation under unreliable visual feedback. Simulation and real-world experiments demonstrate improved success rates and robustness over representative baselines across standard, unseen objects, and perturbation scenarios. Additional visualizations are available at https://proxidex.github.io/.",
+            "arxiv_id": "2609.16586",
+            "ARXIVID": "2609.16586",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Learns action-conditioned proximity dynamics with a coupled forward-inverse design, predicting future observation latents and decoding proximity changes to stabilize dexterous manipulation policies.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.17230": {
+            "authors": [
+                "Idil Sulo",
+                "Alexey Supikov",
+                "Ilke Demir",
+                "Sainan Liu"
+            ],
+            "title": "DecoGS: Adaptive Static-Dynamic Decoupling of 3D Gaussians for Free-Viewpoint Video Streaming",
+            "abstract": "arXiv:2609.17230v1 Announce Type: new  Abstract: Streaming 3D reconstruction demands both speed and temporal fidelity, goals that existing methods undermine by updating every Gaussian every frame, even in static regions. We present DecoGS, a method for efficient online training of 3D Gaussians from streaming videos. Unlike prior methods that update the entire scene indiscriminately, DecoGS introduces an adaptive mechanism that selectively focuses optimization on spatiotemporal regions exhibiting motion or photometric changes. This targeted training strategy eliminates redundant updates that cause flickering and drift in nominally static regions, while enabling fast, high-fidelity scene updates. The pipeline further integrates region-aware Gaussian management through gradient gating and efficient visibility filtering to maintain temporal coherence and a compact memory footprint. On N3DV and MeetRoom, DecoGS achieves 34.55 and 31.60 dB PSNR respectively, outperforming all streaming and offline baselines, while rendering at 261 FPS with $70\\times$ lower temporal flicker than the best prior method, requiring no large-scale pretraining.",
+            "arxiv_id": "2609.17230",
+            "ARXIVID": "2609.17230",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Adaptive static-dynamic decoupling of 3D Gaussians for streaming free-viewpoint video improves temporal coherence and reduces flicker, offering transferable insights for temporally consistent dynamic scene generation.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.17169": {
+            "authors": [
+                "Anna Oliveras",
+                "Roger Mar\\'i",
+                "Rafael Redondo",
+                "Oriol Guardi\\`a",
+                "Cynthia Ifeyinwa Ugwu",
+                "Ana Tost",
+                "Bhalaji Nagarajan",
+                "Carolina Migliorelli",
+                "Vicent Ribas",
+                "Petia Radeva"
+            ],
+            "title": "MUMINS: Metadata-conditioned Uncertainty-aware Medical Image Next-state Synthesis",
+            "abstract": "arXiv:2609.17169v1 Announce Type: new  Abstract: Forecasting anatomical changes such as tumor growth and neurodegeneration is a challenging generative vision task. Morphological evolution is subtle relative to static anatomy, highly patient-specific, and inherently stochastic. Existing methods struggle with several issues: deterministic networks ignore biological stochasticity, while standard diffusion models require computationally prohibitive multi-pass sampling to quantify uncertainty. We propose MUMINS (Metadata-conditioned Uncertainty-aware Medical Image Next-state Synthesis), an efficient diffusion framework that jointly diffuses a baseline scan and its follow-up residual, summed to synthesize the follow-up scan, while concurrently predicting a spatial uncertainty map, in a single reverse diffusion process. Conditioned on the time interval and relevant metadata, it preserves fine-grained anatomy by dynamically re-injecting the baseline as a soft anchor at every denoising step, and a negative-log-likelihood head learns the uncertainty map to explicitly flag error-prone regions. Designed without organ-specific heuristics, the same architecture is reused across anatomies via separate, dataset-specific retraining. Extensive evaluations demonstrate that dataset-specific retraining of MUMINS matches or outperforms dedicated, domain-specific state-of-the-art methods on lung CT (PNG) and brain MRI (OASIS-3). Project page: https://github.com/aolivtous/MUMINS.",
+            "arxiv_id": "2609.17169",
+            "ARXIVID": "2609.17169",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Metadata-conditioned uncertainty-aware next-state synthesis forecasts anatomical evolution with a single-pass diffusion and uncertainty map, a narrow but relevant learned-dynamics contribution.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16475": {
+            "authors": [
+                "Jiayi Yu",
+                "Xi Ye",
+                "Lina Wang",
+                "Yunkun Xia"
+            ],
+            "title": "MDN-Control: Mask-Depth-Noise Guided Region Control for Multi-Subject Video Editing",
+            "abstract": "arXiv:2609.16475v1 Announce Type: new  Abstract: Multi subject video editing modifies designated subjects while preserving non target content, but faces cross subject attribute leakage, and occlusion ambiguity. Existing approaches rely on masks and struggle to distinguish overlapping subjects or ensure consistent generation. To address these limitations, we propose MDN-Control, a training free framework jointly controlling target localization, occlusion geometry, and appearance initialization. Specifically, mask-guided localization provides consistent target localization, while depth-aware occlusion control resolves ambiguous boundaries between overlapping subjects. We further introduce noise latent prompting, which retrieves Gaussian initializations from a noise library for prompt relevant priors. Experiments on MSVBench show that MDN-Control achieves the lowest CM-Err and the highest Q-Edit, while maintaining competitive text alignment and temporal consistency, demonstrating the effectiveness of combining spatial, geometric, and latent priors for multi subject video editing.",
+            "arxiv_id": "2609.16475",
+            "ARXIVID": "2609.16475",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Training-free multi-subject video editing framework combining mask localization, depth-aware occlusion control, and noise latent prompting to reduce attribute leakage and improve temporal consistency.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16071": {
+            "authors": [
+                "Ayoub Louaye Bouaziz",
+                "Matthieu Ostertag",
+                "Anton Demasles"
+            ],
+            "title": "Schema-Adaptive Action-Conditioned JEPA for Cross-Machine CNC Transfer under Partial Sensor Overlap",
+            "abstract": "arXiv:2609.16071v1 Announce Type: new  Abstract: Cross-machine deployment of industrial world models requires transfer across changes in dynamics, sensing interfaces, sampling regimes, and control units. We study a schema-adaptive action-conditioned Joint-Embedding Predictive Architecture (SAAC-JEPA) for CNC dynamics, where the source machine has 17 canonical sensor channels and the target shares only 10. Evaluation uses group-disjoint source splits, source-only normalization, held-out self-supervised validation, unit audits, and a sealed target test after model locking. Across five seeds, JEPA pretraining gives no clean-source forecasting gain: scratch and pretrained-body models obtain \\(\\mathrm{RMSE}=0.811\\pm0.022\\) and \\(0.813\\pm0.022\\). A source-only search over 20 candidates selects a schema-consistent action-conditioned JEPA after seven-seed stability checks. On the confirmatory target pass, the locked model reaches zero-shot \\(\\mathrm{RMSE}=0.546\\), \\(R^2=0.012\\), and \\(\\mathrm{NLL}=0.52\\), outperforming persistence but not RevIN-equipped PatchTST and iTransformer baselines (\\(0.503\\) and \\(0.498\\)). A pre-declared paired ablation shows that RevIN in the same architecture improves RMSE to \\(0.495\\pm0.004\\) over three seeds, but degrades target calibration (\\(\\mathrm{NLL}=20.6\\)) on stationary context windows. A pre-lock adaptation sweep further reduces RMSE to \\(0.520\\) with limited target support. These results show that source-domain forecasting accuracy alone is insufficient to assess industrial predictive representations, and that cross-machine adaptation under partial sensor overlap is a distinct evaluation axis.",
+            "arxiv_id": "2609.16071",
+            "ARXIVID": "2609.16071",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Studies schema-adaptive action-conditioned JEPA for cross-machine CNC dynamics transfer under partial sensor overlap, providing insight into industrial world-model transfer and evaluation.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.17101": {
+            "authors": [
+                "Diana A. Bistrian"
+            ],
+            "title": "High-Fidelity Digital Twin Data Models by Randomized Dynamic Mode Decomposition and Deep Learning with Applications in Fluid Dynamics",
+            "abstract": "arXiv:2609.17101v1 Announce Type: new  Abstract: The purpose of this paper is the identification of high-fidelity digital twin data models from numerical code outputs by non-intrusive techniques (i.e., not requiring Galerkin projection of the governing equations onto the reduced modes basis). In this paper the author defines the concept of the digital twin data model (DTM) as a model of reduced complexity that has the main feature of mirroring the original process behavior. The significant advantage of a DTM is to reproduce the dynamics with high accuracy and reduced costs in CPU time and hardware for settings difficult to explore because of the complexity of the dynamics over time. This paper introduces a new framework for creating efficient digital twin data models by combining two state-of-the-art tools: randomized dynamic mode decomposition and deep learning artificial intelligence. It is shown that the outputs are consistent with the original source data with the advantage of reduced complexity. The DTMs are investigated in the numerical simulation of three shock wave phenomena with increasing complexity. The author performs a thorough assessment of the performance of the new digital twin data models in terms of numerical accuracy and computational efficiency.",
+            "arxiv_id": "2609.17101",
+            "ARXIVID": "2609.17101",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Combines randomized dynamic mode decomposition with deep learning to build reduced-complexity digital twin models that reproduce complex fluid dynamics, offering a transferable latent-dynamics surrogate relevant to learned environment evolution.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16057": {
+            "authors": [
+                "Xu Xu (Beihang University)",
+                "Jinxiu Liu (The Chinese University of Hong Kong)",
+                "Zhangbo Qiao (Beihang University)",
+                "Jiaxing Lu (Beihang University)",
+                "Xiangyu Zhang (Beihang University)",
+                "Yubin Gu (National University of Singapore)",
+                "Fangwei Ning (Beihang University)",
+                "Yan Shi (Beihang University)"
+            ],
+            "title": "OmniHarness: Harnessing Generalizable Visual Generation via Symbolic Policy Learning",
+            "abstract": "arXiv:2609.16057v1 Announce Type: new  Abstract: Unified multimodal large language models (MLLMs) and multi-agent systems have advanced visual generation. However, three limitations remain. (1) Existing methods often distill task-specific experience with limited generalizability. (2) Reflection is often deferred until task completion. (3) Knowledge is often acquired only in response to downstream task demands. To address these limitations, we introduce OmniHarness, a framework for generalizable visual generation via symbolic policy learning. OmniHarness abstracts verified executions into symbolic policies for visual generation task families, capturing shared procedures and applicability conditions while removing instance-specific inputs. The harness instantiates, adapts, and composes these policies for new tasks. Intermediate verification guides refinement and failure recovery during execution. Through self-directed inquiry, OmniHarness autonomously generates and executes practice tasks near its capability limits before downstream objectives are specified. Execution feedback continually refines the policies while model parameters remain fixed. Experiments across six benchmarks, three MLLM backbones, and three visual agent frameworks demonstrate strong performance and continual capability expansion. On ComfyBench's Creative tasks, OmniHarness achieves a 95.0% resolve rate, exceeding the strongest baseline by 27.5 percentage points. Frozen policy snapshots improve existing visual agent systems through plug-and-play reuse.",
+            "arxiv_id": "2609.16057",
+            "ARXIVID": "2609.16057",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Symbolic policy learning for generalizable visual generation is only weakly tied to video or world-model dynamics, but its compositional policy reuse could inform controllable generative pipelines.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16279": {
+            "authors": [
+                "Matin Mortaheb",
+                "Homa Esfahanizadeh",
+                "Jinfeng Du",
+                "Harish Viswanathan"
+            ],
+            "title": "Semantic-Aware Neural Video Codec for Error-Resilient Low-Latency Transmission",
+            "abstract": "arXiv:2609.16279v1 Announce Type: new  Abstract: Emerging physical AI systems require low-latency, task-oriented video communication over unreliable channels. We propose a semantic-aware multi-level neural video coding method for robust low-latency video transmission over unreliable channels that are abstracted as multi-level packet erasure channels. Built upon the real-time DCVC-RT neural video codec, the proposed framework introduces a semantic- and feature-aware coding strategy that partitions encoded representations into packets carrying different levels of semantic and latent-feature importance and assigns these packets to different streams, each associated with a priority level when transmitted over unreliable communication channels. We also developed an error-resilient entropy model that removes inter-packet dependencies, allowing each packet to be decoded independently under packet losses. The complete system is trained end-to-end over the abstracted multi-level packet erasure channels, enabling learning of channel-aware representations together with importance-aware packet assignment while facilitating the network for differentiated packet prioritization. Experiments show that the proposed framework significantly improves robustness over baseline DCVC-RT under packet erasures, achieving graceful degradation in less important regions while better preserving task-relevant visual content.",
+            "arxiv_id": "2609.16279",
+            "ARXIVID": "2609.16279",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Semantic-aware neural video codec that partitions latent representations by importance for error-resilient low-latency transmission, offering a transferable representation-prioritization idea for robust video generation pipelines.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.17021": {
+            "authors": [
+                "Gopi Krishna Erabati",
+                "Bjarne Johannsen",
+                "Angus Stewart",
+                "Vardeep Singh Sandhu"
+            ],
+            "title": "sensVLA: Spatially-Grounded Vision-Language-Action Model for Autonomous Wheel Loader",
+            "abstract": "arXiv:2609.17021v1 Announce Type: new  Abstract: Autonomous wheel-loader control requires joint reasoning over task semantics, egocentric vision, proprioception, and 3D scene geometry. We present sensVLA, a Vision-Language-Action (VLA) architecture that combines a Qwen3-2B Vision-Language Model (VLM) with a fully trainable transformer action expert trained by flow-matching velocity regression. sensVLA routes Bird's-Eye-View (BEV) features, extracted from fused front and rear lidar, directly to the action expert through a dedicated cross-attention pathway, while the VLM consumes front and rear RGB views to provide task-conditioned semantic context. This design decouples spatial grounding from linguistic reasoning while preserving interaction between both streams at decision time. The expert predicts six action dimensions: longitudinal velocity, steering, body-frame displacement, arm rate, and bucket rate. On a real-world dataset from a wheel loader, sensVLA reaches aggregate per-step parity with a strong camera-only baseline and reduces longitudinal velocity RMSE by 28% and displacement error by 9% on loading centric scenarios. It also degrades 29% less when the camera stream is corrupted or removed, evidencing that explicit spatial grounding improves accuracy and fault-tolerance for heavy equipment autonomy.",
+            "arxiv_id": "2609.17021",
+            "ARXIVID": "2609.17021",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "VLA architecture for autonomous wheel loaders that routes BEV lidar features to a flow-matching action expert, offering spatially-grounded control relevant to embodied dynamics modeling.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16058": {
+            "authors": [
+                "Mohammad Khoshkdahan",
+                "Pavel Laskov",
+                "Alexey Vinel"
+            ],
+            "title": "Driver Behavior Estimation at Signalized Intersections Using a Physics-Constrained Decision-Conditioned Autoregressive Transformer",
+            "abstract": "arXiv:2609.16058v1 Announce Type: new  Abstract: Red-light violations and harsh braking at signalized intersections are major contributors to traffic accidents. This paper analyzes and predicts human driver decision-making and longitudinal trajectory behavior during traffic light signal transitions. We collected a diverse real-world dataset comprising 449 approach runs under varying speed and distance conditions. Vehicle motion was recorded using RTK-corrected GNSS with centimeter-level accuracy, and driver heart rate and multi-level comfort ratings were monitored. Spatial and temporal calibration ensured precise alignment between vehicle state and signal timing. Statistical analysis identifies required deceleration as the dominant single predictor of the stop-go decision, and heteroscedastic Gaussian modeling of peak deceleration reveals five empirical comfort ranges derived from human stopping behavior. Based on this insight, we propose a two-stage modeling framework. Stage 1 predicts the binary maneuver decision, and Stage 2 generates the longitudinal acceleration trajectory using a decision-conditioned autoregressive Transformer with physics constraints, including target-state conditioning and jerk limits. The proposed architecture outperforms baseline methods and achieves 0.49m/s^2 acceleration MAE and 0.62m distance MAE. It also estimates the future stopping-comfort level of the human driver from a single yellow-onset snapshot. Qualitative results demonstrate realistic human-like braking behavior. The dataset and source code are publicly available.",
+            "arxiv_id": "2609.16058",
+            "ARXIVID": "2609.16058",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Decision-conditioned autoregressive transformer with physics constraints predicts human longitudinal driving trajectories, a narrow but plausible learned-dynamics contribution for behavior modeling.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16504": {
+            "authors": [
+                "Hyesung Lee",
+                "Si-Hwan Heo",
+                "Sungwook Yang"
+            ],
+            "title": "UniDex-ViTac: Learning Unified Visuo-Tactile Dexterous Manipulation Policy from Human Video Data",
+            "abstract": "arXiv:2609.16504v1 Announce Type: new  Abstract: Human videos provide demonstrations of dexterous manipulation but lack robot-executable actions and tactile measurements. We present UniDex-ViTac, a framework that uses human-video-guided simulation to generate robot demonstrations paired with fingertip contact observations for training a deployable visuo-tactile policy. Object-specific residual reinforcement learning specialists adapt annotated human-object interaction references to a robotic arm-hand system. Their successful rollouts pair final robot action targets with robot-side fingertip contact observations. From 50 human demonstrations across ten objects, we collect 10,000 simulated trajectories to train a single Action Chunking with Transformers (ACT) based generalist. The policy combines point clouds, proprioception, and four binary contact signals encoded through fingertip labels and a separate token, without requiring human references or privileged object identity and pose at deployment. The contact-augmented configuration achieves 68.3% macro-average success in simulation, compared with 55.5% for the point-cloud-only baseline. Without real-robot demonstrations or policy fine-tuning, it succeeds in 73/110 physical trials (66.4%) across six seen and five unseen objects, compared with 60/110 (54.5%) for the baseline, an increase of 11.8 percentage points. These results support the feasibility of learning a unified visuo-tactile dexterous manipulation policy from video-guided simulated interactions. Project page: https://unidex-vitac.github.io/",
+            "arxiv_id": "2609.16504",
+            "ARXIVID": "2609.16504",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Uses human video to drive simulation and learn a visuo-tactile dexterous manipulation policy, a weakly related embodied-dynamics contribution that leverages video demonstrations rather than advancing video generation or world modeling directly.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16683": {
+            "authors": [
+                "Liu Cao",
+                "Xingze Wu",
+                "Jingzhi Cui",
+                "Botian Xu",
+                "Mingzhi Pei",
+                "Ruoqu Chen",
+                "Mengdi Xu"
+            ],
+            "title": "Weave: Learning Whole-Body Dexterous Loco-Manipulation from Human-Object Interactions",
+            "abstract": "arXiv:2609.16683v1 Announce Type: new  Abstract: Learning humanoid-object interaction requires coordinating whole-body balance, locomotion, and dexterous hand contact to control both robot and object motion. Human demonstrations provide examples of coordinated interaction, but transferring these behaviors to humanoid robots requires learning how to establish and maintain effective contacts under different embodiments and dynamics. We present Weave, a unified framework for learning whole-body dexterous humanoid-object interaction from captured human demonstrations. Weave first converts captured human-object interactions into executable robot-object references through contact-aware retargeting and approach-motion completion. At its core is a contact- and geometry-aware policy that jointly commands 29 body joints and 12 actuated finger joints across multiple objects and interaction sequences. Evaluation across nine objects yields a 92.5% success rate on trained interactions and, without any additional training, 65.0% on sequences never seen during training. We additionally release ~9,000 physically executed rollouts spanning ~23 hours, providing robot-object trajectories with contact annotations for downstream interaction-policy learning and physically consistent HOI motion generation. Project website: https://xiaohu-art.github.io/Weave/",
+            "arxiv_id": "2609.16683",
+            "ARXIVID": "2609.16683",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Learns whole-body humanoid loco-manipulation from human-object interaction demonstrations with contact-aware retargeting, marginally relevant as embodied dynamics learning but not a world-model or video-generation contribution.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16684": {
+            "authors": [
+                "Jiangong Xiao (Northwestern Polytechnical University)",
+                "Zhihao Zhang (Xi'an Jiaotong University)",
+                "Yifei Dong (Maniformer)",
+                "Chao Ma (Maniformer)",
+                "Zhouyi Jin (Maniformer)",
+                "Zhiwen Hou (Maniformer)",
+                "Li Liu (Maniformer)",
+                "Weihuang Chen (Xi'an Jiaotong University)",
+                "Hongbin Sun (Xi'an Jiaotong University)",
+                "Maoqing Yao (Maniformer)"
+            ],
+            "title": "MEgoVista: Multi-view Ego-aware Motion Estimation for Metric 4D Hands and Head in the Wild",
+            "abstract": "arXiv:2609.16684v1 Announce Type: new  Abstract: Learning manipulation from human video requires high-fidelity hand-motion reconstruction in metric units. Today's metric hand labels come from studio rigs and instrumented headsets, and both are confined in the same two ways: neither leaves a prepared setting, and neither is checked against an independent reference. Unconstrained head-worn recording promises the opposite trade-off, scaling with the number of people wearing a device. We therefore introduce MEgoVista, an offline pipeline that turns a single unprepared MEgo View recording into metric two-hand and head motion in one gravity-aligned world frame. Three properties set it apart from existing egocentric reconstruction systems: first, it reconstructs in settings studio volumes and tabletop rigs cannot reach, settling hand ownership at detection so bystander hands stay out of the wearer's trajectory; second, it takes its metric gauge from calibrated stereo rather than a monocular prior, installing scale at initialisation so policies receive physical units, not arbitrary coordinates; third, both outputs are scored inside a motion-capture volume against independent Chingmu optical capture, under a protocol that audits its own reference and charges what a method declines to predict. MEgoVista is offered as a measured route from egocentric video to metric hand supervision, one that widens where such labels can be gathered.",
+            "arxiv_id": "2609.16684",
+            "ARXIVID": "2609.16684",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Reconstructs metric 4D hand and head motion from egocentric video with calibrated stereo scale, providing motion-capture-validated supervision that could support dynamics learning but is primarily a reconstruction pipeline.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.16610": {
+            "authors": [
+                "Yang Zhao",
+                "Zhuo Chen",
+                "Xubo Yang"
+            ],
+            "title": "EgoPathBench: Evaluating Zero-Shot Egocentric Waypoint Decision-Making in Vision-Language Models",
+            "abstract": "arXiv:2609.16610v1 Announce Type: new  Abstract: Zero-shot waypoint navigation requires vision-language models to select, from the current first-person observation, a sequence of spatial actions that is feasible for the agent and reaches the goal, placing joint demands on the integrated spatial intelligence of today's foundation VLMs. Existing spatial-intelligence benchmarks primarily evaluate isolated judgments of relations, directions, or targets and therefore do not directly measure the integrated navigation ability required to combine target recognition, action-consequence assessment, distance estimation, and path planning. To fill this evaluation gap, we introduce EgoPathBench, a dataset and five-task benchmark for first-person waypoint decision-making. Each question presents an egocentric RGB image, a natural-language goal, and numbered visible waypoints; a model returns traversable candidates or an ordered route. Predictions are evaluated for candidate feasibility, adjacent-edge legality, and goal arrival under point-agent or embodied geometry. EgoPathBench contains 31,852 training, 1,345 validation, and 1,111 benchmark questions and retains at least one geometrically verified reference route for every route question. Across nine VLMs, the highest EgoPath Score is only 28.3. The top-ranked model reaches 35.9% success on Point Path, but only 2.9% and 4.0% on Embodied Path and Intent Path, respectively, showing that current models remain limited in forming complete, goal-consistent routes under embodiment constraints. Beyond the evaluation data, we release the corresponding training resource. Fine-tuning Qwen 3.5 4B on the released training split raises its EgoPath Score from 3.9 to 38.9 and improves all four reported evaluations across three external spatial benchmarks, with gains of 1.4--9.6 points.",
+            "arxiv_id": "2609.16610",
+            "ARXIVID": "2609.16610",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 4,
+            "COMMENT": "Egocentric waypoint decision-making benchmark and training resource probing spatial and action-consequence reasoning in VLMs, weakly relevant to embodied world-model evaluation.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2609.17210": {
+            "authors": [
+                "Yinhao Li",
+                "Weixin Mao",
+                "Zihan Lan",
+                "Jikun Rong",
+                "Qirui Hu",
+                "Yiming Zhang",
+                "Weipeng Deng",
+                "Bowen Shen",
+                "Minzhao Zhu",
+                "Yiming Mao",
+                "Yan Yang",
+                "Chenguang Cui",
+                "Hongyuan Chen",
+                "Xu Huang",
+                "Zheyi Zhao",
+                "Pinxi Shen",
+                "Bozhen He",
+                "Zhen Fu",
+                "Yifan Wang",
+                "Zexin Zhang",
+                "Ang Gao",
+                "Haoyu Chen",
+                "Chengqi Shi",
+                "Hua Chen"
+            ],
+            "title": "FluxVLA Engine: A One-Stop VLA Engineering Platform for Embodied Intelligence",
+            "abstract": "arXiv:2609.17210v1 Announce Type: new  Abstract: Vision-language-action (VLA) models, world-action models (WAMs), and offline reinforcement learning methods are rapidly expanding the design space of embodied policies, yet turning these algorithms into reliable robot systems remains constrained by fragmented data formats, training stacks, evaluation protocols, inference runtimes, and embodiment-specific interfaces. We present $\\mathrm{FluxVLA}$ Engine, an open, configuration-driven platform that turns heterogeneous embodied-policy components into a reproducible data-to-deployment workflow. Rather than introducing another policy model, $\\mathrm{FluxVLA}$ standardizes interfaces for datasets, visual-language and world models, action heads, reward- or advantage-weighted learning, distributed training, simulation evaluation, optimized inference, and robot operators. The engine further integrates compositional dual-arm simulation, scalable automatic data generation, and model-decoupled human-in-the-loop rollout, takeover, correction collection, and reward annotation. For responsive physical execution, it combines Real-Time Chunking (RTC) with accelerated inference backends, lightweight remote GPU serving, and configurable trajectory post-processing. Together, these capabilities connect offline learning, simulation validation, online correction, and real-robot execution through shared and auditable contracts. $\\mathrm{FluxVLA}$ therefore targets the engineering bottlenecks separating promising embodied-learning algorithms from reproducible evaluation and dependable deployment. Code is available at https://github.com/FluxVLA/FluxVLA",
+            "arxiv_id": "2609.17210",
+            "ARXIVID": "2609.17210",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 4,
+            "COMMENT": "Engineering platform standardizing interfaces for VLA, world-action models, and embodied policy training/deployment, offering infrastructure rather than a new world-model or video-generation method.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        }
+    }
+}

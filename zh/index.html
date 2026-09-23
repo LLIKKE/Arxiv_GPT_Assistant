@@ -13,399 +13,261 @@
   document.documentElement.setAttribute('data-color-mode', mode);
   document.querySelector('.profile-color-modes-toggle').onclick = toggleMode;
 })();</script><div><div class="markdown-heading"><h1 class="heading-element">💡 今日研究速览 (Daily Summary)</h1><a id="user-content--今日研究速览-daily-summary" class="anchor" aria-label="Permalink: 💡 今日研究速览 (Daily Summary)" href="#-今日研究速览-daily-summary"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<div class="markdown-heading"><h3 class="heading-element">World Models &amp; Action-Conditioned Dynamics</h3><a id="user-content-world-models--action-conditioned-dynamics" class="anchor" aria-label="Permalink: World Models &amp; Action-Conditioned Dynamics" href="#world-models--action-conditioned-dynamics"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Today's submissions reveal a field converging on a crucial insight: <strong>the internal representations and design choices of world models matter as much as their raw generative capability</strong>. A cluster of empirical and diagnostic studies exposes fragility in current approaches — action-conditioned latent models prove catastrophically non-invariant to action parameterization (absolute vs. delta), video foundation models achieve human-level physical-reasoning accuracy through non-human scene-statistics shortcuts rather than forward simulation, and World Action Models can generate consequential imagined futures that existing visual-quality and physical-consistency selectors simply fail to recognize. These findings collectively motivate a shift from decision-useful evaluation and principled design disentanglement toward more robust architectures. Promisingly, several works respond directly: geometry-native latent spaces jointly decodable to appearance, depth, and point maps halve camera-trajectory error; implicit 3D-aware memory enables long-horizon cross-viewpoint consistency; and persistent physical belief states support multi-step terrain prediction under partial observability. Mechanistic analysis further reveals superposed intersection features and affordance packing inside transformers, while relational scene-graph supervision and Koopman-backbone Kalman filtering offer structured alternatives to black-box latent dynamics. The overarching trend is unmistakable: the community is moving beyond "can we generate plausible futures?" toward "are our world models' internal dynamics causally grounded, invariant, and decision-useful?"</p>
-<div class="markdown-heading"><h3 class="heading-element">Vision-Language-Action &amp; Embodied Control</h3><a id="user-content-vision-language-action--embodied-control" class="anchor" aria-label="Permalink: Vision-Language-Action &amp; Embodied Control" href="#vision-language-action--embodied-control"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>A striking theme today is the<strong>distillation of world-model representations into compact, real-time policies without test-time generative rollout</strong>. Frozen world-model features can be transferred to VLA policies via a single feature-alignment term, and imagined contact mechanics can be distilled into student policies that require no inference-time tactile sensing — a significant step toward deploying rich physical grounding on resource-constrained robots. Complementing this, uncertainty-prioritized rollouts and residual-confidence-guided cross-attention improve the efficiency and reliability of model-based policy optimization in contact-rich manipulation. On the architecture side, persistent recurrent memory in compact VLA models improves long-horizon decision-making under occlusion, while event-triggered asynchronous inference adapts to scene changes without an explicit world model. Force-conditioned and visuo-tactile extensions push VLA policies into dexterous, contact-rich regimes, and visual-conditioned world action models replace language with grounding prompts for agent-driven manipulation. The collective direction is clear: world models are becoming<strong>training-time and inference-time scaffolds</strong>for policies that must act under real physical constraints, rather than ends in themselves.</p>
-<div class="markdown-heading"><h3 class="heading-element">Generative Video &amp; Efficient Visual Synthesis</h3><a id="user-content-generative-video--efficient-visual-synthesis" class="anchor" aria-label="Permalink: Generative Video &amp; Efficient Visual Synthesis" href="#generative-video--efficient-visual-synthesis"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Efficiency and controllability dominate today's visual generation contributions. A unified framework combining a staging principle with terminal-aligned distillation escapes the high-sparsity trap to achieve up to<strong>265× single-GPU acceleration</strong>of video diffusion transformers at 720P quality — a dramatic result for practical deployment. Analysis of streaming video diffusion design space shows that progressive-history context selection plus pipelining improves both long-video consistency and DiT throughput, while direction-aware optimization and resolution-flexible decoding advance implicit and hybrid neural video representations. On the controllability front, rubric-guided policy optimization stabilizes scalar rewards for RL-based video generation, and geometric analysis of classifier-free guidance in flow matching yields a training-free posterior-mean-capped scheme with clear transfer potential. Physical-plausibility supervision is also maturing: differentiable epipolar and lighting losses enforce consistent mirror reflections, and multi-agent video world models use pose-conditioned memory retrieval and visibility-gated peer sharing for cross-agent consistency. Together these works suggest that<strong>the frontier of video generation is shifting from raw quality to controllable, efficient, and physically consistent synthesis</strong>.</p>
-<div class="markdown-heading"><h3 class="heading-element">Autonomous Driving &amp; Navigation</h3><a id="user-content-autonomous-driving--navigation" class="anchor" aria-label="Permalink: Autonomous Driving &amp; Navigation" href="#autonomous-driving--navigation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Driving and navigation research today emphasizes<strong>structured, planning-aligned representations</strong>. Event-decomposed world modeling splits future prediction into normal evolution plus event-triggered incremental correction in latent space, improving trajectory-conditioned plan selection. Relationally grounded latent world models align representations with actor-centric scene-graph semantics as privileged supervision, reducing collision rates without test-time overhead, while sparse action-conditioned BEV pretraining targets planning-relevant features directly. In embodied exploration, world-model-guided LiDAR exploration predicts future occupancy and visibility to generate predictive frontiers for UAVs, and phase-grounded temporal navigation with predict-execute-re-observe loops brings explicit semantic progress states to unmanned surface vehicles. These contributions share a common thread:<strong>learned dynamics are being shaped by downstream planning objectives rather than treated as generic prediction tasks</strong>.</p>
-<div class="markdown-heading"><h3 class="heading-element">Multimodal &amp; Cross-Domain Transfer</h3><a id="user-content-multimodal--cross-domain-transfer" class="anchor" aria-label="Permalink: Multimodal &amp; Cross-Domain Transfer" href="#multimodal--cross-domain-transfer"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p>Several works push world modeling beyond vision into<strong>touch, motion, and multi-agent communication</strong>. Visuo-tactile world-action models extend pretrained video diffusion to distributed fingertip tactile latents, modeling contact evolution as part of the predicted world state, while haptic world-action models imagine future contact mechanics for contact-rich manipulation. In humanoid control, predictive action diffusion jointly generates actions and internal future-state trajectories, and noise-space trajectory optimization synthesizes physically plausible interaction references from text-conditioned motion models. Multi-robot teams demonstrate that frozen self-supervised perceptual latents can serve as compact shared communication messages, and a real-time interactive avatar stack introduces a directed Granger-gain metric for audio-conditioned motion. A non-visual patient world model with exposure-conditioned dynamics illustrates both the reach and the causal-interpretation limits of latent-state forecasting in digital health. The trend here is<strong>representation transfer across modalities and embodiments</strong>, with self-supervised latents emerging as a common currency for communication, control, and prediction.</p>
+<div class="markdown-heading"><h3 class="heading-element">World Models &amp; Generative Simulation</h3><a id="user-content-world-models--generative-simulation" class="anchor" aria-label="Permalink: World Models &amp; Generative Simulation" href="#world-models--generative-simulation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>The dominant theme today is the maturation of world models from passive video predictors into structured, interactive, and executable substrates for embodied intelligence. A clear architectural split is emerging: several works explicitly decouple <em>what happens</em> from <em>how it looks</em>, with Code Plans, Diffusion Renders and GameDirector both separating rule-based or code-based logic from diffusion rendering, enabling persistent memory, player-configurable dynamics, and better state tracking. Complementing this, MachEmbodied-U0 and An Action Is Worth One Patch (PatchWAM) push toward unification, jointly generating RGB, depth, normals, optical flow, and actions within a single backbone, while Skytopia and ForeDrive argue that the <em>representation</em> underlying action-conditioned prediction—not the prediction itself—is what policies actually need, discarding the predictor at deployment or conditioning planners on JEPA-style latent futures. Efficiency and fidelity are advancing in tandem: QuantWM shows training-free 2-bit KV cache quantization can preserve temporal consistency in video world models, while Fysiverse-3D-Vision and φ-RIE generate executable, interactive 3D environments from single images or 3DGS reconstructions. Notably, the field is converging on a "generate-then-simulate" pipeline for robotics and driving (DreamStream, PhyVisGen, MotionForge), where generative priors supply physically grounded data and closed-loop testbeds rather than mere pixels.</p>
+<div class="markdown-heading"><h3 class="heading-element">Embodied Agents, VLA &amp; Robotic Control</h3><a id="user-content-embodied-agents-vla--robotic-control" class="anchor" aria-label="Permalink: Embodied Agents, VLA &amp; Robotic Control" href="#embodied-agents-vla--robotic-control"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Embodied policy learning is increasingly organized around predictive, geometry-aware, and uncertainty-aware representations rather than reactive mapping. HABILIS Brain 0 and Spatial-Interactor both inject dynamics-prediction signals into VLA training—via multiview geometry-change tokens and action-conditioned state-transition modeling respectively—suggesting that weakly supervised <em>dynamics pretraining</em> is becoming a standard recipe for spatial and physical reasoning. CableVLA and VisForce extend this conditioning to task-specific modalities, distilling future topology or grounding contact forces, while PLAT demonstrates that privileged latent transition learning can unlock long-horizon, goal-conditioned humanoid control from sparse keyframes. On the control side, learned dynamics models are being coupled with classical planners: deep bilinear Koopman models drive MPC for heavy machinery, biLSTM dynamics feed MPPI for deformable linear objects, and history-conditioned flow matching brings probabilistic, uncertainty-aware dynamics to continuum robots. Safety and deployment concerns are also surfacing, with SafeLoop introducing risk-aware rollback for manipulation and Deploying Foundation Models for Embodied Navigation tackling long-horizon memory via active memory heads—an abstraction insight likely transferable to world models more broadly.</p>
+<div class="markdown-heading"><h3 class="heading-element">Evaluation &amp; Benchmarks</h3><a id="user-content-evaluation--benchmarks" class="anchor" aria-label="Permalink: Evaluation &amp; Benchmarks" href="#evaluation--benchmarks"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>A striking cluster of today's work targets the evaluation gap in world models, moving decisively beyond single-view visual quality. TriWorldBench introduces synchronized tri-view consistency as a metric for embodied world models, while FireWorldBench probes latent state inference, causal mechanisms, and intervention reasoning through coupled-field fire dynamics. RoboTwin-Phys directly interrogates whether WAMs and VLAs understand physics by varying mass, friction, and joint dynamics with ground-truth parameters, exposing robustness gaps, and MotionForge supplies a large-scale dynamic-manipulation benchmark with domain-shift and latency-aware protocols. Together these efforts signal a field-wide recognition that generative fidelity is a poor proxy for physical competence, and that benchmarks must stress causal, multi-view, and out-of-distribution generalization to be meaningful.</p>
+<div class="markdown-heading"><h3 class="heading-element">Generative Methods &amp; Infrastructure</h3><a id="user-content-generative-methods--infrastructure" class="anchor" aria-label="Permalink: Generative Methods &amp; Infrastructure" href="#generative-methods--infrastructure"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Finally, several contributions offer transferable machinery for the broader generative stack. Mean Velocity Matching reformulates diffusion dynamics through a single-field mean-velocity parameterization that directly yields stochastic reverse-SDE drift—a potentially generalizable trick for video diffusion. COVER embeds watermarks in the latent space of a frozen generative video autoencoder with a differentiable codec surrogate, addressing provenance for generative video. Meanwhile, Generative Embodied Multiple Behavior Control Systems combines habit-memory controllers with context-aware world models for value estimation in human-like agents, hinting at tighter integration between behavior architectures and predictive world models.</p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">1. [Translation Failed]</h2><a id="user-content-1-translation-failed" class="anchor" aria-label="Permalink: 1. [Translation Failed]" href="#1-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 9/10, 创新性 (Nov): 8/10</p>
-<p><strong>作者</strong>: Wangbo Yu, Kunhao Liu, Wenbo Hu, Shenghai Yuan, Chaoran Feng, Haiyang Zhou, Yukun Huang, Yiran Wang, Wang Zhao, Yingmin Luo, Ying Shan</p>
+<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 8/10</p>
+<p><strong>作者</strong>: Zixun Fang, Yawen Shao, Kai Zhu, Jie Xiao, Shihan Chen, Yu Liu, Xueyang Fu, Yang Cao, Wei Zhai, Zheng-Jun Zha</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Introduces a camera-queryable implicit 3D-aware memory jointly trained with a video generator, substantially improving long-horizon and cross-viewpoint consistency for interactive video world models.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Explicitly constructs an executable code-based world with diffusion rendering to enable long-term memory, open-ended interaction, autonomous evolution, and persistent multi-agent dynamics.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24984" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26458" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">2. [Translation Failed]</h2><a id="user-content-2-translation-failed" class="anchor" aria-label="Permalink: 2. [Translation Failed]" href="#2-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Yixin Zheng, Jiangran Lyu, Yuntian Deng, Kai Liu, Yizhou Zhou, Yizhou Wang, Xiaoguang Zhao, He Wang, Zhizheng Zhang</p>
+<p><strong>作者</strong>: Zijun Lin, Zhiyang Deng, Yuzhe Wu, Bihan Wen, Yeying Jin</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Dual-system world action model decoupling global world-action planning from wrist-observation local refinement enables high-frequency closed-loop control while retaining long-horizon visual prediction.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Decouples rule-based gameplay logic from video world-model rendering via an agentic director, improving state tracking, rule adherence, and action quality in interactive game world models.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24868" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25652" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">3. [Translation Failed]</h2><a id="user-content-3-translation-failed" class="anchor" aria-label="Permalink: 3. [Translation Failed]" href="#3-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Ahmed Karim, Leon Chlon</p>
+<p><strong>作者</strong>: Jiaqi Zhao, Xiaobin Hu, Bo Yin, Junpeng Jiang, Miao Zhang, Shuicheng Yan</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Reveals that action-conditioned latent world models are catastrophically non-invariant to action parameterization (absolute vs. delta), with a diagnostic test and objective-averaging repair that improves rollout robustness.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Training-free 2-bit KV cache quantization that preserves attention logits and temporal-spatial token selection to reduce flickering and improve temporal consistency in video generation and world models.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23252" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26425" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">4. [Translation Failed]</h2><a id="user-content-4-translation-failed" class="anchor" aria-label="Permalink: 4. [Translation Failed]" href="#4-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Yuxi Liu, Haoyu Li, Zekun Zhang, Tengxu Sun, Yixiang Cai, Jiayong Li, Yifei Xia, Tianle Liu, Baole Ai, Ang Wang, Jiamang Wang, Lin Qu, Kai Zhang, Kun Yuan, Bin Cui</p>
+<p><strong>作者</strong>: Haoran Wen, Wenfu Wang, Kunsong Shi, Jingke Wang, Wancheng Feng, Yiren Zhang, Yueran Zhao, Xuancheng Zhang, Nanfei Ye, Xingru Chen, Zhaohong Sun, Chengmin Yang, Zikang Yu, Penghao Bi, Jia Shi, Yu Liu, Kun Zhan, Yan Xie</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Introduces a staging principle and terminal-aligned distillation to escape the high-sparsity trap, enabling up to 265x single-GPU acceleration of video diffusion transformers with strong 720P quality.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Unified embodied model jointly generates future RGB, depth, normals, and optical flow alongside actions, providing a concrete visual-dynamics world-model contribution for control.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23153" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25627" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">5. [Translation Failed]</h2><a id="user-content-5-translation-failed" class="anchor" aria-label="Permalink: 5. [Translation Failed]" href="#5-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Markus Karmann, Shile Li, Christian Intern`o, Bruno Andreis, David Klindt, Randall Balestriero, Jindong Gu, Philip Torr, Qi Zhang, Peng-Tao Jiang, Hao Zhang, Bo Li, Onay Urfalioglu</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes DISReg, a temporal-difference embedding regularizer that prevents feature collapse in JEPA latent world models and improves downstream planning under distractors.</p>
+<p><strong>作者</strong>: Ziyang Leng, Sicheng Mo, Seth Z. Zhao, Haoyuan Cai, Yu Zeng, Rowan McAllister, Bolei Zhou</p>
+<p><strong>机构</strong>: VAIL-UCLA</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Builds a simulator-grounded autoregressive video world model for closed-loop driving simulation, preserving policy-relevant scene layout and dynamic-object temporal consistency, plus a new policy-oriented sim-to-real metric.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23881" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26792" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">6. [Translation Failed]</h2><a id="user-content-6-translation-failed" class="anchor" aria-label="Permalink: 6. [Translation Failed]" href="#6-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Yikun Miao, Fangqi Zhu, Quanxin Shou, Xiaoyi Pang, Zhengyang Yan, Junhao Li, Haodong Wang, Zicong Hong, Song Guo</p>
+<p><strong>作者</strong>: Sinuo Wang, Zichong Gu, Yuhan Huang, Wenxin Wen, Xun Yang, Yiqing Zhang, Xingyu Zhang, Ningyu Che, Jie Ling, Qiankun Yu, Wei Liu, Jing Xu, Xinggang Wang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Introduces active online simulator querying plus counterfactual causality-aware fine-tuning to improve action controllability and long-tail dynamics in generative world models.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Learns a planning-relevant JEPA-style latent world model and asymmetrically conditions a DiT planner on multi-horizon future latents via gated fusion and trajectory-adaptive bias.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23753" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26299" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">7. [Translation Failed]</h2><a id="user-content-7-translation-failed" class="anchor" aria-label="Permalink: 7. [Translation Failed]" href="#7-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Jiahao Lu, Minghao Yin, Wenbo Hu, Hengyu Liu, Wang Zhao, Sai-Kit Yeung, Ying Shan, Yuan Liu</p>
+<p><strong>作者</strong>: Yuhang Zhang, Rangya Zhang, Yujing Shang, Zhuoyuan Yu, Weiying Wang, Steven Yang, Qingsong Yan, Chao Yan, Mir Feroskhan</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Introduces a geometry-native autoencoder latent space jointly decodable to appearance, depth, cameras, and point maps, improving 3D-consistent video/world generation and halving camera-trajectory error.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Argues a policy needs the representation underlying action-conditioned prediction rather than the prediction itself, training a forward/inverse latent world model whose predictor is discarded at deployment for monocular drone navigation.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24981" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26007" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">8. [Translation Failed]</h2><a id="user-content-8-translation-failed" class="anchor" aria-label="Permalink: 8. [Translation Failed]" href="#8-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Yuyang Tian, Penghui Yang, Pengyuan Wu, Haoran Yang, Chenhui Li, Pengfei Han, Dong Wang, Zhigang Wang, Bin Zhao, Xuelong Li</p>
+<p><strong>作者</strong>: Tianheng Wang, Zhou Xie, Heng Jia, Jianhua Xu, Tong Zhang, Kaicheng Yu</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Learns a recurrent world model of LiDAR observation dynamics to predict future occupancy/visibility and generate predictive frontiers for UAV exploration, a concrete learned-dynamics contribution for embodied planning.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Unifies visual world prediction and continuous action generation in a single patch-based generative backbone via Action-as-Patch, removing the need for separate action heads or experts.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23656" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25961" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">9. [Translation Failed]</h2><a id="user-content-9-translation-failed" class="anchor" aria-label="Permalink: 9. [Translation Failed]" href="#9-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Pierre Beckmann, Matthieu Queloz, Andre Freitas</p>
+<p><strong>得分</strong>: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10</p>
+<p><strong>作者</strong>: Hang Yang, Tingcong Liu, Junjie Xiong, Fangju Yang, Ke Wu</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Mechanistic analysis of a transformer's internal map representation reveals superposed intersection features and affordance packing that improve world-modeling capacities, offering broadly useful insight into how learned dynamics are represented.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a history-conditioned physics-informed flow-matching framework for probabilistic dynamics prediction of continuum robots, contributing a broadly useful approach to uncertainty-aware learned dynamics under incomplete observations.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.21748" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25658" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">10. [Translation Failed]</h2><a id="user-content-10-translation-failed" class="anchor" aria-label="Permalink: 10. [Translation Failed]" href="#10-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Qianxun Xu, Xianfang Zeng, Xinyao Liao, Wei Cheng, Gang Yu, Chi Zhang</p>
+<p><strong>得分</strong>: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10</p>
+<p><strong>作者</strong>: Kaixiang Yao, Xu Wang, Miao Pan, Hu Xiyue, Weishi Wang, Daniel Dahlmeier, Jintao Chen, Yongliang Shen, Xuhong Zhang, Wenqi Zhang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Introduces pose-conditioned memory retrieval and visibility-gated peer sharing for multi-agent video world models, improving cross-time and cross-agent consistency in camera-controlled generation.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Trains VLMs to model action-conditioned physical state transitions and integrate them over long interaction trajectories, yielding a useful representation-level world-model insight for embodied spatial reasoning.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22641" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.23038" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">11. [Translation Failed]</h2><a id="user-content-11-translation-failed" class="anchor" aria-label="Permalink: 11. [Translation Failed]" href="#11-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Mikhail Sannikov, Ilya Mikhalchuk, Konstantin Gubernatorov, Petr Kovalev, Ogunwoye Faith Oluwatobi, Dzmitry Tsetserukou</p>
+<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
+<p><strong>作者</strong>: Jinu Pahk, Jesoon Kang, Taegeon Park, Jisu An, Soo Min Kimm, Jaejoon Kim, Byoung-Tak Zhang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: World-action model that imagines future contact mechanics and distills tactile-conditioned dynamics into a student policy without inference-time tactile sensing, advancing action-conditioned world modeling for contact-rich manipulation.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Learns multiview future-current geometry-change tokens as an embodiment-agnostic predictive representation for VLA policies, providing a weakly supervised dynamics-prediction signal relevant to world-model pretraining.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23888" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25558" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">12. [Translation Failed]</h2><a id="user-content-12-translation-failed" class="anchor" aria-label="Permalink: 12. [Translation Failed]" href="#12-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Kejia Hu, Wentong Zhai, Bo Zhao, Shuai Liang</p>
+<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
+<p><strong>作者</strong>: Dingkang Yang, Yizhou Liu, Wendong Cheng, Zizhi Chen, Shunli Wang, Yang Liu, Hongsheng Li, Lihua Zhang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Augments VLA reinforcement learning with an action-conditioned visual-torque latent world model whose predicted futures and residual-confidence priors improve action evaluation in contact-rich manipulation.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Generates executable 3D scenes from a single image by decoupling spatial layout reasoning from asset synthesis, yielding physically consistent, interactive environments relevant to world-model simulation.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24033" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25741" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">13. [Translation Failed]</h2><a id="user-content-13-translation-failed" class="anchor" aria-label="Permalink: 13. [Translation Failed]" href="#13-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Hongchen Zhang (University of Chinese Academy of Sciences)</p>
+<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
+<p><strong>作者</strong>: Zepeng Wang, Jiangxing Wang, Chao Ma, Xiaochuan Shi, Zongqing Lu</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Analyzes streaming video diffusion design space and shows progressive-history context selection plus pipelining improves long-video consistency and DiT throughput.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Privileged latent transition learning enables sparse timed keyframe humanoid motion tracking, offering a latent-dynamics insight for long-horizon goal-conditioned control.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22283" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25754" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">14. [Translation Failed]</h2><a id="user-content-14-translation-failed" class="anchor" aria-label="Permalink: 14. [Translation Failed]" href="#14-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Haoran Yuan, Zekai Wang, Boning Shao, Haoran Lu, Trevor Darrell, Ismini Lourentzou, Wei Zhan</p>
+<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
+<p><strong>作者</strong>: Yu Zheng, Qiyu Feng, Yixin Wu, Baoquan Yang, Yixuan Zhou, Bingyang Hu, Kemeng Huang, Guansheng Yang, Hesheng Wang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Extends a pretrained video diffusion world-action model to distributed fingertip tactile latents, showing contact evolution can be modeled as part of the predicted world state for dexterous manipulation.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Generates physically and visually high-fidelity robotic manipulation data via IPC-based soft-contact coupling and real-scene path tracing, relevant to simulation-based dynamics and embodied data generation.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24976" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25653" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">15. [Translation Failed]</h2><a id="user-content-15-translation-failed" class="anchor" aria-label="Permalink: 15. [Translation Failed]" href="#15-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Hongyi Lin, Song Zhang, Haiquan Liu, Yang Liu, Jinhua Zhao, Xiaobo Qu</p>
+<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
+<p><strong>作者</strong>: Chongyu Bao, Haokai Yang, Yuhan Wang, Zhaochong An, Kunpeng Liu, Xiaolan Liu</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Introduces persistent physical belief with world-addressed deformation and physical-response memory for interaction-driven world modeling, enabling multi-step terrain prediction and action ranking under partial observability.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Combines a habit-memory controller with a context-aware world model for action-consequence prediction and value estimation in embodied human-like agents.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22858" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.22691" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">16. [Translation Failed]</h2><a id="user-content-16-translation-failed" class="anchor" aria-label="Permalink: 16. [Translation Failed]" href="#16-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Junjie Yang, Qingwei Zeng, Youyou Li, Zicheng Ding, Ziyi Shi, Shuqi Shen, Hongliang Lu, Hai Yang</p>
+<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
+<p><strong>作者</strong>: Runyi Yang, Deheng Zhang, Xiaoye Wang, Kanzhi Wu, Lei Sun, Ajad Chhatkuli, Kunyu Peng, Luc Van Gool, Danda Pani Paudel</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Decomposes driving world-model future prediction into normal evolution plus event-triggered incremental correction in latent feature space, improving trajectory-conditioned future-feature prediction and plan selection.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Converts 3DGS reconstructions into interactive simulator assets by coupling movable-asset construction with background removal and completion, enabling object-level change and contact in reconstructed scenes.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22317" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26795" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">17. [Translation Failed]</h2><a id="user-content-17-translation-failed" class="anchor" aria-label="Permalink: 17. [Translation Failed]" href="#17-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 7/10</p>
-<p><strong>作者</strong>: Trung Dao, Sankalp Yamsani, Jaden Park, Joohyung Kim, Yong Jae Lee</p>
+<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 7/10</p>
+<p><strong>作者</strong>: Yunhong Zhang, Changjie Cao, Zhihua Zhang, Bingli Liu, Zongjie Cao, Zongyong Cui, Ying Yang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Shows that a frozen world model's internal features can be distilled into a compact VLA policy via a single feature-alignment term, transferring physical grounding without test-time generative rollout.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces a single-field mean-velocity parameterization that directly yields stochastic reverse-SDE drift, a generative-dynamics reformulation potentially transferable to video diffusion.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24682" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25444" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">18. [Translation Failed]</h2><a id="user-content-18-translation-failed" class="anchor" aria-label="Permalink: 18. [Translation Failed]" href="#18-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Jianhao Yuan, Yu Yuan, Benjamin Ramtoula, Lukas Vierling, Paul Newman, Lars Kunze, Philip Torr, Daniele De Martini</p>
+<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 5/10</p>
+<p><strong>作者</strong>: Armin Abdolmohammadi, Navid Mojahed, Dinesh Kumar, Bahram Ravani, Shima Nazari</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Empirical study showing that world action models can generate consequential imagined futures but current visual-quality, physical-consistency, and task-progression selectors fail to recognize them, motivating decision-useful evaluation of world-model predictions.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Learns deep bilinear Koopman dynamics models of vehicle-terrain interaction for predictive control, offering a data-driven latent dynamics insight relevant to world models.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24745" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26580" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">19. [Translation Failed]</h2><a id="user-content-19-translation-failed" class="anchor" aria-label="Permalink: 19. [Translation Failed]" href="#19-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 8/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Chao Tang, Haoqing Wang, Zilang Cen, Weishi Mi, Wei Xia, Fangcheng Liu, Anda Cheng, Yeqing Shen, Xiaohui Cui, Xiaoyuan Zhang, Yehui Tang, Tingguang Li</p>
+<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 6/10</p>
+<p><strong>作者</strong>: Shufan Sun, Chen Wang, Enxin Song, Jiatao Gu, Lingjie Liu</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Systematically disentangles causal structure, latent space, and training objectives in World Action Models, yielding broadly useful design principles for world-model-based control.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Hierarchical agentic reasoning with geometry refinement reconstructs compositional 3D scenes from a single image; adjacent to spatial world modeling but without temporal dynamics or video generation.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24048" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26793" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">20. [Translation Failed]</h2><a id="user-content-20-translation-failed" class="anchor" aria-label="Permalink: 20. [Translation Failed]" href="#20-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Zhenchen Tang, Yang Li, Songlin Yang, Bo Peng, Xiaotong Zhao, Shuai Li, Haotian Fan, Alan Zhao, Jing Dong</p>
+<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 6/10</p>
+<p><strong>作者</strong>: Yuxin Cao, Hao Yang, Ziqi Ding, Jie Hao, Wei Song</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Builds a rubric-guided video reward model with RGPO to stabilize scalar rewards and mitigate drift, providing a more reliable signal for RL-based video generation improvement.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Embeds watermarks in the latent space of a frozen generative video autoencoder with a differentiable codec surrogate, a video-generation-adjacent technique for codec-robust latent payload recovery.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22947" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26236" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">21. [Translation Failed]</h2><a id="user-content-21-translation-failed" class="anchor" aria-label="Permalink: 21. [Translation Failed]" href="#21-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Yicheng Jiang, Zesen Gan, Xiaobo Wang, Tianlun He, Chenxu Zhao, Minghui Wu, Xinyue Wang, Jiaxu Wang, Junhao He, Jianan Wang, Qiming Shao</p>
+<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 4/10</p>
+<p><strong>作者</strong>: Mohan Liu, Dengchen Mei, Haotian Xian, Ruyang Han, Jiayi Sun, Xuanyu Chen, Haitian Zhang, Luxi Li, Kaimin Mao, Lin Wang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Visual-conditioned world action model that predicts scene evolution in latent states while decoding actions, replacing language with grounding prompts and operation tokens for agent-driven manipulation.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Provides a large-scale dynamic-manipulation simulation benchmark and data-generation pipeline with domain-shift and latency-aware protocols, offering a testbed for evaluating learned dynamics in continuously evolving scenes.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23578" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25689" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">22. [Translation Failed]</h2><a id="user-content-22-translation-failed" class="anchor" aria-label="Permalink: 22. [Translation Failed]" href="#22-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Fanhong Li, Shurui Zheng, Zi Yin, Junbo Cui, Lei Ji, Jia Liu</p>
+<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 4/10</p>
+<p><strong>作者</strong>: Jiaqi Zhang, Feng Ye, Mingjia Yang, Zhihong Chen, Mingkang Xiang, Xinglin Yao, Yanbin Li, Siwei Ma, Chuanmin Jia</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Distributional evaluation revealing that video foundation models reach human-level physical-reasoning accuracy via non-human scene-statistics strategies rather than forward simulation, offering a useful diagnostic for world-model dynamics understanding.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Physics-diverse manipulation benchmark with ground-truth physical parameters and demonstrations that exposes robustness gaps in WAMs and VLAs under varying mass, friction, and joint dynamics.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22788" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26292" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">23. [Translation Failed]</h2><a id="user-content-23-translation-failed" class="anchor" aria-label="Permalink: 23. [Translation Failed]" href="#23-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Yifei Sheng, Haoxiang Ren, Zhilong Zhang, Haonan Wang, Runjie Xu, Yihao Sun, Nan Tang, Zhichao Wu, Lei Yuan, Haoxin Lin, Yang Yu</p>
+<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 4/10</p>
+<p><strong>作者</strong>: Qiang Chen, Hao Guo, Huatai Zhu, Tairan Huang, Yichao Cao, Hongyan Xu, Keke Huang, Haifeng Li, Yi Chen, Xiu Su</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Uses policy uncertainty to prioritize which states receive world-model rollouts in VLA policy optimization, a transferable insight for efficient model-based rollout generation.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Benchmark for coupled-field physical world intelligence that probes latent state inference, causal mechanisms, and intervention reasoning in fire dynamics, offering a stress-test for world-model evaluation.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22879" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.23064" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">24. [Translation Failed]</h2><a id="user-content-24-translation-failed" class="anchor" aria-label="Permalink: 24. [Translation Failed]" href="#24-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 7/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Fabian Schmidt, Markus Enzweiler, Abhinav Valada</p>
+<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 4/10</p>
+<p><strong>作者</strong>: Xuanyi Liu, Haofeng Wang, Ruiqi Li, Danni Yu, Rui Wan, Ruixu Zhang, Siyu Tao, Xue Yang, Shaofeng Zhang, Zicheng Zhang, Jiaqi Zhang, Siwei Ma</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Aligns latent driving world-model representations with actor-centric scene-graph semantics as privileged supervision, improving trajectory prediction and collision rate without test-time overhead.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Benchmark evaluating embodied world models via synchronized head and wrist-view consistency, extending world-model evaluation beyond single-view visual quality.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24626" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26314" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">25. [Translation Failed]</h2><a id="user-content-25-translation-failed" class="anchor" aria-label="Permalink: 25. [Translation Failed]" href="#25-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Mintaek Oh, Jeonghun Park, Nir Shlezinger, Yonina C. Eldar, Jinseok Choi</p>
+<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 5/10</p>
+<p><strong>作者</strong>: Vishnu Sashank Dorbala, Dinesh Manocha</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Learns latent linear dynamics via a Koopman backbone for blind Kalman filtering of unknown dynamics, offering a structured latent-dynamics representation relevant to learned world models.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Introduces active memory management via a memory head for long-horizon embodied navigation, offering a transferable insight for memory and state abstraction in world models.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24763" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25666" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">26. [Translation Failed]</h2><a id="user-content-26-translation-failed" class="anchor" aria-label="Permalink: 26. [Translation Failed]" href="#26-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Shuheng Ge, Hongwei Ren, Li Zhang, Xiangqian Wu</p>
+<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 5/10</p>
+<p><strong>作者</strong>: Junjie Xie, Chuxuan He, Angen Ye, Yujia Song, Dapeng Zhang</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Enforces geometric and perceptual reflection consistency in diffusion via differentiable epipolar and lighting losses, offering transferable physical-plausibility supervision for generative visual models.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Hierarchical VLA framework for closed-loop medical robot manipulation; relevant to action-conditioned control but offers limited world-model or video-generation insight.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23442" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25756" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">27. [Translation Failed]</h2><a id="user-content-27-translation-failed" class="anchor" aria-label="Permalink: 27. [Translation Failed]" href="#27-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Lei Ye, Haibo Gao, Yitang Li, Peng Xu, Zetong Jing, Junhan Sun, Fanrong Dong, Ziqi Han, Xue Wang, Jianhua Sun, Cewu Lu, Hao Zhao, Liang Ding</p>
+<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 5/10</p>
+<p><strong>作者</strong>: Zhifei Teng, Bo Feng, Xiang Zou, Jinpeng Xiao, Min Li, Zhouping Yin, Yiqun Li</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Jointly diffuses actions and an internal future-state trajectory for steerable humanoid control, giving a predictive-dynamics representation usable for test-time motion objectives.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Distills future cable-topology and contact dynamics into representations for a VLA policy, a weakly related dynamics-modeling contribution for manipulation.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24840" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25606" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">28. [Translation Failed]</h2><a id="user-content-28-translation-failed" class="anchor" aria-label="Permalink: 28. [Translation Failed]" href="#28-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Lalit Jayanti, Kashu Yamazaki, Yuto Shibata, Kotaro Amaya, Katerina Fragkiadaki</p>
+<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 5/10</p>
+<p><strong>作者</strong>: Jung-Woo Lee, Soo-Chul Lim</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Optimizes noise-space trajectories of a pretrained text-conditioned motion model to synthesize physically plausible humanoid interaction references, a narrow but transferable motion-generation technique.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Grounds current and desired contact forces visually for goal-conditioned dexterous manipulation, a narrow dynamics-conditioning idea with limited transfer to video or world models.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22611" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.25785" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">29. [Translation Failed]</h2><a id="user-content-29-translation-failed" class="anchor" aria-label="Permalink: 29. [Translation Failed]" href="#29-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Jishen Peng, Zheng Ma</p>
+<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 5/10</p>
+<p><strong>作者</strong>: Zeyu Lou, Tianran Zhang, Xinquan Yue, Ya Jing, Chenyang Si</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Provides a geometric analysis of classifier-free guidance in flow matching and a training-free posterior-mean-capped guidance scheme that could transfer to video flow/diffusion generation.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Trains a vision-proprioception risk predictor for hazard anticipation and rollback in VLA manipulation, a weakly related predictive-dynamics safety mechanism.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24287" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26313" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">30. [Translation Failed]</h2><a id="user-content-30-translation-failed" class="anchor" aria-label="Permalink: 30. [Translation Failed]" href="#30-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Artem Kravtsov, Dmitrii Ziganshin, Vsevolod Poletaev, Gleb Balitskiy, Anastasia Tikhonova, Egor Burkov, Vadim Lebedev</p>
+<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 4/10</p>
+<p><strong>作者</strong>: Lukas Zeh, Johannes Meiwaldt, Zexu Zhou, Armin Lechler, Alexander Verl</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Builds a real-time interactive dyadic avatar stack with an autoregressive flow-matching motion generator and a new directed Granger-gain metric for audio-conditioned motion, offering limited but plausible transferable insight for controllable video generation.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Learns biLSTM dynamics of deformable linear objects for MPPI control, a narrow learned-dynamics model for manipulation rather than a visual world model.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22913" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.26238" rel="nofollow">阅读原文</a></p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">31. [Translation Failed]</h2><a id="user-content-31-translation-failed" class="anchor" aria-label="Permalink: 31. [Translation Failed]" href="#31-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Howard Wang, Han Zheng, Cathy Wu</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Shows frozen self-supervised perceptual latents can serve as compact, shared communication messages in multi-robot teams, giving a relevant latent-representation insight for partially observable dynamics and embodied coordination.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23269" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">32. [Translation Failed]</h2><a id="user-content-32-translation-failed" class="anchor" aria-label="Permalink: 32. [Translation Failed]" href="#32-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Jieling Wu, Yuehao Huang, Jiajun Lv, Tao Huang, Yong Liu, Weiwei Liu</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Phase-grounded temporal navigation with predict-execute-re-observe closed-loop rollout for USVs offers a weakly transferable world-model insight via explicit semantic progress state fused with visual-motion history.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23423" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">33. [Translation Failed]</h2><a id="user-content-33-translation-failed" class="anchor" aria-label="Permalink: 33. [Translation Failed]" href="#33-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Jan-Gerrit Habekost, Parsa Mastouri Kashani, Connor G"ade, Matthias Kerzel, Philipp Allgeuer, Cornelius Weber, Stefan Wermter, Jae Hee Lee</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Persistent recurrent memory in a VLA policy improves long-horizon embodied decision-making under occlusion, offering a modest memory/state-abstraction insight for world models.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22854" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">34. [Translation Failed]</h2><a id="user-content-34-translation-failed" class="anchor" aria-label="Permalink: 34. [Translation Failed]" href="#34-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 6/10, 创新性 (Nov): 5/10</p>
-<p><strong>作者</strong>: Yunlong Wang</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Latent-state patient world model with exposure-conditioned dynamics and weekly hazard rollouts for forecasting health campaign outcomes, illustrating non-visual learned dynamics and the limits of causal interpretation.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23333" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">35. [Translation Failed]</h2><a id="user-content-35-translation-failed" class="anchor" aria-label="Permalink: 35. [Translation Failed]" href="#35-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Fukang Liu, Yipu Chen, Jaehwi Jang, Danfei Xu, Zsolt Kira, Ye Zhao</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Adds explicit force conditioning to a VLA policy for contact-rich humanoid manipulation, a weakly related embodied-dynamics contribution without a learned visual world model.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23968" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">36. [Translation Failed]</h2><a id="user-content-36-translation-failed" class="anchor" aria-label="Permalink: 36. [Translation Failed]" href="#36-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Jingzhi Cui, Xuefeng Liu, Feng Han, Xinyu Liu, Wei Chen, Jianwei Niu</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Uses a generative shape prior to imagine occluded geometry and plan uncertainty-aware next-best-views, offering a weakly related active-perception take on learned spatial/affordance dynamics.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23504" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">37. [Translation Failed]</h2><a id="user-content-37-translation-failed" class="anchor" aria-label="Permalink: 37. [Translation Failed]" href="#37-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Wenbo Li, Yiteng Chen, Wei Zhang, Wenhao Li, Jun Yang, Qingyao Wu</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Learns a structured action-conditioning state covering task progression, scene dynamics, and spatial grounding via staged grounding, offering indirect relevance to controllable dynamics modeling.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23275" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">38. [Translation Failed]</h2><a id="user-content-38-translation-failed" class="anchor" aria-label="Permalink: 38. [Translation Failed]" href="#38-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Rui Zhou, Zihan Zhu, Wei Zhang, Zizhou Luo, Norbert Haala, Marc Pollefeys</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Separates robot motion from elevator transport motion in visual-inertial Gaussian-splatting SLAM, a narrow but relevant contribution to disentangling scene dynamics from egomotion.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23491" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">39. [Translation Failed]</h2><a id="user-content-39-translation-failed" class="anchor" aria-label="Permalink: 39. [Translation Failed]" href="#39-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Kunyang Lin, Xutao Wen, Jingxi Lin, Lanyong Lin, Jiaming Liu, Tianshuo Yang, Xianchi Chen, Yue Han, Yiduo Li, Zhanpeng Zhang, Ping Luo</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Transfers in-the-wild egocentric human video to dexterous dual-arm manipulation via geometric view alignment and human-robot training, with limited but plausible relevance to embodied dynamics learning.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23755" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">40. [Translation Failed]</h2><a id="user-content-40-translation-failed" class="anchor" aria-label="Permalink: 40. [Translation Failed]" href="#40-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Guanxiong Chen, Yiduo Qu, Qianjun Xia, Pengyu Jing, Yixian Cheng, Bole Ma, Pengzhi Yang, Bingyang Zhou, Ziming Li, Shashwat Suri, Gongbo Sun, Chao Liu, Peter Yichen Chen, Ziqiu Zeng, Fan Shi</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Agentic generate-simulate-diagnose-refine loop produces simulation-ready deformable assets, offering a weakly related physical-plausibility feedback mechanism for robotic simulation rather than a video or dynamics world model.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23103" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">41. [Translation Failed]</h2><a id="user-content-41-translation-failed" class="anchor" aria-label="Permalink: 41. [Translation Failed]" href="#41-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Yansong Wu, Huaqing Li, Tianding Hou, Lingyun Chen, Alois Knoll</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Event-triggered asynchronous inference for VLA policies adapts the inference gap to observed scene changes, improving reactivity to environment dynamics but without an explicit learned world model.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22587" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">42. [Translation Failed]</h2><a id="user-content-42-translation-failed" class="anchor" aria-label="Permalink: 42. [Translation Failed]" href="#42-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 6/10</p>
-<p><strong>作者</strong>: Qingyu Mao, Jiacong Chen, Shuai Liu, Yongsheng Liang, Youneng Bao</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Direction-aware optimizer for implicit neural video representation improves reconstruction convergence and PSNR/MS-SSIM, a video-representation optimization contribution only indirectly tied to video generation.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23052" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">43. [Translation Failed]</h2><a id="user-content-43-translation-failed" class="anchor" aria-label="Permalink: 43. [Translation Failed]" href="#43-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 5/10</p>
-<p><strong>作者</strong>: Taiga Hayami, Masaya Takabe, Hiroshi Watanabe</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Proposes a resolution-flexible decoder with progressive 2x upsampling and intermediate supervision for hybrid neural video representations, a narrow but transferable video-representation improvement.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.23555" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">44. [Translation Failed]</h2><a id="user-content-44-translation-failed" class="anchor" aria-label="Permalink: 44. [Translation Failed]" href="#44-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 5/10</p>
-<p><strong>作者</strong>: Jaeha Song, Soonmin Hwang</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Action-conditioned sparse BEV pretraining targets for planning-relevant representations, tangentially related to learned dynamics but focused on autonomous-driving planning rather than generative world modeling.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22868" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">45. [Translation Failed]</h2><a id="user-content-45-translation-failed" class="anchor" aria-label="Permalink: 45. [Translation Failed]" href="#45-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 5/10</p>
-<p><strong>作者</strong>: Yuxuan Nai, Leixin Chang, Liangjing Yang, Shuo Yang, Zhongyu Li</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: End-effector-conditioned real-time whole-body motion generator that transfers UMI manipulation skills to humanoids, offering only indirect relevance to learned dynamics or video generation.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22829" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">46. [Translation Failed]</h2><a id="user-content-46-translation-failed" class="anchor" aria-label="Permalink: 46. [Translation Failed]" href="#46-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 4/10</p>
-<p><strong>作者</strong>: Boyu Qiao, Zixin Tang, Xiaoshuai Hao, Wenbo Li</p>
+<p><strong>作者</strong>: Boxun Hu, Jiawei Ge, Axel Krieger, Peng Wang, Tinoosh Mohsenin</p>
 <p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Benchmark for black-box game replication via visual interaction, weakly relevant as it probes inducing dynamics/rules from pixels but offers no new world-model or video-generation method.</p>
+<p><strong>💡 亮点 (Highlight)</strong>: Edge-deployed active-perception next-best-view loop with distilled human mesh recovery, offering a narrow but plausible closed-loop visual dynamics/embodied perception connection.</p>
 <p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.22308" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">47. [Translation Failed]</h2><a id="user-content-47-translation-failed" class="anchor" aria-label="Permalink: 47. [Translation Failed]" href="#47-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 3/10</p>
-<p><strong>作者</strong>: Chuyang Xiao, Haotian Zhan, Sriram Krishna, Peilin Meng, Muhammad Zubair Irshad, Sergey Zakharov, David Held</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Benchmark for human-to-robot transfer that evaluates policies learned from human video, only weakly connected to world models or video generation via its use of video demonstrations.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24778" rel="nofollow">阅读原文</a></p>
-<hr>
-<div class="markdown-heading"><h2 class="heading-element">48. [Translation Failed]</h2><a id="user-content-48-translation-failed" class="anchor" aria-label="Permalink: 48. [Translation Failed]" href="#48-translation-failed"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>得分</strong>: 相关性 (Rel): 5/10, 创新性 (Nov): 2/10</p>
-<p><strong>作者</strong>: Nick Lemke, Niklas Ihm, John Kalkhof, Mirko Konstantin, Henry J. Krumb, Daniel M. Lang, Ehsan Pajouheshagar, Ario Sadafi, Arjan Kuijper, Karim Lekadir, Marco Lorenzi, Carsten Marr, Julia A. Schnabel, Anirban Mukhopadhyay</p>
-<p><strong>机构</strong>: Unknown Institution</p>
-<p><strong>💡 亮点 (Highlight)</strong>: Survey of neural cellular automata for simulation and image synthesis is only loosely connected to learned dynamics or video generation, with no new method.</p>
-<p><strong>摘要</strong>: [Translation Failed]</p>
-<p><a href="https://arxiv.org/abs/2609.24595" rel="nofollow">阅读原文</a></p>
+<p><a href="https://arxiv.org/abs/2609.23974" rel="nofollow">阅读原文</a></p>
 <hr>
 </div></div><div class="footer container-xl width-full p-responsive"><div class="position-relative flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-4 pb-4 mt-6 f6 color-text-secondary border-top color-border-secondary text-center"><div class="footer-octicon d-lg-block mx-lg-4"><a title="LLIKKE/Arxiv_GPT_Assistant" href="https://github.com/LLIKKE/Arxiv_GPT_Assistant" target="_blank" rel="noreferrer noopener"><svg class="octicon octicon-mark-github gh-logo" width="36" height="36" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"></path></svg></a></div><span class="mt-2 d-block footprint"><span>powered by </span><a href="https://github.com/wranders/markdown-to-pages-action" target="_blank" rel="noreferrer noopener">markdown-to-pages-action</a></span></div></div></body></html>

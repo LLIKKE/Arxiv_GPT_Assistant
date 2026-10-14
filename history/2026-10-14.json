@@ -1,0 +1,31 @@
+{
+    "summary_en": "### Agents\n\nToday's work on long-horizon agents reflects a growing emphasis on how agents manage and reuse their own interaction history rather than treating each episode as an isolated rollout. The standout contribution introduces retrospective exploration: agents deliberately rewind to earlier environment states and evolve their policies using accumulated experience, effectively turning trajectory data into a reusable substrate for future decisions. This reframes exploration as a bidirectional process—moving backward to consolidate knowledge before advancing—and connects naturally to broader themes in world-model planning and persistent memory. While the reported gains are characterized as weakly transferable, the underlying insight is significant: for long-horizon tasks, the bottleneck is often not raw capability but the ability to revisit, re-evaluate, and build upon prior states. This aligns with a wider trend this period toward treating agent memory and state management as first-class research problems, distinct from and complementary to improvements in base reasoning or tool use. As agents are deployed on increasingly extended tasks, mechanisms that let them exploit their own past experience—rather than merely accumulating it—are likely to become a central design axis.",
+    "summary_cn": "### Agents\n\nToday's work on long-horizon agents reflects a growing emphasis on how agents manage and reuse their own interaction history rather than treating each episode as an isolated rollout. The standout contribution introduces retrospective exploration: agents deliberately rewind to earlier environment states and evolve their policies using accumulated experience, effectively turning trajectory data into a reusable substrate for future decisions. This reframes exploration as a bidirectional process—moving backward to consolidate knowledge before advancing—and connects naturally to broader themes in world-model planning and persistent memory. While the reported gains are characterized as weakly transferable, the underlying insight is significant: for long-horizon tasks, the bottleneck is often not raw capability but the ability to revisit, re-evaluate, and build upon prior states. This aligns with a wider trend this period toward treating agent memory and state management as first-class research problems, distinct from and complementary to improvements in base reasoning or tool use. As agents are deployed on increasingly extended tasks, mechanisms that let them exploit their own past experience—rather than merely accumulating it—are likely to become a central design axis.",
+    "papers": {
+        "2610.13058": {
+            "authors": [
+                "Ziang Ye",
+                "Wentao Shi",
+                "Lei Chen",
+                "Zhengzhou Cai",
+                "Yu Wang",
+                "Zhiyuan Yao",
+                "Zihan Wang",
+                "Xierui Song",
+                "Fuli Feng",
+                "Yixin Cao"
+            ],
+            "title": "Travel Back To Move Forward: Retrospective Exploration and Evolving for Long Horizon Agents",
+            "abstract": "arXiv:2610.13058v1 Announce Type: new  Abstract: Large language model agents increasingly operate in long-horizon environments where early mistakes can trigger cascading failures and trap agents in dead-end trajectories. Agents must therefore be able to proactively recover from such states and turn their exploratory experience into guidance for subsequent decisions. We introduce ReTRAIL, a framework that enables agents to rewind the environment to earlier states while preserving valid progress and carrying forward knowledge learned from abandoned exploration. The environment state moves backward while the agent's knowledge continues to move forward. ReTRAIL trains a shared policy with two complementary signals: State-Anchored GRPO compares alternative continuations from revisited states to improve execution, while a branch-advancement reward guides reflection through the progress of subsequent exploration. Experiments across four interactive benchmark MineSweeper, Sokoban, ALFWorld and ScienceWorld show that simply adding a rewind primitive provides limited benefit and can even degrade performance. In contrast, ReTRAIL enables agents to rewind from unproductive states and use insights from abandoned branches to guide subsequent exploration. These results demonstrate the value of coupling environment rewinding with experience reuse within an ongoing task for long-horizon task solving. The code is available at https://github.com/whi497/ReTRAIL.",
+            "arxiv_id": "2610.13058",
+            "ARXIVID": "2610.13058",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Introduces environment rewinding with experience reuse for long-horizon LLM agents, offering a weakly transferable insight about state revisiting and knowledge accumulation relevant to world-model planning and memory.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        }
+    }
+}

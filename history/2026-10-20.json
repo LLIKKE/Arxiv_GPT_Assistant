@@ -1,0 +1,157 @@
+{
+    "summary_en": "### Video World Models & Generation\n\nToday's video world model work converges on a shared diagnosis: the bottleneck is no longer raw generation quality but the *explicit state* a model carries forward. Two papers attack memory directly—one by making it structural, introducing persistent planar geometry jointly predicted with RGB to condition autoregressive chunks and hold cross-view coherence over hundreds of frames, and another by auditing it, with a new evaluation (MIST) that cleanly separates instruction execution from memory retention and shows that a targeted instruction-revision agent method substantially closes the memory gap. A parallel thread targets *physical and geometric fidelity* as a post-hoc or agentic correction layer rather than an emergent property: one line of work trains video-to-video correctors on synthetic paired supervision with optical-flow cues to disentangle camera from object motion, while another wraps generation in a generate-diagnose-repair agent with spatiotemporal causal constraints and experience-augmented in-context reasoning. Read together, the trend is a shift from \"bigger video generators\" toward modular world models with inspectable, repairable internal state—geometry as memory, agents as physics critics, and benchmarks that tell us which failure mode we are actually fixing.\n\n### Controllable & 3D-Conditioned Generation\n\nA smaller cluster explores bending strong video diffusion priors toward controllable 3D outputs, most notably fine-tuning a video diffusion model into a multi-view avatar with disentangled expression codes and camera-triplet training—delivering convincing hair dynamics and view consistency, though at the cost of narrow, avatar-specific applicability. The signal here is that video diffusion is proving to be a viable backbone for 3D-consistent controllable synthesis, but current instantiations remain point solutions rather than general controllable-3D engines.\n\n### Representation Learning & Alignment\n\nOn the representation side, trajectory-level alignment emerges as a distinct granularity of text-video embedding: slow-fast encoding with mask-guided contrastive learning yields transferable spatiotemporal representations for object motion, though explicitly without generative or dynamics-modeling ambitions. This is complementary infrastructure—better motion-aware embeddings are precisely what the world-model and correction pipelines above will need as conditioning and evaluation substrates.\n\n### World Models for Decision-Making & Robotics\n\nOne paper extends the world-model paradigm into policy: an action-conditioned graph dynamics model drives prediction-guided action selection, a sensible but auxiliary use of learned dynamics with modest reported gains. The takeaway is that graph-structured dynamics are a promising fit for relational robotic scenes, but the performance delta suggests prediction-guided selection is not yet a decisive advantage over strong model-free baselines.\n\n**Cross-cutting observation:** Today's slate is dominated by *diagnosis and repair* over *scale*. Whether through explicit geometric memory, memory-vs-execution benchmarks, agentic physics critics, or post-hoc geometry correctors, the field is increasingly treating video world models as systems to be instrumented and patched—an encouraging maturation, provided the community converges on shared failure taxonomies rather than bespoke fixes.",
+    "summary_cn": "### Video World Models & Generation\n\nToday's video world model work converges on a shared diagnosis: the bottleneck is no longer raw generation quality but the *explicit state* a model carries forward. Two papers attack memory directly—one by making it structural, introducing persistent planar geometry jointly predicted with RGB to condition autoregressive chunks and hold cross-view coherence over hundreds of frames, and another by auditing it, with a new evaluation (MIST) that cleanly separates instruction execution from memory retention and shows that a targeted instruction-revision agent method substantially closes the memory gap. A parallel thread targets *physical and geometric fidelity* as a post-hoc or agentic correction layer rather than an emergent property: one line of work trains video-to-video correctors on synthetic paired supervision with optical-flow cues to disentangle camera from object motion, while another wraps generation in a generate-diagnose-repair agent with spatiotemporal causal constraints and experience-augmented in-context reasoning. Read together, the trend is a shift from \"bigger video generators\" toward modular world models with inspectable, repairable internal state—geometry as memory, agents as physics critics, and benchmarks that tell us which failure mode we are actually fixing.\n\n### Controllable & 3D-Conditioned Generation\n\nA smaller cluster explores bending strong video diffusion priors toward controllable 3D outputs, most notably fine-tuning a video diffusion model into a multi-view avatar with disentangled expression codes and camera-triplet training—delivering convincing hair dynamics and view consistency, though at the cost of narrow, avatar-specific applicability. The signal here is that video diffusion is proving to be a viable backbone for 3D-consistent controllable synthesis, but current instantiations remain point solutions rather than general controllable-3D engines.\n\n### Representation Learning & Alignment\n\nOn the representation side, trajectory-level alignment emerges as a distinct granularity of text-video embedding: slow-fast encoding with mask-guided contrastive learning yields transferable spatiotemporal representations for object motion, though explicitly without generative or dynamics-modeling ambitions. This is complementary infrastructure—better motion-aware embeddings are precisely what the world-model and correction pipelines above will need as conditioning and evaluation substrates.\n\n### World Models for Decision-Making & Robotics\n\nOne paper extends the world-model paradigm into policy: an action-conditioned graph dynamics model drives prediction-guided action selection, a sensible but auxiliary use of learned dynamics with modest reported gains. The takeaway is that graph-structured dynamics are a promising fit for relational robotic scenes, but the performance delta suggests prediction-guided selection is not yet a decisive advantage over strong model-free baselines.\n\n**Cross-cutting observation:** Today's slate is dominated by *diagnosis and repair* over *scale*. Whether through explicit geometric memory, memory-vs-execution benchmarks, agentic physics critics, or post-hoc geometry correctors, the field is increasingly treating video world models as systems to be instrumented and patched—an encouraging maturation, provided the community converges on shared failure taxonomies rather than bespoke fixes.",
+    "papers": {
+        "2610.23795": {
+            "authors": [
+                "Yuze He",
+                "Bin Tan",
+                "Zelin Gao",
+                "Yujun Shen",
+                "Yong-Jin Liu",
+                "Nan Xue",
+                "Yinghao Xu"
+            ],
+            "title": "Persistent Planar Memory for Video World Models",
+            "abstract": "arXiv:2610.23795v1 Announce Type: new  Abstract: Video world models that generate and explore environments at scale need a persistent 3D memory of what they have produced. Plane primitives offer a natural candidate: a compact set of oriented planes captures the dominant structural elements (e.g., walls, floors, facades) of indoor and outdoor scenes, while requiring only 7 parameters per primitive. We present PPMem, a video world model that adopts plane primitives as its persistent 3D memory. PPMem augments a video diffusion transformer with a planar prediction head and a Depth Token Fusion (DTF) module: each autoregressive chunk jointly produces RGB video and planar geometry, which merges into a persistent plane memory that conditions subsequent chunks via rendered depth. The resulting memory is three orders of magnitude more compact than per-pixel point clouds (~100K primitives, 5MB for a full scene), geometrically explicit (metric depth, normals, exportable surfaces), cross-view consistent (jointly predicted by the shared backbone), and adaptive (refined by the merging procedure as generation proceeds). On DL3DV and RealEstate10K, PPMem outperforms prior 3D-grounded world models in video quality while jointly producing metric-scale depth, surface normals, and exportable planar geometry, sustaining coherence across hundreds of frames under large viewpoint changes. Project page: https://hyzcluster.github.io/ppmem.",
+            "arxiv_id": "2610.23795",
+            "ARXIVID": "2610.23795",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 9,
+            "NOVELTY_SCORE": 8,
+            "COMMENT": "Introduces persistent planar memory for video world models, jointly predicting RGB and planar geometry to condition autoregressive chunks and sustain cross-view coherence over hundreds of frames with compact explicit 3D memory.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2610.23856": {
+            "authors": [
+                "Weijie Lyu",
+                "Tiancheng Shen",
+                "Jason Li",
+                "Yujing Wang",
+                "Xiaoyuan Wang",
+                "Haobo Yuan",
+                "Yizhou Zhao",
+                "Ming-Hsuan Yang"
+            ],
+            "title": "Learning to Correct Geometry in Generated Videos",
+            "abstract": "arXiv:2610.23856v1 Announce Type: new  Abstract: Generated videos often lose geometric consistency under camera motion: structures warp under viewpoint change, parallax becomes inconsistent, and smooth camera movement may collapse into shot-like transitions. We argue that this failure is largely a data problem. In web-scale video corpora, most visible motion comes from dynamic objects captured by static or weakly moving cameras, leaving only sparse supervision for viewpoint-induced appearance changes. To address this, we propose Video Geometry Corrector (VGC), a post-hoc video-to-video model trained on synthetic paired supervision. Starting from real videos with diverse camera motion and pose annotations, we construct VG-Pairs with a synthetic paired-supervision data generation pipeline. Each video clip is treated as a geometry-consistent target and paired with a distorted counterpart synthesized by a pretrained image-to-video inpainting model using trajectory-adaptive keyframes. VGC learns to map the distorted input to the geometry-consistent target without modifying the source generator, and uses optical flow as an auxiliary cue to help disentangle camera motion from object motion. Experiments on pose-conditioned and prompt-driven benchmarks show that VGC improves geometric consistency across multiple source generators, and scaling to a larger backbone further extends the framework toward more general video refinement.",
+            "arxiv_id": "2610.23856",
+            "ARXIVID": "2610.23856",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Proposes a post-hoc video-to-video geometry corrector trained on synthetic paired supervision to fix camera-motion geometric inconsistency in generated videos, with optical-flow cues disentangling camera vs. object motion.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2610.23677": {
+            "authors": [
+                "Xikang Guan",
+                "Shaocong Yang",
+                "Yanqi Bao",
+                "Can Wang",
+                "Zheng Gu",
+                "Zhengqing Chen",
+                "Kai Chen",
+                "Jing Huo",
+                "Yang Gao"
+            ],
+            "title": "Agentic Physics-Grounded Video Generation via Memory-Augmented In-Context Reasoning",
+            "abstract": "arXiv:2610.23677v1 Announce Type: new  Abstract: Physical plausibility is essential for realistic video generation. Existing methods impose physical guidance before synthesis via simulations or refined prompts, but this can limit dynamic diversity, miss errors that emerge only after generation, and require repeated regeneration when inconsistencies remain. We therefore study a generate-diagnose-repair paradigm that preserves the original generation capability and selectively repairs physical inconsistencies afterward, raising two key questions: what to repair and how to repair? To address them, we introduce PhysRepair, an agentic video generation framework that combines causal reasoning over the observed physical failure with prior repair experience to enable localized and adaptive correction. Specifically, Spatiotemporal Causal Constraints identify the first invalid physical state and its causally affected states, producing a repair specification that guides physically plausible local regeneration while preserving unaffected content. Experience-augmented In-context Learning combines the ongoing repair context with relevant experience from previous repairs, allowing the agent to adapt its repair decisions across diverse physical failures and accumulate completed trajectories for future cases. Experiments on Physics-IQ Verified across solid mechanics, fluid dynamics, optics, thermodynamics, and magnetism demonstrate that PhysRepair consistently improves the physical plausibility of generated videos over existing methods. Our project page is available at https://xxkkxxx.github.io/PhysRepair-Website/.",
+            "arxiv_id": "2610.23677",
+            "ARXIVID": "2610.23677",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 8,
+            "NOVELTY_SCORE": 7,
+            "COMMENT": "Introduces an agentic generate-diagnose-repair framework with spatiotemporal causal constraints and experience-augmented in-context learning to improve physical plausibility of generated videos.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2610.23542": {
+            "authors": [
+                "Weiyang Jin",
+                "Jiwen Yu",
+                "Sihan Xu",
+                "Yuwei Niu",
+                "Xihui Liu"
+            ],
+            "title": "Execution Before Memory: Diagnosing Memory Failures in Video World Models",
+            "abstract": "arXiv:2610.23542v1 Announce Type: new  Abstract: A memory test for a video world model should say whether the scene was set, whether the asked change was carried out, and whether the last frame shows the result. Current tests fold these into one number, so a low score is easy to read as forgetting. When the change is not carried out, the hidden state transition cannot appear, so the test is not really a test of memory. We introduce MIST, an evaluation that separates the change from the memory it should leave behind. The model first sets the scene while the change stays hidden, and only later is asked to show it, with leakage before that point kept under control. This separation locates the bottleneck: the model sets the scene but does not carry out the instructed change. The same gap appears in general memory evaluations. On that basis we propose M3-Agent (Make the Missing Move), which recursively revises the details of the input instruction so that the model successfully carries out the requested instruction. Relative to the baseline, it more than triples the MIST reveal score. On the benchmarks, WRBench's score T rises by 26.1% and MBench-T's score U by 52.7%. The method meets the problem from the execution side: it shows what the frozen model can do once the move is stated, and it sets a stricter baseline.",
+            "arxiv_id": "2610.23542",
+            "ARXIVID": "2610.23542",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 7,
+            "NOVELTY_SCORE": 6,
+            "COMMENT": "Introduces MIST evaluation that separates instruction execution from memory in video world models and an M3-Agent instruction-revision method that substantially improves memory reveal scores.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2610.23772": {
+            "authors": [
+                "Simon Giebenhain",
+                "Tobias Kirschstein",
+                "Liam Schoneveld",
+                "Davide Davoli",
+                "Zhe Chen",
+                "Matthias Nie{\\ss}ner"
+            ],
+            "title": "Video Diffusion Avatars: Taming Video Diffusion Models into Controllable 3D Avatars",
+            "abstract": "arXiv:2610.23772v1 Announce Type: new  Abstract: Video diffusion models (VDMs) trained on internet-scale data encode a rich prior on appearance, motion, and physics that is difficult to replicate with explicit 3D rendering and costly 3D data capture. We introduce Video Diffusion Avatars (VDAs), a method that creates photo-realistic, multi-view consistent avatars from a single image by fine-tuning a VDM for precise control over camera viewpoint, facial expression, and upper-body pose. Departing from 3D morphable models (3DMMs), VDAs use a learned expression space that lifts the expressiveness ceiling of 3DMMs, e.g., for the tongue and mouth interior. However, learned expression codes exhibit heavy viewpoint bias, as our DISTRACT benchmark reveals. We show that this bias can be removed through disentanglement, enabling their use as driving signals for multi-view consistent avatars. Camera and upper-body pose are controlled jointly via proxy-mesh renderings, giving independent control over expression, pose, and viewpoint. A camera-triplet training strategy makes the approach efficient: our models train for 34 hours on a single A100 using only public multi-view data. VDAs outperform state-of-the-art single-image 3D avatars on novel-view reenactment, reducing face LPIPS by 29% and improving perceptual quality (JOD) by 66% on BecomingLit. A static 3DGS reconstruction probe further confirms that our generations are the most multi-view consistent. Built on a video prior, VDAs produce effects beyond the reach of explicit renderers, including physically plausible hair dynamics, shadows, reflections, and refractions.",
+            "arxiv_id": "2610.23772",
+            "ARXIVID": "2610.23772",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 6,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Fine-tunes a video diffusion model into a controllable multi-view avatar with disentangled expression codes and camera-triplet training, yielding plausible hair dynamics and view consistency but narrow avatar application.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2610.22842": {
+            "authors": [
+                "Ruizhi Chen",
+                "Zining Fan",
+                "Yudi Guo",
+                "Jiang Liu",
+                "Zhiyu Lin",
+                "Zhongjiang He",
+                "Shouqian Shi",
+                "Hao Sun"
+            ],
+            "title": "VTrajEmbed: Aligning Text with Video Object Trajectories via Spatiotemporal Embeddings",
+            "abstract": "arXiv:2610.22842v1 Announce Type: new  Abstract: Fine-grained alignment between text and video object trajectories is a core challenge in multimodal understanding. Existing embedding models excel at global retrieval, yet their single global representation entangles multiple objects and their spatiotemporal dynamics, limiting direct object-level grounding. To address this issue, we propose VTrajEmbed, an embedding model that decomposes a video into object trajectories and aligns each trajectory embedding with text for object-level grounding through retrieval. Our main contributions: (1)Slow-Fast Trajectory Encoding, a dual-branch architecture that establishes trajectory representations by densely sampling low-resolution frames for high-frequency motion cues and sparsely selecting high-resolution frames for scene context, aggregated by a shared LLM backbone; (2)Mask-Guided Contrastive Learning, a training objective built upon these representations that couples an intra-group loss and a batch-level bidirectional loss under a relation mask, excluding unverified relations and preventing confirmed matches from becoming false negatives; (3)Text2Traj-Bench, a trajectory-level text-video benchmark with model-assisted construction and human-verified query--trajectory relations. Experimental results show that VTrajEmbed-5B improves text-to-trajectory and trajectory-to-text R@1 over Qwen3-VL-Embedding-8B by 15.48 and 18.05 percentage points, respectively, and achieves 49.48% average R@1 across five global retrieval benchmarks, compared with 42.86% for Qwen3-VL-Embedding-8B.",
+            "arxiv_id": "2610.22842",
+            "ARXIVID": "2610.22842",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 5,
+            "COMMENT": "Proposes trajectory-level text-video embedding with slow-fast encoding and mask-guided contrastive learning, offering transferable spatiotemporal representations but no generative or dynamics-modeling contribution.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        },
+        "2610.23274": {
+            "authors": [
+                "TianLiang Ma",
+                "Ting Ma",
+                "ZhongYuan Ma"
+            ],
+            "title": "LY-GWM-RoboCasa-Human300: Prediction-Guided Action Selection with a Graph Dynamics Model",
+            "abstract": "arXiv:2610.23274v1 Announce Type: new  Abstract: We present LY-GWM-RoboCasa-Human300, a policy that combines a Human300-fine-tuned GR00T-N1.5 action generator, an action-conditioned graph dynamics model, and a learned binary state-reward scorer. At inference, the policy samples four action chunks, predicts the future latent features and robot state for each, and executes the candidate with the highest predicted-state reward logit. Predictions therefore influence the actions sent to the environment. The evaluated system uses a 16-step prediction horizon and keeps all three components frozen during evaluation. In the local evaluation on 50 RoboCasa 1.0.1 tasks in the pretrain kitchen split, with 50 episodes per task, the system records 207/2,500 successes (8.28%), compared with 181/2,500 (7.24%) in the historical self-trained GR00T-N1.5 baseline. The observed difference is 26 successes, or 1.04 percentage points. The atomic group improves from 141/900 to 150/900. Separately, the RoboCasa maintainers re-evaluated the submission and reported 354/1,500 successes (23.6%) across 50 tasks, with leaderboard rates of 48.3%, 16.3%, and 3.1% for Atomic-Seen, Composite-Seen, and Composite-Unseen. The local and official results are reported separately; their difference is not attributed to a model improvement. Recorded local audits identify 212,700 changed environment-input chunks, including 28,223 in atomic tasks. We describe the actual training stages, implemented inference mechanism, evaluation provenance, and public reproduction entrypoints. These results document an active prediction-and-selection system and a positive historical difference.",
+            "arxiv_id": "2610.23274",
+            "ARXIVID": "2610.23274",
+            "RELEVANCE": true,
+            "RELEVANCE_SCORE": 5,
+            "NOVELTY_SCORE": 4,
+            "COMMENT": "Uses an action-conditioned graph dynamics model for prediction-guided action selection in a robot policy, a plausible but auxiliary world-model use with modest reported gains.",
+            "AFFILIATIONS": "Unknown Institution",
+            "title_cn": "[Translation Failed]",
+            "abstract_cn": "[Translation Failed]"
+        }
+    }
+}
